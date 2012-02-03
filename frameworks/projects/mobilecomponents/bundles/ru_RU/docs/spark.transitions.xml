@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.transitions"><apiName>spark.transitions</apiName><apiDetail/><apiClassifier id="spark.transitions:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+  Класс CrossFadeViewTransition используется для простого перехода с эффектом затухания между представлениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CrossFadeViewTransition используется для простого перехода с эффектом затухания между представлениями. При переходе существующее представление постепенно исчезает и открывается новое представление. При переходе с эффектом затухания панель управления и содержимое представления обрабатываются как один элемент.  
+   <p><b>Примечание.</b> Для создания и настройки переходов представлений можно использовать ActionScript, но не MXML.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.transitions:CrossFadeViewTransition:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+  Класс SlideViewTransition используется для простого перехода с эффектом сдвига между представлениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SlideViewTransition используется для простого перехода с эффектом сдвига между представлениями. Существующее представление отодвигается, а новое представление надвигается. Переход с эффектом сдвига поддерживает несколько режимов (выталкивание, перекрытие и открытие) и дополнительных направлений (вверх, вниз, влево или вправо).
+   <p><b>Примечание.</b> Для создания и настройки переходов представлений можно использовать ActionScript, но не MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransitionMode"><linktext>SlideViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:SlideViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Указывает направление перехода со сдвигом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает направление перехода со сдвигом.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Определяет тип исполняемого перехода со сдвигом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SlideViewTransitionMode.PUSH
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет тип исполняемого перехода со сдвигом.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransitionMode"><apiName>SlideViewTransitionMode</apiName><shortdesc>
+  Класс SlideViewTransitionMode предоставляет константы, используемые для определения типа перехода со сдвигом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SlideViewTransitionMode предоставляет константы, используемые для определения типа перехода со сдвигом.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransition"><linktext>SlideViewTransition</linktext></link></related-links><apiValue id="spark.transitions:SlideViewTransitionMode:COVER"><apiName>COVER</apiName><shortdesc>
+     Новое представление надвигается и перекрывает предыдущее представление.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Новое представление надвигается и перекрывает предыдущее представление.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:PUSH"><apiName>PUSH</apiName><shortdesc>
+     Предыдущее представление отодвигается, а новое представление надвигается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Предыдущее представление отодвигается, а новое представление надвигается.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:UNCOVER"><apiName>UNCOVER</apiName><shortdesc>
+     Предыдущее представление отодвигается, чтобы открыть новое представление.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>uncover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Предыдущее представление отодвигается, чтобы открыть новое представление.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+  Класс ZoomViewTransition выполняет переход с увеличением или уменьшением представлений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ZoomViewTransition выполняет переход с увеличением или уменьшением представлений. При переходе существующее представление уменьшается, чтобы открыть новое представление, или новое представление увеличивается, закрывая при этом предыдущее представление. 
+ 
+  <p>Стандартная продолжительность ZoomViewTransition составляет 350 миллисекунд. Кроме того, по умолчанию панель управления и содержимое представления обрабатываются как один элемент при переходе, как если бы для <codeph>transitionControlsWithContent</codeph> было установлено значение <codeph>true</codeph>. </p>
+   <p><b>Примечание.</b> Для создания и настройки переходов представлений можно использовать ActionScript, но не MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransitionMode"><linktext>ZoomViewTransitionMode</linktext></link></related-links><apiConstructor id="spark.transitions:ZoomViewTransition:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:ZoomViewTransition:minimumScale:get"><apiName>minimumScale</apiName><shortdesc>
+      Указывает минимальное значение для масштабируемого представления (размер при первом отображении представления с увеличением или при последнем отображении представления с уменьшением).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.25
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает минимальное значение для масштабируемого представления (размер при первом отображении представления с увеличением или при последнем отображении представления с уменьшением).
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Определяет тип исполняемого перехода с масштабированием.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZoomTransitionMode.OUT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет тип исполняемого перехода с масштабированием.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionDirection"><apiName>ViewTransitionDirection</apiName><shortdesc>
+  Класс ViewTransitionDirection предоставляет константы, используемые в подсказках направления перехода представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewTransitionDirection предоставляет константы, используемые в подсказках направления перехода представления.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.transitions:ViewTransitionDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      Анимация перехода вниз.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Анимация перехода вниз.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Анимация перехода влево.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Анимация перехода влево.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      Анимация перехода вправо.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Анимация перехода вправо.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:UP"><apiName>UP</apiName><shortdesc>
+      Анимация перехода верх.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Анимация перехода верх.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+  Класс FlipViewTransition используется для простого перехода с эффектом зеркального отображения между представлениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FlipViewTransition используется для простого перехода с эффектом зеркального отображения между представлениями. Переход с эффектом зеркального отображения поддерживает два режима (карта и куб) и дополнительные направления (вверх, вниз, влево или вправо).
+ 
+  <p>Стандартная продолжительность FlipViewTransition составляет 400 миллисекунд.</p>
+   <p><b>Примечание.</b> Для создания и настройки переходов представлений можно использовать ActionScript, но не MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:FlipViewTransition:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:FlipViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Указывает направление перехода с эффектом зеркального отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает направление перехода с эффектом зеркального отображения.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links></apiValue><apiValue id="spark.transitions:FlipViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Определяет тип исполняемого перехода с эффектом зеркального отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FlipViewTransitionMode.CARD
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет тип исполняемого перехода с эффектом зеркального отображения.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransitionMode"><apiName>ZoomViewTransitionMode</apiName><shortdesc>
+  Класс ZoomTransitionMode предоставляет константы, используемые для настройки режима стиля в переходах с масштабированием.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ZoomTransitionMode предоставляет константы, используемые для настройки режима стиля в переходах с масштабированием.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransition"><linktext>ZoomViewTransition</linktext></link></related-links><apiValue id="spark.transitions:ZoomViewTransitionMode:IN"><apiName>IN</apiName><shortdesc>
+      Новое представление увеличивается и перекрывает предыдущее представление.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Новое представление увеличивается и перекрывает предыдущее представление.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransitionMode:OUT"><apiName>OUT</apiName><shortdesc>
+     Предыдущее представление уменьшается, чтобы открыть новое представление.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Предыдущее представление уменьшается, чтобы открыть новое представление.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+  Класс ViewTransitionBase - это базовый класс для всех переходов представлений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewTransitionBase - это базовый класс для всех переходов представлений. Он не предназначен для автономного использования в качестве перехода. Кроме облегчающих работу вспомогательных методов, которые используются в переходах представлений, этот класс также предоставляет последовательность перехода панели действий по умолчанию.
+ 
+  <p>При инициализации перехода представления навигатор-владелец представления устанавливает свойства <codeph>startView</codeph> и <codeph>endView</codeph> для представлений, анимация которых выполняется при переходе. Свойство <codeph>navigator</codeph> устанавливается для навигатора представлений.</p>
+ 
+  <p>Жизненный цикл перехода:</p>
+    <ul>
+      <li>Переход начинается с метода <codeph>captureStartValues()</codeph>. При вызове этого метода навигатор переходит в начальное состояние. На этом этапе переход осуществляет захват необходимых начальных значений или растровых изображений. </li>
+      <li>Проверка выполняется на ожидающем представлении, и вызывается метод <codeph>captureEndValues()</codeph>. На этом этапе переход захватывает любые свойства или растровых изображений из представления в состоянии ожидания.</li>
+      <li>Затем вызывается метод <codeph>prepareForPlay()</codeph>, который позволяет выполнить дальнейшую подготовку к переходу, например подготовку последовательности эффектов Spark или расположение переходных элементов в списке отображения.</li>
+      <li>После окончательной проверки (если таковая была необходима) навигатор вызывает метод <codeph>play()</codeph> для фактического выполнения перехода.</li>
+      <li>Перед началом любой анимации отправляется событие <codeph>start</codeph>.</li>
+      <li>Когда переход завершается, он отправляется <codeph>конец</codeph> событие.</li>
+    </ul>
+   <p><b>Примечание.</b> Для создания и настройки переходов представлений можно использовать ActionScript, но не MXML.</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionEnd"><apiName>transitionEnd</apiName><shortdesc>
+  Отправляется после завершения перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events. FlexEvent. TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после завершения перехода.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionStart"><apiName>transitionStart</apiName><shortdesc>
+  Отправляется при начале перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events. FlexEvent. TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при начале перехода.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.transitions:ViewTransitionBase:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.transitions:ViewTransitionBase:protected:canTransitionControlBarContent"><apiName>canTransitionControlBarContent</apiName><shortdesc>
+      Задайте, может ли Flex выполнить переход на строке меню или вкладке рантовое содержимое независимо от видов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>false</codeph>, если в Flex выявлена несовместимость панелей управления между представлениями.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Задайте, может ли Flex выполнить переход на строке меню или вкладке рантовое содержимое независимо от видов.
+     
+      <p>Flex не может выполнить переход на панелях элемента управления независимо:</p>
+      <ul>
+          <li>Если содержащий навигатор вида - TabbedViewNavigator и его изменения видимости панели вкладки между видами.</li>
+          <li>Если значение навигатора вида <codeph>overlayControls</codeph> свойства изменяются между видами.</li>
+          <li>Если размер или видимость строки меню изменяются между видами.</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureEndValues"><apiName>captureEndValues</apiName><shortdesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу. Он вызывается, когда новое представление полностью реализовано и проверено и когда содержимое панели действий и вкладки отражает состояние нового представления. Именно на этом этапе переход может захватить любые требуемые значения из представления в состоянии ожидания. Также необходимо захватить любые растровые изображения, отражающие состояние нового представления, панели вкладок или панели действий, если это требуется для анимации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу. Он вызывается, когда новое представление полностью реализовано и проверено и когда содержимое панели действий и вкладки отражает состояние нового представления. Переход может использовать этот метод, чтобы захватить любые требуемые значения из представления в состоянии ожидания. Также необходимо захватить любые растровые изображения, отражающие состояние нового представления, вкладки или панели действий, если это требуется для анимации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:cleanUp"><apiName>cleanUp</apiName><shortdesc>
+      Вызывается после завершения перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается после завершения перехода. Этот метод обеспечивает создание любых ссылок и временных конструкций, используемых в переходе.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createActionBarEffect"><apiName>createActionBarEffect</apiName><shortdesc>
+      Метод вызывается реализацией prepareForPlay() по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в панели действий при запуске перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Роль эффекта панели действий выполняет экземпляр IEffect. Эффект воспроизводится реализацией метода <codeph>play()</codeph> по умолчанию.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Метод вызывается реализацией <codeph>prepareForPlay()</codeph> по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в панели действий при запуске перехода. Если требуется использовать пользовательский эффект панели действий, этот метод должен быть переопределен подклассами. По умолчанию этот метод возвращает основной эффект панели действий.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createConsolidatedEffect"><apiName>createConsolidatedEffect</apiName><shortdesc>
+      Этот метод вызывается реализацией prepareForPlay() по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться при переходе всего навигатора (с содержимым панели управления) при необходимости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Экземпляр IEffect, используемый в качестве перехода представления. Эффект воспроизводится реализацией метода <codeph>play()</codeph> по умолчанию.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Этот метод вызывается реализацией <codeph>prepareForPlay()</codeph> по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться при переходе всего навигатора (с содержимым панели управления) при необходимости. Этот метод должен быть перезаписан подклассами. По умолчанию метод возвращает null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createTabBarEffect"><apiName>createTabBarEffect</apiName><shortdesc>
+      Метод вызывается реализацией prepareForPlay() по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в панели вкладок при запуске перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Для осуществления перехода панели вкладок используется экземпляр IEffect. Эффект воспроизводится реализацией метода <codeph>play()</codeph> по умолчанию.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Метод вызывается реализацией <codeph>prepareForPlay()</codeph> по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в панели вкладок при запуске перехода. Этот метод должен быть перезаписан подклассами. По умолчанию возвращает null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createViewEffect"><apiName>createViewEffect</apiName><shortdesc>
+      Этот метод вызывается реализацией prepareForPlay() по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в текущем и следующем представлении при запуске перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Экземпляр IEffect, используемый в качестве перехода представления. Эффект воспроизводится реализацией метода <codeph>play()</codeph> по умолчанию.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Этот метод вызывается реализацией <codeph>prepareForPlay()</codeph> по умолчанию и обеспечивает создание эффекта Spark, который будет воспроизводиться в текущем и следующем представлении при запуске перехода. Этот метод должен быть перезаписан подклассами. По умолчанию метод возвращает null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      Используется для визуализации снимков экранных элементов при подготовке к переходу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Объект BitmapImage, представляющий целевой объект.
+     
+      </apiDesc><apiType value="spark.primitives:BitmapImage"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экранный объект для захвата.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>Заполнение вокруг объекта, который будет включен в объект BitmapImage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>globalPosition</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>Если не указано значение null, <codeph>globalPosition</codeph> обновляется с учетом значений начала координат BitmapImage в глобальной системе координат. При перемещении в другое пространство координат это значение может использоваться для изменения позиции снимка без изменения его глобального положения на экране. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Используется для визуализации снимков экранных элементов при подготовке к переходу. Растровое изображение возвращается в форме объекта BitmapImage. 
+       
+      <p>BitmapImage находится в пространстве координат вышестоящего целевого объекта и точно перекрывает целевой объект, если для него указан аналогичный вышестоящий элемент. При перемещении в другой вышестоящий элемент убедитесь, что преобразование BitmapImage скорректировано с учетом правильного расчета изменений в пространствах координат. Для этой операции можно использовать обновленное значение параметра <codeph>globalPosition</codeph>.</p> 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:play"><apiName>play</apiName><shortdesc>
+      Вызывается ViewNavigator при запуске анимации перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается ViewNavigator при запуске анимации перехода. На этом этапе переход должен отправить событие <codeph>start</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:prepareForPlay"><apiName>prepareForPlay</apiName><shortdesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается ViewNavigator на этапе подготовки к переходу. С помощью этого метода при переходе создается и настраивается базовый экземпляр IEffect или добавляются элементы перехода в список отображения. Типовыми элементами перехода являются заполнители растровых изображений, временные контейнеры, требуемые во время перехода, и другие элементы. Если необходимо, перед вызовом метода <codeph>play()</codeph> выполняется окончательная проверка.
+     
+      <p>Если указано, что можно запустить стандартный переход, т. е. независимый от представлений переход панелей управления, то реализация этого метода по умолчанию создаст одиночный эффект Parallel, включающий отдельные последовательности эффектов для перехода представлений, панели действий и вкладок. Этот метод использует методы <codeph>createActionBarEffect()</codeph>, <codeph>createTabBarEffect()</codeph> и <codeph>createViewEffect()</codeph>.</p>
+     
+      <p>Если для <codeph>transitionControlsWithContent</codeph> установлено значение <codeph>true</codeph> или указано, что панели управления не могут участвовать в переходе независимо, то создается одиночный эффект для перехода всего навигатора. В этом случае вызывается только <codeph>createConsolidatedEffect()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      Вызывается переходом для обозначения завершения перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается переходом для обозначения завершения перехода. Этот метод отправляет событие <codeph>end</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.transitions:ViewTransitionBase:duration:get"><apiName>duration</apiName><shortdesc>
+      Продолжительность перехода в миллисекундах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Продолжительность перехода в миллисекундах. Значения по умолчанию могут различаться в зависимости от перехода, но определены в ViewTransitionBase как 250 миллисекунд.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:easer:get"><apiName>easer</apiName><shortdesc>
+      Реакция замедления для этого перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>Sine(.5);
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Реакция замедления для этого перехода. Объект IEaser, как правило, передается в экземпляр IEffect, который управляет фактической анимацией перехода.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.xml"><linktext>spark.effects.easing</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:endView:get"><apiName>endView</apiName><shortdesc>
+      Представление, к которому переходит навигатор, определенное владельцем объекта ViewNavigator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Представление, к которому переходит навигатор, определенное владельцем объекта ViewNavigator. Свойство может иметь значение null.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:navigator:get"><apiName>navigator</apiName><shortdesc>
+      Ссылка на экземпляр-владелец ViewNavigator, определенный владельцем ViewNavigator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:ViewNavigator</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ссылка на экземпляр-владелец ViewNavigator, определенный владельцем ViewNavigator.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:startView:get"><apiName>startView</apiName><shortdesc>
+      Текущее активное представление навигатора, определенное представлением-владельцем этого навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier></apiValueDef><apiDesc>
+      Текущее активное представление навигатора, определенное представлением-владельцем этого навигатора. Свойство может иметь значение null.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:suspendBackgroundProcessing:get"><apiName>suspendBackgroundProcessing</apiName><shortdesc>
+      Если установлено значение true, метод UIComponent.suspendBackgroundProcessing() вызывается до запуска перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>true</codeph>, метод <codeph>UIComponent.suspendBackgroundProcessing()</codeph> вызывается до запуска перехода. При этом выключается диспетчер макетов Flex и повышается производительность. После завершения перехода все функции диспетчера макетов восстанавливаются посредством вызова метода <codeph>UIComponent.resumeBackgroundProcessing()</codeph>. 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/suspendBackgroundProcessing()"><linktext>mx.core. UIComponent.suspendBackgroundProcessing()</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/resumeBackgroundProcessing()"><linktext>mx.core. UIComponent.resumeBackgroundProcessing()</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:transitionControlsWithContent:get"><apiName>transitionControlsWithContent</apiName><shortdesc>
+      Если установлено значение true, первичный переход представления используется для перехода всего навигатора представлений, включая панель действий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>true</codeph>, первичный переход представления используется для перехода всего навигатора представлений, включая панель действий. Определенные переходы для панели действий не выполняются. Поскольку панель вкладок связана со всем приложением, а не только с представлением, на нее не влияют переходы представлений.
+           <p>Обратите внимание, что даже при значении <codeph>false</codeph> в некоторых случаях невозможно выполнить переход панели действий. Например, если панель действий отсутствует в одном или нескольких представлениях или если изменяется размер панели действий.</p>
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransitionMode"><apiName>FlipViewTransitionMode</apiName><shortdesc>
+  Класс FlipViewTransitionMode предоставляет константы, используемые в подсказках режима стиля для экземпляра перехода с зеркальным отображением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FlipViewTransitionMode предоставляет константы, используемые в подсказках режима стиля для экземпляра перехода с зеркальным отображением.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransition"><linktext>FlipViewTransition</linktext></link></related-links><apiValue id="spark.transitions:FlipViewTransitionMode:CARD"><apiName>CARD</apiName><shortdesc>
+      Предыдущее представление зеркально отображается относительно центральной точки, в то время как новое представление открывается с другой стороны.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>card</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Предыдущее представление зеркально отображается относительно центральной точки, в то время как новое представление открывается с другой стороны.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:FlipViewTransitionMode:CUBE"><apiName>CUBE</apiName><shortdesc>
+     Предыдущее представление поворачивается в виде грани вращающегося куба, в то время как новое представление открывается на смежной грани этого куба.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cube</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Предыдущее представление поворачивается в виде грани вращающегося куба, в то время как новое представление открывается на смежной грани этого куба.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

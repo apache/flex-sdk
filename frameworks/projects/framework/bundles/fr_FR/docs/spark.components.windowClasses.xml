@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.windowClasses"><apiName>spark.components.windowClasses</apiName><apiDetail/><apiClassifier id="spark.components.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  La classe TitleBar définit la barre de titre par défaut pour une application WindowedApplication ou un conteneur Window. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><skinStates><SkinState name="disabledAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><skinParts><SkinPart name="closeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="true" var_type="spark.components:Button">
+<description>
+      La partie habillage qui définit le contrôle du bouton qui correspond au bouton Fermer. 
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="maximizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      La partie habillage qui définit le contrôle du bouton qui correspond au bouton Agrandir. 
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="minimizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      La partie habillage qui définit le contrôle du bouton qui correspond au bouton Réduire. 
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleIconImage" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.primitives:BitmapImage">
+<description>
+      Icône de titre de l’occurrence TitleBar.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleText" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      La partie habillage qui définit le contrôle UITextField qui affiche le texte du titre de l’application.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:SkinnableComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe TitleBar définit la barre de titre par défaut pour une application WindowedApplication ou un conteneur Window. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="spark.components.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.windowClasses:TitleBar:protected:doubleClickHandler"><apiName>doubleClickHandler</apiName><shortdesc>
+      La méthode qui gère un événement doubleClick de manière appropriée à la plateforme. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>Objet événement.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode qui gère un événement <codeph>doubleClick</codeph> de manière appropriée à la plateforme. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.windowClasses:TitleBar:protected:getCurrentSkinState"><apiName>getCurrentSkinState</apiName><shortdesc>
+      Renvoie le nom de l’état à appliquer à l’habillage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Chaîne spécifiant le nom de l’état à appliquer à l’habillage.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie le nom de l’état à appliquer à l’habillage. Par exemple, un composant Button peut renvoyer la chaîne « up », « down », « over » ou « disabled » pour spécifier l’état.
+     
+      <p>Une sous-classe de SkinnableComponent doit remplacer cette méthode pour renvoyer une valeur.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      Titre affiché dans la barre de titre de la fenêtre ainsi que dans le dock ou la barre des tâches.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Titre affiché dans la barre de titre de la fenêtre ainsi que dans le dock ou la barre des tâches.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Icône affichée dans la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Icône affichée dans la barre de titre.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects"><apiName>spark.effects</apiName><apiDetail/><apiClassifier id="spark.effects:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+ 
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:ViewTransition</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>300</apiData><apiDesc>
+      </apiDesc></apiParam><apiParam><apiItemName>direction</apiItemName><apiType value="String"/><apiData>unknown</apiData><apiDesc> 
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects:SlideViewTransition:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects:SlideViewTransition:prepareFinalState"><apiName>prepareFinalState</apiName><shortdesc>
+      
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	      
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects:SlideViewTransition:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+     Вызывается при завершении перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:EffectEvent"/><apiData>null</apiData><apiDesc>Событие завершенного эффекта отправляется одним параллельным эффектом, который воспроизводит данный переход.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Вызывается при завершении перехода. Удаляет все созданные временные растровые изображения и восстанавливает любые свойства компонентов представления и навигатора, которые были изменены.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects:SlideViewTransition:SLIDE_LEFT"><apiName>SLIDE_LEFT</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:SlideViewTransition:SLIDE_RIGHT"><apiName>SLIDE_RIGHT</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:SlideViewTransition:direction"><apiName>direction</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+       
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:ViewTransition"><apiName>ViewTransition</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+    
+ 
+  <p/>
+ 
+  <p>     </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#SlideViewTransition"><linktext/></link></related-links><adobeApiEvent id="spark.effects:ViewTransition_flash.events.Event_complete"><apiName>complete</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.effects:ViewTransition:ViewTransition"><apiName>ViewTransition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects:ViewTransition:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+        
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects:ViewTransition:play"><apiName>play</apiName><shortdesc>
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	   
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects:ViewTransition:prepareFinalState"><apiName>prepareFinalState</apiName><shortdesc>
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	      
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects:ViewTransition:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:EffectEvent"/><apiData>null</apiData></apiParam></apiOperationDef><apiDesc>
+        
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects:ViewTransition:currentView"><apiName>currentView</apiName><shortdesc> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+       
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:ViewTransition:duration"><apiName>duration</apiName><shortdesc> 
+      Продолжительность эффекта в миллисекундах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>300</apiData><apiType value="Number"/><apiDefaultValue>300
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Продолжительность эффекта в миллисекундах. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:ViewTransition:easer"><apiName>easer</apiName><shortdesc>
+     Реакция замедления для этого эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>spark.effects.easing.Sine(.5)
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Реакция замедления для этого эффекта. Этот объект IEaser используется для преобразования доли времени, потребовавшегося на анимацию, в долю времени, затраченного на замедление, которая затем используется для расчета значений по этой доле затраченного на замедление времени.
+     
+     </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.Sine.xml"><linktext>spark.effects.easing.Sine</linktext></link></related-links></apiValue><apiValue id="spark.effects:ViewTransition:effect"><apiName>effect</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.effects:IEffect"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:ViewTransition:navigator"><apiName>navigator</apiName><shortdesc> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components.supportClasses:ViewNavigatorBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:ViewTransition:nextView"><apiName>nextView</apiName><shortdesc> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+       
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:ViewTransition:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      Текущая позиция эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Текущая позиция эффекта. Это свойство имеет значение в диапазоне от 0 до показателя общей длительности.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

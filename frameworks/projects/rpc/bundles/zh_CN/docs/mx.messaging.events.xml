@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.events"><apiName>mx.messaging.events</apiName><apiDetail/><apiClassifier id="mx.messaging.events:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+  ChannelFaultEvent 类用于在消息传送系统中传送通道错误事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:ChannelEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelFaultEvent 类用于在消息传送系统中传送通道错误事件。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelFaultEvent:FAULT_channelFault"><apiName>channelFault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelFaultEvent:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+      构造具有指定的类型的此事件的一个实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>表示是否可以阻止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>生成该事件的 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否正在重新连接 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误代码。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误级别。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误描述。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已拒绝 Channel 连接，此参数禁止自动进行重新连接。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已与生成此事件的 Channel 建立连接。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造具有指定的类型的此事件的一个实例。请注意：与超类 <codeph>ChannelEvent</codeph> 定义的属性相对应的 <codeph>rejected</codeph> 和 <codeph>connected</codeph> 参数最初并未包含在此方法签名中，但已添加到参数列表的末尾，这样即使此签名与 <codeph>ChannelEvent</codeph> 的构造函数不同，也能保持向后兼容性。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      克隆 ChannelFaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 ChannelFaultEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      克隆 ChannelFaultEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createErrorMessage"><apiName>createErrorMessage</apiName><shortdesc>
+      基于 ChannelFaultEvent，通过将 faultCode、faultString、faultDetail 和 rootCause 复制到新的 ErrorMessage 中来创建 ErrorMessage。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ErrorMessage。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      基于 ChannelFaultEvent，通过将 faultCode、faultString、faultDetail 和 rootCause 复制到新的 ErrorMessage 中来创建 ErrorMessage。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      用于创建不起泡且不可取消的新 ChannelFaultEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新 ChannelFaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>生成该事件的 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否正在重新连接 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误代码。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误级别。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误描述。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已拒绝 Channel 连接，此参数禁止自动进行重新连接。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已与生成此事件的 Channel 建立连接。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于创建不起泡且不可取消的新 ChannelFaultEvent 的实用程序方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 ChannelFaultEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelFaultEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 ChannelFaultEvent 的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      FAULT 事件类型；指示发生错误的 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelFault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FAULT 事件类型；指示发生错误的 Channel。
+      <p>此常量的值为 <codeph>"channelFault"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+         
+          
+                  
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>生成此事件的 Channel。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>提供有关此失败的特定于目标的详细信息。</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>提供对此失败特定于目标的原因的访问权限。</entry></row><row><entry><codeph>faultString</codeph></entry><entry>如果通道本身未引发失败，则提供对此失败根本原因的访问权限。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> 指示是否正在重新连接生成此事件的通道。</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> 如果通道本身未引发失败，则提供对此失败根本原因的访问权限。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultCode"><apiName>faultCode</apiName><shortdesc>
+      提供对特定于目标的失败代码的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对特定于目标的失败代码的访问权限。有关更具体的详细信息，请参阅 <codeph>faultString</codeph> 和 <codeph>faultDetails</codeph> 属性。
+     
+      <p>错误代码的格式由远程目标提供，但通常为：<codeph>host.operation.error</codeph> 或 <codeph>Channel.operation.error</codeph>。例如，<codeph>"Server.Connect.Failed"</codeph> 和 <codeph>Channel.Connect.Failed</codeph>。</p>
+      <p>
+     无论何时 Channel 试图连接到远程目标出现问题，Channel 类及其子类（RTMPChannel、AMFChannel、HTTPChannel 等等）都会发出 Channel.Connect.Failed。通道已连接并且从其基础 NetConnection 获取 Call.Failed 代码之后，AMFChannel 就会发出 Channel.Call.Failed。仅 AMFChannel 类侦听 NetConnection.Call.Failed，后者会被转换为 Channel.Call.Failed。</p>     
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      提供有关此失败的特定于目标的详细信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      提供有关此失败的特定于目标的详细信息。
+     
+      <p>错误详细信息通常是对远程目标引发的异常的堆栈跟踪。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultString"><apiName>faultString</apiName><shortdesc>
+      提供对此失败特定于目标的原因的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此失败特定于目标的原因的访问权限。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:rootCause"><apiName>rootCause</apiName><shortdesc>
+     如果通道本身未引发失败，则提供对此失败根本原因的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     如果通道本身未引发失败，则提供对此失败根本原因的访问权限。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+  MessageAckEvent 类用于在消息传送系统中传送确认消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageAckEvent 类用于在消息传送系统中传送确认消息。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageAckEvent:ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageAckEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageAckEvent:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+      构造显示指定的确认消息和原始相关消息的此事件的一个实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageAckEvent 的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>表示是否可以阻止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>此事件应分派的 AcknowledgeMessage。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>与此确认相关的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造显示指定的确认消息和原始相关消息的此事件的一个实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageAckEvent:clone"><apiName>clone</apiName><shortdesc>
+      克隆 MessageAckEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 MessageAckEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      克隆 MessageAckEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      用于创建不起泡且不可取消的新 MessageAckEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新 MessageAckEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageAckEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>此事件应分派的 AcknowledgeMessage。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>与此确认相关的消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于创建不起泡且不可取消的新 MessageAckEvent 的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 MessageAckEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageAckEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 MessageAckEvent 的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE"><apiName>ACKNOWLEDGE</apiName><shortdesc>
+      ACKNOWLEDGE 事件类型；当收到确认消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>acknowledge</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ACKNOWLEDGE 事件类型；当收到确认消息时分派。
+      <p>此常量的值为 <codeph>"acknowledge"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+          
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>acknowledgeMessage</codeph></entry><entry> 从 MessageEvent 获取 message 属性作为 AcknowledgeMessage 的实用程序属性。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。</entry></row><row><entry><codeph>correlate</codeph></entry><entry> 与此确认相关的原始 Message。</entry></row><row><entry><codeph>message</codeph></entry><entry>与此事件相关联的 Message。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:correlation"><apiName>correlation</apiName><shortdesc>
+      与此确认相关的原始 Message。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      与此确认相关的原始 Message。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:acknowledgeMessage:get"><apiName>acknowledgeMessage</apiName><shortdesc>
+      从 MessageEvent 获取 message 属性作为 AcknowledgeMessage 的实用程序属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:AcknowledgeMessage</apiValueClassifier></apiValueDef><apiDesc>
+      从 MessageEvent 获取 message 属性作为 AcknowledgeMessage 的实用程序属性。  
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+  ChannelEvent 用于在消息传送系统中传送 channel 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelEvent 用于在消息传送系统中传送 channel 事件。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelEvent:CONNECT_channelConnect"><apiName>channelConnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:ChannelEvent:DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelEvent:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+      构造具有指定的类型和 Channel 实例的此事件的一个实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>ChannelEvent 类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否可以阻止与该事件相关联的行为；由 RPC 子类使用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>生成该事件的 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否正在重新连接 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已拒绝 Channel 连接，此参数禁止自动进行重新连接。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已与生成此事件的 Channel 建立连接。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造具有指定的类型和 Channel 实例的此事件的一个实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelEvent:clone"><apiName>clone</apiName><shortdesc>
+      克隆 ChannelEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 ChannelEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      克隆 ChannelEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      用于创建不起泡且不可取消的新 ChannelEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新 ChannelEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>ChannelEvent 类型。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>生成该事件的 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否正在重新连接 Channel。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已拒绝 Channel 连接，此参数禁止自动进行重新连接。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否已与生成此事件的 Channel 建立连接。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于创建不起泡且不可取消的新 ChannelEvent 的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 ChannelEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 ChannelEvent 的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelEvent:CONNECT"><apiName>CONNECT</apiName><shortdesc>
+      CONNECT 事件类型；指示 Channel 已连接到其端点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelConnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      CONNECT 事件类型；指示 Channel 已连接到其端点。
+      <p>此常量的值为 <codeph>"channelConnect"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>生成此事件的通道。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> 指示是否正在重新连接生成此事件的通道。</entry></row><row><entry><codeph>rejected</codeph></entry><entry> 指示是否已拒绝生成此事件的通道。如果通道因处于不活动状态而断开连接，并且不会尝试故障转移或连接到备用通道，则此属性将为 true。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:DISCONNECT"><apiName>DISCONNECT</apiName><shortdesc>
+      DISCONNECT 事件类型；指示 Channel 已与其端点断开连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelDisconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      DISCONNECT 事件类型；指示 Channel 已与其端点断开连接。
+      <p>此常量的值为 <codeph>"channelDisconnect"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>生成此事件的通道。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> 指示是否正在重新连接生成此事件的通道。</entry></row><row><entry><codeph>rejected</codeph></entry><entry> 指示是否已拒绝生成此事件的通道。如果通道因处于不活动状态而断开连接，并且不会尝试故障转移或连接到备用通道，则此属性将为 true。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:channel"><apiName>channel</apiName><shortdesc>
+      生成此事件的 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      生成此事件的 Channel。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:connected"><apiName>connected</apiName><shortdesc>
+     指示是否已与生成此事件的 Channel 建立连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     指示是否已与生成此事件的 Channel 建立连接。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:reconnecting"><apiName>reconnecting</apiName><shortdesc>
+      指示是否正在重新连接生成此事件的 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示是否正在重新连接生成此事件的 Channel。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:rejected"><apiName>rejected</apiName><shortdesc>
+      指示是否已拒绝生成此事件的 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示是否已拒绝生成此事件的 Channel。如果通道因处于不活动状态而断开连接，并且不会尝试故障转移或连接到备用通道，则此属性将为 true。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+  MessageEvent 类用于在消息传送系统中传送消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageEvent 类用于在消息传送系统中传送消息。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageEvent:MESSAGE_message"><apiName>message</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:MessageEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageEvent:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+      构造具有指定的类型并显示指定消息的事件的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageEvent 的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否可以阻止与该事件相关联的行为；由 RPC 子类使用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>关联消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造具有指定的类型并显示指定消息的事件的实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageEvent:clone"><apiName>clone</apiName><shortdesc>
+      克隆 MessageEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 MessageEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      克隆 MessageEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      用于创建不起泡且不可取消的新 MessageEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新 MessageEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageEvent 的类型。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>关联消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于创建不起泡且不可取消的新 MessageEvent 的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 MessageEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 MessageEvent 的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageEvent:MESSAGE"><apiName>MESSAGE</apiName><shortdesc>
+      MESSAGE 事件类型；当收到消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>message</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      MESSAGE 事件类型；当收到消息时分派。
+      <p>此常量的值为 <codeph>"message"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>message</codeph></entry><entry>与此事件相关联的消息。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+      RESULT 事件类型；当 RPC 代理收到来自远程服务目标的结果时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      RESULT 事件类型；当 RPC 代理收到来自远程服务目标的结果时分派。
+      <p>此常量的值为 <codeph>"result"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>message</codeph></entry><entry>与此事件相关联的消息。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:message"><apiName>message</apiName><shortdesc>
+      与此事件相关联的 Message。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      与此事件相关联的 Message。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+ MessageFaultEvent 类用于在消息传送系统中传送错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MessageFaultEvent 类用于在消息传送系统中传送错误消息。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageFaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageFaultEvent:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+      构造一个错误消息事件的实例，以提供指定消息和错误信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageAckEvent 的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>表示是否可以阻止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>与错误相关联的 ErrorMessage。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造一个错误消息事件的实例，以提供指定消息和错误信息。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      克隆 MessageFaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 MessageFaultEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      克隆 MessageFaultEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      用于创建不起泡且不可取消的新 MessageFaultEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新 MessageFaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>与错误相关联的 ErrorMessage。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于创建不起泡且不可取消的新 MessageFaultEvent 的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 MessageFaultEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageFaultEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 MessageFaultEvent 的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      FAULT 事件类型；当消息发生错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FAULT 事件类型；当消息发生错误时分派。
+      <p>此常量的值为 <codeph>"fault"</codeph>。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+            
+         
+         
+         
+         
+             
+                  
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>提供有关此失败的特定于目标的详细信息。</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>提供对此失败特定于目标的原因的访问权限。</entry></row><row><entry><codeph>faultString</codeph></entry><entry>如果通道本身未引发失败，则提供对此失败根本原因的访问权限。</entry></row><row><entry><codeph>message</codeph></entry><entry>此事件的 ErrorMessage。</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> 提供对此失败的根本原因的访问权限（如果存在）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:message"><apiName>message</apiName><shortdesc>
+      此事件的 ErrorMessage。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      此事件的 ErrorMessage。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+      提供对特定于目标的失败代码的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对特定于目标的失败代码的访问权限。有关更具体的详细信息，请参阅 <codeph>faultString</codeph> 和 <codeph>faultDetails</codeph> 属性。
+     
+      <p>远程目标可提供错误代码的格式，但通常为：<i>host.operation.error</i>，例如，<codeph>"Server.Connect.Failed"</codeph></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+      提供有关此失败特定于目标的详细信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供有关此失败特定于目标的详细信息。
+     
+      <p>错误详细信息通常是对远程目标引发的异常的堆栈跟踪。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultString:get"><apiName>faultString</apiName><shortdesc>
+      提供对此失败特定于目标的原因的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此失败特定于目标的原因的访问权限。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:rootCause:get"><apiName>rootCause</apiName><shortdesc>
+      提供对此失败的根本原因的访问权限（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      提供对此失败的根本原因的访问权限（如果存在）。如果是目标引发的自定义异常，则根本原因不过是由 ErrorMessage 传输引起的顶级失败。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/rootCause"><linktext>MessageFaultEvent.rootCause</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

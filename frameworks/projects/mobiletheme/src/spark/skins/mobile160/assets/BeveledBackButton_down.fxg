@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+	scaleGridLeft="13" scaleGridRight="54" scaleGridTop="5" scaleGridBottom="23">
+
+	<!-- invisible fix for scaling -->
+	<Rect x="0" y="0" width="58" height="28">
+		<fill>
+			<SolidColor color="#ffffff" alpha="0"/>
+		</fill>
+	</Rect>
+
+	<!-- border -->
+      <Path winding="nonZero" data="M54 0.666504C55.8374 0.666504 57.333 2.16211 57.333 4L57.333 24C57.333 25.8379 55.8374 27.3335 54 27.3335L12.689 27.3335C10.1973 27.3335 8.9082 24.5771 8.0708 23.7402 8.04297 23.7002 3.56104 17.7588 1 13.9272 3.56445 10.0884 8.09229 4.20508 8.11719
+ 4.1709 9.61377 2.28955 10.5415 0.666504 12.667 0.666504L54 0.666504 54 0.666504ZM12.667 0C9.90479 0 9.34375 1.27637 7.57227 3.78564 7.57227 3.78564 2.6665 10 0 14 2.6665 18 7.52295 24.1196 7.52295 24.1196 9.52344 26.7866 10 28 12.667 28L54 28
+C56.209 28 58 26.209 58 24L58 4C58 1.79102 56.209 0 54 0L12.667 0Z">
+        <fill>
+          <SolidColor color="#323232"/>
+        </fill>
+      </Path>
+
+	<!-- shadow fill -->
+      <Path x="1" y="0.666504" winding="nonZero" data="M53 0C54.8374 0 56.333 1.49561 56.333 3.3335L56.333 23.3335C56.333 25.1714 54.8374 26.667 53 26.667L11.689 26.667C9.19727 26.667 7.9082 23.9106 7.0708 23.0737 7.04297 23.0337 2.56104 17.0923 0 13.2607 2.56445 9.42188 7.09229 3.53857 7.11719 3.50439
+ 8.61377 1.62305 9.47949 0 11.667 0L53 0 53 0Z">
+        <fill>
+          <LinearGradient x="28.1665" y="0" scaleX="15.0762" rotation="90">
+            <GradientEntry ratio="0" alpha="0.25"/>
+            <GradientEntry ratio="1" alpha="0"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+
+	<!-- highlight border -->
+      <Path x="1" y="0.666016" winding="nonZero" data="M53 0.666504C54.4702 0.666504 55.666 1.8623 55.666 3.3335L55.666 23.333C55.666 24.8037 54.4702 26.001 53 26.001L11.689 26.001C9.81201 26.001 7.53613 22.5645 7.53613 22.5645 5.89111 19.9683 2.2207 15.3926 0.80127 13.2607 2.20264 11.1592 7.65576
+ 3.89697 7.65576 3.89697 7.92725 3.51025 9.82275 0.666504 11.667 0.666504L53 0.666504ZM11.375 0C9.34375 0 8.2085 2.13232 7.11719 3.50391 7.09229 3.53857 2.56445 9.42188 0 13.2607 2.56104 17.0918 7.04297 23.0332 7.0708 23.0732 7.9082 23.9111 9.19727
+ 26.6675 11.689 26.6675L53 26.6675C54.8374 26.6675 56.333 25.1714 56.333 23.333L56.333 3.3335C56.333 1.49561 54.8374 0 53 0L11.375 0Z">
+        <fill>
+          <LinearGradient x="28.1665" y="0" scaleX="28.5232" rotation="90">
+            <GradientEntry ratio="0" color="#FFFFFF" alpha="0.05"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.1"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+
+</Graphic>

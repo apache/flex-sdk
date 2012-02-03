@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.windowClasses"><apiName>spark.components.windowClasses</apiName><apiDetail/><apiClassifier id="spark.components.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  TitleBar 类为 WindowedApplication 或 Window 容器定义默认标题栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusBlendMode"/><skinStates><SkinState name="disabledAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  标题栏已禁用且应用程序已最大化。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  标题栏已启用且应用程序已最大化。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><skinParts><SkinPart name="closeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="true" var_type="spark.components:Button">
+<description>
+      定义与关闭按钮相对应的 Button 控件的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="maximizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      定义与最大化按钮相对应的 Button 控件的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="minimizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      定义与最小化按钮相对应的 Button 控件的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleIconImage" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.primitives:BitmapImage">
+<description>
+      TitleBar 中的标题图标。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleText" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      定义显示应用程序标题文本的 UITextField 控件的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:SkinnableComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleBar 类为 WindowedApplication 或 Window 容器定义默认标题栏。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="spark.components.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.windowClasses:TitleBar:protected:doubleClickHandler"><apiName>doubleClickHandler</apiName><shortdesc>
+      使用适合平台的方式处理 doubleClick 事件的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用适合平台的方式处理 <codeph>doubleClick</codeph> 事件的方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.windowClasses:TitleBar:protected:getCurrentSkinState"><apiName>getCurrentSkinState</apiName><shortdesc>
+      返回要应用到外观的状态的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>指定要应用到外观的状态的名称的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回要应用到外观的状态的名称。例如，一个 Button 组件可能会返回 String“up”、“down”、“over”或“disabled”以指定该状态。
+     
+      <p>SkinnableComponent 的子类必须覆盖此方法才可返回值。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      显示在窗口标题栏和停靠处或任务栏中的标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示在窗口标题栏和停靠处或任务栏中的标题。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      标题栏中显示的图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      标题栏中显示的图标。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

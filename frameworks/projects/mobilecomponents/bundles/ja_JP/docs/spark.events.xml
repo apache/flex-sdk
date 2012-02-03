@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+  ViewNavigatorEvent クラスは、View クラスによって送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorEvent クラスは、View クラスによって送出されるイベントオブジェクトを表します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link></related-links><adobeApiEvent id="spark.events:ViewNavigatorEvent:REMOVING_removing"><apiName>removing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:REMOVING</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE_activate"><apiName>activate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_ACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE_deactivate"><apiName>deactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ViewNavigatorEvent:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ViewNavigatorEvent:REMOVING"><apiName>REMOVING</apiName><shortdesc>
+      ViewNavigatorEvent.REMOVING 定数により、イベントオブジェクトの type プロパティ値が removing イベント用に定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.REMOVING</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>removing</codeph> イベント用に定義されます。 このイベントは、ナビゲーター操作によって、ある画面が別の画面に置換されるときに送出されます。このイベントで <codeph>preventDefault()</codeph> が呼び出されると、ビューの削除はキャンセルされます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.SCREEN_REMOVING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE"><apiName>VIEW_ACTIVATE</apiName><shortdesc>
+      ViewNavigatorEvent.VIEW_ACTIVATE 定数により、イベントオブジェクトの type プロパティ値が viewActivate イベント用に定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.VIEW_ACTIVATE</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>viewActivate</codeph> イベント用に定義されます。 このイベントは、コンポーネントがアクティブ化されたときに送出されます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.VIEW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE"><apiName>VIEW_DEACTIVATE</apiName><shortdesc>
+      ViewNavigatorEvent.VIEW_DEACTIVATE 定数により、イベントオブジェクトの type プロパティ値が viewDeactivate イベント用に定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.VIEW_DEACTIVATE</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>viewDeactivate</codeph> イベント用に定義されます。 このイベントは、コンポーネントが非アクティブ化されたときに送出されます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.VIEW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:action"><apiName>action</apiName><shortdesc>
+      イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      イベントが発生したビューナビゲーターによって確定されたナビゲーションアクションです。 可能なアクションは、ビューのアクティブ化または非アクティブ化です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

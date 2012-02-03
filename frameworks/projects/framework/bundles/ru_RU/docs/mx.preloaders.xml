@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.preloaders"><apiName>mx.preloaders</apiName><apiDetail/><apiClassifier id="mx.preloaders:IPreloaderDisplay"><apiName>IPreloaderDisplay</apiName><shortdesc>
+  Определяет интерфейс, который должен быть реализован классом для использования в качестве индикатора выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Определяет интерфейс, который должен быть реализован классом для использования в качестве индикатора выполнения загрузки. IPreloaderDisplay получает события от класса Preloader и должен отобразить эту информацию для пользователя.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiOperation id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:Preloader"><apiName>Preloader</apiName><shortdesc>
+  Класс Preloader используется SystemManager для контроля статуса загрузки и инициализации приложения Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Preloader используется SystemManager для контроля статуса загрузки и инициализации приложения Flex. Кроме того, он отвечает за загрузку общих библиотек времени выполнения (RSL).
+ 
+  <p>Класс Preloader создает индикатор выполнения загрузки, который должен реализовать интерфейс IPreloaderDisplay, а также передает индикатору выполнения загрузки события загрузки и инициализации.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:Preloader:Preloader"><apiName>Preloader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:Preloader:initialize"><apiName>initialize</apiName><shortdesc>  
+      Вызывается с помощью SystemManager для инициализации объекта Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>showDisplay</apiItemName><apiType value="Boolean"/><apiDesc>Определяет, требуется ли отобразить класс отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayClassName</apiItemName><apiType value="Class"/><apiDesc>Класс IPreloaderDisplay для просмотра статуса preloader.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundColor</apiItemName><apiType value="uint"/><apiDesc>Цвет фона приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundAlpha</apiItemName><apiType value="Number"/><apiDesc>Альфа-канал фона приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundImage</apiItemName><apiType value="Object"/><apiDesc>Фоновое изображение приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundSize</apiItemName><apiType value="String"/><apiDesc>Размер фона приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayWidth</apiItemName><apiType value="Number"/><apiDesc>Ширина окна приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayHeight</apiItemName><apiType value="Number"/><apiDesc>Высота окна приложения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>libs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив строковых URL-адресов для общих библиотек времени выполнения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sizes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений uint, содержащих размер в байтах для каждого URL-адреса в аргументе lib.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rslList</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив объекта типа RSLItem и CdRSLItem. Этот массив описывает все RSL для загрузки. Параметры libs и sizes игнорируются и должны иметь значения, равные null.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceModuleURLs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив строк, указывающих URL-адреса для предварительной загрузки модулей ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Домен приложения, в котором выполняется код.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>  
+      Вызывается с помощью SystemManager для инициализации объекта Preloader.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:Preloader:registerApplication"><apiName>registerApplication</apiName><shortdesc>
+      Вызывается посредством SystemManager после завершения процесса создания экземпляра класса приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>app</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>Объект приложения.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается посредством SystemManager после завершения процесса создания экземпляра класса приложения. Метод вызывается непосредственно Flex; пользователю выполнять вызов не требуется.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.preloaders:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+  Класс DownloadProgressBar отображает индикатор выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DownloadProgressBar отображает индикатор выполнения загрузки. Используется элементом управления Preloader для обеспечения обратной связи с пользователем при загрузке и выгрузке приложения. 
+ 
+  <p>Индикатор выполнения загрузки отображает информацию по двум разным фазам работы приложения: фаза загрузки и фаза инициализации. </p>
+ 
+  <p>В контейнере Application используйте свойство <codeph>preloader</codeph> для указания имени подкласса.</p>
+ 
+  <p>Можно реализовать пользовательский компонент индикатора выполнения загрузки путем создания подчиненного класса для класса DownloadProgressBar. Не следует реализовывать индикатор выполнения загрузки в качестве компонента MXML, поскольку в этом случае он будет загружаться слишком медленно.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:DownloadProgressBar:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:DownloadProgressBar:protected:center"><apiName>center</apiName><shortdesc>
+      Размещает индикатор выполнения загрузки по центру в соответствии с переданными размерами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина области, по центру которой размещается индикатор выполнения загрузки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота области, по центру которой размещается индикатор выполнения загрузки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Размещает индикатор выполнения загрузки по центру в соответствии с переданными размерами.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Прослушиватель событий для события Event.COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>Event.COMPLETE</codeph>. При реализации по умолчанию какие-либо действия не выполняются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      Создает подкомпоненты отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Создает подкомпоненты отображения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:getPercentLoaded"><apiName>getPercentLoaded</apiName><shortdesc>
+      Возвращает процентное значение степени загрузки приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Процентное значение степени загрузки приложения.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>loaded</apiItemName><apiType value="Number"/><apiDesc>Количество байтов файла SWF приложения, которые уже загружены.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Размер файла SWF приложения в байтах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает процентное значение степени загрузки приложения. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      Прослушиватель событий для события FlexEvent.INIT_COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>FlexEvent.INIT_COMPLETE</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      Прослушиватель событий для события FlexEvent.INIT_PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>FlexEvent.INIT_PROGRESS.</codeph> При этой реализации индикатор выполнения загрузки обновляется при каждой передаче события, кроме того изменяется текст метки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      Вызывается предварительным загрузчиком после добавления индикатора выполнения загрузки в качестве нижестоящего элемента Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается предварительным загрузчиком после добавления индикатора выполнения загрузки в качестве нижестоящего элемента Preloader. Должен являться начальной точкой при конфигурировании индикатора выполнения загрузки. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      Прослушиватель событий для события ProgressEvent.PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>ProgressEvent.PROGRESS</codeph>. В данной реализации индикатором выполнения загрузки является обновляющееся процентное значение загруженных байтов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_COMPLETE</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_ERROR</codeph>. Этот прослушиватель событий обрабатывает любые ошибки, обнаруженные при загрузке RSL.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_PROGRESS</codeph>. При реализации по умолчанию какие-либо действия не выполняются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:setProgress"><apiName>setProgress</apiName><shortdesc>
+      Обновляет отображение индикатора выполнения загрузки с использованием текущей информации о загрузке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Количество байтов файла SWF приложения, которые уже загружены.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Размер файла SWF приложения в байтах.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обновляет отображение индикатора выполнения загрузки с использованием текущей информации о загрузке. В типичной реализации загруженное значение представляет собой общее значение и значение загрузки в процентах. Если этот метод не реализован, необходимо создать индикатор выполнения, который будет отображать анимацию для предоставления пользователю информации о выполнении загрузки.
+     
+      <p>Метод <codeph>setProgress()</codeph> вызывается только в случае загрузки приложения с удаленного сервера, если приложение отсутствует в кэше браузера.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращаемое значение <codeph>true</codeph> означает, что индикатор выполнения загрузки отображается. Поведением по умолчанию является отображение индикатора выполнения загрузки в случае, если по истечении более 700 миллисекунд Flex загрузил менее половины байтов файла SWF.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Число миллисекунд, которые истекли с начала фазы загрузки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Объект ProgressEvent, содержащий свойства <codeph>bytesLoaded</codeph> и <codeph>bytesTotal</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе загрузки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе инициализации, если в настоящее время отображение деактивировано.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Если значение равно <codeph>true</codeph>, индикатор выполнения загрузки отображается.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Число миллисекунд, которые истекли с начала фазы загрузки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>количество случаев получения события <codeph>initProgress</codeph> от приложения.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе инициализации, если в настоящее время отображение деактивировано.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:DownloadProgressBar:protected:DOWNLOAD_PERCENTAGE"><apiName>DOWNLOAD_PERCENTAGE</apiName><shortdesc>
+      Процентное выражение степени заполнения индикатора выполнения на фазе загрузки после полной загрузки файла SWF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>60</apiData><apiType value="uint"/><apiDefaultValue>60
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Процентное выражение степени заполнения индикатора выполнения на фазе загрузки после полной загрузки файла SWF. Остальная часть индикатора выполнения заполняется в ходе инициализации. Значение должно быть в диапазоне от 0 до 100. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:MINIMUM_DISPLAY_TIME"><apiName>MINIMUM_DISPLAY_TIME</apiName><shortdesc>
+      Минимальное число миллисекунд, в течение которых отображение должно быть активировано.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="uint"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число миллисекунд, в течение которых отображение должно быть активировано. Если загрузка и инициализация приложения занимают меньше времени, чем определено этим значением, то Flex приостанавливает работу на это время перед передачей события <codeph>complete</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      Общее количество событий проверки, ожидаемых в фазе инициализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Общее количество событий проверки, ожидаемых в фазе инициализации. Значение должно представлять собой целое число, большее или равное 4 (следует отметить, что если оно больше 4, эффективность кода инициализации может быть снижена)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      Альфа-уровень файла SWF или изображения, определенный свойством backgroundImage, или цвет, определенный свойством backgroundColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Альфа-уровень файла SWF или изображения, определенный свойством <codeph>backgroundImage</codeph>, или цвет, определенный свойством <codeph>backgroundColor</codeph>. Допустимыми являются значения от 0 до 1,0.    
+     
+      <p>Можно указать значение <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      Цвет фона индикатора выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Цвет фона индикатора выполнения загрузки. Можно использовать <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      Фоновое изображение для приложения, переданное предварительным загрузчиком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Фоновое изображение для приложения, переданное предварительным загрузчиком. Можно указать значение <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.
+     
+      <p>Значение null указывает, что значение не установлено. Если этот стиль и стиль <codeph>backgroundColor</codeph> не определены, для компонента устанавливается прозрачный фон.</p>
+     
+      <p>Предварительный загрузчик не отображает вложенные изображения. Можно использовать только те изображения, которые были загружены во время выполнения.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      Масштабирует изображение, указанное свойством backgroundImage, в соответствии с различными указываемыми процентными значениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Масштабирует изображение, указанное свойством <codeph>backgroundImage</codeph>, в соответствии с различными указываемыми процентными значениями. При значении <codeph>100%</codeph> изображение растягивается по всей области компонента. Для указания процентного значения необходимо добавить символ процента (%). Значение <codeph>auto</codeph> используется для установки исходного размера изображения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barFrameRect:get"><apiName>barFrameRect</apiName><shortdesc>
+      Размеры границы индикатора выполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Размеры границы индикатора выполнения. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barRect:get"><apiName>barRect</apiName><shortdesc>
+      Размеры индикатора выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Размеры индикатора выполнения загрузки. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:borderRect:get"><apiName>borderRect</apiName><shortdesc>
+      Размеры границ отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Размеры границ отображения. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:downloadingLabel:get"><apiName>downloadingLabel</apiName><shortdesc>
+      Строка для отображения в качестве метки на фазе загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Loading"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка для отображения в качестве метки на фазе загрузки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:initializingLabel:get"><apiName>initializingLabel</apiName><shortdesc>
+      Строка для отображения в качестве метки на фазе инициализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Initializing"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка для отображения в качестве метки на фазе инициализации.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelFormat:get"><apiName>labelFormat</apiName><shortdesc>
+      Объект TextFormat компонента TextField метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      Объект TextFormat компонента TextField метки. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelRect:get"><apiName>labelRect</apiName><shortdesc>
+      Размеры компонента TextField для метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Размеры компонента TextField для метки. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:label:get"><apiName>label</apiName><shortdesc>
+      Текст для отображения во время активности индикатора выполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Текст для отображения во время активности индикатора выполнения. Класс Preloader устанавливает это значение перед отображением индикатора выполнения. Реализация этого свойства в подчиненном классе не является обязательной.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentFormat:get"><apiName>percentFormat</apiName><shortdesc>
+      TextFormat компонента TextField для отображения процентного значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      TextFormat компонента TextField для отображения процентного значения. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentRect:get"><apiName>percentRect</apiName><shortdesc>
+      Размеры компонента TextField для отображения процентного значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Размеры компонента TextField для отображения процентного значения. Это свойство доступно только для чтения. Для изменения данного свойства эту настройку необходимо отменить.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showLabel:get"><apiName>showLabel</apiName><shortdesc>
+      Указывает, требуется отображать метку (значение true) или нет (значение false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, требуется отображать метку (значение <codeph>true</codeph>) или нет (значение <codeph>false</codeph>).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showPercentage:get"><apiName>showPercentage</apiName><shortdesc>
+      Указывает, требуется отображать процентное значение (true) или нет (false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, требуется отображать процентное значение (<codeph>true</codeph>) или нет (<codeph>false</codeph>).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      Высота рабочей области, передаваемая классом Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота рабочей области, передаваемая классом Preloader.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      Ширина рабочей области, передаваемая классом Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина рабочей области, передаваемая классом Preloader.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      Указывает, является ли индикатор выполнения загрузки видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, является ли индикатор выполнения загрузки видимым.
+     
+      <p>Если элемент управления Preloader определяет, что индикатор выполнения должен быть видимым, он устанавливает значение <codeph>true</codeph>. Если элемент управления Preloader определяет, что индикатор выполнения должен быть скрыт, он устанавливает значение <codeph>false</codeph>.</p>
+     
+      <p>Это свойство не должно изменяться с помощью подчиненного классу DownloadProgressBar класса. Для выполнения такого изменения следует отменить метод установщика, определяющий выполняемые посредством Preloader изменения, и выполнить необходимые действия. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Класс Preloader передает ссылку на себя классу отображения для обеспечения возможности прослушивания событий из предварительного загрузчика.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Класс Preloader передает ссылку на себя классу отображения для обеспечения возможности прослушивания событий из предварительного загрузчика.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+  Класс SparkDownloadProgressBar отображает индикатор выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SparkDownloadProgressBar отображает индикатор выполнения загрузки. Используется элементом управления Preloader для обеспечения обратной связи с пользователем при загрузке и выгрузке приложения. 
+ 
+  <p>Индикатор выполнения загрузки отображает информацию по двум разным фазам работы приложения: фаза загрузки и фаза инициализации. </p>
+ 
+  <p>В контейнере Application используйте свойство <codeph>preloader</codeph> для указания имени подкласса.</p>
+ 
+  <p>Можно реализовать пользовательский компонент индикатора выполнения загрузки путем создания подкласса для класса SparkDownloadProgressBar. Не следует реализовывать индикатор выполнения загрузки в качестве компонента MXML, поскольку в этом случае он будет загружаться слишком медленно.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:SparkDownloadProgressBar:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Прослушиватель событий для события Event.COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>Event.COMPLETE</codeph>. При реализации по умолчанию какие-либо действия не выполняются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      Создает подкомпоненты отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Создает подкомпоненты отображения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      Прослушиватель событий для события FlexEvent.INIT_COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>FlexEvent.INIT_COMPLETE</codeph>. В этой реализации обеспечивается передача события <codeph>Event.COMPLETE</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      Прослушиватель событий для события FlexEvent.INIT_PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>FlexEvent.INIT_PROGRESS.</codeph> Эта реализация обновляет индикатор выполнения при каждой отправке события. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      Вызывается предварительным загрузчиком после добавления индикатора выполнения загрузки в качестве нижестоящего элемента Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается предварительным загрузчиком после добавления индикатора выполнения загрузки в качестве нижестоящего элемента Preloader. Должен являться начальной точкой при конфигурировании индикатора выполнения загрузки. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      Прослушиватель событий для события ProgressEvent.PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>ProgressEvent.PROGRESS</codeph>. В данной реализации индикатором выполнения загрузки является обновляющееся процентное значение загруженных байтов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_COMPLETE</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_ERROR</codeph>. Этот прослушиватель событий обрабатывает любые ошибки, обнаруженные при загрузке RSL.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      Прослушиватель событий для события RSLEvent.RSL_PROGRESS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прослушиватель событий для события <codeph>RSLEvent.RSL_PROGRESS</codeph>. При реализации по умолчанию какие-либо действия не выполняются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setDownloadProgress"><apiName>setDownloadProgress</apiName><shortdesc> 
+      Обновляет внешнюю часть индикатора выполнения загрузки для указания на ход выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Количество байтов файла SWF приложения, которые уже загружены.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Размер файла SWF приложения в байтах.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обновляет внешнюю часть индикатора выполнения загрузки для указания на ход выполнения загрузки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setInitProgress"><apiName>setInitProgress</apiName><shortdesc> 
+      Обновляет внутреннюю часть индикатора выполнения загрузки для указания на ход процесса инициализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Количество завершенных шагов инициализации
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Общее количество шагов инициализации
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обновляет внутреннюю часть индикатора выполнения загрузки для указания на ход процесса инициализации.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращаемое значение <codeph>true</codeph> означает, что индикатор выполнения загрузки отображается. Поведением по умолчанию является отображение индикатора выполнения загрузки в случае, если по истечении более 700 миллисекунд Flex загрузил менее половины байтов файла SWF.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Число миллисекунд, прошедших с начала фазы загрузки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Объект ProgressEvent, содержащий свойства <codeph>bytesLoaded</codeph> и <codeph>bytesTotal</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе загрузки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе инициализации, если в настоящее время отображение деактивировано.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Если значение равно <codeph>true</codeph>, индикатор выполнения загрузки отображается.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Число миллисекунд, прошедших с начала фазы загрузки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>количество случаев получения события <codeph>initProgress</codeph> от приложения.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет алгоритм указания того, требуется ли отображать индикатор выполнения загрузки на фазе инициализации, если в настоящее время отображение деактивировано.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      Общее количество событий проверки, ожидаемых в фазе инициализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Общее количество событий проверки, ожидаемых в фазе инициализации. Значение должно представлять собой целое число, большее или равное 4 (следует отметить, что если оно больше 4, эффективность кода инициализации может быть снижена)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      Альфа-уровень файла SWF или изображения, определенный свойством backgroundImage, или цвет, определенный свойством backgroundColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Альфа-уровень файла SWF или изображения, определенный свойством <codeph>backgroundImage</codeph>, или цвет, определенный свойством <codeph>backgroundColor</codeph>. Допустимыми являются значения от 0 до 1,0. Переопределите это свойство, чтобы установить собственное значение в пользовательском классе.
+     
+      <p>Можно указать значение <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      Цвет фона индикатора выполнения загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Цвет фона индикатора выполнения загрузки. Переопределите это свойство, чтобы установить собственное значение в пользовательском классе.
+     
+      <p>Можно указать значение <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      Фоновое изображение для приложения, переданное предварительным загрузчиком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Фоновое изображение для приложения, переданное предварительным загрузчиком. Переопределите это свойство, чтобы установить собственное значение в пользовательском классе.
+     
+      <p>Можно указать значение <codeph>backgroundColor</codeph> или <codeph>backgroundImage</codeph>, но не оба.</p>
+     
+      <p>Значение null указывает, что значение не установлено. Если этот стиль и стиль <codeph>backgroundColor</codeph> не определены, для компонента устанавливается прозрачный фон.</p>
+     
+      <p>Предварительный загрузчик не отображает вложенные изображения. Можно использовать только те изображения, которые были загружены во время выполнения.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      Масштабирует изображение, указанное свойством backgroundImage, в соответствии с различными указываемыми процентными значениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Масштабирует изображение, указанное свойством <codeph>backgroundImage</codeph>, в соответствии с различными указываемыми процентными значениями. При значении <codeph>100%</codeph> изображение растягивается по всей области компонента. Для указания процентного значения необходимо добавить символ процента (%). Значение <codeph>auto</codeph> используется для установки исходного размера изображения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      Высота рабочей области, передаваемая классом Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота рабочей области, передаваемая классом Preloader.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      Ширина рабочей области, передаваемая классом Preloader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина рабочей области, передаваемая классом Preloader.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      Указывает, является ли индикатор выполнения загрузки видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, является ли индикатор выполнения загрузки видимым.
+     
+      <p>Если элемент управления Preloader определяет, что индикатор выполнения должен быть видимым, он устанавливает значение <codeph>true</codeph>. Если элемент управления Preloader определяет, что индикатор выполнения должен быть скрыт, он устанавливает значение <codeph>false</codeph>.</p>
+     
+      <p>Подкласс класса SparkDownloadProgressBar никогда не должен обеспечивать изменение этого свойства. Для выполнения такого изменения следует отменить метод установщика, определяющий выполняемые посредством Preloader изменения, и выполнить необходимые действия. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Класс Preloader передает ссылку на себя классу отображения для обеспечения возможности прослушивания событий из предварительного загрузчика.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Класс Preloader передает ссылку на себя классу отображения для обеспечения возможности прослушивания событий из предварительного загрузчика.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

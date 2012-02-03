@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.flash"><apiName>mx.flash</apiName><apiDetail/><apiClassifier id="mx.flash:UIMovieClip"><apiName>UIMovieClip</apiName><shortdesc>
+  Adobe Flash Professional で Flex 用に作成するコンポーネントは、mx.flash.UIMovieClip クラスのサブクラスになります。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.core:IDeferredInstantiationUIComponent</apiBaseInterface><apiBaseInterface>mx.managers:IToolTipManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IStateClient</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IConstraintClient</apiBaseInterface><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.core:ILayoutElement</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseClassifier>flash.display:MovieClip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Flash Professional で Flex 用に作成するコンポーネントは、mx.flash.UIMovieClip クラスのサブクラスになります。 UIMovieClip クラスは、Flash コンポーネントを通常の Flex コンポーネントのように使用するために必要なインターフェイスを実装しています。 したがって、UIMovieClip のサブクラスは、Flex コンテナの子として使用したり、スキンとして使用したりできます。また、このサブクラスを使用すると、Flex コンポーネントと同じ方法で、イベントに対する応答、ビューステートとトランジションの定義およびエフェクトの操作を行うことができます。
+   <p>次の手順では、Flash Professional で Flex コンポーネントを作成する基本的なプロセスを説明します。</p>
+   <ol>
+    <li>Adobe Flash Component Kit for Flex をインストールします。</li> 
+    <li>FLA ファイルの動的アセット用のシンボルを作成します。</li>
+    <li>コマンドの実行／Flex コンポーネントの作成を実行して、シンボルを UIMovieClip クラスのサブクラスに変換し、Flex で使用するように Flash Professional のパブリッシュ設定を設定します。</li> 
+    <li>FLA ファイルを SWC ファイルとしてパブリッシュします。</li> 
+    <li>Flex アプリケーションで、他のクラスの場合と同じようにシンボルのクラス名を参照します。</li> 
+    <li>Flex アプリケーションをコンパイルするときに、<codeph>library-path</codeph> に SWC ファイルを含めます。</li>
+  </ol>
+   <p>詳細については、Flex/Flash Integration Kit （<xref href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</xref> で入手可能）に付属のドキュメントを参照してください。</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_START_toolTipStart"><apiName>toolTipStart</apiName><shortdesc>
+  toolTip プロパティが設定されているコンポーネント上にユーザーがマウスを移動すると同時に、そのコンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_START</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>toolTip</codeph> プロパティが設定されているコンポーネント上にユーザーがマウスを移動すると同時に、そのコンポーネントによって送出されます。
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_SHOWN_toolTipShown"><apiName>toolTipShown</apiName><shortdesc>
+  コンポーネントのツールヒントが表示された後に、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_SHOWN</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントのツールヒントが表示された後に、コンポーネントによって送出されます。
+   <p><codeph>ToolTipManager.showEffect</codeph> プロパティを使用してエフェクトを指定すると、エフェクトの再生が停止した後にこのイベントが送出されます。</p>
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_SHOW_toolTipShow"><apiName>toolTipShow</apiName><shortdesc>
+  コンポーネントのツールヒントが表示される前に、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_SHOW</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントのツールヒントが表示される前に、コンポーネントによって送出されます。
+   <p><codeph>ToolTipManager.showEffect</codeph> プロパティを使用してエフェクトを指定すると、エフェクトの再生が開始される前にこのイベントが送出されます。 このイベントを使用すると、ツールヒントが表示される前にその内容を変更できます。</p>
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_HIDE_toolTipHide"><apiName>toolTipHide</apiName><shortdesc>
+  コンポーネントのツールヒントが非表示にされる前に、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_HIDE</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントのツールヒントが非表示にされる前に、コンポーネントによって送出されます。
+   <p><codeph>ToolTipManager.hideEffect</codeph> プロパティを使用してエフェクトを指定すると、エフェクトの再生が開始される前にこのイベントが送出されます。</p>
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_END_toolTipEnd"><apiName>toolTipEnd</apiName><shortdesc>
+  コンポーネントのツールヒントが非表示にされており、まもなく破棄されるときに、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_END</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントのツールヒントが非表示にされており、まもなく破棄されるときに、コンポーネントによって送出されます。
+   <p><codeph>ToolTipManager.hideEffect</codeph> プロパティを使用してエフェクトを指定すると、エフェクトの再生が停止した後にこのイベントが送出されます。</p>
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_CREATE_toolTipCreate"><apiName>toolTipCreate</apiName><shortdesc>
+  ツールヒントを作成するときにコンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_CREATE</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ツールヒントを作成するときにコンポーネントによって送出されます。
+   <p>独自の IToolTip オブジェクトを作成し、それに対する参照を、イベントオブジェクトの <codeph>toolTip</codeph> プロパティ（<codeph>toolTipCreate</codeph> ハンドラーに渡されます）に入れておくと、ToolTipManager によってそのカスタムツールヒントが表示されます。 それ以外の場合は、ToolTipManager が、表示する <codeph>ToolTipManager.toolTipClass</codeph> のインスタンスを作成します。</p>
+   <p>ツールヒントイベントのシーケンスは、<codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> および <codeph>toolTipEnd</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.StateChangeEvent.CURRENT_STATE_CHANGE_currentStateChange"><apiName>currentStateChange</apiName><shortdesc>
+  ビューステートの変更後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.StateChangeEvent.CURRENT_STATE_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.StateChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ビューステートの変更後に送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.StateChangeEvent.CURRENT_STATE_CHANGING_currentStateChanging"><apiName>currentStateChanging</apiName><shortdesc>
+  currentState プロパティが変更された後、ビューステートが変更される前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.StateChangeEvent.CURRENT_STATE_CHANGING</apiEventType><adobeApiEventClassifier>mx.events.StateChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>currentState</codeph> プロパティが変更された後に送出されます。ビューステートが変更される前には送出されません。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><shortdesc>
+  ドラッグ操作が完了したとき（ドラッグデータをドロップターゲットにドロップするか、ドロップを実行せずにドラッグ＆ドロップ操作を終了したときのいずれか）、ドラッグイニシエータ（ドラッグしたデータのソースであるコンポーネント）によって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ドラッグ操作が完了したとき（ドラッグデータをドロップターゲットにドロップするか、ドロップを実行せずにドラッグ＆ドロップ操作を終了したときのいずれか）、ドラッグイニシエータ（ドラッグしたデータのソースであるコンポーネント）によって送出されます。
+   <p>このイベントは、ドラッグ＆ドロップ操作の最終的なクリーンアップを行うために使用できます。 例えば、List コントロールアイテムをあるリストから別のリストにドラッグする場合、List コントロールアイテムがそれ以降必要でなければソースから削除することができます。</p>
+   <p>ある Tree コントロールから別の Tree コントロールにデータをドラッグするときに、<codeph>Event.preventDefault()</codeph> を Tree コントロールの <codeph>dragComplete</codeph> イベントのイベントハンドラーで呼び出すと、ドロップは行われません。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><shortdesc>
+  ユーザーがドロップターゲット上でマウスを離したとき、ドロップターゲットによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがドロップターゲット上でマウスを離したとき、ドロップターゲットによって送出されます。
+   <p>このイベントハンドラーは、ドラッグデータをドロップターゲットに追加するために使用します。</p>
+   <p>ある Tree コントロールから別の Tree コントロールにデータをドラッグするときに、<codeph>Event.preventDefault()</codeph> を Tree コントロールの <codeph>dragDrop</codeph> イベントのイベントハンドラーで呼び出すと、ドロップは行われません。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_EXIT_dragExit"><apiName>dragExit</apiName><shortdesc>
+  ユーザーがデータをコンポーネントの外部にドラッグし、ターゲットにドロップしなかったとき、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_EXIT</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがデータをコンポーネントの外部にドラッグし、ターゲットにドロップしなかったとき、コンポーネントによって送出されます。
+   <p>このイベントは、<codeph>dragEnter</codeph> または <codeph>dragOver</codeph> イベントの処理中にドロップターゲットの外観を変更した場合に、ドロップターゲットを通常の外観に復元するために使用します。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_OVER_dragOver"><apiName>dragOver</apiName><shortdesc>
+  ドラッグ操作時に、コンポーネント上でマウスを移動したとき、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_OVER</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ドラッグ操作時に、コンポーネント上でマウスを移動したとき、コンポーネントによって送出されます。
+   <p>ハンドラー内では、コンポーネントがドラッグを受け付けることができることを示す視覚的なフィードバックをユーザーに提供するために、ドロップターゲットの外観を変更できます。 例えば、ドロップターゲットの周囲に境界線を表示したり、ドロップターゲットにフォーカスを移すことができます。</p>
+   <p>このイベントは、ドロップを許可する前に追加のロジックを実行するために使用します。追加のロジックの例としては、ドロップターゲット内の様々な場所にデータをドロップする、キーボード入力を読み取ってドラッグ＆ドロップアクションがドラッグデータの移動またはコピーのどちらであるかを判別する、ドラッグ＆ドロップアクションの種類に応じて視覚的なフィードバックを変えるなどがあります。</p>
+   <p><codeph>DragManager.showFeedback()</codeph> メソッドを変更してドラッグアクションの種類を変更することもできます。 <codeph>action</codeph> プロパティのデフォルト値は <codeph>DragManager.MOVE</codeph> です。</p>
+   </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_ENTER_dragEnter"><apiName>dragEnter</apiName><shortdesc>
+  ドラッグ操作時に、コンポーネント上でマウスを移動したとき、コンポーネントによって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_ENTER</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ドラッグ操作時に、コンポーネント上でマウスを移動したとき、コンポーネントによって送出されます。
+   <p>コンポーネントを有効なドロップターゲットとするには、このイベントのハンドラーを定義する必要があります。 ハンドラー内では、コンポーネントがドラッグを受け付けることができることを示す視覚的なフィードバックをユーザーに提供するために、ドロップターゲットの外観を変更できます。 例えば、ドロップターゲットの周囲に境界線を表示したり、ドロップターゲットにフォーカスを移すことができます。</p>
+   <p>ドラッグを受け入れる場合は、<codeph>DragManager.acceptDragDrop()</codeph> メソッドを呼び出す必要があります。 <codeph>acceptDragDrop()</codeph> を呼び出さないと、他のドラッグイベントがすべて取得されなくなります。</p>
+   <p><codeph>action</codeph> プロパティの値は、コピーの実行中も常に <codeph>DragManager.MOVE</codeph> です。 これは、Control キーが押され、コピーが通知されたことをコントロールが認識する前に <codeph>dragEnter</codeph> イベントが発生するためです。 <codeph>action</codeph> プロパティ（<codeph>dragOver</codeph> イベントのイベントオブジェクト）には、ドラッグ操作の種類を示した値が含まれています。</p>
+ 
+  <p><codeph>DragManager.showFeedback()</codeph> メソッドを呼び出してドラッグアクションの種類を変更することもできます。</p>
+   </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE_mouseWheelOutside"><apiName>mouseWheelOutside</apiName><shortdesc>
+  PopUpManager を使用して開かれたコンポーネントの外側にユーザーがマウスホイールをスクロールしたときに、そのコンポーネントから送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexMouseEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  PopUpManager を使用して開かれたコンポーネントの外側にユーザーがマウスホイールをスクロールしたときに、そのコンポーネントから送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE_mouseDownOutside"><apiName>mouseDownOutside</apiName><shortdesc>
+  ユーザーが PopUpManager を使用して開いたコンポーネントの外側でマウスをクリックしたときに、そのコンポーネントから送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexMouseEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーが PopUpManager を使用して開いたコンポーネントの外側でマウスをクリックしたときに、そのコンポーネントから送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.SHOW_show"><apiName>show</apiName><shortdesc>
+  オブジェクトの状態が不可視から可視に変化したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.SHOW</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  オブジェクトの状態が不可視から可視に変化したときに送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ResizeEvent.RESIZE_resize"><apiName>resize</apiName><shortdesc>
+  コンポーネントのサイズが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ResizeEvent.RESIZE</apiEventType><adobeApiEventClassifier>mx.events.ResizeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントのサイズが変更されたときに送出されます。
+   <p>コンポーネントのサイズを変更するには、<codeph>width</codeph> または <codeph>height</codeph> プロパティを設定するか、<codeph>setActualSize()</codeph> メソッドを呼び出します。あるいは、そのコンポーネントまたはその他のコンポーネントについて、LayoutManager がそのコンポーネントの <codeph>width</codeph> または <codeph>height</codeph> プロパティを変更することが必要になるように、次のプロパティの 1 つを設定します。</p>
+   <ul>
+    <li><codeph>minWidth</codeph></li>
+    <li><codeph>minHeight</codeph></li>
+    <li><codeph>maxWidth</codeph></li>
+    <li><codeph>maxHeight</codeph></li>
+    <li><codeph>explicitWidth</codeph></li>
+    <li><codeph>explicitHeight</codeph></li>
+  </ul>
+   <p><codeph>resize</codeph> イベントは、プロパティが変更されるまで送出されません。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.REMOVE_remove"><apiName>remove</apiName><shortdesc>
+  removeChild() または removeChildAt() メソッドを使用して、コンポーネントをコンテンツである子としてコンテナから削除したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.REMOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>removeChild()</codeph> または <codeph>removeChildAt()</codeph> メソッドを使用して、コンポーネントをコンテンツである子としてコンテナから削除したときに送出されます。 <codeph>rawChildren.removeChild()</codeph> または <codeph>rawChildren.removeChildAt()</codeph> メソッドを使用して、コンポーネントをコンテンツではない子としてコンテナから削除した場合、イベントは送出されません。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.PREINITIALIZE_preinitialize"><apiName>preinitialize</apiName><shortdesc>
+  コンポーネントの初期化シーケンスの始めに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.PREINITIALIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントの初期化シーケンスの始めに送出されます。このイベントが送出されるとき、コンポーネントは未加工の状態にあります。Button コントロールなどの多くのコンポーネントは、内部子コンポーネントを作成して機能を実装します。例えば、Button コントロールは内部 UITextField コンポーネントを作成してラベルテキストを表現します。 Flex が <codeph>preinitialize</codeph> イベントを送出したとき、コンポーネントの子は、内部の子も含めて、まだ作成されていません。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.MoveEvent.MOVE_move"><apiName>move</apiName><shortdesc>
+  オブジェクトが移動したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.MoveEvent.MOVE</apiEventType><adobeApiEventClassifier>mx.events.MoveEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  オブジェクトが移動したときに送出されます。
+   <p>コンポーネントを移動するには、<codeph>x</codeph> または <codeph>y</codeph> プロパティを設定するか、<codeph>move()</codeph> メソッドを呼び出します。あるいは、そのコンポーネントまたはその他のコンポーネントについて、LayoutManager がそのコンポーネントの <codeph>x</codeph> または <codeph>y</codeph> プロパティを変更することが必要になるように、次のプロパティの 1 つを設定します。</p>
+   <ul>
+    <li><codeph>minWidth</codeph></li>
+    <li><codeph>minHeight</codeph></li>
+    <li><codeph>maxWidth</codeph></li>
+    <li><codeph>maxHeight</codeph></li>
+    <li><codeph>explicitWidth</codeph></li>
+    <li><codeph>explicitHeight</codeph></li>
+  </ul>
+   <p><codeph>move()</codeph> メソッドを呼び出すと、メソッドから制御が戻る前に <codeph>move</codeph> イベントが送出されます。 その他の状況では、<codeph>move</codeph> イベントは、プロパティが変更されるまで送出されません。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.INITIALIZE_initialize"><apiName>initialize</apiName><shortdesc>
+  コンポーネントの構築と初期化プロパティの設定が完了したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.INITIALIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントの構築と初期化プロパティの設定が完了したときに送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.HIDE_hide"><apiName>hide</apiName><shortdesc>
+  オブジェクトの状態が可視から不可視に変化したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.HIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  オブジェクトの状態が可視から不可視に変化したときに送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.CREATION_COMPLETE_creationComplete"><apiName>creationComplete</apiName><shortdesc>
+  コンポーネントの構築が完了すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.CREATION_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンポーネントの構築が完了すると送出されます。 Flash ベースのコンポーネントの場合は、<codeph>initialize</codeph> イベントと同時に送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.ADD_add"><apiName>add</apiName><shortdesc>
+  addChild() メソッドまたは addChildAt() メソッドを使用して、コンポーネントをコンテンツの子としてコンテナに追加したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ADD</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>addChild()</codeph> メソッドまたは <codeph>addChildAt()</codeph> メソッドを使用して、コンポーネントをコンテンツである子としてコンテナに追加したときに送出されます。 <codeph>rawChildren.addChild()</codeph> または <codeph>rawChildren.addChildAt()</codeph> メソッドを使用して、コンポーネントをコンテンツではない子としてコンテナに追加した場合、イベントは送出されません。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.flash:UIMovieClip:UIMovieClip"><apiName>UIMovieClip</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.flash:UIMovieClip:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:createReferenceOnParentDocument"><apiName>createReferenceOnParentDocument</apiName><shortdesc>
+      この IUIComponent オブジェクトへの id 参照を親ドキュメントオブジェクト上に作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parentDocument</apiItemName><apiType value="mx.core:IFlexDisplayObject"/><apiDesc>この IUIComponent オブジェクトの親です。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この IUIComponent オブジェクトへの <codeph>id</codeph> 参照を親ドキュメントオブジェクト上に作成します。 この関数は、b[2][4] のように Repeater 内にあるオブジェクトに対する多次元参照を作成できます。 インデックスが null の場合は、単純な、配列ではない参照を作成します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:deleteReferenceOnParentDocument"><apiName>deleteReferenceOnParentDocument</apiName><shortdesc>
+      この IUIComponent オブジェクトへの id 参照を親ドキュメントオブジェクトから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parentDocument</apiItemName><apiType value="mx.core:IFlexDisplayObject"/><apiDesc>この IUIComponent オブジェクトの親です。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この IUIComponent オブジェクトへの <codeph>id</codeph> 参照を親ドキュメントオブジェクトから削除します。 この関数は、b[2][4] のように Repeater 内にあるオブジェクトに対する多次元参照を削除できます。 インデックスが null の場合は、単純な、配列ではない参照を削除します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:drawFocus"><apiName>drawFocus</apiName><shortdesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>isFocused</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> の場合はフォーカスインジケーターを描画し、それ以外の場合は非表示にします。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。 コンポーネントは、コンポーネントにフォーカスがあることを示すグラフィックを描画するか、非表示にします。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:enterFrameHandler"><apiName>enterFrameHandler</apiName><shortdesc>
+      この入力フレームハンドラーは、幅、高さ、x、または y の値が変更されるときに使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      この入力フレームハンドラーは、幅、高さ、x、または y の値が変更されるときに使用します。これにより、x と y を同時に設定して change イベントが 1 つだけ発生するように変更を遅延させることができます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:executeBindings"><apiName>executeBindings</apiName><shortdesc>
+      この UIComponent オブジェクトへのデータバインディングを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このコンポーネントの子に対して再帰的にバインディングを実行します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この UIComponent オブジェクトへのデータバインディングを実行します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:findFocusCandidates"><apiName>findFocusCandidates</apiName><shortdesc>
+      tabEnabled が true に設定されているすべての子を回帰的に検索し、それらの子を focusableObjects 配列に追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObjectContainer"/></apiParam></apiOperationDef><apiDesc>
+      tabEnabled が true に設定されているすべての子を回帰的に検索し、それらの子を focusableObjects 配列に追加します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:focusInHandler"><apiName>focusInHandler</apiName><shortdesc>
+      いずれかの子にフォーカスが置かれると呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:FocusEvent"/></apiParam></apiOperationDef><apiDesc>
+      いずれかの子にフォーカスが置かれると呼び出されます。 Flex フォーカスマネージャーから制御できるように、フォーカスイベントハンドラーを呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.automation:IAutomationObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getConstraintValue"><apiName>getConstraintValue</apiName><shortdesc conref="mx.core.IConstraintClient#getConstraintValue()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.IConstraintClient#getConstraintValue()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getExplicitOrMeasuredHeight"><apiName>getExplicitOrMeasuredHeight</apiName><shortdesc>
+      明示的に指定された高さを使用するのか、それとも測定された高さを使用するのかを決定するための便利なメソッドです。
+           </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>定義されている場合は数値 explicitHeight、定義されていない場合は数値 measuredHeight です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      明示的に指定された高さを使用するのか、それとも測定された高さを使用するのかを決定するための便利なメソッドです。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getExplicitOrMeasuredWidth"><apiName>getExplicitOrMeasuredWidth</apiName><shortdesc>
+      明示された幅を使用するのか、それとも測定した幅を使用するのかを決定する便利なメソッドです。
+           </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>定義されている場合は数値 explicitWidth、定義されていない場合は数値 measuredWidth です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      明示された幅を使用するのか、それとも測定した幅を使用するのかを決定する便利なメソッドです。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsHeight"><apiName>getLayoutBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsWidth"><apiName>getLayoutBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsX"><apiName>getLayoutBoundsX</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsY"><apiName>getLayoutBoundsY</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutMatrix3D"><apiName>getLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutMatrix"><apiName>getLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMaxBoundsHeight"><apiName>getMaxBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMaxBoundsWidth"><apiName>getMaxBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMinBoundsHeight"><apiName>getMinBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMinBoundsWidth"><apiName>getMinBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getPreferredBoundsHeight"><apiName>getPreferredBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getPreferredBoundsWidth"><apiName>getPreferredBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:initialize"><apiName>initialize</apiName><shortdesc>
+      オブジェクトを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      オブジェクトを初期化します。
+           </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/initialize()"><linktext>mx.core.UIComponent.initialize()</linktext></link></related-links></apiOperation><apiOperation id="mx.flash:UIMovieClip:invalidateLayoutDirection"><apiName>invalidateLayoutDirection</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:invalidateParentSizeAndDisplayList"><apiName>invalidateParentSizeAndDisplayList</apiName><shortdesc>
+      このオブジェクトがレイアウトに影響を与える（includeInLayout が true である）場合に、親のサイズおよび表示リストを無効にするためのヘルパーメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このオブジェクトがレイアウトに影響を与える（includeInLayout が true である）場合に、親のサイズおよび表示リストを無効にするためのヘルパーメソッドです。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:move"><apiName>move</apiName><shortdesc>
+      このオブジェクトを指定の x および y 座標に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい x 位置です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい y 位置です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このオブジェクトを指定の x および y 座標に移動します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:notifySizeChanged"><apiName>notifySizeChanged</apiName><shortdesc>
+      サイズが変更されたことを親に通知します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      サイズが変更されたことを親に通知します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:owns"><apiName>owns</apiName><shortdesc>
+      owner プロパティのチェーンが child からこの UIComponent を指定している場合に、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この UIComponent が子の親であるか、または子を所有している場合は <codeph>true</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>UIComponent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>true</codeph> を返すのは、<codeph>owner</codeph> プロパティのチェーンが <codeph>child</codeph> からこの UIComponent を指している場合です。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      UIComponent オブジェクトを親に対して追加または削除したときに Flex によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>p</apiItemName><apiType value="flash.display:DisplayObjectContainer"/><apiDesc>この UIComponent オブジェクトの親です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      UIComponent オブジェクトを親に対して追加または削除したときに Flex によって呼び出されます。 開発者は通常このメソッドを呼び出す必要はありません。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      エフェクトイベントごとに、イベントリスナーの 1 つとして EffectManager を登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>エフェクト名のストリングの配列です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      エフェクトイベントごとに、イベントリスナーの 1 つとして EffectManager を登録します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+      このオブジェクトの実際のサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい幅です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい高さです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このオブジェクトの実際のサイズを設定します。
+           <p>このメソッドは主に <codeph>updateDisplayList()</codeph> メソッドの実装に使用されます。ここでオブジェクトの実際のサイズを、その明示的サイズ、親との相対（％）サイズ、および測定されたサイズに基づいて計算します。 次に <codeph>setActualSize()</codeph> を呼び出して、この実際のサイズをオブジェクトに適用します。</p>
+           <p>その他の状況では、このメソッドを呼び出す代わりに、<codeph>width</codeph>、<codeph>height</codeph>、<codeph>percentWidth</codeph>、<codeph>percentHeight</codeph> などのプロパティを設定することになります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setConstraintValue"><apiName>setConstraintValue</apiName><shortdesc conref="mx.core.IConstraintClient#setConstraintValue()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.IConstraintClient#setConstraintValue()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setFocus"><apiName>setFocus</apiName><shortdesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。 コンポーネントは、受け取ったフォーカスを内部コンポーネントに設定します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutBoundsPosition"><apiName>setLayoutBoundsPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutBoundsSize"><apiName>setLayoutBoundsSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutMatrix3D"><apiName>setLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix3D"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutMatrix"><apiName>setLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setVisible"><apiName>setVisible</apiName><shortdesc>
+      visible プロパティが変更されたときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc><codeph>visible</codeph> プロパティの新しい値です。 <codeph>true</codeph> を指定するとコンポーネントが表示され、<codeph>false</codeph> を指定すると非表示になります。 
+           </apiDesc></apiParam><apiParam><apiItemName>noEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は、イベントは送出されません。 <codeph>false</codeph> の場合は、コンポーネントが表示されたときに <codeph>show</codeph> イベントが送出され、コンポーネントが非表示になったときに <codeph>hide</codeph> イベントが送出されます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>visible</codeph> プロパティが変更されたときに呼び出されます。コンポーネントの表示と非表示を切り替えるには、このメソッドを直接呼び出す代わりに <codeph>visible</codeph> プロパティを設定してください。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:transformAround"><apiName>transformAround</apiName><shortdesc>
+      コンポーネントの独自の座標空間内で指定され、親の座標空間内に固定される、特定のポイントを保持して変換の回転、拡大 / 縮小および平行移動を更新するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transformCenter</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>親との相対位置を固定したままにするための、コンポーネントの独自の座標内のポイントです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>translation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutScale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>    
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutRotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTranslation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの独自の座標空間内で指定され、親の座標空間内に固定される、特定のポイントを保持して変換の回転、拡大 / 縮小および平行移動を更新するためのユーティリティメソッドです。この関数は、指定された回転、拡大 / 縮小および平行移動の値を割り当てた後、変換の中心を固定したままにするために、必要に応じて x/y/z プロパティを更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:transformPointToParent"><apiName>transformPointToParent</apiName><shortdesc>
+      このオブジェクトのローカル座標に指定されたポイントをオブジェクトの親の座標の場所に変換するユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><postLayoutPosition>A Vector3D point that will hold the post-layout
+      result. If null, the parameter is ignored.
+     
+      </postLayoutPosition></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>localPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>オブジェクトのローカル座標に指定された変換対象のポイントです。
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam><apiParam><apiItemName>postLayoutPosition</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam></apiOperationDef><apiDesc>
+      このオブジェクトのローカル座標に指定されたポイントをオブジェクトの親の座標の場所に変換するユーティリティメソッドです。レイアウト前とレイアウト後の結果が null でない場合、<codeph>position</codeph> パラメーターと <codeph>postLayoutPosition</codeph> パラメーターに結果が設定されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:transitionEnterFrameHandler"><apiName>transitionEnterFrameHandler</apiName><shortdesc>
+      この入力フレームハンドラーは、トランジションを通じて実行されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      この入力フレームハンドラーは、トランジションを通じて実行されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.flash:UIMovieClip:boundingBoxName"><apiName>boundingBoxName</apiName><shortdesc>
+      境界ボックスとして使用されるオブジェクトの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>boundingBox</apiData><apiType value="String"/><apiDefaultValue>"boundingBox"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      境界ボックスとして使用されるオブジェクトの名前です。
+           <p>境界ボックスは、コンポーネントのサイズを決定するために Flex で使用されるオブジェクトです。 実際のコンテンツは境界ボックスより大きい場合や小さい場合がありますが、Flex は、コンポーネントをレイアウトするときに境界ボックスのサイズを使用します。 このオブジェクトはオプションです。 省略した場合は、代わりにコンポーネントの実際のコンテンツサイズが使用されます。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:protected:initialized"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:autoUpdateCurrentState:get"><apiName>autoUpdateCurrentState</apiName><shortdesc>
+      Flash オブジェクトのラベルの変更をアクティブに監視する必要があるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flash オブジェクトのラベルの変更をアクティブに監視する必要があるかどうかを示します。Flex の <codeph>currentState</codeph> プロパティは、この Flash ラベルに依存しています。これに <codeph>true</codeph> を設定した場合は、すべてのフレーム（Flash オブジェクトのラベル）が照会されます。ラベルが変更された場合、それは、Flex オブジェクトの新しい <codeph>currentState</codeph> になります。
+     
+      <p>注意：このプロパティに <codeph>true</codeph> を設定すると、負荷が大きくなる場合があります。なぜなら、現在は、単一フレームごとに Flash オブジェクトに最新のラベルが要求されるからです。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:autoUpdateMeasuredSize:get"><apiName>autoUpdateMeasuredSize</apiName><shortdesc>
+      Flash オブジェクトのサイズの変更をアクティブに監視する必要があるかどうか。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flash オブジェクトのサイズの変更をアクティブに監視する必要があるかどうか。これに <codeph>true</codeph> を設定した場合は、すべてのフレーム（Flash オブジェクトのサイズ）が判別されます。サイズが変更された場合、Flash オブジェクトは、適切に伸縮してその明示的な境界に収まります（または、明示的なサイズ変更がない場合は、サイズ変更してその親に通知します）。
+     
+      <p>注意：このプロパティに <codeph>true</codeph> を設定すると、負荷が大きくなる場合があります。なぜなら、現在は、単一フレームごとに Flash オブジェクトに最新のサイズが要求されるからです。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      オートメーション関連機能を処理する委譲オブジェクト。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      オートメーション関連機能を処理する委譲オブジェクト。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationName:get"><apiName>automationName</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationValue:get"><apiName>automationValue</apiName><shortdesc conref="mx.automation.IAutomationObject#automationValue">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.automation.IAutomationObject#automationValue">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+      コンポーネントのテキストにおける 1 行目のベースラインの y 座標です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントのテキストにおける 1 行目のベースラインの y 座標です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:baseline:get"><apiName>baseline</apiName><shortdesc>
+      コンテンツ領域の上端からコンポーネントのベースライン位置までの垂直距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンテンツ領域の上端からコンポーネントのベースライン位置までの垂直距離（ピクセル単位）を表します。 このプロパティが設定されている場合、コンポーネントのベースラインはそのコンテンツ領域の上端に対して固定されます。コンテナのサイズが変更されても、コンポーネントのベースラインとそのコンテンツ領域の上端の垂直距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:bottom:get"><apiName>bottom</apiName><shortdesc>
+      コンポーネントの下端からコンテンツ領域の下端までの垂直距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンポーネントの下端からコンテンツ領域の下端までの垂直距離（ピクセル単位）を表します。 このプロパティが設定されている場合、コンポーネントの下端はそのコンテンツ領域の下端に対して固定されます。コンテナのサイズが変更されても、2 つの下端の垂直距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:protected:bounds:get"><apiName>bounds</apiName><shortdesc>
+      コンテンツの伸縮されていない境界です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      コンテンツの伸縮されていない境界です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:cachePolicy:get"><apiName>cachePolicy</apiName><shortdesc>
+      このオブジェクトのビットマップキャッシュポリシーを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>UIComponentCachePolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このオブジェクトのビットマップキャッシュポリシーを指定します。 MXML で有効な値は、<codeph>"on"</codeph>、<codeph>"off"</codeph>、<codeph>"auto"</codeph>（デフォルト）です。
+     
+      <p>ActionScript で有効な値は、<codeph>UIComponentCachePolicy.ON</codeph>、<codeph>UIComponentCachePolicy.OFF</codeph>、<codeph>UIComponentCachePolicy.AUTO</codeph>（デフォルト）です。</p>
+           <p><ul>
+        <li>値が <codeph>UIComponentCachePolicy.ON</codeph> の場合、オブジェクトは常にビットマップとしてキャッシュされます。</li>
+        <li>値が <codeph>UIComponentCachePolicy.OFF</codeph> の場合、オブジェクトはビットマップとしてキャッシュされません。</li>
+        <li>値が <codeph>UIComponentCachePolicy.AUTO</codeph> の場合、フレームワークはヒューリスティックを使用して、オブジェクトをビットマップとしてキャッシュするかどうかを判断します。</li>
+      </ul></p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:currentState:get"><apiName>currentState</apiName><shortdesc>
+      このコンポーネントの現在の状態です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントの現在の状態です。 UIMovieClip の場合、<codeph>currentState</codeph> プロパティの値は現在のフレームラベルです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:depth:get"><apiName>depth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:descriptor:get"><apiName>descriptor</apiName><shortdesc>
+      この UIComponent インスタンスの作成のために createComponentFromDescriptor() メソッドで使用した UIComponentDescriptor への参照です（存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:UIComponentDescriptor"/></apiValueDef><apiDesc>
+      この UIComponent インスタンスの作成のために <codeph>createComponentFromDescriptor()</codeph> メソッドで使用した UIComponentDescriptor への参照です（存在する場合）。 この UIComponent インスタンスが記述子から作成されていない場合、このプロパティは null です。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.UIComponentDescriptor.xml"><linktext>mx.core.UIComponentDescriptor</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:designLayer:get"><apiName>designLayer</apiName><shortdesc conref="mx.core.IVisualElement#designLayer">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:DesignLayer"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#designLayer">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:document:get"><apiName>document</apiName><shortdesc conref="mx.core.IUIComponent#document">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#document">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      コンポーネントの座標として明示的に指定されたコンポーネントの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標として明示的に指定されたコンポーネントの高さ（ピクセル単位）です。 高さが明示的に指定されていない場合、この値は <codeph>NaN</codeph> になります。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitHeight"><linktext>mx.core.UIComponent.explicitHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxHeight"><linktext>mx.core.UIComponent.explicitMaxHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxWidth"><linktext>mx.core.UIComponent.explicitMaxWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinHeight"><linktext>mx.core.UIComponent.explicitMinHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinWidth"><linktext>mx.core.UIComponent.explicitMinWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      コンポーネントの座標として明示的に指定されたコンポーネントの幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標として明示的に指定されたコンポーネントの幅（ピクセル単位）です。 幅が明示的に指定されていない場合、この値は <codeph>NaN</codeph> になります。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitWidth"><linktext>mx.core.UIComponent.explicitWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      コンポーネントが選択時にフォーカスを取得できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントが選択時にフォーカスを取得できるかどうかを示すフラグです。
+     
+      <p>最適化するには、使用するコンポーネントの子コンポーネントが IFocusManagerComponent インターフェイスを実装し、そのコンポーネントにフォーカスを取得させない場合、<codeph>focusEnabled</codeph> を <codeph>false</codeph> に設定します。これは、子コンポーネントで <codeph>addChild()</codeph> を呼び出す前に行います。</p>
+     
+      <p>これによって、FocusManager はこのコンポーネントを無視し、このコンポーネントの <codeph>tabFocusEnabled</codeph>、<codeph>tabChildren</codeph> および <codeph>mouseFocusEnabled</codeph> プロパティの変更を監視しなくなります。 これは、<codeph>addChild()</codeph> の後にはこの値を変更することも、FocusManager からの通知を期待することもできないことを意味します。</p>
+           <p>メモ：これは、<codeph>setFocus()</codeph> メソッドで、プログラムによってこのオブジェクトにフォーカスを置くことができないことを意味するものではありません。これは単に、FocusManager に Tab およびマウスの検索でこの IFocusManagerComponent コンポーネントを無視するように指示するだけです。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:focusPane:get"><apiName>focusPane</apiName><shortdesc>
+      複数のコンポーネント間で共有され、フォーカス描画のオーバーレイとして使用される単一の Sprite オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      複数のコンポーネント間で共有され、フォーカス描画のオーバーレイとして使用される単一の Sprite オブジェクトです。 コンポーネントは、親がフォーカスの設定されたコンポーネントの場合にこのオブジェクトを共有します。コンポーネントが IFocusManagerComponent インターフェイスを実装している場合には共有しません。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/focusPane"><linktext>mx.core.UIComponent.focusPane</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:hasFocusableChildren:get"><apiName>hasFocusableChildren</apiName><shortdesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="hasFocusableChildrenChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:hasLayoutMatrix3D:get"><apiName>hasLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:height:get"><apiName>height</apiName><shortdesc>
+      このオブジェクトの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      このオブジェクトの高さ（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:horizontalCenter:get"><apiName>horizontalCenter</apiName><shortdesc>
+      コンポーネントのコンテンツ領域の中心からコンポーネントの中心までの水平距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンポーネントのコンテンツ領域の中心からコンポーネントの中心までの水平距離（ピクセル単位）を表します。このプロパティが設定されている場合、コンポーネントの中心はそのコンテンツ領域の中心に対して固定されます。コンテナのサイズが変更されても、2 つの中心の水平距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:id:get"><apiName>id</apiName><shortdesc>
+      コンポーネントの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      コンポーネントの ID です。 この値はオブジェクトのインスタンス名になります。この値には、空白または特殊文字を含めないでください。 アプリケーション全体で、各コンポーネントが固有の ID を持つ必要があります。
+           <p>サードパーティー製のツールを使用してアプリケーションをテストする場合は、各コンポーネントに意味のある ID を与えます。テストツールはスクリプトの中で ID を使用してコントロールを表すため、意味のある名前を付けておくとスクリプトが読みやすくなります。 たとえば、ボタンの値には、b1 や button1 ではなく、submit_button を使用します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc>
+      このコンポーネントを親コンテナのレイアウトに含めるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このコンポーネントを親コンテナのレイアウトに含めるかどうかを指定します。 <codeph>true</codeph> の場合、オブジェクトは親コンテナのレイアウトに含まれます。 <codeph>false</codeph> の場合、オブジェクトはそのレイアウト規則に従って親コンテナによって位置付けられますが、次の子の位置の計算では無視されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:is3D:get"><apiName>is3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:isPopUp:get"><apiName>isPopUp</apiName><shortdesc>
+      コンポーネントがポップアップされたことを示すため、PopUpManager によって true に設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントがポップアップされたことを示すため、PopUpManager によって <codeph>true</codeph> に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:layoutDirection:get"><apiName>layoutDirection</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:left:get"><apiName>left</apiName><shortdesc>
+      コンポーネントのコンテンツ領域の左端からコンポーネントの左端までの水平距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンポーネントのコンテンツ領域の左端からコンポーネントの左端までの水平距離（ピクセル単位）を表します。 このプロパティが設定されている場合、コンポーネントの左端はそのコンテンツ領域の左端に対して固定されます。コンテナのサイズが変更されても、2 つの左端の水平距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/maxHeight"><linktext>mx.core.UIComponent.maxHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/maxWidth"><linktext>mx.core.UIComponent.maxWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+      このオブジェクトの測定した高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      このオブジェクトの測定した高さです。
+           <p>この数字は単なるグラフィックのピクセル数であるため、グラフィカルスキンの場合、これは通常ハードコードになります。 コードスキンの場合も、一定のサイズで描画する場合はハードコードにできます。 プロパティに応じてサイズが変わる場合は、ILayoutManagerClient により、適切なタイミングで <codeph>measure()</codeph> メソッドを呼び出して、<codeph>measuredHeight</codeph> を計算することもできます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredMinHeight:get"><apiName>measuredMinHeight</apiName><shortdesc>
+      コンポーネントのデフォルトの最小の高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントのデフォルトの最小の高さ（ピクセル単位）です。 この値は <codeph>measure()</codeph> メソッドによって設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredMinWidth:get"><apiName>measuredMinWidth</apiName><shortdesc>
+      コンポーネントのデフォルトの最小の幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントのデフォルトの最小幅（ピクセル単位）です。 この値は <codeph>measure()</codeph> メソッドによって設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+      このオブジェクトの測定した幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      このオブジェクトの測定した幅です。
+           <p>この数字は単なるグラフィックのピクセル数であるため、グラフィカルスキンの場合、これは通常ハードコードになります。 コードスキンの場合も、一定のサイズで描画する場合はハードコードにできます。 プロパティに応じてサイズが変わる場合は、ILayoutManagerClient により、適切なタイミングで <codeph>measure()</codeph> メソッドを呼び出して、<codeph>measuredHeight</codeph> を計算することもできます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/minHeight"><linktext>mx.core.UIComponent.minHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/minWidth"><linktext>mx.core.UIComponent.minWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      モジュールファクトリは、埋め込みフォントの使用時や、このコンポーネントのスタイル制御を行うスタイルマネージャーの検出時に、コンテキストとして使用されるものです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      モジュールファクトリは、埋め込みフォントの使用時や、このコンポーネントのスタイル制御を行うスタイルマネージャーの検出時に、コンテキストとして使用されるものです。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:mouseFocusEnabled:get"><apiName>mouseFocusEnabled</apiName><shortdesc>
+      コンポーネントがマウスでの選択時にフォーカスを取得できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントがマウスでの選択時にフォーカスを取得できるかどうかを示すフラグです。 <codeph>false</codeph> の場合、フォーカスは、<codeph>mouseFocusEnabled</codeph> である最初の親に移動されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:owner:get"><apiName>owner</apiName><shortdesc>
+      通常、このコンポーネントの親コンテナです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      通常、このコンポーネントの親コンテナです。 ただし、これがポップアップコンポーネントの場合、オーナーはそのコンポーネントをポップアップしたコンポーネントです。 例えば、ComboBox コントロールのドロップダウンリストのオーナーは、その ComboBox コントロール自身です。 このプロパティは、Flex ではなく、各コンポーネントによって管理されます。このため、コンポーネントをポップアップする場合は、そのコンポーネントに応じてこのプロパティを設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:parentDocument:get"><apiName>parentDocument</apiName><shortdesc>
+      このコンポーネントを含むドキュメントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントを含むドキュメントを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      コンポーネントの幅を親のサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの幅を親のサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:right:get"><apiName>right</apiName><shortdesc>
+      コンポーネントの右端からコンテンツ領域の右端までの水平距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンポーネントの右端からコンテンツ領域の右端までの水平距離（ピクセル単位）を表します。 このプロパティが設定されている場合、コンポーネントの右端はそのコンテンツ領域の右端に対して固定されます。コンテナのサイズが変更されても、2 つの右端の水平距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationX:get"><apiName>rotationX</apiName><shortdesc>
+      DisplayObject インスタンスの 3D 親コンテナを基準にした元の位置からの x 軸の回転角を度単位で示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      DisplayObject インスタンスの 3D 親コンテナを基準にした元の位置からの x 軸の回転角を度単位で示します。時計回りに回転させる場合は 0 ～ 180 の値を指定します。反時計回りに回転させる場合は 0 ～ -180 の値を指定します。この範囲を超える値は、360 を加算または減算して、範囲内に収まる値になるように調整されます。このプロパティは、Flex の 2D レイアウトによる計算時には無視されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationY:get"><apiName>rotationY</apiName><shortdesc>
+      DisplayObject インスタンスの 3D 親コンテナを基準にした元の位置からの y 軸の回転角を度単位で示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      DisplayObject インスタンスの 3D 親コンテナを基準にした元の位置からの y 軸の回転角を度単位で示します。時計回りに回転させる場合は 0 ～ 180 の値を指定します。反時計回りに回転させる場合は 0 ～ -180 の値を指定します。この範囲を超える値は、360 を加算または減算して、範囲内に収まる値になるように調整されます。このプロパティは、Flex の 2D レイアウトによる計算時には無視されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationZ:get"><apiName>rotationZ</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:rotation:get"><apiName>rotation</apiName><shortdesc conref="mx.core.IFlexDisplayObject#rotation">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.IFlexDisplayObject#rotation">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      水平方向の伸縮率を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平方向の伸縮率を指定する数値です。
+           <p>デフォルト値は 1.0 で、オブジェクトは伸縮されていない状態です。 <codeph>scaleX</codeph> が 2.0 の場合は、オブジェクトが 2 倍に拡大されています。<codeph>scaleX</codeph> が 0.5 の場合は、オブジェクトが 2 分の 1 に縮小されています。</p>
+           <p>値 0.0 は無効です。 コンポーネントを非表示にするには、0.0 に設定するのではなく、小さい値に設定するか、<codeph>visible</codeph> プロパティを <codeph>false</codeph> に設定します。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      垂直方向の伸縮率を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直方向の伸縮率を指定する数値です。
+           <p>デフォルト値は 1.0 で、オブジェクトは伸縮されていない状態です。 <codeph>scaleY</codeph> が 2.0 の場合は、オブジェクトが 2 倍に拡大されています。<codeph>scaleY</codeph> が 0.5 の場合は、オブジェクトが 2 分の 1 に縮小されています。</p>
+           <p>値 0.0 は無効です。 コンポーネントを非表示にするには、0.0 に設定するのではなく、小さい値に設定するか、<codeph>visible</codeph> プロパティを <codeph>false</codeph> に設定します。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleZ:get"><apiName>scaleZ</apiName><shortdesc>
+      z 軸方向の伸縮率を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      z 軸方向の伸縮率を指定する数値です。
+           <p>z 軸方向の拡大 / 縮小は、z=0 の平面上に配置される一般的なコンポーネントには影響を与えません。3D 変換が適用されている子を持つコンポーネント、または transformZ がゼロ以外のコンポーネントが影響を受けます。</p>
+      
+      <p>デフォルト値は 1.0 で、オブジェクトは伸縮されていない状態です。</p>
+     
+      <p>このプロパティは、Flex の 2D レイアウトによる計算時には無視されます。 </p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:systemManager:get"><apiName>systemManager</apiName><shortdesc>
+      このコンポーネントの SystemManager オブジェクトへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.managers:ISystemManager"/></apiValueDef><apiDesc>
+      このコンポーネントの SystemManager オブジェクトへの参照です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:tabFocusEnabled:get"><apiName>tabFocusEnabled</apiName><shortdesc>
+      子オブジェクトがフォーカスを取得できるかどうかを示すフラグです。Flash Player で使用される tabEnabled プロパティと似ています。一般に、キーボード入力を処理するコンポーネントの場合は true ですが、コントロールバー内のコンポーネントの中には、エディターなどの他のコンポーネントからフォーカスを取得するべきではないという理由から、false を設定するものもあります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="tabFocusEnabledChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      子オブジェクトがフォーカスを取得できるかどうかを示すフラグ
+     
+      <p>Flash Player で使用される <codeph>tabEnabled</codeph> プロパティと似ています。</p>
+     
+      <p>一般に、キーボード入力を処理するコンポーネントの場合は <codeph>true</codeph> ですが、コントロールバー内のコンポーネントの中には、エディターなどの他のコンポーネントからフォーカスを取得するべきではないという理由から、<codeph>false</codeph> を設定するものもあります。
+      </p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:toolTip:get"><apiName>toolTip</apiName><shortdesc>
+      ツールヒントに表示するテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ツールヒントに表示するテキストです。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:top:get"><apiName>top</apiName><shortdesc>
+      コントロールのコンテンツ領域の上端からコンポーネントの上端までの垂直距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コントロールのコンテンツ領域の上端からコンポーネントの上端までの垂直距離（ピクセル単位）を表します。 このプロパティが設定されている場合、コンポーネントの上端はそのコンテンツ領域の上端に対して固定されます。コンテナのサイズが変更されても、2 つの上端の垂直距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformX:get"><apiName>transformX</apiName><shortdesc conref="mx.core.UIComponent#transformX">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformX">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformY:get"><apiName>transformY</apiName><shortdesc conref="mx.core.UIComponent#transformY">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformY">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformZ:get"><apiName>transformZ</apiName><shortdesc conref="mx.core.UIComponent#transformZ">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformZ">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:tweeningProperties:get"><apiName>tweeningProperties</apiName><shortdesc>
+      EffectManager によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      EffectManager によって使用されます。 コンポーネントが Tween を実行するために EffectManager を使用していない場合は、null 以外の値を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:verticalCenter:get"><apiName>verticalCenter</apiName><shortdesc>
+      コンポーネントのコンテンツ領域の中心からコンポーネントの中心までの垂直距離（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      コンポーネントのコンテンツ領域の中心からコンポーネントの中心までの垂直距離（ピクセル単位）を表します。このプロパティが設定されている場合、コンポーネントの中心はそのコンテンツ領域の中心に対して固定されます。コンテナのサイズが変更されても、2 つの中心の垂直距離は維持されます。
+           <p>このプロパティが有効なのは、Canvas コンテナのコンポーネントで使用する場合、または layout プロパティが <codeph>absolute</codeph> に設定されている Panel コンテナまたは Application コンテナのコンポーネントで使用する場合のみです。</p>
+           <p>デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:visible:get"><apiName>visible</apiName><shortdesc>
+      表示オブジェクトが可視かどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      表示オブジェクトが可視かどうかを示します。非可視の表示オブジェクトは無効になります。例えば、ある InteractiveObject インスタンスが <codeph>visible=false</codeph> に設定されている場合、これをクリックすることはできません。 
+           <p><codeph>true</codeph> に設定すると、オブジェクトが <codeph>show</codeph> イベントを送出します。<codeph>false</codeph> に設定すると、オブジェクトが <codeph>hide</codeph> イベントを送出します。いずれの場合も、特に実装されていない限り、オブジェクトの子は <codeph>show</codeph> イベントも <codeph>hide</codeph> イベントも生成しません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:width:get"><apiName>width</apiName><shortdesc>
+      このオブジェクトの幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      このオブジェクトの幅（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:x:get"><apiName>x</apiName><shortdesc>
+      親コンテナ内におけるコンポーネントの水平位置（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      親コンテナ内におけるコンポーネントの水平位置（ピクセル単位）を指定する数値です。
+           <p>コンポーネントの親が HBox、Grid、Form などのレイアウトコンテナである場合、このプロパティを直接または <codeph>move()</codeph> の呼び出しにより設定しても、効果がないか、または一時的にしか有効になりません。これは、これらのコンテナの <codeph>x</codeph> 位置が、レイアウト計算によって設定されるためです。 ただし、親が Canvas などの絶対配置コンテナである場合は、デフォルト値が 0 であるため、<codeph>x</codeph> プロパティを常に設定する必要があります。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:y:get"><apiName>y</apiName><shortdesc>
+      親コンテナ内におけるコンポーネントの垂直位置（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      親コンテナ内におけるコンポーネントの垂直位置（ピクセル単位）を指定する数値です。
+           <p>コンポーネントの親が HBox、Grid、Form などのレイアウトコンテナである場合、このプロパティを直接または <codeph>move()</codeph> の呼び出しにより設定しても、効果がないか、または一時的にしか有効になりません。これは、これらのコンテナの <codeph>x</codeph> 位置が、レイアウト計算によって設定されるためです。 ただし、親が Canvas などの絶対配置コンテナである場合は、デフォルト値が 0 であるため、<codeph>x</codeph> プロパティを常に設定する必要があります。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:z:get"><apiName>z</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="zChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:cacheHeuristic:set"><apiName>cacheHeuristic</apiName><shortdesc>
+      オブジェクトのビットマップキャッシュを促すために Flex によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      オブジェクトのビットマップキャッシュを促すために Flex によって使用されます。 <codeph>cachePolicy</codeph> が <codeph>UIComponentCachePolicy.AUTO</codeph> の場合、<codeph>cacheHeuristic</codeph> を使用してオブジェクトの <codeph>cacheAsBitmap</codeph> プロパティがコントロールされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:maintainProjectionCenter:set"><apiName>maintainProjectionCenter</apiName><shortdesc>
+      true の場合、コンポーネントは、境界ボックスの中央の位置に投影マトリックスを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      true の場合、コンポーネントは、境界ボックスの中央の位置に投影マトリックスを保持します。コンポーネントで投影マトリックスが定義されていない場合は、自動的に追加されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:postLayoutTransformOffsets:set"><apiName>postLayoutTransformOffsets</apiName><shortdesc>
+      コンポーネントの親のレイアウトに影響を与えない方法で、コンポーネントの変換に適用できる一連の調整を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.geom:TransformOffsets"/></apiValueDef><apiDesc>
+      コンポーネントの親のレイアウトに影響を与えない方法で、コンポーネントの変換に適用できる一連の調整を定義します。例えば、90°回転するコンポーネントに合わせてレイアウトを調整する場合は、コンポーネントの <codeph>rotation</codeph> プロパティを設定します。回転するコンポーネントに合わせてレイアウトを調整 <i>しない</i> 場合は、<codeph>postLayoutTransformOffsets.rotationZ</codeph> プロパティを設定します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.flash:ContainerMovieClip"><apiName>ContainerMovieClip</apiName><shortdesc>
+  Adobe Flash Professional で Flex 用に作成するコンテナコンポーネントは、mx.flash.ContainerMovieClip クラスのサブクラスになります。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="content"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.core:IVisualElementContainer</apiBaseInterface><apiBaseClassifier>mx.flash:UIMovieClip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Flash Professional で Flex 用に作成するコンテナコンポーネントは、mx.flash.ContainerMovieClip クラスのサブクラスになります。 ContainerMovieClip のサブクラスは、Flex コンテナとして使用したり、子を保持したりできます。また、このサブクラスを使用すると、Flex コンポーネントと同じ方法で、イベントに対する応答、ビューステートとトランジションの定義およびエフェクトの操作を行うことができます。
+ 
+  <p>Flash コンテナは、1 つの Flex IUIComponent の子のみを保持できます。 ただし、この子は、別の子を追加できる Flex コンテナにすることができます。</p>
+ 
+  <p>Flash コンテナに含まれている Flex コンポーネントの <codeph>alpha</codeph> プロパティなどの表示特性を変更する場合は、Flex コンポーネントで使用されるフォントを埋め込む必要があります。 これは、Flex コンポーネントで Dissolve、Fade、Rotate の各エフェクトを使用する場合と同じ要件です。 </p>
+ 
+  <p>次の手順では、Flash Professional で Flex コンポーネントを作成する基本的なプロセスを説明します。</p>
+ 
+  <ol>
+    <li>Adobe Flash Workflow Integration Kit をインストールします。</li> 
+    <li>FLA ファイルの動的アセット用のシンボルを作成します。</li>
+    <li>コマンド実行／Flex コンテナの作成を実行して、シンボルを ContainerMovieClip クラスのサブクラスに変換します。次に、Flex で使用するように Flash Professional のパブリッシュ設定を設定し、FlexContentHolder という名前の新しいシンボルをライブラリに追加します。 シンボルは、子 Flex コンポーネントを配置できる、コンテナ内のコンテンツ領域を定義します。</li> 
+    <li>FLA ファイルを SWC ファイルとしてパブリッシュします。</li> 
+    <li>Flex アプリケーションで、他のクラスの場合と同じようにシンボルのクラス名を参照します。</li> 
+    <li>Flex アプリケーションをコンパイルするときに、<codeph>library-path</codeph> に SWC ファイルを含めます。</li>
+  </ol>
+ 
+  <p>詳細については、Flex/Flash Integration Kit （<xref href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</xref> で入手可能）に付属のドキュメントを参照してください。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.flash:ContainerMovieClip:ContainerMovieClip"><apiName>ContainerMovieClip</apiName><shortdesc>
+     コンストラクター
+     
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     コンストラクター
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.flash:ContainerMovieClip:addElementAt"><apiName>addElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:addElement"><apiName>addElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:getElementAt"><apiName>getElementAt</apiName><shortdesc>
+      ビューポートが存在し、渡されたインデックスが 0 である場合は、そのビューポートを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>インデックス位置が子リストに存在しない場合にスローされます。
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>指定されたインデックス位置にあるエレメントです。
+     
+      </apiDesc><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>取得するエレメントのインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ビューポートが存在し、渡されたインデックスが 0 である場合は、そのビューポートを返します。それ以外の場合は、RangeError をスローします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:getElementIndex"><apiName>getElementIndex</apiName><shortdesc>
+      渡されたエレメントがビューポートである場合は 0 を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>エレメントがこのオブジェクトの子ではない場合にスローされます。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiReturn><apiDesc>識別するエレメントのインデックス位置です。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/><apiDesc>識別するエレメントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      渡されたエレメントがビューポートである場合は 0 を返します。それ以外の場合は、ArgumentError をスローします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeAllElements"><apiName>removeAllElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeElementAt"><apiName>removeElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeElement"><apiName>removeElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:setElementIndex"><apiName>setElementIndex</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:swapElementsAt"><apiName>swapElementsAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index1</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>index2</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:swapElements"><apiName>swapElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element1</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>element2</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.flash:ContainerMovieClip:content:get"><apiName>content</apiName><shortdesc>
+      このコンテナの内部に表示する Flex コンテンツです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IUIComponent"/></apiValueDef><apiDesc>
+      このコンテナの内部に表示する Flex コンテンツです。
+     
+      <p>通常、ActionScript のコンテナに子を追加するには、<codeph>Container.addChild()</codeph> メソッドまたは <codeph>Container.addChildAt()</codeph> メソッドを使用します。 ただし、Flash コンテナの <codeph>ContainerMovieClip.content</codeph> プロパティに子を追加する場合、<codeph>addChild()</codeph> メソッドおよび <codeph>addChildAt()</codeph> メソッドは使用しません。 代わりに、子を現在のプロパティに直接割り当てます。  </p>
+     
+      <p>次の例は、コンテナを <codeph>ContainerMovieClip.content</codeph> プロパティに割り当てます。</p>
+      <pre>
+      &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+         xmlns:myComps="~~">
+         
+         &lt;mx:Script>
+             &lt;![CDATA[
+                 import mx.containers.HBox;
+                 import mx.controls.Image;
+     
+                 private function init():void {            
+                     // Define the Image control.
+                     var image1:Image = new Image();
+                     image1.source = "../assets/logowithtext.jpg";
+                     image1.percentWidth = 80;
+                     image1.percentHeight = 80;
+     
+                     // Define the HBox container.
+                     var hb1:HBox = new HBox();
+                     hb1.percentWidth = 100;
+                     hb1.percentHeight = 100;
+                     hb1.setStyle('borderStyle', 'solid');
+                     hb1.addChild(image1);
+     
+                     // Assign the HBox container to the 
+                     // ContainerMovieClip.content property..
+                     pFrame.content = hb1;
+                 }
+             ]]&gt;
+         &lt;/mx:Script>    
+     
+         &lt;myComps:MyPictureFrameContainer id="pFrame" 
+             initialize="init();"/>
+     &lt;/mx:Application></pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:ContainerMovieClip:numElements:get"><apiName>numElements</apiName><shortdesc>
+      ビューポイントがある場合は 1、それ以外の場合は 0 を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      ビューポイントがある場合は 1、それ以外の場合は 0 を返します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:ContainerMovieClip:scaleContentWhenResized:get"><apiName>scaleContentWhenResized</apiName><shortdesc>
+      サイズ設定によるコンテナの伸縮が Flex コンテンツの伸縮に影響を与えるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      サイズ設定によるコンテナの伸縮が Flex コンテンツの伸縮に影響を与えるかどうかを示します。
+     
+      <p>Flash コンポーネントのサイズが変更されると、新しいサイズに伸縮されます。ただし、この場合は、その子も伸縮されます。このフラグを false に設定すると、コンテナのサイズが変更されたときに、子のサイズは逆に伸縮されます。</p>
+     
+      <p>メモ：（scaleX または scaleY を使用して）コンテナが直接伸縮された場合は、コンテンツもそれに応じて伸縮されます。このプロパティは、サイズ設定によるコンテナの伸縮にのみ影響を与えます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

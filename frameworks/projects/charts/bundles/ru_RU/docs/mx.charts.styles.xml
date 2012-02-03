@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.styles"><apiName>mx.charts.styles</apiName><apiDetail/><apiClassifier id="mx.charts.styles:HaloDefaults"><apiName>HaloDefaults</apiName><shortdesc>
+  Инициализирует базовые стили по умолчанию для классов диаграмм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Инициализирует базовые стили по умолчанию для классов диаграмм. Каждая диаграмма и элемент отвечают за собственные значения стиля, однако зависят от общих значений, вычисленных классом HaloDefaults.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.charts.styles:HaloDefaults:createSelector"><apiName>createSelector</apiName><shortdesc>
+	  Создает объект CSSStyleDeclaration или возвращает уже существующий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект CSSStyleDeclaration, который соответствует имени предоставленного селектора. Если соответствующие этому имени объекты CSSStyleDeclaration отсутствуют, с помощью этого метода создается и возвращается новый объект.
+	  
+	  </apiDesc><apiType value="mx.styles:CSSStyleDeclaration"/></apiReturn><apiParam><apiItemName>selectorName</apiItemName><apiType value="String"/><apiDesc>Имя возвращаемого селектора. Если соответствующие этому имени объекты CSSStyleDeclaration отсутствуют, с помощью этого метода создается и возвращается новый объект.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>Экземпляр styleManager, используемый для получения и установки объявлений стиля.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Создает объект CSSStyleDeclaration или возвращает уже существующий.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.charts.styles:HaloDefaults:init"><apiName>init</apiName><shortdesc>
+	  Инициализирует общие значения, используемые стилями по умолчанию для классов элементов и диаграмм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>Экземпляр styleManager, используемый для получения и установки объявлений стиля.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Инициализирует общие значения, используемые стилями по умолчанию для классов элементов и диаграмм.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

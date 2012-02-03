@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts.supportClasses"><apiName>spark.layouts.supportClasses</apiName><apiDetail/><apiClassifier id="spark.layouts.supportClasses:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+  Класс LayoutBase определяет базовый класс для всех макетов Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:LayoutBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:LayoutBase 
+    <strong>Properties</strong>
+    clipAndEnableScrolling="false"
+    dropIndicator="<i>defined by the skin class</i>"
+    horizontalScrollPosition="0"
+    target="null"
+    typicalLayoutElement="null"
+    useVirtualLayout="false"
+    verticalScrollPosition="0"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс LayoutBase определяет базовый класс для всех макетов Spark. Для создания пользовательского макета, работающего с контейнерами Spark, необходимо расширить класс <codeph>LayoutBase</codeph> или один из его подклассов.
+   <p>Как минимум, подклассы должны обеспечивать реализацию метода <codeph>updateDisplayList()</codeph>, обеспечивающего позиционирование и изменение размеров <codeph>target</codeph> элементов GroupBase, а также метода <codeph>measure()</codeph>, вычисляющего размер <codeph>target</codeph> по умолчанию.</p>
+   <p>Подклассы могут переопределять такие методы, как <codeph>getElementBoundsAboveScrollRect()</codeph> и <codeph>getElementBoundsBelowScrollRect()</codeph> для настройки поведения целевого объекта при подключении к полосам прокрутки.</p>
+ 
+  <p>Подклассы, поддерживающие виртуализацию, должны учитывать свойство <codeph>useVirtualLayout</codeph> и извлекать только элементы макета в scrollRect (значение <codeph>getScrollRect()</codeph>) с использованием <codeph>getVirtualElementAt()</codeph> из <codeph>updateDisplayList()</codeph>.</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts.supportClasses:LayoutBase:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDragScrollDelta"><apiName>calculateDragScrollDelta</apiName><shortdesc>
+      Вычисляет значение прокрутки для указанного dropLocation во время операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Значение для прокрутки при перетаскивании или значение null, если прокрутка при перетаскивании не требуется.
+           </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Допустимый объект DropLocation, ранее полученный при вызове метода <codeph>calculateDropLocation()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="Number"/><apiDesc>Продолжительность в миллисекундах с начала прокрутки перетаскивания.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вычисляет значение прокрутки для указанного <codeph>dropLocation</codeph> во время операции перетаскивания. Вызывается методом <codeph>showDropIndicator()</codeph> для вычисления прокрутки во время прокрутки перетаскивания.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>calculateDropIndicatorBounds()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      Возвращает индекс, указывающий на то, где должен быть вставлен новый элемент, когда пользователь отпускает кнопку мыши в указанных координатах при завершении операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Индекс перетаскивания или -1, если операция перетаскивания не доступна для указанных координат.
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Координата x операции перетаскивания в локальных координатах.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Координата y операции перетаскивания в локальных координатах целевого объекта перетаскивания.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает индекс, указывающий на то, где должен быть вставлен новый элемент, когда пользователь отпускает кнопку мыши в указанных координатах при завершении операции перетаскивания. Вызывается методом <codeph>calculatedDropLocation()</codeph>.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>calculateDropLocation()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      Вычисляет границы для индикатора перетаскивания с целью визуального представления точки вставки элементов при завершении операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы для индикатора перетаскивания или значение null.
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Допустимый объект DropLocation, ранее возвращенный методом <codeph>calculateDropLocation()</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вычисляет границы для индикатора перетаскивания с целью визуального представления точки вставки элементов при завершении операции перетаскивания. Вызывается методом <codeph>showDropIndicator()</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDragScrollDelta()"><linktext>calculateDragScrollDelta()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:calculateDropLocation"><apiName>calculateDropLocation</apiName><shortdesc>
+      Вычисляет местоположение перетаскивания в поставщике данных целевого объекта перетаскивания для указанного dragEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает местоположение перетаскивания для этого события или значение null, если операция перетаскивания недоступна.
+     
+      </apiDesc><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier></apiReturn><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>Событие перетаскивания, отправленное DragManager.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вычисляет местоположение перетаскивания в поставщике данных целевого объекта перетаскивания для указанного <codeph>dragEvent</codeph>.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:clearVirtualLayoutCache"><apiName>clearVirtualLayoutCache</apiName><shortdesc>
+      Если useVirtualLayout имеет значение true, этот метод может использоваться целевым объектом макета для очистки кэшированной информации о макете в случае изменения целевого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Если <codeph>useVirtualLayout</codeph> имеет значение <codeph>true</codeph>, этот метод может использоваться целевым объектом макета для очистки кэшированной информации о макете в случае изменения целевого объекта.   
+     
+      <p>Например, при изменении свойств <codeph>dataProvider</codeph> или <codeph>itemRenderer</codeph> DataGroup кэшированные размеры элементов станут недействительными. </p>
+     
+      <p>При изменении значения свойства <codeph>useVirtualLayout</codeph> на <codeph>false</codeph> этот метод вызывается автоматически.</p>
+     
+      <p>Подклассы, поддерживающие <codeph>useVirtualLayout</codeph> = <codeph>true</codeph>, должны перезаписывать этот метод. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementAdded"><apiName>elementAdded</apiName><shortdesc>
+      Вызывается целевым объектом после добавления элемента макета и до того, как размер целевого объекта и список отображения будут проверены.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс добавленного элемента.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается целевым объектом после добавления элемента макета и до того, как размер целевого объекта и список отображения будут проверены. Макеты, кэширующие состояние для каждого элемента, такие как виртуальные макеты, могут переопределить этот метод для обновления собственного кэша. 
+     
+      <p>При вызове метода целевым объектом гарантируется только то, что элемент макета будет существовать в указанной позиции индекса в момент выполнения <codeph>updateDisplayList()</codeph>. Так, например, элемент DataGroup с виртуальным макетом обеспечит вызов этого метода после добавления элемента к <codeph>dataProvider</codeph> целевого объекта.</p>
+     
+      <p>По умолчанию данный метод не выполняет никаких действий.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementRemoved"><linktext>elementRemoved</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementRemoved"><apiName>elementRemoved</apiName><shortdesc>
+      Этот метод должен вызываться целевым объектом после удаления элемента макета и до того, как размер целевого объекта и список отображения будут проверены.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс добавленного элемента.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод должен вызываться целевым объектом после удаления элемента макета и до того, как размер целевого объекта и список отображения будут проверены. Макеты, кэширующие состояние для каждого элемента, такие как виртуальные макеты, могут переопределить этот метод для обновления собственного кэша. 
+     
+      <p>При вызове метода целевым объектом гарантируется только то, что элемент макета не будет существовать в указанной позиции индекса в момент выполнения <codeph>updateDisplayList()</codeph>. Например, DataGroup с виртуальным макетом вызывает этот метод, когда элемент добавляется к свойству <codeph>dataProvider</codeph>.</p>
+     
+      <p>По умолчанию данный метод не выполняет никаких действий.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementAdded"><linktext>elementAdded</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsAboveScrollRect"><apiName>getElementBoundsAboveScrollRect</apiName><shortdesc>
+      Возвращает границы первого элемента макета, охватывающего верхний край scrollRect или находящегося над ним.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы первого элемента макета, охватывающего верхний край scrollRect или находящегося над ним.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ScrollRect целевого объекта.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает границы первого элемента макета, охватывающего верхний край scrollRect или находящегося над ним.
+     
+      <p>Это стандартный метод, используемый реализацией метода <codeph>getHorizontalScrollPositionDelta()</codeph>по умолчанию. Подклассы, зависящие от реализации <codeph>getVerticalScrollPositionDelta()</codeph> по умолчанию, должны обеспечить изменение этого метода для предоставления точного ограничивающего прямоугольника, имеющего допустимые значения свойств <codeph>top</codeph> и <codeph>bottom </codeph>.</p>
+     
+      <p>По умолчанию этот метод возвращает Rectangle со значениями width=0, height=1, верхний край которого меньше верхнего края <codeph>scrollRect</codeph>, и left=0.</p>
+     
+      <p>Подклассы должны обеспечить переопределение этого метода для предоставления точного ограничивающего прямоугольника, имеющего допустимые значения свойств <codeph>top</codeph> и <codeph>bottom</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsBelowScrollRect"><apiName>getElementBoundsBelowScrollRect</apiName><shortdesc>
+      Возвращает границы первого элемента макета, охватывающего нижний край scrollRect или находящегося ниже края.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы первого элемента, охватывающего нижнюю границу scrollRect или находящегося ниже края.
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ScrollRect целевого объекта.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает границы первого элемента макета, охватывающего нижний край scrollRect или находящегося ниже края.
+           <p>Это стандартный метод, используемый реализацией метода <codeph>getHorizontalScrollPositionDelta()</codeph>по умолчанию. Подклассы, зависящие от реализации <codeph>getVerticalScrollPositionDelta()</codeph> по умолчанию, должны обеспечить изменение этого метода для предоставления точного ограничивающего прямоугольника, имеющего допустимые значения свойств <codeph>top</codeph> и <codeph>bottom </codeph>.</p>
+           <p>По умолчанию этот метод возвращает Rectangle со значениями width=0, height=1, нижний край которого больше нижнего края <codeph>scrollRect</codeph>, и left=0.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsLeftOfScrollRect"><apiName>getElementBoundsLeftOfScrollRect</apiName><shortdesc>
+      Возвращает границы первого элемента макета, охватывающего левый край scrollRect или находящегося слева от него.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы первого элемента, охватывающего левый край scrollRect или находящегося слева от него.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ScrollRect целевого объекта.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает границы первого элемента макета, охватывающего левый край scrollRect или находящегося слева от него.
+     
+      <p>Это стандартный метод, используемый реализацией метода <codeph>getHorizontalScrollPositionDelta()</codeph> по умолчанию. Подклассы, зависящие от реализации <codeph>getHorizontalScrollPositionDelta()</codeph> по умолчанию должны обеспечить изменение этого метода для предоставления точной ограничивающего прямоугольника, имеющего допустимые свойства <codeph>left</codeph> и <codeph>right</codeph>.</p>
+     
+      <p>По умолчанию этот метод возвращает Rectangle со значениями width=1, height=0, левый край которого меньше левого края <codeph>scrollRect</codeph>, и top=0.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsRightOfScrollRect"><apiName>getElementBoundsRightOfScrollRect</apiName><shortdesc>
+      Возвращает границы первого элемента макета, охватывающего правый край scrollRect или находящегося справа от нее.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы первого элемента, охватывающего правый край scrollRect или находящегося справа от него.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ScrollRect целевого объекта.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает границы первого элемента макета, охватывающего правый край scrollRect или находящегося справа от нее.
+     
+      <p>Это стандартный метод, используемый реализацией метода <codeph>getHorizontalScrollPositionDelta()</codeph> по умолчанию. Подклассы, зависящие от реализации <codeph>getHorizontalScrollPositionDelta()</codeph> по умолчанию должны обеспечить изменение этого метода для предоставления точной ограничивающего прямоугольника, имеющего допустимые свойства <codeph>left</codeph> и <codeph>right</codeph>.</p>
+     
+      <p>По умолчанию этот метод возвращает Rectangle со значениями width=1, height=0, правый край которого больше правого края <codeph>scrollRect</codeph>, и top=0.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getElementBounds"><apiName>getElementBounds</apiName><shortdesc>
+      Возвращает границы макета указанного элемента в виде элемента Rectangle или значения null, если индекс недействителен, соответствующий элемент имеет значение null, includeInLayout=false или значением свойства target этого макета является null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Границы макета указанного элемента.
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс элемента макета.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает границы макета указанного элемента в виде элемента Rectangle или значения null, если индекс недействителен, соответствующий элемент имеет значение null, <codeph>includeInLayout=false</codeph> или значением свойства <codeph>target</codeph> этого макета является null.
+       
+      <p>Подклассы макета, поддерживающие соотношение <codeph>useVirtualLayout=true</codeph>, должны обеспечить переопределение этого метода для вычисления возможного приблизительного значения элементов, отсутствующих в области отображения.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsX()"><linktext>mx.core.ILayoutElement.getLayoutBoundsX()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsY()"><linktext>mx.core.ILayoutElement.getLayoutBoundsY()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsWidth()"><linktext>mx.core.ILayoutElement.getLayoutBoundsWidth()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsHeight()"><linktext>mx.core.ILayoutElement.getLayoutBoundsHeight()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getHorizontalScrollPositionDelta"><apiName>getHorizontalScrollPositionDelta</apiName><shortdesc>
+      Возвращает изменение горизонтального положения прокрутки для работы с различными параметрами прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Изменение горизонтального положения прокрутки.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Принимает следующие значения: 
+      <ul>
+      <li> 
+      <codeph>END</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание scrollRect по правому краю в области содержимого.
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание элемента scrollRect по левому краю в области содержимого.
+      </li>
+     
+      <li> 
+      <codeph>LEFT</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по левому краю scrollRect с первым элементом, охватывающим левый край scrollRect или находящимся слева от него.
+      </li>
+     
+      <li>
+      <codeph>PAGE_LEFT</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по правому краю scrollRect с первым элементом, охватывающим левый край scrollRect или находящимся слева от него.
+      </li>
+     
+      <li> 
+      <codeph>PAGE_RIGHT</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по левому краю scrollRect с первым элементом, охватывающим правый край scrollRect или находящимся справа от него.
+      </li>
+     
+      <li> 
+      <codeph>LEFT</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по правому краю scrollRect с первым элементом, охватывающим правый край scrollRect или находящимся справа от него.
+      </li>
+           </ul>
+     
+      <p>Реализация вызывает методы <codeph>getElementBoundsLeftOfScrollRect()</codeph> и <codeph>getElementBoundsRightOfScrollRect()</codeph> для определения границ элементов. Классы макета обычно переопределяют эти методы вместо метода <codeph>getHorizontalScrollPositionDelta()</codeph>.</p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает изменение горизонтального положения прокрутки для работы с различными параметрами прокрутки. Эти параметры определяются классом NavigationUnit: <codeph>END</codeph>, <codeph>HOME</codeph>, <codeph>LEFT</codeph>, <codeph>PAGE_LEFT</codeph>, <codeph>PAGE_RIGHT</codeph> и <codeph>RIGHT</codeph>. 
+          
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getNavigationDestinationIndex"><apiName>getNavigationDestinationIndex</apiName><shortdesc>
+      Метод делегирования, определяющий, к какому элементу необходимо перейти на основе текущего элемента в фокусе и данных, вводимых пользователем в виде константы NavigationUnit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Индекс следующего элемента, к которому необходимо перейти. Возвращает -1, если константа navigationUnit не распознается макетом.  
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>currentIndex</apiItemName><apiType value="int"/><apiDesc>Текущий индекс элемента, находящегося в фокусе.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Константа NavigationUnit, определяющая следующий элемент, к которому необходимо перейти.  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>arrowKeysWrapFocus</apiItemName><apiType value="Boolean"/><apiDesc>Если значение <codeph>true</codeph>, навигация с помощью клавиш стрелок внутри компонента приведет к переносу при достижении любого из концов.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод делегирования, определяющий, к какому элементу необходимо перейти на основе текущего элемента в фокусе и данных, вводимых пользователем в виде константы NavigationUnit. Этот метод используется подклассами ListBase для обработки навигации с помощью клавиатуры. ListBase обеспечивает сопоставление данных, введенных пользователем, с константами NavigationUnit. 
+     
+      <p>Подклассы позволяют изменить этот метод для вычисления других значений на основе текущего индекса и выявленных нажатий клавиш. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getScrollPositionDeltaToElement"><apiName>getScrollPositionDeltaToElement</apiName><shortdesc>
+     Вычисляет дельты verticalScrollPosition и horizontalScrollPosition, необходимые для прокрутки элемента под заданным индексом в видимую область.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект Point, содержащий смещения для horizontalScrollPosition и verticalScrollPosition, обеспечивающие прокрутку определенного элемента с его переводом в видимую область, или значение null, если изменения не требуются. Если указанный элемент является частично видимым и больше прямоугольника прокрутки, и при этом он уже является единственным видимым элементом, возвращается значение null. Если указанный индекс недействителен или целевому объекту соответствует значение null, возвращается значение null. Если элемент в указанном индексе имеет значение null или значением свойства includeInLayout является false, возвращается null.
+    
+     </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс элемента, который должен быть прокручен с переводом в видимую область.
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Вычисляет дельты <codeph>verticalScrollPosition</codeph> и <codeph>horizontalScrollPosition</codeph>, необходимые для прокрутки элемента под заданным индексом в видимую область.
+    
+     <p>Этот метод обеспечивает попытку минимизации изменений <codeph>verticalScrollPosition</codeph> и <codeph>horizontalScrollPosition</codeph>.</p>
+    
+     <p>Если <codeph>clipAndEnableScrolling</codeph> имеет значение <codeph>true</codeph> и элемент в указанной позиции индекса не полностью видим относительно прямоугольника прокрутки целевого объекта, необходимо вернуть значение дельты, которое должно быть добавлено к свойствам <codeph>horizontalScrollPosition</codeph> и <codeph>verticalScrollPosition</codeph> обеспечивающим полную прокрутку элемента в пределах границ прямоугольника прокрутки.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/clipAndEnableScrolling"><linktext>clipAndEnableScrolling</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/udpdateScrollRect()"><linktext>udpdateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getScrollRect"><apiName>getScrollRect</apiName><shortdesc>
+      Возвращает границы прямоугольника прокрутки целевого объекта в координатах макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Границы scrollRect целевого объекта в координатах макета; null, если целевому объекту или clipAndEnableScrolling соответствует значение false. 
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает границы прямоугольника прокрутки целевого объекта в координатах макета. Методы макета не должны обеспечивать непосредственное получение прямоугольника прокрутки целевого объекта.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getVerticalScrollPositionDelta"><apiName>getVerticalScrollPositionDelta</apiName><shortdesc>
+      Возвращает изменение вертикального положения прокрутки для работы с различными параметрами прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Изменение вертикального положения прокрутки.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Принимает следующие значения: 
+      <ul>
+      <li> 
+      <codeph> DOWN</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по нижнему краю scrollRect с первым элементом, охватывающим нижний край scrollRect или находящимся ниже него.
+      </li>
+     
+      <li> 
+      <codeph>END</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание scrollRect по нижнему краю в области содержимого.
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание элемента scrollRect по верхнему краю в области содержимого.
+      </li>
+     
+      <li> 
+      <codeph>PAGE_DOWN</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по верхнему краю scrollRect с первым элементом, охватывающим нижний край scrollRect или находящимся ниже него.
+      </li>
+     
+      <codeph>PAGE_UP</codeph>
+      <li>
+      Возвращает дельту прокрутки, обеспечивающую выравнивание по нижнему краю scrollRect с первым элементом, охватывающим верхний край scrollRect или находящимся выше него.
+      </li>
+           <li> 
+      <codeph>UP</codeph> Возвращает дельту прокрутки, обеспечивающую выравнивание по верхнему краю scrollRect с первым элементом, охватывающим верхний край scrollRect или находящимся выше него.
+      </li>
+           </ul>
+     
+      <p>Реализация вызывает методы <codeph>getElementBoundsAboveScrollRect()</codeph> и <codeph>getElementBoundsBelowScrollRect()</codeph> для определения границ элементов. Классы макета обычно переопределяют эти методы вместо метода <codeph>getVerticalScrollPositionDelta()</codeph>. </p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает изменение вертикального положения прокрутки для работы с различными параметрами прокрутки. Эти параметры определяются классом NavigationUnit: <codeph>DOWN</codeph>, <codeph>END</codeph>, <codeph>HOME</codeph>, <codeph>PAGE_DOWN</codeph>, <codeph>PAGE_UP</codeph> и <codeph>UP</codeph>. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:hideDropIndicator"><apiName>hideDropIndicator</apiName><shortdesc>
+      Скрывает показанный ранее индикатор перетаскивания, созданный методом showDropIndicator(), удаляет его из списка отображения и также останавливает прокрутку перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Скрывает показанный ранее индикатор перетаскивания, созданный методом <codeph>showDropIndicator()</codeph>, удаляет его из списка отображения и также останавливает прокрутку перетаскивания.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:measure"><apiName>measure</apiName><shortdesc>
+      Обеспечивает измерение размера целевого объекта по умолчанию на основе его содержимого и дополнительно измеряет минимальный размер целевого объекта по умолчанию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает измерение размера целевого объекта по умолчанию на основе его содержимого и дополнительно измеряет минимальный размер целевого объекта по умолчанию.
+           <p>Это один из тех методов, которые должны быть переопределены при создании подкласса LayoutBase. Другим методом является <codeph>updateDisplayList()</codeph>. Вызов этих методов напрямую не требуется. Этот метод вызывается в среде Flex при передаче макета. Передача макета включает в себя три этапа.</p>
+           <p>Сначала, если свойства целевого объекта являются недопустимыми, LayoutManager обеспечивает вызов метода <codeph>commitProperties</codeph> для целевого объекта.</p>
+           <p>Сначала, если свойства целевого объекта являются недопустимыми, LayoutManager обеспечивает вызов метода <codeph> validateSize()</codeph> для целевого объекта. Метод целевого объекта <codeph>validateSize()</codeph> в свою очередь вызовет метод макета <codeph>measure()</codeph> для вычисления размера целевого объекта по умолчанию, если он не был явным образом задан с помощью свойств <codeph>explicitWidth</codeph> и <codeph>explicitHeight</codeph> целевого объекта. При изменении размера по умолчанию список отображения целевого объекта в среде Flex будет признан недействительным.</p>
+           <p>На последнем этапе, если список отображения целевого объекта является недействительным, LayoutManager обеспечит вызов метода <codeph>validateDisplayList </codeph>для целевого объекта. Метод <codeph>validateDisplayList</codeph>, в свою очередь, вызовет метод макета <codeph>updateDisplayList</codeph> для изменения размера и позиционирования элементов целевого объекта.</p>
+           <p>При реализации данного метода необходимо установить свойства <codeph>measuredWidth</codeph> и <codeph>measuredHeight</codeph> для определения размера целевого объекта по умолчанию. Свойства <codeph>measuredMinWidth</codeph> и <codeph>measuredMinHeight</codeph> можно дополнительно настроить для определения минимального размера по умолчанию. Типичная реализация обеспечивает итерации для элементов целевого объекта и использование методов, определенных <codeph>ILayoutElement</codeph>, для накопления предпочтительных и/или минимальных размеров элементов и последующей установки свойств <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredMinWidth</codeph> и <codeph>measuredMinHeight</codeph> целевых объектов.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:scrollPositionChanged"><apiName>scrollPositionChanged</apiName><shortdesc>
+      Вызывается при изменении свойств verticalScrollPosition или horizontalScrollPosition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается при изменении свойств <codeph>verticalScrollPosition</codeph> или <codeph>horizontalScrollPosition</codeph>.
+           <p>Реализация по умолчанию обеспечивает обновление свойства <codeph>scrollRect</codeph> целевого объекта путем вызова <codeph>updateScrollRect()</codeph>. Этот метод может быть переопределен подклассами для вычисления других значений, основанных на текущих значениях <codeph>scrollPosition</codeph> или <codeph>scrollRect</codeph>.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateScrollRect()"><linktext>updateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:showDropIndicator"><apiName>showDropIndicator</apiName><shortdesc>
+      Размеры, положение и вышестоящие объекты индикатора перетаскивания, основанные на указанном местоположении перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Определяет местоположение для отображения индикатора перетаскивания. Местоположение перетаскивания определяется методом <codeph>computeDropLocation()</codeph>.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Размеры, положение и вышестоящие объекты индикатора перетаскивания, основанные на указанном местоположении перетаскивания. Метод <codeph>calculateDropLocation()</codeph> используется для получения объекта DropLocation.
+           <p>Начинает/останавливает прокрутку при перетаскивании при соблюдении соответствующих условий.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Размеры и местоположения элементов целевого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Указывает ширину целевого объекта в пикселях по его координатам.
+           </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Указывает высоту компонента в пикселях по координатам целевого объекта.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Размеры и местоположения элементов целевого объекта.
+           <p>Это один из тех методов, которые должны быть переопределены при создании подкласса LayoutBase. Другим методом является <codeph>measure()</codeph>. Вызов этих методов напрямую не требуется. Этот метод вызывается в среде Flex при передаче макета. Передача макета включает в себя три этапа.</p>
+           <p>Сначала, если свойства целевого объекта являются недопустимыми, LayoutManager обеспечивает вызов метода <codeph>commitProperties</codeph> для целевого объекта.</p>
+           <p>Сначала, если свойства целевого объекта являются недопустимыми, LayoutManager обеспечивает вызов метода <codeph> validateSize()</codeph> для целевого объекта. Метод целевого объекта <codeph>validateSize()</codeph> в свою очередь вызовет метод макета <codeph>measure()</codeph> для вычисления размера целевого объекта по умолчанию, если он не был явным образом задан с помощью свойств <codeph>explicitWidth</codeph> и <codeph>explicitHeight</codeph> целевого объекта. При изменении размера по умолчанию список отображения целевого объекта в среде Flex будет признан недействительным.</p>
+           <p>На последнем этапе, если список отображения целевого объекта является недействительным, LayoutManager обеспечит вызов метода <codeph>validateDisplayList </codeph>для целевого объекта. Метод <codeph>validateDisplayList</codeph>, в свою очередь, вызовет метод макета <codeph>updateDisplayList</codeph> для изменения размера и позиционирования элементов целевого объекта.</p>
+           <p>Типичная реализация обеспечивает выполнение итераций для элементов целевого объекта и использование методов, определенных <codeph>ILayoutElement</codeph> для позиционирования и изменения размера элементов. После этого макет также должен обеспечивать вычисление и установку значений свойств <codeph>contentWidth</codeph> и <codeph>contentHeight</codeph>для определения области прокрутки целевого объекта.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateScrollRect"><apiName>updateScrollRect</apiName><shortdesc>
+      Вызывается целевым объектом в конце updateDisplayList для обновления scrollRect макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>Ширина целевого объекта.
+           </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>Высота целевого объекта.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается целевым объектом в конце <codeph>updateDisplayList</codeph> для обновления свойства scrollRect макета. 
+     
+      <p>Если <codeph>clipAndEnableScrolling</codeph> имеет значение <codeph>true</codeph>, реализация по умолчанию используется для установки происхождения <codeph>scrollRect</codeph> целевого объекта на <codeph>verticalScrollPosition</codeph>, <codeph>horizontalScrollPosition</codeph>. Устанавливает свой размер в параметрах <codeph>width</codeph>, <codeph>height</codeph> (немасштабированная ширина и высота целевого объекта).</p>
+     
+      <p>Если <codeph>clipAndEnableScrolling</codeph> имеет значение <codeph>false</codeph>, реализация по умолчанию обеспечивает установку значения null для свойства <codeph>scrollRect</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/target"><linktext>target</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scrollRect"><linktext>flash.display.DisplayObject.scrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList()"><linktext>updateDisplayList()</linktext></link></related-links></apiOperation><apiValue id="spark.layouts.supportClasses:LayoutBase:clipAndEnableScrolling:get"><apiName>clipAndEnableScrolling</apiName><shortdesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:dropIndicator:get"><apiName>dropIndicator</apiName><shortdesc>
+      DisplayObject, который этот макет использует для индикатора перетаскивания во время операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+       <codeph>DisplayObject</codeph>, который этот макет использует для индикатора перетаскивания во время операции перетаскивания. Как правило, это свойство не устанавливается напрямую, вместо этого определяется элемент темы оформления <codeph>dropIndicator</codeph> в классе темы оформления объекта перетаскивания.
+     
+      <p>Элемент управления List назначает это свойство в ответ на событие <codeph>DragEvent.DRAG_ENTER</codeph>. List инициализирует это свойство с помощью экземпляра его компонента темы оформления <codeph>dropIndicator</codeph>. List устанавливает это свойство в ответ на событие <codeph>DragEvent.DRAG_EXIT</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:target:get"><apiName>target</apiName><shortdesc>
+      Контейнер GroupBase, элементы которого измеряются, получают размер и располагаются с использованием этого макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:GroupBase</apiValueClassifier><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Контейнер GroupBase, элементы которого измеряются, получают размер и располагаются с использованием этого макета.
+     
+      <p>Подклассы могут обеспечить повторное определение этого установщика для выполнения операций, специфичных для целевого объекта. Например, трехмерным макетом здесь может быть установлено свойство <codeph>maintainProjectionCenter</codeph> целевого объекта.</p> 
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:typicalLayoutElement:get"><apiName>typicalLayoutElement</apiName><shortdesc>
+      Используется макетами в тех случаях, когда необходимы фиксированные размеры строк/столбцов, но при этом определенные размеры не указаны.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:ILayoutElement"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Используется макетами в тех случаях, когда необходимы фиксированные размеры строк/столбцов, но при этом определенные размеры не указаны. Используется виртуальными макетами для оценки размера элементов макета, которые не были прокручены с переводом в видимую область. 
+           <p>Это свойство ссылается на компонент, который Flex использует для определения высоты всех нижестоящих элементов контейнера, как показано в следующем примере:</p>
+     
+      <pre>
+      &lt;s:Group>
+        &lt;s:layout>
+          &lt;s:VerticalLayout variableRowHeight="false"
+              typicalLayoutElement="{b3}"/> 
+        &lt;/s:layout>
+        &lt;s:Button id="b1" label="Button 1"/>
+        &lt;s:Button id="b2" label="Button 2"/>
+        &lt;s:Button id="b3" label="Button 3" fontSize="36"/>
+        &lt;s:Button id="b4" label="Button 4" fontSize="24"/>
+      &lt;/s:Group></pre>
+     
+      <p>Если это свойство не было установлено и целевому объекту не соответствует значение null, кэшируется и возвращается первый элемент макета.</p>
+     
+      <p>Значением по умолчанию является первый элемент макета целевого объекта.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.supportClasses.target.xml"><linktext>target</linktext></link><link href="spark.layouts.xml#VerticalLayout/variableRowHeight"><linktext>spark.layouts.VerticalLayout.variableRowHeight</linktext></link><link href="spark.layouts.xml#HorizontalLayout/variableColumnWidth"><linktext>spark.layouts.HorizontalLayout.variableColumnWidth</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:useVirtualLayout:get"><apiName>useVirtualLayout</apiName><shortdesc>
+      В контейнере может находиться любое число нижестоящих элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      В контейнере может находиться любое число нижестоящих элементов. Однако каждому нижестоящему элементу требуется экземпляр средства визуализации. Если контейнер содержит много нижестоящих элементов, возможно уменьшение производительности при последующем добавлении дополнительных нижестоящих элементов в контейнер. 
+           <p>Вместо создания средства визуализации для каждого нижестоящего элемента можно настроить контейнер для использования виртуального макета. При работе с виртуальным макетом контейнер повторно использует средства визуализации элементов, создавая, таким образом, средства визуализации только для текущих нижестоящих элементов контейнера. Когда нижестоящий элемент перемещается за пределы экрана, например при прокрутке контейнера, его средство визуализации может использоваться новым нижестоящим элементом, который появляется на экране при прокрутке. </p>
+      
+      <p>Для настройки контейнера с целью использования виртуального макета необходимо установить свойство <codeph>useVirtualLayout</codeph> на значение <codeph>true</codeph> для макета, ассоциированного с данным контейнером. Виртуальный макет поддерживается только DataGroup или SkinnableDataContainer с макетом, для которого установлено значение VerticalLayout, HorizontalLayout или TileLayout. Не поддерживающие виртуализацию подклассы макета должны предотвращать изменение этого свойства. </p>
+           <p><b>Примечание: </b>Класс BasicLayout создает ошибку во время выполнения программы, если Вы устанавливаете <codeph>useVirtualLayout</codeph> к <codeph>true</codeph>.</p>
+     
+      <p>При значении <codeph>true</codeph> поддерживающие виртуализацию макеты должны использовать метод <codeph>target.getVirtualElementAt()</codeph>, а не <codeph>getElementAt()</codeph>, а также должны получать только элементы, ожидаемые ими, которые будут видимы при выдаче значения <codeph>getScrollRect()</codeph>.</p>
+     
+      <p>При значении <codeph>true</codeph>, класс Layout должен обеспечивать вычисление индексов элементов макета, которые перекрывают <codeph>scrollRect</codeph> в его методе <codeph>updateDisplayList()</codeph>, основанного исключительно на кэшируемой информации, а не путем получения элементов макета и определения их границ.</p>
+     
+      <p>Как правило, виртуальные макеты обновляют кэшируемую информацию через метод <codeph>updateDisplayList()</codeph>на основе размеров и местоположений, вычисленных для элементов в представлении.</p>
+     
+      <p>Подобным образом, в методе <codeph>measure()</codeph> виртуальные макеты должны не измерять элементы, а обновить свойства измеренного размера целевого объекта, основанные на <codeph>typicalLayoutElement</codeph> и другой кэшируемой информации макета.</p>
+     
+      <p>Контейнеры обмениваются данными с макетами, имеющими <codeph>useVirtualLayout</codeph> = <codeph>true</codeph>, путем повторного использования средств визуализации элементов, которые были созданы ранее, но более не используются. Элемент считается неиспользуемым, если его индекс находится вне диапазона индексов <codeph>getVirtualElementAt()</codeph> запрашиваемых в процессе самого последнего вызова <codeph>updateDisplayList()</codeph> контейнера.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getScrollRect"><linktext>getScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/typicalLayoutElement"><linktext>typicalLayoutElement</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#verticalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#verticalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts.supportClasses:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+  Класс DropLocation содержит информацию, описывающую местоположение перетаскивания для перетаскиваемых данных при операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DropLocation содержит информацию, описывающую местоположение перетаскивания для перетаскиваемых данных при операции перетаскивания. 
+ 
+  <p><codeph>DropLocation</codeph> создается классом <codeph>LayoutBase</codeph>, когда <codeph>List</codeph> вызывает метод <codeph>calculateDropLocation()</codeph> макета в ответ на <codeph>dragOver</codeph>.</p>
+ 
+  <p>Класс DropLocation используется макетом для различных операций, например для вычисления границ индикатора перетаскивания и дельт прокрутки при перетаскивании.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropLocation()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropIndicatorBounds()</linktext></link></related-links><apiConstructor id="spark.layouts.supportClasses:DropLocation:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts.supportClasses:DropLocation:dragEvent"><apiName>dragEvent</apiName><shortdesc>
+      DragEvent, ассоциированный с этим местоположением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="mx.events:DragEvent"/></apiValueDef><apiDesc>
+      <codeph>DragEvent</codeph>, ассоциированный с этим местоположением. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropIndex"><apiName>dropIndex</apiName><shortdesc>
+      Индекс перетаскивания, соответствующий событию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс перетаскивания, соответствующий событию.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropPoint"><apiName>dropPoint</apiName><shortdesc>
+      Точка события в локальных координатах целевого объекта макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      Точка события в локальных координатах целевого объекта макета.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

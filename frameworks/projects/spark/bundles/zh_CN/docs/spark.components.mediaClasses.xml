@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.mediaClasses"><apiName>spark.components.mediaClasses</apiName><apiDetail/><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+  DynamicStreamingVideoItem 类表示服务器上的一个视频流加上该流的一个比特率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoItem&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoItem 
+    <strong>Properties</strong>
+    bitrate="0"
+    streamName=""
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DynamicStreamingVideoItem 类表示服务器上的一个视频流加上该流的一个比特率。使用此类可以定义 DynamicStreamingVideoSource 类的 <codeph>streamItems</codeph> 属性的值。DynamicStreamingVideoSource 类表示流视频源，可以用于预先录制的流视频或实时流视频。  
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoItem:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:bitrate:get"><apiName>bitrate</apiName><shortdesc>
+      视频流的比特率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      视频流的比特率。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:streamName:get"><apiName>streamName</apiName><shortdesc>
+      服务器上的流名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      服务器上的流名称。使用 DynamicStreamingVideoSource 类的 <codeph>host</codeph> 属性可以指定服务器的 URI。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource/host"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource.host</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+  MuteButton 类定义 VideoPlayer 控件使用的静音按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="label"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MuteButton 类定义 VideoPlayer 控件使用的静音按钮。单击该按钮可将音量静音或取消静音。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:MuteButton_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  当用户将视频静音或取消静音时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将视频静音或取消静音时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:MuteButton:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:MuteButton:muted:get"><apiName>muted</apiName><shortdesc>
+      如果将视频的音量静音，则包含 true，否则包含 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果将视频的音量静音，则包含 <codeph>true</codeph>，否则包含 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:MuteButton:volume:get"><apiName>volume</apiName><shortdesc>
+      视频播放器的音量，指定一个介于 0 和 1 之间的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      视频播放器的音量，指定一个介于 0 和 1 之间的值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+  VolumeBar 类定义一个下拉滑块，用于控制 VideoDisplay 控件的音量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinStates><SkinState name="open" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10">
+<description>
+  下拉滑块的打开状态。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><styles><style inherit="no" name="rollOverOpenDelay" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" type="Number">
+<description>
+  在用户将鼠标移至 VideoDisplay 控件中的音量图标上方之后，在打开音量滑块之前的延迟（以毫秒为单位）。
+  
+  </description>
+<default>200
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><skinParts><SkinPart name="muteButton" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="spark.components.mediaClasses:MuteButton">
+<description>
+      定义静音/取消静音按钮的外观部件。  
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the mute/unmute button.</shortdesc></SkinPart><SkinPart name="dropDown" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="flash.display:DisplayObject">
+<description>
+      定义音量下拉滑块的下拉区域的外观部件。打开音量滑块下拉区域后，单击 <codeph>dropDown</codeph> 外观部件之外的任何位置均可关闭下拉滑块。 
+     
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the drop-down area of the volume drop-down slider.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:VSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VolumeBar 类定义一个下拉滑块，用于控制 VideoDisplay 控件的音量。默认情况下，当用户将鼠标移至 VideoDisplay 控件的音量图标上方时，将打开下拉滑块。<codeph>rollOverOpenDelay</codeph> 样式定义在打开下拉滑块之前将延迟 200 毫秒。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  当用户将音量静音或取消静音时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将音量静音或取消静音时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.OPEN_open"><apiName>open</apiName><shortdesc>
+  当用户将鼠标移至下拉滑块上方以显示该滑块时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.OPEN</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将鼠标移至下拉滑块上方以显示该滑块时分派。当用户使用键盘并键入 Ctrl-Down 打开下拉滑块时，也会分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.CLOSE_close"><apiName>close</apiName><shortdesc>
+  当因任何原因取消音量下拉滑块时分派，例如，当用户选择下拉滑块中的某个项或单击下拉滑块之外的区域时
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.CLOSE</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当因任何原因取消音量下拉滑块时分派，例如，当用户执行下列操作时：
+  <ul>
+      <li>选择下拉滑块中的某个项</li>
+      <li>单击下拉滑块之外的区域</li>
+  </ul>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:VolumeBar:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:VolumeBar:closeDropDown"><apiName>closeDropDown</apiName><shortdesc>
+      关闭下拉滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>commit</apiItemName><apiType value="Boolean"/><apiDesc>如果组件应提交下拉滑块中的值，则设置为 <codeph>true</codeph>。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      关闭下拉滑块。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:VolumeBar:openDropDown"><apiName>openDropDown</apiName><shortdesc>
+      打开下拉滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      打开下拉滑块。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:VolumeBar:protected:dropDownController:get"><apiName>dropDownController</apiName><shortdesc>
+      用于处理所有鼠标、键盘和焦点用户交互的 DropDownController 类的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:DropDownController</apiValueClassifier></apiValueDef><apiDesc>
+      用于处理所有鼠标、键盘和焦点用户交互的 DropDownController 类的实例。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:isDropDownOpen:get"><apiName>isDropDownOpen</apiName><shortdesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:muted:get"><apiName>muted</apiName><shortdesc>
+      如果将视频的音量静音，则包含 true，否则包含 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果将视频的音量静音，则包含 <codeph>true</codeph>，否则包含 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+  DynamicStreamingVideoSource 类表示流视频源，可以用于预先录制的流视频或实时流视频。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="streamItems"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoSource&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoSource 
+    <strong>Properties</strong>
+    host=""
+    initialIndex="0"
+    streamType="any"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DynamicStreamingVideoSource 类表示流视频源，可以用于预先录制的流视频或实时流视频。使用此类可定义 VideoPlayer 和 VideoDisplay 控件的视频流。
+ 
+  <p>此类支持一个流或与不同比特率关联的多个流。<codeph>VideoPlayer</codeph> 和 <codeph>VideoDisplay</codeph> 类可以将 DynamicStreamingVideoSource 实例视为其 <codeph>source</codeph> 属性。</p>
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoSource:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:host:get"><apiName>host</apiName><shortdesc>
+      视频服务器位置的 URI。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      视频服务器位置的 URI。尽管此属性为 Object 类型，但是，请将 URI 作为字符串传递。 
+     
+      <p>使用 DynamicStreamingVideoItem 类的 <codeph>streamName</codeph> 属性可以在服务器上指定流名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem/streamName"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem.streamName</linktext></link></related-links></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:initialIndex:get"><apiName>initialIndex</apiName><shortdesc>
+      首选起始索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      首选起始索引。此索引对应于应首先尝试的流项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamItems:get"><apiName>streamItems</apiName><shortdesc>
+      具有描述 FLB 文件的属性的元数据信息对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.components.mediaClasses:DynamicStreamingVideoItem"/></apiValueDef><apiDesc>
+      具有描述 FLB 文件的属性的元数据信息对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamType:get"><apiName>streamType</apiName><shortdesc>
+      尝试连接的流类型：任何流、实时流或录制流。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>any
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      尝试连接的流类型：任何流、实时流或录制流。
+     
+      <p>如果 streamType 为 <codeph>any</codeph>，则将尝试先连接到实时流。如果未找到实时流，将尝试连接到录制流。如果未找到录制流，将创建实时流。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="org.osmf.net.StreamType.xml"><linktext>org.osmf.net.StreamType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+  VideoScrubBar 类定义一个视频时间轴，显示播放头在视频中的当前位置、以前播放的视频数量和视频的已加载部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinParts><SkinPart name="playedArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      轨道上表示已播放视频的区域的可选外观部件。
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the video that's been played.</shortdesc></SkinPart><SkinPart name="loadedRangeArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      轨道上表示视频的当前已加载部分的区域的可选外观部件。
+     
+      <p>对于渐进式下载视频，该部件将对应于已下载的字节数。对于流视频，由于可以快速搜索到视频中的任意点，因此将加载整个视频。</p>
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the currently loaded in part of the video.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:HSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VideoScrubBar 类定义一个视频时间轴，显示播放头在视频中的当前位置、以前播放的视频数量和视频的已加载部分。时间轴显示在 VideoPlayer 控件底部。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:ScrubBar:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizeLoadedRangeArea"><apiName>sizeLoadedRangeArea</apiName><shortdesc>
+      设置已加载范围区域的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>loadedRangeAreaSize</apiItemName><apiType value="Number"/><apiDesc>已加载范围区域的新大小。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置已加载范围区域的大小。已加载范围区域定义时间轴上表示当前已加载的视频部分的区域。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizePlayedArea"><apiName>sizePlayedArea</apiName><shortdesc>
+      设置已播放区域的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>playedAreaSize</apiItemName><apiType value="Number"/><apiDesc>已播放区域的新大小。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置已播放区域的大小。已播放区域定义时间轴上表示已播放的视频部分的区域。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:ScrubBar:loadedRangeEnd:get"><apiName>loadedRangeEnd</apiName><shortdesc>
+      以值的形式表示的当前已加载的范围。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      以值的形式表示的当前已加载的范围。此属性与该范围的末尾相对应。
+     
+      <p>对于渐进式下载视频，该部件将对应于已下载的字节数。对于流视频，由于可以快速搜索到视频中的任意点，因此将加载整个视频。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

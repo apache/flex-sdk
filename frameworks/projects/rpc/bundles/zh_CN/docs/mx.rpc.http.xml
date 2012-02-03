@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.http"><apiName>mx.rpc.http</apiName><apiDetail/><apiClassifier id="mx.rpc.http:Operation"><apiName>Operation</apiName><shortdesc>
+ 专供 HTTPMultiService 使用的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.http:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 专供 HTTPMultiService 使用的 Operation。Operation 是指对服务执行的单个操作，通常与服务器端的单个操作对应。可以通过调用服务的同名函数或通过访问作为服务属性的 Operation 并调用 <codeph>send(param1, param2)</codeph> 方法来调用 Operation。HTTP 服务还支持 sendBody 方法，该方法使您可以直接指定 HTTP 响应的主体。如果您使用 send(param1, param2) 方法，则通常通过将操作的 argumentNames 属性与发送的参数相结合来形成该主体。这会创建一个将 argumentNames[i] 用作键，将对应的参数用作值的对象。
+ 
+ <p>将 HTTP 操作自变量放入 HTTP 主体内的确切方式由使用的 serializationFilter 决定。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc.http:HTTPMultiService</apiOperationClassifier><apiData>null</apiData><apiDesc>定义服务的 HTTPMultiService 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>服务的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建一个新的 Operation。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:Operation:send"><apiName>send</apiName><shortdesc>
+     执行 HTTP 操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>使用异步完成标记模式的 AsyncToken 调用。<codeph>token</codeph> 属性的 <codeph>result</codeph> 和 <codeph>fault</codeph> 事件中具有相同的对象。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>作为方法调用的一部分传入的可选参数。如果没有传递的参数，则参数对象将用作参数源。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     执行 HTTP 操作。传入的任何自变量都将作为操作调用的一部分传递。如果没有传递任何自变量，则类的自变量属性将用作参数源。HTTP 操作通常采用命名参数，而不采用位置参数。要提供这些参数的名称，还可以将 argumentNames 属性设置为一个属性名称数组。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     指示如何处理对同一服务操作的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指示如何处理对同一服务操作的多个调用的值。默认值为 <codeph>multiple</codeph>。允许使用的值包括：
+     <ul>
+     <li><codeph>multiple</codeph> 不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。这是默认值。</li>
+     <li><codeph>single</codeph> 一次操作仅允许执行一个请求；多个请求会生成错误。</li>
+     <li><codeph>last</codeph> 发出请求会取消所有现有请求。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      
+      服务请求的内容类型。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      服务请求的内容类型。默认值为 <codeph>application/x-www-form-urlencoded</codeph>（同带有名称/值对的常规 HTTP POST 使用相同方式发送请求）。<codeph>application/xml</codeph> 将请求按 XML 发送。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:method:get"><apiName>method</apiName><shortdesc>
+      
+      发送请求的 HTTP 方法。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      发送请求的 HTTP 方法。允许的值有 <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> 和 <codeph>DELETE</codeph>。将小写字母转换为大写字母。默认值为 <codeph>GET</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      
+      指示如何反序列化由 HTTP 调用返回的结果的值。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      指示如何反序列化由 HTTP 调用返回的结果的值。该项目的值根据以下条件确定：
+      <ul>
+      <li>返回的是 XML 还是名称/值对。</li>
+      <li>访问结果的方式；可以将结果作为 object、text 或 XML 进行访问。</li>
+      </ul>
+     
+      <p>默认值为 <codeph>object</codeph>。允许使用的值包括：</p>
+      <ul>
+      <li><codeph>object</codeph> 返回的值为 XML 并且按照 ActionScript 对象树分析。此为默认。</li>
+      <li><codeph>array</codeph> 返回的值是 XML 并且按照 ActionScript 对象树分析。但是，如果顶级对象不是数组，将创建一个新数组并且将结果设置为第一个项目。如果 makeObjectsBindable 为 true，则该数组将被包装在 ArrayCollection 中。</li>
+      <li><codeph>xml</codeph> 返回的值为 XML 并且作为 ActionScript XMLnode 对象中的文本 XML 返回。</li>
+      <li><codeph>flashvars</codeph> 返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。</li>
+      <li><codeph>text</codeph> 返回的值为文本并且未经处理。</li>
+      <li><codeph>e4x</codeph> 返回的值为 XML 并且作为 ActionScript XML 对象中的文本 XML 返回，可以使用 ECMAScript for XML (E4X) 表达式进行访问。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     rootURL 用于在为 HTTP 服务操作指定了相对 URL 时计算该操作的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     rootURL 用于在为 HTTP 服务操作指定了相对 URL 时计算该操作的 URL。rootURL 的目录名称被置于操作的任何相对 URL 的前面。通常情况下，设置 baseURL 变得更方便，因为 baseURL 直接指定目录名称，而 rootURL 指定其目录名称被前置的文件的名称。如果 rootURL 和 baseURL 都未显式设置，则将 .swf 文件的目录名称置于相对路径的前面。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      
+    如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+    如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      
+      指定是否使用 Flex 代理服务。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      指定是否使用 Flex 代理服务。默认值为 <codeph>false</codeph>。如果没有对通过 Flex 服务器的代理请求指定 <codeph>true</codeph>，则必须确保播放器可以到达目标 URL。如果 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph>，则也不可以使用 services-config.xml 文件中定义的目标。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+   使用 HTTPService 类可表示 ActionScript 中的 HTTPService 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+   使用 HTTPService 类可表示 ActionScript 中的 HTTPService 对象。当调用 HTTPService 对象的 <codeph>send()</codeph> 方法时，将发出对指定 URL 的 HTTP 请求，并且返回 HTTP 响应。可以选择向指定 URL 传递参数。如果没有使用基于服务器的代理服务，则只能使用 HTTP GET 或 POST 方法。如果将 useProxy 属性设置为 true 并使用基于服务器的代理服务，则还可以使用 HTTP HEAD、OPTIONS、TRACE 和 DELETE 方法。
+  
+   <p><b>注意：</b>由于软件限制，当使用 GET 时 HTTPService 不生成用户界面友好的错误消息。</p>
+  
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.mxml.xml#HTTPService"><linktext>mx.rpc.http.mxml.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  只要在通道尝试发送消息前没有引发错误，当调用 HTTPService 调用时将触发 invoke 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  只要在通道尝试发送消息前没有引发错误，当调用 HTTPService 调用时将触发 invoke 事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  当 HTTPService 调用失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 HTTPService 调用失败时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  当 HTTPService 调用成功返回时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 HTTPService 调用成功返回时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+      创建一个新的 HTTPService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>HTTPService 在计算相对 URL 时应使用的 URL。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>service-config.xml 文件中的 HTTPService 目标名称。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建一个新的 HTTPService。如果希望使用相对 URL 发送服务，则可能希望指定将作为确定完整 URL 的基础的 <codeph>rootURL</codeph>（例如 <codeph>Application.application.url</codeph>）。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:HTTPService:cancel"><apiName>cancel</apiName><shortdesc>
+      
+      取消上次服务调用或具有指定 ID 的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>与被取消的调用关联的 AsyncToken，如果未取消任何调用，则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要取消的调用的 messageId。可选。如果省略，将取消上一次服务调用。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      取消上次服务调用或具有指定 ID 的调用。即使网络操作可能仍在继续，也不分派 result 或 fault 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:clearResult"><apiName>clearResult</apiName><shortdesc>
+      
+      将 invoker 的 result 属性设置为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果要更新绑定到结果的任何内容，请将 设置为 <codeph>true</codeph>。否则设置为 <codeph>false</codeph>。默认值是 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      将 invoker 的 <codeph>result</codeph> 属性设置为 <codeph>null</codeph>。当结果为不再使用的较大对象时，这将非常有用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开服务的网络连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开服务的网络连接。此方法不会等待未完成的网络操作完成。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:logout"><apiName>logout</apiName><shortdesc>
+      将用户从目标中注销。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将用户从目标中注销。从目标中注销适用于使用在服务器配置中指定的同一通道连接的所有对象。例如，如果通过 my-rtmp 通道连接并且使用 RPC 组件之一注销，则通过 my-rtmp 连接的所有对象都将被注销。
+     
+      <p><b>注意：</b>Adobe 建议使用 mx.messaging.ChannelSet.logout() 方法而不是此方法。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc.http:HTTPService:send"><apiName>send</apiName><shortdesc>
+      执行 HTTPService 请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示异步完成标记的对象。该对象与 <codeph>result</codeph> 或 <codeph>fault</codeph> 事件的 <codeph>token</codeph> 属性中的对象相同。
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含名称-值对的 Object，或 XML 对象，具体取决于服务请求的内容类型。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行 HTTPService 请求。参数是可选的；但如果指定参数，所指定的值应该是包含名称/值对的 Object 或 XML 对象（取决于 <codeph>contentType</codeph>）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      为服务访问的目标设置凭据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>目标的用户名。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>目标的密码。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为服务访问的目标设置凭据。凭据适用于通过相同 ChannelSet 连接的所有服务。请注意，使用代理连接到远程目标的服务将需要改为调用 <codeph>setRemoteCredentials()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      在访问 HTTP URL 时对用户进行身份验证的用户名和密码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的用户名。
+      </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的密码。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对远程凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在访问 HTTP URL 时对用户进行身份验证的用户名和密码。这些作为 HTTP 身份验证标头的一部分从代理传递到端点。如果 <codeph>useProxy</codeph> 属性设置为 false，则忽略此属性。
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      指示由 HTTP 服务发送的数据按 application/x-www-form-urlencoded 进行编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示由 HTTP 服务发送的数据按 application/x-www-form-urlencoded 进行编码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      指示由 HTTP 服务发送的数据按 application/xml 进行编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示由 HTTP 服务发送的数据按 application/xml 进行编码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+      指示 HTTPService 对象使用 DefaultHTTPS 目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示 HTTPService 对象使用 DefaultHTTPS 目标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+      指示 HTTPService 对象使用 DefaultHTTP 目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示 HTTPService 对象使用 DefaultHTTP 目标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_DECODING"><apiName>ERROR_DECODING</apiName><shortdesc>
+      指示无法将 XML 格式的结果分析为 XML 实例或解码为对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotDecode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示无法将 XML 格式的结果分析为 XML 实例或解码为对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_ENCODING"><apiName>ERROR_ENCODING</apiName><shortdesc>
+      指示输入参数无法按 XML 编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotEncode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示输入参数无法按 XML 编码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_URL_REQUIRED"><apiName>ERROR_URL_REQUIRED</apiName><shortdesc>
+      指示 useProxy 属性设置为 false 但没有提供 url。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.URLRequired</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示 useProxy 属性设置为 false 但没有提供 url。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_ARRAY"><apiName>RESULT_FORMAT_ARRAY</apiName><shortdesc>
+      结果格式“array”与“object”相似，但是其返回的值始终为数组；这样，如果从结果格式“object”返回的结果尚不是数组，则将把该项目添加为一个新数组的第一个项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>array</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“array”与“object”相似，但是其返回的值始终为数组；这样，如果从结果格式“object”返回的结果尚不是数组，则将把该项目添加为一个新数组的第一个项目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_E4X"><apiName>RESULT_FORMAT_E4X</apiName><shortdesc>
+      结果格式“e4x”指定返回的值是一个 XML 实例，此实例可以使用 ECMAScript for XML (E4X) 表达式访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>e4x</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“e4x”指定返回的值是一个 XML 实例，此实例可以使用 ECMAScript for XML (E4X) 表达式访问。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_FLASHVARS"><apiName>RESULT_FORMAT_FLASHVARS</apiName><shortdesc>
+      结果格式“flashvars”指定返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flashvars</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“flashvars”指定返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_OBJECT"><apiName>RESULT_FORMAT_OBJECT</apiName><shortdesc>
+      结果格式“object”指定返回的值是 XML，但按照 ActionScript 对象树分析。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>object</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“object”指定返回的值是 XML，但按照 ActionScript 对象树分析。此为默认。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_TEXT"><apiName>RESULT_FORMAT_TEXT</apiName><shortdesc>
+      结果格式“text”指定 HTTPService 结果文本应为未经处理的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“text”指定 HTTPService 结果文本应为未经处理的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_XML"><apiName>RESULT_FORMAT_XML</apiName><shortdesc>
+      结果格式“xml”指定结果应作为指向父 flash.xml.XMLDocument 的第一个子项的 flash.xml.XMLNode 实例返回。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      结果格式“xml”指定结果应作为指向父 flash.xml.XMLDocument 的第一个子项的 flash.xml.XMLNode 实例返回。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      提供对服务使用的 ChannelSet 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      提供对服务使用的 ChannelSet 的访问。可以手动构造并分配 ChannelSet，否则将动态创建 <codeph> 以使用为此服务的 </codeph> 配置的通道。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     指示如何处理对同一服务的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指示如何处理对同一服务的多个调用的值。默认值为 <codeph>multiple</codeph>。允许使用的值包括：
+     <ul>
+     <li><codeph>multiple</codeph> 不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。这是默认值。</li>
+     <li><codeph>single</codeph> 一次操作仅允许执行一个请求；多个请求会生成错误。</li>
+     <li><codeph>last</codeph> 发出请求会取消所有现有请求。</li>
+     </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:contentType:get"><apiName>contentType</apiName><shortdesc>
+      服务请求的内容类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      服务请求的内容类型。默认值为 <codeph>application/x-www-form-urlencoded</codeph>（同带有名称/值对的常规 HTTP POST 使用相同方式发送请求）。<codeph>application/xml</codeph> 将请求按 XML 发送。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:destination:get"><apiName>destination</apiName><shortdesc>
+      services-config.xml 文件中的 HTTPService 目标名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      services-config.xml 文件中的 HTTPService 目标名称。未指定时，Flex 将使用 <codeph>DefaultHTTP</codeph> 目标。如果正在使用 <codeph>url</codeph> 属性，但希望请求通过 HTTPS 到达代理，则请指定 <codeph>DefaultHTTPS</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:headers:get"><apiName>headers</apiName><shortdesc>
+      发送到第三方端点的自定义 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      发送到第三方端点的自定义 HTTP 标头。如果需要以相同名称发送多个标头，应将值指定为一个数组。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      上次调用的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      上次调用的结果。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:method:get"><apiName>method</apiName><shortdesc>
+      发送请求的 HTTP 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      发送请求的 HTTP 方法。允许的值有 <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> 和 <codeph>DELETE</codeph>。将小写字母转换为大写字母。默认值为 <codeph>GET</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。如果值小于 0 或等于 0，则可阻止请求超时的发生。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:request:get"><apiName>request</apiName><shortdesc>
+      用作 URL 参数的名称/值对的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      用作 URL 参数的名称/值对的对象。如果将 <codeph>contentType</codeph> 属性设置为 <codeph>application/xml</codeph>，则它应为一个 XML 文档。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。该项目的值根据以下条件确定：
+      <ul>
+      <li>返回的是 XML 还是名称/值对。</li>
+      <li>访问结果的方式；可以将结果作为 object、text 或 XML 进行访问。</li>
+      </ul>
+     
+      <p>默认值为 <codeph>object</codeph>。允许使用的值包括：</p>
+      <ul>
+      <li><codeph>object</codeph> 返回的值为 XML 并且按照 ActionScript 对象树分析。此为默认。</li>
+      <li><codeph>array</codeph> 返回的值是 XML 并且按照 ActionScript 对象树分析。但是，如果顶级对象不是数组，将创建一个新数组并且将结果设置为第一个项目。如果 makeObjectsBindable 为 true，则该数组将被包装在 ArrayCollection 中。</li>
+      <li><codeph>xml</codeph> 返回的值为 XML 并且作为 ActionScript XMLnode 对象中的文本 XML 返回。</li>
+      <li><codeph>flashvars</codeph> 返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。</li>
+      <li><codeph>text</codeph> 返回的值为文本并且未经处理。</li>
+      <li><codeph>e4x</codeph> 返回的值为 XML 并且作为 ActionScript XML 对象中的文本 XML 返回，可以使用 ECMAScript for XML (E4X) 表达式进行访问。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。此属性仅在使用代理时使用。当 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph> 时，将根据运行此应用程序的 SWF 的位置自动计算相对 URL。如果未明确设置，将把 <codeph>rootURL</codeph> 自动设置为 mx.messaging.config.LoaderConfig.url 的 URL。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:serializationFilter:get"><apiName>serializationFilter</apiName><shortdesc>
+     提供一个适配器，用于控制将 HTTP 响应主体转换成 ActionScript 对象和/或将参数或主体转换成 HTTP 请求的 contentType、URL 和 Post 主体的过程。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     提供一个适配器，用于控制将 HTTP 响应主体转换成 ActionScript 对象和/或将参数或主体转换成 HTTP 请求的 contentType、URL 和 Post 主体的过程。也可以间接对此进行设置，方法是使用静态方法 SerializationFilter.registerFilterForResultFormat("formatName", filter) 注册 SerializationFilter，进而设置 resultFormat。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:url:get"><apiName>url</apiName><shortdesc>
+      服务的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      服务的位置。如果指定 <codeph>url</codeph> 并指定非默认目标，则 services-config.xml 文件中的目标必须允许该指定的 URL。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      指定是否使用 Flex 代理服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否使用 Flex 代理服务。默认值为 <codeph>false</codeph>。如果没有对通过 Flex 服务器的代理请求指定 <codeph>true</codeph>，则必须确保播放器可以到达目标 URL。如果 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph>，则也不可以使用 services-config.xml 文件中定义的目标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlDecode:get"><apiName>xmlDecode</apiName><shortdesc>
+      ActionScript 函数，用于解码 XML 格式的服务结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      ActionScript 函数，用于解码 XML 格式的服务结果。当 <codeph>resultFormat</codeph> 是一个对象并且设置了 <codeph>xmlDecode</codeph> 属性时，Flex 使用 HTTPService 返回的 XML 来创建对象。如果没有定义，则使用默认 XMLDecoder 进行此操作。
+      <p><codeph>xmlDecode</codeph> 属性引用的函数必须将一个 flash.xml.XMLNode 对象作为参数并应返回一个对象。返回的类型可以是任意的，但必须返回对象。返回 <codeph>null</codeph> 或 <codeph>undefined</codeph> 会导致错误。</p>
+
+    下例显示指定 xmlDecode 函数的 &lt;mx:HTTPService> 标签：
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    下例显示一个 xmlDecoder 函数：
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlEncode:get"><apiName>xmlEncode</apiName><shortdesc>
+      ActionScript 函数，用于将服务请求按 XML 编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      ActionScript 函数，用于将服务请求按 XML 编码。当请求的 <codeph>contentType</codeph> 为 <codeph>application/xml</codeph> 并且传入的请求对象是 Object 时，Flex 将尝试使用在 <codeph>xmlEncode</codeph> 属性中指定的函数将其转换为 flash.xml.XMLNode 对象；如果未设置 <codeph>xmlEncode</codeph> 属性，则 Flex 使用默认 XMLEncoder 将对象图形转换为 flash.xml.XMLNode 对象。
+     
+      <p><codeph>xmlEncode</codeph> 属性采用 Object 并且应返回 flash.xml.XMLNode 对象。在这种情况下，XMLNode 对象可以是一个 flash.xml.XML 对象（XMLNode 的子类），也可以是 flash.xml.XML 对象的第一个子项（从 <codeph>&lt;mx:XML></codeph> 标签获取的内容）。返回错误的对象类型会导致错误。下例显示指定 xmlEncode 函数的 &lt;mx:HTTPService> 标签：</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    下例显示一个 xmlEncoder 函数：
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ 专供 HTTPService 或 HTTPMultiService 使用的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 专供 HTTPService 或 HTTPMultiService 使用的 Operation。Operation 是指对服务执行的单个操作，通常与服务器端的单个操作对应。可以通过调用服务的同名函数或通过访问作为服务属性的 Operation 并调用 <codeph>send(param1, param2)</codeph> 方法来调用 Operation。HTTP 服务还支持 sendBody 方法，该方法使您可以直接指定 HTTP 响应的主体。如果您使用 send(param1, param2) 方法，则通常通过将操作的 argumentNames 属性与发送的参数相结合来形成该主体。这会创建一个将 argumentNames[i] 用作键，将对应的参数用作值的对象。
+ 
+ <p>将 HTTP 操作自变量放入 HTTP 主体内的确切方式由使用的 serializationFilter 决定。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+      创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>定义服务类型（如 HTTPMultiService、WebService 或 RemoteObject）的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>服务的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建一个新的 Operation。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:AbstractOperation:protected:getHeaders"><apiName>getHeaders</apiName><shortdesc>
+      返回 HTTP 请求头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>HTTP 请求头。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      返回 HTTP 请求头。子类可以覆盖此方法以控制 HTTP 请求头的检索。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:protected:getSerializationFilter"><apiName>getSerializationFilter</apiName><shortdesc> 
+      返回序列化过滤器。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>序列化过滤器。
+     </apiDesc><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc> 
+      返回序列化过滤器。子类可以覆盖此方法以控制 HTTP 请求头的检索。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:sendBody"><apiName>sendBody</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:AbstractOperation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     要传递给方法调用的参数名称的有序列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     要传递给方法调用的参数名称的有序列表。由于参数对象是无确定排序的 hashmap，此数组可帮助将所有内容正确放置在一起。如有必要，当以标签形式使用 Operation 时由 MXML 编译器自动设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:headers"><apiName>headers</apiName><shortdesc>
+      发送到第三方端点的自定义 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      发送到第三方端点的自定义 HTTP 标头。如果需要以相同名称发送多个标头，应将值指定为一个数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:request"><apiName>request</apiName><shortdesc>
+      用作 URL 参数的名称/值对的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      用作 URL 参数的名称/值对的对象。如果将 <codeph>contentType</codeph> 属性设置为 <codeph>application/xml</codeph>，则它应为一个 XML 文档。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:serializationFilter"><apiName>serializationFilter</apiName><shortdesc>
+     SerializationFilter 可以控制对自变量进行格式设置的方式，以形成 HTTP 请求的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     SerializationFilter 可以控制对自变量进行格式设置的方式，以形成 HTTP 请求的内容。它还控制将结果转换为 ActionScript 对象的方法。可以使用此属性对其进行显式设置，也可以使用 resultFormat 属性对其进行间接设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlDecode"><apiName>xmlDecode</apiName><shortdesc>
+      ActionScript 函数，用于解码 XML 格式的服务结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      ActionScript 函数，用于解码 XML 格式的服务结果。当 <codeph>resultFormat</codeph> 是一个对象并且设置了 <codeph>xmlDecode</codeph> 属性时，Flex 使用 HTTPService 返回的 XML 来创建对象。如果没有定义，则使用默认 XMLDecoder 进行此操作。
+      <p><codeph>xmlDecode</codeph> 属性引用的函数必须将一个 flash.xml.XMLNode 对象作为参数并应返回一个对象。返回的类型可以是任意的，但必须返回对象。返回 <codeph>null</codeph> 或 <codeph>undefined</codeph> 会导致错误。</p>
+
+    下例显示指定 xmlDecode 函数的 &lt;mx:HTTPService> 标签：
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    下例显示一个 xmlDecoder 函数：
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlEncode"><apiName>xmlEncode</apiName><shortdesc>
+      ActionScript 函数，用于将服务请求按 XML 编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      ActionScript 函数，用于将服务请求按 XML 编码。当请求的 <codeph>contentType</codeph> 为 <codeph>application/xml</codeph> 并且传入的请求对象是 Object 时，Flex 将尝试使用在 <codeph>xmlEncode</codeph> 属性中指定的函数将其转换为 flash.xml.XMLNode 对象；如果未设置 <codeph>xmlEncode</codeph> 属性，则 Flex 使用默认 XMLEncoder 将对象图形转换为 flash.xml.XMLNode 对象。
+     
+      <p><codeph>xmlEncode</codeph> 属性采用 Object 并且应返回 flash.xml.XMLNode 对象。在这种情况下，XMLNode 对象可以是一个 flash.xml.XML 对象（XMLNode 的子类），也可以是 flash.xml.XML 对象的第一个子项（从 <codeph>&lt;mx:XML></codeph> 标签获取的内容）。返回错误的对象类型会导致错误。下例显示指定 xmlEncode 函数的 &lt;mx:HTTPService> 标签：</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    下例显示一个 xmlEncoder 函数：
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     指示如何处理对同一服务的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指示如何处理对同一服务的多个调用的值。默认值为 <codeph>multiple</codeph>。允许使用的值包括：
+     <ul>
+     <li><codeph>multiple</codeph> 不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。这是默认值。</li>
+     <li><codeph>single</codeph> 一次操作仅允许执行一个请求；多个请求会生成错误。</li>
+     <li><codeph>last</codeph> 发出请求会取消所有现有请求。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      服务请求的内容类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      服务请求的内容类型。默认值为 <codeph>application/x-www-form-urlencoded</codeph>（同带有名称/值对的常规 HTTP POST 使用相同方式发送请求）。<codeph>application/xml</codeph> 将请求按 XML 发送。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:method:get"><apiName>method</apiName><shortdesc>
+      发送请求的 HTTP 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      发送请求的 HTTP 方法。允许的值有 <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> 和 <codeph>DELETE</codeph>。将小写字母转换为大写字母。默认值为 <codeph>GET</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。如果在达到超时之前未从远程目标收到确认、响应或错误，则消息将在客户端上出错。如果值小于 0 或等于 0，则可阻止请求超时的发生。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。该项目的值根据以下条件确定：
+      <ul>
+      <li>返回的是 XML 还是名称/值对。</li>
+      <li>访问结果的方式；可以将结果作为 object、text 或 XML 进行访问。</li>
+      </ul>
+     
+      <p>默认值为 <codeph>object</codeph>。允许使用的值包括：</p>
+      <ul>
+      <li><codeph>object</codeph> 返回的值为 XML 并且按照 ActionScript 对象树分析。此为默认。</li>
+      <li><codeph>array</codeph> 返回的值是 XML 并且按照 ActionScript 对象树分析。但是，如果顶级对象不是数组，将创建一个新数组并且将结果设置为第一个项目。如果 makeObjectsBindable 为 true，则该数组将被包装在 ArrayCollection 中。</li>
+      <li><codeph>xml</codeph> 返回的值为 XML 并且作为 ActionScript XMLnode 对象中的文本 XML 返回。</li>
+      <li><codeph>flashvars</codeph> 返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。</li>
+      <li><codeph>text</codeph> 返回的值为文本并且未经处理。</li>
+      <li><codeph>e4x</codeph> 返回的值为 XML 并且作为 ActionScript XML 对象中的文本 XML 返回，可以使用 ECMAScript for XML (E4X) 表达式进行访问。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。此属性仅在使用代理时使用。当 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph> 时，将根据运行此应用程序的 SWF 的位置自动计算相对 URL。如果未明确设置，将把 <codeph>rootURL</codeph> 自动设置为 mx.messaging.config.LoaderConfig.url 的 URL。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:url:get"><apiName>url</apiName><shortdesc>
+      服务的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      服务的位置。如果指定 <codeph>url</codeph> 并指定非默认目标，则 services-config.xml 文件中的目标必须允许该指定的 URL。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      指定是否使用 Flex 代理服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否使用 Flex 代理服务。默认值为 <codeph>false</codeph>。如果没有对通过 Flex 服务器的代理请求指定 <codeph>true</codeph>，则必须确保播放器可以到达目标 URL。如果 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph>，则也不可以使用 services-config.xml 文件中定义的目标。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+  可以使用 &amp;lt;mx:HTTPMultiService&amp;gt; 标记表示一个 http 操作集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="operationList"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  可以使用 <codeph>&lt;mx:HTTPMultiService></codeph> 标记表示一个 http 操作集合。每个标记都具有 URL、方法、参数和返回类型。  
+ 
+  <p>可以设置属性（如 HTTPMultiService 标记上的 URL 和方法）来充当在每个单独的操作标记上设置的值的默认值。HTTPMultiService 的 URL 充当在 http 操作标记上设置的任何相对 url 的基本 url（即前缀）。每个 HTTP 操作都包含一个 <codeph>send()</codeph> 方法，用于将 HTTP 请求发送给指定的 URL 并返回 HTTP 响应。 </p>
+ 
+  <p>可以将用于将数据放入 HTTP 请求的参数传递给指定 URL。contentType 属性指定一个 MIME 类型，此类型用于确定在网络中传输的数据格式（例如 HTTP 表单编码或 XML）。  </p>
+ 
+  <p>也可以使用序列化过滤器实现自定义 resultFormat（例如 JSON）。如果没有使用基于服务器的代理服务，则只能使用 HTTP GET 或 POST 方法。如果将 <codeph>useProxy</codeph> 属性设置为 true 并使用基于服务器的代理服务，则还可以使用 HTTP HEAD、OPTIONS、TRACE 和 DELETE 方法。</p>
+ 
+  <p><b>注意：</b>与 HTTPService 类不同，HTTPMultiService 类不定义 <codeph>request</codeph> 属性。</p>
+ 
+  <p><b>注意：</b>与 HTTPService 一样，由于软件限制，当使用 GET 而不使用代理时，HTTPMultiService 不会生成用户友好的错误消息。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPService"><linktext>mx.rpc.http.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  只要在通道尝试发送消息前没有引发错误，当调用 HTTPMultiService 调用时，将引发 invoke 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  只要在通道尝试发送消息前没有引发错误，当调用 HTTPMultiService 调用时，将引发 invoke 事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  当 HTTPMultiService 调用失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 HTTPMultiService 调用失败时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  当 HTTPMultiService 调用成功返回时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 HTTPMultiService 调用成功返回时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPMultiService:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+      创建一个新的 HTTPService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>baseURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>HTTPService 在计算相对 URL 时应使用的 URL。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      创建一个新的 HTTPService。如果希望服务使用相对 URL 发送，则可能希望指定 <codeph>baseURL</codeph>，以作为确定完整 URL（例如 <codeph>Application.application.url</codeph>）的基础。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.http:HTTPMultiService:baseURL"><apiName>baseURL</apiName><shortdesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTPService 对象在计算相对 URL 时应使用的 URL。这包含一个在设置任何 URL 时置于其前面的前缀。该属性默认为 null，在这种情况下，使用 SWF 的 URL 计算相对 URL。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:contentType"><apiName>contentType</apiName><shortdesc>
+      服务请求的内容类型。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      服务请求的内容类型。默认值为 <codeph>application/x-www-form-urlencoded</codeph>（同带有名称/值对的常规 HTTP POST 使用相同方式发送请求）。<codeph>application/xml</codeph> 将请求按 XML 发送。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:headers"><apiName>headers</apiName><shortdesc>
+      发送到第三方端点的自定义 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      发送到第三方端点的自定义 HTTP 标头。如果需要以相同名称发送多个标头，应将值指定为一个数组。这些头被发送给所有操作。也可以在操作级别设置头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:makeObjectsBindable"><apiName>makeObjectsBindable</apiName><shortdesc>
+      如果为 true，则返回的对象支持将数据绑定到 UI 控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则返回的对象支持将数据绑定到 UI 控件。这意味着它们在改变其属性值时发送 PropertyChangeEvents。未显式设置 makeObjectsBindable 属性的任何操作都默认为此值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:method"><apiName>method</apiName><shortdesc>
+      用于在未对操作显示设置方法的情况下发送请求的 HTTP 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      用于在未对操作显示设置方法的情况下发送请求的 HTTP 方法。允许的值有 <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> 和 <codeph>DELETE</codeph>。将小写字母转换为大写字母。默认值为 <codeph>GET</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:serializationFilter"><apiName>serializationFilter</apiName><shortdesc> 未显式设置 serializationFilter 的所有操作使用的默认 serializationFilter </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc> 未显式设置 serializationFilter 的所有操作使用的默认 serializationFilter </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     指示如何处理对服务中同一操作的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指示如何处理对服务中同一操作的多个调用的值。此处设置的并发设置将用于未指定并发的操作。直接设置了并发设置的单个操作将忽略此处设置的值。默认值为 <codeph>multiple</codeph>。允许使用的值包括：
+     <ul>
+     <li><codeph>multiple</codeph> 不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。这是默认值。</li>
+     <li><codeph>single</codeph> 一次操作仅允许执行一个请求；多个请求会生成错误。</li>
+     <li><codeph>last</codeph> 发出请求会取消所有现有请求。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:operationList:set"><apiName>operationList</apiName><shortdesc>
+     此属性用作此实例的默认属性，以便我们可以在 MXML 中将一组操作定义为 HTTPMultiService 标记的直接子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     此属性用作此实例的默认属性，以便我们可以在 MXML 中将一组操作定义为 HTTPMultiService 标记的直接子项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示如何反序列化由 HTTP 调用返回的结果的值。该项目的值根据以下条件确定：
+      <ul>
+      <li>返回的是 XML 还是名称/值对。</li>
+      <li>访问结果的方式；可以将结果作为 object、text 或 XML 进行访问。</li>
+      </ul>
+     
+      <p>默认值为 <codeph>object</codeph>。允许使用的值包括：</p>
+      <ul>
+      <li><codeph>object</codeph> 返回的值为 XML 并且按照 ActionScript 对象树分析。此为默认。</li>
+      <li><codeph>array</codeph> 返回的值是 XML 并且按照 ActionScript 对象树分析。但是，如果顶级对象不是数组，将创建一个新数组并且将结果设置为第一个项目。如果 makeObjectsBindable 为 true，则该数组将被包装在 ArrayCollection 中。</li>
+      <li><codeph>xml</codeph> 返回的值为 XML 并且作为 ActionScript XMLnode 对象中的文本 XML 返回。</li>
+      <li><codeph>flashvars</codeph> 返回的值是包含由 &amp; 符号分隔的名称=值对的文本，该文本被分析为 ActionScript 对象。</li>
+      <li><codeph>text</codeph> 返回的值为文本并且未经处理。</li>
+      <li><codeph>e4x</codeph> 返回的值为 XML 并且作为 ActionScript XML 对象中的文本 XML 返回，可以使用 ECMAScript for XML (E4X) 表达式进行访问。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      指定是否使用 Flex 代理服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否使用 Flex 代理服务。默认值为 <codeph>false</codeph>。如果没有对通过 Flex 服务器的代理请求指定 <codeph>true</codeph>，则必须确保播放器可以到达目标 URL。如果 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph>，则也不可以使用 services-config.xml 文件中定义的目标。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:SerializationFilter"><apiName>SerializationFilter</apiName><shortdesc>
+ 对于希望插入或修改 HTTP 服务以使用新的序列化格式的框架开发人员而言，此类非常有用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 对于希望插入或修改 HTTP 服务以使用新的序列化格式的框架开发人员而言，此类非常有用。这使您可以调用服务对象上的方法，并控制如何将参数映射到特定序列化格式（例如 XML、JSON 等等）。SerializationFilter 机制还使您可以添加新的 resultFormat。
+ 
+ <p> 此类的一个实例可以管理 HTTP 请求和响应的格式设置及其参数的转换。当您使用 HTTPService 或 HTTPMultiService 时，通常是在与一个服务器通信，该服务器希望数据以特定格式提供，例如，HTML 类型表单的 URL 编码值、XML 值或 JSON 等其它序列化格式。借助于 SerializationFilter，您可以自定义 HTTPService 和 HTTPMultiService 将操作的参数转换为 HTTP 请求的主体的方式，以及将响应转换为操作的返回值的方式。框架开发人员可以通过提供 SerializationFilter 的新实现来将新的序列化格式引入系统，还可以使用这些组件以及基于这些组件构建的所有框架和工具，而无需了解格式自身的详细信息。 </p>
+ 
+ <p>首先，您应该扩展 SerializationFilter 并覆盖一个或多个转换方法。使用过滤器，可以将参数的有序列表转换为请求主体、修改请求主体、修改请求中使用的内容类型、修改请求中使用的实际 URL，以及将响应数据转换为在服务的结果事件中返回的结果对象。</p>
+ 
+ <p>有两种为特定 HTTPService 或 HTTPMultiService 指定 SerializationFilter 的方法。可以对服务设置 serializationFilter 属性，也可以为新的结果格式静态注册一个 SerializationFilter。如果使用此方法，则只需指定 resultFormat 即可使用预先注册的 SerializationFilter。例如，您可以首先为“json”类型注册一个 SerializationFilter，然后通过设置 resultFormat="json" 来使用此过滤器。</p>
+ 
+ <p>
+ 请注意，HTTPService 只提供直接采用请求主体的方法，因此不使用“serializeParameters”方法。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.http:SerializationFilter:deserializeResult"><apiName>deserializeResult</apiName><shortdesc>
+     此方法以原始格式从 HTTP 请求中获取结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>经过转换的结果，该结果随后将在服务的结果事件中提供。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>所调用的 AbstractOperation。  
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>从服务器返回的原始结果。  
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     此方法以原始格式从 HTTP 请求中获取结果。如果需要，可以将结果转换为类型化更彻底的 ActionScript 对象。为了使 SerializationFilter 更加通用，您可以使用提供的 AbstractOperation 的 resultType 或 resultElementType 属性，以便您的代码可以将传入的请求动态映射到 ActionScript 中作为返回类型配置的类型。
+     <p>
+     另请注意，AbstractOperation 包含“属性”映射，您可以使用它将其它属性作为服务调用的一部分存储在 ActionScript 中，以处理特定类型的反序列化。
+     </p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:getRequestContentType"><apiName>getRequestContentType</apiName><shortdesc>
+     此方法由 HTTP 服务在执行调用之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要用于此 HTTP 请求的内容类型。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>所调用的 AbstractionOperation。
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>要序列化的 HTTP 请求的主体
+     </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiDesc>为操作配置的 contentType
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     此方法由 HTTP 服务在执行调用之前调用。它负责选择此请求使用的 contentType。许多序列化格式都有一个固定的内容类型，因此通过此方法可能仅可以返回该内容类型。由于 HTTPService 本身配置了一个内容类型，因此将在此方法中传递该值，并由默认实现返回。此外，还为要序列化的请求主体提供了 obj 参数，以便在内容类型依赖于要发送到服务器的对象类型时使用。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:registerFilterForResultFormat"><apiName>registerFilterForResultFormat</apiName><shortdesc>
+     此静态函数用于为特定 resultFormat 值注册一个新的 SerializationFilter。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn><apiParam><apiItemName>resultFormat</apiItemName><apiType value="String"/><apiDesc>要与提供的 SerializationFilter 相关联的自定义 resultFormat 名称。  
+     </apiDesc></apiParam><apiParam><apiItemName>filter</apiItemName><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier><apiDesc>要注册的 SerializationFilter。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     此静态函数用于为特定 resultFormat 值注册一个新的 SerializationFilter。如果您在启动时调用了一次此方法，则只能将 HTTPService 或 HTTPMultiService 的 resultFormat 属性指定为使用该序列化过滤器，以使开发人员更为轻松地指定格式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeBody"><apiName>serializeBody</apiName><shortdesc>
+     HTTP 服务的所有调用操作都调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要在请求中使用的可能已转换的主体。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>所调用的 AbstractOperation
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>HTTP 请求的初始主体，即 serializeParameter 的返回值，或 HTTPService 的 sendBody 方法或 send 方法的参数。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     HTTP 服务的所有调用操作都调用此方法。它能够将提供的对象转换为适合直接置于 HTTP 请求主体中的格式。默认实现只返回作为主体传入的对象，而不进行任何转换。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeParameters"><apiName>serializeParameters</apiName><shortdesc>
+     此方法通过 HTTP 服务调用的“send”方法调用，用于将参数转换为请求主体。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要在 HTTP 请求中使用的主体
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>所调用的 AbstractOperation。
+     </apiDesc></apiParam><apiParam><apiItemName>params</apiItemName><apiType value="Array"/><apiDesc>传递给 send 方法的参数列表
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     此方法通过 HTTP 服务调用的“send”方法调用，用于将参数转换为请求主体。原始 send 调用的参数被置于参数数组中。此方法会将这组参数转换为单一对象，以用作 HTTP 请求主体的数据。默认实现将生成一个对象，其中键采用 Operation 的 argumentNames 数组中的值，值采用参数值。使用默认实现时，必须设置 argumentNames 以使其具有与参数数组相同数量的元素。
+     
+     <p>请注意，如果您使用只采用单一对象的 sendBody 方法调用 HTTP 操作，则不使用此方法。在这种情况下，将跳过此步骤，并且仅调用 serializeBody 方法。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeURL"><apiName>serializeURL</apiName><shortdesc>
+     如果您需要使用请求主体对象中的数据并将其编码为 URL 字符串，则可以使用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要用于此请求的可能已修改的 URL。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>所调用的 AbstractOperation
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>对服务或操作设置的 URL
+     </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+     如果您需要使用请求主体对象中的数据并将其编码为 URL 字符串，则可以使用此方法。此方法接受对操作或服务配置的传入 URL。此实现仅返回传入的 URL，而不进行任何转换。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

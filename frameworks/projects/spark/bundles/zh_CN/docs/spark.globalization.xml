@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.globalization"><apiName>spark.globalization</apiName><apiDetail/><apiClassifier id="spark.globalization:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+  SortingCollator 类提供区分区域设置的字符串比较功能并设置用于按照语言来进行排序（例如对显示给最终用户的文本字符串列表进行排序）的初始设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>SortingCollator</codeph> 类提供区分区域设置的字符串比较功能并设置用于按照语言来进行排序（例如对显示给最终用户的文本字符串列表进行排序）的初始设置。
+ 
+  <p>此类是包装 <codeph>flash.globalization.Collator</codeph> 的包装器类。因此，特定于区域设置的字符串比较是由 <codeph>flash.globalization.Collator</codeph> 提供的。但是，此 SortingCollator 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。此外，当 flash.globalization 类发生错误或警告时，将设置 <codeph>LastOperationStatus</codeph>。</p>
+ 
+  <p>flash.globalization.Collator 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类，此时由包装器类提供回退功能。</p>
+ 
+  </apiDesc><example conref="SortingCollatorExample.mxml"><swfblock conref="examples/SortingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:SortingCollator:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+      构造新的 SortingCollator 对象，以根据指定的区域设置的约定提供字符串比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 SortingCollator 对象，以根据指定的区域设置的约定提供字符串比较。
+     
+      <p>此类设置用于常规语言排序（例如对显示给最终用户的文本字符串列表进行排序）的各种排序规则选项的初始值。在此模式下，进行字符串比较时考虑大写和小写字母、重音符号及其它特定于区域设置的区别。
+      </p>
+     
+      <p>此类的实例所提供的比较等效于构造 <codeph>flash.globalization.Collator</codeph> 的实例并将其 <codeph>initialMode</codeph> 参数设置为 <codeph>CollatorMode.SORTING</codeph>。有关此模式的详细信息和示例，请参阅有关 <codeph>flash.globalization.Collator</codeph> 类的文档。
+      </p>
+     
+      <p>此类的区域设置是由区域设置样式提供的。可以使用以下几种方法来设置区域设置样式：</p>
+     
+      <ul>
+          <li>调用 UIComponent 的 addStyleClient 方法，从 <codeph>UIComponent</codeph> 继承样式。</li>
+          <li>在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:SortingCollator id="sc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>使用 MXML 声明并在赋值列表中指定区域设置值。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:SortingCollator id="sc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>调用 setStyle 方法，如 <codeph>sc.setStyle("locale", "fr-FR")</codeph>。</li>
+      </ul>
+     
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:StringTools"><apiName>StringTools</apiName><shortdesc>
+  StringTools 类提供区分区域设置的大小写转换方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>StringTools</codeph> 类提供区分区域设置的大小写转换方法。
+ 
+  <p>此类是包装 <codeph>flash.globalization.StringTools</codeph> 的包装器类。因此，大小写转换功能是由 <codeph>flash.globalization.StringTools</codeph> 类提供的。但是，此 <codeph>StringTools</codeph> 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。此外，当 flash.globalization 类发生错误或警告时，将生成事件。</p>
+ 
+  <p><codeph>flash.globalization.StringTools</codeph> 类使用基础操作系统来实现大小写转换功能，某些操作系统不支持 <codeph>flash.globalization</codeph> 类，此时由包装器类提供回退功能，使用由 <codeph>String</codeph> 类提供的大小写转换功能。</p>
+ 
+  </apiDesc><example conref="StringToolsExample.mxml"><swfblock conref="examples/StringToolsExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links><apiConstructor id="spark.globalization:StringTools:StringTools"><apiName>StringTools</apiName><shortdesc>
+      构造新的 StringTools 对象，用于根据给定区域设置的约定提供大小写转换和其它实用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 StringTools 对象，用于根据给定区域设置的约定提供大小写转换和其它实用程序。此类的区域设置是由区域设置样式提供的。可以使用以下几种方法来设置区域设置样式：
+     
+      <ul>
+      <li>调用 UIComponent 的 addStyleClient 方法，从 <codeph>UIComponent</codeph> 继承样式。</li>
+     
+      <li>在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。示例：
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:StringTools id="st" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>使用 MXML 声明并在赋值列表中指定区域设置值。示例：
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:StringTools id="st_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>调用 setStyle 方法，如 <codeph>st.setStyle("locale", "tr-TR")</codeph>。</li>
+      </ul>
+     
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiConstructor><apiOperation id="spark.globalization:StringTools:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Vector$String"/><apiDesc>一个字符串矢量，其中包含此类和操作系统所支持的所有区域设置 ID 名称。
+                   </apiDesc></apiReturn></apiOperationDef><apiDesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.globalization:StringTools:toLowerCase"><apiName>toLowerCase</apiName><shortdesc>
+      根据语言约定将字符串转换为小写形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>转换后的小写形式字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc>要转换为小写形式的字符串<codeph/>。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据语言约定将字符串转换为小写形式。根据区域设置，输出字符串长度可能与输入字符串长度不同。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization:StringTools:toUpperCase"><apiName>toUpperCase</apiName><shortdesc>
+      根据语言约定将字符串转换为大写形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>转换后的大写形式字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc>要转换为大写形式的字符串<codeph/>。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据语言约定将字符串转换为大写形式。根据区域设置，输出字符串长度可能与输入字符串长度不同。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiValue id="spark.globalization:StringTools:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.actualLocaleIDName.xml"><linktext>flash.globalization.StringTools.actualLocaleIDName</linktext></link><link href="spark.globalization.xml#StringTools/StringTools()"><linktext>StringTools()</linktext></link></related-links></apiValue><apiValue id="spark.globalization:StringTools:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.globalization:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+  MatchingCollator 类提供区分区域设置的字符串比较功能并设置用于常规字符串匹配（如在文本块中查找匹配的字）的初始设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>MatchingCollator</codeph> 类提供区分区域设置的字符串比较功能并设置用于常规字符串匹配（如在文本块中查找匹配的字）的初始设置。
+ 
+  <p>此类是包装 <codeph>flash.globalization.Collator</codeph> 的包装器类。因此，特定于区域设置的字符串比较是由 <codeph>flash.globalization.Collator</codeph> 提供的。但是，此 MatchingCollator 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。此外，当 flash.globalization 类发生错误或警告时，将设置 <codeph>LastOperationStatus</codeph>。</p>
+ 
+  <p>flash.globalization.Collator 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类，此时由包装器类提供回退功能。</p>
+ 
+  </apiDesc><example conref="MatchingCollatorExample.mxml"><swfblock conref="examples/MatchingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:MatchingCollator:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+      构造新的 MatchingCollator 对象，以根据指定的区域设置的约定提供字符串比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 MatchingCollator 对象，以根据指定的区域设置的约定提供字符串比较。
+     
+      <p>此类设置用于常规字符串匹配（例如确定两个字符串是否相等，或在文本块中查找匹配的字）的各种排序规则的初始值。在此模式下，进行字符串比较时忽略大写和小写字母、重音符号等区别。</p>
+     
+      <p>此类的实例所提供的比较等效于构造 <codeph>flash.globalization.Collator</codeph> 的实例并将其 <codeph>initialMode</codeph> 参数设置为 <codeph>CollatorMode.MATCHING</codeph>。有关此模式的详细信息和示例，请参阅有关 <codeph>flash.globalization.Collator</codeph> 类的文档。</p>
+     
+      <p>此类的区域设置是由区域设置样式提供的。可以使用以下几种方法来设置区域设置样式：</p>
+     
+      <ul>
+          <li>调用 UIComponent 的 addStyleClient 方法，从 <codeph>UIComponent</codeph> 继承样式。</li>
+          <li>在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:MatchingCollator id="mc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>使用 MXML 声明并在赋值列表中指定区域设置值。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:MatchingCollator id="mc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>调用 setStyle 方法，如 <codeph>mc.setStyle("locale", "fr-FR")</codeph>。</li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:LastOperationStatus"><apiName>LastOperationStatus</apiName><shortdesc>
+  LastOperationStatus 类枚举那些表示最近的全球化服务操作的状态的常量值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.55"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LastOperationStatus 类枚举那些表示最近的全球化服务操作的状态的常量值。这些值可通过在大多数全球化类中可用的只读属性 <codeph>lastOperationStatus</codeph> 检索。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.xml"><linktext>flash.globalization.LastOperationStatus</linktext></link></related-links><apiValue id="spark.globalization:LastOperationStatus:BUFFER_OVERFLOW_ERROR"><apiName>BUFFER_OVERFLOW_ERROR</apiName><shortdesc>
+      表示给定的缓冲区不足以容纳结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bufferOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示给定的缓冲区不足以容纳结果。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ERROR_CODE_UNKNOWN"><apiName>ERROR_CODE_UNKNOWN</apiName><shortdesc>
+      表示返回的错误代码未知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5s"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>errorCodeUnknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示返回的错误代码未知。当操作失败且返回的错误代码未知时，任何非静态方法或读取/写入属性都可返回此错误。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN.xml"><linktext>flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ILLEGAL_ARGUMENT_ERROR"><apiName>ILLEGAL_ARGUMENT_ERROR</apiName><shortdesc>
+      表示传递给方法的参数是非法的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>illegalArgumentError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示传递给方法的参数是非法的。
+     
+      <p>例如，下列代码显示当 <codeph>CurrencyFormatter.grouping</codeph> 属性设置为无效值“3；”时，设置了无效的参数错误状态。</p>
+     
+      <pre>
+      var cf:CurrencyFormatter = new CurrencyFormatter();
+      cf.setStyle("locale","en_US");
+      cf.groupingPattern = "3;";
+      trace(cf.lastOperationStatus); // "illegalArgumentError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INDEX_OUT_OF_BOUNDS_ERROR"><apiName>INDEX_OUT_OF_BOUNDS_ERROR</apiName><shortdesc>
+      表示迭代器超出范围或者为月、日或时间指定的参数无效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>indexOutOfBoundsError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示迭代器超出范围或者为月、日或时间指定的参数无效。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_ATTR_VALUE"><apiName>INVALID_ATTR_VALUE</apiName><shortdesc>
+      表示给定的属性值超出了预期的范围。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidAttrValue</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示给定的属性值超出了预期的范围。
+     
+      <p>下面的示例显示将 <codeph>NumberFormatter.negativeNumberFormat</codeph> 属性设置为超出范围的值会导致属性值状态无效。</p>
+     
+      <pre>
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","en_US");
+      nf.negativeNumberFormat = 9;
+      nf.lastOperationStatus; // "invalidAttrValue"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_CHAR_FOUND"><apiName>INVALID_CHAR_FOUND</apiName><shortdesc>
+      表示找到无效的 Unicode 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示找到无效的 Unicode 值。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:LOCALE_UNDEFINED_ERROR"><apiName>LOCALE_UNDEFINED_ERROR</apiName><shortdesc>
+      指示未定义区域设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>localeUndefinedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示未定义区域设置<codeph/>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.globalization:LastOperationStatus:MEMORY_ALLOCATION_ERROR"><apiName>MEMORY_ALLOCATION_ERROR</apiName><shortdesc>
+      表示内存分配已失败。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>memoryAllocationError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示内存分配已失败。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NO_ERROR"><apiName>NO_ERROR</apiName><shortdesc>
+      表示上一操作成功，未出现任何错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>noError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示上一操作成功，未出现任何错误。此状态可由所有构造函数、非静态方法、静态方法和读取/写入属性返回。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NO_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NO_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NUMBER_OVERFLOW_ERROR"><apiName>NUMBER_OVERFLOW_ERROR</apiName><shortdesc>
+      表示操作产生的值超出指定的数字类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>numberOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示操作产生的值超出指定的数字类型。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PARSE_ERROR"><apiName>PARSE_ERROR</apiName><shortdesc>
+      表示解析数字失败。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>parseError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示解析数字失败。此状态可由 formatter 类的解析方法（如 <codeph>CurrencyFormatter.parse()</codeph> 和 <codeph>NumberFormatter.parseNumber()</codeph>）返回。例如，如果值“12abc34”作为参数传递到 <codeph>CurrencyFormatter.parse()</codeph> 方法，此方法返回“NaN”，并将 <codeph>lastOperationStatus</codeph> 值设置为 <codeph>LastOperationStatus.PARSE_ERROR</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PARSE_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PARSE_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PATTERN_SYNTAX_ERROR"><apiName>PATTERN_SYNTAX_ERROR</apiName><shortdesc>
+      表示设置数字、日期或时间格式所用的模式无效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>patternSyntaxError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示设置数字、日期或时间格式所用的模式无效。如果用户的操作系统不支持指定的模式，则设置此状态。
+     
+      <p>例如，下列代码显示在使用无效的“xx”模式设置日期格式后 <codeph>lastOperationStatus</codeph> 属性的值：</p>
+     
+      <pre>
+      var df:DateTimeFormatter = new DateTimeFormatter();
+      df.setStyle("locale","en_US");
+      df.setDateTimePattern("xx");
+      trace(df.lastOperationStatus); // "patternSyntaxError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PLATFORM_API_FAILED"><apiName>PLATFORM_API_FAILED</apiName><shortdesc>
+      表示基础平台 API 执行某操作失败。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>platformAPIFailed</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示基础平台 API 执行某操作失败。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PLATFORM_API_FAILED.xml"><linktext>flash.globalization.LastOperationStatus.PLATFORM_API_FAILED</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:TRUNCATED_CHAR_FOUND"><apiName>TRUNCATED_CHAR_FOUND</apiName><shortdesc>
+      表示找到截断的 Unicode 字符值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>truncatedCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示找到截断的 Unicode 字符值。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNEXPECTED_TOKEN"><apiName>UNEXPECTED_TOKEN</apiName><shortdesc>
+      表示在区域设置 ID 字符串中检测到意外的标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unexpectedToken</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示在区域设置 ID 字符串中检测到意外的标记。
+     
+      <p>例如，以下代码显示在请求区域设置 ID 时使用不完整的字符串后 <codeph>lastOperationStatus</codeph> 属性的值。结果，在调用 <codeph>LocaleID.getKeysAndValues()</codeph> 方法后，<codeph>lastOperationStatus</codeph> 属性设为值 <codeph>UNEXPECTED_TOKEN</codeph>。</p>
+     
+      <pre>
+      var locale:flash.globalization.LocaleID = new flash.globalization.LocaleID("en-US@Collation");
+      var kav:Object = locale.getKeysAndValues();
+      trace(locale.lastOperationStatus); // "unexpectedToken"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN.xml"><linktext>flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNSUPPORTED_ERROR"><apiName>UNSUPPORTED_ERROR</apiName><shortdesc>
+      表示不支持请求的操作或选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unsupportedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示不支持请求的操作或选项。此状态可由 <codeph>DateTimeFormatter.setDateTimePattern()</codeph> 等方法以及在检索 <codeph>Collator.ignoreCase</codeph> 等属性时返回。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_DEFAULT_WARNING"><apiName>USING_DEFAULT_WARNING</apiName><shortdesc>
+      表示在最近操作期间使用了操作系统默认值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingDefaultWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示在最近操作期间使用了操作系统默认值。Class 构造函数可以返回此状态。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_FALLBACK_WARNING"><apiName>USING_FALLBACK_WARNING</apiName><shortdesc>
+      表示在最近操作期间设置了回退值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingFallbackWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      表示在最近操作期间设置了回退值。此状态可由 <codeph>DateTimeFormatter.setDateTimeStyles()</codeph> 等构造函数和方法以及在检索 <codeph>CurrencyFormatter.groupingPattern</codeph> 等属性时返回。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

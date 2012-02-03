@@ -1,0 +1,1633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:OLAPDataGrid"><apiName>OLAPDataGrid</apiName><shortdesc>
+  OLAPDataGrid 控件扩展了 AdvancedDataGrid 控件的功能，可显示 OLAP 查询的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="headerDragProxyStyleName"/><Exclude kind="style" name="sortFontWeight"/><Exclude kind="style" name="sortFontStyle"/><Exclude kind="style" name="sortFontSize"/><Exclude kind="style" name="sortFontFamily"/><Exclude kind="style" name="openEasingFunction"/><Exclude kind="style" name="openDuration"/><Exclude kind="style" name="headerStyleName"/><Exclude kind="style" name="headerSortSeparatorSkin"/><Exclude kind="style" name="folderOpenIcon"/><Exclude kind="style" name="folderClosedIcon"/><Exclude kind="style" name="depthColors"/><Exclude kind="style" name="defaultLeafIcon"/><Exclude kind="style" name="columnDropIndicatorSkin"/><Exclude kind="event" name="itemOpening"/><Exclude kind="event" name="itemOpen"/><Exclude kind="event" name="itemEditEnd"/><Exclude kind="event" name="itemEditBeginning"/><Exclude kind="event" name="itemEditBegin"/><Exclude kind="event" name="itemClose"/><Exclude kind="event" name="headerShift"/><Exclude kind="event" name="headerRelease"/><Exclude kind="event" name="headerDropOutside"/><Exclude kind="event" name="headerDragOutside"/><Exclude kind="event" name="dragOver"/><Exclude kind="event" name="dragExit"/><Exclude kind="event" name="dragEnter"/><Exclude kind="event" name="dragDrop"/><Exclude kind="event" name="dragComplete"/><Exclude kind="method" name="updateVisibleHeaders"/><Exclude kind="method" name="updateHeaderSearchList"/><Exclude kind="method" name="treeNavigationHandler"/><Exclude kind="method" name="removeSortField"/><Exclude kind="method" name="placeSortArrow"/><Exclude kind="method" name="headerReleaseHandler"/><Exclude kind="method" name="findSortField"/><Exclude kind="method" name="expandItemHandler"/><Exclude kind="method" name="dragStartHandler"/><Exclude kind="method" name="dragScroll"/><Exclude kind="method" name="dragOverHandler"/><Exclude kind="method" name="dragExitHandler"/><Exclude kind="method" name="dragEnterHandler"/><Exclude kind="method" name="dragDropHandler"/><Exclude kind="method" name="dragCompleteHandler"/><Exclude kind="method" name="addSortField"/><Exclude kind="method" name="addDragData"/><Exclude kind="method" name="stopDrag"/><Exclude kind="method" name="startDrag"/><Exclude kind="method" name="showDropFeedback"/><Exclude kind="method" name="hideDropFeedback"/><Exclude kind="method" name="getFieldSortInfo"/><Exclude kind="method" name="setItemIcon"/><Exclude kind="method" name="isItemOpen"/><Exclude kind="method" name="getParentItem"/><Exclude kind="method" name="expandItem"/><Exclude kind="method" name="expandChildrenOf"/><Exclude kind="method" name="expandAll"/><Exclude kind="method" name="destroyItemEditor"/><Exclude kind="method" name="createItemEditor"/><Exclude kind="method" name="collapseAll"/><Exclude kind="method" name="calculateDropIndex"/><Exclude kind="property" name="selectedHeaderInfo"/><Exclude kind="property" name="orderedHeadersList"/><Exclude kind="property" name="lastDropIndex"/><Exclude kind="property" name="headerInfoInitialized"/><Exclude kind="property" name="dragImageOffsets"/><Exclude kind="property" name="dragImage"/><Exclude kind="property" name="_columns"/><Exclude kind="property" name="sortItemRenderer"/><Exclude kind="property" name="sortExpertMode"/><Exclude kind="property" name="sortableColumns"/><Exclude kind="property" name="showRoot"/><Exclude kind="property" name="showHeaders"/><Exclude kind="property" name="rendererProviders"/><Exclude kind="property" name="openItems"/><Exclude kind="property" name="lookAheadDuration"/><Exclude kind="property" name="lockedColumnCount"/><Exclude kind="property" name="labelFunction"/><Exclude kind="property" name="itemIcons"/><Exclude kind="property" name="itemEditorInstance"/><Exclude kind="property" name="hierarchicalCollectionView"/><Exclude kind="property" name="hasRoot"/><Exclude kind="property" name="groupLabelFunction"/><Exclude kind="property" name="groupIconFunction"/><Exclude kind="property" name="groupedColumns"/><Exclude kind="property" name="editedItemRenderer"/><Exclude kind="property" name="editedItemPosition"/><Exclude kind="property" name="editable"/><Exclude kind="property" name="dropTarget"/><Exclude kind="property" name="dropEnabled"/><Exclude kind="property" name="dragMoveEnabled"/><Exclude kind="property" name="draggableColumns"/><Exclude kind="property" name="dragEnabled"/><Exclude kind="property" name="displayItemsExpanded"/><Exclude kind="property" name="displayDisclosureIcon"/><Exclude kind="property" name="columnWidth"/><Exclude kind="property" name="columns"/><Exclude kind="property" name="allowDragSelection"/><styles><style inherit="no" name="columnAxisHeaderStyleName" owner="mx.controls:OLAPDataGrid" playerVersion="Flash9" type="String">
+<description>
+  CSS 样式声明的名称，用于控制列轴标题外观的各个方面。默认值为 <codeph>undefined</codeph>，表示它使用 <codeph>headerStyleName</codeph> 样式的值。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="rowAxisHeaderStyleName" owner="mx.controls:OLAPDataGrid" playerVersion="Flash9" type="String">
+<description>
+  CSS 样式声明的名称，用于控制行轴标题外观的各个方面。默认值为 <codeph>undefined</codeph>，表示它使用 <codeph>headerStyleName</codeph> 样式的值。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The <code>&lt;mx:OLAPDataGrid&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:OLAPDataGrid 
+    <b>Properties</b>
+    defaultCellString="NaN"
+    headerRendererProviders="[]"
+    itemRendererProviders="[]"
+     
+    <b>Styles</b>
+    columnAxisHeaderStyleName="undefined"
+    rowAxisHeaderStyleName="undefined"
+  /&gt;
+   
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGrid</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGrid 控件扩展了 AdvancedDataGrid 控件的功能，可显示 OLAP 查询的结果。与所有 Flex 数据网格控件一样，OLAPDataGrid 控件设计用于使用行和列的二维表示形式显示数据。 
+ 
+  <p>由于向 OLAPDataGrid 控件传递数据的方式，它与 AdvancedDataGrid 控件存在以下几点差异：</p>
+  <ul>
+    <li>OLAPDataGrid 控件中不允许拖动列。</li>
+    <li>您无法在 OLAPDataGrid 控件中编辑单元格，因为单元格数据是查询的结果，与 OLAP 多维数据集中的单个数据值并不对应。</li>
+    <li>您无法通过单击 OLAPDataGrid 控件中的列标题来对列进行排序。此控件支持维度级别的排序，因此您可以更改该维度中成员的顺序。</li>
+  </ul>
+ 
+  <p>您可以将数据提供程序设置为包含 OLAP 查询结果的 OLAPResult 类实例，以数据填充 OLAPDataGrid 控件。 </p>
+ 
+  </apiDesc><example conref="OLAPDataGridExample.mxml"><swfblock conref="examples/OLAPDataGridExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.olap.xml#OLAPQuery"><linktext>mx.olap.OLAPQuery</linktext></link><link href="mx.olap.xml#OLAPResult"><linktext>mx.olap.OLAPResult</linktext></link></related-links><apiConstructor id="mx.controls:OLAPDataGrid:OLAPDataGrid"><apiName>OLAPDataGrid</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:OLAPDataGrid:protected:getCellRendererInfo"><apiName>getCellRendererInfo</apiName><shortdesc>
+      确定对特定单元格使用哪个呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>要用于行轴和列轴相交处单元格的项呈示器。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider</apiOperationClassifier></apiReturn><apiParam><apiItemName>row</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>该单元格在行轴中的位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>该单元格在列轴中的位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定对特定单元格使用哪个呈示器。单元格位于行轴和列轴上某个位置的相交处，因此它遵从 <codeph>itemRendererProviders</codeph> 属性为这两个轴定义的规则。此方法为行轴赋予了高于列轴的优先级，并搜索要用于呈示器的正确的 <codeph>itemRendererProviders</codeph> 属性值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:protected:getFormattedCellValue"><apiName>getFormattedCellValue</apiName><shortdesc>
+      对字符串值应用与特定单元格关联的格式设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>label</codeph> 的格式化值；如果单元格不存在或单元格没有应用 formatter，则返回 <codeph>label</codeph>。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>要格式化的字符串值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>row</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>具有关联 formatter 的单元格在行轴中的位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>col</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>具有关联 formatter 的单元格在列轴中的位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对字符串值应用与特定单元格关联的格式设置。单元格位于行轴和列轴上某个位置的相交处。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:protected:getIndent"><apiName>getIndent</apiName><shortdesc>
+      返回呈示器中标签的缩进（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>呈示器中标签的缩进（以像素为单位）。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>position</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>呈示器在轴上的位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>m</apiItemName><apiOperationClassifier>mx.olap:IOLAPMember</apiOperationClassifier><apiDesc>需要缩进的维度上的成员。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mIndex</apiItemName><apiType value="int"/><apiDesc><codeph>position.members</codeph> 中 <codeph>m</codeph> 的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回呈示器中标签的缩进（以像素为单位）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.controls:OLAPDataGrid:COLUMN_AXIS"><apiName>COLUMN_AXIS</apiName><shortdesc>
+      对应于列轴的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于列轴的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_DIMENSION"><apiName>OLAP_DIMENSION</apiName><shortdesc>
+      对应于轴中成员的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>3</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于轴中成员的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_HIERARCHY"><apiName>OLAP_HIERARCHY</apiName><shortdesc>
+      对应于轴中成员的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于轴中成员的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_LEVEL"><apiName>OLAP_LEVEL</apiName><shortdesc>
+      对应于轴级别的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于轴级别的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_MEMBER"><apiName>OLAP_MEMBER</apiName><shortdesc>
+      对应于轴中成员的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于轴中成员的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:ROW_AXIS"><apiName>ROW_AXIS</apiName><shortdesc>
+      对应于行轴的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于行轴的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:SLICER_AXIS"><apiName>SLICER_AXIS</apiName><shortdesc>
+      对应于切片器轴的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      对应于切片器轴的常量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:defaultCellString"><apiName>defaultCellString</apiName><shortdesc>
+      当 IOLAPResult 实例返回的单元格数据为 null 或 NaN 时，该单元格中显示的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="String"/><apiDefaultValue>"NaN"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当 IOLAPResult 实例返回的单元格数据为 null 或 NaN 时，该单元格中显示的字符串。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:headerRendererProviders:get"><apiName>headerRendererProviders</apiName><shortdesc>
+      一个 OLAPDataGridHeaderRendererProvider 实例 Array，这些实例为控件的列指定自定义标题呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      一个 OLAPDataGridHeaderRendererProvider 实例 Array，这些实例为控件的列指定自定义标题呈示器。您可以使用多个标题呈示器提供者指定用于控件中不同列的自定义标题呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:itemRendererProviders:get"><apiName>itemRendererProviders</apiName><shortdesc>
+      一个 OLAPDataGridItemRendererProvider 实例 Array，这些实例为控件的单元格指定自定义项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      一个 OLAPDataGridItemRendererProvider 实例 Array，这些实例为控件的单元格指定自定义项呈示器。您可以使用多个呈示器提供者指定用于控件中不同位置的自定义项呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:dataProvider:set"><apiName>dataProvider</apiName><shortdesc>
+      OLAPDataGrid 只接受 IOLAPResult 作为 dataProvider，其他的 dataProvider 均忽略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      OLAPDataGrid 只接受 IOLAPResult 作为 dataProvider，其他的 dataProvider 均忽略。用户可以将 dataProvider 设置为 null，以重置该控件。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:styleFunction:set"><apiName>styleFunction</apiName><shortdesc>
+      一个回调函数，当单元格数据区域中呈示每个单元格时调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      一个回调函数，当单元格数据区域中呈示每个单元格时调用此函数。回调函数的签名为：
+     
+       <pre>function myStyleFunction(row:IOLAPAxisPosition, column:IOLAPAxisPosition, value:Number):Object</pre>
+     
+       <p>其中，<codeph>row</codeph> 是在行轴上与此单元格关联的 IOLAPAxisPosition，<codeph>column</codeph> 是在列轴上与此单元格关联的 IOLAPAxisPosition，<codeph>value</codeph> 是单元格值。</p>
+     
+      <p>返回值应是以样式作为属性的 Object。例如：<codeph>{ color:0xFF0000, fontWeight:"bold" }</codeph>。</p>
+      <p>当单元格中的值为 NaN 时，将调用此函数，并将 NaN 作为最后一个参数</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
+ AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Adobe Flex 应用程序增添了数据可视化功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ AdvancedDataGridSortItemRenderer 类在列标题中呈示排序图标使用的字体粗细。
+
+ </description>
+<default>normal
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="sortFontStyle" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ AdvancedDataGridSortItemRenderer 类在列标题中呈示排序图标使用的字体样式。
+
+ </description>
+<default>normal
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="sortFontSize" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ AdvancedDataGridSortItemRenderer 类在列标题中呈示排序图标使用的字体大小。
+
+ </description>
+<default>10
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="yes" name="sortFontFamily" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ AdvancedDataGridSortItemRenderer 类在列标题中呈示排序图标使用的字体系列。
+
+ </description>
+<default>Verdana
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textSelectedColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ 用户选择某行时文本的颜色。
+
+ </description>
+<default>0x2B333C
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textRollOverColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ 用户将鼠标移到某行上时文本的颜色。
+
+ </description>
+<default>0x2B333C
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="selectionEasingFunction" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Function">
+<description>
+ 对用于控制以编程方式补间的 <codeph>easingFunction</codeph> 函数的引用。
+
+ <p>默认值为 <codeph>undefined</codeph>。</p>
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionDisabledColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ 列表项目的禁用颜色。
+
+ </description>
+<default>0xDDDDDD
+
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="headerHorizontalSeparatorSkin" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 要用作外观的类，可定义 AdvancedDataGrid 控件中不同深度的列标题之间分隔符的外观。
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="headerSortSeparatorSkin" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 外观，用于定义 AdvancedDataGrid 控件中标题的文本和图标部分之间分隔符的外观。
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="openEasingFunction" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Function">
+<description>
+ 控制组件补间的缓动函数。
+
+ <p>默认值为 <codeph>undefined</codeph>。</p>
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="openDuration" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ 导航树中的打开或关闭转换的长度（以毫秒为单位）。
+
+ </description>
+<default>250
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="indentation" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ 导航树中每个节点的缩进（以像素为单位）。
+
+ </description>
+<default>17
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="folderClosedIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 指定导航树中分支节点的文件夹关闭图标。默认值为 assets.swf 文件中的 <codeph>TreeFolderClosed</codeph>。
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="folderOpenIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 指定导航树中分支节点的文件夹打开图标。默认值为 assets.swf 文件中的 <codeph>TreeFolderOpen</codeph>。
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="disclosureClosedIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 在导航树的关闭分支节点旁边显示的图标。默认值为 assets.swf 文件中的 <codeph>TreeDisclosureClosed</codeph>。
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="disclosureOpenIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 在导航树的打开分支节点旁边显示的图标。默认值为 assets.swf 文件中的 <codeph>TreeDisclosureOpen</codeph>。
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="defaultLeafIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ 导航树中叶节点的默认图标。默认值为 assets.swf 文件中的 <codeph>TreeNodeIcon</codeph>。
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="depthColors" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Array">
+<description>
+ 一个颜色 Array，供 AdvancedDataGrid 控件每一级导航树的各行使用（按降序排序）。
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="alternatingItemColors" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Array">
+<description>
+ 交替模式中行的颜色。此值可以是由多种颜色中任意两种所组成的数组。对于 AdvancedDataGrid 控件，行中的所有项目都使用相同的背景颜色，而且每行的背景颜色都由颜色 Array 确定。仅在未指定 <codeph>backgroundColor</codeph> 属性时使用。
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+  控件右边框与内容区域右边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+  控件左边框与内容区域左边缘之间的像素数目。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The <code>&lt;mx:AdvancedDataGrid&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:AdvancedDataGrid
+    <b>Properties</b>
+    displayDisclosureIcon="true|false"
+    displayItemsExpanded="false|true"
+    groupedColumns="[]"
+    groupIconFunction="null"
+    groupItemRenderer="AdvancedDataGridGroupItemRenderer"
+    groupLabelFunction="null"
+    groupRowHeight="-1"
+    itemIcons="undefined"
+    lockedColumnCount="0"
+    lockedRowCount="0"
+    rendererProviders="[]"
+    selectedCells="null"
+    treeColumn="null"
+     
+    <b>Styles</b>
+    alternatingItemColors="undefined"
+    defaultLeafIcon="TreeNodeIcon"
+    depthColors="undefined"
+    disclosureClosedIcon="TreeDisclosureClosed"
+    disclosureOpenIcon="TreeDisclosureOpen"
+    folderClosedIcon="TreeFolderClosed"
+    folderOpenIcon="TreeFolderOpen"
+    headerHorizontalSeparatorSkin="undefined"
+    indentation="17"
+    openDuration="250"
+    openEasingFunction="undefined"
+    paddingLeft="2"
+    paddingRight="0"
+    selectionDisabledColor="#DDDDDD"
+    selectionEasingFunction="undefined"
+    sortFontFamily="Verdana"
+    sortFontSize="10"
+    sortFontStyle="normal"
+    sortFontWeight="normal"
+    textRollOverColor="#2B333C"
+    textSelectedColor="#2B333C"
+     
+    <b>Events</b>
+    headerDragOutside="<i>No default</i>"
+    headerDropOutside="<i>No default</i>"
+    itemClose="<i>No default</i>"
+    itemOpen="<i>No default</i>"
+    itemOpening="<i>No default</i>" 
+  /&gt;
+   
+  <b><i>The following AdvancedDataGrid code sample specifies the column order:</i></b>
+  &lt;mx:AdvancedDataGrid&gt;
+    &lt;mx:dataProvider&gt;
+        &lt;mx:Object Artist="Pavement" Price="11.99"
+          Album="Slanted and Enchanted"/&gt;
+        &lt;mx:Object Artist="Pavement"
+          Album="Brighten the Corners" Price="11.99"/&gt;
+    &lt;/mx:dataProvider&gt;
+    &lt;mx:columns&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Album"/&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Price"/&gt;
+    &lt;/mx:columns&gt;
+  &lt;/mx:AdvancedDataGrid&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Adobe Flex 应用程序增添了数据可视化功能。借助这些功能，可以更好地控制数据显示、数据聚合和数据格式设置。<codeph>AdvancedDataGrid</codeph> 控件与 List 控件类似，但前者能够显示多列数据，因而可显示具有多个属性的对象。
+  <p>
+  AdvancedDataGrid 控件提供下列功能：
+  <ul>
+  <li>列可以具有不同宽度或同一固定宽度。</li>
+  <li>用户可以在运行时调整列的尺寸。 </li>
+  <li>用户可以在运行时重新排序的列。 </li>
+  <li>可选择自定义列标题。</li>
+  <li>能够对任何列使用自定义项呈示器来显示数据（而非文本）。</li>
+  <li>支持通过单击某列对数据排序。</li>
+  </ul>
+  </p>
+  AdvancedDataGrid 控件设计用于查看数据，而非用作类似于 HTML 表的布局工具。mx.containers 包提供以下布局工具。
+  
+  </apiDesc><example conref="AdvancedDataGridExample.mxml"><swfblock conref="examples/AdvancedDataGridExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridItemRenderer"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridDragProxy"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridDragProxy</linktext></link><link href="mx.events.xml#AdvancedDataGridEvent"><linktext>mx.events.AdvancedDataGridEvent</linktext></link><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.HEADER_DROP_OUTSIDE_headerDropOutside"><apiName>headerDropOutside</apiName><shortdesc>
+ 当用户将某列放在其列组之外时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_DROP_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当用户将某列放在其列组之外时分派。TheAdvancedDataGrid 控件不为此事件提供默认处理函数。
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE_headerDragOutside"><apiName>headerDragOutside</apiName><shortdesc>
+ 当用户将某列拖至其列组之外时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当用户将某列拖至其列组之外时分派。TheAdvancedDataGrid 控件不为此事件提供默认事件处理函数。
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_OPENING_itemOpening"><apiName>itemOpening</apiName><shortdesc>
+ 当启动树分支打开或关闭操作时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_OPENING</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当启动树分支打开或关闭操作时分派。
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_OPEN_itemOpen"><apiName>itemOpen</apiName><shortdesc>
+ 当打开或展开导航树的分支时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_OPEN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当打开或展开导航树的分支时分派。
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_CLOSE_itemClose"><apiName>itemClose</apiName><shortdesc>
+ 当关闭或折叠导航树的分支时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_CLOSE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当关闭或折叠导航树的分支时分派。
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:AdvancedDataGrid:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:AdvancedDataGrid:protected:addCellSelectionData"><apiName>addCellSelectionData</apiName><shortdesc>
+      将单元格选择信息添加到控件，好像您是使用鼠标选择的单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>所选单元格的 UID。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>所选单元格的列索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>selectionData</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridBaseSelectionData</apiOperationClassifier><apiDesc>定义关于所选单元格的信息的 AdvancedDataGridBaseSelectionData 实例。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将单元格选择信息添加到控件，好像您是使用鼠标选择的单元格。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridBaseSelectionData"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:applyCellSelectionEffect"><apiName>applyCellSelectionEffect</apiName><shortdesc>
+      设置应用选择指示符的效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>包含描绘选择的图形的 Sprite。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>所选项目的 UID，可用于在表中编制索引并跟踪多个选择效果。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>所选单元格的列索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>要作为所选内容显示的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置应用选择指示符的效果。默认为基本的 alpha 补间。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:applyUserStylesForItemRenderer"><apiName>applyUserStylesForItemRenderer</apiName><shortdesc>
+      将 AdvancedDatagrid 控件中的样式应用到项呈示器中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>givenItemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 AdvancedDatagrid 控件中的样式应用到项呈示器中。该项呈示器应实现 IStyleClient 和 IDataRenderer 接口，并且应该是 DisplayObject 类的子类。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:atLeastOneProperty"><apiName>atLeastOneProperty</apiName><shortdesc>
+      如果 Object 至少包含一个属性，这意味着词典中至少有一个键，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果 Object 至少包含一个属性，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>o</apiItemName><apiType value="Object"/><apiDesc>要检查的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 Object 至少包含一个属性，这意味着词典中至少有一个键，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearCellSelectionData"><apiName>clearCellSelectionData</apiName><shortdesc>
+      清除关于单元格选择的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      清除关于单元格选择的信息。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearIndicators"><apiName>clearIndicators</apiName><shortdesc>
+      
+      删除所有选定、加亮显示和尖号指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      删除所有选定、加亮显示和尖号指示符。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearSelectedCells"><apiName>clearSelectedCells</apiName><shortdesc>
+      清除 selectedCells 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定 <codeph>true</codeph> 以设置过渡动画效果。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      清除 <codeph>selectedCells</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:collapseAll"><apiName>collapseAll</apiName><shortdesc>
+      折叠导航树的所有节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      折叠导航树的所有节点。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:dragCompleteHandler"><apiName>dragCompleteHandler</apiName><shortdesc>
+      DragEvent.DRAG_COMPLETE 事件的处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_COMPLETE</codeph> 事件的处理函数。默认情况下，此方法仅支持 <codeph>DragManager.MOVE</codeph> 拖动动作。要支持 <codeph>DragManager.COPY</codeph> 拖动动作，您必须为 <codeph>DragEvent.DRAG_DROP</codeph> 事件编写一个事件处理函数，以便基于 AdvancedDataGrid 数据的结构实现复制数据。  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:dragDropHandler"><apiName>dragDropHandler</apiName><shortdesc>
+      DragEvent.DRAG_DROP 事件的处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_DROP</codeph> 事件的处理函数。此方法通过调用 <codeph>hideDropFeedback()</codeph> 方法隐藏放置反馈。默认情况下，此方法仅支持 <codeph>DragManager.MOVE</codeph> 拖动动作。要支持 <codeph>DragManager.COPY</codeph> 拖动动作，您必须为 <codeph>DragEvent.DRAG_DROP</codeph> 事件编写一个事件处理函数，以便基于 AdvancedDataGrid 数据的结构实现复制数据。  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:drawVerticalLine"><apiName>drawVerticalLine</apiName><shortdesc>
+      在各列之间绘制垂直线。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个包含 DisplayObject（其中包含该行图形）的 Sprite。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>列在所显示的一组列中的索引。最左端可见列的列索引为 0。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>指示符的颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>背景的 x 位置
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在各列之间绘制垂直线。此实现直接在给定的 Sprite 中绘制一条直线。在 Sprite 中绘制直线之前已将其清除。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandAll"><apiName>expandAll</apiName><shortdesc>
+      扩展控件中导航树的所有节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      扩展控件中导航树的所有节点。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandChildrenOf"><apiName>expandChildrenOf</apiName><shortdesc>
+      打开或关闭指定项目下的导航树的所有节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>定义分支节点的 Object。此 Object 包含该分支节点的数据提供程序元素。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>open</apiItemName><apiType value="Boolean"/><apiDesc>指定 <codeph>true</codeph> 可打开项目，指定 <codeph>false</codeph> 可关闭项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      打开或关闭指定项目下的导航树的所有节点。
+     
+      <p>如果设置 <codeph>dataProvider</codeph> 属性后立即调用 <codeph>expandChildrenOf()</codeph> 方法，您可能看不到正确的行为。在调用 <codeph>expandChildrenOf()</codeph> 之前，您应该等待验证组件或调用 <codeph>validateNow()</codeph> 方法。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandItem"><apiName>expandItem</apiName><shortdesc>
+      打开或关闭导航树的分支节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>定义分支节点的 Object。此 Object 包含该分支节点的数据提供程序元素。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>open</apiItemName><apiType value="Boolean"/><apiDesc>指定 <codeph>true</codeph> 可打开分支节点；指定 <codeph>false</codeph> 可关闭分支节点。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>animate</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定 <codeph>true</codeph> 以设置过渡动画效果。（注意：如果分支包含 20 个以上的子项目，为了提高性能，它不会在第一次打开时设置动画效果。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定在打开动画完成后，控件是分派 <codeph>open</codeph> 事件 (<codeph>true</codeph>)，还是不分派该事件 (<codeph>false</codeph>)。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cause</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>启动项目动作的事件（如果存在）。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      打开或关闭导航树的分支节点。分支项目打开后，如果它的子项目分支已处于打开状态，则它将还原它们的打开和关闭状态。
+     
+      <p>如果设置 <codeph>dataProvider</codeph> 属性后立即调用 <codeph>expandItem()</codeph> 方法，您可能看不到正确的行为。您应该等待对组件进行验证或调用 <codeph>validateNow()</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+     
+      基于 caretIndex 和 anchorIndex 属性设置所选项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     
+      基于 <codeph>caretIndex</codeph> 和 <codeph>anchorIndex</codeph> 属性设置所选项目。如果键盘选择处理函数在滚动以获得更多项目时发生页面错误，就会由键盘选择处理函数和 <codeph>updateDisplayList()</codeph> 方法调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      返回子项目的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项目的父项目。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>定义子项目的 Object。此 Object 包含该子项的数据提供程序元素。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回子项目的父项。仅在项目原来可见或当前可见时，此方法才会返回值。顶级项目包含一个具有 <codeph>null</codeph> 值的父项。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:initListData"><apiName>initListData</apiName><shortdesc>
+      初始化由 AdvancedDataGrid 项呈示器使用的 AdvancedDataGridListData 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要呈示的项目。此 Object 包含该项目的数据提供程序元素。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>adgListData</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridListData</apiOperationClassifier><apiDesc>呈示项目过程中使用的 AdvancedDataGridListDataItem。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      初始化由 AdvancedDataGrid 项呈示器使用的 AdvancedDataGridListData 对象。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:isItemOpen"><apiName>isItemOpen</apiName><shortdesc>
+      如果指定的分支节点处于打开状态，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果处于打开状态，则返回 <codeph>true</codeph>；否则返回 <codeph>false</codeph>。
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要检查的分支节点。此 Object 包含该分支节点的数据提供程序元素。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的分支节点处于打开状态，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:moveIndicators"><apiName>moveIndicators</apiName><shortdesc>
+      当控件滚动其显示内容时，按给定的偏移量上下移动单元格和行选择指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>行的 UID。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiDesc>滚动偏移量。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>absolute</apiItemName><apiType value="Boolean"/><apiDesc>如果 <codeph>offset</codeph> 包含新的滚动位置，则为 <codeph>true</codeph>；如果它包含相对于当前滚动位置的值，则为 <codeph>false</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当控件滚动其显示内容时，按给定的偏移量上下移动单元格和行选择指示符。这假定此行中的所有选择指示符位于同一 y 位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:removeCellSelectionData"><apiName>removeCellSelectionData</apiName><shortdesc>
+      从控件中删除单元格选择信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>所选单元格的 UID。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>所选单元格的列索引。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从控件中删除单元格选择信息。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:selectCellItem"><apiName>selectCellItem</apiName><shortdesc>
+      更新所选单元格的列表，假定用鼠标单击了指定的项呈示器且键盘功能键处于指定的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果操作成功，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>单元格的项呈示器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果指定按下 Shift 键，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果指定按下 Ctrl 键，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定 <codeph>true</codeph> 以设置过渡动画效果。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更新所选单元格的列表，假定用鼠标单击了指定的项呈示器且键盘功能键处于指定的状态。 
+     
+      <p>此方法也可以根据项呈示器更新后的选定状态更新其显示。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:selectItem"><apiName>selectItem</apiName><shortdesc>
+      如果使用鼠标单击提供的项呈示器，并且键盘功能键处于给定状态，则更新所选项目组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>如果所选项目组发生更改，则返回 <codeph>true</codeph>。单击已选项目不会始终更改所选项目集。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>单击的项呈示器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在单击鼠标的同时按下 Shift 键，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在单击鼠标时按下 Ctrl 键，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果在使用某种效果时，处于选定状态的图形应该显示淡入效果，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果使用鼠标单击提供的项呈示器，并且键盘功能键处于给定状态，则更新所选项目组。此方法也可以根据项呈示器更新后的选定状态更新其显示。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:setItemIcon"><apiName>setItemIcon</apiName><shortdesc>
+      在导航树中为项目设置关联的图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>定义导航树中项目的 Object。此 Object 包含该项目的数据提供程序元素。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iconID</apiItemName><apiType value="Class"/><apiDesc>关闭（或叶）图标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iconID2</apiItemName><apiType value="Class"/><apiDesc>打开图标。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在导航树中为项目设置关联的图标。调用此方法将覆盖此项目的 <codeph>iconField</codeph> 和 <codeph>iconFunction</codeph> 属性（如果此项目为叶项目）。分支项目不使用 <codeph>iconField</codeph> 和 <codeph>iconFunction</codeph> 属性。它们使用 <codeph>folderOpenIcon</codeph> 和 <codeph>folderClosedIcon</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:treeNavigationHandler"><apiName>treeNavigationHandler</apiName><shortdesc>
+      导航树的键盘导航处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果键盘导航处理正确，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>键盘事件。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      导航树的键盘导航处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:AdvancedDataGrid:HEADER_ICON_PART"><apiName>HEADER_ICON_PART</apiName><shortdesc>
+     指示鼠标悬停在标题的标头部分上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerIconPart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指示鼠标悬停在标题的标头部分上。用作 <codeph>AdvancedDataGridHeaderRenderer.mouseEventToHeaderPart</codeph> 方法的返回值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:HEADER_TEXT_PART"><apiName>HEADER_TEXT_PART</apiName><shortdesc>
+     指示鼠标悬停在标题的文本部分上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerTextPart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指示鼠标悬停在标题的文本部分上。用作 mouseEventToHeaderPart 的返回值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:anchorColumnIndex"><apiName>anchorColumnIndex</apiName><shortdesc>
+      当前锚记的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      当前锚记的列索引。此属性与 <codeph>ListBase.anchorIndex</codeph> 属性配合使用以确定锚记所在位置的单元格的列和行索引。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/anchorIndex"><linktext>mx.controls.listClasses.ListBase.anchorIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:caretColumnIndex"><apiName>caretColumnIndex</apiName><shortdesc>
+      尖号下的项目的列名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      尖号下的项目的列名称。与 <codeph>caretIndex</codeph> 属性配合使用以确定尖号所在位置的单元格的列/行索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:cellSelectionTweens"><apiName>cellSelectionTweens</apiName><shortdesc>
+      所选内容补间的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      所选内容补间的哈希表。清除所选项目组后，此表允许组件快速查找和清除正在处理的任何补间。此表按项目的 UID 和列编号编制索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:highlightColumnIndex"><apiName>highlightColumnIndex</apiName><shortdesc>
+      当前在光标上或下滚动的项目的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      当前在光标上或下滚动的项目的列索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:itemIcons"><apiName>itemIcons</apiName><shortdesc>
+      用于指定项目图标的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于指定项目图标的对象。对象中的每个条目都包含一个字段名称（项目 UID）和一个值，该值是具有以下格式的对象：
+      <pre>
+      {iconID: <i>Class</i>, iconID2: <i>Class</i>}
+      </pre>
+      <codeph>iconID</codeph> 字段值是关闭项目或叶项目的图标的类，而 <codeph>iconID2</codeph> 是打开项目的图标的类。
+     
+      <p>此属性旨在允许项目图标的初始化。不会自动检测初始化后此数组发生的更改。请使用 <codeph>setItemIcon()</codeph> 方法动态更改图标。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid/setItemIcon()"><linktext>setItemIcon()</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:selectedColumnIndex"><apiName>selectedColumnIndex</apiName><shortdesc>
+      所选单元格的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      所选单元格的列。与 <codeph>selectedIndex</codeph> 属性配合使用以确定所选单元格的列和行索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:tween"><apiName>tween</apiName><shortdesc>
+      设置行动画的补间对象，用户可以将事件侦听器添加到此 Object，以便在补间开始、更新和结束时获取通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      设置行动画的补间对象，用户可以将事件侦听器添加到此 Object，以便在补间开始、更新和结束时获取通知。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:visibleCellRenderers"><apiName>visibleCellRenderers</apiName><shortdesc>
+      视图中当前使用的数据提供程序项呈示器的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      视图中当前使用的数据提供程序项呈示器的哈希表。此表按数据提供程序项目的 UID 和列编号编制索引，并用于快速获取用于显示特定项目的呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:displayDisclosureIcon:get"><apiName>displayDisclosureIcon</apiName><shortdesc>
+      控制显示图标在导航树中的创建和可见性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控制显示图标在导航树中的创建和可见性。如果为 <codeph>false</codeph>，则不显示显示图标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:displayItemsExpanded:get"><apiName>displayItemsExpanded</apiName><shortdesc>
+      如果为 true，则展开导航树显示所有项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则展开导航树显示所有项目。如果添加新分支，也将显示为展开形式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:firstVisibleItem:get"><apiName>firstVisibleItem</apiName><shortdesc>
+      与当前显示在 AdvancedDataGrid 控件顶行的项目对应的数据提供程序元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="firstVisibleItemChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      与当前显示在 AdvancedDataGrid 控件顶行的项目对应的数据提供程序元素。例如，顶行可能是当前可查看项目列表中的第九个项目（代表根节点的部分曾孙项），这取决于分支的打开、关闭和滚动方式。设置此属性类似于设置 List 控件的 <codeph>verticalScrollPosition</codeph>。
+     
+      <p>如果由于某种原因当前无法查看该项目（例如，它位于未展开的项目下方），则设置此属性没有效果。</p>
+     
+      <p>默认值是 AdvancedDataGrid 控件中的第一个项目。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupIconFunction:get"><apiName>groupIconFunction</apiName><shortdesc>
+      用户提供的回调函数，用于对每个组项目运行以确定其在导航树中的分支图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="groupIconFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用户提供的回调函数，用于对每个组项目运行以确定其在导航树中的分支图标。如果预先确定了数据项目的图标，则可以通过使用 <codeph>itemIcons</codeph> 或 <codeph>setItemIcon</codeph> 属性指定图标。使用此回调函数可在检查数据后动态确定图标。
+      
+      <p><codeph>groupIconFunction</codeph> 采用数据提供程序中的项目及其深度，并返回定义图标的 Class，或者采用 <codeph>null</codeph> 属性以使用默认图标。该回调函数必须具有以下签名：</p>
+     
+      <pre>
+        groupIconFunction(item:Object,depth:int):Class</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupItemRenderer:get"><apiName>groupItemRenderer</apiName><shortdesc>
+      指定用于显示导航树中与各组对应的分支节点的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      指定用于显示导航树中与各组对应的分支节点的项呈示器。默认情况下，该呈示器是 AdvancedDataGridGroupItemRenderer 类的实例。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupLabelFunction:get"><apiName>groupLabelFunction</apiName><shortdesc>
+      针对每个项目运行的回调函数，可确定该项目在导航树中的标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="groupLabelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      针对每个项目运行的回调函数，可确定该项目在导航树中的标签。默认情况下，该控件会针对每个数据提供程序项目，查找名为 <codeph>label</codeph> 的属性，并显示该属性。但是，部分数据集并没有 <codeph>label</codeph> 属性，或具有其他可供显示的属性。例如，数据集中包含 lastName 和 firstName 字段，但您希望显示全名。
+     
+      <p>您可以提供 <codeph>groupLabelFunction</codeph>，它可以查找相应字段并返回可显示的字符串。<codeph>groupLabelFunction</codeph> 还非常适合处理格式设置和本地化。 </p>
+     
+      <p>AdvancedDataGrid 类和 AdvancedDataGridColumn 类的方法签名是：</p>
+      <pre>
+      myGroupLabelFunction(item:Object, column:AdvancedDataGridColumn):String</pre>
+     
+      <p>其中，<codeph>item</codeph> 包含 AdvancedDataGrid 项目对象，<codeph>column</codeph> 指定 AdvancedDataGrid 列。此函数返回包含该标签的 String。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupRowHeight:get"><apiName>groupRowHeight</apiName><shortdesc>
+      分组行的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      分组行的高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupedColumns:get"><apiName>groupedColumns</apiName><shortdesc>
+      执行列分组时定义 AdvancedDataGridColumn 实例层次结构的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      执行列分组时定义 AdvancedDataGridColumn 实例层次结构的 Array。如果同时指定了 <codeph>columns</codeph> 和 <codeph>groupedColumns</codeph> 属性，控件将使用 <codeph>groupedColumns</codeph> 属性并忽略 <codeph>columns</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      滚动的控件中第一行的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滚动的控件中第一行的索引。此行上方的行在视图中保持固定。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:rendererProviders:get"><apiName>rendererProviders</apiName><shortdesc>
+      AdvancedDataGridRendererProvider 实例 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      AdvancedDataGridRendererProvider 实例 Array。您可以使用多个呈示器提供程序来指定用于特殊数据的、位于导航树特定深度处的或者跨列或跨行的自定义项呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:selectedCells:get"><apiName>selectedCells</apiName><shortdesc>
+      包含行和列索引形式的单元格位置的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含行和列索引形式的单元格位置的 Array。更改 <codeph>selectionMode</codeph> 属性的值可将此属性设置为 <codeph>null</codeph>。
+     
+      <p>请注意这些行和列索引都为绝对值，与显示内容无关。如下所示的典型 <codeph>selectedCells</codeph> 属性设置可以对此进行解释：</p>
+     
+      <pre>
+      selectedCells = [ { rowIndex : r1, columnIndex : c1 },
+                        { rowIndex : r2, columnIndex : c2 },
+                        ... ]</pre>
+     
+      <p>则 dataProvider[r1]、columns[c1]、dataProvider[r2]、columns[c2] 等始终有效。</p>
+     
+      <p>如果要以编程方式更改所选单元格集，您必须获取此 Array，并对 Array 中的单元格及其顺序进行修改，然后将新的数组分配给 <codeph>selectedCells</codeph> 属性。这是因为 AdvancedDataGrid 控件返回了 selectedCells Array 的新副本，因而没有注意到这些更改。</p>
+     
+      <p><codeph>selectionMode</codeph> 属性的值确定 <codeph>rowIndex</codeph> 和 <codeph>columnIndex</codeph> 属性中的数据，如下表所述：</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry><codeph>selectionMode</codeph></entry><entry><codeph>rowIndex</codeph> 和 <codeph>columnIndex</codeph> 属性的值</entry></row></thead><tbody><row>
+          <entry>none</entry>
+          <entry>不允许在控件中选择，<codeph>selectedCells</codeph> 为 null。 </entry>
+        </row><row>
+          <entry><codeph>singleRow</codeph>  </entry>
+          <entry>单击行中的任意单元格可以选中该行。选择后，<codeph>selectedCells</codeph> 包含一个 Object：
+           <p>[{rowIndex:selectedRowIndex, columnIndex: -1}]</p></entry>
+        </row><row>
+          <entry><codeph>multipleRows</codeph></entry>
+          <entry>单击行中的任意单元格可以选中该行。按下 Ctrl 键，同时单击另一行中的任意单元格可以对行执行非连续选择。按下 Shift 键，同时单击另一行中的任意单元格可以选择多个连续行。选择后，<codeph>selectedCells</codeph> 针对每个所选行包含一个 Object： 
+           <p>[ {rowIndex: selectedRowIndex1, columnIndex: -1}, {rowIndex: selectedRowIndex2, columnIndex: -1}, ... {rowIndex: selectedRowIndexN, columnIndex: -1} ] </p></entry>
+        </row><row>
+          <entry><codeph>singleCell</codeph></entry>
+          <entry>单击任意单元格可将其选中。选择后，<codeph>selectedCells</codeph> 包含一个 Object：
+           <p>[{rowIndex: selectedRowIndex, columnIndex:selectedColIndex}] </p></entry>
+        </row><row>
+          <entry><codeph>multipleCells</codeph></entry>
+          <entry>单击任意单元格可将其选中。按下 Ctrl 键后，单击任一单元格可选择非连续的多个单元格。按下 Shift 键，同时单击任意单元格可以选择多个连续的单元格。选择后，<codeph>selectedCells</codeph> 针对每个所选单元格包含一个 Object：
+           <p>[ {rowIndex: selectedRowIndex1, columnIndex: selectedColIndex1}, {rowIndex: selectedRowIndex2, columnIndex: selectedColIndex2}, ... {rowIndex: selectedRowIndexN, columnIndex: selectedColIndexN} ] </p></entry>
+        </row></tbody></tgroup></adobetable>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:treeColumnIndex:get"><apiName>treeColumnIndex</apiName><shortdesc>
+      树列编号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      树列编号。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:treeColumn:get"><apiName>treeColumn</apiName><shortdesc>
+      显示该树的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示该树的列。将此属性设置为 AdvancedDataGridColumn 实例的 <codeph>id</codeph> 属性的值，如以下示例所示：
+     
+      <pre>
+        &lt;mx:AdvancedDataGrid 
+           width="100%" height="100%"
+           treeColumn="{rep}"> 
+           &lt;mx:dataProvider>
+              &lt;mx:HierarchicalData source="{dpHierarchy}" 
+                  childrenField="categories"/>
+           &lt;/mx:dataProvider>
+           &lt;mx:columns>
+              &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+              &lt;mx:AdvancedDataGridColumn id="rep" 
+                  dataField="Territory_Rep"
+                  headerText="Territory Rep"/>
+              &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+              &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+           &lt;/mx:columns>
+        &lt;/mx:AdvancedDataGrid></pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:hierarchicalCollectionView:set"><apiName>hierarchicalCollectionView</apiName><shortdesc>
+      该控件使用的 IHierarchicalCollectionView 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalCollectionView</apiValueClassifier></apiValueDef><apiDesc>
+      该控件使用的 IHierarchicalCollectionView 实例。
+     
+      <p>默认值是 HierarchicalCollectionView 类的内部实例。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView"><linktext>mx.collections.IHierarchicalCollectionView</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:lockedColumnCount:set"><apiName>lockedColumnCount</apiName><shortdesc>
+      滚动的控件中第一列的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      滚动的控件中第一列的索引。此项左侧的列在视图中保持固定位置。 
+     
+      <p>使用列组时，列组被视为一列。例如，如果您将此属性设置为 2，最左侧的两个列组分别包含两个和三个子项，则您将有效地锁定此控件的前五列。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGridBaseEx"><apiName>AdvancedDataGridBaseEx</apiName><shortdesc>
+ AdvancedDataGridBaseEx 类是 AdvancedDataGrid 控件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="cornerRadius"/><Exclude kind="property" name="showDataTips"/><Exclude kind="property" name="maxVerticalScrollPosition"/><Exclude kind="property" name="maxHorizontalScrollPosition"/><Exclude kind="property" name="offscreenExtraRowsOrColumnsChanged"/><Exclude kind="property" name="offscreenExtraColumnsRight"/><Exclude kind="property" name="offscreenExtraColumnsLeft"/><Exclude kind="property" name="offscreenExtraColumns"/><Exclude kind="property" name="offscreenExtraRowsBottom"/><Exclude kind="property" name="offscreenExtraRowsTop"/><Exclude kind="property" name="offscreenExtraRows"/><Exclude kind="property" name="offscreenExtraRowsOrColumns"/><Exclude kind="property" name="labelField"/><Exclude kind="property" name="columnCount"/><DefaultProperty name="dataProvider"/><styles><style inherit="no" name="headerDragProxyStyleName" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="String">
+<description>
+  适用于当用户将列外观拖动到另一位置时，控制其各个方面的 CSS 样式声明的名称。
+   </description>
+<default>"headerDragProxyStyle"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="columnDropIndicatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作指示可将列放在当前位置的外观的类。
+   </description>
+<default>mx.skins.halo.DataGridColumnDropIndicator (for both Halo and Spark themes)
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="stretchCursor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作指示可调整列大小的光标外观的类。
+  </description>
+<default>mx.skins.halo.DataGridStretchCursor
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalLockedSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可定义 AdvancedDataGrid 控件中锁定列与未锁定列之间的分隔符的外观。默认情况下，AdvancedDataGrid 控件使用 <codeph>drawHorizontalLine()</codeph> 和 <codeph>drawVerticalLine()</codeph> 方法绘制分隔符。
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可定义 AdvancedDataGrid 控件中列之间的分隔符的外观。默认情况下，AdvancedDataGrid 控件使用 <codeph>drawHorizontalLine()</codeph> 和 <codeph>drawVerticalLine()</codeph> 方法绘制分隔符。
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalLockedSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可定义 AdvancedDataGrid 控件中锁定行与未锁定行之间的分隔符的外观。默认情况下，AdvancedDataGrid 控件使用 <codeph>drawHorizontalLine()</codeph> 和 <codeph>drawVerticalLine()</codeph> 方法绘制分隔符。
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可用于定义 AdvancedDataGrid 控件中行之间分隔符的外观。默认情况下，AdvancedDataGrid 控件使用 <codeph>drawHorizontalLine()</codeph> 和 <codeph>drawVerticalLine()</codeph> 方法绘制分隔符。
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerHorizontalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可用于定义 AdvancedDataGrid 控件中列组与其子列或子列组标题之间分隔符的外观。
+  </description>
+<default>mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可用于定义 AdvancedDataGrid 控件中列标题之间分隔符的外观。
+  
+   <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.DataGridHeaderSeparator</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.DataGridHeaderSeparatorSkin</codeph>。</p>
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerBackgroundSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作外观的类，可用于定义 AdvancedDataGrid 控件中列标题的背景外观。
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.DataGridHeaderBackgroundSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.DataGridHeaderBackgroundSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="columnResizeSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  用作要调整大小的列的外观的类。
+ 
+  </description>
+<default>mx.skins.halo.DataGridColumnResizeSkin (for both Halo and Spark themes)
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="String">
+<description>
+  用于控制列标题外观其他方面的 CSS 样式声明的名称。
+  </description>
+<default>"dataGridStyles"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  用户选择行中的项呈示器时，该行的背景颜色。
+  </description>
+<default>0xCDFFC1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="rollOverColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  用户将鼠标滑过行时的行背景颜色。
+  </description>
+<default>0xE3FFD6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="headerColors" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Array">
+<description>
+  用于绘制标题背景渐变的两种颜色的数组。第一种颜色是顶层颜色。第二种颜色是底层颜色。
+  </description>
+<default>[0xFFFFFF, 0xE6E6E6]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="horizontalGridLineColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  水平网格线的颜色。
+   
+   </description>
+
+<playerversion>AIR 1.1
+   </playerversion>
+	<prolog><asCustoms><langversion>3.0
+   </langversion><productversion>Flex 3
+  </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="verticalGridLineColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  垂直网格线的颜色。
+  </description>
+<default>0x666666
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalGridLines" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Boolean">
+<description>
+  一个标志，指示是否显示行之间的水平网格线。如果为 <codeph>true</codeph>，则显示水平网格线。如果为 <codeph>false</codeph>，则隐藏水平网格线。
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalGridLines" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Boolean">
+<description>
+  一个标志，指示是否显示列之间的垂直网格线。如果为 <codeph>true</codeph>，则显示垂直网格线。如果为 <codeph>false</codeph>，则隐藏垂直网格线。
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="defaultDataGridItemRenderer" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash10" type="Class">
+<description>
+  在没有为列指定 itemRenderer 的情况下，要使用的 itemRenderer 类的名称。这是为一组 AdvancedDataGrid 设置 itemRenderer 的一种方式，从而不必分别设置每一个 AdvancedDataGrid。如果设置 AdvancedDataGrid 的 itemRenderer 属性，则它会取代此值。
+  </description>
+<default>null
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="defaultDataGridItemEditor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash10" type="Class">
+<description>
+  在没有为列指定名称的情况下要使用的 itemEditor 类的名称。这是为一组 AdvancedDataGrid 设置项编辑器的一种方式，从而不必分别设置每一个 AdvancedDataGrid。如果设置 AdvancedDataGridColumn 的 itemEditor 属性，则它会取代此值。
+  </description>
+<default>null
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledIconColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  已禁用外观中图标的颜色。例如，CheckBoxIcon 外观类可使用此样式来绘制禁用的 CheckBox 控件的复选标记；ComboBoxSkin 类可使用此样式来绘制禁用的 ComboBox 控件的向下箭头；DateChooserMonthArrowSkin 外观类可使用此样式来绘制禁用的 DateChooser 控件的月箭头。默认值取决于组件类；如果此类未覆盖默认值，则默认值为 <codeph>0x999999</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="iconColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  某个外观中图标的颜色。例如，CheckBoxIcon 外观类可使用此样式来绘制 CheckBox 控件的复选标记；ComboBoxSkin 类可使用此样式来绘制 ComboBox 控件的向下箭头；DateChooserMonthArrowSkin 外观类可使用此样式来绘制 DateChooser 控件的月箭头。默认值取决于组件类；如果此类未覆盖默认值，则默认值为 <codeph>0x111111</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[ <p>
+  The <code>&lt;mx:AdvancedDataGridBaseEx&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:AdvancedDataGridBaseEx
+    <b>Properties</b>
+    columns="<i>From dataProvider</i>"
+    draggableColumns="true|false"
+    editable="item group summary"
+    editedItemPosition="<code>null</code>"
+    horizontalScrollPosition="null"
+    imeMode="null"
+    itemEditorInstance="null"
+    lookAheadDuratio="400"
+    minColumnWidth="<code>NaN</code>"
+    resizableColumns="true|false"
+    sortableColumns="true|false"
+    sortExpertMode="false|true"
+     
+    <b>Styles</b>
+    columnDropIndicatorSkin="DataGridColumnDropIndicator"
+    columnResizeSkin="DataGridColumnResizeSkin"
+    disabledIconColor="0x999999"
+    headerBackgroundSkin="DataGridHeaderSeparator"
+    headerColors="[#FFFFFF, #E6E6E6]"
+    headerDragProxyStyleName="headerDragProxyStyle"
+    headerHorizontalSeparatorSkin="AdvancedDataGridHeaderHorizontalSeparator"
+    headerSeparatorSkin="DataGridHeaderSeparator"
+    headerStyleName="<i>No default</i>"
+    horizontalGridLineColor="<i>No default</i>"
+    horizontalGridLines="false|true"
+    horizontalLockedSeparatorSkin="undefined"
+    horizontalSeparatorSkin="undefined"
+    iconColor="0x111111"
+    rollOverColor="#E3FFD6"
+    selectionColor="#CDFFC1"
+    stretchCursor="DataGridStretchCursor"
+    verticalGridLineColor="#666666"
+    verticalGridLines="false|true"
+    verticalLockedSeparatorSkin="undefined"
+    verticalSeparatorSkin="undefined"
+     
+    <b>Events</b>
+    columnStretch="<i>No default</i>"
+    headerRelease="<i>No default</i>"
+    headerShift="<i>No default</i>"
+    itemEditBegin="<i>No default</i>"
+    itemEditBeginning="<i>No default</i>" 
+    itemEditEnd="<i>No default</i>"
+    itemFocusIn="<i>No default</i>"
+    itemFocusOut="<i>No default</i>"
+  /&gt;
+   
+  <i>The following AdvancedDataGrid code sample specifies the column order:</i>
+  &lt;mx:AdvancedDataGrid&gt;
+    &lt;mx:dataProvider&gt;
+        &lt;mx:Object Artist="Pavement" Price="11.99"
+          Album="Slanted and Enchanted"/&gt;
+        &lt;mx:Object Artist="Pavement"
+          Album="Brighten the Corners" Price="11.99"/&gt;
+    &lt;/mx:dataProvider&gt;
+    &lt;mx:columns&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Album"/&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Price"/&gt;
+    &lt;/mx:columns&gt;
+  &lt;/mx:AdvancedDataGrid&gt;
+  </pre>
+  </p>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AdvancedDataGridBaseEx 类是 AdvancedDataGrid 控件的基类。此类包含可提供与 DataGrid 控件类似功能的代码。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.IndexChangedEvent.HEADER_SHIFT_headerShift"><apiName>headerShift</apiName><shortdesc>
+  当用户将列拖动到新位置使该列移动到新索引处后，在列标题上释放鼠标按键时分派
+   </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.IndexChangedEvent.HEADER_SHIFT</apiEventType><adobeApiEventClassifier>mx.events.IndexChangedEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将列拖动到新位置使该列移动到新索引处后，在列标题上释放鼠标按键时分派
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.SORT_sort"><apiName>sort</apiName><shortdesc>
+  要对 AdvancedDataGrid 控件进行排序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.SORT</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  要对 AdvancedDataGrid 控件进行排序时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.HEADER_RELEASE_headerRelease"><apiName>headerRelease</apiName><shortdesc>
+  当用户在列标题上释放鼠标按键以请求控件基于列内容对网格内容进行排序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户在列标题上释放鼠标按键以请求控件基于列内容对网格内容进行排序时分派。仅在列可排序且数据提供程序支持排序时才分派。AdvancedDataGrid 控件对于此事件（实现单列排序）使用默认处理函数。通过调用 <codeph>preventDefault()</codeph> 方法阻止单列排序，并设置数据提供程序的 <codeph>sort</codeph> 属性，可以实现多列排序。
+ <p>
+ <b>注意</b>：排序箭头由 <codeph>headerRelease</codeph> 事件的默认事件处理函数定义。如果在事件处理函数中调用 <codeph>preventDefault()</codeph> 方法，则不绘制箭头。
+ </p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.COLUMN_STRETCH_columnStretch"><apiName>columnStretch</apiName><shortdesc>
+  当用户更改列宽时分派，指示此列中显示的数据量可能会更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.COLUMN_STRETCH</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户更改列宽时分派，指示此列中显示的数据量可能会更改。如果 <codeph>horizontalScrollPolicy</codeph> 为 <codeph>"none"</codeph>，则其他列将进行收缩或扩展以调整列的大小，并且它们也可分派此事件。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_FOCUS_OUT_itemFocusOut"><apiName>itemFocusOut</apiName><shortdesc>
+  当项呈示器失去焦点时分派。在以下情况下项呈示器可能会失去焦点：当用户单击 AdvancedDataGrid 控件中的另一项目、在控件外部单击或使用键盘导航到 AdvancedDataGrid 控件中或控件外部的另一项目时。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_FOCUS_OUT</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当项呈示器失去焦点时分派。在以下情况下项呈示器可能会失去焦点：当用户单击 AdvancedDataGrid 控件中的另一项目、在控件外部单击或使用键盘导航到 AdvancedDataGrid 控件中或控件外部的另一项目时。仅当项目可编辑时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_FOCUS_IN_itemFocusIn"><apiName>itemFocusIn</apiName><shortdesc>
+  当项呈示器获得焦点时分派。在以下情况下项呈示器可能会获得焦点：当用户单击 AdvancedDataGrid 控件中的某一项目或使用键盘导航至该项目时。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_FOCUS_IN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当项呈示器获得焦点时分派。在以下情况下项呈示器可能会获得焦点：当用户单击 AdvancedDataGrid 控件中的某一项目或使用键盘导航至该项目时。仅当项目可编辑时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_END_itemEditEnd"><apiName>itemEditEnd</apiName><shortdesc>
+  当项目编辑会话因任何原因而结束时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_END</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当项目编辑会话因任何原因而结束时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGIN_itemEditBegin"><apiName>itemEditBegin</apiName><shortdesc>
+  当 editedItemPosition 属性已设置且项目可编辑时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGIN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>editedItemPosition</codeph> 属性已设置且项目可编辑时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGINNING_itemEditBeginning"><apiName>itemEditBeginning</apiName><shortdesc>
+  当用户在项呈示器释放鼠标按键、按 Tab 切换到 AdvancedDataGrid 控件或在 AdvancedDataGrid 控件内切换，或者以其他任何方式尝试编辑项目时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGINNING</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户在项呈示器释放鼠标按键、按 Tab 切换到 AdvancedDataGrid 控件或在 AdvancedDataGrid 控件内切换，或者以其他任何方式尝试编辑项目时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:AdvancedDataGridBaseEx:AdvancedDataGridBaseEx"><apiName>AdvancedDataGridBaseEx</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToDisplayColumnIndex"><apiName>absoluteToDisplayColumnIndex</apiName><shortdesc>
+      将绝对列索引转换为显示列中的相应索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>当前显示列索引；如果未找到 <codeph>columnIndex</codeph>，则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>绝对列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将绝对列索引转换为显示列中的相应索引。由于用户可以对列进行重新排序，因此绝对列索引可能与显示列的索引不同。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToVisibleColumnIndex"><apiName>absoluteToVisibleColumnIndex</apiName><shortdesc>
+      将绝对列索引转换为可见列中相应的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>当前可见列的索引；如果 <codeph>columnIndex</codeph> 当前处于不可见状态，则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>绝对列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将绝对列索引转换为可见列中相应的索引。由于用户可以对列进行重新排序，因此绝对列索引可能与可见列的索引不同。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToVisibleIndices"><apiName>absoluteToVisibleIndices</apiName><shortdesc>
+      将绝对行索引和列索引转换为控件按当前方式显示项目的相应行索引和列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>具有 <codeph>rowIndex</codeph> 和 <codeph>columnIndex</codeph> 两个字段的 Object，其中包含控件按当前方式显示项目的行索引和列索引。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>绝对行索引。
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>绝对列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将绝对行索引和列索引转换为控件按当前方式显示项目的相应行索引和列索引。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:addSortField"><apiName>addSortField</apiName><shortdesc>
+      将数据字段添加到排序字段列表中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiDesc>对应于数据字段的列名称。
+           </apiDesc></apiParam><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>AdvancedDataGrid 控件中的列索引。
+           </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>包含数据字段的数据集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将数据字段添加到排序字段列表中。通过指定其列位置指示数据字段。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      删除通常用于调整列大小的列标题分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      删除通常用于调整列大小的列标题分隔符。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:colNumToIndex"><apiName>colNumToIndex</apiName><shortdesc>
+      按当前显示方式返回列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>按当前方式显示的列索引；如果未找到 <codeph>colNum</codeph>，则返回 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>绝对列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      按当前显示方式返回列索引。在控件的所有列当前不可见时，此方法很有用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:createHeaderSeparators"><apiName>createHeaderSeparators</apiName><shortdesc>
+      创建列标题之间的标题分隔符，并使用创建的分隔符填充分隔符 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>n</apiItemName><apiType value="int"/><apiDesc>要创建的分隔符数。
+           </apiDesc></apiParam><apiParam><apiItemName>seperators</apiItemName><apiType value="Array"/><apiDesc>要使用标题对象填充的数组。
+           </apiDesc></apiParam><apiParam><apiItemName>headerLines</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>标题分隔符的父组件，将向其中添加分隔符。也就是说，Flex 将内部调用 <codeph>headerLines.addChild()</codeph> 方法来将分隔符添加到显示中。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建列标题之间的标题分隔符，并使用创建的分隔符填充 <codeph>separators</codeph> Array。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:createItemEditor"><apiName>createItemEditor</apiName><shortdesc>
+      使用由 itemEditor 属性指定的编辑器在 editedItemPosition 为项呈示器创建项目编辑器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>要编辑项目的数据提供程序中的列索引。
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>要编辑项目的数据提供程序中的行索引。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用由 <codeph>itemEditor</codeph> 属性指定的编辑器在 <codeph>editedItemPosition</codeph> 为项呈示器创建项目编辑器。
+           <p>此方法将编辑器实例设置为 <codeph>itemEditorInstance</codeph> 属性。</p>
+           <p>您可能只可以从 <codeph>itemEditBegin</codeph> 事件的事件侦听器中调用此方法。若要在其他时间创建编辑器，请设置 <codeph>editedItemPosition</codeph> 属性以生成 <codeph>itemEditBegin</codeph> 事件。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:destroyItemEditor"><apiName>destroyItemEditor</apiName><shortdesc>
+      此方法将关闭项呈示器上当前打开着的项目编辑器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此方法将关闭项呈示器上当前打开着的项目编辑器。通常，在调用 <codeph>preventDefault()</codeph> 方法防止默认事件侦听器运行之后，您只能从 <codeph>itemEditEnd</codeph> 事件的事件侦听器内调用此方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:displayToAbsoluteColumnIndex"><apiName>displayToAbsoluteColumnIndex</apiName><shortdesc>
+      将列的当前显示列索引转换为其相应的绝对索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>绝对列索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>控件当前显示的列的索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将列的当前显示列索引转换为其相应的绝对索引。由于用户可以对列进行重新排序，因此绝对列索引可能与显示列的索引不同。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawColumnBackground"><apiName>drawColumnBackground</apiName><shortdesc>
+      使用建议的颜色为列绘制列背景。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中的显示对象包含该列的图形。
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>列在所显示的一组列中的索引。最左侧的可见列的列索引为 0。此索引用于跟踪绘制背景时使用的对象，以便某一特定列可重用同一显示对象，即使该列的 AdvancedDataGridColumn 索引已发生更改。
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>您正在为其绘制背景的 AdvancedDataGrid 控件的列。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用建议的颜色为列绘制列背景。此实现将创建一个 Shape 作为输入 Sprite 的子项，并使用合适的颜色进行填充。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      在给定的 UIComponent 中绘制标题的背景。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>将包含标题背景图形的 UIComponent。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在给定的 UIComponent 中绘制标题的背景。如果组件的宽度发生更改，可水平缩放绘制的图形；也可以再次调用此方法重新绘制一个不同宽度/高度的组件
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawHorizontalLine"><apiName>drawHorizontalLine</apiName><shortdesc>
+      绘制行之间的直线。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中的显示对象包含该行的图形。
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>行在所显示的一组行中的索引。最顶端的可见行（不包括标题）的行索引为 0。这用于跟踪绘制背景所用的对象，这样即使特定行呈示的项目的索引已更改，该行也能够重用同一个显示对象。
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的背景 y 位置。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      绘制行之间的直线。此实现直接在给定的 Sprite 中绘制一条直线。在 Sprite 中绘制直线之前已将其清除。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawLinesAndColumnBackgrounds"><apiName>drawLinesAndColumnBackgrounds</apiName><shortdesc>
+      在列之间及列背景之间绘制线条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在列之间及列背景之间绘制线条。此实现将根据需要调用 <codeph>drawHorizontalLine()</codeph>、<codeph>drawVerticalLine()</codeph> 和 <codeph>drawColumnBackground()</codeph> 方法。它将创建包含所有这些图形的 Sprite，并将其作为 <codeph>listContent</codeph> 的子项添加到 Z 顺序的前端。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawRowBackground"><apiName>drawRowBackground</apiName><shortdesc>
+      使用指定的颜色在指定的位置按指定的高度绘制行背景。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中的显示对象包含该行的图形。
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>行在所显示的一组行中的索引。最顶部可见行（不算标题）的行索引为 0。这用于跟踪绘制背景所用的对象，这样即使特定行呈示的项目的索引已更改，该行也能够重用同一个显示对象。
+           </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的背景 y 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataIndex</apiItemName><apiType value="int"/><apiDesc>数据提供程序中该行的项目的索引。例如，可根据此索引为第十个项目填充不同的颜色。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在指定的位置按指定的高度绘制行背景。此实现将创建一个 Shape 作为输入 Sprite 的子项，并使用合适的颜色进行填充。此方法还使用 <codeph>backgroundAlpha</codeph> 样式属性设置来确定背景颜色的透明度。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      创建用户通常用于调整列大小的列标题分隔符并将其显示出来。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建用户通常用于调整列大小的列标题分隔符并将其显示出来。这种实现与行和列背景使用相同的 Sprite，添加 <codeph>headerSeparatorSkin</codeph> 的实例，并将鼠标侦听器附加到这些实例，以便了解用户何时需要调整列的大小。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawVerticalLine"><apiName>drawVerticalLine</apiName><shortdesc>
+      在列之间绘制行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中的显示对象包含该行的图形。
+           </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>列在所显示的一组列中的索引。最左端可见列的列索引为 0。
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>背景的建议 x 位置。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在列之间绘制行。此实现直接在给定的 Sprite 中绘制一条直线。在 Sprite 中绘制直线之前已将其清除。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:findSortField"><apiName>findSortField</apiName><shortdesc>
+      返回与可排序字段的字段名称对应的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>可排序字段的列索引。 
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>数据提供程序的可排序字段的字段名称，由 SortField 类的实例定义。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回与可排序字段的字段名称对应的列索引。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:getFieldSortInfo"><apiName>getFieldSortInfo</apiName><shortdesc>
+      返回一个包含列排序信息的 SortInfo 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个 SortInfo 实例。
+     
+      </apiDesc><apiOperationClassifier>mx.controls.advancedDataGridClasses:SortInfo</apiOperationClassifier></apiReturn><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回一个包含列排序信息的 SortInfo 实例。
+           </apiDesc></apiOperationDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#SortInfo"><linktext>mx.controls.advancedDataGridClasses.SortInfo</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:getSeparator"><apiName>getSeparator</apiName><shortdesc>
+      返回列标题之间的标题分隔符，并使用返回的分隔符填充分隔符 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>列标题之间的标题分隔符。
+      
+      </apiDesc><apiType value="mx.core:UIComponent"/></apiReturn><apiParam><apiItemName>i</apiItemName><apiType value="int"/><apiDesc>要返回的分隔符数。
+           </apiDesc></apiParam><apiParam><apiItemName>seperators</apiItemName><apiType value="Array"/><apiDesc>要使用标题对象填充的数组。
+           </apiDesc></apiParam><apiParam><apiItemName>headerLines</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>标题分隔符的父组件。Flex 将在内部调用 <codeph>headerLines.getChild()</codeph> 方法以返回分隔符。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回列标题之间的标题分隔符，并使用返回的分隔符填充 <codeph>separators</codeph> Array。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:indexToColNum"><apiName>indexToColNum</apiName><shortdesc>
+      按当前显示方式返回当前显示列的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>控件中显示列的列数；如果未找到 <codeph>columnIndex</codeph>，则返回 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>按当前方式显示的列索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      按当前显示方式返回当前显示列的列数。在控件的所有列当前不可见时，此方法很有用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isColumnFullyVisible"><apiName>isColumnFullyVisible</apiName><shortdesc>
+      如果某一列中的指定行可见，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果列中的指定行可见，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>列索引。 
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>列中的行索引。如果省略此属性，该方法将使用 <codeph>verticalScrollPosition</codeph> 属性的当前值。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果某一列中的指定行可见，则返回 <codeph>true</codeph>。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isDataEditable"><apiName>isDataEditable</apiName><shortdesc>
+      检查是否允许编辑组或摘要行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果允许编辑组或摘要行，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行的数据提供程序 Object。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检查是否允许编辑组或摘要行。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isDraggingAllowed"><apiName>isDraggingAllowed</apiName><shortdesc>
+      检查对于某个特定列是否允许拖动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果对于该列允许拖动，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>draggedColumn</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>正在拖动的列。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检查对于某个特定列是否允许拖动。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:moveFocusToHeader"><apiName>moveFocusToHeader</apiName><shortdesc>
+      将焦点移至指定的列标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>要获得焦点的列索引。如果指定的列索引无效，则该方法返回值时不会移动焦点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将焦点移至指定的列标题。 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:removeSortField"><apiName>removeSortField</apiName><shortdesc>
+      从排序字段列表中删除数据字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiDesc>对应于数据字段的列名称。
+           </apiDesc></apiParam><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>AdvancedDataGrid 控件中的列索引。
+           </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>包含数据字段的数据集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从排序字段列表中删除数据字段。通过指定其列位置指示数据字段。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:scrollToViewColumn"><apiName>scrollToViewColumn</apiName><shortdesc>
+      更改 horizontalScrollPosition 属性的值以使指定的列可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newColumnIndex</apiItemName><apiType value="int"/><apiDesc>当前显示列中列所需的索引。
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>显示的列索引。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改 <codeph>horizontalScrollPosition</codeph> 属性的值可使指定的列可见。在控件的所有列当前不可见时，此方法很有用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:selectColumnHeader"><apiName>selectColumnHeader</apiName><shortdesc>
+      选择指定的列标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>要获得焦点的列索引。如果指定的列索引无效，则该方法返回值时不会移动焦点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      选择指定的列标题。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:unselectColumnHeader"><apiName>unselectColumnHeader</apiName><shortdesc>
+      取消对指定列标题的选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>列索引。如果指定的列索引无效，则该方法不会执行任何操作。
+           </apiDesc></apiParam><apiParam><apiItemName>completely</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果值为 <codeph>true</codeph>，则清除 <codeph>caretIndex</codeph> 属性并选择控件中的第一个列标题。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      取消对指定列标题的选择。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:visibleToAbsoluteColumnIndex"><apiName>visibleToAbsoluteColumnIndex</apiName><shortdesc>
+      将列的当前可见列索引转换为其相应的绝对索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>绝对列索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>控件中当前可见列的索引。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将列的当前可见列索引转换为其相应的绝对索引。由于用户可以对列进行重新排序，因此绝对列索引可能与可见列的索引不同。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:headerInfoInitialized"><apiName>headerInfoInitialized</apiName><shortdesc>
+     如果已使用 AdvancedDataGridHeaderInfo 实例初始化 headerInfos 属性，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+     如果已使用 AdvancedDataGridHeaderInfo 实例初始化 <codeph>headerInfos</codeph> 属性，则包含 <codeph>true</codeph>。
+          </apiDesc></apiValueDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridHeaderInfo"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridHeaderInfo</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:isKeyPressed"><apiName>isKeyPressed</apiName><shortdesc>
+      如果 key press 事件正在进行中，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果 key press 事件正在进行中，则包含 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:itemEditorInstance"><apiName>itemEditorInstance</apiName><shortdesc>
+      对项目编辑器的当前活动实例（如果有）的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      对项目编辑器的当前活动实例（如果有）的引用。
+           <p>若要在编辑项目时访问项目编辑器实例和新项目值，则应使用 <codeph>itemEditorInstance</codeph> 属性。只有在执行 <codeph>itemEditBegin</codeph> 事件的事件侦听器之后，<codeph>itemEditorInstance</codeph> 属性才有效。因此，您通常只从 <codeph>itemEditEnd</codeph> 事件的事件侦听器中访问 <codeph>itemEditorInstance</codeph> 属性。</p>
+           <p><codeph>AdvancedDataGridColumn.itemEditor</codeph> 属性定义项目编辑器的类，进而定义项目编辑器实例的数据类型。</p>
+           <p>不要以 MXML 方式设置此属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:lookAheadDuration"><apiName>lookAheadDuration</apiName><shortdesc>
+      多字符查找的输入时寻找持续时间（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>400</apiData><apiType value="Number"/><apiDefaultValue>400
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      多字符查找的输入时寻找持续时间（以毫秒为单位）。设置为 0 将关闭多字符输入时查找。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:orderedHeadersList"><apiName>orderedHeadersList</apiName><shortdesc>
+      AdvancedDataGridHeaderInfo 实例的有序列表，这些实例与可见的列标题对应。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      AdvancedDataGridHeaderInfo 实例的有序列表，这些实例与可见的列标题对应。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:resizableColumns"><apiName>resizableColumns</apiName><shortdesc>
+      一个标志，指示用户能否更改列的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示用户能否更改列的尺寸。如果为 <codeph>true</codeph>，则用户可以通过在标题单元格之间拖动网格线来伸展或缩短 AdvancedDataGrid 控件的列。如果为 <codeph>true</codeph>，则各列也必须将其 <codeph>resizeable</codeph> 属性设置为 <codeph>false</codeph> 以防止用户调整特定列的大小。  
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:sortableColumns"><apiName>sortableColumns</apiName><shortdesc>
+      一个标志，指示用户是否可以通过单击列的标题单元格对数据提供程序项目进行排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示用户是否可以通过单击列的标题单元格对数据提供程序项目进行排序。如果为 <codeph>true</codeph>，则用户可以通过单击列的标题单元格对数据提供程序项目进行排序。列的 <codeph>AdvancedDataGridColumn.dataField</codeph> 属性或 <codeph>AdvancedDataGridColumn.sortCompareFunction</codeph> 属性用作排序字段。如果多次单击某列，则排序方式将在升序和降序之间交替。如果为 <codeph>true</codeph>，则可以通过将列的 <codeph>sortable</codeph> 属性设置为 <codeph>false</codeph> 将各个列设置为不响应对标题的单击。
+           <p>当用户在标题单元格上方释放鼠标按键时，如果此属性和列的 sortable 属性都为 <codeph>true</codeph>，则 AdvancedDataGrid 控件将分派 <codeph>headerRelease</codeph> 事件。如果无处理函数调用该事件的 <codeph>preventDefault()</codeph> 方法，则 AdvancedDataGrid 将使用该列的 <codeph>AdvancedDataGridColumn.dataField</codeph> 或 <codeph>AdvancedDataGridColumn.sortCompareFunction</codeph> 属性进行排序。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn/dataField"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn.dataField</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn/sortCompareFunction"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn.sortCompareFunction</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:columns:get"><apiName>columns</apiName><shortdesc>
+      AdvancedDataGridColumn 对象的数组，每个这样的对象对应一个可显示的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      AdvancedDataGridColumn 对象的数组，每个这样的对象对应一个可显示的列。如果未显式设置，则 AdvancedDataGrid 控件将尝试检查第一个数据提供程序项目，以确定属性设置并按字母顺序显示这些属性。
+           <p>如果要更改列设置，则必须获取此 Array，并修改 Array 中的列和列顺序，然后为 <codeph>columns</codeph> 属性分配一个新的 Array。这是因为 AdvancedDataGrid 控件返回列 Array 的副本而不是引用，因此它无法检测对副本的更改。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:draggableColumns:get"><apiName>draggableColumns</apiName><shortdesc>
+      指示是否允许对列进行重新排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示是否允许对列进行重新排序。如果为 <codeph>true</codeph>，则可以通过拖动标题单元格对 AdvancedDataGrid 控件的列进行重新排序。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editable:get"><apiName>editable</apiName><shortdesc>
+      指示用户能否编辑数据提供者中的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示用户能否编辑数据提供者中的项目。
+           <p>如果为 <codeph>"item"</codeph>，则控件中的项呈示器是可编辑的。用户单击项呈示器将可以打开一个编辑器。</p>
+           <p>如果为 <codeph>"item group"</codeph>，则可以编辑项呈示器和分组标题。</p>
+           <p>如果为 <codeph>"item summary"</codeph>，则可以编辑项呈示器和摘要单元格。</p>
+           <p>您可以合并这些值。例如，<codeph>editable = "item group summary"</codeph>。请注意，若要使组或摘要可编辑，必须启用项目编辑。</p>
+           <p>如果指定了一个空 String，则不允许编辑。</p>
+           <p><codeph>"true"</codeph> 和 <codeph>"false"</codeph> 值与项目编辑和不能编辑相对应。</p>
+           <p>值 <codeph>"all"</codeph> 表示所有内容均可编辑。</p>
+           <p>您可以使用 <codeph>AdvancedDataGridColumn.editable</codeph> 属性或通过处理 <codeph>itemEditBeginning</codeph> 和 <codeph>itemEditBegin</codeph> 事件关闭对 AdvancedDataGrid 控件中各列的编辑。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editedItemPosition:get"><apiName>editedItemPosition</apiName><shortdesc>
+      正在编辑的数据提供程序项目的项呈示器的列索引和行索引（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemFocusIn"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      正在编辑的数据提供程序项目的项呈示器的列索引和行索引（如果有）。
+           <p>此 Object 包含 <codeph>columnIndex</codeph> 和 <codeph>rowIndex</codeph> 两个字段，分别是项目的从零开始的行索引和列索引。例如：{ columnIndex:2, rowIndex:3}</p>
+           <p>设置此属性可以在视图中滚动项目，并会分派 <codeph>itemEditBegin</codeph> 事件以打开指定项呈示器上的项目编辑器。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editedItemRenderer:get"><apiName>editedItemRenderer</apiName><shortdesc>
+      对当前正在编辑其项目的 AdvancedDataGrid 控件中项呈示器的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      对当前正在编辑其项目的 AdvancedDataGrid 控件中项呈示器的引用。
+           <p>在 <codeph>itemEditBegin</codeph> 和 <codeph>itemEditEnd</codeph> 事件的事件侦听器中，您可以使用 <codeph>editedItemRenderer.data</codeph> 属性访问所编辑的项目的当前值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。如果编辑器已启动，它将相应地设置 enableIME。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      指定 IME（输入法编辑器）模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 IME（输入法编辑器）模式。通过 IME 模式，用户能够以中文、日文和韩文输入文本。当控件获得焦点时，Flex 设置指定的 IME 模式；当该控件失去焦点时，则将其设置回为先前的值。
+          <p>flash.system.IMEConversionMode 类定义此属性的有效值的常量。您还可以指定 <codeph>null</codeph> 不指定任何 IME 模式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:minColumnWidth:get"><apiName>minColumnWidth</apiName><shortdesc>
+      列的最小宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列的最小宽度（以像素为单位）。如果不是 NaN，AdvancedDataGrid 控件会将此值用作所有列的最小宽度。否则，各列可以使用自己的最小宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:sortExpertMode:get"><apiName>sortExpertMode</apiName><shortdesc>
+      默认情况下，sortExpertMode 属性设置为 false，这意味着在某列的标题区域单击，将按该列对 AdvancedDataGrid 控件的行进行排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      默认情况下，<codeph>sortExpertMode</codeph> 属性设置为 <codeph>false</codeph>，这意味着在某列的标题区域单击，将按该列对 AdvancedDataGrid 控件的行进行排序。然而，在标题的多列排序区域中单击，将按其他列进行排序。如果将 <codeph>sortExpertMode</codeph> 属性设置为 <codeph>true</codeph>，则可使用 Ctrl 键选择第一列后面的每列进行排序。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:horizontalScrollPosition:set"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      内容与左边缘的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      内容与左边缘的偏移量。它可以是某些子类中的像素偏移量，也可以是某些其他度量信息，如 AdvancedDataGrid 控件中的列数。AdvancedDataGrid 按列滚动，因此 <codeph>horizontalScrollPosition</codeph> 属性的值始终介于 0 和使最后一列可见的列索引之间。这与按像素滚动的 List 控件不同。AdvancedDataGrid 控件始终将列的左边缘与 AdvancedDataGrid 控件的左边缘对齐。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

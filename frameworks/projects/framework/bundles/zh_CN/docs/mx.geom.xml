@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.geom"><apiName>mx.geom</apiName><apiDetail/><apiClassifier id="mx.geom:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+	  CompoundTransform 表示 2D 或 3D 矩阵转换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  CompoundTransform 表示 2D 或 3D 矩阵转换。它可以在 UIComponent 或 GraphicElement 上的 postLayoutTransformOffsets 属性中使用。
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:TransformOffsets:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:TransformOffsets:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+	 已添加到转换中的 rotationX（以度为单位）
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 rotationX（以度为单位）
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+	 已添加到转换中的 rotationY（以度为单位）
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 rotationY（以度为单位）
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+	 已添加到转换中的 rotationZ（以度为单位）
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 rotationZ（以度为单位）
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+	 已应用于转换的 scaleX 的乘数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已应用于转换的 scaleX 的乘数。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+	 已应用于转换的 scaleY 的乘数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已应用于转换的 scaleY 的乘数。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+	 已应用于转换的 scaleZ 的乘数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已应用于转换的 scaleZ 的乘数。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:x:set"><apiName>x</apiName><shortdesc>
+	 已添加到转换中的 x 值
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 x 值
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:y:set"><apiName>y</apiName><shortdesc>
+	 已添加到转换中的 y 值
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 y 值
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:z:set"><apiName>z</apiName><shortdesc>
+	 已添加到转换中的 z 值
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 已添加到转换中的 z 值
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:Transform"><apiName>Transform</apiName><shortdesc>
+  在 flash.geom.Transform 类之上添加同步支持。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Transform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在 flash.geom.Transform 类之上添加同步支持。该类有一个 <codeph>target</codeph> 属性，该属性是已为其指定 Transform 的 IVisualElement。将 Transform 指定给 IVisualElement 实现的 <codeph>transform</codeph> 属性时，IVisualElement 实现通常将目标设置为它们自己。 
+ 
+  <p>会自动将对 Transform 属性的更改推送到该目标。从 Transform 属性读取会直接从目标的转换读取。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.geom.Transform.xml"><linktext>flash.geom.Transform</linktext></link></related-links><apiConstructor id="mx.geom:Transform:Transform"><apiName>Transform</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>src</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>变换的目标。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:Transform:getRelativeMatrix3D"><apiName>getRelativeMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn><apiParam><apiItemName>relativeTo</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.geom:Transform:matrix3D:set"><apiName>matrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.geom:Transform:target:set"><apiName>target</apiName><shortdesc>
+      Transform 将与其保持同步的 IVisualElement。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IVisualElement</apiValueClassifier></apiValueDef><apiDesc>
+      Transform 将与其保持同步的 IVisualElement。将 Transform 指定给 IVisualElement 实现的转换属性时，IVisualElement 实现通常会将目标设置为它们自己。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+  RoundedRectangle 表示具有圆角的 Rectangle
+  
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Rectangle</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RoundedRectangle 表示具有圆角的 Rectangle
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:RoundedRectangle:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形左上角的 x 坐标。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形左上角的 y 坐标。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形的宽度（以像素为单位）。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形的高度（以像素为单位）。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>每个角的半径（以像素为单位）。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:RoundedRectangle:cornerRadius"><apiName>cornerRadius</apiName><shortdesc>
+	  每个角的半径（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  每个角的半径（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      CompoundTransform 表示 2D 或 3D 矩阵转换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      CompoundTransform 表示 2D 或 3D 矩阵转换。复合转换表示可以作为 2D/3D 矩阵或各个简便转换属性（如 x、y、scaleX 和 rotationZ 等）进行查询或设置的矩阵。 
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:CompoundTransform:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:CompoundTransform:translateBy"><apiName>translateBy</apiName><shortdesc> 
+      将 delta 应用于转换的平移组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>转换的 x 值。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>转换的 y 值。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>z</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>转换的 z 值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      将 delta 应用于转换的平移组件。与直接设置 x、y 或 z 属性不同，此方法可以安全地进行调用而不必改变转换的“真理的来源”的概念。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.geom:CompoundTransform:matrix3D:get"><apiName>matrix3D</apiName><shortdesc>
+      由用户直接设置或通过依次组合转换中心、缩放、旋转和平移而形成的 3D 矩阵。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      由用户直接设置或通过依次组合转换中心、缩放、旋转和平移而形成的 3D 矩阵。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:matrix:get"><apiName>matrix</apiName><shortdesc>
+      由用户直接设置或通过依次组合转换中心、缩放、旋转和平移而形成的 2D 矩阵。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      由用户直接设置或通过依次组合转换中心、缩放、旋转和平移而形成的 2D 矩阵。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+      转换的 rotationX（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 rotationX（以度为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+      转换的 rotationY（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 rotationY（以度为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+      转换的 rotationZ（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 rotationZ（以度为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+      转换的 scaleX。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 scaleX。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+      转换的 scaleY。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 scaleY。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+      转换的 scaleZ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 scaleZ。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformX:set"><apiName>transformX</apiName><shortdesc>
+      转换中心的 x 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换中心的 x 值。在应用旋转和缩放时，转换中心保持固定。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformY:set"><apiName>transformY</apiName><shortdesc>
+      转换中心的 y 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换中心的 y 值。在应用旋转和缩放时，转换中心保持固定。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformZ:set"><apiName>transformZ</apiName><shortdesc>
+      转换中心的 z 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换中心的 z 值。在应用旋转和缩放时，转换中心保持固定。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:x:set"><apiName>x</apiName><shortdesc>
+      转换的 x 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 x 值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:y:set"><apiName>y</apiName><shortdesc>
+      转换的 y 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 y 值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:z:set"><apiName>z</apiName><shortdesc>
+      转换的 z 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      转换的 z 值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

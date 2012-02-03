@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.renderers"><apiName>mx.charts.renderers</apiName><apiDetail/><apiClassifier id="mx.charts.renderers:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+  LineSeries オブジェクトによって使用される線のセグメントのレンダラーを簡単に実装したものです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LineSeries オブジェクトによって使用される線のセグメントのレンダラーを簡単に実装したものです。 このクラスは、所有している系列の <codeph>lineStroke</codeph> スタイルと <codeph>form</codeph> スタイルで定義されている線とフォームをそれぞれ使用して、画面に線をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:LineRenderer:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:LineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  このレンダラーが表すグラフ項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  このレンダラーが表すグラフ項目です。 LineRenderers はこの値が LineSeriesItem のインスタンスであると想定します。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+  AreaSeries オブジェクトの dataPoints の下の領域をレンダリングするためのデフォルトのクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AreaSeries オブジェクトの dataPoints の下の領域をレンダリングするためのデフォルトのクラスです。 このクラスは、AreaSeries オブジェクトの <codeph>areaFill</codeph>、<codeph>areaStroke</codeph>、および <codeph>form</codeph> の各種スタイルで指定されている、塗り、線、および線のタイプをそれぞれ使用して、領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:AreaRenderer:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:AreaRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  AreaRenderer がレンダリングするデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  AreaRenderer がレンダリングするデータです。 AreaRenderer では、このプロパティが mx.charts.series.renderData.AreaRenderData のインスタンスに割り当てられている必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、矩形領域とその周りをドロップシャドウで塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、矩形領域とその周りをドロップシャドウで塗りつぶします。 このクラスは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 関連する系列の <codeph>fill</codeph> と <codeph>stroke</codeph> のスタイルを使用して、画面にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowBoxItemRenderer:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowBoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域のダイヤモンド形を塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域のダイヤモンド形を塗りつぶします。 このクラスは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 関連する系列の <codeph>fill</codeph> と <codeph>stroke</codeph> のスタイルを使用して、画面にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:DiamondItemRenderer:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:DiamondItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域の十字形を塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域の十字形を塗りつぶします。 このクラスは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 関連する系列の <codeph>fill</codeph> と <codeph>stroke</codeph> のスタイルを使用して、画面にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CrossItemRenderer:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+	  コンストラクター
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクター
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CrossItemRenderer:thickness"><apiName>thickness</apiName><shortdesc>
+	  レンダリングされる十字の太さです（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  レンダリングされる十字の太さです（ピクセル単位）。 別の幅の十字レンダラーを作成するには、開発者はこのクラスを拡張し、派生クラスのコンストラクターでこの値を変更する必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.renderers:CrossItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+  LineSeries オブジェクトによって使用される線のセグメントのレンダラーを実装したものです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LineSeries オブジェクトによって使用される線のセグメントのレンダラーを実装したものです。 このクラスは、所有している系列の <codeph>lineStroke</codeph> スタイルと <codeph>form</codeph> スタイルで定義されている線とフォームをそれぞれ使用して、画面に線をレンダリングします。
+  <p>ShadowLineRenderer は、LineSeries クラスのデフォルトの lineSegmentRenderer です。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowLineRenderer:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowLineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  このレンダラーが表すグラフ項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  このレンダラーが表すグラフ項目です。 ShadowLineRenderers はこの値が LineSeriesItem のインスタンスであると想定します。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+  PieSeries オブジェクトのデフォルト itemRenderer です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PieSeries オブジェクトのデフォルト itemRenderer です。 このクラスは、所有している系列の <codeph>stroke</codeph> のスタイルおよび <codeph>radialStroke</codeph> のスタイルを使用して区分をレンダリングし、区分の内側または外側の縁、および横の縁をそれぞれ描画します。 区分は、関連グラフ項目の <codeph>fill</codeph> プロパティの値を使用して、塗りつぶされます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:WedgeItemRenderer:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:WedgeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  このレンダラーが表すグラフ項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  このレンダラーが表すグラフ項目です。 WedgeItemRenderers はこの値が PieSeriesItem のインスタンスであると想定します。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域の垂直三角形を塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、割り当てられた領域の垂直三角形を塗りつぶします。 このクラスは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 関連する系列の <codeph>fill</codeph> と <codeph>stroke</codeph> のスタイルを使用して、画面にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:TriangleItemRenderer:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:TriangleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+  HLOCSeries オブジェクトのデフォルトアイテムレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HLOCSeries オブジェクトのデフォルトアイテムレンダラーです。 このクラスは、グラフ項目の始値ポイントと終値ポイントで、目盛りを使用して高値から安値まで垂直線をレンダリングします。
+  
+  <p>垂直線は、所有している系列の <codeph>stroke</codeph> のスタイルの値を使用してレンダリングされます。 始値と終値の目盛りは、所有している系列の <codeph>openTickStroke</codeph> スタイルと <codeph>closeTickStroke</codeph> スタイルをそれぞれ使用してレンダリングされます。 始値と終値の目盛りの長さは、所有している系列の <codeph>openTickLength</codeph> スタイルと <codeph>closeTickLength</codeph> スタイルをそれぞれ使用して決定されます。</p>
+ 
+  <p>始値の目盛りと終値の目盛りの値は省略可能です。関連するグラフ項目の始値と終値の値が <codeph>NaN</codeph> 以外の値の場合、HLOCItemRenderer は目盛りのレンダリングのみ行います。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.series.xml#HLOCSeries"><linktext>mx.charts.series.HLOCSeries</linktext></link><link href="" invalidHref="mx.charts.series.HLOCSeriesItem.xml"><linktext>mx.charts.series.HLOCSeriesItem</linktext></link></related-links><apiConstructor id="mx.charts.renderers:HLOCItemRenderer:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:HLOCItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      このレンダラーが表すグラフ項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このレンダラーが表すグラフ項目です。 HLOCItemRenderers は、この値が HLOCSeriesItem のインスタンスであると想定します。 この値は所有している系列によって割り当てられます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+  CandlestickSeries オブジェクトのデフォルト itemRenderer です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CandlestickSeries オブジェクトのデフォルト itemRenderer です。 このクラスは、関連する系列の <codeph>stroke</codeph>、<codeph>boxStroke</codeph>、<codeph>fill</codeph>、および <codeph>declineFill</codeph> スタイルを使用して標準の CandlestickChart 項目をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CandlestickItemRenderer:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CandlestickItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  このレンダラーが表すグラフ項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  このレンダラーが表すグラフ項目です。 CandlestickItemRenderers は、この値が HLOCSeriesItem のインスタンスであると想定します。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、矩形領域を塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、矩形領域を塗りつぶします。 このクラスは、ColumnSeries オブジェクトおよび BarSeries オブジェクトのデフォルト itemRenderer です。 これは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 このクラスは、関連する系列の <codeph>fill</codeph> スタイルおよび <codeph>stroke</codeph> スタイルを使用して画面上にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:BoxItemRenderer:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:BoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+  グラフの itemRenderer を簡単に実装したもので、楕円領域を塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフの itemRenderer を簡単に実装したもので、楕円領域を塗りつぶします。 このクラスは、ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries、および BubbleSeries の各オブジェクトの itemRenderer として使用されます。 関連する系列の <codeph>fill</codeph> と <codeph>stroke</codeph> のスタイルを使用して、画面にその領域をレンダリングします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CircleItemRenderer:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CircleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  この itemRenderer が表示している chartItem です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  この itemRenderer が表示している chartItem です。 この値は所有している系列によって割り当てられます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

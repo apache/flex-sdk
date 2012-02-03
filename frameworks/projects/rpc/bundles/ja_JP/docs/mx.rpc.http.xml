@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.http"><apiName>mx.rpc.http</apiName><apiDetail/><apiClassifier id="mx.rpc.http:Operation"><apiName>Operation</apiName><shortdesc>
+ HTTPMultiService が特に使用する Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.http:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ HTTPMultiService が特に使用する Operation です。Operation は、通常、サーバー側の単一の操作に対応するサービスの個別の操作です。Operation は、サービスに対して同じ名前の関数を呼び出すか、サービスのプロパティとして Operation にアクセスして <codeph>send(param1, param2)</codeph> メソッドを呼び出すことによって、呼び出すことができます。HTTP サービスは sendBody メソッドもサポートします。これによって、ユーザーは HTTP 応答の本文を直接に指定できます。send(param1, param2) メソッドを使用する場合、本文を形成するには、通常、操作の argumentNames プロパティを送信済みパラメーターと組み合わせます。argumentNames[i] をキーとして使用し、対応するパラメーターを値として使用するオブジェクトが作成されます。
+ 
+ <p>HTTP 操作引数を HTTP 本文に設定する方法は、使用する serializationFilter で決まります。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      新しい Operation を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc.http:HTTPMultiService</apiOperationClassifier><apiData>null</apiData><apiDesc>サービスを定義する HTTPMultiService オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サービスの名前です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      新しい Operation を作成します。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:Operation:send"><apiName>send</apiName><shortdesc>
+     http 操作を実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Asynchronous Completion Token パターンを使用する AsyncToken 呼び出しです。 <codeph>result</codeph> イベントおよび <codeph>fault</codeph> イベント（<codeph>token</codeph> プロパティ）で、同じオブジェクトを使用できます。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>メソッドの呼び出しの一部として渡される省略可能なパラメーターです。パラメーターが渡されていない場合、パラメーターオブジェクトがパラメーターのソースとして使用されます。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     http 操作を実行します。渡されたパラメーターはすべて、操作呼び出しの一部として渡されます。パラメーターが渡されていない場合、クラスのパラメータープロパティがパラメーターのソースとして使用されます。一般に、HTTP 操作には、位置パラメーターではなく名前付きパラメーターを使用します。これらのパラメーターに名前を付けるために、プロパティ名の配列に argumentNames プロパティを設定することもできます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     同一のサービス操作に対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     同一のサービス操作に対する複数の呼び出しの処理方法を示す値です。デフォルト値は <codeph>multiple</codeph> です。 使用できる値は次のとおりです。
+     <ul>
+     <li><codeph>multiple</codeph>：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。 これがデフォルト値です。</li>
+     <li><codeph>single</codeph>：処理では一度に 1 つの要求のみが認められ、複数の要求を送信すると処理が失敗します。</li>
+     <li><codeph>last</codeph>：要求を送信すると、既存の要求がすべてキャンセルされます。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      
+      サービス要求のコンテンツタイプです。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      サービス要求のコンテンツタイプです。 デフォルトは <codeph>application/x-www-form-urlencoded</codeph> で、名前と値のペアを持つ通常の HTTP POST のような要求を送信します。<codeph>application/xml</codeph> は要求を XML として送信します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:method:get"><apiName>method</apiName><shortdesc>
+      
+      要求を送信するための HTTP メソッドです。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      要求を送信するための HTTP メソッドです。 有効な値は <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> および <codeph>DELETE</codeph> です。 小文字は大文字に変換されます。 デフォルト値は <codeph>GET</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。 この値は次の項目に基づいて決定します。
+      <ul>
+      <li>XML または名前と値のペアのどちらが返されるのか。</li>
+      <li>結果にアクセスする方法。結果にはオブジェクト、テキストまたは XML としてアクセスできます。</li>
+      </ul>
+     
+      <p>デフォルト値は <codeph>object</codeph> です。 使用できる値は次のとおりです。</p>
+      <ul>
+      <li><codeph>object</codeph>：返される値は XML であり、ActionScript オブジェクトのツリーとして解析されます。 これはデフォルトの設定です。</li>
+      <li><codeph>array</codeph>：返される値は XML で、ActionScript オブジェクトのツリーとして解析されますが、トップレベルのオブジェクトが配列でない場合、新しい配列が作成されて結果が最初のアイテムとして設定されます。 makeObjectsBindable が true の場合、配列は ArrayCollection 内にラップされます。</li>
+      <li><codeph>xml</codeph>：返される値は XML です。これは ActionScript XMLnode オブジェクト内のリテラル XML として返されます。</li>
+      <li><codeph>flashvars</codeph>：返される値は、アンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。</li>
+      <li><codeph>text</codeph>：返される値はテキストで、未処理のまま保持されます。</li>
+      <li><codeph>e4x</codeph>：返される値は XML で、ActionScript XML オブジェクト内のリテラル XML として返されます。XML（E4X）式用の ECMAScript を使ってアクセスできます。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     操作の相対 URL を指定する場合、HTTP サービス操作の URL を計算するために rootURL を使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     操作の相対 URL を指定する場合、HTTP サービス操作の URL を計算するために rootURL を使用します。rootURL のディレクトリ名が操作用の相対 URL の先頭に追加されます。baseURL を設定する方が便利なのが普通です。baseURL がディレクトリ名を直接指定するのに対し、rootURL はディレクトリ名が先頭に追加されたファイル名を指定するからです。rootURL も baseURL も明示的に設定されない場合は、.swf ファイルのディレクトリ名が相対パスの先頭に追加されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      
+    true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+    <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      
+      Flex のプロキシサービスを利用するかどうかを指定します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      Flex のプロキシサービスを利用するかどうかを指定します。 デフォルト値は <codeph>false</codeph> です。<codeph>true</codeph> を指定しない場合（Flex サーバーを介して要求をプロキシしない場合）は、プレーヤーがターゲット URL に確実に到達できるようにする必要があります。 また、<codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、services-config.xml ファイルで定義された宛先を使用することはできません。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+   ActionScript で HTTPService オブジェクトを表すには、HTTPService クラスを使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+   ActionScript で HTTPService オブジェクトを表すには、HTTPService クラスを使用します。HTTPService オブジェクトの <codeph>send()</codeph> メソッドを呼び出すと、指定した URL に対して HTTP 要求が実行され、HTTP 応答が返されます。 指定する URL にパラメーターを渡すこともできます。 サーバーベースのプロキシサービスを経由しない場合は、HTTP GET メソッドまたは POST メソッドだけを使用できます。 useProxy プロパティを true に設定し、サーバーベースのプロキシサービスを使用する場合は、HTTP の HEAD、OPTIONS、TRACE および DELETE メソッドも使用できます。
+  
+   <p><b>メモ:</b>ソフトウェアの制約により、HTTPService で GET 要求を使用した場合、ユーザーフレンドリーなエラーメッセージは生成されません。</p>
+  
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.mxml.xml#HTTPService"><linktext>mx.rpc.http.mxml.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  チャネルがメッセージの送信を試みる前にエラーがスローされない限り、HTTPService 呼び出しが実行されると、invoke イベントが開始されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャネルがメッセージの送信を試みる前にエラーがスローされない限り、HTTPService 呼び出しが実行されると、invoke イベントが開始されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  HTTPService 呼び出しが失敗したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  HTTPService 呼び出しが失敗したときに送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  HTTPService 呼び出しが正常に結果を返したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  HTTPService 呼び出しが正常に結果を返したときに送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+      新しい HTTPService を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>相対 URL を計算するときに、HTTPService が使用する必要のある URL です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>service-config.xml ファイル内の HTTPService 宛先名です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      新しい HTTPService を作成します。サービスで相対 URL による送信を行う場合、完全な URL を決定するための基礎となる <codeph>rootURL</codeph> を指定できます。例えば、<codeph>Application.application.url</codeph> と指定します。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:HTTPService:cancel"><apiName>cancel</apiName><shortdesc>
+      
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>キャンセルされた呼び出しに関連付けられた AsyncToken、または呼び出しがキャンセルされなかった場合は null です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>キャンセルする呼び出しの messageId です。オプションです。省略した場合、最後のサービス呼び出しがキャンセルされます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。ネットワーク処理が続行する場合でも、result イベントや fault イベントは送出されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:clearResult"><apiName>clearResult</apiName><shortdesc>
+      
+      インボーカの result プロパティを null に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>結果にバインドされているあらゆるものを更新するには、<codeph>true</codeph> に設定します。それ以外の場合は、<codeph>false</codeph> に設定します。 デフォルト値は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      インボーカの <codeph>result</codeph> プロパティを <codeph>null</codeph> に設定します。 これは呼び出しの結果が、既に使用されていない大きなオブジェクトであった場合に便利です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      サービスのネットワーク接続を切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      サービスのネットワーク接続を切断します。 このメソッドは、未処理のネットワーク操作が完了するまで待つことはしません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:logout"><apiName>logout</apiName><shortdesc>
+      ユーザーを宛先からログアウトします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ユーザーを宛先からログアウトします。宛先からのログアウトは、サーバー設定で指定されているものと同じチャネルを使用して接続されているあらゆるものに適用されます。 例えば、my-rtmp チャネル上で接続しており、RPC コンポーネントのいずれかを使用してログアウトすると、my-rtmp 上で接続していたあらゆるユーザーがログアウトされます。
+     
+      <p><b>メモ：</b>このメソッドではなく mx.messaging.ChannelSet.logout() メソッドを使用することをお勧めします。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc.http:HTTPService:send"><apiName>send</apiName><shortdesc>
+      HTTPService 要求を実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Asynchronous Completion Token を表すオブジェクトです。 <codeph>result</codeph> イベントまたは <codeph>fault</codeph> イベントの <codeph>token</codeph> プロパティで使用可能なオブジェクトと同じです。
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>サービス要求のコンテンツタイプに応じて、名前と値のペアまたは XML オブジェクトを含むオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      HTTPService 要求を実行します。 パラメーターはオプションですが、指定する場合は <codeph>contentType</codeph> に応じて、名前と値のペアの入ったオブジェクトまたは XML オブジェクトにする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      サービスがアクセスする宛先の証明書を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>宛先のユーザー名です。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>宛先のパスワードです。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      サービスがアクセスする宛先の証明書を設定します。 証明書は、同じ ChannelSet 上で接続されているすべてのサービスに適用されます。リモート宛先に対してプロキシを使用するサービスは、代わりに <codeph>setRemoteCredentials()</codeph> メソッドを呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      ユーザーが HTTP URL にアクセスするときに、ユーザーを認証するためのユーザー名とパスワードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すユーザー名です。
+      </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すパスワードです。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>リモート資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ユーザーが HTTP URL にアクセスするときに、ユーザーを認証するためのユーザー名とパスワードです。 これらは、HTTP 認証ヘッダーの一部としてプロキシからエンドポイントに渡されます。 <codeph>useProxy</codeph> プロパティが false に設定されている場合、このプロパティは無視されます。
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      HTTP サービスによって送信中のデータが、application/x-www-form-urlencoded としてエンコードされることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      HTTP サービスによって送信中のデータが、application/x-www-form-urlencoded としてエンコードされることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      HTTP サービスによって送信中のデータが、application/xml としてエンコードされることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      HTTP サービスによって送信中のデータが、application/xml としてエンコードされることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+      HTTPService オブジェクトが DefaultHTTPS 宛先を使用することを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      HTTPService オブジェクトが DefaultHTTPS 宛先を使用することを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+      HTTPService オブジェクトが DefaultHTTP 宛先を使用することを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      HTTPService オブジェクトが DefaultHTTP 宛先を使用することを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_DECODING"><apiName>ERROR_DECODING</apiName><shortdesc>
+      XML 形式の結果を XML インスタンスに解析できなかったか、オブジェクトにデコードできなかったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotDecode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      XML 形式の結果を XML インスタンスに解析できなかったか、オブジェクトにデコードできなかったことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_ENCODING"><apiName>ERROR_ENCODING</apiName><shortdesc>
+      入力パラメーターを XML としてエンコードできなかったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotEncode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      入力パラメーターを XML としてエンコードできなかったことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_URL_REQUIRED"><apiName>ERROR_URL_REQUIRED</apiName><shortdesc>
+      useProxy プロパティが false に設定されたが、URL が提供されなかったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.URLRequired</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      useProxy プロパティが false に設定されたが、URL が提供されなかったことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_ARRAY"><apiName>RESULT_FORMAT_ARRAY</apiName><shortdesc>
+      結果フォーマット "array" は "object" と同様です。ただし、この結果フォーマットで返される値は常に配列で、結果フォーマット "object" から返された結果が配列になっていない場合に、そのアイテムが最初のアイテムとして新しい配列に追加されるようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>array</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマット "array" は "object" と同様です。ただし、この結果フォーマットで返される値は常に配列で、結果フォーマット "object" から返された結果が配列になっていない場合に、そのアイテムが最初のアイテムとして新しい配列に追加されるようにします。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_E4X"><apiName>RESULT_FORMAT_E4X</apiName><shortdesc>
+      結果フォーマットが "e4x" の場合、返される値は XML インスタンスです。このインスタンスには、XML（E4X）式用の ECMAScript を使用してアクセスできます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>e4x</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマットが "e4x" の場合、返される値は XML インスタンスです。このインスタンスには、XML（E4X）式用の ECMAScript を使用してアクセスできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_FLASHVARS"><apiName>RESULT_FORMAT_FLASHVARS</apiName><shortdesc>
+      結果フォーマットが "flashvars" の場合、返される値はアンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flashvars</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマットが "flashvars" の場合、返される値はアンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_OBJECT"><apiName>RESULT_FORMAT_OBJECT</apiName><shortdesc>
+      結果フォーマットが "object" の場合、返される値は XML で、ただし ActionScript オブジェクトのツリーとして解析されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>object</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマットが "object" の場合、返される値は XML で、ただし ActionScript オブジェクトのツリーとして解析されます。 これはデフォルトの設定です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_TEXT"><apiName>RESULT_FORMAT_TEXT</apiName><shortdesc>
+      結果フォーマットが "text" の場合、HTTPService 結果テキストは未処理のストリングとなります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマットが "text" の場合、HTTPService 結果テキストは未処理のストリングとなります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_XML"><apiName>RESULT_FORMAT_XML</apiName><shortdesc>
+      結果フォーマットが "xml" の場合、結果は、親 flash.xml.XMLDocument の最初の子を指定する flash.xml.XMLNode インスタンスとして返されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      結果フォーマットが "xml" の場合、結果は、親 flash.xml.XMLDocument の最初の子を指定する flash.xml.XMLNode インスタンスとして返されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      サービスが使用する ChannelSet へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      サービスが使用する ChannelSet へのアクセスを提供します。 ChannelSet は手動で作成して割り当てることができます。また、このサービスの <codeph>destination</codeph> に対して設定済みのチャネルを使って、動的に作成することもできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。 デフォルト値は <codeph>multiple</codeph> です。 使用できる値は次のとおりです。
+     <ul>
+     <li><codeph>multiple</codeph>：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。 これがデフォルト値です。</li>
+     <li><codeph>single</codeph>：処理では一度に 1 つの要求のみが認められ、複数の要求を送信すると処理が失敗します。</li>
+     <li><codeph>last</codeph>：要求を送信すると、既存の要求がすべてキャンセルされます。</li>
+     </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:contentType:get"><apiName>contentType</apiName><shortdesc>
+      サービス要求のコンテンツタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      サービス要求のコンテンツタイプです。 デフォルトは <codeph>application/x-www-form-urlencoded</codeph> で、名前と値のペアを持つ通常の HTTP POST のような要求を送信します。<codeph>application/xml</codeph> は要求を XML として送信します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:destination:get"><apiName>destination</apiName><shortdesc>
+      services-config.xml ファイル内の HTTPService 宛先名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      services-config.xml ファイル内の HTTPService 宛先名です。 指定されていない場合、Flex は <codeph>DefaultHTTP</codeph> 宛先を使用します。 <codeph>url</codeph> プロパティを使用しているが、要求を HTTPS 経由でプロキシに到達させる場合は、<codeph>DefaultHTTPS</codeph> を指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:headers:get"><apiName>headers</apiName><shortdesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。複数のヘッダーを同じ名前で送信する必要がある場合は、値を配列として指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      最後の呼び出しの結果です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      最後の呼び出しの結果です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:method:get"><apiName>method</apiName><shortdesc>
+      要求を送信するための HTTP メソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要求を送信するための HTTP メソッドです。 有効な値は <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> および <codeph>DELETE</codeph> です。 小文字は大文字に変換されます。 デフォルト値は <codeph>GET</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。 ゼロ以下の値を設定すると、要求はタイムアウトになりません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:request:get"><apiName>request</apiName><shortdesc>
+      URL に渡すパラメーターとして使用される、名前と値のペアのオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      URL に渡すパラメーターとして使用される、名前と値のペアのオブジェクトです。 <codeph>contentType</codeph> プロパティが <codeph>application/xml</codeph> に設定されている場合は、XML ドキュメントにする必要があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。 この値は次の項目に基づいて決定します。
+      <ul>
+      <li>XML または名前と値のペアのどちらが返されるのか。</li>
+      <li>結果にアクセスする方法。結果にはオブジェクト、テキストまたは XML としてアクセスできます。</li>
+      </ul>
+     
+      <p>デフォルト値は <codeph>object</codeph> です。 使用できる値は次のとおりです。</p>
+      <ul>
+      <li><codeph>object</codeph>：返される値は XML であり、ActionScript オブジェクトのツリーとして解析されます。 これはデフォルトの設定です。</li>
+      <li><codeph>array</codeph>：返される値は XML で、ActionScript オブジェクトのツリーとして解析されますが、トップレベルのオブジェクトが配列でない場合、新しい配列が作成されて結果が最初のアイテムとして設定されます。 makeObjectsBindable が true の場合、配列は ArrayCollection 内にラップされます。</li>
+      <li><codeph>xml</codeph>：返される値は XML です。これは ActionScript XMLnode オブジェクト内のリテラル XML として返されます。</li>
+      <li><codeph>flashvars</codeph>：返される値は、アンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。</li>
+      <li><codeph>text</codeph>：返される値はテキストで、未処理のまま保持されます。</li>
+      <li><codeph>e4x</codeph>：返される値は XML で、ActionScript XML オブジェクト内のリテラル XML として返されます。XML（E4X）式用の ECMAScript を使ってアクセスできます。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。 このプロパティは、プロキシを介するときにだけ使用されます。 <codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、相対 URL はこのアプリケーションを実行する SWF の場所に基づいて自動的に計算されます。 明示的に設定されていない場合、<codeph>rootURL</codeph> は自動的に mx.messaging.config.LoaderConfig.url の URL に設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:serializationFilter:get"><apiName>serializationFilter</apiName><shortdesc>
+     アダプターを提供します。このアダプターは、HTTP 応答本文を ActionScript オブジェクトに変換し、パラメーターまたは本文を contentType、URL および HTTP 要求の本文後に調整するプロセスを制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     アダプターを提供します。このアダプターは、HTTP 応答本文を ActionScript オブジェクトに変換し、パラメーターまたは本文を contentType、URL および HTTP 要求の本文後に調整するプロセスを制御します。resultFormat を設定することで間接的に設定することもできます。そうするには、静的メソッド SerializationFilter.registerFilterForResultFormat（"formatName"、フィルター）を使用してSerializationFilter を登録します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:url:get"><apiName>url</apiName><shortdesc>
+      サービスの場所を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      サービスの場所を表します。 <codeph>url</codeph> とデフォルトでない宛先を指定した場合、services-config.xml ファイル内の宛先で、指定された URL が使用可能でなければなりません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。 デフォルト値は <codeph>false</codeph> です。<codeph>true</codeph> を指定しない場合（Flex サーバーを介して要求をプロキシしない場合）は、プレーヤーがターゲット URL に確実に到達できるようにする必要があります。 また、<codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、services-config.xml ファイルで定義された宛先を使用することはできません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlDecode:get"><apiName>xmlDecode</apiName><shortdesc>
+      サービス結果を XML からデコードする際に使用される ActionScript 関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      サービス結果を XML からデコードする際に使用される ActionScript 関数です。 <codeph>resultFormat</codeph> がオブジェクトで、<codeph>xmlDecode</codeph> プロパティが設定されている場合、Flex は HTTPService が返す XML を使用してオブジェクトを作成します。 それが定義されていない場合は、デフォルトの XMLDecoder を使用してこの処理が実行されます。
+      <p><codeph>xmlDecode</codeph> プロパティで参照される関数は、flash.xml.XMLNode オブジェクトをパラメーターとして使用してオブジェクトを返す必要があります。 返されるオブジェクトはどのようなタイプでも構いませんが、必ずいずれかのオブジェクトが返される必要があります。 <codeph>null</codeph> または <codeph>undefined</codeph> が返されると失敗が発生します。</p>
+
+    次に、xmlDecode 関数を指定した &lt;mx:HTTPService> タグの例を示します。
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    次に、xmlDecoder 関数の例を示します。
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlEncode:get"><apiName>xmlEncode</apiName><shortdesc>
+      サービス要求を XML にエンコードするために使用される ActionScript 関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      サービス要求を XML にエンコードするために使用される ActionScript 関数です。 要求の <codeph>contentType</codeph> が <codeph>application/xml</codeph> で、渡された要求オブジェクトが Object の場合、Flex は <codeph>xmlEncode</codeph> プロパティで指定された関数を使用して flash.xml.XMLNode オブジェクトに変換しようとします。<codeph>xmlEncode</codeph> プロパティが設定されていない場合、Flex はデフォルトの XMLEncoder を使用して、オブジェクトグラフを flash.xml.XMLNode オブジェクトに変換します。
+     
+      <p><codeph>xmlEncode</codeph> プロパティは Object を使用して、flash.xml.XMLNode オブジェクトを返す必要があります。 この場合、XMLNode オブジェクトは XMLNode のサブクラスである flash.xml.XML オブジェクトでも、<codeph>&lt;mx:XML></codeph> タグで取得できる flash.xml.XML オブジェクトの最初の子でも構いません。 誤ったタイプのオブジェクトが返されると、処理が失敗します。 次に、xmlEncode 関数を指定した &lt;mx:HTTPService> タグの例を示します。</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    次に、xmlEncoder 関数の例を示します。
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ HTTPService または HTTPMultiService によって特に使用される Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ HTTPService または HTTPMultiService によって特に使用される Operation です。Operation は、通常、サーバー側の単一の操作に対応するサービスの個別の操作です。Operation は、サービスに対して同じ名前の関数を呼び出すか、サービスのプロパティとして Operation にアクセスして <codeph>send(param1, param2)</codeph> メソッドを呼び出すことによって、呼び出すことができます。HTTP サービスは sendBody メソッドもサポートします。これによって、ユーザーは HTTP 応答の本文を直接に指定できます。send(param1, param2) メソッドを使用する場合、本文を形成するには、通常、操作の argumentNames プロパティを送信済みパラメーターと組み合わせます。argumentNames[i] をキーとして使用し、対応するパラメーターを値として使用するオブジェクトが作成されます。
+ 
+ <p>HTTP 操作引数を HTTP 本文に設定する方法は、使用する serializationFilter で決まります。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+      新しい Operation を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>サービスのタイプ（HTTPMultiService、WebService、RemoteObject など）を定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サービスの名前です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      新しい Operation を作成します。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:AbstractOperation:protected:getHeaders"><apiName>getHeaders</apiName><shortdesc>
+      HTTP リクエストヘッダーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>HTTP リクエストヘッダーです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      HTTP リクエストヘッダーを返します。サブクラスでこのメソッドをオーバーライドして、HTTP リクエストヘッダーの取得を制御できます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:protected:getSerializationFilter"><apiName>getSerializationFilter</apiName><shortdesc> 
+      直列化フィルターを返します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>直列化フィルターです。
+     </apiDesc><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc> 
+      直列化フィルターを返します。サブクラスでこのメソッドをオーバーライドして、HTTP リクエストヘッダーの取得を制御できます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:sendBody"><apiName>sendBody</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:AbstractOperation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     メソッドの呼び出しに渡されるパラメーターの名前が順に列挙されたリストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     メソッドの呼び出しに渡されるパラメーターの名前が順に列挙されたリストです。 arguments オブジェクトは順序が保証されていないハッシュマップであるため、この配列はすべてのものを正しく配置するのに役立ちます。 これは、Operation がタグ形式で使用される場合に、必要に応じて MXML コンパイラーで自動的に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:headers"><apiName>headers</apiName><shortdesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。複数のヘッダーを同じ名前で送信する必要がある場合は、値を配列として指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:request"><apiName>request</apiName><shortdesc>
+      URL に渡すパラメーターとして使用される、名前と値のペアのオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      URL に渡すパラメーターとして使用される、名前と値のペアのオブジェクトです。 <codeph>contentType</codeph> プロパティが <codeph>application/xml</codeph> に設定されている場合は、XML ドキュメントにする必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:serializationFilter"><apiName>serializationFilter</apiName><shortdesc>
+     SerializationFilter は、HTTP 要求のコンテンツを作成するために、引数が形式化される方法を制御できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     SerializationFilter は、HTTP 要求のコンテンツを作成するために、引数が形式化される方法を制御できます。また、結果が ActionScript オブジェクトに変換される方法も制御します。このプロパティを使用して明示的に設定することもできますし、resultFormat プロパティを使用して間接的に設定することもできます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlDecode"><apiName>xmlDecode</apiName><shortdesc>
+      サービス結果を XML からデコードする際に使用される ActionScript 関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      サービス結果を XML からデコードする際に使用される ActionScript 関数です。 <codeph>resultFormat</codeph> がオブジェクトで、<codeph>xmlDecode</codeph> プロパティが設定されている場合、Flex は HTTPService が返す XML を使用してオブジェクトを作成します。 それが定義されていない場合は、デフォルトの XMLDecoder を使用してこの処理が実行されます。
+      <p><codeph>xmlDecode</codeph> プロパティで参照される関数は、flash.xml.XMLNode オブジェクトをパラメーターとして使用してオブジェクトを返す必要があります。 返されるオブジェクトはどのようなタイプでも構いませんが、必ずいずれかのオブジェクトが返される必要があります。 <codeph>null</codeph> または <codeph>undefined</codeph> が返されると失敗が発生します。</p>
+
+    次に、xmlDecode 関数を指定した &lt;mx:HTTPService> タグの例を示します。
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    次に、xmlDecoder 関数の例を示します。
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlEncode"><apiName>xmlEncode</apiName><shortdesc>
+      サービス要求を XML にエンコードするために使用される ActionScript 関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      サービス要求を XML にエンコードするために使用される ActionScript 関数です。 要求の <codeph>contentType</codeph> が <codeph>application/xml</codeph> で、渡された要求オブジェクトが Object の場合、Flex は <codeph>xmlEncode</codeph> プロパティで指定された関数を使用して flash.xml.XMLNode オブジェクトに変換しようとします。<codeph>xmlEncode</codeph> プロパティが設定されていない場合、Flex はデフォルトの XMLEncoder を使用して、オブジェクトグラフを flash.xml.XMLNode オブジェクトに変換します。
+     
+      <p><codeph>xmlEncode</codeph> プロパティは Object を使用して、flash.xml.XMLNode オブジェクトを返す必要があります。 この場合、XMLNode オブジェクトは XMLNode のサブクラスである flash.xml.XML オブジェクトでも、<codeph>&lt;mx:XML></codeph> タグで取得できる flash.xml.XML オブジェクトの最初の子でも構いません。 誤ったタイプのオブジェクトが返されると、処理が失敗します。 次に、xmlEncode 関数を指定した &lt;mx:HTTPService> タグの例を示します。</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    次に、xmlEncoder 関数の例を示します。
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。 デフォルト値は <codeph>multiple</codeph> です。 使用できる値は次のとおりです。
+     <ul>
+     <li><codeph>multiple</codeph>：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。 これがデフォルト値です。</li>
+     <li><codeph>single</codeph>：処理では一度に 1 つの要求のみが認められ、複数の要求を送信すると処理が失敗します。</li>
+     <li><codeph>last</codeph>：要求を送信すると、既存の要求がすべてキャンセルされます。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      サービス要求のコンテンツタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      サービス要求のコンテンツタイプです。 デフォルトは <codeph>application/x-www-form-urlencoded</codeph> で、名前と値のペアを持つ通常の HTTP POST のような要求を送信します。<codeph>application/xml</codeph> は要求を XML として送信します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:method:get"><apiName>method</apiName><shortdesc>
+      要求を送信するための HTTP メソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要求を送信するための HTTP メソッドです。 有効な値は <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> および <codeph>DELETE</codeph> です。 小文字は大文字に変換されます。 デフォルト値は <codeph>GET</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。 タイムアウトに達する前にリモート宛先から応答または失敗を受信しなかった場合、メッセージはクライアント側で失敗となります。ゼロ以下の値を設定すると、要求はタイムアウトになりません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。 この値は次の項目に基づいて決定します。
+      <ul>
+      <li>XML または名前と値のペアのどちらが返されるのか。</li>
+      <li>結果にアクセスする方法。結果にはオブジェクト、テキストまたは XML としてアクセスできます。</li>
+      </ul>
+     
+      <p>デフォルト値は <codeph>object</codeph> です。 使用できる値は次のとおりです。</p>
+      <ul>
+      <li><codeph>object</codeph>：返される値は XML であり、ActionScript オブジェクトのツリーとして解析されます。 これはデフォルトの設定です。</li>
+      <li><codeph>array</codeph>：返される値は XML で、ActionScript オブジェクトのツリーとして解析されますが、トップレベルのオブジェクトが配列でない場合、新しい配列が作成されて結果が最初のアイテムとして設定されます。 makeObjectsBindable が true の場合、配列は ArrayCollection 内にラップされます。</li>
+      <li><codeph>xml</codeph>：返される値は XML です。これは ActionScript XMLnode オブジェクト内のリテラル XML として返されます。</li>
+      <li><codeph>flashvars</codeph>：返される値は、アンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。</li>
+      <li><codeph>text</codeph>：返される値はテキストで、未処理のまま保持されます。</li>
+      <li><codeph>e4x</codeph>：返される値は XML で、ActionScript XML オブジェクト内のリテラル XML として返されます。XML（E4X）式用の ECMAScript を使ってアクセスできます。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。 このプロパティは、プロキシを介するときにだけ使用されます。 <codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、相対 URL はこのアプリケーションを実行する SWF の場所に基づいて自動的に計算されます。 明示的に設定されていない場合、<codeph>rootURL</codeph> は自動的に mx.messaging.config.LoaderConfig.url の URL に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:url:get"><apiName>url</apiName><shortdesc>
+      サービスの場所を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      サービスの場所を表します。 <codeph>url</codeph> とデフォルトでない宛先を指定した場合、services-config.xml ファイル内の宛先で、指定された URL が使用可能でなければなりません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。 デフォルト値は <codeph>false</codeph> です。<codeph>true</codeph> を指定しない場合（Flex サーバーを介して要求をプロキシしない場合）は、プレーヤーがターゲット URL に確実に到達できるようにする必要があります。 また、<codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、services-config.xml ファイルで定義された宛先を使用することはできません。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+  &amp;lt;mx:HTTPMultiService&amp;gt; タグを使用して、http 操作のコレクションを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="operationList"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>&lt;mx:HTTPMultiService></codeph> タグを使用して、http 操作のコレクションを表します。各々に URL、メソッド、パラメーターおよび戻り型があります。  
+ 
+  <p>HTTPMultiService タグで URL や method などの属性を設定すると、個々の操作タグで設定される値のデフォルトとして使用できます。HTTPMultiService の URL は http 操作タグで設定される相対 URL の基本 URL（つまり、プレフィックス）として使用されます。各 http 操作には <codeph>send()</codeph> メソッドがあり、このメソッドが指定の URL への HTTP 要求を作成し、HTTP 応答が返されます。 </p>
+ 
+  <p>HTTP 要求にデータを設定するのに使用する指定の URL にパラメーターを渡せます。contentType プロパティでは通信データの形式（HTTP フォームエンコーディングや XML など）を判別するために使用される MIME タイプを指定します。  </p>
+ 
+  <p>直列化フィルターを使用して JSON のようなカスタム resultFormat を実装することもできます。サーバーベースのプロキシサービスを経由しない場合は、HTTP GET メソッドまたは POST メソッドだけを使用できます。 <codeph>useProxy</codeph> プロパティを true に設定し、サーバーベースのプロキシサービスを使用する場合は、HTTP の HEAD、OPTIONS、TRACE および DELETE メソッドも使用できます。</p>
+ 
+  <p><b>メモ：</b>HTTPService クラスとは異なり、HTTPMultiService クラスでは <codeph>request</codeph> プロパティは定義されていません。</p>
+ 
+  <p><b>メモ：</b>HTTPService と同じく、ソフトウェアの制約により、HTTPMultiService でプロキシを使用せずに GET を使用した場合、ユーザーフレンドリーなエラーメッセージは生成されません。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPService"><linktext>mx.rpc.http.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  チャンネルがメッセージの送信を試みる前にエラーがスローされない限り、HTTPMultiService 呼び出しが実行されると、invoke イベントが開始されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルがメッセージの送信を試みる前にエラーがスローされない限り、HTTPMultiService 呼び出しが実行されると、invoke イベントが開始されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  HTTPMultiService 呼び出しが失敗したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  HTTPMultiService 呼び出しが失敗したときに送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  HTTPMultiService 呼び出しが正常に結果を返したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  HTTPMultiService 呼び出しが正常に結果を返したときに送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPMultiService:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+      新しい HTTPService を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>baseURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>相対 URL を計算するときに、HTTPService が使用する必要のある URL です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      新しい HTTPService を作成します。サービスで相対 URL による送信を行う場合は、完全な URL を決定するための基礎となる <codeph>baseURL</codeph> を指定できます。例えば、<codeph>Application.application.url</codeph> と指定します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.http:HTTPMultiService:baseURL"><apiName>baseURL</apiName><shortdesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      相対 URL を計算するときに、HTTPService オブジェクトが使用する必要のある URL です。 これには、設定時に URL の先頭に追加されるプレフィックスが含まれます。デフォルトは null です。この場合、SWF の URL は相対 URL を計算するのに使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:contentType"><apiName>contentType</apiName><shortdesc>
+      サービス要求のコンテンツタイプです。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      サービス要求のコンテンツタイプです。 デフォルトは <codeph>application/x-www-form-urlencoded</codeph> で、名前と値のペアを持つ通常の HTTP POST のような要求を送信します。<codeph>application/xml</codeph> は要求を XML として送信します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:headers"><apiName>headers</apiName><shortdesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      サードパーティーのエンドポイントに送信されるカスタム HTTP ヘッダーです。複数のヘッダーを同じ名前で送信する必要がある場合は、値を配列として指定します。これらのヘッダーはすべての操作に送信されます。操作レベルでヘッダーを設定することもできます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:makeObjectsBindable"><apiName>makeObjectsBindable</apiName><shortdesc>
+      true の場合、返されたオブジェクトでは UI コントロールへのデータバインディングがサポートされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、返されたオブジェクトでは UI コントロールへのデータバインディングがサポートされます。つまり、PropertyChangeEvents は、プロパティ値が変更されるときに送信されます。これは makeObjectsBindable プロパティが明示的に設定されていない操作のデフォルト値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:method"><apiName>method</apiName><shortdesc>
+      操作についてメソッドが明示的に設定されていない場合に、要求を送信するための HTTP メソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      操作についてメソッドが明示的に設定されていない場合に、要求を送信するための HTTP メソッドです。有効な値は <codeph>GET</codeph>、<codeph>POST</codeph>、<codeph>HEAD</codeph>、<codeph>OPTIONS</codeph>、<codeph>PUT</codeph>、<codeph>TRACE</codeph> および <codeph>DELETE</codeph> です。 小文字は大文字に変換されます。 デフォルト値は <codeph>GET</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:serializationFilter"><apiName>serializationFilter</apiName><shortdesc> 明示的に設定しないすべての操作で使用されるデフォルトの serializationFilter </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc> 明示的に設定しないすべての操作で使用されるデフォルトの serializationFilter </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     サービス内の同一操作に対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     サービス内の同一操作に対する複数の呼び出しの処理方法を示す値です。ここで設定した concurrency 設定は、concurrecny を指定しない操作に対して使用されます。concurrency 設定が直接設定されている個々の操作では、ここで設定された値は無視されます。デフォルト値は <codeph>multiple</codeph> です。 使用できる値は次のとおりです。
+     <ul>
+     <li><codeph>multiple</codeph>：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。 これがデフォルト値です。</li>
+     <li><codeph>single</codeph>：処理では一度に 1 つの要求のみが認められ、複数の要求を送信すると処理が失敗します。</li>
+     <li><codeph>last</codeph>：要求を送信すると、既存の要求がすべてキャンセルされます。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:operationList:set"><apiName>operationList</apiName><shortdesc>
+     これはインスタンスのデフォルトプロパティとして役立ちます。操作のセットを MXML の HTTPMultiService タグの直接の子として定義できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     これはインスタンスのデフォルトプロパティとして役立ちます。操作のセットを MXML の HTTPMultiService タグの直接の子として定義できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      HTTP 呼び出しから返された結果を非直列化する方法を示す値です。 この値は次の項目に基づいて決定します。
+      <ul>
+      <li>XML または名前と値のペアのどちらが返されるのか。</li>
+      <li>結果にアクセスする方法。結果にはオブジェクト、テキストまたは XML としてアクセスできます。</li>
+      </ul>
+     
+      <p>デフォルト値は <codeph>object</codeph> です。 使用できる値は次のとおりです。</p>
+      <ul>
+      <li><codeph>object</codeph>：返される値は XML であり、ActionScript オブジェクトのツリーとして解析されます。 これはデフォルトの設定です。</li>
+      <li><codeph>array</codeph>：返される値は XML で、ActionScript オブジェクトのツリーとして解析されますが、トップレベルのオブジェクトが配列でない場合、新しい配列が作成されて結果が最初のアイテムとして設定されます。 makeObjectsBindable が true の場合、配列は ArrayCollection 内にラップされます。</li>
+      <li><codeph>xml</codeph>：返される値は XML です。これは ActionScript XMLnode オブジェクト内のリテラル XML として返されます。</li>
+      <li><codeph>flashvars</codeph>：返される値は、アンパサンドで区切られた名前と値のペアを含むテキストで、ActionScript オブジェクトに解析されます。</li>
+      <li><codeph>text</codeph>：返される値はテキストで、未処理のまま保持されます。</li>
+      <li><codeph>e4x</codeph>：返される値は XML で、ActionScript XML オブジェクト内のリテラル XML として返されます。XML（E4X）式用の ECMAScript を使ってアクセスできます。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex のプロキシサービスを利用するかどうかを指定します。 デフォルト値は <codeph>false</codeph> です。<codeph>true</codeph> を指定しない場合（Flex サーバーを介して要求をプロキシしない場合）は、プレーヤーがターゲット URL に確実に到達できるようにする必要があります。 また、<codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、services-config.xml ファイルで定義された宛先を使用することはできません。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:SerializationFilter"><apiName>SerializationFilter</apiName><shortdesc>
+ 新規直列化形式を使用する HTTP サービスを修正またはプラグインしたいフレームワーク開発者にとってこのクラスは便利です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 新規直列化形式を使用する HTTP サービスを修正またはプラグインしたいフレームワーク開発者にとってこのクラスは便利です。この場合、ユーザーはサービスオブジェクト上でメソッドを起動し、 XML、JSON などの特定の直列化形式にパラメーターをマップする方法を制御できます。SerializationFilter メカニズムによって、ユーザーは新規 resultFormat を追加することもできます。
+ 
+ <p> このクラスのインスタンスは HTTP 要求、応答のフォーマットおよびパラメーターの変換を管理できます。HTTPService または HTTPMultiService を使用するときは、データを特定の形式で渡すと考えられるサーバーにデータを送信するのが普通です。例えば、HTML フォーム型用にエンコードした URL、XML 値、または JSON のような別の直列化形式です。SerializationFilter によって、ユーザーは、HTTPService と HTTPMultiService が操作パラメーターを HTTP 本文の要求に変換する方法、応答を操作の戻り値に変換する方法をカスタマイズできます。フレームワーク開発者は、SerializationFilter を新規に実装して新規直列化形式をシステムに導入し、これらコンポーネントおよびこれらコンポーネント上に構築された全フレームワークとツールを使用できます。その場合、形式自体の詳細を知る必要はありません。 </p>
+ 
+ <p>最初に行うのは、SerializationFilter を拡張し、1 つまたは複数の変換メソッドを上書きすることです。フィルターを使用すると、パラメーターの順序付きリストを要求本文に変換し、要求本文を修正し、要求で使用されるコンテンツタイプを修正し、要求で使用される実際の URL を修正し、応答データをサービスの結果イベントで返される結果オブジェクトに変換できます。</p>
+ 
+ <p>特定の HTTPService または HTTPMultiService 用に SerializationFilter を指定する方法が 2 つあります。サービスの serializationFilter プロパティを設定するか、または新規要求形式用に SerializationFilter を静的に登録するかのどちらかです。resultFormat を指定するだけでこのアプローチを採用する場合は、登録済み SerializationFilter を使用できます。例えば、「json」型用に SerializationFilter を登録し、resultFormat="json" と設定してそのフィルターを使用できます。</p>
+ 
+ <p>
+ HTTPService は要求本文を直接取得するメソッドを提供するのみで、「serializeParameters」メソッドを使用しないことに注意してください。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.http:SerializationFilter:deserializeResult"><apiName>deserializeResult</apiName><shortdesc>
+     このメソッドは、HTTP 要求の結果を未加工形式で取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>変換された結果はサービス用の結果イベントに与えられます。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>AbstractOperation が起動中です。  
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>サーバーから返された未加工の結果です。  
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     このメソッドは、HTTP 要求の結果を未加工形式で取得します。これは、必要なら、より詳細に記入した ActionScript オブジェクトに変換できます。SerializationFilter をより一般的にするために、ユーザーは備わっている AbstractOperation の resultType プロパティまたは resultElementType プロパティを使用できます。これによって、コードは、受信要求を戻り型として ActionScript に設定された種類に動的にマッピングできます。
+     <p>
+     また、AbstractOperation には「properties」マップがあり、ユーザーはこれを ActionScript でのサービス呼び出しの一部として使用して追加プロパティを格納し、特定の種類の直列化解除を処理することもできます。
+     </p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:getRequestContentType"><apiName>getRequestContentType</apiName><shortdesc>
+     このメソッドは、呼び出しを行う直前に HTTP サービスが呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この HTTP に使用するコンテンツタイプです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>起動中の AbstractionOperation です。
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>直列化中の HTTP 要求の本文です。
+     </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiDesc>操作用に設定した contentType
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     このメソッドは、呼び出しを行う直前に HTTP サービスが呼び出します。これのロールはこの要求のために使用される contentType を選択することです。多数の直列化形式について 1 つの固定コンテンツタイプがあるので、ここではそのコンテンツタイプを返すだけです。HTTPService 自体はコンテンツタイプで設定されているので、値はここで受け渡され、デフォルトの実装によって返されます。コンテンツタイプがサーバーに送信中のオブジェクトの種類に左右される場合に備えて、直列化中の要求本文には obj パラメーターもあります。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:registerFilterForResultFormat"><apiName>registerFilterForResultFormat</apiName><shortdesc>
+     この静的関数は、特定の resultFormat 値について新しい SerializationFilter を登録するのに使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn><apiParam><apiItemName>resultFormat</apiItemName><apiType value="String"/><apiDesc>カスタム resultFormat の名前は、供給された SerializationFilter と関連付けられます。  
+     </apiDesc></apiParam><apiParam><apiItemName>filter</apiItemName><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier><apiDesc>登録する SerializationFilter です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この静的関数は、特定の resultFormat 値について新しい SerializationFilter を登録するのに使用します。スタートアップ時にこのメソッドを 1 回呼び出せば、直列化フィルターを使用する HTTPService または HTTPMultiService の resultFormat プロパティを指定するだけで、開発者が形式を指定しやすくできます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeBody"><apiName>serializeBody</apiName><shortdesc>
+     このメソッドは HTTP サービスのすべての呼び出しについて呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要求で使用するために変換された可能性のある本文です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>呼び出し中の AbstractOperation
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>HTTP 要求の初期本文です。これは、serializeParameters の戻り値、sendBody メソッドへのパラメーターまたは HTTPService への送信メソッドのいずれかです。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     このメソッドは HTTP サービスのすべての呼び出しについて呼び出されます。これは、与えられたオブジェクトを HTTP の要求本文に直接設定するのに適した形式に変換できます。デフォルトの実装では、変換なしに本体として渡されたオブジェクトを返すのみです。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeParameters"><apiName>serializeParameters</apiName><shortdesc>
+     このメソッドは HTTP サービス呼び出しの「send」メソッドから呼び出され、パラメーターを要求本文に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>HTTP 要求で使用する本文
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>AbstractOperation が起動中です。
+     </apiDesc></apiParam><apiParam><apiItemName>params</apiItemName><apiType value="Array"/><apiDesc>send メソッドに渡されるパラメーターのリスト
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     このメソッドは HTTP サービス呼び出しの「send」メソッドから呼び出され、パラメーターを要求本文に変換します。オリジナル送信呼び出しのパラメーターはパラメーター配列に入れられます。このメソッドは、パラメーターのこのセットを、HTTP 要求本文のデータとして使用される単一のオブジェクトに変換します。デフォルトの実装ではオブジェクトが 1 つ作成されます。ここで、キーは Operation の argumentNames 配列内の値であり、値はパラメーターの値です。デフォルトの実装を使用するとき、argumentNames がパラメーター配列と同じ数のエレメントを持つように設定する必要があります。
+     
+     <p>1 つのオブジェクトのみを取得する sendBody メソッドを使用して HTTP 操作を起動する場合、このメソッドは使用されないことに注意してください。その場合、このステップは省略され、serializeBody メソッドのみが呼び出されます。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeURL"><apiName>serializeURL</apiName><shortdesc>
+     このメソッドが使用されるのは、要求本文オブジェクトからデータを取得し、それを URL ストリングにエンコードする必要がある場合です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この要求で使用するために修正された可能性のある URL です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>呼び出し中の AbstractOperation
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>サービスまたは操作に設定される URL
+     </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+     このメソッドが使用されるのは、要求本文オブジェクトからデータを取得し、それを URL ストリングにエンコードする必要がある場合です。操作またはサービスで設定された受信 URL が渡されます。このシステムでは、受信 URL は変換なしに返されるのみです。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

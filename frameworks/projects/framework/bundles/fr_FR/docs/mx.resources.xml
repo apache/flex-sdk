@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.resources"><apiName>mx.resources</apiName><apiDetail/><apiClassifier id="mx.resources:Locale"><apiName>Locale</apiName><shortdesc>
+  La classe Locale peut être utilisée pour analyser une chaîne de paramètres régionaux telle que « en_US_MAC » en trois parties : un code langue, un code pays et une variante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Locale peut être utilisée pour analyser une chaîne de paramètres régionaux telle que <codeph>"en_US_MAC"</codeph> en trois parties : un code langue, un code pays et une variante.
+ 
+  <p>Les API de localisation dans les interfaces IResourceManager et IResourceBundle utilisent des chaînes de paramètres régionaux plutôt que des occurrences Locale ; cette classe est rarement utilisée dans une application.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:Locale:Locale"><apiName>Locale</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>localeString</apiItemName><apiType value="String"/><apiDesc>Chaîne de paramètres régionaux à 1, 2 ou 3 parties, telle que <codeph>"en"</codeph>, <codeph>"en_US"</codeph> ou <codeph>"en_US_MAC"</codeph>. Les parties sont séparées par un caractère de soulignement. La première partie consiste en un code langue à deux minuscules, tel que défini par la norme ISO-639 (par exemple, <codeph>"en"</codeph> pour English). La seconde partie consiste en un code pays à deux majuscules, tel que défini par la norme ISO-3166 (par exemple, <codeph>"US"</codeph> pour United States). La troisième partie est une chaîne de variante, qui permet de distinguer si cela est souhaité plusieurs paramètres régionaux pour la même langue et le même pays. Elle est parfois utilisée pour indiquer le système d’exploitation avec lequel le paramètre régional doit être utilisé (par exemple, <codeph>"MAC"</codeph>, <codeph>"WIN"</codeph> ou <codeph>"UNIX"</codeph>).
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:Locale:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie la chaîne de paramètres régionaux ayant été utilisée pour construire cette occurrence locale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la chaîne de paramètres régionaux ayant été utilisée pour construire cette occurrence locale.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie la chaîne de paramètres régionaux ayant été utilisée pour construire cette occurrence locale. Par exemple :
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.toString()); // outputs "en_US_MAC"
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:Locale:country:get"><apiName>country</apiName><shortdesc>
+      Code pays de cette occurrence locale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Code pays de cette occurrence locale. [Lecture seule]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.country); // outputs "US"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:language:get"><apiName>language</apiName><shortdesc>
+      Code langue de cette occurrence locale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Code langue de cette occurrence locale. [Lecture seule]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.language); // outputs "en"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:variant:get"><apiName>variant</apiName><shortdesc>
+      Partie de variante de cette occurrence locale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Partie de variante de cette occurrence locale. [Lecture seule]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.variant); // outputs "MAC"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+  Les API de l’interface IResourceManager fournissent un support de localisation pour les applications Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Les API de l’interface IResourceManager fournissent un support de localisation pour les applications Flex.
+ 
+  <p>Trois concepts principaux sont impliqués dans la localisation : les paramètres régionaux, les ressources et les regroupements de ressources.</p>
+ 
+  <p>Un paramètre régional spécifie une langue et un pays pour lesquels votre application a été localisée. Par exemple, le paramètre régional <codeph>"en_US"</codeph> spécifie English (anglais) tel que parlé aux Etats-Unis (pour plus d’informations, voir la classe mx.resources.Locale).</p>
+ 
+  <p>Une ressource est une valeur nommée dépendant d’un paramètre régional. Par exemple, il se peut que votre application dispose d’une ressource dont le nom est <codeph>"OPEN"</codeph> et dont la valeur pour un paramètre régional English est <codeph>"Open"</codeph>, mais dont la valeur pour un paramètre régional French est <codeph>"Ouvrir"</codeph>.</p>
+ 
+  <p>Un regroupement de ressources est un groupe de ressources nommé dont les valeurs ont été localisées pour un paramètre régional spécifique. Un regroupement de ressources est identifié par la combinaison de ses valeurs <codeph>bundleName</codeph> et <codeph>locale</codeph>, et comporte un objet <codeph>content</codeph> contenant les paires nom-valeur des ressources du regroupement. Voir la documentation concernant mx.resources.IResourceBundle pour obtenir des informations sur la création standard de regroupements de ressources à partir de fichiers de propriétés.</p>
+ 
+  <p>Un objet ResourceManager unique implémentant l’interface IResourceManager gère plusieurs regroupements de ressources, éventuellement pour plusieurs paramètres régionaux, et permet d’accéder aux ressources contenues dans ces regroupements. Par exemple, vous pouvez extraire une ressource spécifique en tant que chaîne en appelant la méthode <codeph>resourceManager.getString(bundleName, resourceName)</codeph>.</p>
+ 
+  <p>Toutes les classes qui développent la classe UIComponent, Formatter ou Validator comportent une propriété <codeph>resourceManager</codeph> qui fournit une référence à l’objet implémentant cette interface. Les autres classes peuvent appeler la méthode <codeph>ResourceManager.getInstance()</codeph> pour obtenir cet objet.</p>
+ 
+  <p>Les méthodes d’extraction de ressources telles que <codeph>getString()</codeph> recherchent des ressources dans les paramètres régionaux spécifiés par la propriété <codeph>localeChain</codeph>. Si vous changez cette propriété, votre application peut soudain utiliser, par exemple, des ressources japonaises plutôt qu’anglaises.</p>
+ 
+  <p>Lorsque votre application démarre, la classe ResourceManager reçoit automatiquement les regroupements de ressources ayant été compilés dans l’application. Si vous créez un module de code, les ressources dont ses classes ont besoin sont par défaut compilées dans le module. Lorsque le module est chargé dans une application, les regroupements dont l’application ne dispose pas déjà sont ajoutés à la classe ResourceManager.</p>
+ 
+  <p>Vous pouvez compiler des « modules de ressources » ne contenant que des ressources et les charger avec la méthode <codeph>loadResourceModule()</codeph> de la classe IResourceManager. Avec les modules de ressources, vous pouvez prendre en charge plusieurs paramètres régionaux en chargeant les ressources requises lors de l’exécution au lieu de les compiler dans votre application.</p>
+ 
+  <p>Bien que la classe ResourceManager reçoive normalement les regroupements de ressources ayant été compilés dans votre application ou chargé à partir de modules, vous pouvez aussi créer par programmation des regroupements de ressources et les ajouter vous-même à la classe ResourceManager avec la méthode <codeph>addResourceBundle()</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:addResourceBundle"><apiName>addResourceBundle</apiName><shortdesc>
+      Ajoute le regroupement ResourceBundle spécifié à la classe ResourceManager de sorte que ses ressources soient accessibles par des méthodes ResourceManager telles que getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resourceBundle</apiItemName><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier><apiDesc>Regroupement de ressources à ajouter.
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si ResourceManager conserve une référence faible du groupe de ressources. Si <codeph>useWeakReference</codeph> a la valeur <codeph>true</codeph>, ResourceManager fournit une référence faible au groupe de ressources. Si l’appelant choisit d’utiliser une référence faible, l’appelant est alors chargé de conserver une référence forte du groupe de ressources de façon qu’il ne soit pas nettoyé prématurément. Si <codeph>useWeakReference</codeph> a la valeur <codeph>false</codeph>, ResourceManager conserve une référence forte du groupe de ressources. Il n’est pas nettoyé.
+      
+      <p>Lorsqu’une sous-application ou un module Flex ajoute automatiquement ses groupes de ressources compilés à ResourceManager, cela appelle <codeph>addResourceBundle()</codeph> avec <codeph>useWeakReference</codeph> défini sur <codeph>true</codeph>, pour éviter le verrouillage dans la mémoire. Si, lors de l’exécution, vous créez des groupes de ressources dans une sous-application ou un module, vous devez procéder de la même façon. Vous devez alors conserver ces groupes de ressources avec une référence forte pour éviter qu’ils soient nettoyés.</p>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute le regroupement ResourceBundle spécifié à la classe ResourceManager de sorte que ses ressources soient accessibles par des méthodes ResourceManager telles que <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:findResourceBundleWithResource"><apiName>findResourceBundleWithResource</apiName><shortdesc>
+      Recherche la ressource spécifiée dans les paramètres régionaux dans la propriété localeChain et renvoie le premier regroupement de ressource dans lequel elle est trouvée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Premier regroupement ResourceBundle dans la propriété <codeph>localeChain</codeph> contenant la ressource spécifiée, ou <codeph>null</codeph>.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom de regroupement tel que <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Recherche la ressource spécifiée dans les paramètres régionaux dans la propriété <codeph>localeChain</codeph> et renvoie le premier regroupement de ressource dans lequel elle est trouvée. Si la ressource n’est pas trouvée, cette méthode renvoie <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBoolean"><apiName>getBoolean</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant que valeur booléenne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que valeur booléenne, ou <codeph>false</codeph> si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant que valeur booléenne.
+     
+      <p>Cette méthode appelle d’abord <codeph>getString()</codeph> et convertit le résultat en minuscules. Elle renvoie ensuite <codeph>true</codeph> si le résultat est <codeph>"true"</codeph> et <codeph>false</codeph> dans le cas contraire.</p>
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode renvoie <codeph>false</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBundleNamesForLocale"><apiName>getBundleNamesForLocale</apiName><shortdesc>
+      Renvoie un tableau de chaînes spécifiant les noms de regroupements pour tous les objets ResourceBundle qui existent dans la classe ResourceManager et qui appartiennent au paramètre régional spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de noms de regroupements.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Chaîne de paramètres régionaux, telle que <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie un tableau de chaînes spécifiant les noms de regroupements pour tous les objets ResourceBundle qui existent dans la classe ResourceManager et qui appartiennent au paramètre régional spécifié.
+     
+      <p>L’ordre des noms de regroupements dans ce tableau n’est pas spécifié.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getClass"><apiName>getClass</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’objet Class.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que <codeph>Class</codeph>, ou <codeph>null</codeph> si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’objet Class.
+     
+      <p>Cette méthode appelle <codeph>getObject()</codeph> et la contraint vers le type Class à l’aide de l’opérateur <codeph>as</codeph>. Le résultat est <codeph>null</codeph> si la valeur de la ressource n’est pas une référence de classe. Cela est utile si vous avez écrit une ligne comme dans</p>
+     
+      <pre>
+      IMAGE=Embed("image.jpg")
+      BUTTON_SKIN=ClassReference("skins.ButtonSkin_en_US")
+      </pre>
+     
+      <p>un fichier de propriétés et voulez obtenir l’objet Class que la directive <codeph>Embed()</codeph> ou <codeph>ClassReference()</codeph> a produit.</p> 
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode retourne <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getInt"><apiName>getInt</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant que valeur entière.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que valeur entière, ou 0 si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant que valeur entière.
+     
+      <p>Cette méthode appelle <codeph>getObject()</codeph> et projette le résultat vers une valeur entière. Cela est utile si vous avez écrit une ligne comme :</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>dans un fichier de propriétés et voulez obtenir la valeur 5 plutôt que <codeph>"5"</codeph>.</p> 
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode retourne 0.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getLocales"><apiName>getLocales</apiName><shortdesc>
+      Renvoie un tableau de chaînes spécifiant tous les paramètres régionaux pour lesquels les objets ResourceBundle existent dans la classe ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de chaînes de paramètres régionaux.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie un tableau de chaînes spécifiant tous les paramètres régionaux pour lesquels les objets ResourceBundle existent dans la classe ResourceManager.
+     
+      <p>L’ordre des paramètres régionaux dans ce tableau n’est pas spécifié.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getNumber"><apiName>getNumber</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant que nombre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que nombre, ou <codeph>NaN</codeph> si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant que nombre.
+     
+      <p>Cette méthode appelle <codeph>getObject()</codeph> et projette le résultat vers un nombre. Cela est utile si vous avez écrit une ligne comme :</p>
+     
+      <pre>
+      LONGITUDE=170.3
+      </pre>
+     
+      <p>dans un fichier de propriétés et voulez obtenir la valeur 170.3 plutôt que <codeph>"170.3"</codeph>.</p> 
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode renvoie <codeph>NaN</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getObject"><apiName>getObject</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, exactement telle qu’elle est stockée dans l’objet <codeph>content</codeph>, ou <codeph>undefined</codeph> si la ressource n’est pas trouvée.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’objet.
+     
+      <p>La valeur est renvoyée exactement telle qu’elle est stockée dans l’objet <codeph>content</codeph> du regroupement ResourceBundle, sans conversion. Si la ressource a été compilée à partir d’un fichier de propriétés, la valeur de la ressource dans l’objet <codeph>content</codeph> est toujours une chaîne sauf si vous avez utilisé la directive <codeph>Embed()</codeph> ou <codeph>ClassReference()</codeph>, auquel cas il s’agit d’un objet Class. Utilisez les méthodes <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph> <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> et <codeph>getClass()</codeph> pour convertir la valeur en des types plus spécifiques.</p>
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode renvoie <codeph>undefined</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getPreferredLocaleChain"><apiName>getPreferredLocaleChain</apiName><shortdesc>
+      Renvoie un tableau de chaînes spécifiant tous les paramètres régionaux pour lesquels les objets ResourceBundle existent dans la classe ResourceManager, triés selon les préférences de l’utilisateur tel que signalé par Capabilities.language ou Capabilities.languages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de chaînes de paramètres régionaux.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie un tableau de chaînes spécifiant tous les paramètres régionaux pour lesquels les objets ResourceBundle existent dans la classe ResourceManager, triés selon les préférences de l’utilisateur tel que signalé par <codeph>Capabilities.language</codeph> ou <codeph>Capabilities.languages</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getResourceBundle"><apiName>getResourceBundle</apiName><shortdesc>
+      Renvoie un regroupement ResourceBundle avec la valeur locale et bundleName spécifiée ayant précédemment été ajoutée à la classe ResourceManager avec addResourceBundle().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Regroupement ResourceBundle avec la valeur <codeph>locale</codeph> et <codeph>bundleName</codeph> spécifiée s’il en existe une ; dans le cas contraire, <codeph>null</codeph>.
+     
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Chaîne de paramètres régionaux, telle que <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom de regroupement tel que <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie un regroupement ResourceBundle avec la valeur <codeph>locale</codeph> et <codeph>bundleName</codeph> spécifiée ayant précédemment été ajoutée à la classe ResourceManager avec <codeph>addResourceBundle()</codeph>. Si un tel regroupement ResourceBundle n’existe pas, cette méthode renvoie <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getStringArray"><apiName>getStringArray</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant que tableau de chaînes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que tableau de chaînes, ou <codeph>null</codeph> si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant que tableau de chaînes.
+     
+      <p>Cette méthode considère que la valeur de la ressource est une chaîne contenant une liste d’éléments séparés par une virgule. Elle appelle la méthode <codeph>getString()</codeph>, divise la chaîne en éléments au niveau des virgules et insère un espace blanc avant et après chaque élément. Cela est utile si vous avez écrit une ligne comme :</p>
+     
+      <pre>
+      COUNTRIES=India, China, Japan
+      </pre>
+     
+      <p>dans un fichier de propriétés et voulez obtenir la valeur <codeph>[ "India", "China", "Japan" ]</codeph> plutôt que la valeur <codeph>"India, China, Japan"</codeph>.</p> 
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode retourne <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getString"><apiName>getString</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant que chaîne, après remplacement des valeurs spécifiées par des espaces réservés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant que chaîne, ou <codeph>null</codeph> si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>parameters</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de paramètres qui sont remplacés par les espaces réservés. Chaque paramètre est converti en une chaîne avec la méthode <codeph>toString()</codeph> avant d’être remplacé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant que chaîne, après remplacement des valeurs spécifiées par des espaces réservés.
+     
+      <p>Cette méthode appelle <codeph>getObject()</codeph>, puis projette le résultat vers une chaîne.</p>
+     
+      <p>Si un tableau de valeurs <codeph>parameters</codeph> est transmis à cette méthode, les paramètres qu’il contient sont convertis en chaînes puis remplacés, dans l’ordre, par les espaces réservés <codeph>"{0}"</codeph>, <codeph>"{1}"</codeph>, et ainsi de suite, dans la chaîne avant qu’elle ne soit retournée.</p>
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode retourne <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getUint"><apiName>getUint</apiName><shortdesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’entier non signé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la ressource, en tant qu’entier non signé, ou 0 si elle n’est pas trouvée.
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom d’un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Nom d’une ressource dans un regroupement de ressources.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Paramètre régional spécifique à utiliser pour la recherche, ou <codeph>null</codeph> pour rechercher tous les paramètres régionaux dans la propriété <codeph>localeChain</codeph>. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph> ; il est normalement rarement nécessaire de le spécifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient la valeur d’une ressource spécifiée en tant qu’entier non signé.
+     
+      <p>Cette méthode appelle la méthode <codeph>getObject()</codeph> et projette le résultat vers un entier non signé. Cela est utile si vous avez écrit une ligne comme :</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>dans un fichier de propriétés et voulez obtenir la valeur 5 plutôt que <codeph>"5"</codeph>.</p> 
+     
+      <p>Si la ressource spécifiée n’est pas trouvée, cette méthode retourne 0.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:initializeLocaleChain"><apiName>initializeLocaleChain</apiName><shortdesc>
+     Initialise la propriété localeChain de la classe ResourceManager à l’aide d’un algorithme qui compare la liste des paramètres régionaux préférés par l’utilisateur du système d’exploitation avec la liste des paramètres régionaux disponibles dans le fichier SWF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>compiledLocales</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes spécifiant les paramètres régionaux pour lesquelles le fichier SWF a été compilé.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Initialise la propriété <codeph>localeChain</codeph> de la classe ResourceManager à l’aide d’un algorithme qui compare la liste des paramètres régionaux préférés par l’utilisateur du système d’exploitation avec la liste des paramètres régionaux disponibles dans le fichier SWF.
+    
+     <p>Par exemple, si l’utilisateur a indiqué dans le système d’exploitation qu’il préfère le français, et que le fichier SWF a été compilé pour les langues en_US, fr_FR et de_DE, la propriété <codeph>localeChain</codeph> est définie de façon à ce que la première langue qu’elle contient soit le français (fr_FR).</p>
+    
+     <p>Cette méthode n’est utilisée que par les classes qui implémentent l’interface IFlexModuleFactory.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:installCompiledResourceBundles"><apiName>installCompiledResourceBundles</apiName><shortdesc>
+     Crée des occurrences de toutes les sous-classes ResourceBundle qui ont été compilées dans le fichier SWF et les ajoute à la classe ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau des occurrences ResourceBundle qui ont été créées et ajoutées à la classe ResourceManager.
+      
+     </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiDesc> Domaine d’application qui est utilisé pour rechercher les classes d’ensembles de ressources par nom.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>locales</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes spécifiant les paramètres régionaux pour lesquels le fichier SWF a été compilé.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>bundleNames</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes qui spécifient les noms des ensembles de ressources qui ont été compilés dans le fichier SWF.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indicateur qui spécifie si des ensembles de ressources doivent être installés dans la classe ResourceManager à l’aide d’une référence modérée.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Crée des occurrences de toutes les sous-classes ResourceBundle qui ont été compilées dans le fichier SWF et les ajoute à la classe ResourceManager.
+    
+     <p>Par exemple, si le paramètre <codeph>locales</codeph> a la valeur [ "en_US", "ja_JP" ] et que le paramètre <codeph>bundleNames</codeph> a la valeur [ "core", "controls" ], quatre ensembles de ressources sont installés.</p>
+    
+     <p>Cette méthode n’est utilisée que par les classes qui implémentent l’interface IFlexModuleFactory.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:loadResourceModule"><apiName>loadResourceModule</apiName><shortdesc>
+      Commence à charger un module de ressource contenant des regroupements de ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet associé à cette opération load spécifique qui distribue des événements <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> et <codeph>ResourceEvent.ERROR</codeph>.
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL à partir de laquelle charger le module de ressource.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Appeler ou non la méthode <codeph>update()</codeph> lorsque le module termine le chargement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Classe ApplicationDomain transmise à la classe <codeph>load()</codeph> de la classe IModuleInfo qui charge le module de ressource. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>Classe SecurityDomain transmise à la classe <codeph>load()</codeph> de la classe IModuleInfo qui charge le module de ressource. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Commence à charger un module de ressource contenant des regroupements de ressources.
+     
+      <p>Chaque appel à cette méthode renvoie un nouvel objet de distribution d’événement que vous pouvez utiliser pour connaître la progression du chargement et savoir s’il s’est terminé correctement ou a résulté en une erreur. Cet objet distribue des événements <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> et <codeph>ResourceEvent.ERROR</codeph>.</p>
+     
+      <p>Lorsque le module a été chargé, les regroupements de ressources sont ajoutés à la classe ResourceManager, mais la propriété <codeph>localeChain</codeph> reste inchangée. Si le paramètre <codeph>update</codeph> est <codeph>true</codeph>, la méthode <codeph>update()</codeph> est appelée.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ResourceEvent"><linktext>mx.events.ResourceEvent</linktext></link><link href="mx.resources.xml#IResourceManager/update()"><linktext>mx.resources.IResourceManager.update()</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundle"><apiName>removeResourceBundle</apiName><shortdesc>
+      Supprime le regroupement ResourceBundle spécifié de la classe ResourceManager de sorte que ses ressources ne soient plus accessibles par des méthodes ResourceManager telles que getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Chaîne de paramètres régionaux, telle que <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Nom de regroupement tel que <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime le regroupement ResourceBundle spécifié de la classe ResourceManager de sorte que ses ressources ne soient plus accessibles par des méthodes ResourceManager telles que <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundlesForLocale"><apiName>removeResourceBundlesForLocale</apiName><shortdesc>
+      Supprime de la classe ResourceManager tous les regroupements ResourceBundle pour le paramètre régional spécifié de sorte que leurs ressources ne soient plus accessibles par des méthodes ResourceManager telles que getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Chaîne de paramètres régionaux, telle que <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime de la classe ResourceManager touts les regroupements ResourceBundle pour le paramètre régional spécifié de sorte que leurs ressources ne soient plus accessibles par des méthodes ResourceManager telles que <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:unloadResourceModule"><apiName>unloadResourceModule</apiName><shortdesc>
+      Commence le déchargement d’un module de ressource chargé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL utilisée pour charger le module de ressource. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Appeler ou non la méthode <codeph>update()</codeph> lorsque le module termine le déchargement.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Commence le déchargement d’un module de ressource chargé. 
+     
+      <p>Lorsque le module est déchargé, ses regroupements de ressources sont supprimés du gestionnaire ResourceManager, mais la <codeph>localeChain</codeph> demeure inchangé. Si le paramètre <codeph>update</codeph> est <codeph>true</codeph>, la méthode <codeph>update()</codeph> est appelée.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:update"><apiName>update</apiName><shortdesc>
+      Distribue un événement change à partir de la classe ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Distribue un événement <codeph>change</codeph> à partir de la classe ResourceManager.
+     
+      <p>Cela amène les expressions de liaison à réévaluer si elles impliquent les méthodes ResourceManager <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> ou <codeph>getClass()</codeph>.</p>
+     
+      <p>Cela provoque également l’exécution de la méthode <codeph>resourcesChanged()</codeph> d’une classe UIComponent, Formatter ou Validator. De nombreux composants implémentent cette méthode pour mettre à jour leur état en fonction des dernières ressources.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:IResourceManager:mx.resources:IResourceManager:localeChain:get"><apiName>localeChain</apiName><shortdesc>
+      Tableau de chaînes de paramètres régionaux, tel que [ "en_US" ], qui spécifie un ou plusieurs paramètres régionaux dans lequel rechercher des ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau de chaînes de paramètres régionaux, tel que <codeph>[ "en_US" ]</codeph>, qui spécifie un ou plusieurs paramètres régionaux dans lequel rechercher des ressources.
+      
+      <p>Lorsque vous appelez les méthodes ResourceManager <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> ou <codeph>getClass()</codeph> pour obtenir la valeur d’une ressource, vous spécifiez un nom de regroupement et un nom de ressource, mais pas un paramètre régional. La classe ResourceManager commence par le premier paramètre régional dans la propriété <codeph>localeChain</codeph> et recherche un regroupement ResourceBundle avec le nom de regroupement spécifié pour ce paramètre régional. S’il existe un tel regroupement ResourceBundle et que la ressource spécifiée y existe, la valeur de cette ressource est renvoyée. Dans le cas contraire, la classe ResourceManager passe aux autres paramètres régionaux dans la propriété <codeph>localeChain</codeph>.</p>
+     
+      <p>Avec ce schéma, il est possible de disposer de paramètres régionaux ne contenant pas nécessairement un ensemble complet de ressources localisées. Par exemple, si vous localisez votre application pour la l’anglais indien plutôt qu’américain, vous ne devez fournir des ressources que pour le paramètre régional <codeph>en_IN</codeph> dans lequel l’orthographe ou l’utilisation indienne diffère de l’orthographe et de l’utilisation américains, puis définir la propriété <codeph>localeChain</codeph> sur <codeph>[ "en_IN", "en_US" ]</codeph>.</p>
+     
+      <p>De nombreuses classes de structures considèrent qu’elles peuvent toujours obtenir, à partir d’un paramètre régional, les ressources auxquelles elles s’attendent, et génèrent des erreurs si cela leur est impossible. Aussi, vous devez vous assurer que le paramètre régional <codeph>localeChain</codeph> contient toujours un ensemble complet de ressources. A moins que vous n’ayez entièrement localisé toutes les ressources de la structure ainsi que celles de votre propre application, vous pouvez conserver le paramètre régional <codeph>"en_US"</codeph> à la fin de votre paramètre <codeph>localeChain</codeph> pour garantir ceci.</p>
+     
+      <p>Si cette propriété est définie, la classe ResourceManager distribue un événement <codeph>"change"</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:ResourceManager"><apiName>ResourceManager</apiName><shortdesc>
+  Cette classe est utilisée pour obtenir une occurrence unique de l’implémentation de la classe IResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette classe est utilisée pour obtenir une occurrence unique de l’implémentation de la classe IResourceManager. Les interfaces IResourceManager et IResourceBundle fonctionnent ensemble pour fournir un support d’internationalisation aux applications Flex.
+ 
+  <p>Une occurrence unique d’une implémentation de la classe IResourceManager gère toutes les ressources localisées pour une application Flex.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:ResourceManager:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Obtient l’occurrence unique de la classe ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet implémentant l’interface IResourceManager.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Obtient l’occurrence unique de la classe ResourceManager. Cet objet gère toutes les ressources localisées pour une application Flex.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.resources:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+  Fournit une implémentation de l’interface IResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.resources:IResourceBundle</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fournit une implémentation de l’interface IResourceBundle. Les interfaces IResourceManager et IResourceBundle fonctionnent ensemble pour fournir un support d’internationalisation aux applications Flex.
+ 
+  <p>Une application Flex comporte généralement plusieurs occurrences de cette classe, toutes gérées par une occurrence unique de la classe ResourceManager. Il est possible de disposer d’occurrences ResourceBundle pour plusieurs paramètres régionaux, une pour chaque paramètre régional. Il peut exister plusieurs occurrences ResourceBundle avec différents noms de regroupements.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:ResourceBundle:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chaîne de paramètres régionaux, telle que <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom identifiant ce regroupement, tel que <codeph>"MyResources"</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:ResourceBundle:protected:getContent"><apiName>getContent</apiName><shortdesc>
+      Lorsqu’un fichier de propriétés est compilé en un regroupement de ressources, le compilateur MXML génère automatiquement une sous-classe de ResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Objet contenant les paires clé-valeur pour les ressources du regroupement.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Lorsqu’un fichier de propriétés est compilé en un regroupement de ressources, le compilateur MXML génère automatiquement une sous-classe de ResourceBundle. La sous-classe remplace cette méthode afin de renvoyer un objet contenant les paires clé-valeur pour les ressources du regroupement.
+     
+      <p>Si vous créez vos propres occurrences ResourceBundle, vous pouvez définir les paires clé-valeur sur l’objet <codeph>content</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:ResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc conref="mx.resources.IResourceBundle#bundleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#bundleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:content:get"><apiName>content</apiName><shortdesc conref="mx.resources.IResourceBundle#content">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#content">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:locale:get"><apiName>locale</apiName><shortdesc conref="mx.resources.IResourceBundle#locale">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#locale">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceBundle"><apiName>IResourceBundle</apiName><shortdesc>
+  Les interfaces IResourceBundle et IResourceManager fonctionnent ensemble pour fournir un support de localisation aux applications Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Les interfaces IResourceBundle et IResourceManager fonctionnent ensemble pour fournir un support de localisation aux applications Flex.
+ 
+  <p>Trois concepts principaux sont impliqués dans la localisation : les paramètres régionaux, les ressources et les regroupements de ressources.</p>
+ 
+  <p>Un paramètre régional spécifie une langue et un pays pour lesquels votre application a été localisée. Par exemple, le paramètre régional <codeph>"en_US"</codeph> spécifie English (anglais) tel que parlé aux Etats-Unis (pour plus d’informations, voir la classe mx.resources.Locale).</p>
+ 
+  <p>Une ressource est une valeur nommée dépendant d’un paramètre régional. Par exemple, il se peut que votre application dispose d’une ressource dont le nom est <codeph>"OPEN"</codeph> et dont la valeur pour un paramètre régional English est <codeph>"Open"</codeph>, mais dont la valeur pour un paramètre régional French est <codeph>"Ouvrir"</codeph>.</p>
+ 
+  <p>Un regroupement de ressources est un groupe de ressources nommé dont les valeurs ont été localisées pour un paramètre régional spécifique. Un regroupement de ressources est identifié par la combinaison de ses valeurs <codeph>bundleName</codeph> et <codeph>locale</codeph>, et comporte un objet <codeph>content</codeph> contenant les paires nom-valeur des ressources du regroupement.</p>
+ 
+  <p>L’interface IResourceBundle représente un regroupement de ressources spécifique. Toutefois, la plupart des applications n’ont besoin que d’utiliser la classe IResourceManager. Un objet ResourceManager unique implémentant cette interface gère plusieurs regroupements de ressources, éventuellement pour plusieurs paramètres régionaux, et permet d’accéder aux ressources contenues dans ces regroupements. Par exemple, vous pouvez extraire une ressource spécifique en tant que chaîne en appelant la méthode <codeph>resourceManager.getString(bundleName, resourceName)</codeph>. En changeant la propriété <codeph>localeChain</codeph> de la classe ResourceManager, vous pouvez changer les regroupements de ressources dans lesquels les valeurs de ressources sont recherchées.</p>
+ 
+  <p>En général, vous ne créez pas vous-même les regroupements de ressources ; à la place, ils sont généralement compilés à partir de fichiers ~~.properties. Un fichier de propriétés nommé MyResources.properties produit un regroupement de ressources avec <codeph>"MyResources"</codeph> pour nom <codeph>bundleName</codeph>. Vous produisez généralement plusieurs versions de chaque fichier de propriétés, une pour chaque paramètre régional que votre application prend en charge.</p>
+ 
+  <p>Les fichiers de propriétés Flex sont similaires aux fichiers de propriétés Java, à la différence qu’ils prennent aussi en charge les directives <codeph>Embed()</codeph> et <codeph>ClassReference()</codeph> MXML. Ces directives opèrent de la même manière dans un fichier de propriétés que dans un fichier CSS, produisant des références de classes. De plus, il est toujours supposé que le codage des fichiers de propriétés Flex est UTF-8.</p>
+ 
+  <p>Les ressources de la structure Flex ont été localisées pour l’anglais américain (paramètre régional <codeph>"en_US"</codeph>) et pour le japonais (paramètre régional <codeph>"ja_JP"</codeph>). Les ressources de structures sont organisées en plusieurs regroupements correspondant aux assemblages de structures ; par exemple, le regroupement « formatters » est utilisé par les classes dans l’assemblage mx.formatters (il existe aussi un regroupement « SharedResources » pour les ressources utilisées par plusieurs assemblages).</p>
+ 
+  <p>Les fichiers de propriétés des ressources de structures (par exemple, formatters.properties) figurent dans les répertoires frameworks/projects/framework/bundles/{locale}/src du SDK Flex. Vos applications sont normalement liées par rapport à la structure Flex en tant que bibliothèque précompilée, framework.swc, dans le répertoire frameworks/libs. Cette bibliothèque ne contient aucune ressource. A la place, les ressources de structures ont été compilées en bibliothèques de regroupements de ressources distinctes telles que framework_rb.swc. Celles-ci sont situées dans les répertoires frameworks/locales/{locale} et votre application doit également être liée dans un ou plusieurs de ces répertoires.</p>
+ 
+  <p>Vous êtes libre d’organiser les propres ressources de votre application dans les regroupements qui vous conviennent. Si vous localisez votre application pour des paramètres régionaux autres que <codeph>"en_US"</codeph> et <codeph>"ja_JP"</codeph>, localisez les fichiers de propriétés de la structure pour ces paramètres régionaux et compilez pour eux des bibliothèques de regroupements de ressources supplémentaires.</p>
+ 
+  <p>Lorsque votre application démarre, la classe ResourceManager reçoit automatiquement les regroupements de ressources ayant été compilés dans l’application. Si vous créez un module de code, les ressources dont ses classes ont besoin sont par défaut compilées dans le module. Lorsque le module est chargé dans une application, les regroupements dont l’application ne dispose pas déjà sont ajoutés à la classe ResourceManager.</p>
+ 
+  <p>Vous pouvez compiler des « modules de ressources » ne contenant que des ressources et les charger avec la méthode <codeph>loadResourceModule()</codeph> de la classe ResourceManager. Avec les modules de ressources, vous pouvez prendre en charge plusieurs paramètres régionaux en chargeant les ressources requises lors de l’exécution au lieu de les compiler dans votre application.</p>
+ 
+  <p>Bien que la classe ResourceManager reçoive normalement les regroupements de ressources ayant été compilés dans votre application ou chargé à partir de modules, vous pouvez aussi créer par programmation des regroupements de ressources et les ajouter vous-même à la classe ResourceManager avec la méthode <codeph>addResourceBundle()</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link></related-links><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc>
+      Nom identifiant ce regroupement de ressources, tel que « MyResources ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom identifiant ce regroupement de ressources, tel que <codeph>"MyResources"</codeph>.
+     
+      <p>Cette propriété en lecture seule est définie lorsqu’un regroupement de ressources est construit.</p>
+     
+      <p>Les regroupements de ressources qui sont automatiquement créés à partir de fichiers de propriétés compilés comportent des noms de regroupements basés sur les noms de ces fichiers. Par exemple, un fichier de propriétés nommé MyResources.properties produit un regroupement de ressources dont le nom <codeph>bundleName</codeph> est <codeph>"MyResources"</codeph>.</p>
+     
+      <p>La classe ResourceManager peut gérer plusieurs regroupements comportant le même nom <codeph>bundleName</codeph>, à condition qu’ils disposent de valeurs différentes pour leur propriété <codeph>locale</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:content:get"><apiName>content</apiName><shortdesc>
+      Objet contenant des paires clé-valeur pour les ressources dans ce regroupement de ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet contenant des paires clé-valeur pour les ressources dans ce regroupement de ressources.
+     
+      <p>En général, vous devez accéder aux ressources en utilisant les méthodes IResourceManager telles que <codeph>getString()</codeph>, au lieu d’y accéder directement dans un regroupement de ressources. Toutefois, si vous créez par programmation vos propres regroupements de ressources, vous pouvez les initialiser avec des ressources, comme suit :</p>
+     
+      <pre>
+      var rb:IResourceBundle = new ResourceBundle("fr_FR", "MyResources");
+      rb.content["LANGUAGE"] = "Francais";
+      rb.content["GREETING"] = "Bonjour";
+      </pre>
+     
+      <p>Lorsqu’un regroupement de ressources est produit via la compilation d’un fichier de propriétés, ses valeurs de ressources sont de type chaîne ou classe. Par exemple, si le fichier de propriétés contient</p>
+     
+      <pre>
+      LANGUAGE=English
+      MINIMUM_AGE=18
+      ENABLED=true
+      LOGO=Embed("logo.png")
+      </pre>
+     
+      <p>la valeur de la ressource <codeph>LANGUAGE</codeph> est la chaîne <codeph>"English"</codeph>, la valeur de la ressource <codeph>MINIMUM_AGE</codeph> est la chaîne <codeph>"18"</codeph>, la valeur de la ressource <codeph>ENABLED</codeph> est la chaîne <codeph>"true"</codeph> et la valeur de la ressource <codeph>LOGO</codeph> est une classe qui représente le fichier PNG incorporé.</p>
+     
+      <p>Vous pouvez utiliser les méthodes IResourceManager telles que <codeph>getInt()</codeph> et <codeph>getBoolean()</codeph> pour convertir les chaînes de ressources telles que <codeph>"18"</codeph> et <codeph>"true"</codeph> vers le type auquel votre code s’attend.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:locale:get"><apiName>locale</apiName><shortdesc>
+      Paramètre régional pour lequel les ressources de ce regroupement ont été localisées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Paramètre régional pour lequel les ressources de ce regroupement ont été localisées. Chaîne telle que <codeph>"en_US"</codeph> pour l’anglais américain.
+     
+      <p>Cette propriété en lecture seule est définie lorsqu’un regroupement de ressources est construit.</p>
+     
+      <p>Les regroupements de ressources qui sont automatiquement créés à partir de fichiers de propriétés compilés comportent des paramètres régionaux basés sur l’option <codeph>-compiler.locale</codeph> des compilateurs mxmlc ou compc. Par exemple, vous compilez votre application avec l’option <codeph>-compiler.locale=en_US,ja_JP</codeph> et avez spécifié <codeph>-compiler.source-path=resources/{locale}</codeph> de sorte que les ressources de votre application, situées dans resources/en_US/MyResources.properties et resources/ja_JP/MyResources.properties, soient trouvées. Votre application dispose alors de deux regroupements de ressources dont le nom <codeph>bundleName</codeph> est <codeph>"MyResources"</codeph>, un dont le paramètre <codeph>locale</codeph> est <codeph>"en_US"</codeph> et un dont le paramètre <codeph>locale</codeph> est <codeph>"ja_JP"</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:VerticalAlign"><apiName>VerticalAlign</apiName><shortdesc>
+  Класс VerticalAlign определяет возможные значения для свойства verticalAlign класса HorizontalLayout.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс VerticalAlign определяет возможные значения для свойства <codeph>verticalAlign</codeph> класса HorizontalLayout.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/verticalAlign"><linktext>HorizontalLayout.verticalAlign</linktext></link></related-links><apiValue id="spark.layouts:VerticalAlign:BASELINE"><apiName>BASELINE</apiName><shortdesc>
+      Вертикальное размещение нижестоящих элементов позволяет выровнять текст по базовой линии контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>baseline</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Вертикальное размещение нижестоящих элементов позволяет выровнять текст по базовой линии контейнера.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+      Вертикальное выравнивание нижестоящих элементов относительно нижнего края контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Вертикальное выравнивание нижестоящих элементов относительно нижнего края контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      Выравнивание содержимого нижестоящих элементов относительно контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание содержимого нижестоящих элементов относительно контейнера. Таким образом, выполняется единообразная установка размеров всех нижестоящих элементов в соответствии с высотой содержимого контейнера. Высота содержимого контейнера определяет размер самого большого нижестоящего элемента. Если все нижестоящие элементы меньше высоты контейнера, то размеры всех этих нижестоящих элементов устанавливаются в соответствии с высотой контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      Выравнивание нижестоящих элементов относительно контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание нижестоящих элементов относительно контейнера. Таким образом, выполняется единообразная установка размеров всех нижестоящих элементов в соответствии с высотой контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:MIDDLE"><apiName>MIDDLE</apiName><shortdesc>
+      Вертикальное выравнивание нижестоящих элементов относительно центра контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>middle</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Вертикальное выравнивание нижестоящих элементов относительно центра контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      Вертикальное выравнивание нижестоящих элементов относительно верхнего края контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Вертикальное выравнивание нижестоящих элементов относительно верхнего края контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:ColumnAlign"><apiName>ColumnAlign</apiName><shortdesc>
+  Класс ColumnAlign определяет возможные значения для свойства columnAlign класса TileLayout.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ColumnAlign определяет возможные значения для свойства <codeph>columnAlign</codeph> класса TileLayout.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>TileLayout.columnAlign</linktext></link></related-links><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      Выравнивает строки путем увеличения вертикального интервала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивает строки путем увеличения вертикального интервала.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_WIDTH"><apiName>JUSTIFY_USING_WIDTH</apiName><shortdesc>
+      Выравнивает строки путем увеличения высоты строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивает строки путем увеличения высоты строки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Выравнивание строк не выполняется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание строк не выполняется.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+  Класс FormLayout определяет макет по умолчанию для тем оформления Spark Form.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:VerticalLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FormLayout определяет макет по умолчанию для тем оформления Spark Form. FormLayout предоставляет вертикальный макет для нижестоящих контейнеров FormItem в Form. Если любой из нижестоящих контейнеров использует FormItemLayout, то FormLayout выровняет ConstraintColumns каждого нижестоящего элемента. Количество столбцов в нижестоящих элементах должно быть одинаковым, и для столбцов должен быть указан один тип параметра ширины. Например, если ширина второго столбца первого нижестоящего элемента установлена в процентах, то и ширина второго столбца второго нижестоящего элемента должна быть установлена в процентах.
+   <p><b>Примечание</b>. Используйте класс FormLayout только с контейнером Spark Form. Не используйте его для отображения содержимого какого-либо другого контейнера.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Form"><linktext>spark.components.Form</linktext></link><link href="spark.components.xml#FormHeading"><linktext>spark.components.FormHeading</linktext></link><link href="spark.components.xml#FormItem"><linktext>spark.components.FormItem</linktext></link><link href="spark.layouts.xml#FormItemLayout"><linktext>spark.layouts.FormItemLayout</linktext></link></related-links><apiConstructor id="spark.layouts:FormLayout:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+  FormItemLayout используется FormItems для предоставления макета на основе ограничений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:ConstraintLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FormItemLayout используется FormItems для предоставления макета на основе ограничений. Элементы, использующие FormItemLayout в FormLayout, выравниваются по столбцам.  
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:FormItemLayout:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+  Класс ConstraintLayout упорядочивает элементы макета в соответствии с их индивидуальными настройками и набором областей ограничений, определенных столбцами ограничения и строками ограничения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ConstraintLayout упорядочивает элементы макета в соответствии с их индивидуальными настройками и набором областей ограничений, определенных столбцами ограничения и строками ограничения. Хотя возможно использовать все свойства и ограничения из BasicLayout для изменения позиции или размеров элементов, ConstraintLayout предоставляет средства для создания макетов относительно родственных элементов путем ограничения элементов с учетом указанных столбцов и строк. 
+ 
+  <p><b>Примечание. </b>Элементы управления Spark на основе списка (элемент управления Spark List и его подклассы, такие как ButtonBar, ComboBox, DropDownList и TabBar) не поддерживают класс ConstraintLayout. Не следует использовать ConstraintLayout с элементами управления Spark на основе списка.</p>
+ 
+  <p>Ограничения, поддерживаемые для каждого элемента: <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph>, <codeph>bottom</codeph>, <codeph>baseline</codeph>, <codeph>percentWidth</codeph> и <codeph>percentHeight</codeph>. При этом всегда учитываются минимальные и максимальные размеры элемента.</p>
+ 
+  <p>Столбцы и строки могут иметь явный размер или размер содержимого (без явного размера). Явные области размера будут фиксированы с учетом указанного размера, в то время как области размера содержимого будут растянуты для согласования только с теми элементами, для которых указаны соответствующие ограничения. Если элемент содержит множественные области размеров содержимого, то это пространство будет разделено на равные участки в областях размеров содержимого.</p>
+ 
+  <p>Измеренный размер контейнера вычисляется на основе элементов, их ограничений, их предпочтительных размеров и размеров строк и столбцов. Размер каждой строки и столбца является достаточно большим, чтобы вместить все элементы, ограниченные этим размером, для которых сохранены предпочтительные размеры с учетом ограничений. Измеренный размер контейнера является достаточно большим, чтобы вместить все столбцы и строки, а также любые другие элементы, для которых сохранены предпочтительные размеры с учетом ограничений. </p>
+ 
+  <p>При выполнении метода <codeph>updateDisplayList()</codeph> вычисляется размер элемента в соответствии с правилами, перечисленными согласно следующим приоритетам (при этом всегда учитывается минимальный и максимальный размер элемента):</p>
+  <ul>
+    <li>Если для элемента указаны параметры <codeph>percentWidth</codeph> или <codeph>percentHeight</codeph>, то его размер вычисляется в виде процентного отношения доступного размера, в качестве которого используется размер области или контейнера за вычетом ограничений <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph> или <codeph>bottom</codeph>.</li>
+ 
+    <li>Если для элемента указаны ограничения left и right, то в качестве его ширины используется ширина области или контейнера за вычетом ограничений <codeph>left</codeph> и <codeph>right</codeph>.</li>
+ 
+    <li>Если элемент имеет и ограничение <codeph>top</codeph>, и ограничение <codeph>bottom</codeph>, его высота определяется как высота контейнера за вычетом ограничений <codeph>top</codeph> и <codeph>bottom</codeph>.</li>
+ 
+    <li>Размер элемента устанавливается в соответствии с его предпочтительной шириной и/или высотой.</li>
+  </ul>
+ 
+  <p>Позиция элемента определяется согласно правилам с учетом следующих приоритетов:</p>
+  <ul>
+    <li>Если для элемента указано ограничение baseline, то элемент позиционируется в вертикальном направлении таким образом, что его <codeph>baselinePosition</codeph> (как правило, базовая линия первой линии текста) выравнивается по ограничению <codeph>baseline</codeph>.</li>
+ 
+    <li>Если для элемента указаны ограничения <codeph>top</codeph> или <codeph>left</codeph>, то элемент позиционируется таким образом, что верхний левый угол границ макета элемента смещается от верхнего левого угла контейнера в соответствии с указанными значениями.</li>
+ 
+    <li>Если для элемента указаны ограничения <codeph>bottom</codeph> или <codeph>right</codeph>, то элемент позиционируется таким образом, что правый нижний угол границ макета элемента смещается от правого нижнего угла контейнера в соответствии с указанными значениями.</li>
+ 
+    <li>Если ограничения относительно позиции в горизонтальном или вертикальном направлении не определены, то элемент размещается в соответствии с его координатами x и y.</li>
+  </ul>
+ 
+  <p>Размер содержимого контейнера вычисляется как максимальная из координат правого нижнего угла всех элементов макета и областей ограничений.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:ConstraintLayout:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:ConstraintLayout:protected:layoutContent"><apiName>layoutContent</apiName><shortdesc>
+      Располагает элементы целевого объекта макета с учетом текущей ширины и высоты столбцов и строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Указывает ширину компонента в пикселях в координатах компонента вне зависимости от значения свойства <codeph>scaleX</codeph> компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Указывает высоту компонента в пикселях в координатах компонента вне зависимости от значения свойства <codeph>scaleY</codeph> компонента.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Располагает элементы целевого объекта макета с учетом текущей ширины и высоты столбцов и строк. Используется FormItemLayout после установки новых показателей ширины столбца для размещения элементов, использующих эти новые показатели ширины.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:ConstraintLayout:protected:measureAndPositionColumnsAndRows"><apiName>measureAndPositionColumnsAndRows</apiName><shortdesc>
+      Используется FormItemLayout для определения и установки новых показателей ширины столбца и высоты строки перед размещением элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constrainedWidth</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Полная ширина, доступная для столбцов, чтобы растянуться или уменьшить их столбцы ширины процента. Если NaN, столбцы ширины процента добровольны и пригодны к их содержимому.
+      </apiDesc></apiParam><apiParam><apiItemName>constrainedHeight</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Полная высота, доступная для строк, чтобы растянуться или уменьшить их строки высоты процента. Если NaN, строки высоты процента добровольны и пригодны к их содержимому.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Используется FormItemLayout для определения и установки новых показателей ширины столбца и высоты строки перед размещением элементов.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:ConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      Вектор экземпляров ConstraintColumn, разделяющих целевой контейнер.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintColumn"/></apiValueDef><apiDesc>
+      Вектор экземпляров ConstraintColumn, разделяющих целевой контейнер. Экземпляр ConstraintColumn в индексе 0 представляет собой крайний левый столбец; индексы увеличиваются слева направо. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      Вектор экземпляров ConstraintRow, разделяющих целевой контейнер.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintRow"/></apiValueDef><apiDesc>
+      Вектор экземпляров ConstraintRow, разделяющих целевой контейнер. Экземпляр ConstraintRow в индексе 0 представляет собой самый верхний столбец; индексы увеличиваются сверху вниз. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+  Класс TileLayout упорядочивает элементы макета в столбцах и строках ячеек одинакового размера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:TileLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:TileLayout 
+    <strong>Properties</strong>
+    columnAlign="left"
+    columnWidth="NaN"
+    horizontalAlign="justify"
+    horizontalGap="6"
+    orientation="rows"
+    requestedColumnCount="-1"
+    requestedRowCount="-1"
+    rowAlign="top"
+    rowCount="-1"
+    rowHeight="NaN"
+    verticalAlign="justify"
+    verticalGap="6"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TileLayout упорядочивает элементы макета в столбцах и строках ячеек одинакового размера. Класс TileLayout использует ряд свойств, управляющих ориентацией, количеством, размером, интервалом и выравниванием столбцов и строк, а также выравниванием элемента в пределах ячеек.
+   <p>Для каждого элемента поддерживаются такие ограничения, как <codeph>percentWidth</codeph> и <codeph>percentHeight</codeph>. Минимальные и максимальные размеры элемента учитываются во всех возможных случаях, размер элемента не должен превосходить размер ячейки.</p>
+   <p>Если свойство <codeph>columnWidth</codeph> не установлено явно, его значение совпадает с максимальной предпочтительной шириной границ всех элементов, и значение свойства <codeph>columnHeight</codeph> совпадает с максимальной предпочтительной высотой границ всех элементов.</p>
+   <p>Если свойства <codeph>columnCount</codeph> и <codeph>rowCount</codeph> не установлены явно, их значения вычисляются на основе любых явных установок ширины и высоты для целевого объекта макета, а также <codeph>columnWidth</codeph> и <codeph>columnHeight</codeph>. Если указано значение none, значения <codeph>columnCount</codeph> и <codeph>rowCount</codeph> определяются таким образом, чтобы требуемая область в пикселях по возможности имела форму квадрата.</p>
+ 
+ <p> Измеренный размер вычисляется на основе значений свойств <codeph>columnCount</codeph>, <codeph>rowCount</codeph>, <codeph>columnWidth</codeph>, <codeph>rowHeight</codeph> и размеров интервала.</p>
+   <p>Если свойства явно не установлены, измеренный размер по умолчанию соответствует области, по возможности имеющей форму квадрата, и достаточно большой для размещения всех элементов.</p>
+   <p>В других случаях измеренный размер может оказаться недостаточно большим для размещения всех элементов. Например, если для <codeph>columnCount</codeph> и <codeph>rowCount</codeph> явно установлены такие значения, что произведение <codeph>columnCount</codeph> на <codeph>rowCount</codeph> меньше количества элементов.</p>
+   <p>Минимальный измеренный размер вычисляется тем же самым способом, что и измеренный размер, но в этом случае обеспечивается охват достаточного количества строк и столбцов по второстепенной оси для размещения всех элементов.</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:TileLayout:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      
+      Возвращает индекс, указывающий на то, где должен быть вставлен новый элемент, когда пользователь отпускает кнопку мыши в указанных координатах при завершении операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Индекс перетаскивания или -1, если операция перетаскивания не доступна для указанных координат.
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Координата x операции перетаскивания в локальных координатах.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Координата y операции перетаскивания в локальных координатах целевого объекта перетаскивания.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает индекс, указывающий на то, где должен быть вставлен новый элемент, когда пользователь отпускает кнопку мыши в указанных координатах при завершении операции перетаскивания. Вызывается методом <codeph>calculatedDropLocation()</codeph>.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      
+      Вычисляет границы для индикатора перетаскивания с целью визуального представления точки вставки элементов при завершении операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Границы для индикатора перетаскивания или значение null.
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Допустимый объект DropLocation, ранее возвращенный методом <codeph>calculateDropLocation()</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Вычисляет границы для индикатора перетаскивания с целью визуального представления точки вставки элементов при завершении операции перетаскивания. Вызывается методом <codeph>showDropIndicator()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:TileLayout:columnAlign:get"><apiName>columnAlign</apiName><shortdesc>
+      Указывает способ выравнивания полностью видимых столбцов по ширине контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColumnAlign.LEFT
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает способ выравнивания полностью видимых столбцов по ширине контейнера. Допустимы следующие значения ActionScript: <codeph>ColumnAlign.LEFT</codeph>, <codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> и <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph>. Возможными значениями MXML могут являться <codeph>left</codeph>, <codeph>justifyUsingGap</codeph> и <codeph>justifyUsingWidth</codeph>.
+           <p>При установке на <codeph>ColumnAlign.LEFT</codeph> выравнивание столбца отключается. Между последним столбцом и правым краем контейнера могут находиться частично видимые столбцы или пробел. Это значение является значением по умолчанию.</p>
+           <p>Если установлено значение <codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> фактическое значение <codeph>horizontalGap</codeph> увеличивается таким образом, что правый край последнего полностью видимого столбца выравнивается по правому краю контейнера. При наличии единственного полностью видимого столбца фактическое значение <codeph>horizontalGap</codeph> увеличивается таким образом, что любой частично видимый столбец перемещается за пределы правого края контейнера. Обратите внимание, что явная установка свойства <codeph>horizontalGap</codeph> не отключает выравнивание. Она только определяет начальное значение интервала. Выравнивание может увеличить его.</p>
+           <p>Если установлено значение <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph>, фактическое значение <codeph>columnWidth</codeph> увеличивается таким образом, что правый край последнего полностью видимого столбца выравнивается по правому краю контейнера. Обратите внимание, что явная установка свойства <codeph>columnWidth</codeph> не отключает выравнивание. Она только определяет начальное значение ширины столбца. Выравнивание может увеличить его.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Содержит фактическое количество столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Содержит фактическое количество столбцов.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      Содержит действительную ширину столбца в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Содержит действительную ширину столбца в пикселях.
+           <p>Если явно не установлено, ширина столбца определяется на основании ширины самого широкого элемента. </p>
+           <p>Если свойство <codeph>columnAlign</codeph> устанавливаются на <codeph>justifyUsingWidth</codeph>, ширина столбца увеличивается до ширины контейнера для выравнивания полностью видимых столбцов.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      Указывает способ горизонтального выравнивания элементов в ячейках.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает способ горизонтального выравнивания элементов в ячейках. Поддерживаются следующие значения: <codeph>HorizontalAlign.LEFT</codeph>, <codeph>HorizontalAlign.CENTER</codeph>, <codeph>HorizontalAlign.RIGHT</codeph>, <codeph>HorizontalAlign.JUSTIFY</codeph>.
+           <p>Если установлено значение <codeph>HorizontalAlign.JUSTIFY</codeph>, ширина каждого элемента соответствует <codeph>columnWidth</codeph>.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      Промежуток по горизонтали между столбцами в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Промежуток по горизонтали между столбцами в пикселях.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:orientation:get"><apiName>orientation</apiName><shortdesc>
+      Указывает, упорядочены ли элементы по строкам или по столбцам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>TileOrientation.ROWS
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, упорядочены ли элементы по строкам или по столбцам. Допустимы следующие значения ActionScript: <codeph>TileOrientation.ROWS</codeph> и <codeph>TileOrientation.COLUMNS</codeph>. Возможными значениями MXML могут являться <codeph>rows</codeph> и <codeph>columns</codeph>.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Число пикселей между нижним краем контейнера и нижним краем последнего элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между нижним краем контейнера и нижним краем последнего элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Минимальное число пикселей между левым краем контейнера и левым краем элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число пикселей между левым краем контейнера и левым краем элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Минимальное число пикселей между правым краем контейнера и правым краем элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число пикселей между правым краем контейнера и правым краем элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Число пикселей между верхним краем контейнера и верхним краем первого элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между верхним краем контейнера и верхним краем первого элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      Число отображаемых столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число отображаемых столбцов.
+     
+      <p>Значение -1 используется для предоставления TileLayout возможности автоматического определения количества столбцов.</p>
+           <p>Если свойство <codeph>orientation</codeph> устанавливается на <codeph>TileOrientation.ROWS</codeph>, то установка этого свойства не оказывает никакого влияния. В этом случае явно устанавливается <codeph>rowCount</codeph>, а также явно устанавливается ширина контейнера. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      Число отображаемых строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число отображаемых строк.
+     
+      <p>Значение -1 устанавливается в целях удаления явного переопределения и предоставления TileLayout возможности автоматического определения счетчика строк. </p>
+           <p>Если свойство <codeph>orientation</codeph> устанавливается на <codeph>TileOrientation.COLUMNS</codeph>, то установка этого свойства не оказывает никакого влияния. В этом случае явно устанавливается <codeph>columnCount</codeph>, а также явно устанавливается высота контейнера.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowAlign:get"><apiName>rowAlign</apiName><shortdesc>
+      Указывает способ выравнивания полностью видимых строк по высоте контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RowAlign.TOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает способ выравнивания полностью видимых строк по высоте контейнера. Допустимы следующие значения ActionScript: <codeph>RowAlign.TOP</codeph>, <codeph>RowAlign.JUSTIFY_USING_GAP</codeph> и <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph>. Возможными значениями MXML могут являться <codeph>top</codeph>, <codeph>justifyUsingGap</codeph> и <codeph>justifyUsingHeight</codeph>.
+           <p>При установке на <codeph>RowAlign.TOP</codeph> выравнивание столбца отключается. Между последней строкой и нижним краем контейнера могут находиться частично видимые строки или пробел. Это значение является значением по умолчанию.</p>
+           <p>Если установлено значение <codeph>RowAlign.JUSTIFY_USING_GAP</codeph>, фактическое значение <codeph>verticalGap</codeph> увеличивается таким образом, что нижний край последней полностью видимой строки выравнивается с нижним краем контейнера. При наличии единственной полностью видимой строки значение <codeph>verticalGap</codeph> увеличивается таким образом, что любая частично видимая строка перемещается за пределы нижнего края контейнера. Обратите внимание, что явная установка <codeph>verticalGap</codeph> не отключает выравнивание, а только определяет начальное значение интервала. При этом выравнивание может увеличить его.</p>
+           <p>Если установлено значение <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph>, фактическое значение <codeph>rowHeight</codeph> увеличивается таким образом, что нижний край последней полностью видимой строки выравнивается по нижнему краю контейнера. Обратите внимание, что явная установка <codeph>rowHeight</codeph> не отключает выравнивание, а определяет начальное значение высоты строки. При этом выравнивание может увеличить его.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Количество строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество строк.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      Высота строки в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Высота строки в пикселях.
+           <p>Если свойство явно не установлено, высота строки определяется на основе максимального значения высоты элементов.</p>
+           Если для <codeph>rowAlign</codeph> установлено значение justifyUsingHeight, то фактическая высота строки увеличивается для обеспечения выравнивания полностью видимых строк относительно высоты контейнера.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      Указывает способ вертикального выравнивания элементов в ячейках.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает способ вертикального выравнивания элементов в ячейках. Поддерживаются следующие значения: <codeph>VerticalAlign.TOP</codeph>, <codeph>VerticalAlign.MIDDLE</codeph>, <codeph>VerticalAlign.BOTTOM</codeph>, <codeph>VerticalAlign.JUSTIFY</codeph>.
+           <p>Если установлено значение <codeph>VerticalAlign.JUSTIFY</codeph>, высота каждого элемента соответствует <codeph>rowHeight</codeph>.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      Промежуток по вертикали между строками в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Промежуток по вертикали между строками в пикселях.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.layouts:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+  Класс VerticalLayout упорядочивает элементы макета в последовательность по вертикали, сверху вниз, с необязательными интервалами между элементами и необязательным заполнением вокруг последовательности элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:VerticalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:VerticalLayout 
+    <strong>Properties</strong>
+    gap="6"
+    horizontalAlign="left"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedMaxRowCount="-1"
+    requestedMinRowCount="-1"
+    requestedRowCount="-1"
+    rowHeight="<i>calculated</i>"
+    variableRowHeight="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс VerticalLayout упорядочивает элементы макета в последовательность по вертикали, сверху вниз, с необязательными интервалами между элементами и необязательным заполнением вокруг последовательности элементов.
+   <p>Вертикальная позиция элементов определяется путем их упорядочения в последовательность по вертикали, сверху вниз, учитывая заполнение перед первым элементом и промежутки между элементами. </p>
+   <p>Горизонтальная позиция элементов определяется свойством <codeph>horizontalAlign</codeph> макета.</p>
+   <p>При выполнении метода <codeph>measure()</codeph> вычисляется стандартный размер контейнера путем суммирования предпочтительных размеров элементов, включая интервалы и заполнение. Если установлен <codeph>requestedRowCount</codeph> будет измерено только пространство для определяемого этим количеством элементов, начиная с первого элемента.</p>
+   <p>При выполнении метода <codeph>updateDisplayList()</codeph> вычисляется высота каждого элемента в соответствии со следующими правилами, перечисленными согласно их приоритетам (при этом всегда учитывается минимальная и максимальная высота элемента):</p>
+  <ul>
+    <li>Если <codeph>variableRowHeight</codeph> имеет значение <codeph>false</codeph>, в качестве высоты элемента устанавливается значение свойства <codeph>rowHeight</codeph>.</li>
+     <li>Если для элемента установлено значение <codeph>percentHeight</codeph> то высота элемента вычисляется путем распределения доступной высоты контейнера между всеми элементами с параметром <codeph>percentHeight</codeph>. Доступная высота контейнера равняется высоте контейнера минус промежутки, заполнения и пространство, занимаемое остальными элементами. При виртуализации макета свойство <codeph>precentHeight</codeph> элемента игнорируется.</li>
+     <li>Установите высоту элемента в соответствии с его предпочтительной высотой.</li>
+  </ul>
+   <p>Ширина каждого элемента вычисляется согласно следующим правилам, перечисленным в порядке их приоритетов (при этом всегда учитывается минимальная и максимальная ширина элемента):</p>
+  <ul>
+    <li>Если <codeph>horizontalAlign</codeph> имеет значение <codeph>justify</codeph>, то ширина элемента соответствует ширине контейнера.</li>
+     <li>Если <codeph>horizontalAlign</codeph> имеет значение <codeph>contentJustify</codeph>, то ширина элемента соответствует максимальному значению из ширины контейнера и значений предпочтительной ширины всех элементов.</li>
+     <li>Если для элемента установлено значение <codeph>percentWidth</codeph>, то ширина этого элемента соответствует процентному выражению ширины контейнера.</li>
+     <li>Установите ширину элемента в соответствии с его предпочтительной шириной.</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:VerticalLayout:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:VerticalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      Возвращает 1.0, если указанный индекс полностью находится в поле зрения; 0.0, если это не так; или значение между 0.0 и 1.0, которое указывает на процент частично видимого индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Процентное значение указанного элемента, находящегося в видимой области. Возвращает 0.0, если указанная позиция индекса является недопустимой или соответствует элементу null, либо ILayoutElement, для которого значением свойства <codeph>includeInLayout</codeph> является <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс строки.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает 1.0, если указанный индекс полностью находится в поле зрения; 0.0, если это не так; или значение между 0.0 и 1.0, которое указывает на процент частично видимого индекса.
+     
+      <p>Индекс отображается в представлении, если соответствующий ненулевой элемент макета находится внутри вертикальных пределов <codeph>scrollRect</codeph> контейнера и включен в макет.</p>
+      
+      <p>Если указанная позиция индекса находится в пределах видимости частично, возвращаемое значение – это процентная доля видимой части соответствующего элемента макета. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:VerticalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      Индекс первого элемента макета, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс первого элемента макета, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует.
+      
+      <p>«Часть макета» означает, что элемент не является null, и его свойство <codeph>includeInLayout</codeph> имеет значение <codeph>true</codeph>.</p>
+     
+      <p>Следует отметить, что элемент макета может находиться в поле зрения только частично.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.fractionOfElementInView().xml"><linktext>fractionOfElementInView()</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      Промежуток по вертикали между элементами макета в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Промежуток по вертикали между элементами макета в пикселях. Следует отметить, что этот интервал определяет только расстояние между элементами макета, таким образом, при наличии единственного элемента, интервал не оказывает влияния на макет.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      Выравнивание элементов макета по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Выравнивание элементов макета по горизонтали. Если значение – <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>, то элемент макета выравнивается относительно свойства <codeph>contentWidth</codeph> контейнера.
+     
+      <p>Если значением является <codeph>contentJustify</codeph>, то в качестве фактической ширины элемента макета используется <codeph>contentWidth</codeph> контейнера. <codeph>contentWidth</codeph> контейнера является шириной наибольшего элемента макета. Если все элементы макета меньше ширины контейнера, следует установить ширину всех элементов макета на значение ширины контейнера.</p>
+     
+      <p>Если значение является <codeph>justify</codeph>, то в качестве фактической ширины элемента макета используется ширина контейнера.</p>
+           <p>Это свойство не влияет на измеренный размер макета.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      Индекс последней строки, являющейся частью макета и расположенной в пределах прямоугольника прокрутки контейнера; либо -1, если отображение еще отсутствует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс последней строки, являющейся частью макета и расположенной в пределах прямоугольника прокрутки контейнера; либо -1, если отображение еще отсутствует.
+     
+      <p>«Часть макета» означает, что нижестоящий элемент не является null, и его свойство <codeph>includeInLayout</codeph> имеет значение <codeph>true</codeph>.</p>
+     
+      <p>Следует отметить, что строка может находиться в поле зрения частично.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Число пикселей между нижним краем контейнера и нижним краем последнего элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между нижним краем контейнера и нижним краем последнего элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Минимальное число пикселей между левым краем контейнера и левым краем элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число пикселей между левым краем контейнера и левым краем элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Минимальное число пикселей между правым краем контейнера и правым краем элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число пикселей между правым краем контейнера и правым краем элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Число пикселей между верхним краем контейнера и верхним краем первого элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между верхним краем контейнера и верхним краем первого элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMaxRowCount:get"><apiName>requestedMaxRowCount</apiName><shortdesc>
+      Измеренная высота этого макета является достаточно большой, чтобы максимально отобразить элементы макета requestedMaxRowCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренная высота этого макета является достаточно большой, чтобы максимально отобразить элементы макета <codeph>requestedMaxRowCount</codeph>. 
+     
+      <p>Если <codeph>requestedRowCount</codeph> установлено, то это свойство не имеет никакого эффекта.</p>
+           <p>Если реальный размер контейнера был установлен явно, то это свойство не используется.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMinRowCount:get"><apiName>requestedMinRowCount</apiName><shortdesc>
+      Измеренная высота этого макета является достаточно большой, чтобы отобразить по крайней мере элементы макета requestedMinRowCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренная высота этого макета является достаточно большой, чтобы отобразить по крайней мере элементы макета <codeph>requestedMinRowCount</codeph>. 
+     
+      <p>Если <codeph>requestedRowCount</codeph> установлено, то это свойство не имеет никакого эффекта.</p>
+           <p>Если реальный размер контейнера был установлен явно, то это свойство не используется.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      Измеренный размер этого макета достаточно большой в высоту, чтобы отобразить первые requestedRowCount элементов макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренный размер этого макета достаточно большой в высоту, чтобы отобразить первые <codeph>requestedRowCount</codeph> элементов макета. 
+     
+      <p>Если <codeph>requestedRowCount</codeph> имеет значение -1, то измеренный размер будет достаточным для отображения всех элементов макета. </p>
+     
+      <p>Если реальный размер контейнера был установлен явно, то это свойство не используется.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Текущее количество видимых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Текущее количество видимых элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      Если variableRowHeight имеет значение false, то это свойство указывает фактическую высоту каждого нижестоящего элемента в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Если <codeph>variableRowHeight</codeph> имеет значение <codeph>false</codeph>, то это свойство указывает фактическую высоту каждого нижестоящего элемента в пикселях.
+     
+      <p>Если <codeph>variableRowHeight</codeph> имеет значение <codeph>true</codeph>, заданное по умолчанию, установка этого свойства не приведет к выполнению каких-либо действий.</p>
+     
+      <p>Значением этого свойства по умолчанию является предпочтительная высота <codeph>typicalLayoutElement</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      Определяет, распределены ли элементы макета с учетом их предпочтительной высоты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, распределены ли элементы макета с учетом их предпочтительной высоты. Установка этого свойства на <codeph>false</codeph> указывает на строки фиксированной высоты.
+     
+      <p>В случае значения <codeph>false</codeph> фактическая высота каждого элемента макета соответствует значению <codeph>rowHeight</codeph>. Установка этого свойства на <codeph>false</codeph> приводит к игнорированию макетом значений свойства <codeph>percentHeight</codeph> элемента макета.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      Вертикальное выравнивание содержимого по отношению к высоте контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Вертикальное выравнивание содержимого по отношению к высоте контейнера.
+     
+      <p>Если значение – <codeph>bottom</codeph>, <codeph>middle</codeph> или <codeph>top</codeph>, то элементы макета выравниваются относительно свойства <codeph>contentHeight</codeph> контейнера.</p>
+           <p>Это свойство не оказывает никакого эффекта, если <codeph>clipAndEnableScrolling</codeph> имеет значение true и <codeph>contentHeight</codeph> превышает высоту контейнера.</p>
+           <p>Это свойство не влияет на измеренный размер макета.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+  Класс HorizontalLayout упорядочивает элементы макета в последовательности по горизонтали, слева направо, с необязательными интервалами между элементами и необязательным заполнением вокруг элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:HorizontalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:HorizontalLayout 
+    <strong>Properties</strong>
+    columnWidth="<i>calculated</i>"
+    gap="6"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedColumnCount="-1"
+    requestedMaxColumnCount="-1"
+    requestedMinColumnCount="-1"
+    variableColumnWidth="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HorizontalLayout упорядочивает элементы макета в последовательности по горизонтали, слева направо, с необязательными интервалами между элементами и необязательным заполнением вокруг элементов.
+   <p>Горизонтальная позиция элементов определяется путем их упорядочения в последовательность по горизонтали, слева направо, учитывая заполнение перед первым элементом и промежутки между элементами. </p>
+   <p>Вертикальная позиция элементов определяется свойством <codeph>verticalAlign</codeph> макета.</p>
+   <p>При выполнении метода <codeph>measure()</codeph> вычисляется стандартный размер контейнера путем суммирования предпочтительных размеров элементов, включая интервалы и заполнение. Если свойство <codeph>requestedColumnCount</codeph> установлено на значение, отличное от -1, выполняется измерение пространства только для нескольких элементов, начиная с первого.</p>
+   <p>При выполнении метода <codeph>updateDisplayList()</codeph> вычисляется ширина каждого элемента в соответствии со следующими правилами, перечисленными согласно их приоритетам (при этом всегда учитывается минимальная и максимальная ширина элемента):</p>
+  <ul>
+    <li>Если <codeph>variableColumnWidth</codeph> имеет значение <codeph>false</codeph>, в качестве ширины элемента устанавливается значение свойства <codeph>columnWidth</codeph>.</li>
+     <li>Если для элемента установлено значение <codeph>percentWidth</codeph> то ширина элемента вычисляется путем распределения доступной ширины контейнера между всеми элементами с параметром <codeph>percentWidth</codeph>. Доступная ширина контейнера равняется ширине контейнера минус промежутки, заполнения и пространство, занимаемого остальными элементами. При виртуализации макета свойство <codeph>precentWidth</codeph> элемента игнорируется.</li>
+     <li>Установите ширину элемента в соответствии с его предпочтительной шириной.</li>
+  </ul>
+   <p>Высота каждого элемента вычисляется согласно следующим правилам, перечисленным в порядке их приоритетов (при этом всегда учитывается минимальная и максимальная высота элемента).</p>
+  <ul>
+    <li>Если свойство <codeph>verticalAlign</codeph> имеет значение <codeph>justify</codeph>, то высота элемента соответствует высоте контейнера.</li>
+     <li>Если свойство <codeph>verticalAlign</codeph> имеет значение <codeph>contentJustify</codeph>, то высота элемента соответствует максимальному значению из высоты контейнера и значений предпочтительной высоты всех элементов.</li>
+     <li>Если для элемента установлено свойство <codeph>percentHeight</codeph> то высота этого элемента соответствует процентному выражению высоты контейнера.</li>
+     <li>Установите высоту элемента в соответствии с его предпочтительной высотой.</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:HorizontalLayout:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:HorizontalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      Возвращает 1.0, если указанный индекс полностью находится в поле зрения; 0.0, если это не так; или значение между 0.0 и 1.0, которое указывает на процент частично видимого индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Процентное значение указанного элемента, находящегося в видимой области. Возвращает 0.0, если указанная позиция индекса является недопустимой или соответствует элементу null, либо ILayoutElement, для которого значением свойства <codeph>includeInLayout</codeph> является <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Индекс столбца. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает 1.0, если указанный индекс полностью находится в поле зрения; 0.0, если это не так; или значение между 0.0 и 1.0, которое указывает на процент частично видимого индекса.
+     
+      <p>Индекс отображается в представлении, если соответствующий ненулевой элемент макета находится внутри горизонтальных пределов <codeph>scrollRect</codeph> контейнера и включен в макет.</p>
+      
+      <p>Если указанная позиция индекса находится в пределах видимости частично, возвращаемое значение – это процентная доля видимой части соответствующего элемента макета. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:HorizontalLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Возвращает текущее количество элементов, отображаемых в представлении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Возвращает текущее количество элементов, отображаемых в представлении.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      Если свойство variableColumnWidth имеет значение false, то это свойство указывает фактическую ширину каждого элемента макета в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Если свойство <codeph>variableColumnWidth</codeph> имеет значение <codeph>false</codeph>, то это свойство указывает фактическую ширину каждого элемента макета в пикселях.
+     
+      <p>Если свойство <codeph>variableColumnWidth</codeph> имеет значение <codeph>true</codeph>, заданное по умолчанию, установка этого свойства не приведет к выполнению каких-либо действий.</p>
+     
+      <p>Значение по умолчанию этого свойства является предпочтительной шириной элемента, определенного свойством <codeph>typicalLayoutElement</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      Индекс первого столбца, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс первого столбца, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует. Следует отметить, что столбец может находиться в видимой области только частично.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.lastIndexInView.xml"><linktext>lastIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      Промежуток по горизонтали между элементами макета в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Промежуток по горизонтали между элементами макета в пикселях. Следует отметить, что этот интервал определяет только расстояние между элементами макета, таким образом, при наличии единственного элемента, интервал не оказывает влияния на макет.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      Горизонтальное выравнивание содержимого по отношению к ширине контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Горизонтальное выравнивание содержимого по отношению к ширине контейнера. Если значение – <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>, то элемент макета выравнивается относительно свойства <codeph>contentWidth</codeph> контейнера.
+           <p>Это свойство не оказывает никакого эффекта, если <codeph>clipAndEnableScrolling</codeph> имеет значение true и <codeph>contentWidth</codeph> превышает ширину контейнера.</p>
+           <p>Это свойство не влияет на измеренный размер макета.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      Индекс последнего столбца, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс последнего столбца, который является частью макета и расположен в пределах прямоугольника прокрутки целевого объекта макета; либо -1, если отображение еще отсутствует. Следует отметить, что столбец может находиться в видимой области только частично.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Минимальное число пикселей между нижним краем контейнера и нижней границей всех элементов макета в контейнере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальное число пикселей между нижним краем контейнера и нижней границей всех элементов макета в контейнере. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Число пикселей между левым краем контейнера и левым краем первого элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между левым краем контейнера и левым краем первого элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Число пикселей между правым краем контейнера и правым краем последнего элемента макета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между правым краем контейнера и правым краем последнего элемента макета.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Число пикселей между верхним краем контейнера и верхней границей всех элементов макета в контейнере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число пикселей между верхним краем контейнера и верхней границей всех элементов макета в контейнере. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      Измеренный размер этого макета является достаточно широким для отображения первых элементов макета requestedColumnCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренный размер этого макета является достаточно широким для отображения первых элементов макета <codeph>requestedColumnCount</codeph>. Если <codeph>requestedColumnCount</codeph> имеет значение -1, то измеренный размер будет достаточным для отображения всех элементов макета. 
+     
+      <p>Если реальный размер контейнера, использующего этот макет, был установлен явно, то это свойство не используется.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      Измеренная ширина этого макета является достаточно большой, чтобы максимально отобразить элементы макета requestedMaxColumnCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренная ширина этого макета является достаточно большой, чтобы максимально отобразить элементы макета <codeph>requestedMaxColumnCount</codeph>. 
+     
+      <p>Если <codeph>requestedColumnCount</codeph> установлено, то это свойство не имеет никакого эффекта.</p>
+           <p>Если реальный размер контейнера, использующего этот макет, был установлен явно, то это свойство не используется.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMinColumnCount:get"><apiName>requestedMinColumnCount</apiName><shortdesc>
+      Измеренная ширина этого макета является достаточно большой, чтобы отобразить по крайней мере элементы макета requestedMinColumnCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Измеренная ширина этого макета является достаточно большой, чтобы отобразить по крайней мере элементы макета <codeph>requestedMinColumnCount</codeph>. 
+     
+      <p>Если <codeph>requestedColumnCount</codeph> установлено, то это свойство не имеет никакого эффекта.</p>
+           <p>Если реальный размер контейнера, использующего этот макет, был установлен явно, то это свойство не используется.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:variableColumnWidth:get"><apiName>variableColumnWidth</apiName><shortdesc>
+      Если установлено значение true, указывает на необходимость присвоения элементам макета соответствующих значений предпочтительной ширины.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>true</codeph>, указывает на необходимость присвоения элементам макета соответствующих значений предпочтительной ширины.
+           <p>Установка для этого свойства значения <codeph>false</codeph> указывает на столбцы фиксированной ширины. Фактическая ширина каждого элемента макета является значением свойства <codeph>columnWidth</codeph>, и макет игнорирует свойство <codeph>percentWidth</codeph> элементов макета.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      Выравнивание элементов макета по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Выравнивание элементов макета по вертикали.
+     
+      <p>Если значение – <codeph>bottom</codeph>, <codeph>middle</codeph> или <codeph>top</codeph>, то элементы макета выравниваются относительно свойства <codeph>contentHeight</codeph> контейнера.</p>
+     
+      <p>Если значение – <codeph>contentJustify</codeph>, то фактическая высота данного элемента макета устанавливается на значение свойства <codeph>contentHeight</codeph> контейнера. Высота содержимого контейнера определяет высоту самого большого элемента макета. Если все элементы макета меньше высоты контейнера, следует установить высоту всех элементов макета на значение высоты контейнера.</p>
+     
+      <p>Если значение – <codeph>justify</codeph>, то фактическая высота элементов макета устанавливается на значение высоты контейнера.</p>
+           <p>Если указано значение <codeph>baseline</codeph>, то текст элементов выравнивается с учетом максимального значения выносных текстовых объектов элементов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileOrientation"><apiName>TileOrientation</apiName><shortdesc>
+  Класс TileOrientation определяет возможные значения для свойства orientation класса TileLayout.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TileOrientation определяет возможные значения для свойства <codeph>orientation</codeph> класса TileLayout.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/orientation"><linktext>TileLayout.orientation</linktext></link></related-links><apiValue id="spark.layouts:TileOrientation:COLUMNS"><apiName>COLUMNS</apiName><shortdesc>
+      Упорядочивает элементы по столбцам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columns</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Упорядочивает элементы по столбцам.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileOrientation:ROWS"><apiName>ROWS</apiName><shortdesc>
+      Упорядочивает элементы по строкам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Упорядочивает элементы по строкам.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:RowAlign"><apiName>RowAlign</apiName><shortdesc>
+  Класс RowAlign определяет возможные значения для свойства rowAlign класса TileLayout.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RowAlign определяет возможные значения для свойства <codeph>rowAlign</codeph> класса TileLayout.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>TileLayout.rowAlign</linktext></link></related-links><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      Выравнивает строки путем увеличения вертикального интервала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивает строки путем увеличения вертикального интервала.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_HEIGHT"><apiName>JUSTIFY_USING_HEIGHT</apiName><shortdesc>
+      Выравнивает строки путем увеличения высоты строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивает строки путем увеличения высоты строки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      Выравнивание строк не выполняется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание строк не выполняется.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalAlign"><apiName>HorizontalAlign</apiName><shortdesc>
+  Класс HorizontalAlign определяет возможные значения для свойства horizontalAlign класса VerticalLayout.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HorizontalAlign определяет возможные значения для свойства <codeph>horizontalAlign</codeph> класса VerticalLayout.
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#VerticalLayout/horizontalAlign"><linktext>VerticalLayout.horizontalAlign</linktext></link></related-links><apiValue id="spark.layouts:HorizontalAlign:CENTER"><apiName>CENTER</apiName><shortdesc>
+      Выравнивание нижестоящих элементов относительно центра контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание нижестоящих элементов относительно центра контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      Выравнивание содержимого нижестоящих элементов относительно контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание содержимого нижестоящих элементов относительно контейнера. Таким образом, выполняется единообразная установка размеров всех нижестоящих элементов в соответствии с шириной содержимого контейнера. Ширина содержимого контейнера определяет размер самого большого нижестоящего элемента. Если все нижестоящие элементы меньше ширины контейнера, то размеры всех этих нижестоящих элементов устанавливаются в соответствии с шириной контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      Выравнивание нижестоящих элементов относительно контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание нижестоящих элементов относительно контейнера. Таким образом, выполняется единообразная установка размеров всех нижестоящих элементов в соответствии с шириной контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Выравнивание нижестоящих элементов относительно левого края контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание нижестоящих элементов относительно левого края контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      Выравнивание нижестоящих элементов относительно правого края контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Выравнивание нижестоящих элементов относительно правого края контейнера.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+  Класс BasicLayout упорядочивает элементы макета в соответствии с их индивидуальными параметрами вне зависимости друг от друга.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BasicLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no additional tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BasicLayout/&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс BasicLayout упорядочивает элементы макета в соответствии с их индивидуальными параметрами вне зависимости друг от друга. BasicLayout, также называемый абсолютным макетом, требует явного позиционирования каждого нижестоящего элемента контейнера. Для позиционирования нижестоящих элементов используются свойства <codeph>x</codeph> и <codeph>y</codeph> каждого нижестоящего элемента или ограничения.
+ 
+  <p><b>Примечание. </b>Элементы управления Spark на основе списка (элемент управления Spark List и его подклассы, такие как ButtonBar, ComboBox, DropDownList и TabBar) не поддерживают класс BasicLayout. Не следует использовать BasicLayout с элементами управления Spark на основе списка.</p>
+ 
+  <p>Для каждого элемента поддерживаются такие ограничения, как <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph>, <codeph>bottom</codeph>, <codeph>horizontalCenter</codeph>, <codeph>verticalCenter</codeph>, <codeph>baseline</codeph>, <codeph>percentWidth</codeph> и <codeph>percentHeight</codeph>. При этом всегда учитываются минимальные и максимальные размеры элемента.</p>
+ 
+  <p>Измеренный размер контейнера вычисляется на основе элементов, их ограничений и соответствующих предпочтительных размеров. Измеренный размер контейнера является достаточным для того, чтобы вместить все элементы с учетом их предпочтительных размеров и ограничений. </p>
+ 
+  <p>Вот несколько примеров вычисления измеренного размера:
+  <ul>
+    <li>Если контейнер содержит единственный элемент, для которого указано ограничение <codeph>left</codeph>, то измеренная ширина контейнера будет равна сумме предпочтительной ширины элемента плюс значение ограничения <codeph>left</codeph>.</li>
+ 
+    <li>Если контейнер содержит единственный элемент, для которого указано значение свойства <codeph>percentWidth</codeph>, то измеренная ширина контейнера будет равна предпочтительной ширине элемента. Даже если <codeph>percentWidth</codeph> элемента непосредственно не разложен на множители при вычислении, он будет учитываться во время вызова метода <codeph>updateDisplayList()</codeph>.</li>
+ 
+    <li>Если контейнер содержит единственный элемент, для которого указано ограничение <codeph>baseline</codeph>, то измеренная высота контейнера будет равна сумме предпочтительной высоты элемента и <codeph>baseline</codeph> за вычетом значения свойства <codeph>baselinePosition</codeph> элемента.</li>
+ 
+    <li>Если контейнер содержит единственный элемент, для которого указано ограничение <codeph>verticalCenter</codeph>, то измеренная высота контейнера будет равна сумме предпочтительной высоты элемента и значения ограничения <codeph>verticalCenter</codeph>, умноженного на два.</li>
+  </ul>
+ </p>
+ 
+  <p>При выполнении метода <codeph>updateDisplayList()</codeph> вычисляется размер элемента в соответствии с правилами, перечисленными согласно следующим приоритетам (при этом всегда учитывается минимальный и максимальный размер элемента):</p>
+  <ul>
+    <li>Если для элемента установлено значение <codeph>percentWidth</codeph> или <codeph>percentHeight</codeph>, то его размер вычисляется как процентное значение от размера контейнера за вычетом всех ограничений: <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph> или <codeph>bottom</codeph>.</li>
+ 
+    <li>Если элемент имеет и ограничение left, и ограничение right, его ширина определяется как ширина контейнера за вычетом ограничений <codeph>left</codeph> и <codeph>right</codeph>.</li>
+ 
+    <li>Если элемент имеет и ограничение <codeph>top</codeph>, и ограничение <codeph>bottom</codeph>, его высота определяется как высота контейнера за вычетом ограничений <codeph>top</codeph> и <codeph>bottom</codeph>.</li>
+ 
+    <li>Размер элемента устанавливается в соответствии с его предпочтительной шириной и/или высотой.</li>
+  </ul>
+ 
+  <p>Класс BasicLayout вычисляет свой минимальный размер как максимальное значение минимальных размеров нижестоящих элементов:</p>
+ 
+  <ol>
+    <li>Для каждого нижестоящего элемента в контейнере следует определить минимальный размер, до которого можно сжать нижестоящий элемент:
+        <ul>
+          <li>Если границы нижестоящего элемента определены по высоте или ширине вышестоящего элемента, то этот нижестоящий элемент можно сжать до соответствующих минимальных размеров высоты и ширины. Используйте минимальный размер нижестоящего элемента.</li>
+          <li>Если пропорции нижестоящего элемента не ограничены размерами вышестоящего элемента, то для него сохраняется предпочтительный размер. Используйте предпочтительный размер нижестоящего элемента.  </li>
+        </ul></li>
+     <li>Найдите максимальное значение размеров из шага 1. </li>
+  </ol>
+ 
+  <p>Таким образом, если нижестоящий элемент ограничен размерами вышестоящего элемента, в макете используется минимальный размер нижестоящего элемента. В ином случае для вычисления минимального размера контейнера используется предпочтительный размер нижестоящего элемента.</p>
+ 
+  <p>Позиция элемента определяется согласно правилам с учетом следующих приоритетов:</p>
+  <ul>
+    <li>Ограничения <codeph>horizontalCenter</codeph> или <codeph>verticalCenter</codeph> указывают расстояние между центром контейнера и центром элемента. Установите ограничения <codeph>horizontalCenter</codeph> или <codeph>verticalCenter</codeph> на нулевое значение, чтобы разместить элемент по центру контейнера по горизонтали или вертикали.</li>
+ 
+    <li>Если для элемента указано ограничение baseline, то элемент позиционируется в вертикальном направлении таким образом, что его <codeph>baselinePosition</codeph> (как правило, базовая линия первой линии текста) выравнивается по ограничению <codeph>baseline</codeph>.</li>
+ 
+    <li>Если для элемента указаны ограничения <codeph>top</codeph> или <codeph>left</codeph>, то элемент позиционируется таким образом, что верхний левый угол границ макета элемента смещается от верхнего левого угла контейнера в соответствии с указанными значениями.</li>
+ 
+    <li>Если для элемента указаны ограничения <codeph>bottom</codeph> или <codeph>right</codeph>, то элемент позиционируется таким образом, что правый нижний угол границ макета элемента смещается от правого нижнего угла контейнера в соответствии с указанными значениями.</li>
+ 
+    <li>Если ограничения относительно позиции в горизонтальном или вертикальном направлении не определены, то элемент размещается в соответствии с его координатами x и y.</li>
+  </ul>
+ 
+  <p>Размер содержимого контейнера вычисляется как максимальная из координат правого нижнего угла всех элементов макета.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:BasicLayout:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

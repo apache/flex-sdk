@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.scrollClasses"><apiName>mx.controls.scrollClasses</apiName><apiDetail/><apiClassifier id="mx.controls.scrollClasses:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+  La classe ScrollThumb définit le curseur d’un contrôle ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ScrollThumb définit le curseur d’un contrôle ScrollBar. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollThumb:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+  La classe ScrollBar est la classe de base des contrôles HScrollBar et VScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="style" name="errorColor"/><Exclude kind="property" name="doubleClickEnabled"/><styles><style inherit="no" name="upArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le haut de la barre de défilement. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+    
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le haut de la barre de défilement lorsque le pointeur de la souris le survole. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le haut de la barre de défilement lorsque vous cliquez sur le bouton de flèche. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le haut de la barre de défilement lorsqu’il est désactivé. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage par défaut pour le bouton de flèche vers le haut de la barre de défilement. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage pour le rail de la barre de défilement.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage pour le rail de la barre de défilement lorsque le pointeur de la souris survole la barre de défilement.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du rail de la barre de défilement lorsque vous cliquez sur le rail.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage pour le rail de la barre de défilement lorsque celle-ci est désactivée.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage par défaut pour le rail de la barre de défilement. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollTrackSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Couleurs du rail, sous forme de tableau de deux couleurs. Vous pouvez utiliser deux fois la même couleur pour une couleur de rail uniforme.
+ 
+  </description>
+<default>[0x94999b, 0xe7e7e7]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage pour le curseur de la barre de défilement.
+  
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du curseur de la barre de défilement lorsque le pointeur de la souris le survole.  
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOffset" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Number">
+<description>
+  Nombre de pixels en fonction duquel décaler le curseur de défilement du centre de la barre de défilement. 
+ 
+  </description>
+<default>0 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbIcon" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme icône du curseur de la barre de défilement. 
+  
+  </description>
+<default>"undefined"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du curseur de la barre de défilement lorsque vous cliquez sur le curseur.  
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage par défaut du bouton de flèche vers le bas de la barre de défilement. 
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Couleur d’un symbole de composant. Les exemples incluent la coche d’un composant CheckBox ou la flèche d’un bouton ScrollBar. 
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le bas de la barre de défilement. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le bas de la barre de défilement lorsque le pointeur de la souris le survole. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le bas de la barre de défilement lorsque vous cliquez sur le bouton de flèche. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage du bouton de flèche vers le bas de la barre de défilement lorsqu’il est désactivé. Si vous modifiez l’habillage, graphiquement ou par programmation, assurez-vous que le nouvel habillage a la même hauteur (pour les barres de défilement horizontales) ou la même largeur (pour les barres de défilement verticales) que le rail.
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Nom de la classe à utiliser comme habillage par défaut du bouton de flèche vers le bas de la barre de défilement.
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="highlightAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Transparences Alpha utilisées pour le remplissage de surbrillance des contrôles. La première valeur indique la transparencé du haut de la surbrillance et la seconde valeur indique la transparence du bas de la surbrillance. La surbrillance couvre la moitié supérieure de l’habillage.
+  
+  </description>
+<default>[ 0.3, 0.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Couleurs utilisées pour teindre l’arrière-plan du contrôle. Transmettez la même couleur pour les deux valeurs d’un contrôle à l’aspect plat.
+  
+  </description>
+<default>[ 0xFFFFFF, 0xCCCCCC ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Transparences Alpha utilisées pour le remplissage d’arrière-plan des contrôles. Utilisez la valeur [1, 1] pour rendre l’arrière-plan des contrôles opaque.
+  
+  </description>
+<default>[ 0.6, 0.4 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  Rayon des angles des composants. Les composants suivants prennent ce style en charge : Alert, Button, ComboBox, LinkButton, MenuBar, NumericStepper, Panel, ScrollBar, Tab, TitleWindow et tous les composants qui prennent en charge une propriété <codeph>borderStyle</codeph> définie sur <codeph>"solid"</codeph>. La valeur par défaut dépend de la classe du composant ; si elle n’est pas remplacée pour la classe, la valeur par défaut est <codeph>0</codeph> pour le thème Halo et <codeph>2</codeph> pour le thème Spark. 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Couleur de la bordure. Les contrôles suivants prennent ce style en charge : Button, CheckBox, ComboBox, MenuBar, NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider et tous les composants qui prennent en charge le style <codeph>borderStyle</codeph>. La valeur par défaut dépend de la classe du composant. Si elle n’est pas remplacée par la classe, la valeur par défaut est <codeph>0xB7BABC</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ScrollBar&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:ScrollBar
+    <strong>Properties</strong>
+    direction="vertical|horizontal"
+    lineScrollSize="1"
+    maxScrollPosition="0"
+    minScrollPosition="0"
+    pageScrollSize="<i>Reset to the pageSize parameter of setScrollProperties</i>"
+    pageSize="0"
+    scrollPosition="0"
+ 
+    <strong>Styles</strong>
+    borderColor="0xB7BABC" 
+    cornerRadius="0" 
+    disabledIconColor="0x999999"
+    downArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+    fillAlphas="[0.6, 0.4]" 
+    fillColors="[0xFFFFFF, 0xCCCCCC]" 
+    highlightAlphas="[0.3, 0.0]" 
+    iconColor="0x111111"
+    thumbDownSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbIcon="undefined"
+    thumbOffset="0"
+    thumbOverSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbUpSkin="mx.skins.halo.ScrollThumbSkin"
+    trackColors="[0x94999b, 0xe7e7e7]"
+    trackSkin="mx.skins.halo.ScrollTrackSkin"
+    upArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ScrollBar est la classe de base des contrôles HScrollBar et VScrollBar. Une classe ScrollBar est constituée de deux boutons de flèche, séparés par un rail, et d’un curseur de défilement à taille variable. Pour déplacer le curseur de défilement, cliquez sur un des deux boutons de flèche, faites glisser le curseur de défilement le long du rail ou cliquez sur le rail. 
+ 
+  <p>La largeur d’une barre de défilement est égale à la plus grande largeur de ses sous-composants (flèche vers le haut, flèche vers le bas, curseur et rail). Chaque sous-composant est centré dans la barre de défilement.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link><link href="mx.controls.xml#Button"><linktext>mx.controls.Button</linktext></link><link href="mx.controls.scrollClasses.xml#ScrollThumb"><linktext>mx.controls.scrollClasses.ScrollThumb</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollBar:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.scrollClasses:ScrollBar:setScrollProperties"><apiName>setScrollProperties</apiName><shortdesc>
+      Définit la plage et la taille de la fenêtre du contrôle ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pageSize</apiItemName><apiType value="Number"/><apiDesc>Nombre représentant la taille d’une page. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>minScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Nombre représentant la partie inférieure de la page de défilement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>maxScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Nombre représentant la partie supérieure de la page de défilement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pageScrollSize</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Nombre représentant l’incrément de déplacement lorsque l’utilisateur clique sur le rail de défilement.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit la plage et la taille de la fenêtre du contrôle ScrollBar. Le contrôle ScrollBar actualise l’état des boutons fléchés et la taille du curseur de défilement en conséquence.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.scrollClasses:ScrollBar:THICKNESS"><apiName>THICKNESS</apiName><shortdesc>
+      Largeur d’une barre de défilement verticale ou hauteur d’une barre de défilement horizontale, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>16</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur d’une barre de défilement verticale ou hauteur d’une barre de défilement horizontale, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:direction:get"><apiName>direction</apiName><shortdesc>
+      Précise si le contrôle ScrollBar est associé à un mouvement horizontal ou vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollBarDirection.VERTICAL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Précise si le contrôle ScrollBar est associé à un mouvement horizontal ou vertical. Les valeurs possibles dans MXML sont <codeph>"vertical"</codeph> et <codeph>"horizontal"</codeph>.
+     
+      <p>Dans ActionScript, utilisez les constantes suivantes pour définir cette propriété : <codeph>ScrollBarDirection.VERTICAL</codeph> et <codeph>ScrollBarDirection.HORIZONTAL</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBarDirection"><linktext>mx.controls.scrollClasses.ScrollBarDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:downArrowStyleFilters:get"><apiName>downArrowStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre du contrôle ScrollBar à la flèche vers le bas.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre du contrôle ScrollBar à la flèche vers le bas.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:lineScrollSize:get"><apiName>lineScrollSize</apiName><shortdesc>
+      Longueur du déplacement lorsque l’utilisateur clique sur un bouton fléché, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Longueur du déplacement lorsque l’utilisateur clique sur un bouton fléché, en pixels.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:maxScrollPosition:get"><apiName>maxScrollPosition</apiName><shortdesc>
+      Nombre représentant la position de défilement maximale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre représentant la position de défilement maximale.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:minScrollPosition:get"><apiName>minScrollPosition</apiName><shortdesc>
+      Nombre représentant la position de défilement minimale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre représentant la position de défilement minimale.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageScrollSize:get"><apiName>pageScrollSize</apiName><shortdesc>
+      Amplitude du déplacement du curseur de défilement lorsque l’utilisateur clique sur le rail de la barre de défilement, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Amplitude du déplacement du curseur de défilement lorsque l’utilisateur clique sur le rail de la barre de défilement, en pixels.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageSize:get"><apiName>pageSize</apiName><shortdesc>
+      Nombre de lignes correspondant à une page.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de lignes correspondant à une page.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:scrollPosition:get"><apiName>scrollPosition</apiName><shortdesc>
+      Nombre représentant la position de défilement actuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre représentant la position de défilement actuelle. La valeur est comprise de façon inclusive entre <codeph>minScrollPosition</codeph> et <codeph>maxScrollPosition</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre du contrôle ScrollBar au curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre du contrôle ScrollBar au curseur.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:upArrowStyleFilters:get"><apiName>upArrowStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre du contrôle ScrollBar à la flèche vers le haut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre du contrôle ScrollBar à la flèche vers le haut.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBarDirection"><apiName>ScrollBarDirection</apiName><shortdesc>
+  La classe ScrollBarDirection définit les valeurs de la propriété direction du contrôle ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ScrollBarDirection définit les valeurs de la propriété <codeph>direction</codeph> du contrôle ScrollBar.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Spécifie un défilement horizontal pour un contrôle ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Spécifie un défilement horizontal pour un contrôle ScrollBar.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Spécifie un défilement vertical pour un contrôle ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Spécifie un défilement vertical pour un contrôle ScrollBar.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

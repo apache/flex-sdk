@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.resources"><apiName>mx.resources</apiName><apiDetail/><apiClassifier id="mx.resources:Locale"><apiName>Locale</apiName><shortdesc>
+  Locale クラスを使用すると、"en_US_MAC" などのロケールストリングの、言語コード、国コードおよびバリアントの 3 つの部分を解析できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Locale クラスを使用すると、<codeph>"en_US_MAC"</codeph> などのロケールストリングの、言語コード、国コードおよびバリアントの 3 つの部分を解析できます。
+ 
+  <p>IResourceManager インタフェースと IResourceBundle インタフェースのローカリゼーション API は、ロケールインスタンスの代わりにロケールストリングを使用するので、アプリケーションでこのクラスを使用することはほとんどありません。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:Locale:Locale"><apiName>Locale</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>localeString</apiItemName><apiType value="String"/><apiDesc><codeph>"en"</codeph>、<codeph>"en_US"</codeph>、<codeph>"en_US_MAC"</codeph> のように、1 つ、2 つまたは 3 つの部分から成るロケールストリングです。 各部分はアンダースコア（_）で区切ります。 最初の部分は、ISO-639 で定義されている小文字 2 文字の言語コード（英語の場合は <codeph>"en"</codeph> など）です。 2 番目の部分は、ISO-3166 で定義されている大文字 2 文字の国コード（米国の場合は <codeph>"US"</codeph> など）です。 3 番目の部分はバリアントストリングで、同じ言語および国の複数のロケールを区別するために必要に応じて使用できます。 バリアントストリングは、そのロケールが使用されるオペレーティングシステム（<codeph>"MAC"</codeph>、<codeph>"WIN"</codeph>、<codeph>"UNIX"</codeph> など）を示すために使用される場合があります。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:Locale:toString"><apiName>toString</apiName><shortdesc>
+      このロケールインスタンスの作成に使用されたロケールストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このロケールインスタンスの作成に使用されたロケールストリングを返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      このロケールインスタンスの作成に使用されたロケールストリングを返します。 次に実際の使用例を示します。
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.toString()); // outputs "en_US_MAC"
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:Locale:country:get"><apiName>country</apiName><shortdesc>
+      このロケールインスタンスの国コードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このロケールインスタンスの国コードです。 [読み取り専用]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.country); // outputs "US"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:language:get"><apiName>language</apiName><shortdesc>
+      このロケールインスタンスの言語コードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このロケールインスタンスの言語コードです。 [読み取り専用]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.language); // outputs "en"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:variant:get"><apiName>variant</apiName><shortdesc>
+      このロケールインスタンスのバリアント部分です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このロケールインスタンスのバリアント部分です。 [読み取り専用]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.variant); // outputs "MAC"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+  IResourceManager インタフェースは、Flex アプリケーションに対するローカライズサポートを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IResourceManager インタフェースは、Flex アプリケーションに対するローカライズサポートを提供します。
+ 
+  <p>ローカライズには、ロケール、リソースおよびリソースバンドルの 3 つの主要な概念が関係します。</p>
+ 
+  <p>ロケールは、アプリケーションをローカライズした後の言語と国を指定します。 たとえば、ロケール <codeph>"en_US"</codeph> は、米国で使用される英語を指定します。 詳細については、mx.resources.Locale クラスを参照してください。</p>
+ 
+  <p>リソースは、ロケールに依存した名前付きの値です。 たとえば、アプリケーションに <codeph>"OPEN"</codeph> という名前のリソースがある場合、英語ロケールでのそのリソースの値は <codeph>"Open"</codeph> です。一方、フランス語ロケールの場合、値は <codeph>"Ouvrir"</codeph> です。</p>
+ 
+  <p>リソースバンドルは、値が特定のロケール用にローカライズされたリソースの、名前付きのグループです。 リソースバンドルは、<codeph>bundleName</codeph> と <codeph>locale</codeph> の組み合わせによって識別され、バンドルのリソースの名前と値のペアを含む <codeph>content</codeph> オブジェクトを持っています。 プロパティファイルからリソースバンドルを作成する一般的な方法については、mx.resources.IResourceBundle のドキュメントを参照してください。</p>
+ 
+  <p>IResourceManager インタフェースを実装した単一の ResourceManager オブジェクトは、（場合によっては複数のロケールの）複数のリソースバンドルを管理し、リソースバンドルに含まれるリソースへのアクセスを提供します。 例えば、<codeph>resourceManager.getString(bundleName, resourceName)</codeph> を呼び出すことにより、特定のリソースをストリングとして取得できます。</p>
+ 
+  <p>UIComponent、Formatter または Validator を拡張するクラスはすべて、このインタフェースを実装するオブジェクトへの参照を提供する <codeph>resourceManager</codeph> プロパティを持っています。 それ以外のクラスは、<codeph>ResourceManager.getInstance()</codeph> を呼び出すことでこのオブジェクトを取得できます。</p>
+ 
+  <p>リソースを取得する <codeph>getString()</codeph> などのメソッドは、<codeph>localeChain</codeph> プロパティに指定されたロケールのリソースを検索します。 このプロパティを変更すると、例えばアプリケーションで使用している英語リソースを、即座に日本語リソースに切り替えることができます。</p>
+ 
+  <p>アプリケーションを起動すると、アプリケーションにコンパイルされたリソースバンドルを使用して、ResourceManager が自動的に設定されます。 コードモジュールを作成すると、クラスに必要なリソースがデフォルトでモジュールにコンパイルされます。 モジュールがアプリケーションにロードされると、まだアプリケーションにないバンドルが ResourceManager に追加されます。</p>
+ 
+  <p>リソースのみを持つ "リソースモジュール" をコンパイルし、IResourceManager の <codeph>loadResourceModule()</codeph> メソッドを使用してそれらをロードできます。リソースモジュールを使用すると、リソースをアプリケーションにコンパイルする代わりに、実行時に必要なリソースをロードして複数のロケールをサポートできます。</p>
+ 
+  <p>通常、ResourceManager は、アプリケーションにコンパイルされているかモジュールからロードしたリソースバンドルを使用して設定されますが、プログラムでリソースバンドルを作成し、<codeph>addResourceBundle()</codeph> メソッドを使用して ResourceManager に追加することもできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:addResourceBundle"><apiName>addResourceBundle</apiName><shortdesc>
+      指定された ResourceBundle が ResourceManager に追加され、getString() などの ResourceManager メソッドでそのリソースにアクセスできるようになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resourceBundle</apiItemName><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier><apiDesc>追加するリソースバンドルです。
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ResourceManager でリソースバンドルへの弱参照を維持するかどうかを決定します。<codeph>useWeakReference</codeph> を <codeph>true</codeph> にした場合、ResourceManager でリソースバンドルへの弱参照が提供されます。呼び出し側で弱参照の使用を選択した場合、呼び出し側でリソースバンドルへの強参照を維持し、リソースバンドルが早期にガベージコレクションされないようにする必要があります。<codeph>useWeakReference</codeph> を <codeph>false</codeph> にした場合、ResourceManager でリソースバンドルへの強参照が維持され、リソースバンドルはガベージコレクションされません。
+      
+      <p>Flex サブアプリケーションまたはモジュールでコンパイル済みのリソースバンドルを ResourceManager に自動的に追加する場合は、メモリ内で位置が固定化されないように、<codeph>useWeakReference</codeph> を <codeph>true</codeph> に設定した状態で <codeph>addResourceBundle()</codeph> を呼び出します。サブアプリケーションまたはモジュールで実行時にリソースバンドルを作成する場合も、同じようにする必要があります。次に強参照を使用してこれらのリソースバンドルを保持し、リソースバンドルがガベージコレクションされないようにします。</p>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された ResourceBundle が ResourceManager に追加され、<codeph>getString()</codeph> などの ResourceManager メソッドでそのリソースにアクセスできるようになります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:findResourceBundleWithResource"><apiName>findResourceBundleWithResource</apiName><shortdesc>
+      指定されたリソースの localeChain 内のロケールを検索し、最初に検出したリソースバンドルを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定されたリソースが含まれた <codeph>localeChain</codeph> 内の最初の ResourceBundle、または <codeph>null</codeph> です。
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc><codeph>"MyResources"</codeph> などのバンドル名です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたリソースの <codeph>localeChain</codeph> 内のロケールを検索し、最初に検出したリソースバンドルを返します。 リソースが見つからなかった場合、このメソッドは <codeph>null</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBoolean"><apiName>getBoolean</apiName><shortdesc>
+      ブール型として指定されているリソースの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ブール値としてのリソース値、または、リソースが見つからない場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ブール型として指定されているリソースの値を取得します。
+     
+      <p>このメソッドは最初に <codeph>getString()</codeph> を呼び出し、結果を小文字に変換します。 次に、結果が <codeph>"true"</codeph> であった場合は <codeph>true</codeph> を返します。 それ以外の場合は <codeph>false</codeph> を返します。</p>
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>false</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBundleNamesForLocale"><apiName>getBundleNamesForLocale</apiName><shortdesc>
+      ResourceManager に存在し、指定されたロケールに属するすべての ResourceBundle オブジェクトのバンドル名を指定するストリングの配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>バンドル名の配列です。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc><codeph>"en_US"</codeph> などのロケールストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ResourceManager に存在し、指定されたロケールに属するすべての ResourceBundle オブジェクトのバンドル名を指定するストリングの配列を返します。
+     
+      <p>この配列内でのバンドル名の順序は決まっていません。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getClass"><apiName>getClass</apiName><shortdesc>
+      クラスとして指定されているリソースの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>Class</codeph> としてのリソース値、または、リソースが見つからない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      クラスとして指定されているリソースの値を取得します。
+     
+      <p>このメソッドは <codeph>getObject()</codeph> を呼び出し、<codeph>as</codeph> 演算子を使用して値をクラス型に強制的に変換します。 リソース値がクラス参照でなかった場合、結果は <codeph>null</codeph> になります。 このメソッドは、.properties ファイルに次のような行が書き込まれていて、</p>
+     
+      <pre>
+      IMAGE=Embed("image.jpg")
+      BUTTON_SKIN=ClassReference("skins.ButtonSkin_en_US")
+      </pre>
+     
+      <p><codeph>Embed()</codeph> ディレクティブまたは <codeph>ClassReference()</codeph> ディレクティブで作成されたクラスを取得する場合に役立ちます。</p> 
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>null</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getInt"><apiName>getInt</apiName><shortdesc>
+      指定されたリソースの値を int として取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>int で表されたリソース値です。リソースが見つからない場合は 0 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたリソースの値を int として取得します。
+     
+      <p>このメソッドは <codeph>getObject()</codeph> を呼び出し、結果を int にキャストします。このメソッドは、プロパティファイル内に次のような行があり、</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>5 という値（<codeph>"5"</codeph> ではなく）を取得する場合に役立ちます。</p> 
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは 0 を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getLocales"><apiName>getLocales</apiName><shortdesc>
+      ResourceManager に存在する ResourceBundle オブジェクトのすべてのロケールを指定するストリングの配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ロケールストリングの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      ResourceManager に存在する ResourceBundle オブジェクトのすべてのロケールを指定するストリングの配列を返します。
+     
+      <p>この配列内でのロケールの順序は決まっていません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getNumber"><apiName>getNumber</apiName><shortdesc>
+      数値として指定されているリソースの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>数値としてのリソース値、または、リソースが見つからない場合は <codeph>NaN</codeph> です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      数値として指定されているリソースの値を取得します。
+     
+      <p>このメソッドは <codeph>getObject()</codeph> を呼び出し、結果を数値にキャストします。 このメソッドは、プロパティファイル内に次のような行があり、</p>
+     
+      <pre>
+      LONGITUDE=170.3
+      </pre>
+     
+      <p>プロパティファイル内にこのような行があり、170.3 という値（<codeph>"170.3"</codeph> ではなく）を取得する場合に役立ちます。</p> 
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>NaN</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getObject"><apiName>getObject</apiName><shortdesc>
+      オブジェクトとして指定されているリソースの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>content</codeph> オブジェクトに格納されているそのままの状態のリソース値です。リソースが見つからない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクトとして指定されているリソースの値を取得します。
+     
+      <p>ResourceBundle の <codeph>content</codeph> オブジェクトに格納されているそのままの状態の値を、変換せずに返します。 リソースがプロパティファイルからコンパイルされた場合、<codeph>content</codeph> オブジェクトのリソース値は常にストリングです。ただし、<codeph>Embed()</codeph> ディレクティブまたは <codeph>ClassReference()</codeph> ディレクティブを使用した場合、リソース値はクラスになります。 <codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph>、<codeph>getClass()</codeph> の各メソッドを使用して、値をより具体的な型に変換します。</p>
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>undefined</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getPreferredLocaleChain"><apiName>getPreferredLocaleChain</apiName><shortdesc>
+      Capabilities.language または Capabilities.languages により報告されたように、ユーザー環境設定を使用して順序付けられた、ResourceManager に存在する ResourceBundle オブジェクトのすべてのロケールを指定するストリングの配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ロケールストリングの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>Capabilities.language</codeph> または <codeph>Capabilities.languages</codeph> により報告されたように、ユーザー環境設定を使用して順序付けられた、ResourceManager に存在する ResourceBundle オブジェクトのすべてのロケールを指定するストリングの配列を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getResourceBundle"><apiName>getResourceBundle</apiName><shortdesc>
+      以前に addResourceBundle() を使用して ResourceManager に追加された、指定された locale と bundleName を持つ ResourceBundle を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された <codeph>locale</codeph> および <codeph>bundleName</codeph> を持つ（存在する場合）ResourceBundle です。見つからない場合は <codeph>null</codeph> です。
+     
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc><codeph>"en_US"</codeph> などのロケールストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc><codeph>"MyResources"</codeph> などのバンドル名です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された <codeph>locale</codeph> と <codeph>bundleName</codeph> を持つ ResourceBundle（以前に <codeph>addResourceBundle()</codeph> を使用して ResourceManager に追加されたもの）を返します。 該当する ResourceBundle がない場合、このメソッドは <codeph>null</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getStringArray"><apiName>getStringArray</apiName><shortdesc>
+      ストリングの配列として指定されているリソースの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ストリングの配列としてのリソース値、または、リソースが見つからない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングの配列として指定されているリソースの値を取得します。
+     
+      <p>このメソッドは、カンマで区切られた項目のリストが格納されたストリングをリソース値と見なします。 このメソッドは、<codeph>getString()</codeph> メソッドを呼び出し、ストリングをカンマの位置で項目に分割して、各項目の前後にある空白を除去します。 このメソッドは、プロパティファイル内に次のような行があり、</p>
+     
+      <pre>
+      COUNTRIES=India, China, Japan
+      </pre>
+     
+      <p><codeph>[ "India", "China", "Japan" ]</codeph> という値（<codeph>"India, China, Japan"</codeph> という値ではなく）を取得する場合に役立ちます。</p> 
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>null</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getString"><apiName>getString</apiName><shortdesc>
+      ストリングとして指定されたリソースの値を、プレースホルダーを指定された値に置き換えた後で取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ストリングとしてのリソース値、または、リソースが見つからない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>parameters</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>プレースホルダーの置き換えとなるパラメーターの配列です。 各パラメーターは、<codeph>toString()</codeph> メソッドを使用してストリングに変換された後で置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングとして指定されたリソースの値を、プレースホルダーを指定された値に置き換えた後で取得します。
+     
+      <p>このメソッドは <codeph>getObject()</codeph> を呼び出し、結果をストリングにキャストします。</p>
+     
+      <p><codeph>parameters</codeph> 配列をこのメソッドに渡すと、配列の中のパラメーターがストリングに変換され、プレースホルダー（<codeph>"{0}"</codeph> や <codeph>"{1}"</codeph> など）がそれらのストリングに順番どおりに置き換えられた後、結果のストリングが返されます。</p>
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは <codeph>null</codeph> を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getUint"><apiName>getUint</apiName><shortdesc>
+      指定されたリソースの値を uint として取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>uint で表されたリソース値です。リソースが見つからない場合は 0 です。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>リソースバンドルのリソースの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>参照に使用する特定のロケールです。<codeph>null</codeph> の場合は、<codeph>localeChain</codeph> 内のすべてのロケールを検索します。 このパラメーターはオプションであり、デフォルトは <codeph>null</codeph> です。このパラメーターの指定が必要になることはほとんどありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたリソースの値を uint として取得します。
+     
+      <p>このメソッドは <codeph>getObject()</codeph> メソッドを呼び出し、結果を uint にキャストします。 このメソッドは、プロパティファイル内に次のような行があり、</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>5 という値（<codeph>"5"</codeph> ではなく）を取得する場合に役立ちます。</p> 
+     
+      <p>指定されたリソースが見つからない場合、このメソッドは 0 を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:initializeLocaleChain"><apiName>initializeLocaleChain</apiName><shortdesc>
+     オペレーティングシステムのユーザー推奨ロケールを SWF の使用可能なロケールのリストと比較するアルゴリズムを使用して、ResourceManager の localeChain プロパティを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>compiledLocales</apiItemName><apiType value="Array"/><apiDesc>SWF がコンパイルされたロケールを指定するストリングの配列です。
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     オペレーティングシステムのユーザー推奨ロケールを SWF の使用可能なロケールのリストと比較するアルゴリズムを使用して、ResourceManager の <codeph>localeChain</codeph> プロパティを初期化します。
+    
+     <p>例えば、ユーザーがオペレーティングシステムでフランス語を使用するように指定していた場合に、SWF が en_US、fr_FR および de_DE のロケールでコンパイルされた場合は、<codeph>localeChain</codeph> の最初のロケールが fr_FR になるように設定されます。</p>
+    
+     <p>このメソッドは、IFlexModuleFactory インターフェイスを実装するクラスのみによって使用されます。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:installCompiledResourceBundles"><apiName>installCompiledResourceBundles</apiName><shortdesc>
+     SWF にコンパイルされたすべての ResourceBundle サブクラスのインスタンスを作成して、ResourceManager に追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作成されて ResourceManager に追加された ResourceBundle インスタンスの配列です。
+      
+     </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiDesc> リソースバンドルクラスを名前で参照するために使用される ApplicationDomain です。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>locales</apiItemName><apiType value="Array"/><apiDesc>SWF がコンパイルされたロケールを指定するストリングの配列です。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>bundleNames</apiItemName><apiType value="Array"/><apiDesc>SWF にコンパイルされたリソースバンドルの名前を指定するストリングの配列です。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>弱参照を使用してリソースバンドルを ResourceManager にインストールするかどうかを指定するフラグです。
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     SWF にコンパイルされたすべての ResourceBundle サブクラスのインスタンスを作成して、ResourceManager に追加します。
+    
+     <p>例えば、<codeph>locales</codeph> パラメーターが [ "en_US", "ja_JP" ] で、<codeph>bundleNames</codeph> パラメーターが [ "core", "controls" ] の場合は、4 つのリソースバンドルがインストールされます。</p>
+    
+     <p>このメソッドは、IFlexModuleFactory インターフェイスを実装するクラスのみによって使用されます。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:loadResourceModule"><apiName>loadResourceModule</apiName><shortdesc>
+      リソースバンドルを含むリソースモジュールのロードを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>ResourceEvent.PROGRESS</codeph>、<codeph>ResourceEvent.COMPLETE</codeph>、<codeph>ResourceEvent.ERROR</codeph> の各イベントを送出するこの特定のロード操作に関連付けられたオブジェクトです。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>リソースモジュールのロード元の URL です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>モジュールのロードが終了したときに <codeph>update()</codeph> メソッドを呼び出すかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>リソースモジュールをロードする IModuleInfo クラスの <codeph>load()</codeph> メソッドに渡される ApplicationDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>リソースモジュールをロードする IModuleInfo クラスの <codeph>load()</codeph> メソッドに渡される SecurityDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リソースバンドルを含むリソースモジュールのロードを開始します。
+     
+      <p>このメソッドを呼び出すたびに、新しいイベント送出オブジェクトが返されます。そのオブジェクトを使用すると、ロードの進捗状況およびロードが正常に完了したかまたはエラーが発生したかを確認できます。 このオブジェクトは、<codeph>ResourceEvent.PROGRESS</codeph>、<codeph>ResourceEvent.COMPLETE</codeph>、<codeph>ResourceEvent.ERROR</codeph> の各イベントを送出します。</p>
+     
+      <p>モジュールがロードされると、リソースバンドルが ResourceManager に追加されますが、<codeph>localeChain</codeph> は変更されません。 <codeph>update</codeph> パラメーターが <codeph>true</codeph> の場合、<codeph>update()</codeph> メソッドが呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ResourceEvent"><linktext>mx.events.ResourceEvent</linktext></link><link href="mx.resources.xml#IResourceManager/update()"><linktext>mx.resources.IResourceManager.update()</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundle"><apiName>removeResourceBundle</apiName><shortdesc>
+      指定された ResourceBundle が ResourceManager から削除され、getString() などの ResourceManager メソッドでそのリソースにアクセスできなくなります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc><codeph>"en_US"</codeph> などのロケールストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc><codeph>"MyResources"</codeph> などのバンドル名です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された ResourceBundle が ResourceManager から削除され、<codeph>getString()</codeph> などの ResourceManager メソッドでそのリソースにアクセスできなくなります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundlesForLocale"><apiName>removeResourceBundlesForLocale</apiName><shortdesc>
+      指定されたロケールのすべての ResourceBundle が ResourceManager から削除され、getString() などの ResourceManager メソッドでそのリソースにアクセスできなくなります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc><codeph>"en_US"</codeph> などのロケールストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたロケールのすべての ResourceBundle が ResourceManager から削除され、<codeph>getString()</codeph> などの ResourceManager メソッドでそのリソースにアクセスできなくなります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:unloadResourceModule"><apiName>unloadResourceModule</apiName><shortdesc>
+      ロード済みのリソースモジュールのアンロードを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>リソースモジュールのロードに使用された URL です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>モジュールのアンロードが終了したときに <codeph>update()</codeph> メソッドを呼び出すかどうかを指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ロード済みのリソースモジュールのアンロードを開始します。
+     
+      <p>モジュールがアンロードされると、そのリソースバンドルは ResourceManager から削除されますが、<codeph>localeChain</codeph> は変更されません。<codeph>update</codeph> パラメーターが <codeph>true</codeph> の場合、<codeph>update()</codeph> メソッドが呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:update"><apiName>update</apiName><shortdesc>
+      ResourceManager から change イベントを送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ResourceManager から <codeph>change</codeph> イベントを送出します。
+     
+      <p>これにより、バインディング式に ResourceManager メソッドの <codeph>getObject()</codeph>、<codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph>、<codeph>getClass()</codeph> のいずれかが含まれる場合に、それらのバインディング式が再評価されます。</p>
+     
+      <p>また、UIComponent、Formatter または Validator の <codeph>resourcesChanged()</codeph> メソッドも実行されます。 多くのコンポーネントがこのメソッドを実装し、最新のリソースに基づいてその状態を更新します。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:IResourceManager:mx.resources:IResourceManager:localeChain:get"><apiName>localeChain</apiName><shortdesc>
+      リソースに対する検索で検索対象の 1 つまたは複数のロケールを指定する、[ "en_US" ] などのロケールストリングの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      リソースに対する検索で検索対象の 1 つまたは複数のロケールを指定する、<codeph>[ "en_US" ]</codeph> などのロケールストリングの配列です。
+      
+      <p>ResourceManager の <codeph>getObject()</codeph>、<codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph>、<codeph>getClass()</codeph> のいずれかのメソッドを呼び出してリソースの値を取得する場合、バンドル名とリソース名を指定しますが、ロケールは指定しません。 ResourceManager は、<codeph>localeChain</codeph> 内の最初のロケールから順に、そのロケールの指定されたバンドル名を持つ ResourceBundle を検索します。 該当する ResourceBundle が存在し、その中に指定されたリソースが存在する場合、そのリソースの値が返されます。 それ以外の場合は、<codeph>localeChain</codeph> 内の別のロケールに検索が進みます。</p>
+     
+      <p>このような方法でリソースが検索されるので、ローカライズされたリソースの完全なセットがロケールに含まれていなくてもかまいません。 例えば、米国英語ではなくインド英語用にアプリケーションをローカライズする場合は、米国英語とはスペルまたは用法が異なる <codeph>en_IN</codeph> ロケール用のリソースのみを提供し、<codeph>localeChain</codeph> プロパティを <codeph>[ "en_IN", "en_US" ]</codeph> に設定するだけで済みます。</p>
+     
+      <p>多くのフレームワーククラスは、いくつかのロケールから必要なリソースを常に取得可能であることを前提としており、取得できない場合はエラーをスローします。 したがって、リソースの完全なセットが <codeph>localeChain</codeph> に常に含まれるようにする必要があります。 独自のアプリケーションのリソースを含む、フレームワークのすべてのリソースのローカライズが完了していない場合は、<codeph>"en_US"</codeph> ロケールを <codeph>localeChain</codeph> の末尾に保持しておくことにより、必要なリソースを取得できます。</p>
+     
+      <p>このプロパティを設定すると、ResourceManager によって <codeph>"change"</codeph> イベントが送出されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:ResourceManager"><apiName>ResourceManager</apiName><shortdesc>
+  このクラスは、IResourceManager 実装の単一のインスタンスを取得するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このクラスは、IResourceManager 実装の単一のインスタンスを取得するために使用されます。 IResourceManager インタフェースと IResourceBundle インタフェースは連携して、Flex アプリケーションに対する国際化サポートを提供します。
+ 
+  <p>IResourceManager 実装の単一のインスタンスで、Flex アプリケーションのローカライズされたすべてのリソースを管理します。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:ResourceManager:getInstance"><apiName>getInstance</apiName><shortdesc>
+      ResourceManager クラスの単一のインスタンスを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>IResourceManager を実装するオブジェクトです。
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      ResourceManager クラスの単一のインスタンスを取得します。 このオブジェクトは、Flex アプリケーションのローカライズされたすべてのリソースを管理します。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.resources:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+  IResourceBundle インタフェースの実装を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.resources:IResourceBundle</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  IResourceBundle インタフェースの実装を提供します。 IResourceManager インタフェースと IResourceBundle インタフェースは連携して、Flex アプリケーションに対する国際化サポートを提供します。
+ 
+  <p>通常、Flex アプリケーションはこのクラスの複数のインスタンスを持ち、それらのすべてが ResourceManager クラスの単一のインスタンスによって管理されます。 ResourceBundle インスタンスは、それぞれが 1 つのロケールに対応する複数のバージョンが作成されます。 バンドル名の異なる複数の ResourceBundle インスタンスを共存させることができます。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:ResourceBundle:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc><codeph>"en_US"</codeph> などのロケールストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このバンドルを識別する名前（<codeph>"MyResources"</codeph> など）です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:ResourceBundle:protected:getContent"><apiName>getContent</apiName><shortdesc>
+      プロパティファイルをリソースバンドルにコンパイルすると、MXML コンパイラーによって ResourceBundle のサブクラスが自動的に生成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>バンドルのリソースのキーと値のペアを含むオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      プロパティファイルをリソースバンドルにコンパイルすると、MXML コンパイラーによって ResourceBundle のサブクラスが自動的に生成されます。 このサブクラスはこのメソッドをオーバーライドし、バンドルのリソースのキーと値のペアを含むオブジェクトを返します。
+     
+      <p>独自の ResourceBundle インスタンスを作成する場合は、<codeph>content</codeph> オブジェクトにキーと値のペアを設定します。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:ResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc conref="mx.resources.IResourceBundle#bundleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#bundleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:content:get"><apiName>content</apiName><shortdesc conref="mx.resources.IResourceBundle#content">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#content">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:locale:get"><apiName>locale</apiName><shortdesc conref="mx.resources.IResourceBundle#locale">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#locale">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceBundle"><apiName>IResourceBundle</apiName><shortdesc>
+  IResourceBundle インタフェースと IResourceManager インタフェースは連携して、Flex アプリケーションに対するローカライズサポートを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IResourceBundle インタフェースと IResourceManager インタフェースは連携して、Flex アプリケーションに対するローカライズサポートを提供します。
+ 
+  <p>ローカライズには、ロケール、リソースおよびリソースバンドルの 3 つの主要な概念が関係します。</p>
+ 
+  <p>ロケールは、アプリケーションをローカライズした後の言語と国を指定します。 たとえば、ロケール <codeph>"en_US"</codeph> は、米国で使用される英語を指定します。 詳細については、mx.resources.Locale クラスを参照してください。</p>
+ 
+  <p>リソースは、ロケールに依存した名前付きの値です。 たとえば、アプリケーションに <codeph>"OPEN"</codeph> という名前のリソースがある場合、英語ロケールでのそのリソースの値は <codeph>"Open"</codeph> です。一方、フランス語ロケールの場合、値は <codeph>"Ouvrir"</codeph> です。</p>
+ 
+  <p>リソースバンドルは、値が特定のロケール用にローカライズされたリソースの、名前付きのグループです。 リソースバンドルは、<codeph>bundleName</codeph> と <codeph>locale</codeph> の組み合わせによって識別され、バンドルのリソースの名前と値のペアを含む <codeph>content</codeph> オブジェクトを持っています。</p>
+ 
+  <p>IResourceBundle インタフェースは、特定のリソースバンドルを表します。 ただし、ほとんどのアプリケーションで使用する必要があるのは IResourceManager のみです。 このインタフェースを実装した単一の ResourceManager オブジェクトは、（場合によっては複数のロケールの）複数のリソースバンドルを管理し、リソースバンドルに含まれるリソースへのアクセスを提供します。 たとえば、<codeph>resourceManager.getString(bundleName, resourceName)</codeph> を呼び出すことにより、特定のリソースをストリングとして取得できます。 ResourceManager の <codeph>localeChain</codeph> プロパティを変更すると、リソースバンドルの検索対象のリソース値を変更できます。</p>
+ 
+  <p>通常、リソースバンドルを作成する必要はありません。リソースバンドルは ~~.properties ファイルから自動的にコンパイルされます。 MyResources.properties という名前のプロパティファイルの場合、<codeph>"MyResources"</codeph> が <codeph>bundleName</codeph> であるリソースバンドルが生成されます。 プロパティファイルは通常、複数のバージョン（アプリケーションがサポートするロケールごとに 1 つずつ）を作成します。</p>
+ 
+  <p>Flex のプロパティファイルは Java のプロパティファイルと似ていますが、Flex では MXML の <codeph>Embed()</codeph> ディレクティブと <codeph>ClassReference()</codeph> ディレクティブもサポートされます。 これらのディレクティブは、プロパティファイル内でも、CSS ファイル内に記述した場合と同じようにクラス参照を作成します。 また、Flex プロパティファイルは常に UTF-8 にエンコードされているものと見なされます。</p>
+ 
+  <p>Flex フレームワークのリソースは、米国英語（<codeph>"en_US"</codeph> ロケール）用と日本語（<codeph>"ja_JP"</codeph> ロケール）用にローカライズされています。 フレームワークリソースは、フレームワークパッケージに対応する複数のバンドルに編成されます。たとえば、"formatters" バンドルは mx.formatters パッケージのクラスで使用されます。 複数のパッケージで使用されるリソース用の "SharedResources" バンドルもあります。</p>
+ 
+  <p>フレームワークリソース用のプロパティファイル（formatters.properties など）は、Flex SDK の frameworks/projects/framework/bundles/{locale}/src ディレクトリにあります。 通常、アプリケーションは、frameworks/libs ディレクトリ内の、Flex フレームワークのコンパイル済みライブラリである framework.swc にリンクします。 このライブラリ内にリソースはありません。 代わりに、フレームワークリソースは、framework_rb.swc などの個別のリソースバンドルライブラリにコンパイルされています。 これらのライブラリは frameworks/locales/{locale} ディレクトリにあり、アプリケーションもこれらの 1 つまたは複数のライブラリにリンクする必要があります。</p>
+ 
+  <p>アプリケーションの独自のリソースを、使いやすい任意のバンドルに編成できます。 <codeph>"en_US"</codeph> と <codeph>"ja_JP"</codeph> 以外のロケールのアプリケーションをローカライズする場合は、それらのロケールのフレームワークのプロパティファイルもローカライズし、そのリソースバンドルライブラリをコンパイルする必要があります。</p>
+ 
+  <p>アプリケーションを起動すると、アプリケーションにコンパイルされたリソースバンドルを使用して、ResourceManager が自動的に設定されます。 コードモジュールを作成すると、クラスに必要なリソースがデフォルトでモジュールにコンパイルされます。 モジュールがアプリケーションにロードされると、まだアプリケーションにないバンドルが ResourceManager に追加されます。</p>
+ 
+  <p>リソースのみを持つ "リソースモジュール" をコンパイルし、ResourceManager の <codeph>loadResourceModule()</codeph> メソッドを使用してそれらをロードできます。 リソースモジュールを使用すると、リソースをアプリケーションにコンパイルする代わりに、実行時に必要なリソースをロードして複数のロケールをサポートできます。</p>
+ 
+  <p>通常、ResourceManager は、アプリケーションにコンパイルされているかモジュールからロードしたリソースバンドルを使用して設定されますが、プログラムでリソースバンドルを作成し、<codeph>addResourceBundle()</codeph> メソッドを使用して ResourceManager に追加することもできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link></related-links><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc>
+      このリソースバンドルを識別する "MyResources" などの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このリソースバンドルを識別する <codeph>"MyResources"</codeph> などの名前です。
+     
+      <p>この読み取り専用のプロパティは、リソースバンドルを作成するときに設定されます。</p>
+     
+      <p>コンパイル済みのプロパティファイルから自動的に作成されるリソースバンドルには、それらのファイルの名前に基づいてバンドル名が付けられます。 例えば、MyResources.properties という名前のプロパティファイルの場合、<codeph>bundleName</codeph> が <codeph>"MyResources"</codeph> であるリソースバンドルが作成されます。</p>
+     
+      <p>ResourceManager は、同じ <codeph>bundleName</codeph> を持つ複数のバンドルを管理できますが、各バンドルの <codeph>locale</codeph> プロパティの値が異なっている場合に限ります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:content:get"><apiName>content</apiName><shortdesc>
+      このリソースバンドルのリソースのキーと値のペアを含むオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このリソースバンドルのリソースのキーと値のペアを含むオブジェクトです。
+     
+      <p>リソースにアクセスするときは通常、リソースバンドル内のリソースに直接アクセスする代わりに、<codeph>getString()</codeph> などの IResourceManager メソッドを使用します。 ただし、プログラムで独自のリソースバンドルを作成している場合は、リソースを使用して次のようにリソースバンドルを初期化できます。</p>
+     
+      <pre>
+      var rb:IResourceBundle = new ResourceBundle("fr_FR", "MyResources");
+      rb.content["LANGUAGE"] = "Francais";
+      rb.content["GREETING"] = "Bonjour";
+      </pre>
+     
+      <p>プロパティファイルをコンパイルしてリソースバンドルを作成すると、リソースの値は String 型または Class 型のいずれかになります。 例えば、プロパティファイルに次の内容が格納されているとします。</p>
+     
+      <pre>
+      LANGUAGE=English
+      MINIMUM_AGE=18
+      ENABLED=true
+      LOGO=Embed("logo.png")
+      </pre>
+     
+      <p>この場合、<codeph>LANGUAGE</codeph> リソースの値はストリング <codeph>"English"</codeph> になり、<codeph>MINIMUM_AGE</codeph> リソースの値はストリング <codeph>"18"</codeph> になります。また、<codeph>ENABLED</codeph> リソースの値はストリング <codeph>"true"</codeph> になり、<codeph>LOGO</codeph> リソースの値は埋め込まれた PNG ファイルを表すクラスになります。</p>
+     
+      <p><codeph>getInt()</codeph> や <codeph>getBoolean()</codeph> などの IResourceManager メソッドを使用すると、<codeph>"18"</codeph> や <codeph>"true"</codeph> などのリソースストリングをコードに適した型に変換できます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:locale:get"><apiName>locale</apiName><shortdesc>
+      ローカライズされたこのバンドルのリソースのロケールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      ローカライズされたこのバンドルのリソースのロケールです。 米国英語の場合の <codeph>"en_US"</codeph> などのストリングです。
+     
+      <p>この読み取り専用のプロパティは、リソースバンドルを作成するときに設定されます。</p>
+     
+      <p>コンパイル済みのプロパティファイルから自動的に作成されるリソースバンドルには、mxmlc または compc <codeph>-compiler.locale</codeph> オプションに基づいてロケールが設定されます。 たとえば、<codeph>-compiler.locale=en_US,ja_JP</codeph> オプションを使用してアプリケーションをコンパイルし、resources/en_US/MyResources.properties および resources/ja_JP/MyResources.properties にあるアプリケーションのリソースが検出されるように <codeph>-compiler.source-path=resources/{locale}</codeph> と指定したとします。 この場合、<codeph>bundleName</codeph> が <codeph>"MyResources"</codeph> の 2 つのリソースバンドルがアプリケーションに作成されます。1 つは <codeph>locale</codeph> が <codeph>"en_US"</codeph> に設定され、もう 1 つは <codeph>locale</codeph> が <codeph>"ja_JP"</codeph> に設定されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

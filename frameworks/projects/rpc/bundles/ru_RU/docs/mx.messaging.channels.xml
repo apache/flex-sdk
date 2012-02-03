@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.channels"><apiName>mx.messaging.channels</apiName><apiDetail/><apiClassifier id="mx.messaging.channels:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+  Класс HTTPChannel предоставляет поддержку HTTP для передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HTTPChannel предоставляет поддержку HTTP для передачи сообщений. Этот канал можно настроить для опроса сервера с интервалом, приблизительно равным времени передачи сообщений сервером. Можно также использовать этот канал при деактивации режима опроса для передачи сообщений RPC удаленным адресатам для вызова их методов.
+ 
+  <p>
+  HTTPChannel использует сетевые службы Flash Player и AIR. В ActionScript он представлен классом URLLoader. Этот канал использует URLLoader в эксклюзивном режиме, создавая новый URLLoader по запросу.
+  </p>
+ 
+  <p>
+  Каналы создаются в инфраструктуре с помощью метода <codeph>ServerConfig.getChannel()</codeph>. Каналы можно создать напрямую и при необходимости присвоить их ChannelSet.
+  </p>
+ 
+  <p>
+  Каналы представляют физическое подключение к удаленной конечной точке. Каналы совместно используются адресами назначения по умолчанию. Это означает, что для взаимодействия с разными адресами назначения клиент может использовать один канал.
+  </p>
+ 
+  <p>
+  При использовании в режиме опроса этот канал выполняет опрос сервера для получения новых сообщений на основе значения свойства <codeph>polling-interval-seconds</codeph> в файле конфигурации. Эту настройку можно изменить с помощью свойства <codeph>pollingInterval</codeph>. Значением по умолчанию является 3 секунды. Для активации опроса необходимо выполнить подключение канала и установить для свойства <codeph>polling-enabled</codeph> в файле конфигурации значение <codeph>true</codeph>, либо установить значение <codeph>true</codeph> для свойства канала <codeph>pollingEnabled</codeph>.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:HTTPChannel:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:HTTPChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      Указывает, будет ли этот канал помимо передачи обычных исходящих сообщений дополнительно выполнять запросы на опрос в период, когда опрос в очереди не выполняется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, будет ли этот канал помимо передачи обычных исходящих сообщений дополнительно выполнять запросы на опрос в период, когда опрос в очереди не выполняется. Это позволяет серверу вместе с ответом на сообщение от клиента передавать клиенту дополнительные данные.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      Указывает, активирован ли этот канал для проведения опроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, активирован ли этот канал для проведения опроса.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      Предоставляет доступ к интервалу опроса для этого канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>Если pollingInterval присвоено значение 0 или меньше.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Предоставляет доступ к интервалу опроса для этого канала. Значение выражено в миллисекундах. Это значение определяет частоту запроса этим каналом сообщений от сервера с приблизительным соответствием периоду передачи сообщений сервером.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      Передает отчет об активном выполнении опроса каналом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Передает отчет об активном выполнении опроса каналом.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (http).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (http).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+  Вспомогательный класс, который используется каналами поточной передачи для открытия внутреннего подключения HTTP к серверу. Это подключение остается открытым для обеспечения возможности передачи данных с сервера клиенту без опроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Вспомогательный класс, который используется каналами поточной передачи для открытия внутреннего подключения HTTP к серверу. Это подключение остается открытым для обеспечения возможности передачи данных с сервера клиенту без опроса.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.channels:StreamingConnectionHandler_flash.events.StatusEvent_status"><apiName>status</apiName><shortdesc>
+  Передается при получении StreamingConnectionHandler команды определения статуса от сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.StatusEvent</apiEventType><adobeApiEventClassifier>flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении StreamingConnectionHandler команды определения статуса от сервера.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.channels:StreamingConnectionHandler:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Канал, который использует этот класс.
+	  </apiDesc></apiParam><apiParam><apiItemName>log</apiItemName><apiType value="mx.logging:ILogger"/><apiDesc>Ссылка на средство регистрации для связанного канала.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:closeStreamingConnection"><apiName>closeStreamingConnection</apiName><shortdesc>
+      Используется каналами потоковой передачи для завершения работы потокового подключения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Используется каналами потоковой передачи для завершения работы потокового подключения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:openStreamingConnection"><apiName>openStreamingConnection</apiName><shortdesc>
+      Используется каналами потоковой передачи для настройки потокового подключения при необходимости и выдачи открытого запроса серверу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>appendToURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Строка, добавляемая к URL-адресу конечной точки при создании запроса на установление потокового подключения (например, идентификатор сеанса).
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Используется каналами потоковой передачи для настройки потокового подключения при необходимости и выдачи открытого запроса серверу.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:protected:readMessage"><apiName>readMessage</apiName><shortdesc>
+      Используется streamProgressHandler для считывания сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращает считанное сообщение.
+	 
+	  </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Используется streamProgressHandler для считывания сообщения. Реализация по умолчанию возвращает значение null, а подчиненные классы должны отменять этот метод.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:StreamingConnectionHandler:DISCONNECT_CODE"><apiName>DISCONNECT_CODE</apiName><shortdesc>
+      Код для StatusEvent, передаваемый этим обработчиком при получении команды отключения от сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>disconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Код для StatusEvent, передаваемый этим обработчиком при получении команды отключения от сервера.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:channel"><apiName>channel</apiName><shortdesc>
+     Канал, который использует этот класс.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+     Канал, который использует этот класс.
+  	 
+  	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:chunkBuffer"><apiName>chunkBuffer</apiName><shortdesc>
+      Байтовый буфер для хранения текущего фрагмента из удаленной конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      Байтовый буфер для хранения текущего фрагмента из удаленной конечной точки. После помещения полного фрагмента в буфер, экземпляр сообщения, закодированного в двоичном формате AMF, может быть считан из этого фрагмента и передан.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataBytesToRead"><apiName>dataBytesToRead</apiName><shortdesc>
+      Счетчик, который отслеживает количество байтов данных, которые осталось считать для текущего фрагмента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Счетчик, который отслеживает количество байтов данных, которые осталось считать для текущего фрагмента. Значение-ограничитель -1 указывает на начальное состояние (ожидание первого фрагмента или завершение синтаксического анализа предыдущего фрагмента).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataOffset"><apiName>dataOffset</apiName><shortdesc>
+      Индекс в буфера фрагментов, указывающий первый байт данных фрагмента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс в буфера фрагментов, указывающий первый байт данных фрагмента.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+  Класс SecureStreamingHTTPChannel идентичен классу StreamingHTTPChannel, за исключением того, что для передачи сообщений конечной точке HTTP он использует защищенный протокол HTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingHTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SecureStreamingHTTPChannel идентичен классу StreamingHTTPChannel, за исключением того, что для передачи сообщений конечной точке HTTP он использует защищенный протокол HTTPS.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingHTTPChannel:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+  Класс StreamingHTTPChannel предоставляет поддержку передачи сообщений и предлагает модель передачи сообщений сервером, отличную от модели базового HTTPChannel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс StreamingHTTPChannel предоставляет поддержку передачи сообщений и предлагает модель передачи сообщений сервером, отличную от модели базового HTTPChannel. Вместо опроса сервера канал поточной передачи открывает внутреннее подключение HTTP с сервером, которое остается открытым для обеспечения возможности передачи данных сервером клиенту без заголовка опроса.
+   <p>
+  Сообщения передаются этим каналом серверу посредством URLLoader с использованием внутреннего HTTP-подключения на все время выполнения операции. После передачи сообщения и возврата подтверждения или ошибки HTTP-подключение, используемое URLLoader, освобождается каналом. Эти сообщения от клиента серверу не передаются по подключению HTTP поточной передачи, которое канал сохраняет открытым для получения данных от сервера.
+  </p>
+   <p>
+  Несмотря на то что этот класс расширяет базовый HTTPChannel для наследования стандартной HTTP-обработки, он не поддерживает проведение опроса.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingHTTPChannel:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingHTTPChannel:poll"><apiName>poll</apiName><shortdesc>
+      Этим каналом опрос не поддерживается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Этим каналом опрос не поддерживается.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+  Класс SecureStreamingAMFChannel идентичен классу StreamingAMFChannel, за исключением того, что для передачи сообщений конечной точке AMF он использует защищенный протокол HTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingAMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SecureStreamingAMFChannel идентичен классу StreamingAMFChannel, за исключением того, что для передачи сообщений конечной точке AMF он использует защищенный протокол HTTPS.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingAMFChannel:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+  Класс PollingChannel обеспечивает поведение в режиме опроса, требуемое для всех каналов с поддержкой опроса в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Channel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PollingChannel обеспечивает поведение в режиме опроса, требуемое для всех каналов с поддержкой опроса в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:PollingChannel:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+      Создает новый экземпляр PollingChannel с указанным идентификатором.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новый экземпляр PollingChannel с указанным идентификатором. После подключения PollingChannel и начала опроса по умолчанию каждые три секунды выдает команду опроса. 
+     
+      <p><b>Примечание</b>. Тип PollingChannel не предполагает создания напрямую. Вместо этого следует создавать экземпляры специфичных для протокола подчиненных классов для его расширения, например HTTPChannel или AMFChannel.</p>
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:PollingChannel:disablePolling"><apiName>disablePolling</apiName><shortdesc>
+      Деактивирует опрос на основе количества вызовов enablePolling() и disablePolling().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Деактивирует опрос на основе количества вызовов <codeph>enablePolling()</codeph> и <codeph>disablePolling()</codeph>. Если результатом в сети является деактивация опроса, канал прекращает проведение опроса.
+      <p>Вызов выполняется автоматически на основе подписки или отмены подписки из удаленного адреса назначения по PollingChannel.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:enablePolling"><apiName>enablePolling</apiName><shortdesc>
+      Активирует опрос на основе количества вызовов enablePolling() и disablePolling().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Активирует опрос на основе количества вызовов <codeph>enablePolling()</codeph> и <codeph>disablePolling()</codeph>. Если результатом в сети является активация опроса, канал выполняет опрос сервера от имени подключенного MessageAgents.
+      <p>Вызов выполняется автоматически на основе подписки или отмены подписки из удаленного адреса назначения по PollingChannel.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:poll"><apiName>poll</apiName><shortdesc>
+      Инициирует операцию опроса при наличии получателей с подпиской на этот канал. Опрос для этого канала активируется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Инициирует операцию опроса при наличии получателей с подпиской на этот канал. Опрос для этого канала активируется. Учтите, что этот метод не запускает новый опрос, если в настоящее время один опрос уже выполняется.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:send"><apiName>send</apiName><shortdesc>
+	  Передает указанное сообщение на целевой адрес.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiException><apiDesc>Если адрес назначения не указан MessageAgent или сообщением.
+	  
+	  </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent для передачи сообщения.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется отправить.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Передает указанное сообщение на целевой адрес. Подклассы должны отменять метод <codeph>internalSend()</codeph> для выполнения фактической передачи. <codeph>PollingChannel</codeph> переносит исходящие сообщения в командах опроса, если опрос в данный момент не находится в очереди.
+     
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:PollingChannel:protected:LOGIN_AFTER_DISCONNECT"><apiName>LOGIN_AFTER_DISCONNECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>login-after-disconnect</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:PIGGYBACKING_ENABLED"><apiName>PIGGYBACKING_ENABLED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>piggybacking-enabled</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_LEGACY"><apiName>POLLING_INTERVAL_LEGACY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_MILLIS"><apiName>POLLING_INTERVAL_MILLIS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-millis</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+  Класс SecureAMFChannel идентичен классу AMFChannel, за исключением того, что для передачи сообщений конечной точке AMF он использует защищенный протокол HTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SecureAMFChannel идентичен классу AMFChannel, за исключением того, что для передачи сообщений конечной точке AMF он использует защищенный протокол HTTPS.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureAMFChannel:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+  Класс StreamingAMFChannel предоставляет поддержку передачи сообщений и предлагает модель инициирования сообщений, отличную от модели базового AMFChannel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс StreamingAMFChannel предоставляет поддержку передачи сообщений и предлагает модель инициирования сообщений, отличную от модели базового AMFChannel. Вместо опроса сервера канал поточной передачи открывает внутреннее подключение HTTP с сервером, которое остается открытым для обеспечения возможности передачи данных сервером клиенту без заголовка опроса.
+   <p>
+  Сообщения передаются этим каналом серверу посредством NetConnection с использованием внутреннего HTTP-подключения, действующего в течение всего времени выполнения операции. После передачи сообщения и возврата подтверждения или ошибки HTTP-подключение, используемое NetConnection, освобождается каналом. Эти сообщения от клиента серверу не передаются по подключению HTTP поточной передачи, которое канал сохраняет открытым для получения данных от сервера.
+  </p>
+   <p>
+  Несмотря на то что этот класс расширяет базовый AMFChannel для наследования обычной обработки AMF, он не поддерживает проведение опроса.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingAMFChannel:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingAMFChannel:poll"><apiName>poll</apiName><shortdesc>
+      Этим каналом опрос не поддерживается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Этим каналом опрос не поддерживается.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+  Класс SecureHTTPChannel идентичен классу HTTPChannel, за исключением того, что для передачи сообщений конечной точке HTTP он использует защищенный протокол HTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SecureHTTPChannel идентичен классу HTTPChannel, за исключением того, что для передачи сообщений конечной точке HTTP он использует защищенный протокол HTTPS.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureHTTPChannel:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+  Данный канал NetConnectionChannel предоставляет поддержку базового NetConnection для передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Данный канал NetConnectionChannel предоставляет поддержку базового NetConnection для передачи сообщений. Этот класс расширяется посредством AMFChannel и RTMPChannel.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:NetConnectionChannel:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+      Создает новый экземпляр NetConnectionChannel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новый экземпляр NetConnectionChannel.
+      <p>
+      Для <codeph>objectEncoding</codeph> соответствующего класса NetConnection по умолчанию установлено значение <codeph>ObjectEncoding.AMF3</codeph>. Эту настройку можно изменить вручную с помощью свойства <codeph>netConnection</codeph> канала. Глобальная установка <codeph>NetConnection.defaultObjectEncoding</codeph> игнорируется данным каналом.
+      </p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:NetConnectionChannel:netConnection:get"><apiName>netConnection</apiName><shortdesc>
+      Предоставляет доступ к связанному классу NetConnection для этого канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.net:NetConnection"/></apiValueDef><apiDesc>
+      Предоставляет доступ к связанному классу NetConnection для этого канала.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+  Класс AMFChannel предоставляет поддержку AMF для передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:NetConnectionChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AMFChannel предоставляет поддержку AMF для передачи сообщений. Этот канал можно настроить для опроса сервера с интервалом, приблизительно равным времени передачи сообщений сервером. Можно также использовать этот канал при деактивации режима опроса для передачи сообщений RPC удаленным адресатам для вызова их методов.
+ 
+  <p>
+  AMFChannel использует сетевые службы Flash Player и AIR. В ActionScript он представлен классом NetConnection. Этот канал использует NetConnection в эксклюзивном режиме, создавая новый NetConnection для каждого экземпляра.
+  </p>
+ 
+  <p>
+  Каналы создаются в инфраструктуре с помощью метода <codeph>ServerConfig.getChannel()</codeph>. Каналы можно создать напрямую и при необходимости присвоить их ChannelSet.
+  </p>
+ 
+  <p>
+  Каналы представляют физическое подключение к удаленной конечной точке. Каналы совместно используются адресами назначения по умолчанию. Это означает, что для взаимодействия с разными адресами назначения клиент может использовать один канал.
+  </p>
+ 
+  <p>
+  При использовании в режиме опроса этот канал выполняет опрос сервера для получения новых сообщений на основе значения свойства <codeph>polling-interval-seconds</codeph> в файле конфигурации. Эту настройку можно изменить с помощью свойства <codeph>pollingInterval</codeph>. Значением по умолчанию является 3 секунды. Для активации опроса необходимо выполнить подключение канала и установить для свойства <codeph>polling-enabled</codeph> в файле конфигурации значение <codeph>true</codeph>, либо установить значение <codeph>true</codeph> для свойства канала <codeph>pollingEnabled</codeph>.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:AMFChannel:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI для этого канала.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:AMFChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      Указывает, будет ли этот канал помимо передачи обычных исходящих сообщений дополнительно выполнять запросы на опрос в период, когда опрос в очереди не выполняется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, будет ли этот канал помимо передачи обычных исходящих сообщений дополнительно выполнять запросы на опрос в период, когда опрос в очереди не выполняется. Это позволяет серверу вместе с ответом на сообщение от клиента передавать клиенту дополнительные данные.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      Указывает, активирован ли этот канал для проведения опроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, активирован ли этот канал для проведения опроса.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      Предоставляет доступ к интервалу опроса для этого канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>Если pollingInterval присвоено значение 0 или меньше.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Предоставляет доступ к интервалу опроса для этого канала. Значение выражено в миллисекундах. Это значение определяет частоту запроса этим каналом сообщений от сервера с приблизительным соответствием периоду передачи сообщений сервером.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      Передает отчет об активном выполнении опроса каналом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Передает отчет об активном выполнении опроса каналом.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Возвращает протокол для этого канала (http).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращает протокол для этого канала (http).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

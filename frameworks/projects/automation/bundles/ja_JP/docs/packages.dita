@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apiMap><apiItemRef href="mx.automation.events.xml"/><apiItemRef href="mx.automation.delegates.xml"><apiItemRef href="mx.automation.delegates.core.xml"/><apiItemRef href="mx.automation.delegates.controls.xml"/><apiItemRef href="mx.automation.delegates.containers.xml"/></apiItemRef></apiMap>

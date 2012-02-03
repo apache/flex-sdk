@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.targets"><apiName>mx.logging.targets</apiName><apiDetail/><apiClassifier id="mx.logging.targets:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+  グローバルな trace() メソッドを使用してログメッセージを出力するロガーターゲットを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging.targets:LineFormattedTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グローバルな <codeph>trace()</codeph> メソッドを使用してログメッセージを出力するロガーターゲットを提供します。
+  
+  <p><codeph>trace()</codeph> メソッドの出力を表示するには、Flash Player のデバッグ版または AIR Debug Launcher を実行している必要があります。</p>
+  
+  <p>Flash Player のデバッグ版または AIR Debug Launcher は、<codeph>trace()</codeph> メソッドの出力を flashlog.txt ファイルに送信します。 このファイルのデフォルトの場所は mm.cfg ファイルと同じディレクトリです。 このファイルの場所をカスタマイズするには、mm.cfg ファイルで <codeph>TraceOutputFileName</codeph> プロパティを使用します。 また、mm.cfg ファイルで <codeph>TraceOutputFileEnable</codeph> を 1 に設定する必要もあります。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:TraceTarget:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      <p>ログデータをグローバル <codeph>trace()</codeph> メソッドに送信するロガーターゲットのインスタンスを作成します。 デフォルトでは、すべての出力が flashlog.txt に書き込まれます。</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.logging.targets:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+  線スタイル出力がフォーマットされているすべてのロガーターゲットを実装すると、このクラスが拡張されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging:AbstractTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  線スタイル出力がフォーマットされているすべてのロガーターゲットを実装すると、このクラスが拡張されます。 このクラスは、出力内の日時、カテゴリ、レベルなどのデフォルト動作を提供します。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:LineFormattedTarget:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      <p>1 行にメッセージデータをフォーマットするロガーターゲットのインスタンスを作成します。</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.targets:LineFormattedTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      このメソッドは、関連するロガーの LogEvent を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>このメソッドによって処理される <codeph>LogEvent</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、関連するロガーの <codeph>LogEvent</codeph> を処理します。 ターゲットはこのメソッドを使用して、イベントを送信、保存、または表示用の適切なフォーマットに変換します。 このメソッドは、イベントのレベルがターゲットのレベル範囲内にある場合にのみ呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging.targets:LineFormattedTarget:fieldSeparator"><apiName>fieldSeparator</apiName><shortdesc>
+      フィールド間で使用する区切り文字です（デフォルトは " "）。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData> </apiData><apiType value="String"/></apiValueDef><apiDesc>
+      フィールド間で使用する区切り文字です（デフォルトは " "）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeCategory"><apiName>includeCategory</apiName><shortdesc>
+      このターゲットのカテゴリをトレースに追加するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このターゲットのカテゴリをトレースに追加するかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeDate"><apiName>includeDate</apiName><shortdesc>
+      データをトレースに追加するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      データをトレースに追加するかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeLevel"><apiName>includeLevel</apiName><shortdesc>
+      イベントのレベルをトレースに追加するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      イベントのレベルをトレースに追加するかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeTime"><apiName>includeTime</apiName><shortdesc>
+      時間をトレースに追加するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      時間をトレースに追加するかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

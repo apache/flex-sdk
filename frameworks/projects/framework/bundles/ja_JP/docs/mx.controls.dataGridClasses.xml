@@ -1,0 +1,1239 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc> 
+  DataGridHeader クラスは、DataGrid コントロールのデフォルトのヘッダーレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  DataGridHeader クラスは、DataGrid コントロールのデフォルトのヘッダーレンダラーを定義します。 デフォルトでは、ヘッダーレンダラーはリスト内の各ヘッダーに関連付けられているテキストと、オプションのソート矢印（その列でソートされている場合）を描画します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridHeader:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      列のサイズ変更時にユーザーが通常使用する列ヘッダーセパレーターを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      列のサイズ変更時にユーザーが通常使用する列ヘッダーセパレーターを削除します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      
+      コンポーネントの子オブジェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      コンポーネントの子オブジェクトを作成します。これは、UIComponent のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>内部に他のコンポーネントやオブジェクトを作成するコンポーネントは、複合コンポーネントと呼ばれます。例えば、Flex の ComboBox コントロールは、実際には ComboBox のテキスト領域を定義する TextInput コントロールと ComboBox の矢印を定義する Button コントロールから構成されます。コンポーネントで <codeph>createChildren()</codeph> メソッドを実装するのは、コンポーネント内で他のコンポーネントなどの子オブジェクトを作成するためです。</p>
+     
+      <p><codeph>createChildren()</codeph> メソッドのオーバーライド内から <codeph>addChild()</codeph> メソッドを呼び出してそれぞれの子オブジェクトを追加します。 </p>
+     
+      <p>このメソッドは直接呼び出さないでください。<codeph>createChildren()</codeph> メソッドは、コンポーネントをその親に追加する <codeph>addChild()</codeph> メソッドの呼び出しに応じて呼び出されます。 </p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawColumnDragOverlay"><apiName>drawColumnDragOverlay</apiName><shortdesc>
+      指定された Sprite に、指定された位置、幅、高さ、色で、ドラッグされている列のオーバーレイを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>列がドラッグされていることを示すグラフィックを格納する Sprite です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>ドラッグされているアイテムレンダラーです。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された Sprite に、指定された位置、幅、高さ、色で、ドラッグされている列のオーバーレイを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      指定された UIComponent 内にヘッダーの背景を描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>ヘッダーの背景グラフィックを含む UIComponent です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された UIComponent 内にヘッダーの背景を描画します。 コンポーネントの幅が変更された場合、描画されたグラフィックが水平方向に拡大 / 縮小されるか、このメソッドが再度呼び出されて、異なる幅または高さで再描画が行われます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderIndicator"><apiName>drawHeaderIndicator</apiName><shortdesc>
+      指定された Sprite に、指定された位置、幅、高さ、色でハイライトのインジケーターを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>レンダラーをハイライト表示されたよう見せるグラフィックを格納する Sprite オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>ハイライト表示されるアイテムレンダラーです。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された Sprite に、指定された位置、幅、高さ、色でハイライトのインジケーターを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      指定された Sprite に、指定された位置、幅、高さ、色で選択のインジケーターを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>レンダラーを選択されたように見せるグラフィックを格納する Sprite オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>選択されるアイテムレンダラーです。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された Sprite に、指定された位置、幅、高さ、色で選択のインジケーターを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      列のサイズ変更時にユーザーが通常使用する列ヘッダーセパレーターを作成して表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      列のサイズ変更時にユーザーが通常使用する列ヘッダーセパレーターを作成して表示します。 この実装では、線および列の背景と同じ Sprite を使用し、<codeph>headerSeparatorSkin</codeph> のインスタンスを追加して、ユーザーが列をサイズ変更しようとしたときがわかるようにマウスリスナーを付加します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      コンポーネントのデフォルトサイズを計算するほか、オプションでデフォルトの最小サイズを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      コンポーネントのデフォルトサイズを計算するほか、オプションでデフォルトの最小サイズを計算します。これは、UIComponent のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。<codeph>measure()</codeph> メソッドは、<codeph>addChild()</codeph> メソッドでコンポーネントがコンテナに追加されたとき、およびコンポーネントの <codeph>invalidateSize()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>コンポーネントに特定の高さと幅を設定するとき、Flex では <codeph>measure()</codeph> メソッドは呼び出されません。<codeph>invalidateSize()</codeph> メソッドを明示的に呼び出したとしても同様です。つまり、Flex が <codeph>measure()</codeph> メソッドを呼び出すのは、そのコンポーネントの <codeph>explicitWidth</codeph> プロパティまたは <codeph>explicitHeight</codeph> プロパティが NaN である場合のみです。 </p>
+     
+      <p>このメソッドのオーバーライド内で、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティを設定してデフォルトのサイズを定義する必要があります。<codeph/><codeph/></p>
+     
+      <p>ほとんどのコンポーネントは、表示しているコンテンツと、コンテンツ表示に影響するプロパティに基づいてこれらの値を計算します。一部のコンポーネントでは、ハードコードされたデフォルト値を使用するものもあります。 </p>
+     
+      <p><codeph>measure()</codeph> の概念ポイントは、コンポーネント独自のナチュラルサイズ、つまり本来のサイズをデフォルトとして指定するためのものです。このため、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティは、以下のような要素に基づいて決定されます。</p>
+      <ul>
+         <li>コンポーネントで表示する必要があるテキストの量</li>
+         <li>そのテキストのスタイル（<codeph>fontSize</codeph> など）</li>
+         <li>コンポーネントで表示する JPEG イメージのサイズ</li>
+         <li>コンポーネントの子の測定サイズまたは明示的なサイズ</li>
+         <li>すべての境界線、余白、および間隔</li>
+      </ul>
+     
+      <p>デフォルト値を決めるための固有の方法がない場合もあります。例えば、簡単な GreenCircle コンポーネントでは単に <codeph>measure()</codeph> メソッドに measuredWidth = 100 と measuredHeight = 100 を設定することで、適切なデフォルトサイズを指定することがあります。また、TextArea などの場合には、適切な計算処理（すべてのテキストを表示でき、黄金の矩形の縦横比を持つ正確な幅と高さを求めるなど）を行うと時間がかかりすぎる場合があります。</p>
+     
+      <p><codeph>measure()</codeph> のデフォルト実装では、<codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredMinWidth</codeph> および <codeph>measuredMinHeight</codeph> が <codeph>0</codeph> に設定されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:placeSortArrow"><apiName>placeSortArrow</apiName><shortdesc>
+      ソート矢印グラフィックを、現在のソートキーとなっている列に描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ソート矢印グラフィックを、現在のソートキーとなっている列に描画します。この実装では、<codeph>sortArrowSkin</codeph> スタイルプロパティで指定されたスキンのインスタンスを作成または再使用し、適切な列ヘッダーに配置します。 また、ヘッダー内のテキストがソート矢印によって隠れる場合は、列ヘッダーのサイズを縮小します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      オブジェクトの描画およびその子のサイズや位置の設定を行います。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      オブジェクトの描画およびその子のサイズや位置の設定を行います。これは、UIComponent のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。<codeph>updateDisplayList()</codeph> メソッドは、<codeph>addChild()</codeph> メソッドでコンポーネントがコンテナに追加されたとき、およびコンポーネントの <codeph>invalidateDisplayList()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>コンポーネントに子がない場合は、このメソッドで <codeph>graphics.drawRect()</codeph> などコンポーネントの Graphics オブジェクトに対するメソッドをいくつか使用して、プログラムによる描画を実行することになります。</p>
+     
+      <p>コンポーネントに子がある場合は、このメソッドで、コンポーネントの子に対する <codeph>move()</codeph> メソッドおよび <codeph>setActualSize()</codeph> メソッドを呼び出すことになります。</p>
+     
+      <p><codeph/><codeph/></p>
+     
+      <p><codeph>unscaledWidth</codeph> および <codeph>unscaledHeight</codeph> を、<codeph>width</codeph> プロパティおよび <codeph>height</codeph> プロパティの代わりに使用することが重要です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridHeader:bottomOffset"><apiName>bottomOffset</apiName><shortdesc>
+      レンダラーの内容の下端からのオフセット（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      レンダラーの内容の下端からのオフセット（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedHeaderHeight"><apiName>cachedHeaderHeight</apiName><shortdesc>
+      キャッシュされたヘッダーの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      キャッシュされたヘッダーの高さ（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingBottom"><apiName>cachedPaddingBottom</apiName><shortdesc>
+      レンダラーの下部のキャッシュされたパディング（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      レンダラーの下部のキャッシュされたパディング（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingTop"><apiName>cachedPaddingTop</apiName><shortdesc>
+	  レンダラーの上部のキャッシュされたパディング（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  レンダラーの上部のキャッシュされたパディング（ピクセル単位）です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:dataGrid"><apiName>dataGrid</apiName><shortdesc>
+      このレンダラーに関連付けられた DataGrid コントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      このレンダラーに関連付けられた DataGrid コントロールです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:headerItems"><apiName>headerItems</apiName><shortdesc>
+      ヘッダーレンダラーインスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      ヘッダーレンダラーインスタンスの配列です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:leftOffset"><apiName>leftOffset</apiName><shortdesc>
+      レンダラーの内容の左端からのオフセット（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      レンダラーの内容の左端からのオフセット（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparatorEvents"><apiName>needRightSeparatorEvents</apiName><shortdesc>
+	  右端のセパレーターイベントが必要かどうかを指定します。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  右端のセパレーターイベントが必要かどうかを指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparator"><apiName>needRightSeparator</apiName><shortdesc>
+	  右端のセパレーターが必要かどうかを指定します。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  右端のセパレーターが必要かどうかを指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:rightOffset"><apiName>rightOffset</apiName><shortdesc>
+      レンダラーの内容の右端からのオフセット（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      レンダラーの内容の右端からのオフセット（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:topOffset"><apiName>topOffset</apiName><shortdesc>
+      レンダラーの内容の上端からのオフセット（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      レンダラーの内容の上端からのオフセット（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:enabled:set"><apiName>enabled</apiName><shortdesc conref="mx.core.IUIComponent#enabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#enabled">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+  DataGridDragProxy クラスは、DataGrid コントロールからデータをドラッグするときに使用されるデフォルトドラッグプロキシを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridDragProxy クラスは、DataGrid コントロールからデータをドラッグするときに使用されるデフォルトドラッグプロキシを定義します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridDragProxy:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+  DataGridBase クラスは、アイテムのリストを複数の列で表示するコントロールの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The DataGridBase class inherits all the properties of its parent classes
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    headerHeight="depends on styles and header renderer"
+    showHeaders="true|false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.controls.listClasses:ListBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridBase クラスは、アイテムのリストを複数の列で表示するコントロールの基本クラスです。 アプリケーションで直接使用されることはありません。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridBase:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:adjustRow"><apiName>adjustRow</apiName><shortdesc> 
+      レンダラーのサイズと位置を、指定された rowNum、行位置、高さに従って調整します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行の y 座標です。
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>行の高さです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      レンダラーのサイズと位置を、指定された rowNum、行位置、高さに従って調整します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:calculateRowHeight"><apiName>calculateRowHeight</apiName><shortdesc>
+      1 行の中にある列の行の高さを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ピクセル単位で表した行の高さです。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行のデータプロバイダーアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>行の現在の高さです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>skipVisible</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合、表示されている列のアイテムレンダラーを測定する必要はありません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      1 行の中にある列の行の高さを計算します。 <codeph>skipVisible</codeph> が <codeph>true></codeph> である場合、DataGridBase は、表示領域にちょうど収まる列のレンダラーの高さを既に把握しています。したがって、このメソッドは、その行の他の列が表示領域にあると仮定したときに存在するアイテムレンダラーについてのみ計算を行う必要があります。これは、ユーザーが水平方向にスクロールして異なる列が次々に表示されたときに行の高さが調整されないようにする場合に必要です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:clearRow"><apiName>clearRow</apiName><shortdesc> 
+      rowNum で指定された空にする必要がある行からレンダラーを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      rowNum で指定された空にする必要がある行からレンダラーを削除します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:createColumnItemRenderer"><apiName>createColumnItemRenderer</apiName><shortdesc>
+      列のセルまたは列ヘッダーのアイテムレンダラーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムレンダラーです。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>アイテムレンダラーの DataGridColumn インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc>ヘッダーのアイテムレンダラーを返す場合は <codeph>true</codeph>、列のセルのアイテムレンダラーを返す場合は <codeph>false</codeph> に設定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>forHeader</codeph> が <codeph>false</codeph> の場合は、アイテムレンダラーの <codeph>data</codeph> オブジェクトです。 <codeph>forHeader</codeph> が <codeph>true</codeph> の場合は、DataGridColumn インスタンスです。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      列のセルまたは列ヘッダーのアイテムレンダラーを返します。 列にカスタムのレンダラーが割り当てられていない場合、このメソッドはデフォルトのアイテムレンダラーを返します。
+     
+      <p>このメソッドはパブリックであるため、DataGridHeader クラスからアクセス可能で、主に DataGrid コントロールのサブクラスで使用されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:drawVisibleItem"><apiName>drawVisibleItem</apiName><shortdesc>
+      アイテムが表示される場合、そのアイテムを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>レンダラーを特定するための UID です。
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーを選択された状態で描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーをハイライト状態で描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーを選択キャレットと同様に描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>エフェクトを使用して選択状態をフェードインする場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アイテムが表示される場合、そのアイテムを描画します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      caretIndex プロパティと anchorIndex プロパティに基づいて、選択されたアイテムを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>caretIndex</codeph> プロパティと <codeph>anchorIndex</codeph> プロパティに基づいて、選択されたアイテムを設定します。 このメソッドは、スクロールによってさらに多くのアイテムを取得している間に、キーボード選択ハンドラーでページフォルトが発生した場合に、キーボード選択ハンドラーと <codeph>updateDisplayList()</codeph> メソッドによって呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      アイテムレンダラーの columnIndex と rowIndex を定義する Point オブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ポイントオブジェクトです。<codeph>x</codeph> プロパティは <codeph>columnIndex</codeph> で、<codeph>y</codeph> プロパティは <codeph>rowIndex</codeph> です。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>アイテムレンダラーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アイテムレンダラーの <codeph>columnIndex</codeph> および <codeph>rowIndex</codeph> の各プロパティを定義する Point オブジェクトを返します。アイテムレンダラーは表示可能な行のセット内にあるアイテムに対してのみ作成されます。そのため、このメソッドを使用して、表示されていないアイテムのインデックスを取得することはできません。また、アイテムレンダラーはリサイクルされるので、そのアイテムレンダラーが別のアイテムの表示に再使用される場合、アイテムに対して取得するインデックスは変更される可能性があります。通常、このメソッドは、アイテムレンダラーによって表示されているデータのセットがまだ変更されていないときに、マウスおよびキーボードの処理の中で呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:layoutColumnItemRenderer"><apiName>layoutColumnItemRenderer</apiName><shortdesc>
+      列に対して itemRenderer のサイズと一時的な位置を設定し、Point で表されたサイズを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Point で表されたレンダラーのサイズです。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>レンダラーの DataGridColumn です。
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>レンダラーです。
+      </apiDesc></apiParam><apiParam><apiItemName>xx</apiItemName><apiType value="Number"/><apiDesc>x 位置です。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>y 位置です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      列に対して itemRenderer のサイズと一時的な位置を設定し、Point で表されたサイズを返します。最終位置は、整列設定により後で調整される場合があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeListData"><apiName>makeListData</apiName><shortdesc>
+      新しい DataGridListData インスタンスを作成し、入力されたデータプロバイダーアイテムに基づいてフィールドに値を格納します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>新しく作成した ListData オブジェクトです。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:BaseListData</apiOperationClassifier></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>ListData の設定に使用するデータプロバイダーアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>アイテムの UID です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>データプロバイダー内のアイテムのインデックスです。
+      </apiDesc></apiParam><apiParam><apiItemName>columnNum</apiItemName><apiType value="int"/><apiDesc>このアイテムに関連付けられた列インデックスです。 
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>このアイテムに関連付けられた列です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      新しい DataGridListData インスタンスを作成し、入力されたデータプロバイダーアイテムに基づいてフィールドに値を格納します。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeRow"><apiName>makeRow</apiName><shortdesc> 
+      指定された rowNum、dataObject および uid に対してレンダラーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>行の高さです。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      </apiDesc></apiParam><apiParam><apiItemName>left</apiItemName><apiType value="Number"/><apiDesc>最初の列の左端からのオフセットです。
+      </apiDesc></apiParam><apiParam><apiItemName>right</apiItemName><apiType value="Number"/><apiDesc>最後の列の右端からのオフセットです。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行の y 座標です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行のデータです。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>データの UID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      指定された rowNum、dataObject および uid に対してレンダラーを作成します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      上矢印キーまたは下矢印キーと修飾子 (Shift キーや Ctrl キーなど) を使用してアイテムを選択するユーザー操作に応答して、選択を垂直方向に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>押されたキーです (<codeph>Keyboard.DOWN</codeph> など)。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Shift キーが押されていた場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Ctrl キーが押されていた場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      上矢印キーまたは下矢印キーと修飾子 (Shift キーや Ctrl キーなど) を使用してアイテムを選択するユーザー操作に応答して、選択を垂直方向に移動します。このメソッドによって、<codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> および <codeph>caretIndex</codeph> の各プロパティが変更され、選択を更新するために <codeph>finishKeySelection()</codeph> メソッドが呼び出されることがあります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:prepareRowArray"><apiName>prepareRowArray</apiName><shortdesc> 
+      指定された行番号の行の配列内にスロットがあることを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      指定された行番号の行の配列内にスロットがあることを確認します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:removeExtraRow"><apiName>removeExtraRow</apiName><shortdesc> 
+      contentHolder の最後から余分な行を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      contentHolder の最後から余分な行を削除します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setRowInfo"><apiName>setRowInfo</apiName><shortdesc> 
+      rowInfo を、指定された rowNum、行位置、高さに従って設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行の y 座標です。
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>行の高さです。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>データの UID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      rowInfo を、指定された rowNum、行位置、高さに従って設定します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setupColumnItemRenderer"><apiName>setupColumnItemRenderer</apiName><shortdesc>
+      列に対してアイテムレンダラーを設定し、listItems 配列の指定された位置に配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>この列および行のレンダラーです。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>レンダラーの DataGridColumn です。
+      </apiDesc></apiParam><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行のセット (固定行、通常行) です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行番号です。
+      </apiDesc></apiParam><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>列番号です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行のデータです。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>データの UID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      列に対してアイテムレンダラーを設定し、listItems 配列の指定された位置に配置します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:updateRendererDisplayList"><apiName>updateRendererDisplayList</apiName><shortdesc>
+      レンダラーを同期的に再描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>r</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>レンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを同期的に再描画します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnCaretIndicator"><apiName>columnCaretIndicator</apiName><shortdesc>
+      lockedColumns に対してどのレンダラーがキャレットであるかを示すグラフィックを格納する DisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      lockedColumns に対してどのレンダラーがキャレットであるかを示すグラフィックを格納する DisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnHighlightIndicator"><apiName>columnHighlightIndicator</apiName><shortdesc>
+      lockedColumns に対してどのレンダラーがハイライト表示されているかを示すグラフィックを格納する DisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      lockedColumns に対してどのレンダラーがハイライト表示されているかを示すグラフィックを格納する DisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnMap"><apiName>columnMap</apiName><shortdesc>
+      アイテムレンダラーを列に対応付けるマップです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      アイテムレンダラーを列に対応付けるマップです。 <codeph>ListBase.rowMap</codeph> と同様に、このプロパティには、アイテムレンダラーとそれが属する列のハッシュマップが含まれています。 アイテムレンダラーには、その DisplayObject 名によってインデックスが作成されています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#ListBase/rowMap"><linktext>mx.controls.listClasses.ListBase.rowMap</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:freeItemRenderersTable"><apiName>freeItemRenderersTable</apiName><shortdesc>
+      未使用のアイテムレンダラーの列ごとのテーブルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      未使用のアイテムレンダラーの列ごとのテーブルです。 ほとんどのリストクラスは、それが画面外にスクロールされるときに作成済みのレンダラーをリサイクルします。 リサイクルされるレンダラーはここに格納されます。 このテーブルは、dataField などの列のプロパティによってではなく、実際の DataGridColumn によってインデックス付けされた配列がエントリとなっている Dictionary です。各配列は、現在使用されていないレンダラーのスタックです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:headerMask"><apiName>headerMask</apiName><shortdesc>
+      
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:header"><apiName>header</apiName><shortdesc>
+      ヘッダーサブコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      ヘッダーサブコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnAndRowContent"><apiName>lockedColumnAndRowContent</apiName><shortdesc>
+      固定列の固定行を含むサブコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      固定列の固定行を含むサブコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnContent"><apiName>lockedColumnContent</apiName><shortdesc>
+      固定列を含むサブコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.listClasses:ListBaseContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      固定列を含むサブコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnHeader"><apiName>lockedColumnHeader</apiName><shortdesc>
+      固定列のヘッダーサブコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      固定列のヘッダーサブコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedRowContent"><apiName>lockedRowContent</apiName><shortdesc>
+      固定行を含むサブコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      固定行を含むサブコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      
+      このコンポーネントのフォントコンテキストを提供するモジュールファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      
+      このコンポーネントのフォントコンテキストを提供するモジュールファクトリです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:headerHeight:get"><apiName>headerHeight</apiName><shortdesc>
+      列のヘッダーセルの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resize"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      列のヘッダーセルの高さ（ピクセル単位）です。 明示的に設定すると、その高さがすべてのヘッダーに使用されます。 明示的に設定しない場合、ヘッダーの高さはスタイル設定とヘッダーのレンダラーに基づいて決まります。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      スクロールするコントロール内の最初の列のインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スクロールするコントロール内の最初の列のインデックスです。 この値より小さいインデックスを持つ列は、ビュー内で固定されたままになります。 すべてのリストクラスでサポートされるわけではありません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      スクロールするコントロール内の最初の行のインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スクロールするコントロール内の最初の行のインデックスです。 これより上の行は、ビュー内で固定されたままになります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:showHeaders:get"><apiName>showHeaders</apiName><shortdesc>
+      コントロールに列ヘッダーを表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showHeadersChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールに列ヘッダーを表示するかどうかを示すフラグです。 <codeph>true</codeph> の場合、コントロールに列ヘッダーが表示されます。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+  DataGridListData クラスは、DataGrid コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される listData プロパティのデータ型を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridListData クラスは、DataGrid コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される <codeph>listData</codeph> プロパティのデータ型を定義します。 すべてのドロップインアイテムレンダラーおよびドロップインアイテムエディターは、<codeph>listData</codeph> プロパティを定義する IDropInListItemRenderer インターフェイスを実装する必要があります。
+ 
+  <p>このクラスのプロパティは書き込み可能ですが、読み取り専用と見なす必要があります。 これらは DataGrid クラスによって初期化され、アイテムレンダラーまたはアイテムエディターによって読み取られます。 これらの値を変更すると、予期しない結果が生じる可能性があります。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridListData:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>アイテムデータのテキスト表現です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>列に関連付けられているデータプロバイダー内のフィールドまたはプロパティの名前です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>DataGrid コントロールの列内のアイテムの列インデックスです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>アイテムの一意の識別子です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>DataGrid コントロールへの参照です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>DataGrid コントロールのデータプロバイダー内のアイテムのインデックスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridListData:dataField"><apiName>dataField</apiName><shortdesc>
+	  列に関連付けられているデータプロバイダー内のフィールドまたはプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  列に関連付けられているデータプロバイダー内のフィールドまたはプロパティの名前です。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+  DataGridLockedRowContentHolder クラスは、DataGrid コントロールのすべてのアイテムレンダラーおよびアイテムエディターを格納する DataGrid コントロール内のコンテナを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListBaseContentHolder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridLockedRowContentHolder クラスは、DataGrid コントロールのすべてのアイテムレンダラーおよびアイテムエディターを格納する DataGrid コントロール内のコンテナを定義します。 Flex では、このクラスを使用して、コントロールの範囲に収まらないレンダラーの領域を隠すとともに、<codeph>backgroundColor</codeph> など一部のスタイルがレンダラーに伝達されないようブロックして、ハイライトや交互に使用される行の色がコントロールを透けて表示されるようにします。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>parentList</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>DataGrid コントロールです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+     DataGrid コントロールの測定した高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     DataGrid コントロールの測定した高さです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+  DataGridHeaderBase クラスは、DataGridHeader クラス（DataGrid コントロールのアイテムレンダラーを定義するクラス）の基本クラスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridHeaderBase クラスは、DataGridHeader クラス（DataGrid コントロールのアイテムレンダラーを定義するクラス）の基本クラスを定義します。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridHeaderBase:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+  DataGridColumn クラスは、DataGrid コントロール内の列を記述します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  コンテナの右境界線とコンテンツ領域の間隔を示すピクセル数です。
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  コンテナの左境界線とコンテンツ領域の間隔を示すピクセル数です。
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  列ヘッダーの他の外観要素を制御する CSS スタイル宣言の名前です。 デフォルト値は <codeph>undefined</codeph> です。この場合、関連付けられている DataGrid コントロールの <codeph>headerStyleName</codeph> スタイルの値が使用されます。 DataGrid コントロールのデフォルト値は <codeph>".dataGridStyles"</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  列の背景色です。 デフォルト値は <codeph>undefined</codeph> です。この場合、関連付けられている DataGrid コントロールの <codeph>backgroundColor</codeph> スタイルの値が使用されます。 DataGrid コントロールのデフォルト値は <codeph>0xFFFFFF</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  テキストの 1 行目のコンテナ左端からのオフセット（ピクセル単位）です。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="Class">
+<description>
+  IUITextField を実装するクラスです。このクラスはテキストをレンダリングするためにこのコンポーネントで使用されます。
+ 
+  <p>mx.core.UITextField クラス（Flash Player に組み込まれている標準の TextField を使用する場合）または mx.core.UIFTETextField クラス（Text Layout Framework を使用して、双方向レイアウトなどの向上したテキストレンダリングを取得する場合）のいずれかに設定できます。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  テキストに下線を表示するかどうかを指定します。 可能な値は、<codeph>"none"</codeph> および <codeph>"underline"</codeph> です。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  コンテナ内のテキストの整列。 有効な値は、<codeph>"left"</codeph>、<codeph>"right"</codeph> または <codeph>"center"</codeph> です。
+ 
+  <p>ほとんどのコンポーネントのデフォルト値は <codeph>"left"</codeph> です。 FormItem コンポーネントの場合、デフォルト値は <codeph>"right"</codeph> です。 Button、LinkButton および AccordionHeader コンポーネントでは、デフォルト値は <codeph>"center"</codeph> です。このプロパティは <codeph>labelPlacement</codeph> プロパティが <codeph>"left"</codeph> または <codeph>"right"</codeph> に設定されている場合のみ認識されます。 <codeph>labelPlacement</codeph> が <codeph>"top"</codeph> または <codeph>"bottom"</codeph> に設定されている場合は、テキストおよびアイコンが中央に配置されます。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストのロケールです。
+ 
+  <p>FTE および TLF はこのロケールを使用して Unicode 文字をフォント字形にマッピングしたり、フォールバックフォントを検索したりします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  各文字間に表示される追加のピクセル数。 正の値を指定すると文字間隔が通常より広くなり、負の値を指定すると文字間隔が通常より狭くなります。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Boolean">
+<description>
+  カーニングが有効（<codeph>true</codeph>）か無効（<codeph>false</codeph>）かを示すブール値です。カーニングでは、読みやすくするために、特定の文字ペア間の間隔を調整します。ただし、カーニングは見出しを大きなフォントにする場合など、必要な場合に限って使用してください。 カーニングは、埋め込みフォントに対してのみサポートされています。Verdana や、Courier New などの等幅フォントなど、特定のフォントではカーニングはサポートされていません。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  テキストをボールド体にするかどうかを指定します。 有効な値は <codeph>normal</codeph> と <codeph>bold</codeph> です。 Button コントロールのデフォルト値は <codeph>bold</codeph> です。 他のすべてのコントロールのデフォルト値は <codeph>normal</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>thickness</codeph> プロパティを設定します。 このプロパティは字形のエッジの太さを指定します。 有効な値は -200 ～ 200 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルは、システムフォントには影響を与えません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  テキストをイタリック体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"italic"</codeph> です。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  テキストの高さ（ピクセル単位）です。 Halo テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 10 です。Halo テーマ別 ColorPicker コントロールのデフォルトは 11 です。Spark テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 12 です。Spark テーマ別 ColorPicker コントロールのデフォルトは 11 です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>sharpness</codeph> プロパティを設定します。 このプロパティは字形のエッジのシャープネスを指定します。 有効な値は -400 ～ 400 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>gridFitType</codeph> プロパティを設定します。 有効な値は、<codeph>"none"</codeph>（<codeph>flash.text.GridFitType.NONE</codeph>）、<codeph>"pixel"</codeph>（<codeph>flash.text.GridFitType.PIXEL</codeph>） および <codeph>"subpixel"</codeph>（<codeph>flash.text.GridFitType.SUBPIXEL</codeph>）です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  使用するフォントの名前です。 完全な CSS 実装と異なり、カンマ区切りリストはサポートされません。 任意のフォントファミリ名を使用できます。 汎用フォント名を指定した場合、適切なデバイスフォントに置換されます。Halo テーマのデフォルトフォントは <codeph>"Verdana"</codeph> です。Spark テーマのデフォルトフォントは <codeph>"Arial"</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  内部 TextField の <codeph>antiAliasType</codeph> プロパティを設定します。 有効な値は、<codeph>"normal"</codeph>（<codeph>flash.text.AntiAliasType.NORMAL</codeph>）および <codeph>"advanced"</codeph>（<codeph>flash.text.AntiAliasType.ADVANCED</codeph>）です。 
+  
+  <p>デフォルト値は <codeph>"advanced"</codeph> であり、フォントについて高度なアンチエイリアスが有効になります。 <codeph>"normal"</codeph> に設定すると、高度なアンチエイリアスが無効になります。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+  
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効な場合のテキストの色です。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストの方向です。
+ 
+  <p>使用できる値は、ラテン文字などの左から右のテキスト用の <codeph>"ltr"</codeph> と、アラビア文字やヘブライ文字などの右から左のテキスト用の <codeph>"rtl"</codeph> です。</p>
+ 
+  <p>FTE と TLF は双方向テキストレイアウトアルゴリズムでこの値を使用し、Unicode 文字の順序を字形の順序にマッピングします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  <p><codeph>direction</codeph> は、TLFTextField の境界内のテキストの整列にも影響します。ただし、コンポーネント内の TLFTextField の配置には影響しません。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントのラベルを含めたコンポーネント内のテキストの色です。Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>You use the <code>&lt;mx.DataGridColumn&gt;</code> tag to configure a column
+  of a DataGrid control.
+  You specify the <code>&lt;mx.DataGridColumn&gt;</code> tag as a child
+  of the columns property in MXML.
+  The <code>&lt;mx.DataGridColumn&gt;</code> tag inherits all of the 
+  tag attributes of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:DataGridColumn
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    dataTipField="<i>No default</i>"
+    dataTipFunction="<i>No default</i>"
+    editable="true|false"
+    editorDataField="text"
+    editorHeightOffset="0"
+    editorUsesEnterKey="false|true"
+    editorWidthOffset="0"
+    editorXOffset="0"
+    editorYOffset="0"
+    headerRenderer="DataGridItemRenderer"
+    headerText="<i>No default</i>"
+    headerWordWrap="undefined"
+    imeMode="null"
+    itemEditor="TextInput"
+    itemRenderer="DataGridItemRenderer"
+    labelFunction="<i>No default</i>"
+    minWidth="20"
+    rendererIsEditor="false|true"
+    resizable="true|false"
+    showDataTips="false|true"
+    sortable="true|false"
+    sortCompareFunction="<i>No default</i>"
+    sortDescending="false|true"
+    visible="true|false"
+    width="100"
+    wordWrap="false|true"
+ 
+  <b>Styles</b>
+    backgroundColor="0xFFFFFF"
+    color="<i>No default.</i>"
+    disabledColor="0xAAB3B3"
+    fontAntiAliasType="advanced"
+    fontFamily="<i>No default</i>"
+    fontGridFitType="pixel"
+    fontSharpness="0"
+    fontSize="<i>No default</i>"
+    fontStyle="normal|italic"
+    fontThickness="0"
+    fontWeight="normal|bold"
+    headerStyleName="<i>No default</i>"
+    paddingLeft="0"
+    paddingRight="0"
+    textAlign="right|center|left"
+    textDecoration="none|underline"
+    textIndent="0"
+  /&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.styles:CSSStyleDeclaration</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridColumn クラスは、DataGrid コントロール内の列を記述します。 列が非表示になっている場合、または列が画面外にスクロールされている場合でも、表示可能な列ごとに 1 つの DataGridColumn が存在します。 DataGrid コントロールのデータプロバイダーアイテムには、表示されないプロパティ、つまり DataGridColumn を必要としないプロパティを格納できます。 DataGridColumn では、列内のテキストの色とフォント、列のデータを表示するコンポーネントの種類を指定できます。さらに、列の編集、ソート、サイズ変更を可能にするかどうか、および列ヘッダーのテキストを指定できます。
+ 
+  <p><b>メモ：</b><ul>
+  <li>DataGridColumn は列情報だけを保持します。列内のアイテムレンダラーの親ではありません。</li>
+  <li><codeph>dataField</codeph> プロパティなしで DataGridColumn クラスを指定する場合は、<codeph>sortCompareFunction</codeph> プロパティを指定する必要があります。 このプロパティを指定しないと、ソート操作でランタイムエラーが発生することがあります。</li></ul> 
+  </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridColumn:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>列に関連付けられたデータプロバイダーでのフィールドの名前、およびこの列のヘッダーセルのテキストです。 これは、<codeph>dataField</codeph> プロパティおよび <codeph>headerText</codeph> プロパティに値を設定するのと同じです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:protected:complexColumnSortCompare"><apiName>complexColumnSortCompare</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>obj1</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>obj2</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:protected:deriveComplexColumnData"><apiName>deriveComplexColumnData</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:getItemRendererFactory"><apiName>getItemRendererFactory</apiName><shortdesc>
+      適切なファクトリを返します。ファクトリが指定されていない場合は、デフォルトのファクトリを使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>data</codeph> が null の場合はデフォルトのアイテムレンダラーが返され、それ以外の場合はカスタムのアイテムレンダラーが返されます。
+      
+      </apiDesc><apiOperationClassifier>mx.core:IFactory</apiOperationClassifier></apiReturn><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc>ヘッダーレンダラーの場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>アイテムレンダラーによって表示されるデータです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      適切なファクトリを返します。ファクトリが指定されていない場合は、デフォルトのファクトリを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      dataTipField プロパティおよび dataTipFunction プロパティに基づき、指定されたデータオブジェクトのデータヒントとしてアイテムレンダラーが表示するストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データに基づく表示可能なストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>レンダリングされるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>dataTipField</codeph> プロパティおよび <codeph>dataTipFunction</codeph> プロパティに基づき、指定されたデータオブジェクトのデータヒントとしてアイテムレンダラーが表示するストリングを返します。 このメソッドがパラメーターをストリングに変換できない場合は、単一の空白文字が返されます。
+     
+      <p>このメソッドは、DataGridColumn クラスのサブクラスを作成するために開発者が使用するものです。 アプリケーション開発者による使用は考慮されていません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      指定されたデータオブジェクトに対してアイテムレンダラーが表示するストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データに基づく表示可能なストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>レンダリングされるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたデータオブジェクトに対してアイテムレンダラーが表示するストリングを返します。 DataGridColumn またはその DataGrid コントロールの <codeph>labelFunction</codeph> プロパティが null でない場合は、その関数がデータオブジェクトに適用されます。 それ以外の場合、このメソッドは、<codeph>dataField</codeph> プロパティによって指定されたフィールドの内容を抽出するか、データオブジェクトのストリング値を取得します。 このメソッドがパラメーターをストリングに変換できない場合は、単一の空白文字が返されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridColumn:draggable"><apiName>draggable</apiName><shortdesc>
+      ユーザーが列を新しい位置にドラッグできるかどうかを示すフラグです。true の場合、ユーザーは列ヘッダーを新しい位置にドラッグできます。
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ユーザーが列を新しい位置にドラッグできるかどうかを示すフラグです。<codeph>true</codeph> の場合、ユーザーは列ヘッダーを新しい位置にドラッグできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorDataField"><apiName>editorDataField</apiName><shortdesc>
+      リストアイテムの新しいデータを格納するアイテムエディターのプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>text</apiData><apiType value="String"/><apiDefaultValue>"text"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      リストアイテムの新しいデータを格納するアイテムエディターのプロパティの名前です。 例えば、デフォルトの <codeph>itemEditor</codeph> は TextInput なので、<codeph>editorDataField</codeph> プロパティのデフォルト値は <codeph>"text"</codeph> となり、TextInput コントロールの <codeph>text</codeph> プロパティが指定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorHeightOffset"><apiName>editorHeightOffset</apiName><shortdesc>
+      アイテムレンダラーのサイズに対するアイテムエディターの高さです（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーのサイズに対するアイテムエディターの高さです（ピクセル単位）。 このプロパティを使用すると、エディターをアイテムレンダラーと数ピクセル分オーバーラップさせて、エディターの周囲の境界線を補正することができます。 なお、エディターの表示中にこれらの値を変更しても、それらの変更は現在のエディターに反映されませんが、次のアイテムレンダラーでエディターが開かれたときに反映されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorUsesEnterKey"><apiName>editorUsesEnterKey</apiName><shortdesc>
+      アイテムエディターで Enter キーを使用するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムエディターで Enter キーを使用するかどうかを示すフラグです。 <codeph>true</codeph> の場合、アイテムエディターで Enter キーを使用できます。この場合、DataGrid は Enter キーを検索せず、Enter キーが押されるとエディターを移動します。 なお、エディターの表示中にこの値を変更しても、それらの変更は現在のエディターに反映されませんが、次のアイテムレンダラーでエディターが開かれたときに反映されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorWidthOffset"><apiName>editorWidthOffset</apiName><shortdesc>
+      アイテムレンダラーのサイズに対するアイテムエディターの幅です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーのサイズに対するアイテムエディターの幅です（ピクセル単位）。 このプロパティを使用すると、エディターをアイテムレンダラーと数ピクセル分オーバーラップさせて、エディターの周囲の境界線を補正することができます。 なお、エディターの表示中にこれらの値を変更しても、それらの変更は現在のエディターに反映されませんが、次のアイテムレンダラーでエディターが開かれたときに反映されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorXOffset"><apiName>editorXOffset</apiName><shortdesc>
+      アイテムの左上隅の位置に対するアイテムエディターの左上隅の x 座標です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムの左上隅の位置に対するアイテムエディターの左上隅の x 座標です（ピクセル単位）。 このプロパティを使用すると、エディターをアイテムレンダラーと数ピクセル分オーバーラップさせて、エディターの周囲の境界線を補正することができます。 なお、エディターの表示中にこれらの値を変更しても、それらの変更は現在のエディターに反映されませんが、次のアイテムレンダラーでエディターが開かれたときに反映されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorYOffset"><apiName>editorYOffset</apiName><shortdesc>
+      アイテムの左上隅の位置に対するアイテムエディターの左上隅の y 座標です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムの左上隅の位置に対するアイテムエディターの左上隅の y 座標です（ピクセル単位）。 このプロパティを使用すると、エディターをアイテムレンダラーと数ピクセル分オーバーラップさせて、エディターの周囲の境界線を補正することができます。 なお、エディターの表示中にこれらの値を変更しても、それらの変更は現在のエディターに反映されませんが、次のアイテムレンダラーでエディターが開かれたときに反映されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemEditor"><apiName>itemEditor</apiName><shortdesc>
+      列が編集可能な場合に列の編集に使用するアイテムエディターのインスタンスに対応するクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IFactory</apiValueClassifier><apiDefaultValue>new ClassFactory(mx.controls.TextInput)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列が編集可能な場合に列の編集に使用するアイテムエディターのインスタンスに対応するクラスファクトリです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:rendererIsEditor"><apiName>rendererIsEditor</apiName><shortdesc>
+      アイテムレンダラーがアイテムエディターでもあることを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーがアイテムエディターでもあることを示すフラグです。 このプロパティを <codeph>true</codeph> に設定すると <codeph>itemEditor</codeph> プロパティは無視され、そのアイテムのアイテムレンダラーがアイテムエディターとして使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:resizable"><apiName>resizable</apiName><shortdesc>
+      列の幅をユーザーが変更できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の幅をユーザーが変更できるかどうかを示すフラグです。 <codeph>true</codeph> の場合、ユーザーは列ヘッダーの間のグリッド線をドラッグして、列のサイズを変更できます。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortDescending"><apiName>sortDescending</apiName><shortdesc>
+      列ソートが昇順（false）か降順（true）かを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false;
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列ソートが昇順（<codeph>false</codeph>）か降順（<codeph>true</codeph>）かを示します。
+     
+      <p>このプロパティを設定してもソートは実行されません。ソート方向のみが設定されます。 ソートを実行するには、列ヘッダーをクリックします。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortable"><apiName>sortable</apiName><shortdesc>
+      この列のヘッダーのクリック操作でユーザーがデータプロバイダーをソートできるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列のヘッダーのクリック操作でユーザーがデータプロバイダーをソートできるかどうかを示すフラグです。 このプロパティと DataGrid の <codeph>sortableColumns</codeph> プロパティの両方を <codeph>true</codeph> に設定すると、ユーザーがこの列のヘッダーをマウスでクリックして離したときに、DataGrid コントロールから <codeph>headerRelease</codeph> イベントが送出されます。 他のハンドラーが <codeph>preventDefault()</codeph> メソッドを <codeph>headerRelease</codeph> イベントに対して呼び出さなければ、列の <codeph>dataField</codeph> プロパティまたは <codeph>sortCompareFunction</codeph> を使用して dataProvider のアイテムが並べ替えられます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      列に関連付けられているデータプロバイダーアイテム内のフィールドまたはプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      列に関連付けられているデータプロバイダーアイテム内のフィールドまたはプロパティの名前です。 各 DataGridColumn コントロールでは、アイテムレンダラーで表示できるテキストを計算するために、このプロパティと <codeph>labelFunction</codeph> プロパティ、またはそのいずれかが設定されている必要があります。 <codeph>dataField</codeph> プロパティおよび <codeph>labelFunction</codeph> プロパティが設定されている場合、データは <codeph>labelFunction</codeph> を使用して表示され、<codeph>dataField</codeph> を使用してソートされます。 <codeph>dataField</codeph> で指定された名前を持つプロパティが存在しない場合、ソートを正しく実行するには <codeph>sortCompareFunction</codeph> を設定する必要があります。
+     
+      <p>このプロパティのこの値は、必ずしも列ヘッダーに表示されるストリングであるとは限りません。 このプロパティは、データプロバイダーのデータにアクセスする目的でのみ使用します。 詳細については、<codeph>headerText</codeph> プロパティを参照してください。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.dataGridClasses.xml#DataGridColumn/headerText"><linktext>headerText</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      データヒントとして表示するデータプロバイダー内のフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      データヒントとして表示するデータプロバイダー内のフィールドの名前です。 デフォルトでは、各データプロバイダーアイテムで <codeph>label</codeph> という名前のプロパティが検索され、その値が表示されます。 ただし、データプロバイダーに <codeph>label</codeph> プロパティが存在しない場合は、<codeph>dataTipField</codeph> プロパティを設定して別のプロパティを指定できます。 たとえば、データベースに含まれる一連の人物名がユーザーに表示される場合には、値を "FullName" に設定できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      dataTip を決定するためにデータプロバイダーの各アイテムで実行するコールバック関数を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      dataTip を決定するためにデータプロバイダーの各アイテムで実行するコールバック関数を指定します。 このプロパティは <codeph>itemToDataTip</codeph> メソッドで使用します。
+     
+      <p>デフォルトでは、各データプロバイダーアイテムで <codeph>label</codeph> という名前のプロパティが検索され、その値が dataTip として表示されます。 ただし、データプロバイダーによっては、<codeph>label</codeph> プロパティが存在せず、また行にデータを表示するために使用できる別のプロパティも存在しない場合があります。 例えば、フルネームを dataTip として表示したい場合に、データプロバイダーに lastName フィールドと firstName フィールドが別々に存在しているケースが考えられます。 このような場合は、両方のフィールドの値を単一のストリングとして返す関数を <codeph>dataTipFunction</codeph> プロパティに指定します。 また、フォーマットとローカライズを処理するために <codeph>dataTipFunction</codeph> プロパティを使用することもできます。</p>
+     
+      <p>この関数は、データプロバイダーエレメントを含む単一の Object パラメーターを取り、ストリングを返す関数であることが必要です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      列の中のアイテムが編集可能かどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の中のアイテムが編集可能かどうかを示すフラグです。 このプロパティが <codeph>true</codeph> で、DataGrid の <codeph>editable</codeph> プロパティも <codeph>true</codeph> であれば、列内のアイテムは編集可能です。アイテムをクリックするか、Tab キーと矢印キーを使用してアイテムに移動することにより、アイテムを個別に編集できます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。エディターが起動している場合は、それに従って enableIME が設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      列の列ヘッダーを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      列の列ヘッダーを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。 このプロパティの値として、ドロップインアイテムレンダラー、インラインアイテムレンダラー、またはカスタムアイテムレンダラーの各コンポーネントを指定できます。
+     
+      <p>デフォルトのアイテムレンダラーは DataGridItemRenderer クラスです。これはアイテムデータをテキストとして表示します。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      この列のヘッダーのテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      この列のヘッダーのテキストです。 デフォルトでは、DataGrid コントロールは <codeph>dataField</codeph> プロパティの値をヘッダーテキストとして使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerWordWrap:get"><apiName>headerWordWrap</apiName><shortdesc>
+      ヘッダー内のテキストが 1 行に収まらない場合に折り返すかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ヘッダー内のテキストが 1 行に収まらない場合に折り返すかどうかを示すフラグです。 <codeph>undefined</codeph> の場合は、DataGrid コントロールの <codeph>wordWrap</codeph> プロパティが使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      IME（入力メソッドエディター）のモードを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      IME（入力メソッドエディター）のモードを指定します。 IME を使用することによって、ユーザーは中国語、日本語、および韓国語のテキストを入力できます。<codeph>itemFocusIn</codeph> イベントが発生すると IME モードが設定され、<codeph>itemFocusOut</codeph> イベントが発生すると設定前の値に戻ります。 このプロパティで有効な値の定数は、flash.system.IMEConversionMode クラスで定義されています。  
+     
+      <p>デフォルト値は null です。この場合、DataGrid コントロールの <codeph>imeMode</codeph> プロパティの値が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      列にある各アイテムのデータを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      列にある各アイテムのデータを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。 このプロパティの値として、ドロップインアイテムレンダラー、インラインアイテムレンダラー、またはカスタムアイテムレンダラーの各コンポーネントを指定できます。
+     
+      <p>デフォルトのアイテムレンダラーは DataGridItemRenderer クラスです。これはアイテムデータをテキストとして表示します。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      この列に表示するテキストを決定する関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      この列に表示するテキストを決定する関数です。 デフォルトでは、データにあるフィールドのうち、その列の名前と一致するフィールドのテキストが列に表示されます。 しかし、データ内の複数のフィールドに基づくテキストや、適切に書式設定されていない情報を表示したい場合があります。 そのような場合は、<codeph>labelFunction</codeph> を使用してコールバック関数を指定します。
+     
+      <p>DataGrid コントロールの場合、メソッドシグネチャの形式は次のようになります。</p>
+     
+      <pre>labelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>ここで、<codeph>item</codeph> は DataGrid アイテムオブジェクトを示し、<codeph>column</codeph> は DataGrid 列を示します。</p>
+     
+      <p>コールバック関数を使用すると、データ内の firstName フィールドと lastName フィールドの結合、Date に対するカスタム書式の適用、数字で表された月からストリングへの変換などが可能です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      列の最小幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の最小幅です。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:nullItemRenderer:get"><apiName>nullItemRenderer</apiName><shortdesc>
+      列にある各アイテムのデータを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nullItemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      列にある各アイテムのデータを表示するアイテムレンダラーインスタンスに対応するクラスファクトリです。 このプロパティの値として、ドロップインアイテムレンダラー、インラインアイテムレンダラー、またはカスタムアイテムレンダラーの各コンポーネントを指定できます。
+     
+      <p>デフォルトのアイテムレンダラーは DataGridItemRenderer クラスです。これはアイテムデータをテキストとして表示します。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      列にデータヒントを表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列にデータヒントを表示するかどうかを示すフラグです。 <codeph>true</codeph> の場合、行のテキストに対してデータヒントが表示されます。 データヒントは、長すぎて行に収まらないテキストを表示するためのツールヒントです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+     
+      列の中のデータをソートするときに呼び出されるコールバック関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      列の中のデータをソートするときに呼び出されるコールバック関数です。 このプロパティを指定しない場合、基本的なストリングまたは数値のソートを使用してデータのソートが試行されます。 データがストリングでも数値でもない場合、または <codeph>dataField</codeph> プロパティがデータプロバイダーの有効なプロパティでない場合は、ソートが機能しないか、例外が生成されます。 <codeph>labelFunction</codeph> プロパティの値を指定する場合は、この列でのソートが許可されていない場合を除き、<codeph>sortCompareFunction</codeph> プロパティにも関数を指定する必要があります。
+     
+      <p>DataGrid コントロールはこの関数を使用して、データプロバイダーのコレクションのエレメントをソートします。 コールバック関数の関数シグネチャは 2 つのパラメーターを受け取り、次のような形式に従う必要があります。</p>
+     
+      <pre>mySortCompareFunction(obj1:Object, obj2:Object):int </pre>
+     
+      <p><codeph>obj1</codeph> — 比較するデータエレメントです。</p>
+     
+      <p><codeph>obj2</codeph> — obj1 の比較対象となるデータエレメントです。</p>
+     
+      <p>この関数はオブジェクトの比較に基づいて次のような値を返す必要があります。 </p>
+      <ul>
+        <li>昇順で obj1 が obj2 よりも先に出現する場合は -1。 </li>
+        <li>obj1 と obj2 が同じ場合は 0。 </li>
+        <li>昇順で obj1 が obj2 よりも後で出現する場合は 1。</li>
+      </ul>
+     
+      <p><b>メモ：</b><codeph>obj1</codeph> パラメーターと <codeph>obj2</codeph> パラメーターはデータプロバイダーエレメント全体です。特定のアイテムのデータではありません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      列が可視状態かどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列が可視状態かどうかを示すフラグです。 <codeph>true</codeph> の場合、列は可視です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:width:get"><apiName>width</apiName><shortdesc>
+      列の幅を示すピクセル数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の幅を示すピクセル数です。DataGrid の <codeph>horizontalScrollPolicy</codeph> プロパティが <codeph>false</codeph> の場合、表示されるすべての列が表示可能領域内に収まる必要があります。この場合、すべての列幅を合計した幅が表示可能領域に対して小さすぎたり大きすぎたりした場合、DataGrid では個々の列の幅がそのまま使用されるとは限りません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      この列の行内のテキストが 1 行に収まらない場合に折り返すかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列の行内のテキストが 1 行に収まらない場合に折り返すかどうかを示すフラグです。 <codeph>undefined</codeph> の場合は、DataGrid コントロールの <codeph>wordWrap</codeph> プロパティが使用されます。
+     
+      <p><codeph>DataGrid.variableRowHeight</codeph> プロパティも <codeph>true</codeph> である場合に限り有効です。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+  DataGridItemRenderer クラスは、DataGrid コントロールのデフォルトのアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UITextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridItemRenderer クラスは、DataGrid コントロールのデフォルトのアイテムレンダラーを定義します。 デフォルトでは、アイテムレンダラーはグリッド内の各アイテムに関連付けられているテキストを描画します。
+ 
+  <p>カスタムアイテムレンダラーを作成することにより、デフォルトのアイテムレンダラーをオーバーライドできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:DataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:DataGridItemRenderer:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は null を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>CSSStyleDeclaration オブジェクトの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は <codeph>null</codeph> を返します。
+     
+      <p>例えば、コンポーネント MyButton が Button を継承するとします。 このメソッドでは、最初に MyButton セレクターを検索します。その後、Button タイプセレクターを検索し、最後に UIComponent タイプセレクターを検索します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/><apiDesc>スタイル値です。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      inheritingStyles オブジェクトと nonInheritingStyles オブジェクト、およびそれらのプロトチェーンを設定して、getStyle() メソッドが機能するようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>inheritingStyles</codeph> オブジェクトと <codeph>nonInheritingStyles</codeph> オブジェクト、およびそれらのプロトチェーンを設定して、<codeph>getStyle()</codeph> メソッドが機能するようにします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      
+      このコンポーネントの子にスタイルの変更を反映します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>スタイルの変更を子の子に反映するかどうかを指定します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      このコンポーネントの子にスタイルの変更を反映します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      
+      getStyle() メソッドが機能するように、内部のスタイルキャッシュ値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>子のプロトチェーンを再生成します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      <codeph>getStyle()</codeph> メソッドが機能するように、内部のスタイルキャッシュ値を設定します。 このオブジェクトに既に子がある場合に、その子のスタイルキャッシュを再初期化します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>エフェクト名を表すストリングの配列です。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>スタイルの新しい値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      ツールヒントを配置するイベントハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:ToolTipEvent</apiOperationClassifier><apiDesc>イベントオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ツールヒントを配置するイベントハンドラーです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateDisplayList() メソッドを呼び出すと、表示リストの更新時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateDisplayList()</codeph> メソッドを呼び出すと、表示リストの更新時にこの関数が呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateProperties() メソッドを呼び出すと、プロパティ値の処理時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateProperties()</codeph> メソッドを呼び出すと、プロパティ値の処理時にこの関数が呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateSize() メソッドを呼び出すと、測定の実行時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合、このメソッドをオブジェクトの子で呼び出します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateSize()</codeph> メソッドを呼び出すと、測定の実行時にこの関数が呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。 値は無視されます。 listData プロパティのみが使用されます。
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。 レンダラーのテキストは listData の <codeph>label</codeph> プロパティに設定されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。 この CSSStyleDeclaration は、継承スタイルを設定するために setStyle() がこのコンポーネントに対して初めて呼び出されるときに作成されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

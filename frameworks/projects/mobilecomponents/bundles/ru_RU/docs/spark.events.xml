@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+  Класс ViewNavigatorEvent представляет объекты события, передаваемые классом View.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewNavigatorEvent представляет объекты события, передаваемые классом View.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link></related-links><adobeApiEvent id="spark.events:ViewNavigatorEvent:REMOVING_removing"><apiName>removing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:REMOVING</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE_activate"><apiName>activate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_ACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE_deactivate"><apiName>deactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ViewNavigatorEvent:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ViewNavigatorEvent:REMOVING"><apiName>REMOVING</apiName><shortdesc>
+      Константа ViewNavigatorEvent.REMOVING определяет значение свойства type объекта события removing.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>ViewNavigatorEvent.REMOVING</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>removing</codeph>. Это событие отправляется непосредственно перед заменой одного экрана на другой вследствие действия навигатора. Если для этого события вызывается <codeph>preventDefault()</codeph>, то удаление представления отменяется.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>Тип</codeph></entry><entry>ViewNavigatorEvent.SCREEN_REMOVING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE"><apiName>VIEW_ACTIVATE</apiName><shortdesc>
+      Константа ViewNavigatorEvent.VIEW_ACTIVATE определяет значение свойства type объекта события viewActivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>ViewNavigatorEvent.VIEW_ACTIVATE</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>viewActivate</codeph>. Это событие отправляется при активации компонента.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>Тип</codeph></entry><entry>ViewNavigatorEvent.VIEW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE"><apiName>VIEW_DEACTIVATE</apiName><shortdesc>
+      Константа ViewNavigatorEvent.VIEW_DEACTIVATE определяет значение свойства type объекта события viewDeactivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>ViewNavigatorEvent.VIEW_DEACTIVATE</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>viewDeactivate</codeph>. Это событие отправляется при деактивации компонента.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>Тип</codeph></entry><entry>ViewNavigatorEvent.VIEW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:action"><apiName>action</apiName><shortdesc>
+      Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Действие навигации, подтвержденное навигатором представлений, результатом которого стало событие. Возможные действия: включение и выключение представления.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

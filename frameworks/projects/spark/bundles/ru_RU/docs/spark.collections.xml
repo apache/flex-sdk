@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.collections"><apiName>spark.collections</apiName><apiDetail/><apiClassifier id="spark.collections:Sort"><apiName>Sort</apiName><shortdesc>
+  Предоставляет информацию о сортировке, необходимую для сортировки в существующем представлении (интерфейс ICollectionView или класс, реализующий интерфейс).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.collections:Sort" playerVersion="Flash10.1" type="String">
+<description>
+  Идентификатор локали, который определяет язык, область, сценарий и, дополнительно, другие связанные теги и ключи. Синтаксис этого идентификатора должен соответствовать синтаксису, определенному техническим стандартом Юникод № 35 (например, en-US, de-DE, zh-Hans-CN).
+ 
+  <p>В приложениях для браузера стандартная локаль основана на языковых параметрах браузера. Обратите внимание, что используется не язык интерфейса браузера, который устанавливается в Javascript, а список предпочтительных локалей для веб-страниц, выбранных пользователем в настройках браузера. В приложениях AIR стандартная локаль интерфейса основана на системных установках пользователя.</p>
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sort&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;s:Sort
+  <b>Properties</b>
+  compareFunction="<em>Internal compare function</em>"
+  fields="null"
+  unique="false | true"
+  /&gt;
+  </pre>
+ 
+  <p>In case items have inconsistent data types or items have complex data types, use of default
+  built-in compare functions is not desired. Inconsistent sort result may occur in such cases.
+  To avoid such problem, provide custom compare function and/or make item types consistent.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISort</apiBaseInterface><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Предоставляет информацию, необходимую для сортировки в существующем представлении (интерфейс <codeph>ICollectionView</codeph> или класс, реализующий интерфейс). После назначения экземпляра <codeph>Sort</codeph> свойству представления <codeph>sort</codeph> вызовите метод представления <codeph>refresh()</codeph>, чтобы применить критерии сортировки.
+ 
+  <p>Обычно сортировка определяется для коллекций составных элементов, т.е. для коллекций, в которых сортировка выполняется для одного или более свойств объектов коллекции. В следующем примере показано использование этого свойства:</p>
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     // In the real world, the collection would have more than one item.
+     col.addItem({first:"Anders", last:"Dickerson"});
+ 
+     // Create the Sort instance.
+     var sort:ISort = new Sort();
+ 
+     // Set the sort field; sort on the last name first, first name second.
+     var sortfieldLastName:ISortField = new SortField("last",true);
+     var sortfieldFirstName:ISortField = new SortField("first",true);
+ 
+     // Set the locale style to "en-US" to cause the strings
+     // to be ordered according to the rules for English as used in the USA.
+     sortfieldLastName.setStyle("locale","en-US");
+     sortfieldFirstName.setStyle("locale","en-US");
+     sort.fields = [sortfieldLastName, sortfieldFirstName];
+ 
+     // Assign the Sort object to the view.
+     col.sort = sort;
+ 
+     // Apply the sort to the collection.
+     col.refresh();
+  </codeph></pre>
+ 
+  <p>Возможны ситуации, в которых коллекция содержит простые элементы, подобные <codeph>String</codeph>, <codeph>Date</codeph>, <codeph>Boolean</codeph> и т. д. В этом случае следует применять сортировку непосредственно к простому типу. При создании сортировки для простых элементов следует использовать отдельное поле сортировки и указать (первый) параметр <codeph>name</codeph> как <codeph>null</codeph> в конструкторе объектов SortField. Например:
+  <pre><codeph>
+     import mx.collections.ArrayCollection;
+     import spark.collections.Sort;
+     import spark.collections.SortField;
+ 
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+ 
+     // There is only one sort field, so use a <codeph>null</codeph> 
+     // first parameter. 
+     var sortfield:SortField = new SortField("null",true);
+ 
+     // Set the locale style to "en-US" to set the language for the sort.
+     sortfield.setStyle("locale","en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+     col.refresh();
+  </codeph></pre>
+  </p>
+ 
+  <p>В реализациях Flex интерфейса <codeph>ICollectionView</codeph> все элементы извлекаются из удаленного местоположения перед выполнением сортировки. При использовании подкачки страниц с сортированным списком к удаленной коллекции перед извлечением данных следует применить сортировку.
+  </p>
+ 
+  <p>Сравнение по умолчанию, выполняемое с помощью класса <codeph>SortField</codeph>, обеспечивает правильную языковую сортировку строк. Для выбора языка необходимо установить стиль locale в экземпляре класса одним из следующих способов:
+  </p>
+  <ul>
+  <li>
+  С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+  </li>
+  Пример:
+  <pre>
+  &lt;fx:Declarations> 
+         &lt;s:SortField id="sf" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  С использованием объявления MXML и указанием значения локали в списке назначений.
+  </li>
+  Пример:
+  <pre>
+  &lt;fx:Declarations> 
+      &lt;s:SortField id="sf_SimplifiedChinese" locale="zh-Hans-CN" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  Вызов метода <codeph>setStyle</codeph>, например <codeph>sf.setStyle("locale", "zh-Hans-CN")</codeph>.
+  </li>
+  <li> 
+  Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода <codeph>addStyleClient()</codeph> UIComponent.
+  </li>
+  </ul>
+  
+  </apiDesc><example conref="SortExample1.mxml"><swfblock conref="examples/SortExample1.swf"/></example><example conref="SortExample2.mxml"><swfblock conref="examples/SortExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links><apiConstructor id="spark.collections:Sort:Sort"><apiName>Sort</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      <p>Создает новую сортировку без установленных полей и пользовательского устройства сравнения.</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:Sort:findItem"><apiName>findItem</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>returnInsertionIndex</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>compareFunction</apiItemName><apiType value="Function"/><apiData>null</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:propertyAffectsSort"><apiName>propertyAffectsSort</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:reverse"><apiName>reverse</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:sort"><apiName>sort</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:Sort:ANY_INDEX_MODE"><apiName>ANY_INDEX_MODE</apiName><shortdesc>
+      При нахождении возвращает индекс любого соответствующего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>any</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      При нахождении возвращает индекс любого соответствующего элемента.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:FIRST_INDEX_MODE"><apiName>FIRST_INDEX_MODE</apiName><shortdesc>
+      При выполнении поиска возвращает индекс первого совпадающего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      При выполнении поиска возвращает индекс первого совпадающего элемента.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:LAST_INDEX_MODE"><apiName>LAST_INDEX_MODE</apiName><shortdesc>
+      При выполнении поиска возвращает индекс последнего совпадающего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      При выполнении поиска возвращает индекс последнего совпадающего элемента.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:Sort:fields:get"><apiName>fields</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="fieldsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="spark.collections.xml#SortField"><linktext>SortField</linktext></link></related-links></apiValue><apiValue id="spark.collections:Sort:unique:get"><apiName>unique</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier><apiClassifier id="spark.collections:NumericDataProvider"><apiName>NumericDataProvider</apiName><shortdesc>
+  Этот класс IList создает элементы, представляющие собой последовательные серии чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IList</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс IList создает элементы, представляющие собой последовательные серии чисел. Диапазон чисел между свойствами <codeph>minimum</codeph> и <codeph>maximum</codeph>. Свойство <codeph>stepSize</codeph> определяет разницу между данным элементом и следующим элементом.
+ 
+ <p/>
+ <pre>
+ &lt;s:SpinnerList>
+   &lt;s:dataProvider>
+     &lt;s:NumericDataProvider minimum="0" maximum="23" stepSize="1"/>
+   &lt;/s:dataProvider>
+ &lt;/s:SpinnerList> 
+ </pre>
+ 
+  <p>Преимущество этого класса состоит в том, что значения элементов вычисляются по требованию без необходимости сохранять их заранее.</p>
+ 
+  <p><codeph/><codeph/><codeph/><codeph/><codeph/><codeph/></p>
+    
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.SpinnerList.xml"><linktext>spark.components.SpinnerList</linktext></link><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links><apiConstructor id="spark.collections:NumericDataProvider:NumericDataProvider"><apiName>NumericDataProvider</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:NumericDataProvider:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+      Функция не поддерживается..</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:addItem"><apiName>addItem</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:NumericDataProvider:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:NumericDataProvider:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:removeAll"><apiName>removeAll</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:toArray"><apiName>toArray</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:NumericDataProvider:length:get"><apiName>length</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:NumericDataProvider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      Значение последнего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение последнего элемента. Это значение должно превышать минимальное значение. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:NumericDataProvider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      Значение первого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение первого элемента. Это значение должно быть меньше, чем минимальное значение. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:NumericDataProvider:stepSize:get"><apiName>stepSize</apiName><shortdesc>
+      Свойство stepSize управляет значениями элементов, находящихся между первым и последним элементами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Свойство stepSize управляет значениями элементов, находящихся между первым и последним элементами. Значение для каждого элемента вычисляется как сумма значения <codeph>minimum</codeph> и индекса элемента, умноженного на значение этого свойства. 
+     
+      <p>Например, если <codeph>minimum</codeph> равно 10, <codeph>maximum</codeph> – 20 и это свойство равно 3, то значениями элементов этого поставщика данных будут 10, 13, 16, 19 и 20.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.collections:SortField"><apiName>SortField</apiName><shortdesc>
+  Обеспечивает информацию о сортировке, необходимую для выполнения сортировки по полю или свойству в представлении коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.collections:SortField" playerVersion="Flash10.1" type="String">
+<description>
+  Идентификатор локали, который определяет язык, область, сценарий и, дополнительно, другие связанные теги и ключи. Синтаксис этого идентификатора должен соответствовать синтаксису, определенному техническим стандартом Юникод № 35 (например, en-US, de-DE, zh-Hans-CN).
+ 
+  <p>В приложениях для браузера стандартная локаль основана на языковых параметрах браузера. Обратите внимание, что используется не язык интерфейса браузера, который устанавливается в Javascript, а список предпочтительных локалей для веб-страниц, выбранных пользователем в настройках браузера. В приложениях AIR стандартная локаль интерфейса основана на системных установках пользователя.</p>
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:SortField&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;s:SortField
+  <b>Properties</b>
+  compareFunction="<em>Internal compare function</em>"
+  descending="false"
+  name="null"
+  numeric="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISortField</apiBaseInterface><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Обеспечивает информацию о сортировке, необходимую для выполнения сортировки по полю или свойству в представлении коллекции. Класс SortField предназначен для использования с классом Sort. Обычно сортировка определяется для коллекций сложных элементов, т. е. для элементов, в которых она выполняется по свойствам этих объектов. Например:
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem({first:"Anders", last:"Dickerson"});
+     var sort:Sort = new Sort();
+     var sortfield:SortField = new SortField("first", true);
+     sortfield.setStyle("locale", "en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  Возможны ситуации, в которых коллекция содержит простые элементы, подобные <codeph>String</codeph>, <codeph>Date</codeph>, <codeph>Boolean</codeph> и т. д. В этом случае сортировка должна применяться непосредственно к простому типу. При построении сортировки в этой ситуации необходимо наличие отдельного поля сортировки, не имеющего указанного <codeph>name</codeph>. Например:
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+     var sortfield:SortField = new SortField(null, true);
+     sortfield.setStyle("locale", "en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  <p>Сравнение по умолчанию, выполняемое с помощью класса <codeph>SortField</codeph>, обеспечивает правильную языковую сортировку строк. Для выбора языка необходимо установить стиль locale в экземпляре класса одним из следующих способов:
+  </p>
+  <ul>
+  <li>
+  С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+  </li>
+  Пример:
+  <pre>
+  &lt;fx:Declarations> 
+         &lt;s:SortField id="sf" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  С использованием объявления MXML и указанием значения локали в списке назначений.
+  </li>
+  Пример:
+  <pre>
+  &lt;fx:Declarations> 
+      &lt;s:SortField id="sf_SimplifiedChinese" locale="zh-Hans-CN" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  Вызов метода <codeph>setStyle</codeph>, например <codeph>sf.setStyle("locale", "zh-Hans-CN")</codeph>.
+  </li>
+  <li> 
+  Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода <codeph>addStyleClient()</codeph> UIComponent.
+  </li>
+  </ul>
+  
+  </apiDesc><example conref="SortExample1.mxml"><swfblock conref="examples/SortExample1.swf"/></example><example conref="SortExample2.mxml"><swfblock conref="examples/SortExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="spark.collections.xml#Sort"><linktext>spark.collections.Sort</linktext></link></related-links><apiConstructor id="spark.collections:SortField:SortField"><apiName>SortField</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя свойства, используемое этим полем для сравнения. Если объект относится к простому типу, следует передать <codeph>null</codeph>.
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Сообщает устройству сравнения, следует ли разместить элементы в порядке убывания.
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Сообщает средству сравнения, следует ли сравнивать элементы сортировки как числовом порядке вместо алфавитного порядка.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:SortField:initializeDefaultCompareFunction"><apiName>initializeDefaultCompareFunction</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:SortField:reverse"><apiName>reverse</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:SortField:arraySortOnOptions:get"><apiName>arraySortOnOptions</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      Функция, сравнивающая два элемента при сортировке элементов для связанной коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция, сравнивающая два элемента при сортировке элементов для связанной коллекции. Если указано свойство <codeph>compareFunction</codeph> в объекте <codeph>ISort</codeph>, Flex игнорирует любые свойства <codeph>compareFunction</codeph> в объектах <codeph>SortField</codeph> в ISort.
+     
+      <p>Функция сравнения должна иметь следующую подпись:</p>
+     
+      <p><codeph>функция myCompare(a:Object, b:Object):int</codeph></p>
+     
+      <p>Эта функция должна возвращать следующие значения:</p>
+     
+       <ul>
+            <li>-1, если в отсортированной последовательности <codeph>объект А</codeph> должен предшествовать <codeph>объекту B</codeph>.</li>
+            <li>0, если <codeph>объект А</codeph> совпадает с <codeph>объектом B</codeph>.</li>
+            <li>1, если в отсортированной последовательности <codeph>объект А</codeph> должен следовать за <codeph>объектом B</codeph>. </li>
+      </ul>
+     
+      <p>Значение по умолчанию представляет собой внутреннюю функцию сравнения, которая может выполнять сравнение строк, чисел или дат в восходящем или нисходящем порядке. Для сравнения строк используется специальный метод сравнения локали (язык, регион и сценарий) в классе <codeph>SortingCollator</codeph>. Этот класс использует стиль locale для определения локали. Собственную функцию следует указывать только в том случае, если необходим пользовательский алгоритм сравнения. Обычно он применяется только в том только случае, если в отображении используется вычисленное поле.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:SortField:descending:get"><apiName>descending</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="descendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:name:get"><apiName>name</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nameChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="numericChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:usingCustomCompareFunction:get"><apiName>usingCustomCompareFunction</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><compareFunction>
+     
+      </compareFunction></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href=""><linktext/></link></related-links></apiValue></apiClassifier></apiPackage>

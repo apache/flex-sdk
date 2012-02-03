@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:ColorUtil"><apiName>ColorUtil</apiName><shortdesc>
+  ColorUtil 类是一个全静态类，其方法用于处理 Flex 内的 RGB 颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorUtil 类是一个全静态类，其方法用于处理 Flex 内的 RGB 颜色。不创建 ColorUtil 的实例；只是调用如 <codeph>ColorUtil.adjustBrightness()</codeph> 之类的静态方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ColorUtil:adjustBrightness2"><apiName>adjustBrightness2</apiName><shortdesc>
+	  执行 RGB 颜色的按比例亮度调整。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新的 RGB 颜色。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>原始 RGB 颜色。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>将原始颜色调亮或调暗的百分比。如果为正，原始颜色将按该百分比向白色调亮。如果为负，原始颜色将按该百分比向黑色调暗。此参数的范围为 -100 到 100；-100　生成黑色，100 生成白色。如果此参数为 0，则返回的　RGB 颜色与原始颜色相同。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  执行 RGB 颜色的按比例亮度调整。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:adjustBrightness"><apiName>adjustBrightness</apiName><shortdesc>
+	  执行 RGB 颜色的线性亮度调整。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新的 RGB 颜色。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>原始 RGB 颜色。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>要添加到每个颜色通道的量。此参数的范围为 -255 到 255；-255　生成黑色，255 生成白色。如果此参数为 0，则返回的　RGB 颜色与原始颜色相同。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  执行 RGB 颜色的线性亮度调整。
+	 
+	  <p>向 RGB 颜色的红色、绿色和蓝色通道添加相同的量。每个颜色通道的范围限制为 0 到 255。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:rgbMultiply"><apiName>rgbMultiply</apiName><shortdesc>
+	  执行两个 RGB 颜色的 RGB 乘法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>两个颜色的 RGB 乘法。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb1</apiItemName><apiType value="uint"/><apiDesc>第一个 RGB 颜色。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rgb2</apiItemName><apiType value="uint"/><apiDesc>第二个 RGB 颜色。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  执行两个 RGB 颜色的 RGB 乘法。
+	  
+	  <p>这样总是产生比两个原始颜色更暗的数字，除非其中一个为白色，此时将返回另一个颜色。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SecurityUtil"><apiName>SecurityUtil</apiName><shortdesc>
+  用于处理安全相关问题的实用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于处理安全相关问题的实用程序。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SecurityUtil:hasMutualTrustBetweenParentAndChild"><apiName>hasMutualTrustBetweenParentAndChild</apiName><shortdesc>
+	  测试指定桥的父级和子级之间是否互相信任。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果互相信任，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bp</apiItemName><apiOperationClassifier>mx.core:ISWFBridgeProvider</apiOperationClassifier><apiDesc>连接两个应用程序的桥的提供者。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  测试指定桥的父级和子级之间是否互相信任。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:UIDUtil"><apiName>UIDUtil</apiName><shortdesc>
+  UIDUtil 类是一个全静态类，其方法用于处理 Flex 内的 UID（唯一标识符）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIDUtil 类是一个全静态类，其方法用于处理 Flex 内的 UID（唯一标识符）。不创建 UIDUtil 的实例；只是调用如 <codeph>UIDUtil.createUID()</codeph> 之类的静态方法。
+ 
+  <p><b>注意</b>：如果有动态对象没有 [Bindable] 属性（强制对象实现 IUID 接口），Flex 将向该对象添加包含 UID 的 <codeph>mx_internal_uid</codeph> 属性。要避免动态对象具有此字段，应使其 [Bindable]，在对象类中实现 IUID 接口，或用值设置  <coded>uid</coded>  属性。</p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:UIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新生成的 UID。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。
+     
+      <p>UID 的格式为 <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph>，其中 X 是一个十六进制数字 (0-9, A-F)。</p>
+     
+      <p>该 UID 不会是真正全局唯一，但这是在没有播放器支持的情况下生成 UID 的最佳方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID 的字符串表示形式；如果提供的 ByteArray 无效，则为 null。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。该格式与通过 createUID 生成的格式匹配。如果未提供合适的 ByteArray，则返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:getUID"><apiName>getUID</apiName><shortdesc>
+      返回指定对象的 UID（唯一标识符）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>找到或生成的 UID。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>需要查找其 UID 的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定对象的 UID（唯一标识符）。如果指定的对象没有 UID，该方法将为其分配一个 UID。如果指定了映射，该方法将使用此映射来构造 UID。作为特殊情况，如果传入的项为 null，则该方法将返回一个 null UID。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果该值为 UID 格式，则返回 true。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>测试其是否为 UID 格式的值。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。UID 值应采用 createUID() 所生成的格式，这意味着只支持大写字符 A-F 和数字 0-9。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     将 UID 格式的字符串转换为 ByteArray。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray；如果 uid 无法转换则为 null。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>表示 128 位 UID
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 UID 格式的字符串转换为 ByteArray。UID 必须采用 createUID 所生成的格式，否则将返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:IXMLNotifiable"><apiName>IXMLNotifiable</apiName><shortdesc>
+  IXMLNotifiable 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IXMLNotifiable 接口。
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.utils:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+     对于分派事件但期望侦听器不常用的类，OnDemandEventDispatcher 用作其基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+     对于分派事件但期望侦听器不常用的类，OnDemandEventDispatcher 用作其基类。如果某个类扩展的是 OnDemandEventDispatcher 而不是标准的 EventDispatcher，则由于仅那些实际上附加有侦听器的实例的开销会稍微增大，从而将稍微降低每个单一实例上的开销。
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OnDemandEventDispatcher:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+         构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         构造函数。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OnDemandEventDispatcher:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation></apiClassifier><apiClassifier id="mx.utils:LoaderUtil"><apiName>LoaderUtil</apiName><shortdesc>
+    LoaderUtil 类定义 Flex RSL 和通用 Loader 实例所使用的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+    LoaderUtil 类定义 Flex RSL 和通用 Loader 实例所使用的实用程序方法。
+    
+    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:LoaderUtil:normalizeURL"><apiName>normalizeURL</apiName><shortdesc>
+      跨域 RSL 的根 URL 包含附加到 URL 末尾的特殊文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>标准 <codeph>LoaderInfo.url</codeph> 属性。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>loaderInfo</apiItemName><apiType value="flash.display:LoaderInfo"/><apiDesc>LoaderInfo 实例。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      跨域 RSL 的根 URL 包含附加到 URL 末尾的特殊文本。该方法对在指定 LoaderInfo 实例中指定的 URL 进行标准化，以删除附加文本（如果存在）。访问 <codeph>LoaderInfo.url</codeph> 的类应调用该方法，以便在使用 URL 之前对其进行标准化。此方法还通过对 URL 调用 encodeURI() 方法来进行编码。如果希望使用未编码的 URL，则必须对结果调用 unencodeURI()。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+  表示双重链接列表节点的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示双重链接列表节点的类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedListNode:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+      构造函数
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>null</apiData><apiDesc>与此节点关联的通用值。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.utils:LinkedListNode:next"><apiName>next</apiName><shortdesc>
+      对相邻“next”节点的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      对相邻“next”节点的引用。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:prev"><apiName>prev</apiName><shortdesc>
+      对相邻“prev”节点的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      对相邻“prev”节点的引用。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:value"><apiName>value</apiName><shortdesc>
+      与此节点关联的通用值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      与此节点关联的通用值。
+         
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectUtil"><apiName>ObjectUtil</apiName><shortdesc>
+  ObjectUtil 类是一个全静态类，其方法用于处理 Flex 内的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ObjectUtil 类是一个全静态类，其方法用于处理 Flex 内的对象。不创建 ObjectUtil 的实例；只是调用如 <codeph>ObjectUtil.isSimple()</codeph> 之类的静态方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ObjectUtil:clone"><apiName>clone</apiName><shortdesc>
+      克隆指定对象，并返回对该克隆的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定对象的克隆。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>应克隆的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      克隆指定对象，并返回对该克隆的引用。该克隆使用本机序列化技术生成。这意味着在克隆过程中将遵循该自定义的序列化。clone() 与 copy() 的不同之处在于，每个对象实例的 uid 属性会被保留。
+     
+      <p>该方法用于克隆数据对象，如集合的元素。不能用于克隆 UIComponent 对象，如 TextInput 控件。如果希望克隆特定的 UIComponent 对象，则可以创建该组件的一个子类，并实现 <codeph>clone()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:compare"><apiName>compare</apiName><shortdesc>
+      比较这些对象并返回一个整数值，指示第一项小于、大于还是等于第二项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 a 和 b 为 null、NaN 或相等，则返回 0。如果 a 为 null 或大于 b，则返回 1。如果 b 为 null 或大于 a，则返回 -1。 
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Object"/><apiDesc>object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Object"/><apiDesc>object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>depth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>指示在进行比较时应递归的层数。对于仅比较每个属性的原始表示形式的浅层比较，将该值设为 0。例如：<pre>
+      var a:Object = {name:"Bob", info:[1,2,3]};
+      var b:Object = {name:"Alice", info:[5,6,7]};
+      var c:int = ObjectUtil.compare(a, b, 0);</pre>
+     
+      <p>在上例中， 当进行比较时，<codeph>a</codeph> 和 <codeph>b</codeph> 的复杂属性将通过调用 <codeph>toString()</codeph> 被扁平化。在本例中，当执行比较时，<codeph>info</codeph> 属性将被转换为一个字符串。</p>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      比较这些对象并返回一个整数值，指示第一项小于、大于还是等于第二项。该方法将以递归方式比较嵌套对象上的属性，并在发现非零结果后立即返回。默认情况下，该方法将递归到任何属性的最深层。要更改比较的深度，可为 <codeph>depth</codeph> 参数指定非负值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:copy"><apiName>copy</apiName><shortdesc>
+      复制指定对象并返回对该副本的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定对象的副本。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>应复制的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      复制指定对象并返回对该副本的引用。该副本使用本机序列化技术生成。这意味着在复制过程中将遵循该自定义的序列化。
+     
+      <p>该方法设计用于复制数据对象，如集合的元素。不能用于复制 UIComponent 对象，如 TextInput 控件。如果要创建特定 UIComponent 对象的副本，可创建该组件的子类并实现 <codeph>clone()</codeph> 方法，或执行复制的其他方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:dateCompare"><apiName>dateCompare</apiName><shortdesc>
+      比较两个 Date 对象并返回一个整数值，指示第一个 Date 对象是在第二个 Date 对象之前、相等还是之后。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 <codeph>a</codeph> 和 <codeph>b</codeph> 相等（或者同为 <codeph>null</codeph>）则为 0；如果 <codeph>a</codeph> 在 <codeph>b</codeph> 之前（或者 <codeph>b</codeph> 为 <codeph>null</codeph>）则为 -1；如果 <codeph>a</codeph> 在 <codeph>b</codeph> 之后（或者 <codeph>a</codeph> 为 <codeph>null</codeph>）则为 1。     
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Date"/><apiDesc>Date 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Date"/><apiDesc>Date 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      比较两个 Date 对象并返回一个整数值，指示第一个 Date 对象是在第二个 Date 对象之前、相等还是之后。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      返回指定对象的关于该类以及该类的属性的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>对象包含下列属性：
+      <ul>
+        <li><codeph>name</codeph>：包含类的名称的字符串。</li>
+        <li><codeph>properties</codeph>：所指定对象的属性名称的经过排序的列表，或对原始键的引用（如果指定的对象为 Dictionary）。各个数组元素都是 QName 实例，这种实例同时包含属性的本地名称以及 URI。</li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>要检查的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>指定应从返回结果中排除的属性名称的字符串数组。例如，可以指定 Event 对象的 <codeph>["currentTarget", "target"]</codeph>，因为这些属性可导致返回结果变大。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该对象包含一个或多个属性，控制由该方法返回的信息。这些属性包括：
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph>：如果为 <codeph>false</codeph>，则排除只读对象属性。默认值为 <codeph>true</codeph>。</li>
+      <li><codeph>includeTransient</codeph>：如果为 <codeph>false</codeph>，则排除具有 <codeph>[Transient]</codeph> 元数据的对象属性和变量。默认值为 <codeph>true</codeph>。</li>
+      <li><codeph>uris</codeph>：输出中要包括的所有命名空间的字符串数组。允许使用“~~”通配符。默认情况下为 null，表示没有应包括的命名空间。例如，可指定 <codeph>["mx_internal", "mx_object"]</codeph> 或 <codeph>["~~"]</codeph>。</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定对象的关于该类以及该类的属性的信息。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:hasMetadata"><apiName>hasMetadata</apiName><shortdesc>
+     使用 getClassInfo 并检查元数据信息以确定给定对象上的属性是否具有指定的元数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果属性具有指定的元数据，则为 true。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>包含该属性的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>propName</apiItemName><apiType value="String"/><apiDesc>要检查元数据的属性。
+     </apiDesc></apiParam><apiParam><apiItemName>metadataName</apiItemName><apiType value="String"/><apiDesc>要在属性上检查的元数据的名称。
+     </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>在生成类信息时是否需排除一些属性。(可选)
+     </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>在生成类信息时是否需更改一些选项标志。(可选)
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     使用 <codeph>getClassInfo</codeph> 并检查元数据信息以确定给定对象上的属性是否具有指定的元数据。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isDynamicObject"><apiName>isDynamicObject</apiName><shortdesc>
+      如果对象是一个动态类的实例，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果对象是一个动态类的实例，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果对象是一个动态类的实例，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isSimple"><apiName>isSimple</apiName><shortdesc>
+      如果指定的对象引用为简单数据类型，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的对象为以上类型之一，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>检查的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的对象引用为简单数据类型，则返回 <codeph>true</codeph>。简单数据类型包括以下类型：
+      <ul>
+        <li><codeph>String</codeph></li>
+        <li><codeph>Number</codeph></li>
+        <li><codeph>uint</codeph></li>
+        <li><codeph>int</codeph></li>
+        <li><codeph>Boolean</codeph></li>
+        <li><codeph>Date</codeph></li>
+        <li><codeph>Array</codeph></li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:numericCompare"><apiName>numericCompare</apiName><shortdesc>
+      比较两个数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果两者都为 NaN，则为 0。如果只有 <codeph>a</codeph> 为 NaN，则为 1。如果只有 <codeph>b</codeph> 为 NaN，则为 -1。如果 <codeph>a</codeph> 小于 <codeph>b</codeph>，则为 -1。如果 <codeph>a</codeph> 大于 <codeph>b</codeph>，则为 1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiDesc>第一个数字。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>第二个数字。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      比较两个数值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:stringCompare"><apiName>stringCompare</apiName><shortdesc>
+      比较两个字符串值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果两个字符串都为 null，则为 0。如果只有 <codeph>a</codeph> 为 null，则为 1。如果只有 <codeph>b</codeph> 为 null，则为 -1。如果 <codeph>a</codeph> 在 <codeph>b</codeph> 之前，则为 -1。如果 <codeph>b</codeph> 在 <codeph>a</codeph> 之前，则为 1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="String"/><apiDesc>第一个字符串值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="String"/><apiDesc>第二个字符串值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定执行不区分大小写的比较,为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      比较两个字符串值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      将指定的对象代码美化为一个字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含指定对象格式化版本的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要美化打印的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>输出中要包括的属性的命名空间 URI　数组。默认情况下，输出中仅包括公共命名空间中的属性。要获取不考虑命名空间的所有属性，传递仅有单个元素 "*" 的数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>应从输出中排除的属性名称的数组。使用它从格式化的字符串中删除数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的对象代码美化为一个字符串。所有属性将按字母排序。打印过程中将为每个对象分配一个 ID；该值将在对象类型标记的旁边显示，前面带有“#”号，例如：
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>此 ID 用于指示 circular 引用发生的时间。<codeph>Class</codeph>　类型的对象属性将仅显示为分配的类型。例如如下所示的自定义的定义：</p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p>为 <codeph>clazz</codeph> 属性分配<codeph>Date</codeph> 的显示如下：</p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+     
+     // example 3 with Dictionary
+     var point:Point = new Point(100, 100);
+     var point2:Point = new Point(100, 100);
+     var obj:Dictionary = new Dictionary();
+     obj[point] = "point";
+     obj[point2] = "point2";
+     obj["1"] = { name: "one", num: 1};
+     obj["two"] = { name: "2", num: 2};
+     obj[3] = 3;
+     trace(ObjectUtil.toString(obj));
+     
+     // will output to flashlog.txt
+     (flash.utils::Dictionary)#0
+       {(flash.geom::Point)#1
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point2"
+       {(flash.geom::Point)#2
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point"
+       {1} = (Object)#3
+         name = "one"
+         num = 1
+       {3} = 3
+       {"two"} = (Object)#4
+         name = "2"
+         num = 2
+     
+     </pre>
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLUtil"><apiName>XMLUtil</apiName><shortdesc>
+  XMLUtil 类是一个全静态类，其方法用于处理 Flex 内的 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  XMLUtil 类是一个全静态类，其方法用于处理 Flex 内的 XML。不创建 XMLUtil 的实例；只是调用如 <codeph>XMLUtil.qnamesEqual()</codeph> 之类的静态方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:XMLUtil:createXMLDocument"><apiName>createXMLDocument</apiName><shortdesc>
+      从指定的字符串中创建 XML，忽略空格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>忽略空格的新 XML 对象。
+      
+      </apiDesc><apiType value="flash.xml:XMLDocument"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>XML 字符串。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从指定的字符串中创建 XML，忽略空格。此方法用于创建在 <codeph>&lt;mx:XML></codeph> 标签中定义的对象和 WebService 请求，尽管它们又会获取该结构的 <codeph>firstChild</codeph>。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:getAttributeByQName"><apiName>getAttributeByQName</apiName><shortdesc>
+    返回与给定 QName 匹配的属性的 XML 值。
+    
+    </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>匹配属性的 XMLList；如果未找到，则返回一个空列表。
+     
+     </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiDesc>检查的 XML 对象。
+    </apiDesc></apiParam><apiParam><apiItemName>attrQName</apiItemName><apiType value="QName"/><apiDesc>要查找的属性的 QName。
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    返回与给定 QName 匹配的属性的 XML 值。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnameToString"><apiName>qnameToString</apiName><shortdesc>
+	  返回 Qname 对象的 uri 和 localName 属性的串联，由冒号分隔。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Qname 对象的 <codeph>uri</codeph> 和 <codeph>localName</codeph> 属性的串联，由冒号分隔。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>QName 对象。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  返回 Qname 对象的 <codeph>uri</codeph> 和 <codeph>localName</codeph> 属性的串联，由冒号分隔。如果该对象没有 <codeph>uri</codeph> 属性或 <codeph>uri</codeph> 的值为空字符串，则返回 <codeph>localName</codeph> 属性。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnamesEqual"><apiName>qnamesEqual</apiName><shortdesc>
+	  如果两个 QName 参数具有相同的 uri 和 localName 属性，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果两个 QName 参数具有相同的 <codeph>uri</codeph> 和 <codeph>localName</codeph> 属性，则返回 <codeph>true</codeph>。
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>qname1</apiItemName><apiType value="QName"/><apiDesc>第一个 QName 对象。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>qname2</apiItemName><apiType value="QName"/><apiDesc>第二个 QName 对象。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  如果两个 QName 参数具有相同的 <codeph>uri</codeph> 和 <codeph>localName</codeph> 属性，则返回 <codeph>true</codeph>。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SHA256"><apiName>SHA256</apiName><shortdesc>
+     SHA-256 哈希算法的实现，如 http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf 中的 Federal Information Processing Standards Publication 180-2 所述。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+     SHA-256 哈希算法的实现，如 http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf 中的 Federal Information Processing Standards Publication 180-2 所述。
+      
+      </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SHA256:computeDigest"><apiName>computeDigest</apiName><shortdesc>
+        使用 SHA-256 哈希算法计算消息摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>- 消息，不可为 null。返回字符串 － 摘要的 64 字符十六进制表示形式。
+        
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+        使用 SHA-256 哈希算法计算消息摘要。
+        
+        </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:SHA256:TYPE_ID"><apiName>TYPE_ID</apiName><shortdesc>
+         标识该哈希为“SHA-256”类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SHA-256</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         标识该哈希为“SHA-256”类型。
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+  提供通用双重链接列表实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供通用双重链接列表实现。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedList:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:LinkedList:find"><apiName>find</apiName><shortdesc>
+      在所有节点中搜索给定值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点位置。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要查找的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在所有节点中搜索给定值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertAfter"><apiName>insertAfter</apiName><shortdesc>
+      在以前的现有节点之后插入新节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新节点。
+     
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要插入的值。如果值不是 LinkedListNode，将创建一个。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prev</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>插入时要相对的上一节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在以前的现有节点之后插入新节点。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertBefore"><apiName>insertBefore</apiName><shortdesc>
+      在以前的现有节点之前插入新节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新节点。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要插入的值。如果值不是 LinkedListNode，将创建一个。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>插入时要相对的节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在以前的现有节点之前插入新节点。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:pop"><apiName>pop</apiName><shortdesc>
+      删除列表末尾的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>删除的节点。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      删除列表末尾的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:push"><apiName>push</apiName><shortdesc>
+      将新节点推到列表末尾。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新追加的节点。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要追加的值。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将新节点推到列表末尾。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:remove"><apiName>remove</apiName><shortdesc>
+      在所有节点中搜索给定值，如果找到，将其从列表中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>删除的节点，否则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要查找和删除的值。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在所有节点中搜索给定值，如果找到，将其从列表中删除。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:shift"><apiName>shift</apiName><shortdesc>
+      删除列表开头的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>删除的节点。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      删除列表开头的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:unshift"><apiName>unshift</apiName><shortdesc>
+      将新节点推到列表开头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新追加的节点。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要追加的值。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将新节点推到列表开头。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:LinkedList:head:get"><apiName>head</apiName><shortdesc>
+      表示列表开头的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      表示列表开头的节点。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:length:get"><apiName>length</apiName><shortdesc>
+      返回列表的长度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      返回列表的长度。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:tail:get"><apiName>tail</apiName><shortdesc>
+      表示列表末尾的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      表示列表末尾的节点。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+  OrderedObject 用作 Object 的包装器，以保持属性添加时的顺序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OrderedObject 用作 Object 的包装器，以保持属性添加时的顺序。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OrderedObject:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含名称/值对的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OrderedObject:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      返回具有指定名称的代理对象的方法值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>所调用方法的返回值。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>正被调用的方法的名称。
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>一个数组，指定所调用方法的参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回具有指定名称的代理对象的方法值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      删除代理对象的指定属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>指示是否删除属性的布尔值。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除代理对象的指定属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      返回代理对象的指定属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的值。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回代理对象的指定属性值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>如果此属性存在，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>属性名称，应测试其是否存在。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的名称。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>对象属性从 0 开始的索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的值。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>对象属性从 0 开始的索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      更新代理对象的指定属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>包含属性名称的对象，该属性应在代理对象上更新。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>代理对象上应设置的值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更新代理对象的指定属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:OrderedObject:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      包含代理对象的所有属性名称的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含代理对象的所有属性名称的列表。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+  该类提供跟踪对此代理管理的项目进行的更改的功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.utils:IExternalizable</apiBaseInterface><apiBaseInterface>mx.core:IPropertyChangeNotifier</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类提供跟踪对此代理管理的项目进行的更改的功能。任何数量的对象都可使用 <codeph>addEventListener()</codeph> 方法“侦听”对此对象的更改。
+ 
+  </apiDesc><example>
+  <pre>
+  import mx.events.PropertyChangeEvent;
+  import mx.utils.ObjectUtil;
+  import mx.utils.ObjectProxy;
+  import mx.utils.StringUtil;
+ 
+  var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+  var p:ObjectProxy = new ObjectProxy(a);
+  p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+  p.name = "Jacey";
+  p.age = 2;
+  delete p.ssnum;
+ 
+  // handler function
+  function updateHandler(event:ChangeEvent):void
+  {
+      trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                     event.kind,
+                                     event.property,
+                                     event.oldValue,
+                                     event.newValue,
+                                     event.target.object_proxy::UUID));
+  }
+ 
+  // The trace output appears as:
+  // updateHandler('opUpdate', name, Tyler, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opUpdate', age, 5, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opDelete', ssnum, 555-55-5555, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  </pre>
+  
+  </example></apiClassifierDetail><apiConstructor id="mx.utils:ObjectProxy:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+      使用指定的对象、ID 和代理深度初始化该代理。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要代理的对象。如果未指定项目，将构造并分配一个匿名对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>包含该对象实例唯一 ID 的字符串。由于每个对象都必须提供标识自身的唯一方式，因此对于遵从 IPropertyChangeNotifier 是必需的。如果未指定值，将分配一个随机 ID。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>proxyDepth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>一个整数，指示属性访问期间应在复杂对象图形中的多少层创建代理。默认值为 -1，表示“代理到无限深度”。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的对象、ID 和代理深度初始化该代理。
+     
+      </apiDesc><example>
+     
+      <pre>
+      import mx.events.PropertyChangeEvent;
+      import mx.utils.ObjectUtil;
+      import mx.utils.ObjectProxy;
+      import mx.utils.StringUtil;
+     
+      var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+      var p:ObjectProxy = new ObjectProxy(a);
+      p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+      p.name = "Jacey";
+      p.age = 2;
+      delete p.ssnum;
+     
+      // handler function
+      function updateHandler(event:PropertyChangeEvent):void
+      {
+          trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                         event.kind,
+                                         event.property,
+                                         event.oldValue,
+                                         event.newValue,
+                                         event.target.uid));
+      }
+     
+      // trace output
+      updateHandler('opUpdate', name, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opUpdate', age, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opDelete', ssnum, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:ObjectProxy:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+      注册事件侦听器对象，以便侦听器能够接收事件通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>处理事件的侦听器函数。此函数必须接受 Event 对象作为其唯一的参数并且不能返回任何结果。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定侦听器是运行于捕获阶段还是运行于目标和冒泡阶段。如果将 <codeph>useCapture</codeph> 设置为 <codeph>true</codeph>，则侦听器只在捕获阶段处理事件，而不在目标或冒泡阶段处理事件。如果 <codeph>useCapture</codeph> 为 <codeph>false</codeph>，则侦听器只在目标或冒泡阶段处理事件。要在所有三个阶段都侦听事件，请调用 <codeph>addEventListener</codeph> 两次：一次将 <codeph>useCapture</codeph> 设置为 <codeph>true</codeph>，一次将 <codeph>useCapture</codeph> 设置为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>事件侦听器的优先级。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定对侦听器的引用是强引用，还是弱引用。强引用（默认值）可防止您的侦听器被当作垃圾回收。弱引用则没有此作用。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      注册事件侦听器对象，以便侦听器能够接收事件通知。有关详细信息（包括参数的说明），请参阅 flash.events.EventDispatcher 类中的 <codeph>addEventListener()</codeph>。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/addEventListener()"><linktext>flash.events.EventDispatcher.addEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      返回具有指定名称的代理对象的方法值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>所调用方法的返回值。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>正被调用的方法的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>一个数组，指定所调用方法的参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回具有指定名称的代理对象的方法值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      删除代理对象上的指定属性并向处理函数发送删除通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>指示是否删除属性的布尔值。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除代理对象上的指定属性并向处理函数发送删除通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      将事件调度到事件流中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功分派了事件，则返回 <codeph>true</codeph>。值 <codeph>false</codeph> 表示失败或对事件调用了 <codeph>preventDefault()</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>调度到事件流中的 Event 对象。如果正在重新调度事件，则会自动创建此事件的一个克隆。  在分派了事件后，其 target 属性将无法更改，因此您必须创建此事件的一个新副本以能够重新分派。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将事件调度到事件流中。有关详细信息，请参阅 flash.events.EventDispatcher 类。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/dispatchEvent()"><linktext>flash.events.EventDispatcher.dispatchEvent()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:object_proxy:getComplexProperty"><apiName>getComplexProperty</apiName><shortdesc>
+      为子类提供一个位置，以覆盖对复杂属性（该属性需要代理或菊花链用于事件浮升）的管理方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="object_proxy"/><apiReturn><apiDesc>属性值或 <codeph>ObjectProxy</codeph> 实例。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为子类提供一个位置，以覆盖对复杂属性（该属性需要代理或菊花链用于事件浮升）的管理方式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      返回代理对象的指定属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的值。在某些实例中，该值可能为一个 <codeph>ObjectProxy</codeph> 实例。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回代理对象的指定属性值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+      检查是否为特定事件类型注册了任何事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果注册了指定类型的侦听器，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检查是否为特定事件类型注册了任何事件侦听器。这样，您就可以确定对象在事件流层次结构中的哪个位置改变了对事件类型的处理。有关详细信息，请参阅 flash.events.EventDispatcher 类。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/hasEventListener()"><linktext>flash.events.EventDispatcher.hasEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:propertyChangeHandler"><apiName>propertyChangeHandler</apiName><shortdesc>
+      在更新复杂属性时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:PropertyChangeEvent</apiOperationClassifier><apiDesc>已更改的事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在更新复杂属性时调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:readExternal"><apiName>readExternal</apiName><shortdesc>
+      由于 Flex 仅使用 ObjectProxy 来包装匿名对象，因此服务器 flex.messaging.io.ObjectProxy 实例将自身序列化为将作为无格式 ActionScript 对象返回的映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>input</apiItemName><apiType value="flash.utils:IDataInput"/><apiDesc>从中对 ObjectProxy 进行反序列化的源对象。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      由于 Flex 仅使用 ObjectProxy 来包装匿名对象，因此服务器 flex.messaging.io.ObjectProxy 实例将自身序列化为将作为无格式 ActionScript 对象返回的映射。然后，可以将 object_proxy 对象属性设置为该值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+      删除事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>要删除的侦听器对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指出是为捕获阶段还是为目标和冒泡阶段注册了侦听器。如果对捕获阶段以及目标和冒泡阶段都注册了侦听器，则需要调用 <codeph>removeEventListener()</codeph> 两次才能删除这两个侦听器，一次调用时将 <codeph>useCapture()</codeph> 设置为 <codeph>true</codeph>，另一次调用时将 <codeph>useCapture()</codeph> 设置为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除事件侦听器。如果没有向 EventDispatcher 对象注册任何匹配的侦听器，则对此方法的调用没有任何效果。有关详细信息，请参阅 flash.events.EventDispatcher 类。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/removeEventListener()"><linktext>flash.events.EventDispatcher.removeEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      更新代理对象上的指定属性并向处理函数发送更新通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>包含属性名称的对象，该属性应在代理对象上更新。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>代理对象上应设置的值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更新代理对象上的指定属性并向处理函数发送更新通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:protected:setupPropertyList"><apiName>setupPropertyList</apiName><shortdesc>
+      该方法创建一个由代理对象的所有属性名称构成的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      该方法创建一个由代理对象的所有属性名称构成的数组。如果后代希望向此列表添加更多属性，则必须覆盖该方法。在对 <codeph>propertyList</codeph> 属性进行任何更改之前，请确保先调用 <codeph>super.setupPropertyList</codeph>。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+      检查是否用此对象或其任何始祖为指定事件类型注册了事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果将触发指定类型的侦听器，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检查是否用此对象或其任何始祖为指定事件类型注册了事件侦听器。对此对象或其任一后代分派指定类型的事件时，如果在事件流的任何阶段触发了事件侦听器，则此方法将返回 <codeph>true</codeph>。有关详细信息，请参阅 flash.events.EventDispatcher 类。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/willTrigger()"><linktext>flash.events.EventDispatcher.willTrigger()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:writeExternal"><apiName>writeExternal</apiName><shortdesc>
+      由于 Flex 仅对其包装的内部 ActionScript 对象进行序列化，因此服务器 flex.messaging.io.ObjectProxy 将使用该匿名对象的内容填充自身并对用户显示为映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>output</apiItemName><apiType value="flash.utils:IDataOutput"/><apiDesc>从中对 ObjectProxy 进行反序列化的源对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      由于 Flex 仅对其包装的内部 ActionScript 对象进行序列化，因此服务器 flex.messaging.io.ObjectProxy 将使用该匿名对象的内容填充自身并对用户显示为映射。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:ObjectProxy:protected:dispatcher"><apiName>dispatcher</apiName><shortdesc>
+      对该代理的 EventDispatcher 的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.events:EventDispatcher"/></apiValueDef><apiDesc>
+      对该代理的 EventDispatcher 的引用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:notifiers"><apiName>notifiers</apiName><shortdesc>
+      该代理侦听更改的属性更改通知器的 hashmap，映射的键是属性名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      该代理侦听更改的属性更改通知器的 hashmap，映射的键是属性名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:propertyList"><apiName>propertyList</apiName><shortdesc>
+      包含代理对象的所有属性名称的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含代理对象的所有属性名称的列表。后代需要通过覆盖 <codeph>setupPropertyList()</codeph> 方法填写该列表。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:proxyClass"><apiName>proxyClass</apiName><shortdesc>
+      指示当代理复杂属性时创建何种类型的代理。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      指示当代理复杂属性时创建何种类型的代理。子类应适当地分配该值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:object:get"><apiName>object</apiName><shortdesc>
+      被代理的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      被代理的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:type:get"><apiName>type</apiName><shortdesc>
+      与此对象相关联的限定类型名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+      与此对象相关联的限定类型名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:uid:get"><apiName>uid</apiName><shortdesc>
+      此对象的唯一标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此对象的唯一标识符。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:StringUtil"><apiName>StringUtil</apiName><shortdesc>
+  StringUtil 实用程序类是一个全静态类，其方法用于处理 Flex 内的 String 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StringUtil 实用程序类是一个全静态类，其方法用于处理 Flex 内的 String 对象。不创建 StringUtil 的实例；只是调用如 <codeph>StringUtil.substitute()</codeph> 之类的方法。  
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:StringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>查询的字符串。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:repeat"><apiName>repeat</apiName><shortdesc>
+      返回一个字符串，该字符串由其自身与指定次数串联的指定字符串构成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>重复的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要重复的字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>n</apiItemName><apiType value="int"/><apiDesc>重复计数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回一个字符串，该字符串由其自身与指定次数串联的指定字符串构成。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:restrict"><apiName>restrict</apiName><shortdesc>
+      从字符串中删除“不允许的”字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>输入字符串，减去限制字符串所不允许的任何字符。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>输入字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>restrict</apiItemName><apiType value="String"/><apiDesc>限制字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从字符串中删除“不允许的”字符。“限制字符串”（如 <codeph>"A-Z0-9"</codeph>）用于指定允许的字符。此方法使用的是与 TextField 的 <codeph>restrict</codeph> 属性相同的逻辑。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      使用传入的各个参数替换指定的字符串内的“{n}”标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>使用指定的各个参数替换了所有 <codeph>{n}</codeph> 标记的新字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要在其中进行替换的字符串。该字符串可包含 <codeph>{n}</codeph> 形式的特殊标记，其中 <codeph>n</codeph> 为从零开始的索引，它将被该索引处的其他参数（如果指定）替换。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可在 <codeph>str</codeph> 参数中的每个 <codeph>{n}</codeph> 位置被替换的其他参数，其中 <codeph>n</codeph> 是一个对指定值数组的整数索引值（从 0 开始）。如果第一个参数是一个数组，则该数组将用作参数列表。如此可允许在其他想要使用... rest 签名的方法中重复使用此例程。例如 <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用传入的各个参数替换指定的字符串内的“{n}”标记。
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info '{0}' and {1}"; trace(StringUtil.substitute(str, 15.4, true)); //这将输出下列字符串：// "here is some info '15.4' and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      删除数组中每个元素的开头和末尾的所有空格字符，此处数组作为字符串存储。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>删除了每个元素的开头和末尾空格字符的更新字符串。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要去掉其空格字符的字符串。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>分隔字符串中的每个数组元素的字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除数组中每个元素的开头和末尾的所有空格字符，此处数组作为字符串存储。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trim"><apiName>trim</apiName><shortdesc>
+      删除指定字符串的开头和末尾的所有空格字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>删除了其开头和末尾空格字符的更新字符串。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要去掉其空格字符的字符串。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除指定字符串的开头和末尾的所有空格字符。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:NameUtil"><apiName>NameUtil</apiName><shortdesc>
+  NameUtil 实用程序类定义创建 Flex 对象名称的静态方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NameUtil 实用程序类定义创建 Flex 对象名称的静态方法。不创建 NameUtil 的实例；只是调用该类的静态方法，如 <codeph>NameUtil.createName()</codeph> 方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:NameUtil:createUniqueName"><apiName>createUniqueName</apiName><shortdesc>
+      通过将 unqualified 类名称和递增计数器相结合，为任何对象实例创建一个唯一名称，如“Button12”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含唯一名称的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>需要名称的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过将 unqualified 类名称和递增计数器相结合，为任何对象实例创建一个唯一名称，如“Button12”。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:displayObjectToString"><apiName>displayObjectToString</apiName><shortdesc>
+      为 DisplayObject 对象返回一个字符串，如“MyApplication0.addressForm.lastName.TextField17”，指示它在应用程序中 DisplayObject 对象层次结构中的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含 <codeph>displayObject</codeph> 在应用程序中 DisplayObject 对象层次结构中位置的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>需要获取其在应用程序中层次结构的·DisplayObject 对象。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为 DisplayObject 对象返回一个字符串，如“MyApplication0.addressForm.lastName.TextField17”，指示它在应用程序中 DisplayObject 对象层次结构中的位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:getUnqualifiedClassName"><apiName>getUnqualifiedClassName</apiName><shortdesc>
+      返回指定对象的类的名称，如“Button”。此字符串不包括包名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定的对象的类的名称。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定对象的类的名称，如<codeph>“Button”</codeph>
+     
+      <p>此字符串不包括包名称。如果您还需要包名称，请调用 flash.utils 包中的 <codeph>getQualifiedClassName()</codeph> 方法。它将返回一个字符串，如 <codeph>"mx.controls::Button"</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+ 实用程序类，用于将 Base64 编码的字符串解码为 ByteArray。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 实用程序类，用于将 Base64 编码的字符串解码为 ByteArray。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Decoder:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Decoder:decode"><apiName>decode</apiName><shortdesc>
+     解码 Base64 编码的字符串并将结果添加到内部缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>encoded</apiItemName><apiType value="String"/><apiDesc>要解码的 Base64 编码的字符串。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     解码 Base64 编码的字符串并将结果添加到内部缓冲区。字符串格式必须是 ASCII。 
+     
+     <p>对该方法的后续调用继续添加到该内部缓冲区。完成所有数据的编码后，调用 <codeph>toByteArray()</codeph> 以获取解码的 <codeph>flash.utils.ByteArray</codeph>。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:reset"><apiName>reset</apiName><shortdesc>
+     清除所有缓冲区并将解码器重置为其初始状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     清除所有缓冲区并将解码器重置为其初始状态。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     以解码 flash.utils.ByteArray 的形式返回当前缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>解码的 <codeph>flash.utils.ByteArray</codeph>。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn></apiOperationDef><apiDesc>
+     返回当前缓冲区为解码的 <codeph>flash.utils.ByteArray</codeph>。请注意，调用该方法会同时清除缓冲区并将解码器重置为其初始状态。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:DisplayUtil"><apiName>DisplayUtil</apiName><shortdesc>
+  DisplayUtil 实用程序类是一种全静态类，带有与 DisplayObject 相关的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DisplayUtil 实用程序类是一种全静态类，带有与 DisplayObject 相关的实用程序方法。不要创建 DisplayUtil 类的实例，而应该调用静态方法，如 <codeph>DisplayUtil.walkDisplayObjects()</codeph>。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:DisplayUtil:walkDisplayObjects"><apiName>walkDisplayObjects</apiName><shortdesc>
+	  以递归方式对指定的 DisplayObject 树中的每个节点调用指定函数，向该函数传递对该 DisplayObject 的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>目标 DisplayObject。
+	  </apiDesc></apiParam><apiParam><apiItemName>callbackFunction</apiItemName><apiType value="Function"/><apiDesc>要对指定的 DisplayObject 树中的每个节点调用的方法。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  以递归方式对指定的 DisplayObject 树中的每个节点调用指定函数，向该函数传递对该 DisplayObject 的引用。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:ArrayUtil"><apiName>ArrayUtil</apiName><shortdesc>
+  ArrayUtil 实用程序类是一个全静态类，其方法用于处理 Flex 内的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ArrayUtil 实用程序类是一个全静态类，其方法用于处理 Flex 内的数组。不创建 ArrayUtil 的实例；只是调用如 <codeph>ArrayUtil.toArray()</codeph> 之类的静态方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ArrayUtil:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      返回数组中项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>项的索引；如果该项不在列表中则返回 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要在数组中查找的项。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Array"/><apiDesc>要在其中搜索项的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回数组中项的索引。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ArrayUtil:toArray"><apiName>toArray</apiName><shortdesc>
+      确保对象可用作数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个数组。如果原始对象已是数组，则返回原始数组。否则，将返回一个该对象为其仅有元素的新数组，或者返回一个空数组（如果该对象为 null）。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>要确保其为数组的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确保对象可用作数组。
+     
+      <p>如果对象已是数组，则返回该对象。如果对象不是数组，则返回一个该对象为其仅有元素的数组。作为特殊情况，如果该对象为 null,则返回一个空数组。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+ 此类包含以 HSB（色相、饱和度和亮度）空间表示的颜色的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 此类包含以 HSB（色相、饱和度和亮度）空间表示的颜色的信息。该类的主要用途仅仅是作为这些值的存储器，但是也有一些用来与颜色的 RGB 表示形式之间互相转换的实用程序函数。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:HSBColor:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+      使用可选参数构造 HSBColor。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>色调。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>饱和度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>亮度。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用可选参数构造 HSBColor。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:HSBColor:convertHSBtoRGB"><apiName>convertHSBtoRGB</apiName><shortdesc>
+      将参数指定的 HSB 颜色转换为 uint RGB 颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>RGB 颜色。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiDesc>色调。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiDesc>饱和度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiDesc>亮度。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将参数指定的 HSB 颜色转换为 uint RGB 颜色。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:HSBColor:convertRGBtoHSB"><apiName>convertRGBtoHSB</apiName><shortdesc>
+      将 RGB 格式的颜色转换为 HSBColor。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示 RGB 颜色的 HSBColor 对象。 
+      
+      </apiDesc><apiOperationClassifier>mx.utils:HSBColor</apiOperationClassifier></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>RGB 颜色。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 RGB 格式的颜色转换为 HSBColor。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:HSBColor:brightness:get"><apiName>brightness</apiName><shortdesc>
+     此 HSB 颜色的亮度参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     此 HSB 颜色的亮度参数。这是介于 0（黑）和 1（全亮度）之间的值，表示距 HSB 圆锥顶点的距离。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:hue:get"><apiName>hue</apiName><shortdesc>
+     HSB 颜色的色相值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     HSB 颜色的色相值。它表示围绕 HSB 圆锥的角度（以度为单位）。所提供的值将按 360 进行调节，这样存储的色相值将在 [0,360) 范围内。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:saturation:get"><apiName>saturation</apiName><shortdesc>
+     此 HSB 颜色的饱和度参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     此 HSB 颜色的饱和度参数。这是介于 0（黑）和 1（全饱和度）之间的值，表示距 HSB 圆锥圆心的距离。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:GraphicsUtil"><apiName>GraphicsUtil</apiName><shortdesc>
+  Graphics 类是实用程序方法与 Graphics 类相关的全静态类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Graphics 类是实用程序方法与 Graphics 类相关的全静态类。不创建 GraphicsUtil 实例；只是调用如 <codeph>GraphicsUtil.drawRoundRectComplex()</codeph> 之类的方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex2"><apiName>drawRoundRectComplex2</apiName><shortdesc>
+     通过使用单独的 x 和 y 半径的大小绘制圆角，来绘制圆角矩形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>绘制圆角矩形的 Graphics 对象。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>相对于父显示对象注册点的水平位置（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>相对于父显示对象注册点的垂直位置（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>圆角矩形的宽度（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>圆角矩形的高度（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusX</apiItemName><apiType value="Number"/><apiDesc>要使用的默认 radiusX（如果未指定角特定的值）。必须指定此值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusY</apiItemName><apiType value="Number"/><apiDesc>要使用的默认 radiusY（如果未指定角特定的值）。若为 0，则使用 radiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>左上角的 x 半径（以像素为单位）。若为 NaN，则使用 radiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>左上角的 y 半径（以像素为单位）。若为 NaN，则使用 topLeftRadiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>右上角的 x 半径（以像素为单位）。若为 NaN，则使用 radiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>右上角的 y 半径（以像素为单位）。若为 NaN，则使用 topRightRadiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>左下角的 x 半径（以像素为单位）。若为 NaN，则使用 radiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>左下角的 y 半径（以像素为单位）。若为 NaN，则使用 bottomLeftRadiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>右下角的 x 半径（以像素为单位）。若为 NaN，则使用 radiusX 的值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>右下角的 y 半径（以像素为单位）。若为 NaN，则使用 bottomRightRadiusX 的值。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     通过使用单独的 x 和 y 半径的大小绘制圆角，来绘制圆角矩形。必须在调用 <codeph>drawRoundRectComplex2()</codeph> 方法之前通过调用 <codeph>linestyle()</codeph>、<codeph>lineGradientStyle()</codeph>、<codeph>beginFill()</codeph>、<codeph>beginGradientFill()</codeph> 或 <codeph>beginBitmapFill()</codeph> 方法来设置 Graphics 对象上的线条样式、填充，或同时设置二者。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex"><apiName>drawRoundRectComplex</apiName><shortdesc>
+     使用绘制圆角的半径大小来绘制圆角矩形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>绘制圆角矩形的 Graphics 对象。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>相对于父显示对象注册点的水平位置（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>相对于父显示对象注册点的垂直位置（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>圆角矩形的宽度（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>圆角矩形的高度（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadius</apiItemName><apiType value="Number"/><apiDesc>左上角的半径（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadius</apiItemName><apiType value="Number"/><apiDesc>右上角的半径（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadius</apiItemName><apiType value="Number"/><apiDesc>左下角的半径（以像素为单位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadius</apiItemName><apiType value="Number"/><apiDesc>右下角的半径（以像素为单位）。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     使用绘制圆角的半径大小来绘制圆角矩形。必须在调用 <codeph>drawRoundRectComplex()</codeph> 方法之前通过调用 <codeph>linestyle()</codeph>、<codeph>lineGradientStyle()</codeph>、<codeph>beginFill()</codeph>、<codeph>beginGradientFill()</codeph> 或 <codeph>beginBitmapFill()</codeph> 来设置 Graphics 对象上的线条样式、填充，或同时设置二者。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+  用于监视对 XML 和 XMLList 对象的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于监视对 XML 和 XMLList 对象的更改。那些对象不是 EventDispatcher，因此如果有多个元素要监视更改，则这些元素需要通过此机制。调用 <codeph>watchXML()</codeph>，传入将要传递给 XML.notification 的同一通知函数。使用 <codeph>unwatchXML()</codeph> 删除该通知。
+  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:XMLNotifier:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="XMLNotifier.as$522:XMLNotifierSingleton"/></apiParam></apiConstructorDef><apiDesc>
+      构造函数。XMLNotifier 是一个 singleton 类，因此不使用 <codeph>new</codeph> 运算符为其创建多个实例，而应该调用 <codeph>XMLNotifider.getInstance()</codeph> 静态方法获取此类的唯一实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:XMLNotifier:getInstance"><apiName>getInstance</apiName><shortdesc>
+      获取 XMLNotifier 的 singleton 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>XMLNotifier 对象。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:XMLNotifier</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      获取 XMLNotifier 的 singleton 实例。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:unwatchXML"><apiName>unwatchXML</apiName><shortdesc>
+      在给定 XML 或 XMLList 的情况下，删除指定的通知函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>要取消监视的 XML/XMLList 对象。
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>Function 通知函数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在给定 XML 或 XMLList 的情况下，删除指定的通知函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:watchXML"><apiName>watchXML</apiName><shortdesc>
+      在给定 XML 或 XMLList 的情况下，添加要监视更改的通知函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>要监视的 XML/XMLList 对象。
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>需要调用的函数。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对象的 UID
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在给定 XML 或 XMLList 的情况下，添加要监视更改的通知函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+ 实用程序类，用于将字符串或 ByteArray 编码为 Base64 编码的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 实用程序类，用于将字符串或 ByteArray 编码为 Base64 编码的字符串。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Encoder:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Encoder:encodeBytes"><apiName>encodeBytes</apiName><shortdesc>
+     将 ByteArray 编码为 Base64 并将结果添加到内部缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>要编码的 ByteArray。
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>要开始编码的索引。
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>从偏移位置开始要编码的字节数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 ByteArray 编码为 Base64 并将结果添加到内部缓冲区。对该方法的后续调用继续添加到该内部缓冲区。完成所有数据的编码后，调用 <codeph>toString()</codeph> 以获取 Base64 编码的字符串。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encodeUTFBytes"><apiName>encodeUTFBytes</apiName><shortdesc>
+     将字符串的 UTF-8 字节编码为 Base64 并将结果添加到内部缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>要编码的字符串。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将字符串的 UTF-8 字节编码为 Base64 并将结果添加到内部缓冲区。UTF-8 信息不包含长度前缀。对该方法的后续调用继续添加到该内部缓冲区。完成所有数据的编码后，调用 <codeph>toString()</codeph> 以获取 Base64 编码的字符串。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encode"><apiName>encode</apiName><shortdesc>
+     将字符串中的字符编码为 Base64 并将结果添加到内部缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>要编码的字符串。
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>要开始编码的字符位置。
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>从偏移位置开始要编码的字符数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将字符串中的字符编码为 Base64 并将结果添加到内部缓冲区。字符串格式必须是 ASCII。 
+     
+     <p>对该方法的后续调用继续添加到该内部缓冲区。完成所有数据的编码后，调用 <codeph>toString()</codeph> 以获取 Base64 编码的字符串。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:reset"><apiName>reset</apiName><shortdesc>
+     清除所有缓冲区并将编码器重置为其初始状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     清除所有缓冲区并将编码器重置为其初始状态。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:toString"><apiName>toString</apiName><shortdesc>
+     以 Base64 编码字符串的形式返回当前缓冲区。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Base64 编码的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     以 Base64 编码字符串的形式返回当前缓冲区。请注意，调用该方法会同时清除缓冲区并将编码器重置为其初始状态。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:Base64Encoder:CHARSET_UTF_8"><apiName>CHARSET_UTF_8</apiName><shortdesc>
+      字符串“UTF-8”的常量定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UTF-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      字符串“UTF-8”的常量定义。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:insertNewLines"><apiName>insertNewLines</apiName><shortdesc>
+     布尔标志，用于控制是否每隔 76 个字符插入为 Base64Encoder.newLine 指定的字符序列以使编码的输出换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+     布尔标志，用于控制是否每隔 76 个字符插入为 <codeph>Base64Encoder.newLine</codeph> 指定的字符序列以使编码的输出换行。默认值为 true。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:newLine"><apiName>newLine</apiName><shortdesc>
+     要插入到编码的输出中以表示一个新行的字符代码点（如果 insertNewLines 为 true）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="int"/></apiValueDef><apiDesc>
+     要插入到编码的输出中以表示一个新行的字符代码点（如果 <codeph>insertNewLines</codeph> 为 true）。默认值为 <codeph>10</codeph>，表示换行 <codeph>\n</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

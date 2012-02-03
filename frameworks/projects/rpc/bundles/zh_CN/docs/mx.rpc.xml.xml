@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.xml"><apiName>mx.rpc.xml</apiName><apiDetail/><apiClassifier id="mx.rpc.xml:IXMLEncoder"><apiName>IXMLEncoder</apiName><shortdesc>
+ 根据 XML 架构将 ActionScript 对象图表编码为 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 根据 XML 架构将 ActionScript 对象图表编码为 XML。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:encode"><apiName>encode</apiName><shortdesc>
+     将 ActionScript 值编码为 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回给定 ActionScript 值的 XML 编码形式。
+      
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要编码为 XML 的 ActionScript 值。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>XML Schema <codeph>element</codeph> 的 QName（描述如何对值进行编码），或是要为编码的 XML 节点使用的名称（当同时指定了类型参数时）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>XML Schema <codeph>simpleType</codeph> 或 <codeph>complexType</codeph> 定义的 QName，描述如何对值进行编码。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>如果架构中既无顶级元素也无顶级类型来描述如何对该值进行编码，则可提供自定义元素定义。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 ActionScript 值编码为 XML。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:reset"><apiName>reset</apiName><shortdesc>
+     将编码器重置为其初时状态，包括将所有架构范围重置为顶级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     将编码器重置为其初时状态，包括将所有架构范围重置为顶级。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:strictNillability:get"><apiName>strictNillability</apiName><shortdesc>
+     如果将 strictNillability 设置为 true，则根据 XML 架构规则对 null 值进行编码（要求在定义中设置 nillable=true）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     如果将 strictNillability 设置为 <codeph>true</codeph>，则根据 XML 架构规则对 null 值进行编码（要求在定义中设置 nillable=true）。如果将 strictNillability 设置为 <codeph>false</codeph>，则始终用 <codeph>xsi:nil="true"</codeph> 属性对 null 值进行编码。默认值为 <codeph>false</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+     用于对任何简单内容编码之前转义 XML 特殊字符的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+     用于对任何简单内容编码之前转义 XML 特殊字符的函数。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+ QualifiedResourceManager 是一个帮助器类，仅用于维护资源的添加顺序并将目标命名空间映射到一个或多个资源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ QualifiedResourceManager 是一个帮助器类，仅用于维护资源的添加顺序并将目标命名空间映射到一个或多个资源。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:QualifiedResourceManager:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:QualifiedResourceManager:addResource"><apiName>addResource</apiName><shortdesc>
+     将资源添加到给定命名空间的潜在资源数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>资源的 Array 的命名空间。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>resource</apiItemName><apiType value="Object"/><apiDesc>要添加的资源。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将资源添加到给定命名空间的潜在资源数组。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForNamespace"><apiName>getResourcesForNamespace</apiName><shortdesc>
+     返回给定目标命名空间的资源的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>资源的 Array。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>资源的 Array 的命名空间。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定目标命名空间的资源的 Array。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForURI"><apiName>getResourcesForURI</apiName><shortdesc>
+     返回给定目标 URI 的资源的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>资源的 Array。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>资源的 Array 的 URI。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定目标 URI 的资源的 Array。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResources"><apiName>getResources</apiName><shortdesc>
+     获取所有资源的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>资源的 Array。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+     获取所有资源的数组。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resourcesMap"><apiName>resourcesMap</apiName><shortdesc>
+     将 Namespace.uri 映射到资源数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     将 <codeph>Namespace.uri</codeph> 映射到资源 <codeph>Array</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resources"><apiName>resources</apiName><shortdesc>
+     此数组用于保存资源的添加顺序，以支持资源的搜索顺序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     此数组用于保存资源的添加顺序，以支持资源的搜索顺序。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+ SimpleXMLEncoder 类采用 ActionScript 对象，并使用默认序列化将这些对象编码为 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ SimpleXMLEncoder 类采用 ActionScript 对象，并使用默认序列化将这些对象编码为 XML。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:SimpleXMLEncoder:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>myXML</apiItemName><apiType value="flash.xml:XMLDocument"/><apiDesc>XML 对象。
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:SimpleXMLEncoder:encodeValue"><apiName>encodeValue</apiName><shortdesc>
+      使用默认序列化将 ActionScript 对象编码为 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>XMLNode 对象。 
+     </apiDesc><apiType value="flash.xml:XMLNode"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>要编码的 ActionScript 对象。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>子节点的限定名称。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>parentNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>要在其下放置编码值的 XMLNode。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用默认序列化将 ActionScript 对象编码为 XML。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLDecoder"><apiName>SimpleXMLDecoder</apiName><shortdesc>
+  SimpleXMLDecoder 类将 XML 反序列化为 ActionScript 对象的图表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SimpleXMLDecoder 类将 XML 反序列化为 ActionScript 对象的图表。当没有可用架构信息时使用此类。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:decodeXML"><apiName>decodeXML</apiName><shortdesc>
+      将 XMLNode 树转换为 ActionScript 对象树。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ActionScript 对象树。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>要转换为 ActionScript 对象树的 XMLNode。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 XMLNode 树转换为 ActionScript 对象树。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:getLocalName"><apiName>getLocalName</apiName><shortdesc>
+     返回 XMLNode 的本地名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>XMLNode 的本地名称。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>xmlNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode。 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回 XMLNode 的本地名称。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLSchemaInstance"><apiName>IXMLSchemaInstance</apiName><shortdesc>
+ 当 ActionScript 类型需要指示基于 XML Schema 的编码器（如 WebService SOAP 客户端）在编码类型的实例时应使用哪个具体类型定义时，应实现此接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 当 ActionScript 类型需要指示基于 XML Schema 的编码器（如 WebService SOAP 客户端）在编码类型的实例时应使用哪个具体类型定义时，应实现此接口。
+ 
+ <p>请注意，匿名 ActionScript 对象也可以将对象包装到 mx.utils.ObjectProxy 实例中并使用适当的 QName 设置 <codeph>object_proxy::type</codeph> 属性，从而指定一个限定类型。</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.utils.ObjectProxy.xml"><linktext>mx.utils.ObjectProxy</linktext></link></related-links><apiValue id="mx.rpc.xml:IXMLSchemaInstance:mx.rpc.xml:IXMLSchemaInstance:xsiType:get"><apiName>xsiType</apiName><shortdesc>
+     将 ActionScript 实例编码为 XML 时，如果关联的 XML Schema complexType 为 abstract，则编码器可能需要具体实现的一个类型定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+     将 ActionScript 实例编码为 XML 时，如果关联的 XML Schema complexType 为 abstract，则编码器可能需要具体实现的一个类型定义。此属性允许分类的实例将具体实现指定为用于表示 <codeph>xsi:type</codeph> 的 QName。
+     
+     <p>
+     请注意，<codeph>[Transient]</codeph> 元数据可应用于此属性的实现，以在对象序列化过程中将其排除。
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SchemaTypeRegistry"><apiName>SchemaTypeRegistry</apiName><shortdesc>
+ XMLDecoder 使用此类将 XML Schema 类型通过 QName 映射到 ActionScript 类，以便在解码内容时创建强类型对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ XMLDecoder 使用此类将 XML Schema 类型通过 QName 映射到 ActionScript 类，以便在解码内容时创建强类型对象。如果类型为 unqualified，则 QName URI 可能保留为 null 或设置为空字符串。
+ <p>
+ 请注意，所需的类必须链接到 SWF 中并占用一个默认的构造函数，以便 XMLDecoder 可创建一个该类型的新实例；否则将使用匿名对象来保存解码的属性。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getClass"><apiName>getClass</apiName><shortdesc>
+     查找给定类型的注册类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回给定类型的类，或返回 null（如果该类型尚未注册）。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>表示类型名称的 QName 或字符串。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     查找给定类型的注册类。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getCollectionClass"><apiName>getCollectionClass</apiName><shortdesc>
+     返回给定 Qname 或 String 所表示的集合类型的 Class。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回给定 Qname 或 String 所表示的集合类型的 Class。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>表示集合类型名称的 QName 或字符串。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定 Qname 或 String 所表示的集合类型的 Class。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getInstance"><apiName>getInstance</apiName><shortdesc>
+     返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.xml:SchemaTypeRegistry</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerClass"><apiName>registerClass</apiName><shortdesc>
+     将类型 QName 映射到类定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>类型名称的 QName 或字符串表示形式。
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>类本身或字符串形式的类名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将类型 QName 映射到类定义。定义可以是完全限定类名的字符串表示形式或该类本身的一个实例。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerCollectionClass"><apiName>registerCollectionClass</apiName><shortdesc>
+     将类型名称映射到集合类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>类型名称的 QName 或字符串表示形式。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>类本身或字符串形式的类名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将类型名称映射到集合类。集合为顶级 Array 类型或 <codeph>mx.collections.IList</codeph> 的实现。定义可以是完全限定类名的字符串表示形式或该类本身的一个实例。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterClass"><apiName>unregisterClass</apiName><shortdesc>
+     从给定类型的注册中删除类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>类型名称的 QName 或字符串表示形式。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     从给定类型的注册中删除类。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterCollectionClass"><apiName>unregisterCollectionClass</apiName><shortdesc>
+     从给定类型的注册中删除集合类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>集合类型名称的 QName 或字符串表示形式。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     从给定类型的注册中删除集合类。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLDecoder"><apiName>IXMLDecoder</apiName><shortdesc>
+ 根据 XML Schema 定义将 XML 文档解码为 ActionScript 对象图表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 根据 XML Schema 定义将 XML 文档解码为 ActionScript 对象图表。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:decode"><apiName>decode</apiName><shortdesc>
+     将 XML 文档解码为 ActionScript 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回从给定 XML 文档解码的 ActionScript 对象。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="any"/><apiDesc>要解码为 ActionScript 对象的 XML 实例。可以是 XML 实例、长度为 1 的 XMLList 或表示有效 XML 的字符串。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>XML Schema <codeph>element</codeph> 的 QName（描述如何对值进行解码），或是要为解码后的值使用的名称（当同时指定了类型参数时）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>XML Schema <codeph>simpleType</codeph> 或 <codeph>complexType</codeph> 定义的 QName，描述如何对值进行解码。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>如果架构中既无顶级元素也无顶级类型来描述如何对该值进行解码，则可提供自定义元素定义。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 XML 文档解码为 ActionScript 对象。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:reset"><apiName>reset</apiName><shortdesc>
+     将解码器重置为其初始状态，包括将所有架构范围重置为顶级，通过将当前 XML 文档设置为 null 来释放当前 XML 文档。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     将解码器重置为其初始状态，包括将所有架构范围重置为顶级，通过将当前 XML 文档设置为 null 来释放当前 XML 文档。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当 makeObjectsBindable 设置为 true 时，匿名对象和数组将被包装以使它们可绑定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当 makeObjectsBindable 设置为 <codeph>true</codeph> 时，匿名对象和数组将被包装以使它们可绑定。对象使用 <codeph>mx.utils.ObjectProxy</codeph> 包装，数组使用 <codeph>mx.collections.ArrayCollection</codeph> 包装。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:recordXSIType:get"><apiName>recordXSIType</apiName><shortdesc>
+     当 recordXSIType 设置为 true 时，如果编码的 complexType 具有 xsi:type 属性，则在解码的实例上将记录类型信息，如果它是强类型并实现 mx.rpc.xml.IXMLSchemaInstance，或者是匿名 mx.utils.ObjectProxy。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当 recordXSIType 设置为 <codeph>true</codeph> 时，如果编码的 complexType 具有 <codeph>xsi:type</codeph> 属性，将在解码的实例上记录类型信息：它是强类型并实现 <codeph>mx.rpc.xml.IXMLSchemaInstance</codeph>，还是匿名 <codeph>mx.utils.ObjectProxy</codeph>。此类型信息可用于对解码对象进行后期处理并标识使用了潜在抽象类型的哪个具体实现。默认值为 false。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:typeRegistry:get"><apiName>typeRegistry</apiName><shortdesc>
+     通过 QName 将 XML Schema 类型映射到 ActionScript 类，以便在解码内容时创建强类型对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.xml:SchemaTypeRegistry</apiValueClassifier></apiValueDef><apiDesc>
+     通过 QName 将 XML Schema 类型映射到 ActionScript 类，以便在解码内容时创建强类型对象。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

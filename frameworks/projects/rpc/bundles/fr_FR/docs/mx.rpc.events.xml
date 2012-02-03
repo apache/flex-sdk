@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.events"><apiName>mx.rpc.events</apiName><apiDetail/><apiClassifier id="mx.rpc.events:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+ Evénement qui indique qu’une opération RPC (par exemple, une demande SOAP WebService) a retourné un en-tête dans la réponse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Evénement qui indique qu’une opération RPC (par exemple, une demande SOAP WebService) a renvoyé un en-tête dans la réponse. Un nouvel événement d’en-tête est distribué pour chaque en-tête de service.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:HeaderEvent:HEADER_header"><apiName>header</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:HeaderEvent:HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events:HeaderEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:HeaderEvent:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+     Crée un nouvel événement HeaderEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement, indiquant quelle action a déclenché l’événement.
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité. La valeur par défaut est <codeph>true</codeph>, mais la méthode <codeph>preventDefault()</codeph> est sans effet.
+     </apiDesc></apiParam><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant l’en-tête de l’appel.
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton AsyncToken représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message source de l’en-tête.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel événement HeaderEvent.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:HeaderEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+     Méthode d’utilitaire permettant de créer un nouvel événement HeaderEvent qui ne se propage pas vers le haut et peut être annulé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie un nouvel événement HeaderEvent qui ne se propage pas vers le haut et peut être annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:HeaderEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>Objet contenant l’en-tête de l’appel.
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiDesc>Jeton AsyncToken représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>En-tête du message source.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Méthode d’utilitaire permettant de créer un nouvel événement HeaderEvent qui ne se propage pas vers le haut et peut être annulé.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:HeaderEvent:toString"><apiName>toString</apiName><shortdesc>
+     Retourne une représentation de chaîne de l’événement HeaderEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de l’événement HeaderEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Retourne une représentation de chaîne de l’événement HeaderEvent.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:HeaderEvent:HEADER"><apiName>HEADER</apiName><shortdesc>
+    Type d’événement HEADER.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>header</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    Type d’événement HEADER.
+    
+    <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+           
+        
+        
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry>Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>La valeur par défaut est true, mais la méthode preventDefault() est sans effet.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>en-tête</codeph></entry><entry>En-tête que l’appel RPC renvoie dans la réponse. 
+        </entry></row><row><entry><codeph>message</codeph></entry><entry>Message associé à cet événement.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:HeaderEvent:header:get"><apiName>header</apiName><shortdesc>
+     En-tête que l’appel RPC a renvoyé dans la réponse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     En-tête que l’appel RPC a renvoyé dans la réponse.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+ La classe XMLLoadEvent est une classe de base pour les événements distribués lorsqu’un service RPC a réussi à charger un document XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe XMLLoadEvent est une classe de base pour les événements distribués lorsqu’un service RPC a réussi à charger un document XML.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:XMLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:XMLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:XMLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:XMLLoadEvent:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement ; indique l’action qui a déclenché l’événement.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>Document XML chargé.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chemin utilisé pour charger le document.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:XMLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      Renvoie une copie de cet objet XMLLoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Copie de cet objet XMLLoadEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une copie de cet objet XMLLoadEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:XMLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une représentation de chaîne de cet objet XMLLoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de cet objet XMLLoadEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une représentation de chaîne de cet objet XMLLoadEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:XMLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     La constante LOAD définit la valeur de la propriété type de l’objet d’événement d’un événement xmlLoad.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xmlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La constante LOAD définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement <codeph>xmlLoad</codeph>.
+     
+     <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>location</codeph></entry><entry>Emplacement à partir duquel le document a été chargé.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>xml</codeph></entry><entry>Document XML brut.</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:location"><apiName>location</apiName><shortdesc>
+     Emplacement à partir duquel le document a été chargé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Emplacement à partir duquel le document a été chargé.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:xml"><apiName>xml</apiName><shortdesc>
+     Document XML brut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     Document XML brut.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+ Cet événement est distribué lorsqu’un appel RPC comporte une erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cet événement est distribué lorsqu’un appel RPC comporte une erreur.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:FaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:FaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:FaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:FaultEvent:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+     Crée un nouvel événement FaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement ; indique l’action qui a déclenché l’événement.
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiData>null</apiData><apiDesc>Objet contenant les détails relatifs à l’erreur, y compris un code et une chaîne d’erreur.
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message source de l’erreur.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel événement FaultEvent. L’erreur est un paramètre requis, tandis que l’appel et le message sont facultatifs.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:FaultEvent:createEventFromMessageFault"><apiName>createEventFromMessageFault</apiName><shortdesc>
+      En fonction d’un événement MessageFaultEvent, cette méthode construit et renvoie un événement FaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Retourne un événement FaultEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier><apiDesc>Référence MessageFaultEvent à partir de laquelle extraire les informations appropriées sur l’erreur.
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton AsyncToken (facultatif) associé à cette erreur.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      En fonction d’un événement MessageFaultEvent, cette méthode construit et renvoie un événement FaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      En fonction d’une erreur, cette méthode construit et renvoie un événement FaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Retourne un événement FaultEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiDesc>Erreur contenant les détails relatifs à l’événement FaultEvent.
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton AsyncToken (facultatif) associé à cette erreur.
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message (facultatif) associé à cette erreur.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      En fonction d’une erreur, cette méthode construit et renvoie un événement FaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une représentation de chaîne de l’événement FaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de l’événement FaultEvent.
+       
+       </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une représentation de chaîne de l’événement FaultEvent.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:FaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+    Type d’événement FAULT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    Type d’événement FAULT.
+    
+    <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+           
+        
+        
+           
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true, appeler preventDefault() à partir de la méthode responder.fault du jeton associé empêchera le service ou l’opération de distribuer cet événement.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>fault</codeph></entry><entry>Objet d’erreur contenant les détails relatifs à l’élément ayant provoqué l’événement.</entry></row><row><entry><codeph>message</codeph></entry><entry>Message associé à cet événement.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>token</codeph></entry><entry>Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:fault:get"><apiName>fault</apiName><shortdesc>
+     Objet d’erreur contenant les détails relatifs à l’élément ayant provoqué l’événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:Fault</apiValueClassifier></apiValueDef><apiDesc>
+     Objet d’erreur contenant les détails relatifs à l’élément ayant provoqué l’événement.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     Dans certains cas, des en-têtes peuvent aussi être retournés avec une erreur pour fournir un plus grand contexte à l’échec.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Dans certains cas, des en-têtes peuvent aussi être retournés avec une erreur pour fournir un plus grand contexte à l’échec.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     Si le message source a été envoyé via HTTP, cette propriété fournit l’accès au code d’état de la réponse HTTP (s’il est disponible) ; dans le cas contraire, la valeur est 0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     Si le message source a été envoyé via HTTP, cette propriété fournit l’accès au code d’état de la réponse HTTP (s’il est disponible) ; dans le cas contraire, la valeur est 0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:AbstractEvent"><apiName>AbstractEvent</apiName><shortdesc>
+ Classe de base des événements que les services RPC distribuent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Classe de base des événements que les services RPC distribuent.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.events:AbstractEvent:token:get"><apiName>token</apiName><shortdesc>
+     Jeton représentant l’appel à la méthode. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+     Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+ Evénement indiquant qu’une opération RPC a renvoyé un résultat avec succès.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Evénement indiquant qu’une opération RPC a renvoyé un résultat avec succès.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:ResultEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:ResultEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:ResultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:ResultEvent:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+     Crée un nouvel événement ResultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement ; indique l’action qui a déclenché l’événement.
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant le résultat réel de l’appel.
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message source du résultat.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel événement ResultEvent.
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:ResultEvent:toString"><apiName>toString</apiName><shortdesc>
+     Retourne une représentation de chaîne de l’événement ResultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de l’événement ResultEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Retourne une représentation de chaîne de l’événement ResultEvent.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:ResultEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+    Type d’événement RESULT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    Type d’événement RESULT.
+    
+    <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true, preventDefault() de la méthode responder.fault du jeton associé empêchera le service ou l’opération de distribuer cet événement.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>message</codeph></entry><entry> Message associé à cet événement.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>result</codeph></entry><entry>Résultat que l’appel RPC renvoie.</entry></row><row><entry><codeph>token</codeph></entry><entry>Jeton représentant l’appel individuel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.</entry></row></tbody></tgroup></adobetable>
+        
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     Dans certains cas, des en-têtes peuvent aussi être renvoyés avec un résultat pour fournir un plus grand contexte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Dans certains cas, des en-têtes peuvent aussi être renvoyés avec un résultat pour fournir un plus grand contexte.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:result:get"><apiName>result</apiName><shortdesc>
+     Résultat que l’appel RPC renvoie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Résultat que l’appel RPC renvoie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     Si le message source a été envoyé via HTTP, cette propriété fournit l’accès au code d’état de la réponse HTTP (s’il est disponible) ; dans le cas contraire, la valeur est 0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     Si le message source a été envoyé via HTTP, cette propriété fournit l’accès au code d’état de la réponse HTTP (s’il est disponible) ; dans le cas contraire, la valeur est 0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+ Evénement indiquant qu’une opération RPC a été invoquée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Evénement indiquant qu’une opération RPC a été invoquée.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:InvokeEvent:INVOKE_invoke"><apiName>invoke</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:InvokeEvent:INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events:InvokeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:InvokeEvent:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+     Crée un nouvel événement InvokeEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement ; indique l’action qui a déclenché l’événement.
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>Jeton représentant l’appel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message source de la demande.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel événement InvokeEvent.
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:InvokeEvent:toString"><apiName>toString</apiName><shortdesc>
+    Renvoie une représentation de chaîne de l’événement InvokeEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de l’événement InvokeEvent.
+     
+     </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+    Renvoie une représentation de chaîne de l’événement InvokeEvent.
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:InvokeEvent:INVOKE"><apiName>INVOKE</apiName><shortdesc>
+     Type d’événement INVOKE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invoke</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Type d’événement INVOKE.
+     
+     <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry> Jeton représentant l’appel individuel à la méthode. Utilisé dans le modèle de jeton d’achèvement asynchrone.</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>message</codeph></entry><entry> Message de demande associé à cet événement.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+ La classe WSDLLoadEvent représente l’objet d’événement de l’événement distribué lorsqu’un document XML WSDL s’est chargé avec succès.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:XMLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe WSDLLoadEvent représente l’objet d’événement de l’événement distribué lorsqu’un document XML WSDL s’est chargé avec succès.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:WSDLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:WSDLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:WSDLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:WSDLLoadEvent:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement, indiquant quelle action a déclenché l’événement.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>Document XML intégral.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chemin utilisé pour charger le document.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:WSDLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      Renvoie une copie de cet objet WSDLLoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Copie de cet objet WSDLLoadEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une copie de cet objet WSDLLoadEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:WSDLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      Retourne une représentation de chaîne de cet objet WSDLLoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de cet objet WSDLLoadEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Retourne une représentation de chaîne de cet objet WSDLLoadEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:WSDLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     La constante LOAD définit la valeur de la propriété type de l’objet d’événement d’un événement wsdlLoad.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>wsdlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La constante LOAD définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement <codeph>wsdlLoad</codeph>.
+     
+     <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>location</codeph></entry><entry>Chemin utilisé pour charger le document.</entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>Document XML intégral.</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:WSDLLoadEvent:wsdl"><apiName>wsdl</apiName><shortdesc>
+     Document XML intégral.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.rpc.wsdl:WSDL"/></apiValueDef><apiDesc>
+     Document XML intégral.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

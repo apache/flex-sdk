@@ -1,0 +1,1574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections"><apiName>mx.collections</apiName><apiDetail/><apiClassifier id="mx.collections:IHierarchicalCollectionViewCursor"><apiName>IHierarchicalCollectionViewCursor</apiName><shortdesc>
+  IHierarchicalCollectionViewCursor インターフェイスは、階層型コレクションビューを双方向に列挙するインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IViewCursor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalCollectionViewCursor インターフェイスは、階層型コレクションを双方向に列挙するインターフェイスを定義します。 このカーソルを使用することで、アイテムの現在の深さを判断できます。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.IViewCursor.xml"><linktext>mx.collections.IViewCursor</linktext></link><link href="" invalidHref="mx.controls.IHierarchicalCollectionView.xml"><linktext>mx.controls.IHierarchicalCollectionView</linktext></link></related-links><apiValue id="mx.collections:IHierarchicalCollectionViewCursor:mx.collections:IHierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      ソースコレクション内でこのカーソルが参照する位置にあるノードの深さが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      ソースコレクション内でこのカーソルが参照する位置にあるノードの深さが含まれます。 カーソルがコレクションの末尾を越える場合、このプロパティには 0 が含まれます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+  SummaryField2 クラスは、SummaryRow インスタンス内の単一プロパティを表します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryField2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryField2
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    label="<i>No default</i>"
+    summaryOperation="<i>SUM</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryField2 クラスは、SummaryRow インスタンス内の単一プロパティを表します。 各 SummaryRow インスタンスは、データ要約の作成に使用される 1 つまたは複数の SummayField2 インスタンスを指定します。 
+ 
+  <p><b>メモ：</b>Flex の以前のリリースでは、SummaryField クラスを使用して要約データを作成していました。SummaryField2 クラスは Flex 4 の新しいクラスで、SummaryField よりも高いパフォーマンスを提供します。</p>
+ 
+  <p><codeph>dataField</codeph> プロパティを使用して、要約の生成に使用するデータフィールドを指定します。<codeph>label</codeph> プロパティを使用して、要約データを保持するために作成されるデータフィールドの名前を指定します。<codeph>summaryOperation</codeph> プロパティを使用して、数値フィールドの要約の作成方法を指定します。 <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のいずれかの値を指定できます。</p>
+  または、ISummaryCalculator 実装を指定して、要約を計算することも可能です。
+ 
+  <p>次の例では、AdvancedDataGrid コントロールのデータプロバイダーの 2 つのフィールドに基づいて、要約行を作成します。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField2:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要約計算の対象であるデータフィールドです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>summaryOperation</apiItemName><apiType value="Object"/><apiData>SUM</apiData><apiDesc>子に対して実行する関数です。 数値フィールドに対して <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のいずれかの値を指定できます。または、ISummaryCalculator 実装を指定して、要約を計算することも可能です。 
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField2:dataField"><apiName>dataField</apiName><shortdesc>
+     要約計算の対象であるデータフィールドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     要約計算の対象であるデータフィールドです。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField2:label"><apiName>label</apiName><shortdesc>
+      要約情報を保持するために要約オブジェクト（SummaryObject クラスのインスタンス）内で使用されるプロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      要約情報を保持するために要約オブジェクト（SummaryObject クラスのインスタンス）内で使用されるプロパティです。
+     
+      <p>例えば、<codeph>label</codeph> プロパティを "Summary" に設定すると、計算された要約が要約オブジェクトの "Summary" という名前のプロパティに配置されます。 要約データを含む SummaryObject インスタンスのプロパティは次のように表示されます。</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField2/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField2:summaryOperation"><apiName>summaryOperation</apiName><shortdesc>
+       子で実行される要約です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="Object"/><apiDefaultValue>SUM
+       </apiDefaultValue></apiValueDef><apiDesc>
+       子で実行される要約です。このプロパティの値には、次のいずれかを指定できます。
+       
+       <ul>
+         <li>数値フィールドの場合：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> または <codeph>COUNT</codeph>。</li>
+         <li>カスタム要約を計算するためにカスタム ISummaryCalculator インターフェイスを実装しているクラスのインスタンス。</li>
+       </ul>
+        
+       </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ISummaryCalculator"><linktext>mx.collections.ISummaryCalculator</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalCollectionView"><apiName>IHierarchicalCollectionView</apiName><shortdesc>
+  IHierarchicalCollectionView インターフェイスは、階層型データまたはグループ化データ用のインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ICollectionView</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalCollectionView インターフェイスは、階層型データまたはグループ化データ用のインターフェイスを定義します。 通常、このデータは AdvancedDataGrid コントロールで使用します。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      データ内の指定されたインデックスにあるデータのノードに子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードが正常に追加された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>新しいノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>子ノードを挿入する位置の 0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データ内の指定されたインデックスにあるデータのノードに子ノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      データのノードに子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードが正常に追加された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>新しいノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データのノードに子ノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      ノードを閉じて子を非表示にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードを閉じて子を非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      子のコレクションが存在する場合は、このコレクションを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含む ICollectionView インスタンスです。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。 <codeph>null</codeph> の場合、最上位ノードのコレクションを返します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      子のコレクションが存在する場合は、このコレクションを返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      コレクション内のノードの深さを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの深さです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コレクション内のノードの深さを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      ノードの親を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードを子として含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの親を返します。 最上位ノードの親は <codeph>null</codeph> です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      ノードを開いて子を表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードを開いて子を表示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>正常に完了した場合は <codeph>true</codeph>、そうでない場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>この子ノードの現在の親であるノードオブジェクトです。 最上位ノードの場合は <codeph>parent</codeph> を <codeph>null</codeph> に設定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>削除する子ノードの、親からの相対的な位置を示す、0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      親ノードから子ノードを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードが正常に削除された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。最上位ノードの場合は <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>削除する子ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      親ノードから子ノードを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+      true の場合、現在のデータプロバイダーにルートノード（例えば、階層構造内の単一の最上位ノードなど）があることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      <codeph>true</codeph> の場合、現在のデータプロバイダーにルートノード（例えば、階層構造内の単一の最上位ノードなど）があることを示します。 XML と Object はルートノードがあるデータ型の例であり、リストと配列はルートノードがないタイプの例です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      開いているすべてのブランチノードに関するデータプロバイダーエレメントを含むオブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      開いているすべてのブランチノードに関するデータプロバイダーエレメントを含むオブジェクトの配列です。
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      データプロバイダーのルートノードを表示するかどうかを指定するブール値のフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダーのルートノードを表示するかどうかを指定する Boolean フラグです。 このプロパティを <codeph>false</codeph> に設定すると、ソースデータにルートノードがある場合でも、コレクションにルートアイテムは含まれません。 ルートアイテムの下位要素のみがコレクションに含まれます。  
+     
+      <p>このプロパティは、List オブジェクトや Array オブジェクトなどのルートノードのないソースには影響しません。</p> 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView/hasRoot"><linktext>hasRoot</linktext></link></related-links></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      IHierarchicalCollectionView のソースデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      IHierarchicalCollectionView のソースデータです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+  SummaryObject クラスは、グループ化データに対してカスタムデータ要約を実行するときに情報の保存に使用されるオブジェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryObject クラスは、グループ化データに対してカスタムデータ要約を実行するときに情報の保存に使用されるオブジェクトを定義します。 <codeph>SummaryRow.summaryObjectFunction</codeph> プロパティと <codeph>SummaryField.summaryFunction</codeph> プロパティを使用して、カスタム要約ロジックをアプリケーションに追加します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryObject:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+  SummaryField クラスは、SummaryRow インスタンス内の単一プロパティを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SummaryField2" sinceVersion="4.0"/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryField クラスは、SummaryRow インスタンス内の単一プロパティを表します。 各 SummaryRow インスタンスは、データ要約の作成に使用される 1 つまたは複数の SummayField インスタンスを指定します。 
+ 
+  <p><codeph>dataField</codeph> プロパティを使用して、要約の生成に使用するデータフィールドを指定します。<codeph>label</codeph> プロパティを使用して、要約データを保持するために作成されるデータフィールドの名前を指定します。<codeph>operation</codeph> プロパティを使用して、数値フィールドの要約の作成方法を指定します。 <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のいずれかの値を指定できます。</p>
+ 
+  <p>次の例では、AdvancedDataGrid コントロールのデータプロバイダーの 2 つのフィールドに基づいて、要約行を作成します。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  <p>このクラスは非推奨になりました。<codeph>SummaryField2</codeph> という新しいクラスが代替のクラスです。<codeph>operation</codeph> および <codeph>summaryFunction</codeph> プロパティは、<codeph>SummaryField2</codeph> クラスにはありません。<codeph>summaryOperation</codeph> という新しいプロパティが <codeph>SummaryField2</codeph> に導入されました。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要約計算の対象であるデータフィールドです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>operation</apiItemName><apiType value="String"/><apiData>SUM</apiData><apiDesc>子に対して実行する関数です。 数値フィールドに対して <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のいずれかの値を指定できます。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField:dataField"><apiName>dataField</apiName><shortdesc>
+     要約計算の対象であるデータフィールドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     要約計算の対象であるデータフィールドです。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:label"><apiName>label</apiName><shortdesc>
+      要約情報を保持するために要約オブジェクト（SummaryObject クラスのインスタンス）内で使用されるプロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      要約情報を保持するために要約オブジェクト（SummaryObject クラスのインスタンス）内で使用されるプロパティです。
+     
+      <p>例えば、<codeph>label</codeph> プロパティを "Summary" に設定すると、計算された要約が要約オブジェクトの "Summary" という名前のプロパティに配置されます。 要約データを含む SummaryObject インスタンスのプロパティは次のように表示されます。</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField:operation"><apiName>operation</apiName><shortdesc>
+      子に対して実行する関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="String"/><apiDefaultValue>SUM
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      子に対して実行する関数です。 数値フィールドに対して <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のいずれかの値を指定できます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:summaryFunction"><apiName>summaryFunction</apiName><shortdesc>
+      カスタムデータ要約を計算するコールバック関数を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      カスタムデータ要約を計算するコールバック関数を指定します。
+     
+      <p>このプロパティは <codeph>SummaryRow.summaryObjectFunction</codeph> プロパティと共に使用します。SummaryRow.summaryObjectFunction プロパティは、AdvancedDataGrid コントロールに表示する要約データの収集に使用する SummaryObject クラスのインスタンスを定義します。</p>
+     
+      <p>この関数のシグネチャは次のとおりです。</p>
+     
+      <pre>
+      function mySummaryFunction(iterator:IViewCursor, dataField:String, operation:String):Object</pre>
+     
+      <p><codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph>、<codeph>COUNT</codeph> のビルトイン関数はすべて、要約データを含む Number を返します。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+  GroupingCollection2 クラスを使用すると、AdvancedDataGrid コントロールに表示するために、フラットデータからグループ化データを作成できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[  The <code>&lt;mx.GroupingCollection2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+   <pre>
+  &lt;mx:GroupingCollection2
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IGroupingCollection2</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GroupingCollection2 クラスを使用すると、AdvancedDataGrid コントロールに表示するために、フラットデータからグループ化データを作成できます。フラットデータから GroupingCollection2 のインスタンスを作成する場合は、階層の作成に使用するデータのフィールドを 1 つ以上指定します。
+   <p><b>メモ：</b>Flex の以前のリリースでは、AdvancedDataGrid コントロールで GroupingCollection クラスを使用していました。 GroupingCollection2 クラスは Flex 4 の新しいクラスで、GroupingCollection よりも高いパフォーマンスを提供します。</p>
+   <p>グループ化されたデータを AdvancedDataGrid コントロールに格納するには、フラットデータから GroupingCollection2 クラスのインスタンスを作成し、その GroupingCollection2 インスタンスを AdvancedDataGrid コントロールのデータプロバイダーに渡します。フラットデータのグループ化フィールドを指定するには、Grouping インスタンスを <codeph>GroupingCollection2.grouping</codeph> プロパティに渡します。 Grouping インスタンスには、GroupingField インスタンスの配列が含まれます。配列内の GroupingField インスタンスはグループ化フィールドごとに 1 つずつ存在します。 </p>
+   <p>次の例では、GroupingCollection2 クラスを使用して Region と Territory という 2 つのグループ化フィールドを定義しています。</p>
+   <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection2> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection2:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。 このメソッドは、<codeph>refresh()</codeph> メソッドを <codeph>true</codeph>の <codeph>asynch</codeph> 引数（非同期更新を表す）を指定して呼び出した場合にのみ、更新をキャンセルします。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      ノードの親を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ノードを子として含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの親を返します。 最上位ノードの親は <codeph>null</codeph> です。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:getRoot"><apiName>getRoot</apiName><shortdesc>
+      グループ化プロパティが設定されている場合は super.source を返し、設定されていない場合は super.source を参照する ICollectionView インスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>返すオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>super.source</codeph> を返すのは <codeph>grouping</codeph> プロパティが設定されている場合です。設定されていない場合は <codeph>super.source</codeph> を参照する ICollectionView インスタンスを返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      グループ化をコレクションに適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは <codeph>refresh()</codeph> メソッドが完了した場合です。<codeph>false</codeph> が返されるのは更新が完了していない場合です。これはアイテムがまだ保留中であることを意味する場合があります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は更新が非同期になります。 デフォルトは <codeph>false</codeph> で、同期的に更新されることを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合、グループが形成されたときにイベントが送出されます。より高いパフォーマンスを得るには、<codeph>false</codeph> に設定します。<codeph>true</codeph> の場合、イベントがグループとして送出され、要約が同期的に計算されてコントロールが更新されます。メモ：<codeph>async</codeph> が <codeph>true</codeph> の場合、<codeph>dispatchCollectionEvents</codeph> は常に <codeph>true</codeph> に設定されます。デフォルトは、イベント送出が行われない <codeph>false</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      グループ化をコレクションに適用します。コレクションはグループの変更を自動検出しません。したがって、<codeph>group</codeph>、<codeph>source</codeph> または <codeph>summaries</codeph> プロパティを設定した後に、<codeph>refresh()</codeph> メソッドを呼び出して、コレクションを更新する必要があります。また、<codeph>caseInsensitive</codeph>、<codeph>compareFunction</codeph>、<codeph>groupingFunction</codeph> などのプロパティを変更してコレクションの GroupingField を変更したときにも、<codeph>refresh()</codeph> メソッドを呼び出します。
+     
+      <p><codeph>refresh()</codeph> メソッドは同期的にも非同期的にも適用できます。</p>
+      
+      <p><codeph>refresh()</codeph> を同期的に呼び出した場合、メソッドが返る前に、すべてのグループと要約が一緒に更新されます。つまり、この呼び出し中は他の処理操作をアプリケーションで実行できないという意味です。クライアントは、<codeph>kind</codeph> プロパティの値が <codeph>CollectionEventKind.REFRESH</codeph> に設定された CollectionEvent イベントを待機して、<codeph>refresh()</codeph> メソッドが完了したことを確認する必要があります。</p>
+     
+      <p>非同期更新では、すべてのグループと要約が個々に更新されます。グループと要約が更新される前に <codeph>refresh()</codeph> メソッドが返るので、アプリケーションは実行を継続できます。また、更新中にコントロールが更新されるので、ユーザーはコントロールとの対話を継続できます。</p>
+     
+      <p>一括更新と異なり、グループと要約を個々に更新する際のオーバーヘッドがあるので、非同期更新のほうが同期更新よりも処理時間が長くなります。しかし、大規模なデータセットを扱う場合、非同期更新であれば更新中もアプリケーションを継続実行できます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection2:summaries"><apiName>summaries</apiName><shortdesc>
+      ルートレベルのデータ要約を定義する SummaryRow インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      ルートレベルのデータ要約を定義する SummaryRow インスタンスの配列です。 1 つまたは複数の SummaryRow インスタンスを指定してデータ要約を定義します。次に例を示します。
+           <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Min Actual" summaryOperation="MIN"/>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Max Actual" summaryOperation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection2>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:protected:timer"><apiName>timer</apiName><shortdesc>
+      非同期更新操作に関連付けられたタイマーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      非同期更新操作に関連付けられたタイマーです。 これを使用して、タイミング間隔の変更や更新の一時停止などのアクションを実行できます。 タイマーインスタンスの <codeph>delay</codeph> プロパティのデフォルト値は 1 （1 ミリ秒に相当）です。
+           
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      ソースデータに適用される Grouping インスタンスを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      ソースデータに適用される Grouping インスタンスを指定します。 <codeph>grouping</codeph> プロパティを設定してもビューは自動的には更新されないので、このプロパティを設定した後で <codeph>refresh()</codeph> メソッドを呼び出す必要があります。
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection2/refresh()"><linktext>mx.collections.GroupingCollection2.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:source:get"><apiName>source</apiName><shortdesc>
+      グループ化するフラットデータを含むソースコレクションです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      グループ化するフラットデータを含むソースコレクションです。 ソースがコレクションでない場合は、自動的にコレクション内にラップされます。
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalData"><apiName>IHierarchicalData</apiName><shortdesc>
+  IHierarchicalData インターフェイスは、階層データを Flex コンポーネントのデータプロバイダーとして表すために使用されるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalData インターフェイスは、階層データを Flex コンポーネントのデータプロバイダーとして表すために使用されるインターフェイスを定義します。 階層データは、親データアイテムと子データアイテムの構造に格納されているデータです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+      ノードに子を含めることができる場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードに子を含めることができる場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードに子を含めることができる場合は、<codeph>true</codeph> を返します。
+     
+      <p>このメソッドは、ノードに実際に子が含まれていなくても <codeph>true</codeph> を返します。 このメソッドは、指定したノードに他のノードを子として追加できるかどうかを確認する場合に便利です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      ノードの子を表すオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含むオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。 <codeph>null</codeph> の場合、最上位ノードのコレクションを返します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの子を表すオブジェクトを返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      ノードからデータを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要求されたデータです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>データを取得するノードオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードからデータを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     ルートデータアイテムを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ルートデータアイテムを含むオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     ルートデータアイテムを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      ノードに子がある場合は true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードに子がある場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードに子がある場合は、<codeph>true</codeph> を返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+  GroupingField クラスは、AdvancedDataGrid コントロールでフラットデータをグループ化して表示する際に使用する個別のデータフィールドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="summaries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingField&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingField
+  <b>Properties </b>
+    caseInsensitive="false|true"
+    compareFunction="<i>No default</i>"
+    descending="false|true"
+    groupingFunction="<i>No default</i>"
+    groupingObjectFunction="<i>No default</i>"
+    name="null"
+    numeric="false|true"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GroupingField クラスは、AdvancedDataGrid コントロールでフラットデータをグループ化して表示する際に使用する個別のデータフィールドを表します。 
+ 
+  <p>グループ化されたデータを AdvancedDataGrid コントロールに格納するには、フラットデータから GroupingCollection クラスのインスタンスを作成し、その GroupingCollection インスタンスを AdvancedDataGrid コントロールのデータプロバイダーに渡します。 フラットデータのグループ化フィールドを指定するには、Grouping インスタンスを <codeph>GroupingCollection.grouping</codeph> プロパティに渡します。 Grouping インスタンスには、GroupingField インスタンスの配列が含まれます。配列内の GroupingField インスタンスはグループ化フィールドごとに 1 つずつ存在します。 </p>
+ 
+  <p>次の例では、Grouping クラスを使用して Region と Territory という 2 つのグループ化フィールドを定義しています。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link></related-links><apiConstructor id="mx.collections:GroupingField:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このフィールドが比較に使用するプロパティの名前です。 オブジェクトが単純型の場合、<codeph>null</codeph> を渡します。
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ストリングをソートする場合は、値の大文字小文字を無視するかどうかをコンパレータに指示します。
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>アイテムを降順に配置するかどうかをコンパレータに指示します。
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ソートアイテムをアルファベット順ではなく数として比較するかどうかをコンパレータに指示します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:GroupingField:groupingFunction"><apiName>groupingFunction</apiName><shortdesc>
+      このグループのラベルを決定する関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      このグループのラベルを決定する関数です。 デフォルトでは、グループは、<codeph>name</codeph> プロパティが指定したフィールドと一致するデータ内のフィールドテキストを表示します。 しかし場合によっては、データ内の複数のフィールドに基づいてアイテムをグループ化したり、単純なストリングフィールドではないものに基づいてグループ化したりしたいこともあります。 そのような場合は、<codeph>groupingFunction</codeph> プロパティを使用して、コールバック関数を指定します。
+     
+      <p>コールバック関数では、月の数字を月のストリングに変換したり、フィールドの実際の値以外の条件に基づいて複数のアイテムを単純なグループにまとめたりできます。</p>
+     
+      <p>GroupField の場合、メソッドシグネチャの形式は次のようになります。</p>
+     
+      <pre>groupingFunction(item:Object, field:GroupField):String</pre>
+     
+      <p>ここで、<codeph>item</codeph> はデータアイテムオブジェクトを示し、<codeph>field</codeph> は GroupField オブジェクトを示します。</p>
+     
+      例えば、最初の文字をグループ名として返す <codeph>groupingFunction</codeph> は次のようになります。 
+      <pre>
+      private function groupFunc(item:Object, field:GroupingField):String
+      {
+          return item[field.name].toString().substr(0, 1);
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      グループ化オブジェクトを決定するために、各グループノードで実行されるコールバック関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      グループ化オブジェクトを決定するために、各グループノードで実行されるコールバック関数です。 デフォルトでは、新しいオブジェクトはグループノード用に作成されます。
+     
+      <p>グループノードに適切なオブジェクトを提供する <codeph>groupingObjectFunction</codeph> を指定できます。</p>
+     
+      <p>メソッドシグネチャは次のとおりです。</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>ここで、<codeph>label</codeph> には、そのグループノードについて表示される値が含まれます。 関数は、グループノードに使用されるオブジェクトを返します。 </p>
+     
+      例えば、値が "Bob" の "name" プロパティを含むオブジェクトを返す <codeph>groupingObjectFunction</codeph> は次のようになります。 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:summaries"><apiName>summaries</apiName><shortdesc>
+      グループレベルの要約を定義する SummaryRow インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      グループレベルの要約を定義する SummaryRow インスタンスの配列です。 1 つまたは複数の SummaryRow インスタンスを指定してデータ要約を定義します。次に例を示します。
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region">
+                       &lt;mx:summaries>
+                           &lt;mx:SummaryRow summaryPlacement="group">
+                             &lt;mx:fields>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Min Actual" operation="MIN"/>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Max Actual" operation="MAX"/>
+                             &lt;/mx:fields>
+                           &lt;/mx:SummaryRow>
+                         &lt;/mx:summaries>
+                     &lt;/mx:GroupingField>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid>  
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingField:caseInsensitive:get"><apiName>caseInsensitive</apiName><shortdesc>
+      このフィールドのソートで大文字と小文字を区別しない場合、true に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このフィールドのソートで大文字と小文字を区別しない場合、<codeph>true</codeph> に設定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      関連付けられたコレクションのアイテムをソートするときに 2 つのアイテムを比較する関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      関連付けられたコレクションのアイテムをソートするときに 2 つのアイテムを比較する関数です。 Grouping オブジェクトの <codeph>compareFunction</codeph> プロパティを指定した場合、GroupingField オブジェクトの <codeph>compareFunction</codeph> プロパティはすべて無視されます。
+     
+      <p>比較関数には次のシグネチャが必要です。</p>
+     
+      <pre>function myCompare(a:Object, b:Object):int</pre>
+     
+      <p>この関数では、次の値が返される必要があります。</p>
+       <ul>
+            <li><codeph>a</codeph> が <codeph>b</codeph> の前に現れるソート順の場合は -1 です。</li>
+            <li><codeph>a</codeph> が <codeph>b</codeph> と等しい場合は 0 です。</li>
+            <li><codeph>a</codeph> が <codeph>b</codeph> の後に表示されるソート順の場合は 1 です。</li>
+      </ul>
+     
+      <p>デフォルト値は、ストリング、数値、日付を比較できる内部比較関数です。この比較関数では、昇順または降順での比較が可能で、ストリングの比較に関しては大文字と小文字の区別の有無を指定できます。 カスタム比較アルゴリズムが必要な場合にのみ、独自の関数を指定します。 このことは、通常、計算フィールドが表示で使用される場合にのみ該当します。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:descending:get"><apiName>descending</apiName><shortdesc>
+      このフィールドのソートが降順の場合、true に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このフィールドのソートが降順の場合、<codeph>true</codeph> に設定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:name:get"><apiName>name</apiName><shortdesc>
+      ソートするフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ソートするフィールドの名前です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      ソート対象のフィールドに数値（Number/int/uint）または数値を表すストリングが含まれている場合、コンパレータが数値比較を使用するように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ソート対象のフィールドに数値（Number/int/uint）または数値を表すストリングが含まれている場合、コンパレータが数値比較を使用するように指定します。 このプロパティが <codeph>false</codeph> の場合、数値のストリング表現が含まれるフィールドは、ストリング比較を使用してソートされます。例えば、"1" は "9" よりも小さいストリング値なので、100 は 99 より先に来ます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:Grouping"><apiName>Grouping</apiName><shortdesc>
+  Grouping クラスは、データのグループ化に使用する AdvancedDataGrid コントロールのデータプロバイダーのフィールドを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.Grouping&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Grouping
+  <b>Properties </b>
+    compareFunction="<i>No default</i>"
+    fields="null"
+    groupingObjectFunction="<i>No default</i>"
+    label="GroupLabel"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Grouping クラスは、データのグループ化に使用する AdvancedDataGrid コントロールのデータプロバイダーのフィールドを定義します。 AdvancedDataGrid コントロールへの入力データがフラット構造の場合、このクラスを使用してグループを作成します。
+ 
+  <p>グループ化されたデータを AdvancedDataGrid コントロールに格納するには、フラットデータから GroupingCollection クラスのインスタンスを作成し、その GroupingCollection インスタンスを AdvancedDataGrid コントロールのデータプロバイダーに渡します。 フラットデータのグループ化フィールドを指定するには、Grouping インスタンスを <codeph>GroupingCollection.grouping</codeph> プロパティに渡します。 Grouping インスタンスには、GroupingField インスタンスの配列が含まれます。配列内の GroupingField インスタンスはグループ化フィールドごとに 1 つずつ存在します。 </p>
+ 
+  <p>次の例では、Grouping クラスを使用して Region と Territory という 2 つのグループ化フィールドを定義しています。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:Grouping:Grouping"><apiName>Grouping</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:Grouping:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      グループ化オブジェクトを決定するために、各グループノードで実行されるコールバック関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      グループ化オブジェクトを決定するために、各グループノードで実行されるコールバック関数です。 デフォルトでは、新しいオブジェクトはグループノード用に作成されます。
+     
+      <p>グループノードに適切なオブジェクトを提供する <codeph>groupingObjectFunction</codeph> を指定できます。</p>
+     
+      <p>メソッドシグネチャは次のとおりです。</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>ここで、<codeph>label</codeph> には、そのグループノードについて表示される値が含まれます。 戻り値は、グループノードに使用されるオブジェクトです。 </p>
+     
+      例えば、値が "Bob" の "name" プロパティを含むオブジェクトを返す <codeph>groupingObjectFunction</codeph> は次のようになります。 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:label"><apiName>label</apiName><shortdesc>
+      階層を作成するためにフラットデータに追加されるフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GroupLabel</apiData><apiType value="String"/><apiDefaultValue>GroupLabel
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      階層を作成するためにフラットデータに追加されるフィールドの名前です。 各グループの最上位ノード（グループフィールドを表すノード）の値が、このプロパティで表されます。 このプロパティを使用して、異なる名前を指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      ソート時にアイテムを比較するために使用するメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      ソート時にアイテムを比較するために使用するメソッドです。 このプロパティを指定すると、このクラスで使用する SortField オブジェクトに指定した <codeph>compareFunction</codeph> プロパティはすべて無視されます。
+     
+      <p>比較関数には次のシグネチャが必要です。</p>
+      <pre>
+         function [name](a:Object, b:Object, fields:Array=null):int</pre>
+     
+      <p>この関数は、以下を返す必要があります。</p>
+      <ul>
+            <li><codeph>a</codeph> が <codeph>b</codeph> の前に現れるソート順の場合は -1 です。</li>
+            <li><codeph>a</codeph> が <codeph>b</codeph> と等しい場合は 0 です。</li>
+            <li><codeph>a</codeph> が <codeph>b</codeph> の後に表示されるソート順の場合は 1 です。</li>
+      </ul>
+     
+      <p>内部比較関数に戻すには、この値を <codeph>null</codeph> に設定します。</p>
+     
+     <p><codeph>fields</codeph> 配列は、比較するオブジェクトフィールドを指定します。 通常は、フィールドリストを使い果たすか、ゼロではない値が返されるまで、このアルゴリズムはプロパティを比較します。 次に実際の使用例を示します。</p>
+     
+      <pre>
+        function myCompare(a:Object, b:Object, fields:Array=null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }</pre>
+     
+      <p>デフォルト値は、ストリング、数値、日付を比較できる内部比較関数です。この比較関数では、昇順または降順での比較が可能で、ストリングの比較に関しては大文字と小文字の区別の有無を指定できます。 カスタム比較アルゴリズムが必要な場合にのみ、独自の関数を指定します。 このことは、通常、計算フィールドが表示で使用される場合にのみ該当します。</p>
+     
+      <p>また、SortField クラスの <codeph>compare</codeph> プロパティを使用することで、各ソートフィールドに対して個別の比較関数を指定することもできます。 こうすれば、一部のフィールドにデフォルトの比較関数を適用し、別のフィールドには独自の比較関数を適用することが可能となります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:fields:get"><apiName>fields</apiName><shortdesc>
+      データのグループ化に使用するフィールドを指定する GroupingField オブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データのグループ化に使用するフィールドを指定する GroupingField オブジェクトの配列です。 配列内の GroupingField オブジェクトの順序によって、ソート時のフィールドの優先順位が決まります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingField"><linktext>GroupingField</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+  SummaryRow クラスは、AdvancedDataGrid の要約行を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryRow&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryRow
+  <b>Properties </b>
+    fields="<i>No default</i>"
+    summaryObjectFunction="<i>No default</i>"
+    summaryPlacement="<i>last</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryRow クラスは、AdvancedDataGrid の要約行を表します。 データグループの要約データを作成するには、GroupingField クラスまたは GroupingCollection クラスの <codeph>summaries</codeph> プロパティを使用します。 要約データは、AdvancedDataGrid コントロールの既存の行に表示するか、または別の行に表示します。
+ 
+  <p>GroupingField クラスまたは GroupingCollection クラスの <codeph>summaries</codeph> プロパティは、SummaryRow クラスのインスタンスを取ります。 SummaryRow クラスの <codeph>fields</codeph> プロパティを使用して 1 つまたは複数の SummaryField または SummaryField2 インスタンスの配列を指定し、そこで要約の作成に使用するデータフィールドを定義します。<codeph>GroupingCollection2</codeph> を使用する場合は <codeph>SummaryField2</codeph> を使用する必要があります。</p>
+ 
+  <p>次の例では、AdvancedDataGrid コントロールのデータプロバイダーの 2 つのフィールドに基づいて、要約行を作成します。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiConstructor id="mx.collections:SummaryRow:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryRow:fields"><apiName>fields</apiName><shortdesc>
+      要約の作成に使用するデータフィールドの特性を定義する SummaryField または SummaryField2 インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      要約の作成に使用するデータフィールドの特性を定義する SummaryField または SummaryField2 インスタンスの配列です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryObjectFunction"><apiName>summaryObjectFunction</apiName><shortdesc>
+      要約オブジェクト（SummaryObject クラスのインスタンス）を定義するコールバック関数を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      要約オブジェクト（SummaryObject クラスのインスタンス）を定義するコールバック関数を指定します。 SummaryObject インスタンスは、AdvancedDataGrid コントロールに表示するために要約データを収集します。 AdvancedDataGrid コントロールは SummaryObject インスタンスをデータプロバイダーに追加し、コントロールに要約データを表示します。 したがって、表示する必要のあるプロパティを SummaryObject インスタンス内で定義してください。
+     
+      <p>このプロパティは <codeph>SummaryField.summaryFunction</codeph> プロパティと共に使用します。SummaryField.summaryFunction プロパティは、要約計算を実行するコールバック関数を定義します。</p>
+     
+      <p>GroupingCollection クラスは、<codeph>children</codeph> というプロパティをオブジェクトに追加します。</p>
+     
+      <p>このコールバック関数には次のシグネチャが必要です。</p>
+     
+      <pre>function mySumObjFunc():SummaryObject {}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>mx.collections.SummaryField.summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryPlacement"><apiName>summaryPlacement</apiName><shortdesc> 
+      AdvancedDataGrid コントロールのどこに要約行が表示されるかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      AdvancedDataGrid コントロールのどこに要約行が表示されるかを指定します。 有効な値は次のとおりです。
+     
+      <ul>
+        <li><codeph>"first"</codeph> - グループの最初の行として要約行を作成します。</li>
+        <li><codeph>"last"</codeph> - グループの最後の行として要約行を作成します。</li>
+        <li><codeph>"group"</codeph> - グループに対応する行に要約データを追加します。</li>
+      </ul>
+     
+      <p>複数の値を、スペースで区切って指定できます。 例えば、<codeph>"last group"</codeph> を指定すると、グループレベルと子の最後の行に同じ要約行が表示されます。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+  HierarchicalCollectionViewCursor クラスは、標準コレクションの階層ビュー用のカーソルを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionViewCursor</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HierarchicalCollectionViewCursor クラスは、標準コレクションの階層ビューのカーソルを定義します。 このカーソルが内部を移動するコレクションは階層的である必要はありません。フラットでもかまいません。 このクラスは、移動するデータのツリー構造の情報について IHierarchicalData に委任します。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#HierarchicalCollectionView"><linktext>HierarchicalCollectionView</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalCollectionViewCursor:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:HierarchicalCollectionView</apiOperationClassifier><apiDesc>このカーソルが参照する HierarchicalCollectionView インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>ソースデータコレクションです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiDesc>HierarchicalCollectionView インスタンスの作成に使用するデータです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findAny"><apiName>findAny</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findFirst"><apiName>findFirst</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findLast"><apiName>findLast</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:insert"><apiName>insert</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:moveNext"><apiName>moveNext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:movePrevious"><apiName>movePrevious</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:remove"><apiName>remove</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:seek"><apiName>seek</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>bookmark</apiItemName><apiType value="mx.collections:CursorBookmark"/></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.collections:HierarchicalCollectionViewCursor:afterLast:get"><apiName>afterLast</apiName><shortdesc conref="mx.collections.IViewCursor#afterLast">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#afterLast">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:beforeFirst:get"><apiName>beforeFirst</apiName><shortdesc conref="mx.collections.IViewCursor#beforeFirst">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#beforeFirst">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:bookmark:get"><apiName>bookmark</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      
+      ソースコレクション内でこのカーソルが参照する位置にあるノードの深さが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      ソースコレクション内でこのカーソルが参照する位置にあるノードの深さが含まれます。 カーソルがコレクションの末尾を越える場合、このプロパティには 0 が含まれます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:current:get"><apiName>current</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:view:get"><apiName>view</apiName><shortdesc conref="mx.collections.IViewCursor#view">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#view">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:DefaultSummaryCalculator"><apiName>DefaultSummaryCalculator</apiName><shortdesc>
+  DefaultSummaryCalculator クラスは、SUM、MIN、MAX、AVG および COUNT 操作の要約計算ロジックを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISummaryCalculator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DefaultSummaryCalculator クラスは、<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> および <codeph>COUNT</codeph> 操作の要約計算ロジックを提供します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex は、新しい要約値を既に計算済みの要約に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>summaryOfSummaryCalculationBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>calculateSummaryOfSummary()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>returnSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、新しい要約値を既に計算済みの要約に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+	  
+      Flex は、新しい値を要約値に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>summaryCalculationBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>calculateSummary()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、新しい値を要約値に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex は、このメソッドを呼び出して要約計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>要約計算結果を格納するために使用する <codeph>calculateSummaryOfSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、このメソッドを呼び出して要約計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+	  
+      Flex は、このメソッドを呼び出して要約値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>calculateSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、このメソッドを呼び出して要約値の計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex は、このメソッドを呼び出して要約値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約計算用に初期化されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>calculateSummary()</codeph> および <codeph>returnSummary()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、このメソッドを呼び出して要約値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex は、このメソッドを呼び出して要約値から要約の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約計算用に初期化されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>calculateSummaryOfSummary()</codeph> および <codeph>returnSummaryOfSummary()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の要約計算で <codeph>calculateSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex は、このメソッドを呼び出して要約値から要約の計算を開始します。平均のグループの平均値の計算は、要約値からの要約計算の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+  階層データは、親データアイテムと子データアイテムの構造に既に格納されているデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  階層データは、親データアイテムと子データアイテムの構造に既に格納されているデータです。 HierarchicalData クラスは、AdvancedDataGrid などのコントロールで使用するデータへのアクセスと操作を行うためのデフォルトの実装を提供します。 階層データを表示する AdvancedDataGrid コントロールを設定するには、HierarchicalData クラスのインスタンスを <codeph>dataProvider</codeph> プロパティに渡します。 この実装では、E4X、XML、オブジェクトの各ノードをよく似た方法で処理しますが、完全に同じというわけではありません。 メソッドが様々なタイプのノードの値にどのようにアクセスするかについては、各メソッドの説明を参照してください。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalData:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>HierarchicalData インスタンスに格納するデータです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+     
+      ノードに子を含めることができる場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードに子を含めることができる場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      ノードに子を含めることができる場合は、<codeph>true</codeph> を返します。
+     
+      <p>このメソッドは、ノードに実際に子が含まれていなくても <codeph>true</codeph> を返します。 このメソッドは、指定したノードに他のノードを子として追加できるかどうかを確認する場合に便利です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      ノードの子を表すオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含むオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。 <codeph>null</codeph> の場合、最上位ノードのコレクションを返します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードの子を表すオブジェクトを返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      
+      ノードからデータを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要求されたデータです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>データを取得するノードオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードからデータを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     
+     ルートデータアイテムを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ルートデータアイテムを含むオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     
+     ルートデータアイテムを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      
+      ノードに子がある場合は true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードに子がある場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードに子がある場合は、<codeph>true</codeph> を返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalData:childrenField:get"><apiName>childrenField</apiName><shortdesc>
+      データアイテム内の子オブジェクトの検出に使用するフィールド名を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      データアイテム内の子オブジェクトの検出に使用するフィールド名を示します。 デフォルトでは、すべてのサブノードが XML データの子と見なされ、Object データ型については <codeph>children</codeph> プロパティが使用されます。 これは、カスタムデータフィールドを使用して子を表すデータ形式に適合する場合に便利です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalData:source:get"><apiName>source</apiName><shortdesc>
+      ソースコレクションです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ソースコレクションです。 このコレクションは、アイテムの追加や削除などの操作を簡単に行えるように、IList インターフェイスを実装している必要があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+  GroupingCollection クラスを使用すると、AdvancedDataGrid コントロールに表示するために、フラットデータからグループ化データを作成できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingCollection&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingCollection
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  <p>This Class has been deprecated and replaced by a new Class
+  <code>GroupingCollection2</code> which provide faster, 
+  improved performance and a new summary calculation mechanism.
+  Class <code>SummaryField</code> has also been deprecated and 
+  replaced by a new Class <code>SummaryField2</code>.
+  Properties <code>operation</code> and <code>summaryFunction</code> are 
+  not present in the Class <code>SummaryField2</code>. 
+  A new property <code>summaryOperation</code> is introduced in 
+  <code>SummaryField2</code>.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="GroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IGroupingCollection</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GroupingCollection クラスを使用すると、AdvancedDataGrid コントロールに表示するために、フラットデータからグループデータを作成できます。 フラットデータから GroupingCollection のインスタンスを作成する場合は、階層の作成に使用するデータのフィールドを 1 つ以上指定します。
+ 
+  <p>グループ化されたデータを AdvancedDataGrid コントロールに格納するには、フラットデータから GroupingCollection クラスのインスタンスを作成し、その GroupingCollection インスタンスを AdvancedDataGrid コントロールのデータプロバイダーに渡します。 フラットデータのグループ化フィールドを指定するには、Grouping インスタンスを <codeph>GroupingCollection.grouping</codeph> プロパティに渡します。 Grouping インスタンスには、GroupingField インスタンスの配列が含まれます。配列内の GroupingField インスタンスはグループ化フィールドごとに 1 つずつ存在します。 </p>
+ 
+  <p>次の例では、GroupingCollection クラスを使用して Region と Territory という 2 つのグループ化フィールドを定義しています。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。 このメソッドは、<codeph>refresh()</codeph> メソッドを引数 <codeph>true</codeph>（非同期更新を表す）を指定して呼び出した場合にのみ、更新をキャンセルします。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      ノードの親を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ノードを子として含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの親を返します。 最上位ノードの親は <codeph>null</codeph> です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:getRoot"><apiName>getRoot</apiName><shortdesc>
+      グループ化プロパティが設定されている場合は super.source を返し、設定されていない場合は super.source を参照する ICollectionView インスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>返すオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>super.source</codeph> を返すのは <codeph>grouping</codeph> プロパティが設定されている場合です。設定されていない場合は <codeph>super.source</codeph> を参照する ICollectionView インスタンスを返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      グループ化をビューに適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは <codeph>refresh()</codeph> メソッドが完了した場合です。<codeph>false</codeph> が返されるのは更新が完了していない場合です。これはアイテムがまだ保留中であることを意味する場合があります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は更新が非同期になります。 デフォルトは <codeph>false</codeph> で、同期的に更新されることを示します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      グループ化をビューに適用します。 IGroupingCollection は、グループの変更を自動検出しません。したがって、<codeph>refresh()</codeph> メソッドを呼び出してビューを更新する前に、<codeph>group</codeph> プロパティを設定する必要があります。
+     
+      <p><codeph>refresh()</codeph> メソッドを非同期的に適用するには、<codeph>refresh(true)</codeph> を呼び出します。</p>
+      
+      <p><codeph>refresh()</codeph> が同期的に呼び出された場合、クライアントは、<codeph>kind</codeph> プロパティの値が <codeph>CollectionEventKind.REFRESH</codeph> に設定された CollectionEvent イベントを待機して、<codeph>refresh()</codeph> メソッドが完了したことを確認する必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection:summaries"><apiName>summaries</apiName><shortdesc>
+      ルートレベルのデータ要約を定義する SummaryRow インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      ルートレベルのデータ要約を定義する SummaryRow インスタンスの配列です。 1 つまたは複数の SummaryRow インスタンスを指定してデータ要約を定義します。次に例を示します。
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Min Actual" operation="MIN"/>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Max Actual" operation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:protected:timer"><apiName>timer</apiName><shortdesc>
+      非同期更新操作に関連付けられたタイマーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      非同期更新操作に関連付けられたタイマーです。 これを使用して、タイミング間隔の変更や更新の一時停止などのアクションを実行できます。 タイマーインスタンスの <codeph>delay</codeph> プロパティのデフォルト値は 1 （1 ミリ秒に相当）です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      ソースデータに適用される Grouping インスタンスを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      ソースデータに適用される Grouping インスタンスを指定します。 <codeph>grouping</codeph> プロパティを設定してもビューは自動的には更新されないので、このプロパティを設定した後で <codeph>refresh()</codeph> メソッドを呼び出す必要があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection/refresh()"><linktext>mx.collections.GroupingCollection.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:source:get"><apiName>source</apiName><shortdesc>
+      グループ化するフラットデータを含むソースコレクションです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      グループ化するフラットデータを含むソースコレクションです。 ソースがコレクションでない場合は、自動的にコレクション内にラップされます。
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISummaryCalculator"><apiName>ISummaryCalculator</apiName><shortdesc>
+  ISummaryCalculator インターフェイスは、カスタム要約計算クラスによって実装されるインターフェイスを定義します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ISummaryCalculator インターフェイスは、カスタム要約計算クラスによって実装されるインターフェイスを定義します。 このインターフェイスを実装するクラスのインスタンスを、<codeph>SummaryField2</codeph> クラスの <codeph>summaryOperation</codeph> プロパティに渡すことができます。
+ 
+  <p>このインターフェイスのメソッドを 2 つのグループに実装します。最初のグループは <codeph>summaryCalculationBegin()</codeph>、<codeph>calculateSummary()</codeph> および <codeph>returnSummary()</codeph> メソッドで構成されます。 これらのメソッドを使用して、値の要約を計算します。</p>
+ 
+  <p>次のグループは <codeph>summaryOfSummaryCalculationBegin()</codeph>、<codeph>calculateSummaryOfSummary()</codeph> および <codeph>returnSummaryOfSummary()</codeph> メソッドで構成されます。 これらのメソッドを使用して、要約値の要約を計算します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+      Flex は、新しい要約値を既に計算済みの要約に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc><codeph>summaryOfSummaryCalculationBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>calculateSummaryOfSummary()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>returnSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、新しい要約値を既に計算済みの要約に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+      Flex は、新しい値を要約値に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>summaryCalculationBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>calculateSummary()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、新しい値を要約値に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+      Flex は、このメソッドを呼び出して要約計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要約計算結果を格納するために使用する <codeph>calculateSummaryOfSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、このメソッドを呼び出して要約計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+      Flex は、このメソッドを呼び出して要約値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>calculateSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、このメソッドを呼び出して要約値の計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+      Flex は、このメソッドを呼び出して要約値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約計算用に初期化されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>calculateSummary()</codeph> および <codeph>returnSummary()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、このメソッドを呼び出して要約値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+      Flex は、このメソッドを呼び出して要約値から要約の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要約計算用に初期化されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>calculateSummaryOfSummary()</codeph> および <codeph>returnSummaryOfSummary()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の要約計算で <codeph>calculateSummary()</codeph> メソッドの呼び出しによって返されたオブジェクトです。このオブジェクトを使用して、計算を実行するために必要な情報を保持します。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>要約を計算する SummaryField2 です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex は、このメソッドを呼び出して要約値から要約の計算を開始します。平均のグループの平均値の計算は、要約値からの要約計算の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection2"><apiName>IGroupingCollection2</apiName><shortdesc>
+  IGroupingCollection2 インターフェイスは、フラットデータからグループ化データを作成するために必要なインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGroupingCollection2 インターフェイスは、フラットデータからグループ化データを作成するために必要なインターフェイスを定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection2"><linktext>mx.collections.GroupingCollection2</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。 このメソッドは、<codeph>refresh()</codeph> メソッドを <codeph>true</codeph>の <codeph>asynch</codeph> 引数（非同期更新を表す）を指定して呼び出した場合にのみ、更新をキャンセルします。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      グループ化をコレクションに適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは <codeph>refresh()</codeph> メソッドが完了した場合です。<codeph>false</codeph> が返されるのは更新が完了していない場合です。これはアイテムがまだ保留中であることを意味する場合があります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は更新が非同期になります。 デフォルトは <codeph>false</codeph> で、同期的に更新されることを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合、グループが形成されたときにイベントが送出されます。より高いパフォーマンスを得るには、<codeph>false</codeph> に設定します。<codeph>true</codeph> の場合、イベントがグループとして送出され、要約が同期的に計算されてコントロールが更新されます。メモ：<codeph>async</codeph> が <codeph>true</codeph> の場合、<codeph>dispatchCollectionEvents</codeph> は常に <codeph>true</codeph> に設定されます。デフォルトは、イベント送出が行われない <codeph>false</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      グループ化をコレクションに適用します。コレクションはグループの変更を自動検出しません。したがって、<codeph>group</codeph>、<codeph>source</codeph> または <codeph>summaries</codeph> プロパティを設定した後に、<codeph>refresh()</codeph> メソッドを呼び出して、コレクションを更新する必要があります。また、<codeph>caseInsensitive</codeph>、<codeph>compareFunction</codeph>、<codeph>groupingFunction</codeph> などのプロパティを変更してコレクションの GroupingField を変更したときにも、<codeph>refresh()</codeph> メソッドを呼び出します。
+     
+      <p><codeph>refresh()</codeph> メソッドは同期的にも非同期的にも適用できます。</p>
+      
+      <p><codeph>refresh()</codeph> を同期的に呼び出した場合、メソッドが返る前に、すべてのグループと要約が一緒に更新されます。つまり、この呼び出し中は他の処理操作をアプリケーションで実行できないという意味です。クライアントは、<codeph>kind</codeph> プロパティの値が <codeph>CollectionEventKind.REFRESH</codeph> に設定された CollectionEvent イベントを待機して、<codeph>refresh()</codeph> メソッドが完了したことを確認する必要があります。</p>
+     
+      <p>非同期更新では、すべてのグループと要約が個々に更新されます。グループと要約が更新される前に <codeph>refresh()</codeph> メソッドが返るので、アプリケーションは実行を継続できます。また、更新中にコントロールが更新されるので、ユーザーはコントロールとの対話を継続できます。</p>
+     
+      <p>一括更新と異なり、グループと要約を個々に更新する際のオーバーヘッドがあるので、非同期更新のほうが同期更新よりも処理時間が長くなります。しかし、大規模なデータセットを扱う場合、非同期更新であれば更新中もアプリケーションを継続実行できます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      ソースデータに適用される Grouping オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      ソースデータに適用される Grouping オブジェクトです。 このプロパティを設定してもビューは自動的に更新されません。したがって、このプロパティを設定した後、<codeph>refresh()</codeph> メソッドを呼び出す必要があります。
+     
+      <p><b>メモ：</b>IGroupingCollection2 の Flex 実装では、グループ化を実行する前にリモートからすべてのアイテムを取得します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+  HierarchicalCollectionView クラスは、標準コレクションの階層ビューを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.HierarchicalCollectionView&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:HierarchicalCollectionView
+  <b>Properties </b>
+    showRoot="true|false"
+    source="<i>No default</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionView</apiBaseInterface><apiBaseInterface>mx.utils:IXMLNotifiable</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HierarchicalCollectionView クラスは、標準コレクションの階層ビューを提供します。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections:HierarchicalCollectionView:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiData>null</apiData><apiDesc>階層データを含むデータ構造です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>argOpenNodes</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>開いた状態で表示されるノードを定義するオブジェクトです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子が正常に追加された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>子ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>子ノードを挿入する位置の 0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。 この実装では、以下の処理を行います。
+     
+      <ul>
+          <li><codeph>parent</codeph> が null または未定義の場合、<codeph>child</codeph> をコレクション内の <codeph>index</codeph>（<codeph>source</codeph> で指定）に挿入します。
+          </li>
+          <li><codeph>parent</codeph> に <codeph>children</codeph> フィールドまたはプロパティが存在する場合、このメソッドは <codeph>child</codeph> を <codeph>index</codeph> の位置に追加します。 この場合、<codeph>source</codeph> は不要です。
+         </li>
+         <li><codeph>parent</codeph> に <codeph>children</codeph> フィールドまたはパラメーターがない場合、このメソッドは <codeph>children</codeph> を <codeph>parent</codeph> に追加します。 次にこのメソッドは、<codeph>child</codeph> を parent の <codeph>index</codeph> の位置に追加します。 この場合、<codeph>source</codeph> は不要です。
+         </li>
+         <li><codeph>index</codeph> の値がコレクションの長さより大きいか、親に含まれている子の数より大きい場合、オブジェクトを最後の子として追加します。
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      
+      データのノードに子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードが正常に追加された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>新しいノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      データのノードに子ノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      
+      ノードを閉じて子を非表示にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードを閉じて子を非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:contains"><apiName>contains</apiName><shortdesc>
+      標準の等価テストを使用して、データアイテムのコレクションをチェックします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データアイテムがコレクションに含まれている場合は <codeph>true</codeph>、含まれていない場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>検索するノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      標準の等価テストを使用して、データアイテムのコレクションをチェックします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      このビューのアイテムを列挙するビューイテレータの新しいインスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>IViewCursor インスタンスです。
+     
+      </apiDesc><apiType value="mx.collections:IViewCursor"/></apiReturn></apiOperationDef><apiDesc>
+      このビューのアイテムを列挙するビューイテレータの新しいインスタンスを返します。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.IViewCursor.xml"><linktext>mx.utils.IViewCursor</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      子のコレクションが存在する場合は、このコレクションを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含む ICollectionView インスタンスです。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。 <codeph>null</codeph> の場合、最上位ノードのコレクションを返します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      子のコレクションが存在する場合は、このコレクションを返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+     
+      コレクション内のノードの深さを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの深さです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      コレクション内のノードの深さを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      ノードの親を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードを含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの親を返します。 最上位ノードの親は <codeph>null</codeph> です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      
+      ノードを開いて子を表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードを開いて子を表示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子が正常に削除された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>削除する子ノードの、親からの相対的な位置を示す、0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      
+      親ノードから子ノードを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードが正常に削除された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>親ノードを定義するオブジェクトです。最上位ノードの場合は <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>削除する子ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      親ノードから子ノードを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+       
+      true の場合、現在のデータプロバイダーにルートノード（例えば、階層構造内の単一の最上位ノードなど）があることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+       
+      <codeph>true</codeph> の場合、現在のデータプロバイダーにルートノード（例えば、階層構造内の単一の最上位ノードなど）があることを示します。 XML と Object はルートノードがあるデータ型の例であり、リストと配列はルートノードがないタイプの例です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:length:get"><apiName>length</apiName><shortdesc>
+      現在解析しているコレクションの長さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      現在解析しているコレクションの長さです。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      
+      開いているすべてのブランチノードに関するデータプロバイダーエレメントを含むオブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      開いているすべてのブランチノードに関するデータプロバイダーエレメントを含むオブジェクトの配列です。
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      
+      データプロバイダーのルートノードを表示するかどうかを指定するブール値のフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      データプロバイダーのルートノードを表示するかどうかを指定する Boolean フラグです。 このプロパティを <codeph>false</codeph> に設定すると、ソースデータにルートノードがある場合でも、コレクションにルートアイテムは含まれません。 ルートアイテムの下位要素のみがコレクションに含まれます。  
+     
+      <p>このプロパティは、List オブジェクトや Array オブジェクトなどのルートノードのないソースには影響しません。</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      
+      IHierarchicalCollectionView のソースデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      
+      IHierarchicalCollectionView のソースデータです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection"><apiName>IGroupingCollection</apiName><shortdesc>
+  IGroupingCollection インターフェイスは、フラットデータからグループ化データを作成するために必要なインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="IGroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGroupingCollection インターフェイスは、フラットデータからグループ化データを作成するために必要なインターフェイスを定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更新が非同期的に実行される場合、更新操作をキャンセルしてグループの作成を中止します。 このメソッドは、<codeph>refresh()</codeph> メソッドを引数 <codeph>true</codeph>（非同期更新を表す）を指定して呼び出した場合にのみ、更新をキャンセルします。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      グループ化をビューに適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは <codeph>refresh()</codeph> メソッドが完了した場合です。<codeph>false</codeph> が返されるのは更新が完了していない場合です。これはアイテムがまだ保留中であることを意味する場合があります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は更新が非同期になります。 デフォルトは <codeph>false</codeph> で、同期的に更新されることを示します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      グループ化をビューに適用します。 IGroupingCollection は、グループの変更を自動検出しません。したがって、<codeph>refresh()</codeph> メソッドを呼び出してビューを更新する前に、<codeph>group</codeph> プロパティを設定する必要があります。
+     
+      <p><codeph>refresh()</codeph> メソッドを非同期的に適用するには、<codeph>refresh(true)</codeph> を呼び出します。</p>
+      
+      <p><codeph>refresh()</codeph> が同期的に呼び出された場合、クライアントは、<codeph>kind</codeph> プロパティの値が <codeph>CollectionEventKind.REFRESH</codeph> に設定された CollectionEvent イベントを待機して、<codeph>refresh()</codeph> メソッドが完了したことを確認する必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      ソースデータに適用される Grouping オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      ソースデータに適用される Grouping オブジェクトです。 このプロパティを設定してもビューは自動的に更新されません。したがって、このプロパティを設定した後、<codeph>refresh()</codeph> メソッドを呼び出す必要があります。
+     
+      <p>メモ：IGroupingCollection の実装では、グループ化を実行する前にリモートからすべてのアイテムを取得します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

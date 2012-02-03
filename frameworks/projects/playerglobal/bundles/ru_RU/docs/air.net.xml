@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="air.net" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">air.net</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="air.net:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ Класс URLMonitor следит за доступностью службы, основанной на протоколе HTTP или HTTPS.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Класс URLMonitor следит за доступностью службы, основанной на протоколе HTTP или HTTPS.
+ 
+ <p class="- topic/p ">Этот класс включен в файл aircore.swc. Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">™</sup> Builder загружает этот класс автоматически при создании проекта для Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR<sup class="+ topic/ph hi-d/sup ">™</sup>. Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex<sup class="+ topic/ph hi-d/sup ">™</sup> SDK также включает файл aircore.swc, который необходимо добавлять при компиляции приложения с использованием Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">В Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional этот класс содержится в файле ServiceMonitorShim.swc. Чтобы использовать классы пакета air.net, необходимо сначала перетащить компонент ServiceMonitorShim из панели «Компоненты» в библиотеку, затем добавить следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в свой код ActionScript 3.0:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Чтобы использовать пакет air.net в Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 и более поздних версий), выполните следующие действия. </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Выберите меню «Файл» > «Параметры публикации».</li><li class="- topic/li ">В панели Flash нажмите кнопку «Параметры» для ActionScript 3.0. Выберите «Путь к библиотеке».</li><li class="- topic/li ">Нажмите кнопку «Перейти к файлу SWC». Найдите файл Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc в папке установки Adobe Flash Professional.</li><li class="- topic/li ">Нажмите кнопку «ОК».</li><li class="- topic/li ">Вставьте следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в код ActionScript 3.0: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:URLMonitor:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     Создает объект URLMonitor для указанной службы, основанной на протоколах HTTP или HTTPS.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">urlRequest</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:URLRequest</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект URLRequest, представляющий запрос проверки для опроса сервера.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">acceptableStatusCodes</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Массив числовых кодов состояния, в котором перечислены коды, отражающие положительный результат.
+     
+     <p class="- topic/p ">Если значение свойства <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> не указано, следующие коды состояния будут идентифицированы как успешные ответы:</p>
+     
+     <ul class="- topic/ul "><li class="- topic/li ">200 (OK) </li><li class="- topic/li ">202 (Принято) </li><li class="- topic/li ">204 (Нет содержимого) </li><li class="- topic/li ">205 (Сброс содержимого) </li><li class="- topic/li ">206 (Частичное содержимое в ответ на запрос с заголовком «Диапазон») </li></ul>
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Создает объект URLMonitor для указанной службы, основанной на протоколах HTTP или HTTPS.
+     
+     <p class="- topic/p ">После создания URLMonitor пользователь должен вызвать метод <codeph class="+ topic/ph pr-d/codeph ">start()</codeph>, чтобы приступить к мониторингу состояния службы.</p>
+     
+     <p class="- topic/p ">Как и в случае с объектом Timer, пользователь, выполняющий вызов, должен сохранить ссылку на объект URLMonitor. В противном случае данный объект может быть удален при выполнении, и на этом мониторинг прервется.</p>
+     
+     <p class="- topic/p ">Параметр URLRequest указывает запрос проверки для опроса сервера. Как правило, используется метод запроса <codeph class="+ topic/ph pr-d/codeph ">GET</codeph> или <codeph class="+ topic/ph pr-d/codeph ">HEAD</codeph>.</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:URLMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+    Пытается загрузить содержимое, находящееся по указанному URL-адресу, в фоновом режиме для осуществления проверки наличия возвращенного кода состояния HTTP.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Пытается загрузить содержимое, находящееся по указанному URL-адресу, в фоновом режиме для осуществления проверки наличия возвращенного кода состояния HTTP. 
+    <p class="- topic/p ">
+    Если получен код состояния, который перечислен в свойстве <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph>, свойству <codeph class="+ topic/ph pr-d/codeph ">available</codeph> будет присвоено значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>. Если получен код состояния, который не входит в список <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph>, либо при наличии ошибки безопасности или ошибки ввода-вывода, свойству <codeph class="+ topic/ph pr-d/codeph ">available</codeph> присваивается значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+    </p>
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:URLMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+     
+	 Возвращает строковое представление заданного объекта.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строковое представление объекта.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+     
+	 Возвращает строковое представление заданного объекта.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> Методы класса Object динамически создаются в прототипе Object. Чтобы переопределить этот метод в подклассе Object, не используйте ключевое слово <codeph class="+ topic/ph pr-d/codeph ">override</codeph>. Например, в подклассе Object вместо переопределения базового класса применяется <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph>.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:URLMonitor:acceptableStatusCodes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">acceptableStatusCodes</apiName><shortdesc class="- topic/shortdesc ">
+     Числовые коды состояния, отражающие положительный результат.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Числовые коды состояния, отражающие положительный результат.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:URLMonitor:urlRequest:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">urlRequest</apiName><shortdesc class="- topic/shortdesc ">
+     Объект URLRequest, представляющий запрос проверки.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.net:URLRequest</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Объект URLRequest, представляющий запрос проверки.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ Класс ServiceMonitor внедряет среду для мониторинга состояния и доступности сетевых служб.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Класс ServiceMonitor внедряет среду для мониторинга состояния и доступности сетевых служб. Класс ServiceMonitor выступает в качестве базового для других мониторов служб.
+ 
+ <p class="- topic/p ">Этот класс включен в файл aircore.swc. Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash™ Builder™ загружает этот класс автоматически при создании проекта для Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR™. Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex™ SDK также включает файл aircore.swc, который необходимо добавлять при компиляции приложения с использованием Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">В Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional этот класс содержится в файле ServiceMonitorShim.swc. Чтобы использовать классы пакета air.net, необходимо сначала перетащить компонент ServiceMonitorShim из панели «Компоненты» в библиотеку, затем добавить следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в свой код ActionScript 3.0:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Чтобы использовать пакет air.net в Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 и более поздних версий), выполните следующие действия. </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Выберите меню «Файл» > «Параметры публикации».</li><li class="- topic/li ">В панели Flash нажмите кнопку «Параметры» для ActionScript 3.0. Выберите «Путь к библиотеке».</li><li class="- topic/li ">Нажмите кнопку «Перейти к файлу SWC». Найдите файл Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc в папке установки Adobe Flash Professional.</li><li class="- topic/li ">Нажмите кнопку «ОК».</li><li class="- topic/li ">Вставьте следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в код ActionScript 3.0: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><adobeApiEvent id="air.net:ServiceMonitor_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+ Указывает на изменение состояния службы.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Указывает на изменение состояния службы.
+ 
+ <p class="- topic/p ">Свойство <codeph class="+ topic/ph pr-d/codeph ">code</codeph> принимает значение <codeph class="+ topic/ph pr-d/codeph ">Service.available</codeph> или <codeph class="+ topic/ph pr-d/codeph ">Service.unavailable</codeph>, но лучше всего проверить значение свойства <codeph class="+ topic/ph pr-d/codeph ">ServiceMonitor.available</codeph>.</p>
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="air.net:ServiceMonitor:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     Создает объект ServiceMonitor.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Создает объект ServiceMonitor. 
+     
+     <p class="- topic/p ">Этот класс, как правило, является подклассом для отслеживания конкретных типов служб.</p>
+     
+     
+     
+     <p class="- topic/p ">После создания объекта ServiceMonitor (или объекта подкласса) вызовите метод <codeph class="+ topic/ph pr-d/codeph ">start()</codeph>, чтобы начать мониторинг состояния службы.</p>
+     
+     <p class="- topic/p ">Как и в случае с объектом Timer, пользователь, выполняющий вызов, должен сохранить ссылку на объект ServiceMonitor. В противном случае этот объект удаляется при выполнении, и мониторинг заканчивается.</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:ServiceMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+     Проверяет состояние службы.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Проверяет состояние службы.
+     
+     <p class="- topic/p ">Метод переопределения подкласса для проверки состояния службы.</p>
+     
+     <p class="- topic/p ">Как правило, этот метод инициирует сетевую операцию, завершение или ошибка которой приводят к выбору значения свойства <codeph class="+ topic/ph pr-d/codeph ">available</codeph>.</p>
+     
+     <p class="- topic/p ">Код JavaScript может специализировать этот метод путем определения метода <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> в специализирующем объекте.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:makeJavascriptSubclass" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">makeJavascriptSubclass</apiName><shortdesc class="- topic/shortdesc ">
+     Добавляет общедоступные методы ServiceMonitor в прототип функции конструктора JavaScript.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">constructorFunction</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Свойство <codeph class="+ topic/ph pr-d/codeph ">prototype</codeph> объекта JavaScript. Например, если объект JavaScript, используемый в качестве специализирующего, назван MyHTTPMonitor, укажите в качестве значения этого параметра <codeph class="+ topic/ph pr-d/codeph ">MyHTTPMonitor.prototype</codeph>.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Добавляет общедоступные методы ServiceMonitor в прототип функции конструктора JavaScript.
+     
+     <p class="- topic/p ">Добавляет функции в прототип функции конструктора JavaScript, которые направляют общедоступные функции ServiceMonitor в объект ServiceMonitor. Это приближает обычный подкласс JavaScript к базовому классу ActionScript.</p>
+     
+     <p class="- topic/p ">Класс JavaScript, который специализирует ServiceMonitor, выглядит следующим образом:</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     // JavaScript Constructor function
+     function MyHTTPMonitor(url, method)
+     {
+         // "that" variable makes "this" available in closures below
+         var that = this;
+         // Required initialization of the service monitor, returns the actual ServiceMonitor object.
+         this.monitor = this.initServiceMonitor();
+         // Initializes URLStream and event handlers.
+         this._urlStream = new air.URLStream();
+         this._urlRequest = new air.URLRequest(url);
+         if (method)
+         {
+             this._urlRequest.method = method;
+         }
+         else
+         {
+             this._urlRequest.method = "GET";
+         }
+         function onStatus(event) {
+             that.monitor.available = Number(event.status) == 200;
+             that._urlStream.close();
+         }
+         function onError(event)
+         {
+             that.monitor.available = false;
+             that._urlStream.close();
+         }
+         this._urlStream.addEventListener(air.HTTPStatusEvent.HTTP_RESPONSE_STATUS, onStatus);
+         this._urlStream.addEventListener(air.SecurityErrorEvent.SECURITY_ERROR, onError);
+         this._urlStream.addEventListener(air.IOErrorEvent.IO_ERROR, onError);
+     }
+     
+     // Augment JavaScript prototype with public methods from ServiceMonitor
+     air.ServiceMonitor.makeJavascriptSubclass(MyHTTPMonitor);
+     
+     // Implement specializer functions, just as you would when subclassing a JavaScript class
+     MyHTTPMonitor.prototype.checkStatus = function()
+     {
+         air.trace('OVERRIDDEN checkStatus!', this);
+         this._urlStream.load(this._urlRequest);
+     }
+     </codeblock>
+     
+     <p class="- topic/p ">Чтобы воспользоваться классом JavaScript, выполните следующие действия.</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var httpMon = new MyHTTPMonitor('http://www.adobe.com')
+     </codeblock>
+     
+     <p class="- topic/p ">Обязательно загрузите файлы AIRAliases.js и aircore.swf с тегами <codeph class="+ topic/ph pr-d/codeph ">script</codeph>.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     Запускает монитор служб.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Запускает монитор служб.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:stop" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stop</apiName><shortdesc class="- topic/shortdesc ">
+     Останавливает мониторинг службы.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Останавливает мониторинг службы.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+	 Возвращает строковое представление заданного объекта.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строковое представление объекта.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+	 Возвращает строковое представление заданного объекта.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> Методы класса Object динамически создаются в прототипе Object. Чтобы переопределить этот метод в подклассе Object, не используйте ключевое слово <codeph class="+ topic/ph pr-d/codeph ">override</codeph>. Например, в подклассе Object вместо переопределения базового класса применяется <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph>.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:ServiceMonitor:available:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">available</apiName><shortdesc class="- topic/shortdesc ">
+     Показывает, считается ли служба «доступной» в данный момент. Значение false является начальным значением до тех пор, пока либо проверка состояния приведет к присвоению свойству значения true, либо свойство будет инициализировано со значением true явным образом. Как правило, это свойство настраивается с помощью реализации метода checkStatus() в подклассе или специализирующем объекте. Но если приложение обладает автономным источником информации о доступности службы (например, успешно или безуспешно выполненным запросом), свойство можно задать вручную.
+     
+     </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Показывает, считается ли служба «доступной» в данный момент.
+     
+     <p class="- topic/p ">Значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph> является начальным значением до тех пор, пока либо проверка состояния приведет к присвоению свойству значения <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, либо свойство будет инициализировано со значением <codeph class="+ topic/ph pr-d/codeph ">true</codeph> явным образом.</p>
+     
+     <p class="- topic/p ">Как правило, это свойство настраивается с помощью реализации метода <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> в подклассе или специализирующем объекте. Но если приложение обладает автономным источником информации о доступности службы (например, успешно или безуспешно выполненным запросом), свойство можно задать вручную.</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:lastStatusUpdate:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastStatusUpdate</apiName><shortdesc class="- topic/shortdesc ">
+     Время последнего обновления состояния.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Date</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Время последнего обновления состояния.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:pollInterval:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pollInterval</apiName><shortdesc class="- topic/shortdesc ">
+     Интервал опроса сервера в миллисекундах.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Интервал опроса сервера в миллисекундах.
+     
+     <p class="- topic/p ">Если он равен нулю, опрос сервера выполняется не периодически, а лишь после вызова метода <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> и при изменении состояния сети.</p>
+     
+     <p class="- topic/p ">Объект ServiceMonitor отправляет событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph> только при изменении состояния службы, а не в каждом интервале опроса. Этот объект также отправляет событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph> в результате изменений сетевой связности (независимо от интервала опроса).</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:running:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">running</apiName><shortdesc class="- topic/shortdesc ">
+     Показывает, запущен ли монитор.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Показывает, запущен ли монитор.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ Объект SecureSocketMonitor отслеживает доступность конечной точки TCP через протоколы SSL и TLS.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:SocketMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Объект SecureSocketMonitor отслеживает доступность конечной точки TCP через протоколы SSL и TLS. 
+ 
+ <p class="- topic/p ">Этот класс включен в файл aircore.swc. Flash Builder загружает этот класс автоматически при создании проекта для AIR. Flex SDK также включает файл aircore.swc, который необходимо добавлять при компиляции приложения с использованием Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">В Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional этот класс содержится в файле ServiceMonitorShim.swc. Чтобы использовать классы пакета air.net, необходимо сначала перетащить компонент ServiceMonitorShim из панели «Компоненты» в библиотеку, затем добавить следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в свой код ActionScript 3.0:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Чтобы использовать пакет air.net в Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 и более поздних версий), выполните следующие действия. </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Выберите меню «Файл» > «Параметры публикации».</li><li class="- topic/li ">В панели Flash нажмите кнопку «Параметры» для ActionScript 3.0. Выберите «Путь к библиотеке».</li><li class="- topic/li ">Нажмите кнопку «Перейти к файлу SWC». Найдите файл Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc в папке установки Adobe Flash Professional.</li><li class="- topic/li ">Нажмите кнопку «ОК».</li><li class="- topic/li ">Вставьте следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в код ActionScript 3.0: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SecureSocketMonitor:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 Создает объект SecureSocketMonitor для заданной конечной точки TCP.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Узел, который требуется отслеживать.
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Порт, который требуется отслеживать.
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Создает объект SecureSocketMonitor для заданной конечной точки TCP.
+	 
+	 <p class="- topic/p ">После создания объекта SecureSocketMonitor пользователь должен вызвать метод <codeph class="+ topic/ph pr-d/codeph ">start</codeph> для начала выполнения мониторинга состояния службы.</p>
+	 
+	 <p class="- topic/p ">Как и в случае с объектом Timer, пользователь, выполняющий вызов, должен сохранить ссылку на объект SecureSocketMonitor. В противном случае этот объект удаляется при выполнении, и мониторинг заканчивается.</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SecureSocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	Создает объект SecureSocket.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">SecureSocket: объект SecureSocket, который будет использоваться данным экземпляром SocketMonitor, или <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, если защищенные сокеты не поддерживаются текущей системой.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Создает объект SecureSocket.
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SecureSocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	 
+     
+	 Возвращает строковое представление заданного объекта.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строковое представление объекта.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	 
+     
+	 Возвращает строковое представление заданного объекта.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> Методы класса Object динамически создаются в прототипе Object. Чтобы переопределить этот метод в подклассе Object, не используйте ключевое слово <codeph class="+ topic/ph pr-d/codeph ">override</codeph>. Например, в подклассе Object вместо переопределения базового класса применяется <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph>.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier languages="" id="air.net:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ Объект SocketMonitor следит за доступностью конечной точки TCP.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Объект SocketMonitor следит за доступностью конечной точки TCP.
+ 
+ <p class="- topic/p ">Этот класс включен в файл aircore.swc. Flash Builder загружает этот класс автоматически при создании проекта для AIR. Flex SDK также включает файл aircore.swc, который необходимо добавлять при компиляции приложения с использованием Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">В Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional этот класс содержится в файле ServiceMonitorShim.swc. Чтобы использовать классы пакета air.net, необходимо сначала перетащить компонент ServiceMonitorShim из панели «Компоненты» в библиотеку, затем добавить следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в свой код ActionScript 3.0:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Чтобы использовать пакет air.net в Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 и более поздних версий), выполните следующие действия. </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Выберите меню «Файл» > «Параметры публикации».</li><li class="- topic/li ">В панели Flash нажмите кнопку «Параметры» для ActionScript 3.0. Выберите «Путь к библиотеке».</li><li class="- topic/li ">Нажмите кнопку «Перейти к файлу SWC». Найдите файл Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc в папке установки Adobe Flash Professional.</li><li class="- topic/li ">Нажмите кнопку «ОК».</li><li class="- topic/li ">Вставьте следующую инструкцию <codeph class="+ topic/ph pr-d/codeph ">import</codeph> в код ActionScript 3.0: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SocketMonitor:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 Создает объект SocketMonitor для заданной конечной точки TCP.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Узел, который требуется отслеживать.
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Порт, который требуется отслеживать.
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Создает объект SocketMonitor для заданной конечной точки TCP.
+	 
+	 <p class="- topic/p ">После создания объекта SocketMonitor пользователь должен вызвать метод <codeph class="+ topic/ph pr-d/codeph ">start</codeph> для начала выполнения мониторинга состояния службы.</p>
+	 
+	 <p class="- topic/p ">Как и в случае с объектом Timer, пользователь, выполняющий вызов, должен сохранить ссылку на объект SocketMonitor. В противном случае этот объект удаляется при выполнении, и мониторинг заканчивается.</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SocketMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+	Вызов метода checkStatus() для объекта SocketMonitor приводит к тому, что приложение пытается подключиться к сокету, чтобы проверить наличие события connect.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Вызов метода <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> для объекта SocketMonitor приводит к тому, что приложение пытается подключиться к сокету, чтобы проверить наличие события <codeph class="+ topic/ph pr-d/codeph ">connect</codeph>.
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	Создает объект Socket.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">объект Socket, который будет использоваться этим экземпляром SocketMonitor.
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Создает объект Socket. 
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+     
+	 Возвращает строковое представление заданного объекта.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строковое представление объекта.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+     
+	 Возвращает строковое представление заданного объекта.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> Методы класса Object динамически создаются в прототипе Object. Чтобы переопределить этот метод в подклассе Object, не используйте ключевое слово <codeph class="+ topic/ph pr-d/codeph ">override</codeph>. Например, в подклассе Object вместо переопределения базового класса применяется <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph>.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:SocketMonitor:host:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">host</apiName><shortdesc class="- topic/shortdesc ">
+	 Отслеживаемый узел.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Отслеживаемый узел.
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:SocketMonitor:port:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">port</apiName><shortdesc class="- topic/shortdesc ">
+	 Отслеживаемый порт.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Отслеживаемый порт.
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

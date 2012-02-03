@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.scrollClasses"><apiName>mx.controls.scrollClasses</apiName><apiDetail/><apiClassifier id="mx.controls.scrollClasses:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+  Класс ScrollThumb определяет ползунок элемента управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ScrollThumb определяет ползунок элемента управления ScrollBar. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollThumb:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+  Класс ScrollBar является базовым классом для элементов управления HScrollBar и VscrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="style" name="errorColor"/><Exclude kind="property" name="doubleClickEnabled"/><styles><style inherit="no" name="upArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для кнопки со стрелкой вверх на полосе прокрутки. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+    
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования темы оформления для кнопки со стрелкой вверх полосы прокрутки при наведении курсора мыши на кнопку со стрелкой. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования темы оформления для кнопки со стрелкой вверх полосы прокрутки при щелчке кнопкой мыши на кнопке со стрелкой. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для кнопки со стрелкой вверх полосы прокрутки при ее деактивации. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления по умолчанию для кнопки со стрелкой вверх полосы прокрутки. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для полосы прокрутки.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для полосы прокрутки при наведении курсора мыши на полосу прокрутки.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для полосы прокрутки при щелчке кнопкой мыши на полосе прокрутки.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для полосы прокрутки при деактивации полосы прокрутки.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления по умолчанию для полосы прокрутки. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollTrackSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Цвета полосы прокрутки в виде двухцветного массива. Можно использовать один цвет для получения чистого цвета полосы прокрутки.
+ 
+  </description>
+<default>[0x94999b, 0xe7e7e7]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления полосы прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для ползунка полосы прокрутки при наведении курсора мыши на ползунок. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOffset" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Number">
+<description>
+  Число пикселей, на которое выполняется смещение ползунка с центра полосы прокрутки. 
+ 
+  </description>
+<default>0 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbIcon" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования значка ползунка для полосы прокрутки. 
+  
+  </description>
+<default>"undefined"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для ползунка полосы прокрутки при щелчке кнопкой мыши на ползунке. 
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления по умолчанию для кнопки со стрелкой вниз полосы прокрутки. 
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Цвет любого символа компонента. Примером является флажок элемента управления CheckBox или стрелка на кнопке элемента управления ScrollBar.
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для кнопки со стрелкой вниз полосы прокрутки. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования темы оформления для кнопки со стрелкой вниз полосы прокрутки при наведении курсора мыши на кнопку со стрелкой. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования темы оформления для кнопки со стрелкой вниз полосы прокрутки при щелчке кнопкой мыши на кнопке со стрелкой. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления для кнопки со стрелкой вниз полосы прокрутки при ее деактивации. При изменении темы оформления графически или программно требуется убедиться, что новая тема оформления той же высоты (для вертикальных полос прокрутки) или ширины (для горизонтальных полос прокрутки) что и полоса прокрутки.
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Имя класса для использования в качестве темы оформления по умолчанию для кнопки со стрелкой вниз полосы прокрутки.
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="highlightAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Альфа-прозрачность, используемая для заливки выделения цветом элементов управления. Первое значение указывает прозрачность верхней части области выделения цветом и второе значение указывает прозрачность нижней части области выделения цветом. Выделена цветом верхняя половина темы оформления.
+  
+  </description>
+<default>[ 0.3, 0.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Цвета, используемые для определения оттенка заливки фона элемента управления. Для получения плоского вида для обоих значений устанавливается один и тот же цвет.
+  
+  </description>
+<default>[ 0xFFFFFF, 0xCCCCCC ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Альфа-каналы, используемые для заливки фона элементов управления. Используйте [1, 1] для получения непрозрачного фона для элементов управления.
+  
+  </description>
+<default>[ 0.6, 0.4 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  Радиус углов компонента. Этот стиль поддерживают следующие компоненты: Alert, Button, ComboBox, LinkButton, MenuBar, NumericStepper, Panel, ScrollBar, Tab, TitleWindow, а также любой компонент, поддерживающий свойство <codeph>borderStyle</codeph>, установленное на <codeph>solid</codeph>. Значение по умолчанию зависит от класса компонента. Если значение для класса не изменено, то значением по умолчанию является <codeph>0</codeph> для темы Halo и <codeph>2</codeph> для темы Spark.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Цвет границы. Этот стиль поддерживает следующие элементы управления: Button, CheckBox, ComboBox, MenuBar, NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider, а также любые компоненты, поддерживающие стиль <codeph>borderStyle</codeph>. Значение по умолчанию зависит от класса компонента; если оно не переопределено для класса, значением по умолчанию является <codeph>0xB7BABC</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ScrollBar&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:ScrollBar
+    <strong>Properties</strong>
+    direction="vertical|horizontal"
+    lineScrollSize="1"
+    maxScrollPosition="0"
+    minScrollPosition="0"
+    pageScrollSize="<i>Reset to the pageSize parameter of setScrollProperties</i>"
+    pageSize="0"
+    scrollPosition="0"
+ 
+    <strong>Styles</strong>
+    borderColor="0xB7BABC" 
+    cornerRadius="0" 
+    disabledIconColor="0x999999"
+    downArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+    fillAlphas="[0.6, 0.4]" 
+    fillColors="[0xFFFFFF, 0xCCCCCC]" 
+    highlightAlphas="[0.3, 0.0]" 
+    iconColor="0x111111"
+    thumbDownSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbIcon="undefined"
+    thumbOffset="0"
+    thumbOverSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbUpSkin="mx.skins.halo.ScrollThumbSkin"
+    trackColors="[0x94999b, 0xe7e7e7]"
+    trackSkin="mx.skins.halo.ScrollTrackSkin"
+    upArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ScrollBar является базовым классом для элементов управления HScrollBar и VscrollBar. Компонент ScrollBar состоит из двух кнопок со стрелками, полосы прокрутки между ними и ползунка переменного размера. Ползунок можно перемещать с помощью щелчков на одной из двух стрелок, перетаскиванием ползунка путем нажатия кнопки мыши вдоль полосы прокрутки или с помощью нажатия на полосу прокрутки. 
+ 
+  <p>Ширина полосы прокрутки равна ширине самого широкого подкомпонента (стрелка вверх, стрелка вниз, ползунок и полоса прокрутки). Каждый подкомпонент находится по центру полосы прокрутки.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link><link href="mx.controls.xml#Button"><linktext>mx.controls.Button</linktext></link><link href="mx.controls.scrollClasses.xml#ScrollThumb"><linktext>mx.controls.scrollClasses.ScrollThumb</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollBar:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.scrollClasses:ScrollBar:setScrollProperties"><apiName>setScrollProperties</apiName><shortdesc>
+      Устанавливает диапазон и размер области просмотра элемента управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pageSize</apiItemName><apiType value="Number"/><apiDesc>Число, представляющее размер одной страницы. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>minScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Число, представляющее нижнее значение диапазона прокрутки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>maxScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Число, представляющее верхнее значение диапазона прокрутки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pageScrollSize</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Число, представляющее расстояние, на которое перемешается ползунок при нажатии полосы прокрутки.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает диапазон и размер области просмотра элемента управления ScrollBar. В соответствии с этим элемент управления ScrollBar обновляет состояние кнопок со стрелками и размер ползунка прокрутки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.scrollClasses:ScrollBar:THICKNESS"><apiName>THICKNESS</apiName><shortdesc>
+      Ширина вертикальной полосы прокрутки или высоты горизонтальной полосы прокрутки в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>16</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина вертикальной полосы прокрутки или высоты горизонтальной полосы прокрутки в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:direction:get"><apiName>direction</apiName><shortdesc>
+      Указывает, предназначен ли элемент ScrollBar для горизонтальной или вертикальной прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollBarDirection.VERTICAL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, предназначен ли элемент ScrollBar для горизонтальной или вертикальной прокрутки. Допустимыми значениями MXML являются <codeph>vertical</codeph> и <codeph>horizontal</codeph>.
+     
+      <p>В ActionScript для установки значений этого свойства используются следующие константы: <codeph>ScrollBarDirection.VERTICAL</codeph> и <codeph>ScrollBarDirection.HORIZONTAL</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBarDirection"><linktext>mx.controls.scrollClasses.ScrollBarDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:downArrowStyleFilters:get"><apiName>downArrowStyleFilters</apiName><shortdesc>
+      Набор стилей для перехода от полосы прокрутки к кнопке со стрелкой вниз.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Набор стилей для перехода от полосы прокрутки к кнопке со стрелкой вниз.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:lineScrollSize:get"><apiName>lineScrollSize</apiName><shortdesc>
+      Расстояние в пикселях, на которое перемещается ползунок прокрутки при нажатии кнопки со стрелкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расстояние в пикселях, на которое перемещается ползунок прокрутки при нажатии кнопки со стрелкой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:maxScrollPosition:get"><apiName>maxScrollPosition</apiName><shortdesc>
+      Число, представляющее максимальное значение для прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число, представляющее максимальное значение для прокрутки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:minScrollPosition:get"><apiName>minScrollPosition</apiName><shortdesc>
+      Число, представляющее максимальное значение для прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число, представляющее максимальное значение для прокрутки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageScrollSize:get"><apiName>pageScrollSize</apiName><shortdesc>
+      Расстояние, на которое перемещается ползунок при нажатии полосы прокрутки в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расстояние, на которое перемещается ползунок при нажатии полосы прокрутки в пикселях.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageSize:get"><apiName>pageSize</apiName><shortdesc>
+      Число строк, равное максимальному числу строк на одной странице.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число строк, равное максимальному числу строк на одной странице.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:scrollPosition:get"><apiName>scrollPosition</apiName><shortdesc>
+      Число, представляющее текущее положение прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число, представляющее текущее положение прокрутки. Значение от <codeph>minScrollPosition</codeph> и по <codeph>maxScrollPosition</codeph> включительно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Набор стилей для передачи из полосы прокрутки в ползунок.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Набор стилей для передачи из полосы прокрутки в ползунок.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:upArrowStyleFilters:get"><apiName>upArrowStyleFilters</apiName><shortdesc>
+      Набор стилей для передачи из полосы прокрутки в стрелку вверх.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Набор стилей для передачи из полосы прокрутки в стрелку вверх.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBarDirection"><apiName>ScrollBarDirection</apiName><shortdesc>
+  Класс ScrollBarDirection определяет значения для свойства direction элемента управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ScrollBarDirection определяет значения для свойства <codeph>direction</codeph> элемента управления ScrollBar.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Показывает, что элемент управления «полоса прокрутки» предназначен для горизонтальной прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Показывает, что элемент управления «полоса прокрутки» предназначен для горизонтальной прокрутки.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Показывает, что элемент управления «полоса прокрутки» предназначен для вертикальной прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Показывает, что элемент управления «полоса прокрутки» предназначен для вертикальной прокрутки.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

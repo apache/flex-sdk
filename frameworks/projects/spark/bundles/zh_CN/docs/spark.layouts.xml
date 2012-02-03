@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:VerticalAlign"><apiName>VerticalAlign</apiName><shortdesc>
+  VerticalAlign 类为 HorizontalLayout 类的 verticalAlign 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VerticalAlign 类为 HorizontalLayout 类的 <codeph>verticalAlign</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/verticalAlign"><linktext>HorizontalLayout.verticalAlign</linktext></link></related-links><apiValue id="spark.layouts:VerticalAlign:BASELINE"><apiName>BASELINE</apiName><shortdesc>
+      垂直定位子代，以便它们的文本与容器的基线对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>baseline</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      垂直定位子代，以便它们的文本与容器的基线对齐。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+      将子代与容器的底部垂直对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      将子代与容器的底部垂直对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      相对于容器对子代进行内容对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      相对于容器对子代进行内容对齐。这会将所有子代的大小统一调整为容器的内容高度。容器的内容高度是最大子代的大小。如果所有子代都小于容器的高度，则会将所有子代的大小调整为容器的高度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      相对于容器对齐子代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      相对于容器对齐子代。这会将所有子代的大小统一调整为与容器相同的高度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:MIDDLE"><apiName>MIDDLE</apiName><shortdesc>
+      在容器的中央垂直对齐子代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>middle</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      在容器的中央垂直对齐子代。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      将子代与容器的顶部垂直对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      将子代与容器的顶部垂直对齐。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:ColumnAlign"><apiName>ColumnAlign</apiName><shortdesc>
+  ColumnAlign 类为 TileLayout 类的 columnAlign 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColumnAlign 类为 TileLayout 类的 <codeph>columnAlign</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>TileLayout.columnAlign</linktext></link></related-links><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      通过增大垂直间隙将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      通过增大垂直间隙将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_WIDTH"><apiName>JUSTIFY_USING_WIDTH</apiName><shortdesc>
+      通过增大行高度将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      通过增大行高度将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      不将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      不将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+  FormLayout 类定义 Spark Form 外观的默认布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:VerticalLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FormLayout 类定义 Spark Form 外观的默认布局。FormLayout 提供 Form 中子 FormItem 容器的垂直布局。如果任何子容器使用 FormItemLayout，则 FormLayout 将对齐每个子代的 ConstraintColumn。所有子代的列数应相同，且所有列应具有相同类型的宽度设置。例如，如果第一个子代的第二列具有百分比宽度，则第二个子代的第二列也应该是百分比宽度。
+   <p><b>注意</b>：请将 FormLayout 类仅用于 Spark Form 容器。不要用于布置其它容器的内容</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Form"><linktext>spark.components.Form</linktext></link><link href="spark.components.xml#FormHeading"><linktext>spark.components.FormHeading</linktext></link><link href="spark.components.xml#FormItem"><linktext>spark.components.FormItem</linktext></link><link href="spark.layouts.xml#FormItemLayout"><linktext>spark.layouts.FormItemLayout</linktext></link></related-links><apiConstructor id="spark.layouts:FormLayout:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+  FormItemLayout 由 FormItem 用来提供基于约束的布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:ConstraintLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FormItemLayout 由 FormItem 用来提供基于约束的布局。使用 FormLayout 中的 FormItemLayout 的元素按列对齐。  
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:FormItemLayout:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+  ConstraintLayout 类根据布局元素的各个设置以及由约束列和约束行定义的一组约束区域排列布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConstraintLayout 类根据布局元素的各个设置以及由约束列和约束行定义的一组约束区域排列布局元素。虽然，您可以使用 BasicLayout 中的所有属性和约束定位元素和调整元素的大小，但使用 ConstraintLayout，您还可以通过将元素约束到指定的列和行来创建相对于同级的布局。 
+ 
+  <p><b>注意：</b>基于 Spark List 的控件（Spark List 控件及其子类，如 ButtonBar、ComboBox、DropDownList 和 TabBar）不支持 ConstraintLayout 类。不要将 ConstraintLayout 与基于 Spark List 的控件一起使用。</p>
+ 
+  <p>按元素支持的约束有 <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph>、<codeph>baseline</codeph>、<codeph>percentWidth</codeph> 和 <codeph>percentHeight</codeph>。始终将考虑元素的最小大小和最大大小。</p>
+ 
+  <p>列和行可能已设置显式大小或内容大小（不存在显式大小）。显式大小区域将固定为其指定的大小，而内容大小区域将拉伸为合适的大小以仅容纳约束到其中的元素。如果一个元素跨过多个内容大小区域，则在内容大小区域中等分空间。</p>
+ 
+  <p>容器的测量大小是根据元素、其约束、其首选大小以及行和列的大小进行计算的。每行和每列的大小恰好足够大，能够在满足元素约束的情况下以元素的首选大小容纳约束到各行和列的所有元素。容器的测量大小足够大，能够容纳所有列和行，并能够在满足元素的约束的情况下以元素的首选大小容纳剩余的任何其它元素。 </p>
+ 
+  <p>在 <codeph>updateDisplayList()</codeph> 方法的调用过程中，元素的大小是根据按以下优先级顺序的规则确定的（始终会考虑元素的最小大小和最大大小）：</p>
+  <ul>
+    <li>如果元素已设置 <codeph>percentWidth</codeph> 或 <codeph>percentHeight</codeph>，则会将其大小计算为可用大小的某个百分比，其中可用大小是区域或容器大小减去任何 <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph> 或 <codeph>bottom</codeph> 约束。</li>
+ 
+    <li>如果元素具有 left 约束和 right 约束，则会将其宽度设置为区域或容器的宽度减去 <codeph>left</codeph> 和 <codeph>right</codeph> 约束。</li>
+ 
+    <li>如果元素具有 <codeph>top</codeph> 约束和 <codeph>bottom</codeph> 约束，则会将其高度设置为容器的高度减去 <codeph>top</codeph> 约束和 <codeph>bottom</codeph> 约束。</li>
+ 
+    <li>将元素设置为其首选宽度和/或高度。</li>
+  </ul>
+ 
+  <p>元素的位置是根据按以下优先级顺序的规则确定的：</p>
+  <ul>
+    <li>如果指定了元素的 baseline，则会在垂直方向上定位元素，以使其 <codeph>baselinePosition</codeph>（通常为其第一行文本的基线）与 <codeph>baseline</codeph> 约束对齐。</li>
+ 
+    <li>如果指定了元素的 <codeph>top</codeph> 或 <codeph>left</codeph> 约束，则会定位元素，使元素的布局界限的左上角从容器的左上角偏移指定的值。</li>
+ 
+    <li>如果指定了元素的 <codeph>bottom</codeph> 或 <codeph>right</codeph> 约束，则会定位元素，使元素的布局界限的右下角从容器的右下角偏移指定的值。</li>
+ 
+    <li>如果没有任何约束确定水平或垂直方向上的位置，则会根据元素的 x 坐标和 y 坐标定位元素。</li>
+  </ul>
+ 
+  <p>容器的内容大小将计算为所有布局元素和约束区域右下角的坐标的最大值。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:ConstraintLayout:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:ConstraintLayout:protected:layoutContent"><apiName>layoutContent</apiName><shortdesc>
+      使用列和行的当前宽度和高度对布局目标的元素进行布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用列和行的当前宽度和高度对布局目标的元素进行布局。在设置了新列宽后由 FormItemLayout 用来使用这些新宽度对元素进行布局。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:ConstraintLayout:protected:measureAndPositionColumnsAndRows"><apiName>measureAndPositionColumnsAndRows</apiName><shortdesc>
+      在对元素进行布局之前，由 FormItemLayout 用来测量和设置新列宽和行高。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constrainedWidth</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>可拉伸或收缩其百分比宽度列的列总宽度。如果为 NaN，则百分比宽度列不受限且适合其内容。
+      </apiDesc></apiParam><apiParam><apiItemName>constrainedHeight</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>可拉伸或收缩其百分比高度行的行总高度。如果为 NaN，则百分比高度行不受限且适合其内容。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在对元素进行布局之前，由 FormItemLayout 用来测量和设置新列宽和行高。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:ConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      划分目标容器的 ConstraintColumn 实例的 Vector。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintColumn"/></apiValueDef><apiDesc>
+      划分目标容器的 ConstraintColumn 实例的 Vector。索引为 0 的 ConstraintColumn 实例是最左侧的列；索引从左到右依次增加。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      划分目标容器的 ConstraintRow 实例的 Vector。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintRow"/></apiValueDef><apiDesc>
+      划分目标容器的 ConstraintRow 实例的 Vector。索引为 0 的 ConstraintRow 实例是最顶层的列；索引从上到下依次增加。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+  TileLayout 类在单元格大小相等的列和行中排列布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:TileLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:TileLayout 
+    <strong>Properties</strong>
+    columnAlign="left"
+    columnWidth="NaN"
+    horizontalAlign="justify"
+    horizontalGap="6"
+    orientation="rows"
+    requestedColumnCount="-1"
+    requestedRowCount="-1"
+    rowAlign="top"
+    rowCount="-1"
+    rowHeight="NaN"
+    verticalAlign="justify"
+    verticalGap="6"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TileLayout 类在单元格大小相等的列和行中排列布局元素。TileLayout 类使用许多属性来控制列和行的方向、计数、大小、间隙和两端对齐以及单元格内的元素对齐。
+   <p>按元素支持的约束有 <codeph>percentWidth</codeph> 和 <codeph>percentHeight</codeph>。始终考虑元素的最小大小和最大大小，并在可能的情况下，将元素的大小限制为小于或等于单元格大小。</p>
+   <p>未显式设置时，会将 <codeph>columnWidth</codeph> 属性计算为所有元素的最大首选界限宽度，并将 <codeph>columnHeight</codeph> 属性计算为所有元素的最大首选界限高度。</p>
+   <p>未显式设置时，会从布局目标的任何显式宽度和高度设置以及 <codeph>columnWidth</codeph> 和 <codeph>columnHeight</codeph> 计算 <codeph>columnCount</codeph> 和 <codeph>rowCount</codeph> 属性。如果未指定任何内容，则会拾取 <codeph>columnCount</codeph> 和 <codeph>rowCount</codeph> 值，这样结果像素区域会尽可能成为方形。</p>
+ 
+ <p> 测量大小根据 <codeph>columnCount</codeph>、<codeph>rowCount</codeph>、<codeph>columnWidth</codeph>、<codeph>rowHeight</codeph> 属性和间隙大小进行计算。</p>
+   <p>未显式设置任何属性时，默认测量大小会尽可能成为方形区域并足够大以容纳所有元素。</p>
+   <p>其他情形下，测量大小可能不够大而无法容纳所有元素。例如，将 <codeph>columnCount</codeph> 和 <codeph>rowCount</codeph> 显式设置为 <codeph>columnCount</codeph> 和 <codeph>rowCount</codeph> 小于元素计数的值。</p>
+   <p>最小测量大小是按与测量大小相同的方式计算的，但它保证沿着短轴包含足够的行和列以容纳所有元素。</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:TileLayout:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      
+      返回在完成某个拖放动作的同时用户在指定的坐标处释放鼠标的情况下应该插入新项目的位置的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>拖放索引 或 -1（如果在指定坐标处拖放操作不可用）。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>在本地坐标中拖放动作的 x 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>在放置目标的本地坐标中，拖放动作的 y 坐标。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回在完成某个拖放动作的同时用户在指定的坐标处释放鼠标的情况下应该插入新项目的位置的索引。由 <codeph>calculatedDropLocation()</codeph> 方法调用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      
+      计算拖放指示符的边界，该指示符为用户提供关于在拖放动作结尾处将项插入的位置的可视反馈。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>拖放指示符的界限或 null。
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>由 <codeph>calculateDropLocation()</codeph> 方法先前返回的有效 DropLocation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      计算拖放指示符的边界，该指示符为用户提供关于在拖放动作结尾处将项插入的位置的可视反馈。由 <codeph>showDropIndicator()</codeph> 方法调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:TileLayout:columnAlign:get"><apiName>columnAlign</apiName><shortdesc>
+      指定如何将完全可见列与容器宽度对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColumnAlign.LEFT
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定如何将完全可见列与容器宽度对齐。ActionScript 值可以为 <codeph>ColumnAlign.LEFT</codeph>、<codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> 和 <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph>。MXML 值可以为 <codeph>"left"</codeph>、<codeph>"justifyUsingGap"</codeph> 和 <codeph>"justifyUsingWidth"</codeph>。
+           <p>设置为 <codeph>ColumnAlign.LEFT</codeph> 时，它会关闭列两端对齐。在容器的最后一列和右边缘之间可能存在部分可见的列或空白。这是默认值。</p>
+           <p>设置为 <codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> 时，<codeph>horizontalGap</codeph> 的实际值将增大，这样最后一个完全可见列右边缘会与容器的右边缘对齐。仅存在一个完全可见列时，<codeph>horizontalGap</codeph> 的实际值将增大，这样它会将任何部分可见列推到容器的右边缘之外。请注意显式设置 <codeph>horizontalGap</codeph> 属性不会关闭两端对齐。它仅确定初始间隙值。两端对齐可能会增大它。</p>
+           <p>设置为 <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph> 时，<codeph>columnWidth</codeph> 的实际值将增大，这样最后一个完全可见列右边缘会与容器的右边缘对齐。请注意显式设置 <codeph>columnWidth</codeph> 属性不会关闭两端对齐。它仅确定初始列宽度值。两端对齐可能会增大它。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      包含实际列计数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      包含实际列计数。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      包含实际列宽（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      包含实际列宽（以像素为单位）。
+           <p>若未显式设置，则从根据最宽的元素的宽度确定列宽度。 </p>
+           <p>如果将 <codeph>columnAlign</codeph> 属性设置为 <codeph>"justifyUsingWidth"</codeph>，则列宽度会增大到容器宽度以对齐完全可见列。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      指定如何在水平方向上对齐单元格内的元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定如何在水平方向上对齐单元格内的元素。支持的值有 <codeph>HorizontalAlign.LEFT</codeph>、<codeph>HorizontalAlign.CENTER</codeph>、<codeph>HorizontalAlign.RIGHT</codeph>、<codeph>HorizontalAlign.JUSTIFY</codeph>。
+           <p>设置为 <codeph>HorizontalAlign.JUSTIFY</codeph> 时，会将每个元素的宽度设置为 <codeph>columnWidth</codeph>。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      列之间的水平空间（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列之间的水平空间（以像素为单位）。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:orientation:get"><apiName>orientation</apiName><shortdesc>
+      指定是逐行还是逐列排列元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>TileOrientation.ROWS
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是逐行还是逐列排列元素。ActionScript 值可以是 <codeph>TileOrientation.ROWS</codeph> 和 <codeph>TileOrientation.COLUMNS</codeph>。MXML 值可以是 <codeph>"rows"</codeph> 和 <codeph>"columns"</codeph>。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      容器的底边缘与最后一个布局元素的底边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的底边缘与最后一个布局元素的底边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      容器的左边缘与布局元素的左边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的左边缘与布局元素的左边缘之间的最少像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      容器的右边缘与布局元素的右边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的右边缘与布局元素的右边缘之间的最少像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      容器的顶边缘与第一个布局元素的顶边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的顶边缘与第一个布局元素的顶边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      要显示的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要显示的列数。
+     
+      <p>设置为 -1 会允许 TileLayout 自动确定列计数。</p>
+           <p>如果将 <codeph>orientation</codeph> 属性设置为 <codeph>TileOrientation.ROWS</codeph>，则设置此属性不会产生任何效果。这种情况下，会显式设置 <codeph>rowCount</codeph>，并显式设置容器宽度。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      要显示的行数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要显示的行数。
+     
+      <p>设置为 -1 会删除显式覆盖并允许 TileLayout 自动确定行计数。</p>
+           <p>如果将 <codeph>orientation</codeph> 属性设置为 <codeph>TileOrientation.COLUMNS</codeph>，则设置此属性不会产生任何效果。这种情况下，会显式设置 <codeph>columnCount</codeph>，并显式设置容器高度。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowAlign:get"><apiName>rowAlign</apiName><shortdesc>
+      指定如何将完全可见行与容器高度对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RowAlign.TOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定如何将完全可见行与容器高度对齐。ActionScript 值可以为 <codeph>RowAlign.TOP</codeph>、<codeph>RowAlign.JUSTIFY_USING_GAP</codeph> 和 <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph>。MXML 值可以为 <codeph>"top"</codeph>、<codeph>"justifyUsingGap"</codeph> 和 <codeph>"justifyUsingHeight"</codeph>。
+           <p>设置为 <codeph>RowAlign.TOP</codeph> 时，它会关闭列两端对齐。在容器的最后一行和底边缘之间可能存在部分可见的行或空白。这是默认值。</p>
+           <p>设置为 <codeph>RowAlign.JUSTIFY_USING_GAP</codeph> 时，<codeph>verticalGap</codeph> 的实际值会增大，这样最后一个完全可见行底边缘会与容器的底边缘对齐。仅存在一个完全可见行时，<codeph>verticalGap</codeph> 的值会增大，这样它会将任何部分可见行推到容器的底边缘之外。请注意，显式设置 <codeph>verticalGap</codeph> 不会关闭两端对齐，而只是确定初始间隙值。两端对齐接着可以增大它。</p>
+           <p>设置为 <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph> 时，<codeph>rowHeight</codeph> 的实际值会增大，这样最后一个完全可见行底边缘会与容器的底边缘对齐。请注意，显式设置 <codeph>rowHeight</codeph> 不会关闭两端对齐，而只是确定初始行高度值。两端对齐接着可以增大它。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      行计数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行计数。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      行高（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行高（以像素为单位）。
+           <p>如果未显式设置，则从元素的高度的最大值确定行高度。</p>
+           如果将 <codeph>rowAlign</codeph> 设置为 "justifyUsingHeight"，实际行高度会增大，以将完全可见行两端对齐为容器高度。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      指定如何在垂直方向上对齐单元格内的元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定如何在垂直方向上对齐单元格内的元素。支持的值有 <codeph>VerticalAlign.TOP</codeph>、<codeph>VerticalAlign.MIDDLE</codeph>、<codeph>VerticalAlign.BOTTOM</codeph>、<codeph>VerticalAlign.JUSTIFY</codeph>。
+           <p>设置为 <codeph>VerticalAlign.JUSTIFY</codeph> 时，会将每个元素的高度设置为 <codeph>rowHeight</codeph>。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      行之间的垂直空间（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行之间的垂直空间（以像素为单位）。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.layouts:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+  VerticalLayout 类按垂直顺序从上向下排列布局元素，在元素和围绕元素顺序的可选填充之间带有可选间隙。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:VerticalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:VerticalLayout 
+    <strong>Properties</strong>
+    gap="6"
+    horizontalAlign="left"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedMaxRowCount="-1"
+    requestedMinRowCount="-1"
+    requestedRowCount="-1"
+    rowHeight="<i>calculated</i>"
+    variableRowHeight="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VerticalLayout 类按垂直顺序从上向下排列布局元素，在元素和围绕元素顺序的可选填充之间带有可选间隙。
+   <p>元素的垂直位置是按垂直顺序从上到下进行排列，并考虑在第一个元素之前的填充和元素之间的间隙来确定的。</p>
+   <p>元素的水平位置由布局的 <codeph>horizontalAlign</codeph> 属性确定。</p>
+   <p>在 <codeph>measure()</codeph> 方法的执行过程中，容器的默认大小是通过累计元素（包括间隙和填充）的首选大小计算的。设置 <codeph>requestedRowCount</codeph> 时，将从第一个元素开始，仅测量那么多元素的空间。</p>
+   <p>在执行 <codeph>updateDisplayList()</codeph> 方法的过程中，会根据以下按各自的优先级顺序列出的规则，计算每个元素的高度（始终会考虑元素的最小高度和最大高度）：</p>
+  <ul>
+    <li>如果 <codeph>variableRowHeight</codeph> 为 <codeph>false</codeph>，则会将元素的高度设置为 <codeph>rowHeight</codeph> 属性的值。</li>
+     <li>如果已设置元素的 <codeph>percentHeight</codeph>，则会通过在使用 <codeph>percentHeight</codeph> 设置的所有元素之间分发可用的容器高度来计算元素的高度。可用容器高度等于容器高度减去间隙、填充和其余元素所占用的空间。虚拟化布局之后，会忽略元素的 <codeph>precentHeight</codeph> 属性。</li>
+     <li>将元素的高度设置为其首选高度。</li>
+  </ul>
+   <p>根据以下按各自的优先级顺序列出的规则，计算每个元素的宽度（始终会考虑元素的最小宽度和最大宽度）：</p>
+  <ul>
+    <li>如果 <codeph>horizontalAlign</codeph> 为 <codeph>"justify"</codeph>，则会将元素的宽度设置为容器宽度。</li>
+     <li>如果 <codeph>horizontalAlign</codeph> 为 <codeph>"contentJustify"</codeph>，则会将元素的宽度设置为容器的宽度与所有元素的首选宽度之间的最大值。</li>
+     <li>如果已设置元素的 <codeph>percentWidth</codeph>，则会将元素的宽度计算为容器宽度的某个百分比。</li>
+     <li>将元素的宽度设置为其首选宽度。</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:VerticalLayout:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:VerticalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      如果指定的索引完全在视图中，则返回 1.0；如果不在视图中，则返回 0.0；如果部分处于视图中，则返回在 0.0 和 1.0 之间的一个值（表示处于视图中的部分的百分比）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>处于视图中的指定的元素的百分比。如果指定的索引无效或它与 null 元素相对应，则返回 0.0；如果 <codeph>includeInLayout</codeph> 属性为 <codeph>false</codeph> 则返回 ILayoutElement。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>行的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的索引完全在视图中，则返回 1.0；如果不在视图中，则返回 0.0；如果部分处于视图中，则返回在 0.0 和 1.0 之间的一个值（表示处于视图中的部分的百分比）。
+     
+      <p>如果相应的非空布局元素处于容器的 <codeph>scrollRect</codeph> 的垂直限制内且包含在该布局中，则索引会处于视图中。</p>
+      
+      <p>如果指定的索引部分处于视图中，则返回的值是可见的相应布局元素的百分比。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:VerticalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      组成布局且在布局目标的滚动矩形内的第一个布局元素的索引，或者 -1（如果未显示任何内容）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      组成布局且在布局目标的滚动矩形内的第一个布局元素的索引，或者 -1（如果未显示任何内容）。
+      
+      <p>“布局的组成部分”意味着该元素为非空，且其 <codeph>includeInLayout</codeph> 属性为 <codeph>true</codeph>。</p>
+     
+      <p>请注意该布局元素仅可以部分显示在视图中。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.fractionOfElementInView().xml"><linktext>fractionOfElementInView()</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      布局元素之间的垂直空间（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      布局元素之间的垂直空间（以像素为单位）。请注意，仅会在布局元素之间应用该间隙，这样如果只有一个元素，则该间隙不会对布局有任何影响。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      布局元素的水平对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      布局元素的水平对齐。如果该值为 <codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>，则会相对于容器的 <codeph>contentWidth</codeph> 属性对齐布局元素。
+     
+      <p>如果该值是 <codeph>"contentJustify"</codeph>，则会将布局元素的实际宽度设置为容器的 <codeph>contentWidth</codeph>。容器的 <codeph>contentWidth</codeph> 是最大的布局元素的宽度。如果所有布局元素都小于容器的宽度，则会将所有布局元素的宽度设置为容器的宽度。</p>
+     
+      <p>如果该值是 <codeph>"justify"</codeph>，则会将布局元素的实际宽度设置为容器的宽度。</p>
+           <p>此属性不会影响布局的测量大小。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      组成布局且在容器的滚动矩形内的最后一行的索引，或者 -1（如果未显示任何内容）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      组成布局且在容器的滚动矩形内的最后一行的索引，或者 -1（如果未显示任何内容）。
+     
+      <p>“布局的组成部分”意味着该子项为非空，且其 <codeph>includeInLayout</codeph> 属性为 <codeph>true</codeph>。</p>
+     
+      <p>请注意该行仅可以部分处于视图中。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      容器的底边缘与最后一个布局元素的底边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的底边缘与最后一个布局元素的底边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      容器的左边缘与布局元素的左边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的左边缘与布局元素的左边缘之间的最少像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      容器的右边缘与布局元素的右边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的右边缘与布局元素的右边缘之间的最少像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      容器的顶边缘与第一个布局元素的顶边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的顶边缘与第一个布局元素的顶边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMaxRowCount:get"><apiName>requestedMaxRowCount</apiName><shortdesc>
+      此布局的测量高度足够大，至多能够显示 requestedMaxRowCount 个布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量高度足够大，至多能够显示 <codeph>requestedMaxRowCount</codeph> 个布局元素。 
+     
+      <p>如果已设置 <codeph>requestedRowCount</codeph>，则此属性不起作用。</p>
+           <p>如果已显式设置容器的实际大小，则此属性不起作用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMinRowCount:get"><apiName>requestedMinRowCount</apiName><shortdesc>
+      此布局的测量高度足够大，至少能够显示 requestedMinRowCount 个布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量高度足够大，至少能够显示 <codeph>requestedMinRowCount</codeph> 个布局元素。 
+     
+      <p>如果已设置 <codeph>requestedRowCount</codeph>，则此属性不起作用。</p>
+           <p>如果已显式设置容器的实际大小，则此属性不起作用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      此布局的测量大小足够高，能够显示第一批 requestedRowCount 布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量大小将足够高，能够显示第一批 <codeph>requestedRowCount</codeph> 布局元素。 
+     
+      <p>如果 <codeph>requestedRowCount</codeph> 为 -1，则测量大小足以显示所有布局元素。</p>
+     
+      <p>如果已显式设置容器的实际大小，则此属性不起作用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      可见元素的当前数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      可见元素的当前数目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      如果 variableRowHeight 为 false，则此属性指定每个子代的实际高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      如果 <codeph>variableRowHeight</codeph> 为 <codeph>false</codeph>，则此属性指定每个子代的实际高度（以像素为单位）。
+     
+      <p>如果 <codeph>variableRowHeight</codeph> 为 <codeph>true</codeph>（默认值），则此属性没有任何效果。</p>
+     
+      <p>此属性的默认值是 <codeph>typicalLayoutElement</codeph> 的首选高度。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      指定是否给布局元素分配了其首选高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否给布局元素分配了其首选高度。将此属性设置为 <codeph>false</codeph> 会指定固定高度行。
+     
+      <p>若为 <codeph>false</codeph>，则每个布局元素的实际高度会成为 <codeph>rowHeight</codeph> 的值。将此属性设置为 <codeph>false</codeph> 会使布局忽略布局元素的 <codeph>percentHeight</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      内容相对于容器高度的垂直对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      内容相对于容器高度的垂直对齐。
+     
+      <p>如果该值为 <codeph>"bottom"</codeph>、<codeph>"middle"</codeph> 或 <codeph>"top"</codeph>，则会相对于容器的 <codeph>contentHeight</codeph> 属性对齐布局元素。</p>
+           <p>如果 <codeph>clipAndEnableScrolling</codeph> 为 true，并且 <codeph>contentHeight</codeph> 大于容器高度，则此属性无效。</p>
+           <p>此属性不会影响布局的测量大小。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+  HorizontalLayout 类按水平顺序从左到右排列布局元素，在元素和围绕元素的可选填充之间带有可选间隙。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:HorizontalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:HorizontalLayout 
+    <strong>Properties</strong>
+    columnWidth="<i>calculated</i>"
+    gap="6"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedColumnCount="-1"
+    requestedMaxColumnCount="-1"
+    requestedMinColumnCount="-1"
+    variableColumnWidth="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HorizontalLayout 类按水平顺序从左到右排列布局元素，在元素和围绕元素的可选填充之间带有可选间隙。
+   <p>元素的水平位置是按水平顺序从左到右进行排列，并考虑在第一个元素之前的填充和元素之间的间隙来确定的。</p>
+   <p>元素的垂直位置由布局的 <codeph>verticalAlign</codeph> 属性确定。</p>
+   <p>在 <codeph>measure()</codeph> 方法的执行过程中，容器的默认大小是通过累计元素（包括间隙和填充）的首选大小计算的。如果将 <codeph>requestedColumnCount</codeph> 属性设置为 -1 之外的其他值，则仅会从第一个元素开始，测量那些元素的空间。</p>
+   <p>在 <codeph>updateDisplayList()</codeph> 方法的执行过程中，会根据以下规则计算每个元素的宽度，这些规则按各自的优先级顺序列出（始终会考虑元素的最小宽度和最大宽度）：</p>
+  <ul>
+    <li>如果 <codeph>variableColumnWidth</codeph> 为 <codeph>false</codeph>，则会将元素的高度设置为 <codeph>columnWidth</codeph> 属性的值。</li>
+     <li>如果已设置元素的 <codeph>percentWidth</codeph>，则会通过在使用 <codeph>percentWidth</codeph> 设置的所有元素之间分发可用的容器宽度来计算元素的宽度。可用容器宽度等于容器宽度减去间隙、填充和其余元素所占用的空间。虚拟化布局之后，会忽略元素的 <codeph>precentWidth</codeph> 属性。</li>
+     <li>将元素的宽度设置为其首选宽度。</li>
+  </ul>
+   <p>根据以下按各自的优先级顺序列出的规则，计算每个元素的高度（始终会考虑元素的最小高度和最大高度）：</p>
+  <ul>
+    <li>如果 <codeph>verticalAlign</codeph> 属性为 <codeph>"justify"</codeph>，则会将元素的高度设置为容器高度。</li>
+     <li>如果 <codeph>verticalAlign</codeph> 属性为 <codeph>"contentJustify"</codeph>，则会将元素的高度设置为容器的高度与所有元素的首选高度之间的最大值。</li>
+     <li>如果已设置元素的 <codeph>percentHeight</codeph> 属性，则会将元素的高度计算为容器高度的某个百分比。</li>
+     <li>将元素的高度设置为其首选高度。</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:HorizontalLayout:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:HorizontalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      如果指定的索引完全在视图中，则返回 1.0；如果不在视图中，则返回 0.0；如果部分处于视图中，则返回在 0.0 和 1.0 之间的一个值（表示处于视图中的部分的百分比）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>处于视图中的指定的元素的百分比。如果指定的索引无效或它与 null 元素相对应，则返回 0.0；如果 <codeph>includeInLayout</codeph> 属性为 <codeph>false</codeph> 则返回 ILayoutElement。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>列索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的索引完全在视图中，则返回 1.0；如果不在视图中，则返回 0.0；如果部分处于视图中，则返回在 0.0 和 1.0 之间的一个值（表示处于视图中的部分的百分比）。
+     
+      <p>如果相应的非空布局元素处于容器的 <codeph>scrollRect</codeph> 的水平限制内且包含在该布局中，则索引会处于视图中。</p>
+      
+      <p>如果指定的索引部分处于视图中，则返回的值是可见的相应布局元素的百分比。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:HorizontalLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      返回视图中的元素的当前数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      返回视图中的元素的当前数目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      如果 variableColumnWidth 属性为 false，则此属性指定每个布局元素的实际宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      如果 <codeph>variableColumnWidth</codeph> 属性为 <codeph>false</codeph>，则此属性指定每个布局元素的实际宽度（以像素为单位）。
+     
+      <p>如果 <codeph>variableColumnWidth</codeph> 属性为 <codeph>true</codeph>（默认值），则此属性没有任何效果。</p>
+     
+      <p>此属性的默认值是 <codeph>typicalLayoutElement</codeph> 属性指定的项的首选宽度。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      组成布局且在布局目标的滚动矩形内的第一列的索引，或者 -1（如果未显示任何内容）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      组成布局且在布局目标的滚动矩形内的第一列的索引，或者 -1（如果未显示任何内容）。请注意该列仅可以部分显示在视图中。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.lastIndexInView.xml"><linktext>lastIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      布局元素之间的水平空间（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      布局元素之间的水平空间（以像素为单位）。请注意，仅会在布局元素之间应用该间隙，这样如果只有一个元素，则该间隙不会对布局有任何影响。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      内容相对于容器宽度的水平对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      内容相对于容器宽度的水平对齐。如果该值为 <codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>，则会相对于容器的 <codeph>contentWidth</codeph> 属性对齐布局元素。
+           <p>如果 <codeph>clipAndEnableScrolling</codeph> 为 true，并且 <codeph>contentWidth</codeph> 大于容器宽度，则此属性无效。</p>
+           <p>此属性不会影响布局的测量大小。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      组成布局且在布局目标的滚动矩形内的最后一列的索引，或者 -1（如果未显示任何内容）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      组成布局且在布局目标的滚动矩形内的最后一列的索引，或者 -1（如果未显示任何内容）。请注意该列仅可以部分显示在视图中。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      容器的底边缘与所有容器的布局元素的底边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的底边缘与所有容器的布局元素的底边缘之间的最少像素数。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      容器的左边缘与第一个布局元素的左边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的左边缘与第一个布局元素的左边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      容器的右边缘与最后一个布局元素的右边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的右边缘与最后一个布局元素的右边缘之间的像素数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      容器的顶边缘与所有容器的布局元素的顶边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      容器的顶边缘与所有容器的布局元素的顶边缘之间的最少像素数。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      此布局的测量大小足够宽，能够显示第一批 requestedColumnCount 布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量大小足够宽，能够显示第一批 <codeph>requestedColumnCount</codeph> 布局元素。如果 <codeph>requestedColumnCount</codeph> 为 -1，则测量大小足以显示所有布局元素。
+     
+      <p>如果已显式设置使用该布局的容器的实际大小，则此属性不起作用。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      此布局的测量宽度足够大，至多能够显示 requestedMaxColumnCount 个布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量宽度足够大，至多能够显示 <codeph>requestedMaxColumnCount</codeph> 个布局元素。 
+     
+      <p>如果已设置 <codeph>requestedColumnCount</codeph>，则此属性不起作用。</p>
+           <p>如果已显式设置使用该布局的容器的实际大小，则此属性不起作用。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMinColumnCount:get"><apiName>requestedMinColumnCount</apiName><shortdesc>
+      此布局的测量宽度足够大，至少能够显示 requestedMinColumnCount 个布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局的测量宽度足够大，至少能够显示 <codeph>requestedMinColumnCount</codeph> 个布局元素。 
+     
+      <p>如果已设置 <codeph>requestedColumnCount</codeph>，则此属性不起作用。</p>
+           <p>如果已显式设置使用该布局的容器的实际大小，则此属性不起作用。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:variableColumnWidth:get"><apiName>variableColumnWidth</apiName><shortdesc>
+      若为 true，则指定要为布局元素分配其首选宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      若为 <codeph>true</codeph>，则指定要为布局元素分配其首选宽度。
+           <p>将此属性设置为 <codeph>false</codeph> 会指定固定宽度列。每个布局元素的实际宽度是 <codeph>columnWidth</codeph> 属性的值，且该布局会忽略布局元素的 <codeph>percentWidth</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      布局元素的垂直对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      布局元素的垂直对齐。
+     
+      <p>如果该值为 <codeph>"bottom"</codeph>、<codeph>"middle"</codeph> 或 <codeph>"top"</codeph>，则会相对于容器的 <codeph>contentHeight</codeph> 属性对齐布局元素。</p>
+     
+      <p>如果该值为 <codeph>"contentJustify"</codeph>，则会将布局元素的实际高度设置为容器的 <codeph>contentHeight</codeph> 属性。容器的内容高度是最大的布局元素的高度。如果所有布局元素都小于容器的高度，则会将所有布局元素的高度设置为容器的高度。</p>
+     
+      <p>如果该值为 <codeph>"justify"</codeph>，则会将布局元素的实际高度设置为容器的高度。</p>
+           <p>如果该值是 <codeph>"baseline"</codeph>，则会定位元素，使其文本与元素文本提升的最大量对齐。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileOrientation"><apiName>TileOrientation</apiName><shortdesc>
+  TileOrientation 类为 TileLayout 类的 orientation 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TileOrientation 类为 TileLayout 类的 <codeph>orientation</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/orientation"><linktext>TileLayout.orientation</linktext></link></related-links><apiValue id="spark.layouts:TileOrientation:COLUMNS"><apiName>COLUMNS</apiName><shortdesc>
+      逐列排列元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columns</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      逐列排列元素。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileOrientation:ROWS"><apiName>ROWS</apiName><shortdesc>
+      逐行排列元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      逐行排列元素。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:RowAlign"><apiName>RowAlign</apiName><shortdesc>
+  RowAlign 类为 TileLayout 类的 rowAlign 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RowAlign 类为 TileLayout 类的 <codeph>rowAlign</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>TileLayout.rowAlign</linktext></link></related-links><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      通过增大垂直间隙将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      通过增大垂直间隙将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_HEIGHT"><apiName>JUSTIFY_USING_HEIGHT</apiName><shortdesc>
+      通过增大行高度将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      通过增大行高度将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      不将行两端对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      不将行两端对齐。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalAlign"><apiName>HorizontalAlign</apiName><shortdesc>
+  HorizontalAlign 类为 VerticalLayout 类的 horizontalAlign 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HorizontalAlign 类为 VerticalLayout 类的 <codeph>horizontalAlign</codeph> 属性定义可能的值。
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#VerticalLayout/horizontalAlign"><linktext>VerticalLayout.horizontalAlign</linktext></link></related-links><apiValue id="spark.layouts:HorizontalAlign:CENTER"><apiName>CENTER</apiName><shortdesc>
+      在容器的中心对齐子代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      在容器的中心对齐子代。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      相对于容器对子代进行内容对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      相对于容器对子代进行内容对齐。这会将所有子代的大小统一调整为容器的内容宽度。容器的内容宽度是最大子代的大小。如果所有子代都小于容器的宽度，则会将所有子代的大小调整为容器的宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      相对于容器对齐子代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      相对于容器对齐子代。这会将所有子代的大小统一调整为与容器相同的宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      将子代与容器的左侧对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      将子代与容器的左侧对齐。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      将子代与容器的右侧对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      将子代与容器的右侧对齐。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+  BasicLayout 类根据其各个设置彼此独立地排列布局元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BasicLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no additional tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BasicLayout/&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BasicLayout 类根据其各个设置彼此独立地排列布局元素。BasicLayout（也称为绝对布局）要求显式定位每个容器子代。可以使用子代的 <codeph>x</codeph> 和 <codeph>y</codeph> 属性，或使用约束来定位每个子代。
+ 
+  <p><b>注意：</b>基于 Spark List 的控件（Spark List 控件及其子类，如 ButtonBar、ComboBox、DropDownList 和 TabBar）不支持 BasicLayout 类。不要将 BasicLayout 与基于 Spark List 的控件一起使用。</p>
+ 
+  <p>按元素支持的约束有 <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph>、<codeph>horizontalCenter</codeph>、<codeph>verticalCenter</codeph>、<codeph>baseline</codeph>、<codeph>percentWidth</codeph> 和 <codeph>percentHeight</codeph>。始终将考虑元素的最小大小和最大大小。</p>
+ 
+  <p>容器的测量大小是根据元素、其约束和其首选大小进行计算的。容器的测量大小足够大，能够在满足元素约束的情况下以元素的首选大小容纳所有元素。 </p>
+ 
+  <p>以下是如何计算测量大小的一些示例：
+  <ul>
+    <li>如果容器具有指定了 <codeph>left</codeph> 约束的单个元素，则容器的测量宽度将等于元素的首选宽度加上 <codeph>left</codeph> 约束的值。</li>
+ 
+    <li>如果容器具有指定了 <codeph>percentWidth</codeph> 的单个元素，则容器的测量宽度将等于元素的首选宽度。尽管元素的 <codeph>percentWidth</codeph> 并不直接计入这些计算中，但在调用 <codeph>updateDisplayList()</codeph> 方法期间将考虑它。</li>
+ 
+    <li>如果容器具有指定了 <codeph>baseline</codeph> 约束的单个元素，则容器的测量高度将等于元素的首选高度加上 <codeph>baseline</codeph> 再减去元素的 <codeph>baselinePosition</codeph> 属性的值。</li>
+ 
+    <li>如果容器具有指定了 <codeph>verticalCenter</codeph> 约束的单个元素，则容器的测量高度将等于元素的首选高度加上两倍的 <codeph>verticalCenter</codeph> 约束值。</li>
+  </ul>
+ </p>
+ 
+  <p>在 <codeph>updateDisplayList()</codeph> 方法的调用过程中，元素的大小是根据按以下优先级顺序的规则确定的（始终会考虑元素的最小大小和最大大小）：</p>
+  <ul>
+    <li>如果元素已设置 <codeph>percentWidth</codeph> 或 <codeph>percentHeight</codeph>，则会将其大小计算为可用大小的某个百分比，其中可用大小是容器大小减去任何 <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph> 或 <codeph>bottom</codeph> 约束。</li>
+ 
+    <li>如果元素具有 left 约束和 right 约束，则会将其宽度设置为容器的宽度减去 <codeph>left</codeph> 约束和 <codeph>right</codeph> 约束。</li>
+ 
+    <li>如果元素具有 <codeph>top</codeph> 约束和 <codeph>bottom</codeph> 约束，则会将其高度设置为容器的高度减去 <codeph>top</codeph> 约束和 <codeph>bottom</codeph> 约束。</li>
+ 
+    <li>将元素设置为其首选宽度和/或高度。</li>
+  </ul>
+ 
+  <p>BasicLayout 类计算大小的最小值，并将它作为子代最小大小的最大值：</p>
+ 
+  <ol>
+    <li>为容器中的每个子代确定它能够收缩到的最小大小：
+        <ul>
+          <li>如果子代约束到父代的宽度或高度，那么子代可以收缩到它的最小宽度或高度。使用子代的最小大小。</li>
+          <li>如果子代没有约束到父代，那么它将保持首选大小。使用子代的首选大小。  </li>
+        </ul></li>
+     <li>从步骤 1 中查找大小的最大值。 </li>
+  </ol>
+ 
+  <p>因此，如果子代约束到父代，那么布局将使用子代的最小大小。否则，将使用子代的首选大小来计算容器的最小大小。</p>
+ 
+  <p>元素的位置是根据按以下优先级顺序的规则确定的：</p>
+  <ul>
+    <li><codeph>horizontalCenter</codeph> 或 <codeph>verticalCenter</codeph> 约束指定容器中心与元素中心之间的距离。将 <codeph>horizontalCenter</codeph> 或 <codeph>verticalCenter</codeph> 约束设置为零，会使容器内的元素在水平或垂直方向上居中。</li>
+ 
+    <li>如果指定了元素的 baseline，则会在垂直方向上定位元素，以使其 <codeph>baselinePosition</codeph>（通常为其第一行文本的基线）与 <codeph>baseline</codeph> 约束对齐。</li>
+ 
+    <li>如果指定了元素的 <codeph>top</codeph> 或 <codeph>left</codeph> 约束，则会定位元素，使元素的布局界限的左上角从容器的左上角偏移指定的值。</li>
+ 
+    <li>如果指定了元素的 <codeph>bottom</codeph> 或 <codeph>right</codeph> 约束，则会定位元素，使元素的布局界限的右下角从容器的右下角偏移指定的值。</li>
+ 
+    <li>如果没有任何约束确定水平或垂直方向上的位置，则会根据元素的 x 坐标和 y 坐标定位元素。</li>
+  </ul>
+ 
+  <p>容器的内容大小将计算为所有布局元素右下角的坐标的最大值。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:BasicLayout:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

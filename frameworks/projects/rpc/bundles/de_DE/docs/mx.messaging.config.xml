@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.config"><apiName>mx.messaging.config</apiName><apiDetail/><apiClassifier id="mx.messaging.config:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+  Die ConfigMap-Klasse bietet einen Mechanismus zum Speichern der vom Server zurückgegebenen Eigenschaften, wobei die Reihenfolge der Eigenschaften beibehalten wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ConfigMap-Klasse bietet einen Mechanismus zum Speichern der vom Server zurückgegebenen Eigenschaften, wobei die Reihenfolge der Eigenschaften beibehalten wird. 
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.config:ConfigMap:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+     Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Ein Objekt, das Name/Wert-Paare enthält.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Konstruktor.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      Gibt den Namen der Methode des über die Proxy-Klasse zugänglich gemachten Objekts zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Der Rückgabewert der aufgerufenen Methode.
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Der Name der aufgerufenen Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Ein Array mit den Argumenten für die aufgerufene Methode.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Namen der Methode des über die Proxy-Klasse zugänglich gemachten Objekts zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      Löscht die angegebene Eigenschaft des über die Proxy-Klasse zugänglich gemachten Objekts und benachrichtigt die Prozedur von der Löschung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Ein boolescher Wert, der angibt, ob eine Eigenschaft gelöscht wurde.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Normalerweise ein String, der den Eigenschaftsnamen enthält oder möglicherweise einen QName, wobei der Eigenschaftsname durch Überprüfen der <codeph>localName</codeph>-Eigenschaft gefunden wird.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Löscht die angegebene Eigenschaft des über die Proxy-Klasse zugänglich gemachten Objekts und benachrichtigt die Prozedur von der Löschung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Gibt den angegebenen Eigenschaftswert des über die Proxy-Klasse zugänglich gemachten Objekts zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Der Wert der Eigenschaft.
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Normalerweise ein String, der den Eigenschaftsnamen enthält oder möglicherweise einen QName, wobei der Eigenschaftsname durch Überprüfen der <codeph>localName</codeph>-Eigenschaft gefunden wird.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den angegebenen Eigenschaftswert des über die Proxy-Klasse zugänglich gemachten Objekts zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, wenn die Eigenschaft vorhanden ist; andernfalls <codeph>false</codeph>.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Der Eigenschaftsname, dessen Vorhandensein überprüft werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Die auf null basierende Indexposition der nächsten Eigenschaft.
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexposition der Objekteigenschaft.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Der Name der Eigenschaft.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexposition der Objekteigenschaft.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Der Wert der Eigenschaft.
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Der auf null basierende Wert der Indexposition der Objekteigenschaft.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Dies ist eine interne Funktion, die durch eine Unterklasse von flash.utils.Proxy implementiert werden muss.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Aktualisiert die angegebene Eigenschaft des über die Proxy-Klasse zugänglich gemachten Objekts und benachrichtigt die Prozedur von der Aktualisierung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Objekt, das den Namen der Eigenschaft enthält, die für das über die Proxy-Klasse zugänglich gemachte Objekt aktualisiert werden sollte.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Der für das über die Proxy-Klasse zugänglich gemachte Objekt festzulegende Wert.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Aktualisiert die angegebene Eigenschaft des über die Proxy-Klasse zugänglich gemachten Objekts und benachrichtigt die Prozedur von der Aktualisierung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ConfigMap:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      Enthält eine Liste aller Eigenschaftsnamen des über die Proxy-Klasse zugänglich gemachten Objekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Enthält eine Liste aller Eigenschaftsnamen des über die Proxy-Klasse zugänglich gemachten Objekts.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.config:ServerConfig"><apiName>ServerConfig</apiName><shortdesc>
+  Diese Klasse bietet Zugriff auf die Informationen zur Servermeldungskonfiguration.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse bietet Zugriff auf die Informationen zur Servermeldungskonfiguration. Diese Klasse bindet Informationen aus der Datei services-config.xml auf dem Client ein und wird vom Meldungssystem verwendet, um konfigurierte ChannelSets und Channels für die Meldungsarchitektur zu liefern.
+ 
+  <p>Die XML-Quelle wird während der Kompilierung zur Verfügung gestellt. Derzeit gibt es jedoch keine interne Beschränkung, durch die die Aufnahme dieser XML-Daten durch andere Möglichkeiten (beispielsweise Netzwerk, lokales Dateisystem oder gemeinsames Objekt während der Laufzeit) verhindert wird.</p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.config:ServerConfig:checkChannelConsistency"><apiName>checkChannelConsistency</apiName><shortdesc>
+      Diese Methode stellt sicher, dass die angegebenen Ziele identische Kanaldefinitionen enthalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><throw>ArgumentError if the channel definitions of the specified
+               destinations aren't identical.
+      
+      </throw></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>destinationA</apiItemName><apiType value="String"/><apiDesc>erstes Ziel für den Vergleich
+      </apiDesc></apiParam><apiParam><apiItemName>destinationB</apiItemName><apiType value="String"/><apiDesc>zweites Ziel für den Vergleich der Kanäle
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Diese Methode stellt sicher, dass die angegebenen Ziele identische Kanaldefinitionen enthalten. Wenn die Kanaldefinitionen zwischen den zwei angegebenen Zielen nicht identisch sind, wird ein ArgumentError von dieser Methode ausgegeben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannelSet"><apiName>getChannelSet</apiName><shortdesc>
+      Gibt einen gemeinsamen ChannelSet zurück, der für das angegebene Ziel verwendet werden kann, das zum Dienst gehört, der den angegebenen Meldungstyp verarbeitet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>In dem Fall, dass das angegebene Ziel über keine Kanäle verfügt und die Anwendung keine Standardkanäle definiert hat.
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Der ChannelSet.
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>Die Ziel-ID.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen gemeinsamen ChannelSet zurück, der für das angegebene Ziel verwendet werden kann, das zum Dienst gehört, der den angegebenen Meldungstyp verarbeitet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannel"><apiName>getChannel</apiName><shortdesc>
+      Gibt eine gemeinsame Instanz des konfigurierten Kanals zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>In dem Fall, dass kein Kanal die angegebene ID aufweist.
+      
+      </apiDesc><apiItemName>InvalidChannelError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidChannelError</apiOperationClassifier></apiException><apiReturn><apiDesc>Die Kanalinstanz.
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Die ID des gewünschten Kanals.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clustered</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>„true“, wenn der Kanal in einem Cluster verwendet wird, ansonsten „false“.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt eine gemeinsame Instanz des konfigurierten Kanals zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getProperties"><apiName>getProperties</apiName><shortdesc>
+      Gibt die Eigenschafteninformationen für das angegebene Ziel zurück.
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>In dem Fall, dass das angegebene Ziel nicht gefunden wurde.
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>XMLList, die die Tag-Informationen &lt;property> enthält.
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>Die ID des gewünschten Ziels.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Eigenschafteninformationen für das angegebene Ziel zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ServerConfig:xml:get"><apiName>xml</apiName><shortdesc>
+      Die XML-Konfiguration. Dieser Wert muss die entsprechenden Bestandteile des Tags &amp;lt;services&amp;gt; aus der Datei services-config.xml enthalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="XML"/></apiValueDef><apiDesc>
+      Die XML-Konfiguration. Dieser Wert muss die entsprechenden Bestandteile des Tags &lt;services> aus der Datei services-config.xml enthalten.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

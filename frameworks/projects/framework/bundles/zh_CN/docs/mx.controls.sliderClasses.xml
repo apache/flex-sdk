@@ -1,0 +1,668 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.sliderClasses"><apiName>mx.controls.sliderClasses</apiName><apiDetail/><apiClassifier id="mx.controls.sliderClasses:Slider"><apiName>Slider</apiName><shortdesc>
+  Slider 类是 Flex 滑块控件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="trackSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块轨道的外观。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackHighlightSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块轨道处于选定状态时的外观。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDisabledSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块处于禁用状态时的外观。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块处于按下状态时的外观。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块处于经过状态时的外观。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块处于弹起状态时的外观。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  滑块的默认外观。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipPrecision" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="int">
+<description>
+  用于数据提示文本的小数位数。值 0 表示将所有值舍入为整数。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dataTipOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  数据提示相对于滑块的偏移量（以像素为单位）。与 HSlider 和 VSlider 控件的 <codeph>dataTipPlacement</codeph> 样式属性结合使用。
+ 
+  </description>
+<default>16
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  用于数据提示的样式声明名称。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="trackMargin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  轨道边距的大小（以像素为单位）。如果为 <codeph>undefined</codeph>，则轨道边距取决于第一个标签和最后一个标签的长度。如果给定了某个值，则 Flex 会尝试使标签适应可用空间。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showTrackHighlight" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  指定是否启用滑块间（或单个滑块和轨道的开始端之间）的轨道亮显效果。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  轨道的颜色（由两种颜色组成的数组）。您可以使用同一种颜色两次，以实现纯色轨道。
+ 
+  <p>可将此属性与 <codeph>fillAlphas</codeph> 属性一起使用。设置 <codeph>trackColors</codeph> 时，通常需要将 <codeph>fillAlphas</codeph> 设置为 [ 1.0, 1.0 ]。</p>
+ 
+  </description>
+<default>[ 0xE7E7E7, 0xE7E7E7 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickThickness" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  刻度线的粗细（以像素为单位）。如果方向是水平的，则调整刻度线的宽度。如果方向是垂直的，则调整高度。
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  刻度线相对于轨道的 y 位置偏移（如果方向是水平的）或 x 位置偏移（如果方向是垂直的）。
+ 
+  </description>
+<default>-6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickLength" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  刻度线的长度（以像素为单位）。如果 <codeph>direction</codeph> 为 <codeph>Direction.HORIZONTAL</codeph>，则调整刻度线的高度。如果 <codeph>direction</codeph> 为 <codeph>Direction.VERTICAL</codeph>，则调整刻度线的宽度。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="tickColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="uint">
+<description>
+  刻度线的颜色。可以是十六进制颜色值或已知颜色的字符串名。
+ 
+  </description>
+<default>0x6F7777.
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="thumbOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  滑块相对于轨道的 y 位置偏移（如果方向是水平的）或 x 位置偏移（如果方向是垂直的）。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="slideEasingFunction" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Function">
+<description>
+  在轨道上单击以移动滑块时，滑动动画使用的补间函数。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="slideDuration" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  在轨道上单击以移动滑块时，滑动动画持续的时间（以毫秒为单位）。
+ 
+  </description>
+<default>300
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="labelStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  用于滑块标签的样式名称。  
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="labelOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  标签相对于轨道的 y 位置偏移（如果方向是水平的）或 x 位置偏移（如果方向是垂直的）。
+ 
+   </description>
+<default>-10
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="invertThumbDirection" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  反转滑块的方向。如果为 <codeph>true</codeph>，则会反转滑块。
+  
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件对焦时，对焦环的颜色
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  轨道加亮的颜色。
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  边框黑色部分的颜色。 
+  
+  </description>
+<default>0x919999
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  指定用于着色组件背景填充的颜色。您应该将其设置为一个 Array，包含用于指定 RGB 颜色的两个或四个 uint 值。元素 0 和元素 1 指定颜色渐变的开始和结束值。如果存在元素 2 和元素 3，则当鼠标移动到组件时将使用这两个值取代元素 0 和元素 1。要设置具有均匀外观的控件，请将元素 0 和 1 以及元素 2 和 3 设置相同的颜色，默认值为 <codeph>[ 0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE ]</codeph>。
+  <p>部分组件（如 ApplicationControlBar 容器）具有不同的默认值。对于 ApplicationControlBar 容器，此默认值为 <codeph>[ 0xFFFFFF, 0xFFFFFF ]</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  指定用于组件背景填充的 alpha 透明度值，您应将其设置为包含两个或四个数值的 Array。元素 0 和元素 1 指定 alpha 渐变的开始和结束值。如果存在元素 2 和元素 3，则当鼠标移动到组件时将使用这两个值取代元素 0 和元素 1。全局默认值为 <codeph>[ 0.60, 0.40, 0.75, 0.65 ]</codeph>。部分组件（如 ApplicationControlBar 容器）具有不同的默认值。对于 ApplicationControlBar 容器，默认值为 <codeph>[ 0.0, 0.0 ]</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The Slider class cannot be used as an MXML tag. Use the <code>&lt;mx:HSlider&gt;</code> 
+  and <code>&lt;mx:VSlider&gt;</code> tags instead. However, the Slider class does define tag 
+  attributes used by the <code>&lt;mx:HSlider&gt;</code> and <code>&lt;mx:VSlider&gt;</code> tags. </p>
+ 
+  <p>The Slider class inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    allowThumbOverlap="false|true"
+    allowTrackClick="true|false"
+    dataTipFormatFunction="undefined"
+    direction="horizontal|vertical"
+    labels="undefined"
+    liveDragging="false|true"
+    maximum="10"
+    minimum="0"
+    showDataTip="true|false"
+    sliderDataTipClass="sliderDataTip"
+    sliderThumbClass="SliderThumb"
+    snapInterval="0"
+    thumbCount="1"
+    tickInterval="0"
+    tickValues="undefined"
+    value="<i>The value of the minimum property.</i>"
+ 
+    <strong>Styles</strong>
+    borderColor="0x919999"
+    dataTipOffset="16"
+    dataTipPrecision="2"
+    dataTipStyleName="undefined"
+    fillAlphas="[0.6, 0.4, 0.75, 0.65]"
+    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE;]"
+    labelOffset="-10"
+    labelStyleName="undefined"
+    showTrackHighlight="false"
+    slideDuration="300"
+    slideEasingFunction="undefined"
+    thumbDisabledSkin="SliderThumbSkin"
+    thumbDownSkin="SliderThumbSkin"
+    thumbOffset="0"
+    thumbOverSkin="SliderThumbSkin"
+    thumbUpSkin="SliderThumbSkin"
+    tickColor="0x6F7777"
+    tickLength="3"
+    tickOffset="-6"
+    tickThickness="1"
+    trackColors="[ 0xEEEEEE, 0xFFFFFF ]"
+    tracHighlightSkin="SliderHighlightSkin"
+    trackMargin="undefined"
+    trackSkin="SliderTrackSkin"
+  
+    <strong>Events</strong>
+    change="<i>No default</i>"
+    thumbDrag="<i>No default</i>"
+    thumbPress="<i>No default</i>"
+    thumbRelease="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Slider 类是 Flex 滑块控件的基类。使用滑块控件，用户可以通过在滑块轨道的端点之间移动滑块来选择值。滑块的当前值由滑块端点之间滑块的相对位置确定，端点对应于滑块的最小值和最大值。Slider 类会子类化为 HSlider 和 VSlider。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><shortdesc>
+  释放滑块（即用户在 thumbPress 事件后释放鼠标按钮）时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  释放滑块（即用户在 <codeph>thumbPress</codeph> 事件后释放鼠标按钮）时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><shortdesc>
+  按下滑块（即用户在滑块上按下鼠标按钮）时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_PRESS</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  按下滑块（即用户在滑块上按下鼠标按钮）时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><shortdesc>
+  按下滑块并使用鼠标移动滑块时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_DRAG</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  按下滑块并使用鼠标移动滑块时分派。此事件始终发生在 <codeph>thumbPress</codeph> 事件之后。
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  由于鼠标或键盘操作而更改滑块值时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  由于鼠标或键盘操作而更改滑块值时分派。
+ 
+  <p>如果 <codeph>liveDragging</codeph> 属性是 <codeph>true</codeph>，则在用户移动滑块时持续分派该事件。如果 <codeph>liveDragging</codeph> 是 <codeph>false</codeph>，则在用户释放滑块时分派该事件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.sliderClasses:Slider:Slider"><apiName>Slider</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.sliderClasses:Slider:getThumbAt"><apiName>getThumbAt</apiName><shortdesc>
+      返回给定索引处的滑块对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>对 SliderThumb 对象的引用。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.sliderClasses:SliderThumb</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>滑块的从零开始的索引编号。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回给定索引处的滑块对象。使用此方法可设置滑块控件中各个滑块的样式并进行自定义。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:measure"><apiName>measure</apiName><shortdesc>
+      计算组件占用的空间量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      计算组件占用的空间量。水平滑块控件通过检测其标签、刻度线和滑块相对于轨道的位置来计算其高度。控件的高度等于从最高元素的顶部位置减去最低元素的底部位置所得的值。水平滑块控件的默认宽度为 250 个像素。对于垂直滑块控件，宽度值和长度值将相互交换。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:setThumbValueAt"><apiName>setThumbValueAt</apiName><shortdesc>
+      此方法可设置滑块的值，并更新显示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>滑块用于设置值的从零开始的索引编号，其中 0 值对应于第一个滑块。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Number"/><apiDesc>要为滑块设置的值
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      此方法可设置滑块的值，并更新显示。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      确定控件元素的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。   
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定控件元素的位置。轨道、滑块、标签和刻度线均可由此方法定位和设置大小。轨道的大小基于标签长度以及轨道边距设置。如果指定了 <codeph>trackMargin</codeph>，则轨道大小等于可用宽度减去 <codeph>trackMargin</codeph> 与 2 的乘积。
+     
+      <p>刻度线从轨道的起始处开始沿轨道以相等的间隔分布。如果轨道末端没有刻度线，则在此处额外添加一条刻度线（如果刻度线间隔不是最大值的因子）。刻度线的 y 位置基于 <codeph>tickOffset</codeph>。偏移 0 表示将刻度线的底部置于轨道的顶部。负偏移量表示将刻度线沿轨道向上移动，而正偏移量表示将它们沿轨道向下移动。</p>
+     
+      <p>标签将沿轨道以相同间隔放置。除非 <codeph>trackMargin</codeph> 的设置过小，否则标签将始终在其间隔位置上方水平居中显示。如果指定了 <codeph>trackMargin</codeph>，则第一个标签和最后一个标签将会将自身定位到控件的左边界和右边界。标签重叠时，不会裁剪自身也不会重新调整自身大小，所以请确保为它们留出了足够的空间以适应轨道的大小。y 位置基于 <codeph>labelOffset</codeph> 属性。偏移量 0 表示将标签的底部放置在轨道的顶部。与刻度线不同，无法将标签定位到与轨道重叠的位置。如果偏移量为正数，则表示将标签的顶部置于轨道的底部之下。</p>
+     
+      <p>将滑块定位到与轨道重叠的位置。它们的 x 位置由其值确定。y 位置由 <codeph>thumbOffset</codeph> 属性控制。偏移量 0 表示将滑块的中心置于轨道的中心。负偏移量表示将滑块向上移动，而正偏移量表示将滑块向下移动。</p>
+     
+      <p>刻度线、标签和滑块的位置是彼此独立的。如果重叠，它们不会尝试改变自身位置。</p>
+     
+      <p>同样的规则也适用于垂直滑块控件。在上述描述中，将宽度替换为高度、高度替换为宽度、左侧替换为上方或顶部、右侧替换为下方或底部、x 位置替换为 y 位置以及 y 位置替换为 x 位置。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.sliderClasses:Slider:allowThumbOverlap"><apiName>allowThumbOverlap</apiName><shortdesc>
+      如果设置为 false，则仅可以将每个滑块移动到其相邻滑块的边缘。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果设置为 <codeph>false</codeph>，则仅可以将每个滑块移动到其相邻滑块的边缘。如果设置为 <codeph>true</codeph>，则可将滑块移动到轨道的任何位置。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:allowTrackClick"><apiName>allowTrackClick</apiName><shortdesc>
+      指定在轨道上单击是否会移动滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定在轨道上单击是否会移动滑块。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:liveDragging"><apiName>liveDragging</apiName><shortdesc>
+      指定是否为滑块启用实时拖动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否为滑块启用实时拖动。如果设置为 <codeph>false</codeph>，则 Flex 会设置 <codeph>value</codeph> 和 <codeph>values</codeph> 属性并在用户停止拖动滑块时分派 <codeph>change</codeph> 事件。如果为 <codeph>true</codeph>，则 Flex 会设置 <codeph>value</codeph> 和 <codeph>values</codeph> 属性并当用户移动滑块时连续分派 <codeph>change</codeph> 事件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:showDataTip"><apiName>showDataTip</apiName><shortdesc>
+      如果设置为 true，则在用户交互期间将显示包含滑块当前值的数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果设置为 <codeph>true</codeph>，则在用户交互期间将显示包含滑块当前值的数据提示。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:dataTipFormatFunction:get"><apiName>dataTipFormatFunction</apiName><shortdesc>
+      格式化数据提示文本的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>undefined   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      格式化数据提示文本的回调函数。此函数使用单个 Number 作为参数并返回格式化的 String。
+     
+      <p>此函数包含下列签名：</p>
+      <pre>
+      funcName(value:Number):String
+      </pre>
+     
+      <p>以下示例采用美元符号作为数据提示文本的前缀，并使用名为“slide”的 Slider 控件的 <codeph>dataTipPrecision</codeph> 格式化该文本。 </p>
+     
+      <pre>
+      import mx.formatters.NumberBase;
+      function myDataTipFormatter(value:Number):String { 
+          var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+          return   "$ " + dataFormatter.formatPrecision(String(value), slide.getStyle("dataTipPrecision")); 
+      }
+      </pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:direction:get"><apiName>direction</apiName><shortdesc>
+      Slider 控件的方向。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SliderDirection.HORIZONTAL
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Slider 控件的方向。MXML 中的有效值为 <codeph>"horizontal"</codeph> 或 <codeph>"vertical"</codeph>。
+     
+      <p>在 ActionScript 中，可以使用下列常量设置此属性：<codeph>SliderDirection.VERTICAL</codeph> 和 <codeph>SliderDirection.HORIZONTAL</codeph>。</p>
+     
+      HSlider 和 VSlider 控件已为您设置此属性；在使用这些控件时，无需设置此属性。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.sliderClasses.xml#SliderDirection"><linktext>mx.controls.sliderClasses.SliderDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:labels:get"><apiName>labels</apiName><shortdesc>
+      用于滑块标签的字符串数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于滑块标签的字符串数组。Flex 将标签定位在轨道的开始处，并从轨道的开始处到末端将其均匀放置。
+     
+      <p>例如，如果此数组包含三个项目，则会将第一个项目置于轨道开始处，将第二个项目置于轨道中间部分，并将最后一个项目置于轨道的末端。</p>
+     
+      <p>如果仅指定了一个标签，则会将此标签置于轨道的开始处。默认情况下，会将标签放置在刻度线（如果显示）上方或轨道上方。要对齐标签与刻度线，请确保刻度线数量与标签数量相等。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      滑块上允许的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滑块上允许的最大值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      滑块控件上允许的最小值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滑块控件上允许的最小值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderDataTipClass:get"><apiName>sliderDataTipClass</apiName><shortdesc>
+      对用于数据提示的类的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderDataTip
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对用于数据提示的类的引用。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderThumbClass:get"><apiName>sliderThumbClass</apiName><shortdesc>
+      对用于每个滑块的类的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderThumb
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对用于每个滑块的类的引用。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:snapInterval:get"><apiName>snapInterval</apiName><shortdesc>
+      指定当用户移动滑块时滑块的增值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当用户移动滑块时滑块的增值。例如，如果 <codeph>snapInterval</codeph> 为 2，<codeph>minimum</codeph> 值为 0，<codeph>maximum</codeph> 值为 10，则当用户移动滑块时，该滑块会自行定位到 0、2、4、6、8 和 10。如果该值为 0，则意味着滑块在 <codeph>minimum</codeph> 值和 <codeph>maximum</codeph> 值之间连续移动。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:thumbCount:get"><apiName>thumbCount</apiName><shortdesc>
+      Slider 控件所允许的滑块数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Slider 控件所允许的滑块数量。可能的值为 1 或 2。如果设置为 1，则 <codeph>value</codeph> 属性将包含滑块的当前值。如果设置为 2，则 <codeph>values</codeph> 属性会包含提供每个滑块值的值数组。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      从 Slider 传递到滑块的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 Slider 传递到滑块的样式集。
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickInterval:get"><apiName>tickInterval</apiName><shortdesc>
+      刻度线相对于控件 maximum 值的间距。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      刻度线相对于控件 <codeph>maximum</codeph> 值的间距。将 <codeph>tickInterval</codeph> 属性设置为非零值时，Flex 会显示刻度线。
+     
+      <p>例如，如果 <codeph>tickInterval</codeph> 为 1 而 <codeph>maximum</codeph> 为 10，则沿 Slider 每隔 1/10 处都会放置一条刻度线。如果值为 0，则不会显示刻度线。如果 <codeph>tickValues</codeph> 属性设置为非空 Array，则将忽略此属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickValues:get"><apiName>tickValues</apiName><shortdesc>
+      滑块上刻度线的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滑块上刻度线的位置。这些位置与滑块上的值对应，并应介于 <codeph>minimum</codeph> 值和 <codeph>maximum</codeph> 值之间。例如，如果 <codeph>tickValues</codeph> 属性设置为 [0, 2.5, 7.5, 10]，<codeph>maximum</codeph> 设置为 10，则会沿滑块在下列位置放置刻度线：滑块的开始处、从左端起全程的 1/4 处、从左端起全程的 3/4 处，以及滑块的末端。 
+      
+      <p>如果将此属性设置为非空 Array，则 <codeph>tickInterval</codeph> 属性将被忽略。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:value:get"><apiName>value</apiName><shortdesc>
+      包含滑块的位置，并且此值介于 minimum 属性和 maximum 属性之间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      包含滑块的位置，并且此值介于 <codeph>minimum</codeph> 属性和 <codeph>maximum</codeph> 属性之间。当 <codeph>thumbCount</codeph> 为 1 时，使用 <codeph>value</codeph> 属性。当 <codeph>thumbCount</codeph> 大于 1 时，则使用 <codeph>values</codeph> 属性。默认值等于 minimum 属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:values:get"><apiName>values</apiName><shortdesc>
+      当 thumbCount 大于 1 时，每个滑块的值构成的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>thumbCount</codeph> 大于 1 时，每个滑块的值构成的数组。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDirection"><apiName>SliderDirection</apiName><shortdesc>
+  SliderDirection 类定义 Slider 类的 direction 属性的常数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderDirection 类定义 Slider 类的 <codeph>direction</codeph> 属性的常量值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link></related-links><apiValue id="mx.controls.sliderClasses:SliderDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  指定显示水平滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定显示水平滑块。HSlider 控件使用此常量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:SliderDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  指定显示垂直滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定显示垂直滑块。VSlider 控件使用此常量。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+  SliderDataTip 类定义用于 mx.controls.Slider 控件的工具提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ToolTip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderDataTip 类定义用于 mx.controls.Slider 控件的工具提示。此类不会向 mx.controls.ToolTip 添加其它功能。仅使用它来应用类型选择器样式。
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderDataTip:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+  SliderLabel 类定义用于 mx.controls.Slider 组件的标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Label</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderLabel 类定义用于 mx.controls.Slider 组件的标签。此类不向 mx.controls.Label 添加其它任何功能。使用此类可应用类型选择器样式。
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderLabel:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+  SliderThumb 类提供 Slider 控件的滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderThumb 类提供 Slider 控件的滑块。SliderThumb 类仅可用于 Slider 控件的上下文。您可以创建 SliderThumb 类的子类，以及通过将 Slider 控件的 <codeph>sliderThumbClass</codeph> 属性设置为您的子类而将该子类与 Slider 控件一同使用。 
+  		
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderThumb:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.sliderClasses:SliderThumb:xPosition:get"><apiName>xPosition</apiName><shortdesc>
+	  指定滑块中心在 x 轴上的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  指定滑块中心在 x 轴上的位置。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

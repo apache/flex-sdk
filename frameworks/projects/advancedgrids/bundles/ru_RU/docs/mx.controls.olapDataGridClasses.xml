@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.olapDataGridClasses"><apiName>mx.controls.olapDataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider"><apiName>OLAPDataGridItemRendererProvider</apiName><shortdesc>
+  Экземпляр OLAPDataGridItemRendererProvider позволяет указывать средство форматирования для элементов в элементе управления OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Экземпляр OLAPDataGridItemRendererProvider позволяет указывать средство форматирования для элементов в элементе управления OLAPDataGrid. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.formatters.Formatter.xml"><linktext>mx.formatters.Formatter</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider:formatter"><apiName>formatter</apiName><shortdesc>
+      Экземпляр класса Formatter или подкласса для класса Formatter, применяемый к тексту связанного интерфейса IOLAPElement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.formatters:Formatter"/></apiValueDef><apiDesc>
+      Экземпляр класса Formatter или подкласса для класса Formatter, применяемый к тексту связанного интерфейса IOLAPElement.
+     
+      <p>Например, средство форматирования CurrencyFormatter можно применить к элементу управления OLAPDataGrid, как представлено в примере:</p>
+     
+      <pre>
+      &lt;mx:CurrencyFormatter id="usdFormatter" precision="2" 
+          currencySymbol="$" decimalSeparatorFrom="."
+          decimalSeparatorTo="." useNegativeSign="true" 
+          useThousandsSeparator="true" alignSymbol="left"/>
+      
+      ...
+      
+      &lt;mx:OLAPDataGrid id="myOLAPDG" 
+          width="100%" height="100%">
+      
+          &lt;mx:itemRendererProviders>
+              &lt;mx:OLAPDataGridItemRendererProvider 
+                  uniqueName="[QuarterDim].[Quarter]"
+                  type="{OLAPDataGrid.OLAP_HIERARCHY}"
+                  formatter="{usdFormatter}"/>
+          &lt;/mx:itemRendererProviders>
+      &lt;/mx:OLAPDataGrid></pre>
+     
+      <p>В этом примере свойства <codeph>uniqueName</codeph> и <codeph>type</codeph> указывают, что Quarter является иерархией размера QuarterDim. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+  Класс OLAPDataGridGroupRenderer определяет средство визуализации элементов по умолчанию для группового средства визуализации элемента управления OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="horizontalAlign" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="String">
+<description>
+  Цвет компонента при его деактивации. Значение по умолчанию: <codeph>0xAAB3B3</codeph>.
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет компонента при его деактивации. Значение по умолчанию: <codeph>0xAAB3B3</codeph>.
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста для метки компонента. Значение по умолчанию: <codeph>0x0B333C</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс OLAPDataGridGroupRenderer определяет средство визуализации элементов по умолчанию для группового средства визуализации элемента управления OLAPDataGrid. Экземпляр этого класса является значением по умолчанию для свойства <codeph>OLAPDataGrid.groupItemRenderer</codeph>.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Передается при изменении свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства<codeph>data</codeph>.
+ 
+  <p>При использовании компонента как средства визуализации элементов свойство <codeph>data</codeph> содержит данные для отображения. Прослушиватель события может использовать это событие и обновить компонент при изменении свойства <codeph>data</codeph>.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      Внутренний класс UITextField, отображающий текст в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Внутренний класс UITextField, отображающий текст в этом средстве визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Реализация свойства data, как определено интерфейсом IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>data</codeph>, как определено интерфейсом IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Реализация свойства listData, как определено интерфейсом IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>listData</codeph>, как определено интерфейсом IDropInListItemRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider"><apiName>OLAPDataGridRendererProvider</apiName><shortdesc>
+  Класс OLAPDataGridRendererProvider определяет базовый класс для назначения средств визуализации, используемых элементом управления OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс OLAPDataGridRendererProvider определяет базовый класс для назначения средств визуализации, используемых элементом управления OLAPDataGrid. Свойства класса OLAPDataGridRendererProvider применяются для настройки местоположения использования средства визуализации элементов в элементе управления OLAPDataGrid.
+ 
+  <p>Каждая ячейка в элементе управления OLAPDataGrid является результатом пересечения элементов строки и элементов столбца элемента управления. Однако при назначении средства визуализации элементов элементу управления OLAPDataGrid для одного из размеров строки или столбца требуется указать только свойства <codeph>uniqueName</codeph> и <codeph>type</codeph>. Поэтому можно создать ситуацию, при которой два разных средства визуализации элементов будут назначены для одной и той же ячейки элемента управления.</p>
+  
+  <p>В случае конфликта между двумя или больше средствами визуализации элементов элемент управления OLAPDataGrid использует средство визуализации элементов, основанный на следующих приоритетах: </p>
+ 
+  <ol>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_MEMBER</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph></li> 
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_DIMENSION</codeph></li> 
+  </ol>
+  
+  <p>Поэтому если средство визуализации элементов со значением типа <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> и средство визуализации элементов со значением типа <codeph>OLAPDataGrid. OLAP_HIERARCHY</codeph> применяются к той же самой ячейке, элемент управления OLAPDataGrid применяет элемент средство визуализации элементов со значением типа <codeph>OLAPDataGrid.OLAP_LEVEL</codeph>.</p>
+ 
+  <p>Если два средства визуализации элементов имеют то же самое значение для свойства типа, элемент управления OLAPDataGrid определяет, какое средство визуализации наиболее подходит элементу и использует его.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:styleName"><apiName>styleName</apiName><shortdesc>
+      Имя объявления стиля CSS для управления внешним видом ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя объявления стиля CSS для управления внешним видом ячейки.
+     
+      <p>Например, в приложении определяется следующий стиль, а затем используется свойство <codeph>styleName</codeph> для связывания его с определенной иерархией в схеме OLAP:</p>
+     
+      <pre>
+      &lt;Style>
+        .monthStyle
+          {
+            color:0x755762
+            fontSize:14
+          }
+      &lt;/Style>
+     
+      &lt;mx:ODGHeaderRendererProvider 
+        type="OLAPDataGrid.OLAP_HIERARCHY" 
+        uniqueName="[Time][Month]" styleName="monthStyle"/> </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:renderer:get"><apiName>renderer</apiName><shortdesc>
+      Объект средства визуализации, используемый для настройки элемента управления OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Объект средства визуализации, используемый для настройки элемента управления OLAPDataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:type:get"><apiName>type</apiName><shortdesc>
+      Указывает, применяется ли свойство визуализации к размеру (OLAPDataGrid.OLAP_DIMENSION), иерархии(OLAPDataGrid.OLAP_HIERARCHY), уровню(OLAPDataGrid.OLAP_LEVEL) или элементу (OLAPDataGrid.OLAP_MEMBER) оси.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Указывает, применяется ли свойство визуализации к размеру (<codeph>OLAPDataGrid.OLAP_DIMENSION</codeph>), иерархии(<codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>), уровню(<codeph>OLAPDataGrid.OLAP_LEVEL</codeph>) или элементу (<codeph>OLAPDataGrid.OLAP_MEMBER</codeph>) оси.
+     
+      <p>Согласно настройке установите это свойство на свойство <codeph>uniqueName</codeph>. Например, если свойство <codeph>uniqueName</codeph> ссылается на иерархию схемы OLAP, установите это свойство на <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:uniqueName:get"><apiName>uniqueName</apiName><shortdesc>
+      Уникальное имя IOLAPElement, к которому применяется средство визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Уникальное имя IOLAPElement, к которому применяется средство визуализации. Например, [TimeDim][YearHier][2007] является уникальным именем, где 2007 – уровень, принадлежащий иерархии YearHier измерения TimeDim.
+     
+      <p>Свойства <codeph>uniqueName</codeph> и <codeph>type</codeph> вместе указывают адресата средства визуализации элементов. Поскольку уникальное имя [TimeDim] [YearHier] [2007] указывает уровень схемы OLAP, установите свойство <codeph>type</codeph> на <codeph>OLAPDataGrid.OLAP_LEVEL</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider"><apiName>OLAPDataGridHeaderRendererProvider</apiName><shortdesc>
+  Класс OLAPDataGridHeaderRendererProvider позволяет указывать средство визуализации пользовательского заголовка для столбцов в элементе управления OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс OLAPDataGridHeaderRendererProvider позволяет указывать средство визуализации пользовательского заголовка для столбцов в элементе управления OLAPDataGrid. 
+ 
+  <p>Для указания средства визуализации пользовательского заголовка для элемента управления OLAPDataGrid создайте средство визуализации пользовательского заголовка как подкласс для класса OLAPDataGridHeaderRenderer, создайте экземпляр OLAPDataGridHeaderRendererProvider, установите свойство <codeph>OLAPDataGridHeaderRendererProvider.renderer</codeph> для средства визуализации пользовательского заголовка, а затем передайте экземпляр OLAPDataGridHeaderRendererProvider в элемент управления OLAPDATAGrid путем установки свойства <codeph>OLAPDataGrid.headerRendererProviders</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer.xml"><linktext>mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider:headerWordWrap"><apiName>headerWordWrap</apiName><shortdesc>
+      Установите значение на true для переноса текста в заголовке столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      Установите значение на <codeph>true</codeph> для переноса текста в заголовке столбца.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

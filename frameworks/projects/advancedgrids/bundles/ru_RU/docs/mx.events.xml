@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AdvancedDataGridEventReason"><apiName>AdvancedDataGridEventReason</apiName><shortdesc>
+  Класс AdvancedDataGridEventReason определяет константы для значений свойства reason объекта AdvancedDataGridEvent, если свойство type равно itemEditEnd.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AdvancedDataGridEventReason определяет константы для значений свойства <codeph>reason</codeph> объекта AdvancedDataGridEvent, если свойство <codeph>type</codeph> равно <codeph>itemEditEnd</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#AdvancedDataGridEvent"><linktext>mx.events.AdvancedDataGridEvent</linktext></link></related-links><apiValue id="mx.events:AdvancedDataGridEventReason:CANCELLED"><apiName>CANCELLED</apiName><shortdesc>
+      Указывает, что редактирование было отменено, и что измененные данные не были сохранены.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cancelled</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что редактирование было отменено, и что измененные данные не были сохранены. Даже при вызове метода <codeph>preventDefault()</codeph> из прослушивателя событий для события <codeph>itemEditEnd</codeph> Flex выполняет вызов редактора <codeph>destroyItemEditor()</codeph> для закрытия редактора.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_COLUMN"><apiName>NEW_COLUMN</apiName><shortdesc>
+      Указывает, что фокусировка перемещена на новый столбец в той же самой строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newColumn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что фокусировка перемещена на новый столбец в той же самой строке. В прослушивателе событий можно разрешить, либо запретить изменение фокусировки. Например, прослушиватель событий может проверить, ввел ли пользователь допустимое значение для редактируемого в данный момент элемента. Если нет, то можно запретить перемещение в новый элемент путем вызова метода <codeph>preventDefault()</codeph>. В этом случае редактор элементов остается открытым, и редактирование текущего элемента может быть продолжено. При вызове метода <codeph>preventDefault()</codeph> и также метода <codeph>destroyItemEditor()</codeph> перемещение в новый элемент блокируется, а редактор элементов закрывается. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_ROW"><apiName>NEW_ROW</apiName><shortdesc>
+      Указывает, что фокусировка перемещена на новую строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что фокусировка перемещена на новую строку. Управление этой константой осуществляется аналогично управлению константой <codeph>NEW_COLUMN</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:OTHER"><apiName>OTHER</apiName><shortdesc>
+      Указывает, что с элемента управления List снята фокусировка, он был прокручен или каким-либо другим образом находится в состоянии, в котором редактирование не разрешено.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>other</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что с элемента управления List снята фокусировка, он был прокручен или каким-либо другим образом находится в состоянии, в котором редактирование не разрешено. Даже при вызове метода <codeph>preventDefault()</codeph> из прослушивателя событий для события <codeph>itemEditEnd</codeph> Flex выполняет вызов редактора <codeph>destroyItemEditor()</codeph> для закрытия редактора.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+   Класс AdvancedDataGridEvent представляет специфичные объекты события для элемента управления AdvancedDataGrid, например передаваемые при перемещении фокусировки на редактируемый элемент сетки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+   Класс AdvancedDataGridEvent представляет специфичные объекты события для элемента управления AdvancedDataGrid, например передаваемые при перемещении фокусировки на редактируемый элемент сетки.
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>mx.events.AdvancedDataGridEventReason</linktext></link></related-links><adobeApiEvent id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH_columnStretch"><apiName>columnStretch</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:COLUMN_STRETCH</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE_headerDragOutside"><apiName>headerDragOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE_headerDropOutside"><apiName>headerDropOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE_headerRelease"><apiName>headerRelease</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_RELEASE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE_itemClose"><apiName>itemClose</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_CLOSE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING_itemEditBeginning"><apiName>itemEditBeginning</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN_itemEditBegin"><apiName>itemEditBegin</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END_itemEditEnd"><apiName>itemEditEnd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_END</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN_itemFocusIn"><apiName>itemFocusIn</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT_itemFocusOut"><apiName>itemFocusOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPENING_itemOpening"><apiName>itemOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPENING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPEN_itemOpen"><apiName>itemOpen</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPEN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:SORT_sort"><apiName>sort</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:SORT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AdvancedDataGridEvent:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+           </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+           </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от нуля индекс столбца, в котором произошло событие.
+           </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc> Имя поля или свойства данных, связанных со столбцом.
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от нуля индекс элемента в поставщике данных.
+           </apiDesc></apiParam><apiParam><apiItemName>reason</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Причина для события <codeph>itemEditEnd</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>Средство визуализации редактируемого элемента или заголовок вызванного средства визуализации.
+           </apiDesc></apiParam><apiParam><apiItemName>localX</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Позиция столбца по оси x для воспроизведения событий <codeph>columnStretch</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>multiColumnSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает сортировку нескольких столбцов.
+           </apiDesc></apiParam><apiParam><apiItemName>removeColumnFromSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет необходимость удаления столбца из сортировки нескольких столбцов.
+           </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Указывает свойство <codeph>node</codeph>. 
+           </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>MouseEvent или KeyboardEvent, запустившее событие, или <codeph>null</codeph>, если событие запускалось программным образом.
+           </apiDesc></apiParam><apiParam><apiItemName>headerPart</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH"><apiName>COLUMN_STRETCH</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.COLUMN_STRETCH определяет значение свойства type объекта события columnStretch, указывающего, что пользователь увеличил столбец в горизонтальном направлении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columnStretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.COLUMN_STRETCH определяет значение свойства <codeph>type</codeph> объекта события <codeph>columnStretch</codeph>, указывающего, что пользователь увеличил столбец в горизонтальном направлении.
+      <p>Свойства объекта события имеют следующие значения:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>null</entry></row><row><entry><codeph>localX</codeph></entry><entry>Позиция мыши по оси x.</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.COLUMN_STRETCH</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE"><apiName>HEADER_DRAG_OUTSIDE</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE определяет значение свойства type объекта события headerDragOutside, указывающего, что пользователь нажал и отпустил кнопку мыши на заголовке столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDragOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE определяет значение свойства <codeph>type</codeph> объекта события <codeph>headerDragOutside</codeph>, указывающего, что пользователь нажал и отпустил кнопку мыши на заголовке столбца.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации заголовка, которое было инициировано.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE"><apiName>HEADER_DROP_OUTSIDE</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.HEADER_DROP_OUTSIDE определяет значение свойства type объекта события headerDropOutside.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDropOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.HEADER_DROP_OUTSIDE определяет значение свойства <codeph>type</codeph> объекта события <codeph>headerDropOutside</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации заголовка, которое было инициировано.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE"><apiName>HEADER_RELEASE</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.HEADER_RELEASE определяет значение свойства type объекта события headerRelease, указывающего на то, что пользователь нажал и отпустил кнопку мыши на заголовке столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerRelease</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.HEADER_RELEASE определяет значение свойства <codeph>type</codeph> объекта события <codeph>headerRelease</codeph>, указывающего на то, что пользователь нажал и отпустил кнопку мыши на заголовке столбца.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации заголовка, которое было инициировано.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>undefined</codeph> – Если необходимо сортировать данные в нескольких столбцах, следует использовать событие <codeph>sort</codeph>. </entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE"><apiName>ITEM_CLOSE</apiName><shortdesc>
+      Константа type события AdvancedDataGridEvent.ITEM_CLOSE указывает, что ветвь AdvancedDataGrid закрыта или свернута.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа type события AdvancedDataGridEvent.ITEM_CLOSE указывает, что ветвь AdvancedDataGrid закрыта или свернута.
+           <p>Свойства объекта события для этого типа события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>ListItemRenderer для закрывшегося узла.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_CLOSE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING"><apiName>ITEM_EDIT_BEGINNING</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.ITEM__EDIT_BEGINNING определяет значение свойства type объекта события itemEditBeginning, указывающего на готовность пользователя к редактированию элемента, например отпустил кнопку мыши на элементе.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBeginning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.ITEM__EDIT_BEGINNING определяет значение свойства <codeph>type</codeph> объекта события <codeph>itemEditBeginning</codeph>, указывающего на готовность пользователя к редактированию элемента, например отпустил кнопку мыши на элементе. 
+           <p>Прослушиватель по умолчанию для этого события устанавливает свойство <codeph>AdvancedDataGrid.editedItemPosition</codeph> для элемента, на который перемещена фокусировка, что позволяет начать сеанс редактирования элемента.</p>
+           <p>Как правило, для запрещения редактирования определенного элемента или элементов пользователь создает собственный прослушиватель события для этого события. Для предотвращения выполнения прослушивателя по умолчанию выполняется вызов метода <codeph>preventDefault()</codeph> из собственного прослушивателя события для этого события.</p>
+           <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанного со столбцом элемента.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации элементов для редактируемого элемента. Это свойство имеет значение null, если указанное событие генерируется клавиатурой, поскольку элемент, подлежащий редактированию, может в данный момент времени не отображаться на экране.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGINNING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN"><apiName>ITEM_EDIT_BEGIN</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.ITEM_EDIT_BEGIN определяет значение свойства type объекта события itemEditBegin, указывающего, что элемент готов к редактированию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBegin</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.ITEM_EDIT_BEGIN определяет значение свойства <codeph>type</codeph> объекта события <codeph>itemEditBegin</codeph>, указывающего, что элемент готов к редактированию. 
+           <p>Прослушиватель по умолчанию для этого события выполняет следующие действия:</p>
+     
+      <ul>
+        <li>Создает объект редактора элементов посредством вызова метода <codeph>createItemEditor()</codeph>.</li>
+        <li>Копирует свойство <codeph>data</codeph> из элемента в редактор. По умолчанию объект редактора элементов является экземпляром элемента управления TextInput. Свойство <codeph>itemEditor</codeph> элемента управления List используется для указания пользовательского класса редактора элементов.</li>
+             <li>Настраивает свойство <codeph>itemEditorInstance</codeph> элемента управления List для ссылки на экземпляр редактора элементов.</li>
+      </ul>
+           <p>Для изменения данных, передаваемых в редактор элементов, можно создать прослушиватель события для этого события. Например, могли измениться данные, формат или другая информация, используемая редактором элементов.</p>
+           <p>Кроме того, можно создать прослушиватель события для указания редактора элементов, используемого для изменения элемента. Например, могут существовать два различных редактора элементов. В прослушивателе события можно исследовать редактируемые данные или другую информацию и открыть соответствующий редактор элементов, выполнив следующее:</p>
+     
+      <ol>
+         <li>Можно вызвать метод <codeph>preventDefault()</codeph> для предотвращения выполнения вызова метода <codeph>createItemEditor()</codeph> в качестве части прослушивателя события по умолчанию.</li>
+         <li>Можно настроить свойства <codeph>itemEditor</codeph> в соответствии с редактором.</li>
+         <li>Можно вызвать метод <codeph>createItemEditor()</codeph>.</li>
+      </ol>
+           <p>Свойства объекта события имеют следующие значения:</p>
+           <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>Элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации элементов для редактируемого элемента.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGIN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END"><apiName>ITEM_EDIT_END</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.ITEM_EDIT_END определяет значение свойства type объекта события itemEditEnd, указывающего на завершение сеанса редактирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditEnd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.ITEM_EDIT_END определяет значение свойства <codeph>type</codeph> объекта события <codeph>itemEditEnd</codeph>, указывающего на завершение сеанса редактирования.  
+           <p>Компоненты списка имеют средство обработки по умолчанию для этого события, которое копирует данные из редактора элементов в поставщик данных элемента управления List. Прослушиватель события по умолчанию выполняет следующие действия:</p>
+     
+      <ul>
+        <li>Использует свойство <codeph>editorDataField</codeph> AdvancedDataGridColumn, связанного с этим событием, для определения свойства редактора элементов, содержащего новые данные, и обновляет элемент поставщика данных в соответствии с этими новыми данными. Поскольку редактор элементов по умолчанию является элементом управления TextInput, значением по умолчанию для свойства <codeph>editorDataField</codeph> является <codeph>text</codeph>, указывающее, что свойство <codeph>text</codeph> элемента управления TextInput содержит новые данные элемента.</li>
+             <li>Выполняет вызов метода <codeph>destroyItemEditor()</codeph> для закрытия редактора элементов.</li>
+      </ul>
+           <p>Как правило, пользователь создает прослушиватель события для этого события в целях выполнения следующих действий:</p>
+      <ul>
+        <li>В прослушивателе события можно изменять данные, возвращаемые редактором в компонент списка. Например, можно переформатировать данные перед их возвратом в элемент управления List. По умолчанию редактор элементов может возвращать только отдельное значение. Если требуется возврат нескольких значений, необходимо создать прослушиватель события для события <codeph>itemEditEnd</codeph>.</li> 
+             <li>В прослушивателе события можно просматривать данные, введенные в редактор элементов. Если данные являются неправильными, можно выполнить вызов метода <codeph>preventDefault()</codeph>, что позволит предотвратить возврат новых данных в элемент управления List и закрытие редактора. </li>
+      </ul>
+           <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанного со столбцом элемента.</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Средство визуализации элементов для редактируемого элемента.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>Константа, определяющая причину события. Значение должно быть элементом класса <codeph>AdvancedDataGridEventReason</codeph>.</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_END</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN"><apiName>ITEM_FOCUS_IN</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.ITEM_FOCUS_IN определяет значение свойства type объекта события itemFocusIn, указывающего на перемещение фокуса на этот элемент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusIn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.ITEM_FOCUS_IN определяет значение свойства <codeph>type</codeph> объекта события <codeph>itemFocusIn</codeph>, указывающего на перемещение фокуса на этот элемент. 
+           <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Экземпляр редактора элементов для редактируемого элемента.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_IN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT"><apiName>ITEM_FOCUS_OUT</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.ITEM_FOCUS_OUT определяет значение свойства type объекта события itemFocusOut, указывающего на перемещение фокуса за пределы элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.ITEM_FOCUS_OUT определяет значение свойства <codeph>type</codeph> объекта события <codeph>itemFocusOut</codeph>, указывающего на перемещение фокуса за пределы элемента. 
+           <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>Закрытый элемент (узел) AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Экземпляр редактора элементов для редактируемого элемента.</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>Отсчитываемый от нуля индекс элемента в поставщике данных.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_OUT</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPENING"><apiName>ITEM_OPENING</apiName><shortdesc>
+      Константа типа события AdvancedDataGridEvent.ITEM_OPENING обрабатывается сразу перед открытием или закрытием AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа типа события AdvancedDataGridEvent.ITEM_OPENING обрабатывается сразу перед открытием или закрытием AdvancedDataGrid.
+           <p>Свойства объекта события для этого типа события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>animate</codeph></entry><entry>Следует ли анимировать операцию открытия или закрытия.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton.</entry></row><row><entry><codeph>dispatchEvent</codeph></entry><entry>Указывает необходимость передачи события <codeph>ITEM_OPEN</codeph> или <codeph>ITEM_CLOSE</codeph> после завершения анимации открытия или закрытия. true</entry></row><row><entry><codeph>item</codeph></entry><entry>Открытый узел AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>ListItemRenderer для открытого элемента (узла)</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>opening</codeph></entry><entry><codeph>true</codeph>, если элемент открывается, false, если закрывается.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>При открытии элемента в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPENING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPEN"><apiName>ITEM_OPEN</apiName><shortdesc>
+      Константа типа события AdvancedDataGridEvent.ITEM_OPEN указывает, что ветвь AdvancedDataGrid открыта или развернута.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpen</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа типа события AdvancedDataGridEvent.ITEM_OPEN указывает, что ветвь AdvancedDataGrid открыта или развернута.
+           <p>Свойства объекта события для этого типа события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>item</codeph></entry><entry>Открытый узел AdvancedDataGrid.</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>ListItemRenderer для открытого элемента (узла)</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Открытие элемента (узла) в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPEN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:SORT"><apiName>SORT</apiName><shortdesc>
+      Константа AdvancedDataGridEvent.SORT определяет значение свойства type объекта события sort.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sort</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AdvancedDataGridEvent.SORT определяет значение свойства <codeph>type</codeph> объекта события <codeph>sort</codeph>. Элемент управления AdvancedDataGrid выполняет сортировку на основании значений свойств <codeph>dataField</codeph> и <codeph>multiColumnSort</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> Отсчитываемый от нуля индекс столбца элементов в массиве <codeph>columns</codeph> объекта AdvancedDataGrid.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>dataField</codeph></entry><entry>Имя поля или свойства данных, связанных со столбцом.</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry>Значение <codeph>true</codeph> указывает, что новое свойство <codeph>dataField</codeph> следует использовать в любой используемой сортировке, что приводит к сортировке по нескольким столбцам.
+     
+           <p>При <codeph>false</codeph> любая проводимая сортировка будет удалена, а новая сортировка будет выполняться с новым свойством <codeph>dataField</codeph>.</p>
+           </entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>Закрытие узла в ответ на действие пользователя идентифицируется как действие клавиатуры или мыши.</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.SORT</entry></row></tbody></tgroup></adobetable>
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:animate"><apiName>animate</apiName><shortdesc>
+      Если значение true, выполняется анимация операции открытия или закрытия с использованием только событий типа ITEM_OPENING.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, выполняется анимация операции открытия или закрытия с использованием только событий типа <codeph>ITEM_OPENING</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      Отсчитываемый от нуля индекс в массиве columns объекта AdvancedDataGrid для столбца, связанного с событием.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Отсчитываемый от нуля индекс в массиве <codeph>columns</codeph> объекта AdvancedDataGrid для столбца, связанного с событием.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:column"><apiName>column</apiName><shortdesc>
+     Экземпляр AdvancedDataGridColumnGroup для столбца, вызвавшего событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiValueClassifier></apiValueDef><apiDesc>
+     Экземпляр AdvancedDataGridColumnGroup для столбца, вызвавшего событие.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dataField"><apiName>dataField</apiName><shortdesc>
+      Имя поля или свойства данных, связанных со столбцом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя поля или свойства данных, связанных со столбцом.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      Указывает необходимость передачи события ITEM_OPEN или ITEM_CLOSE после завершения анимации открытия или закрытия.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает необходимость передачи события <codeph>ITEM_OPEN</codeph> или <codeph>ITEM_CLOSE</codeph> после завершения анимации открытия или закрытия. Используется только для события типа <codeph>ITEM_OPENING</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:headerPart"><apiName>headerPart</apiName><shortdesc>
+     При событии HEADER_RELEASE определяется, какая часть заголовка была нажата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     При событии HEADER_RELEASE определяется, какая часть заголовка была нажата.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+      Средство визуализации для редактируемого элемента или средство визуализации заголовка, который пользователь щелкнул или размер которого был изменен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      Средство визуализации для редактируемого элемента или средство визуализации заголовка, который пользователь щелкнул или размер которого был изменен. С использованием этого свойства можно получить доступ к поставщику данных. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:item"><apiName>item</apiName><shortdesc>
+      Хранение свойстваnode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Хранение свойства<codeph>node</codeph>. При заполнении элемента управления AdvancedDataGrid данными XML следует получить доступ к свойствам <codeph>label</codeph> и <codeph>data</codeph> для <codeph>node</codeph> как <codeph>event.node.attributes.label</codeph> и <codeph>event.node.attributes.data</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:localX"><apiName>localX</apiName><shortdesc>
+      Позиция столбца по оси X; используется для повторного воспроизведения событий растяжения столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Позиция столбца по оси X; используется для повторного воспроизведения событий растяжения столбца.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:multiColumnSort"><apiName>multiColumnSort</apiName><shortdesc>
+      Значение true указывает, что новое свойство dataField следует использовать в любой используемой сортировке, что приводит к сортировке по нескольким столбцам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Значение <codeph>true</codeph> указывает, что новое свойство <codeph>dataField</codeph> следует использовать в любой используемой сортировке, что приводит к сортировке по нескольким столбцам.
+           <p>При <codeph>false</codeph> любая проводимая сортировка будет удалена, а новая сортировка будет выполняться с новым свойством <codeph>dataField</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:opening"><apiName>opening</apiName><shortdesc>
+      Указывает, является ли элемент открытым (значение true) или закрытым (значение false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, является ли элемент открытым (значение <codeph>true</codeph>) или закрытым (значение <codeph>false</codeph>). Используется только для событий типа <codeph>ITEM_OPENING</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:reason"><apiName>reason</apiName><shortdesc>
+      Причина, по которой было передано событие itemEditEnd.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Причина, по которой было передано событие <codeph>itemEditEnd</codeph>. Допустимо только для событий, относящихся к типу <codeph>ITEM_EDIT_END</codeph>. Возможные значения определены в классе AdvancedDataGridEventReason.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>AdvancedDataGridEventReason</linktext></link></related-links></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:removeColumnFromSort"><apiName>removeColumnFromSort</apiName><shortdesc>
+      Если true, следует удалить столбец из сортировки по нескольким столбцам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Если <codeph>true</codeph>, следует удалить столбец из сортировки по нескольким столбцам.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      Отсчитываемый от нуля индекс элемента в поставщике данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Отсчитываемый от нуля индекс элемента в поставщике данных.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+      Объект MouseEvent или объект KeyboardEvent для события, запустившего его, или null если это событие запускалось программным образом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+      Объект MouseEvent или объект KeyboardEvent для события, запустившего его, или <codeph>null</codeph> если это событие запускалось программным образом.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+  Класс события, используемый OLAPCube для указания статуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс события, используемый OLAPCube для указания статуса. Класс CubeEvent представляет объекты события, специфичные для класса OLAPCube, например событие, передаваемое, когда куб готов к получению запроса.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPCube"><linktext>mx.olap.OLAPCube</linktext></link></related-links><adobeApiEvent id="mx.events:CubeEvent:CUBE_COMPLETE_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:CUBE_PROGRESS_progress"><apiName>progress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:QUERY_PROGRESS_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:QUERY_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:CubeEvent:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:CubeEvent:CUBE_COMPLETE"><apiName>CUBE_COMPLETE</apiName><shortdesc>
+      Константа CubeEvent.CUBE_COMPLETE определяет значение свойства type объекта события complete.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>complete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>CubeEvent.CUBE_COMPLETE</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>complete</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>description</codeph></entry><entry>Описание обрабатываемого в данный момент элемента.</entry></row><row><entry><codeph>progress</codeph></entry><entry>Количество обновленных элементов куба.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>total</codeph></entry><entry>Общее количество элементов куба, которые должны быть обновлены.</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:CUBE_PROGRESS"><apiName>CUBE_PROGRESS</apiName><shortdesc>
+      Константа CubeEvent.CUBE_PROGRESS определяет значение свойства type объекта события progress.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>progress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>CubeEvent.CUBE_PROGRESS</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>progress</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>description</codeph></entry><entry>Описание обрабатываемого в данный момент элемента.</entry></row><row><entry><codeph>progress</codeph></entry><entry>Количество обновленных элементов куба.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>total</codeph></entry><entry>Общее количество элементов куба, которые должны быть обновлены.</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:QUERY_PROGRESS"><apiName>QUERY_PROGRESS</apiName><shortdesc>
+      Константа CubeEvent.CUBE_COMPLETE определяет значение свойства type объекта события queryProgress.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>queryProgress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа <codeph>CubeEvent.CUBE_COMPLETE</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>queryProgress</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>description</codeph></entry><entry>Описание обрабатываемого в данный момент элемента.</entry></row><row><entry><codeph>progress</codeph></entry><entry>Количество обновленных элементов куба.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>total</codeph></entry><entry>Общее количество элементов куба, которые должны быть обновлены.</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.QUERY_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:message"><apiName>message</apiName><shortdesc>
+      Описание обрабатываемого в данный момент элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Описание обрабатываемого в данный момент элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:progress"><apiName>progress</apiName><shortdesc>
+      Количество обновленных элементов куба.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Количество обновленных элементов куба.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:total"><apiName>total</apiName><shortdesc>
+      Общее количество элементов куба, которые должны быть обновлены.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Общее количество элементов куба, которые должны быть обновлены.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

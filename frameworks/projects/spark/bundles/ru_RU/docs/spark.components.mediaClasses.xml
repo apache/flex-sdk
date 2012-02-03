@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.mediaClasses"><apiName>spark.components.mediaClasses</apiName><apiDetail/><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+  Класс DynamicStreamingVideoItem представляет видеопоток на сервере плюс скорость передачи этого потока.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoItem&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoItem 
+    <strong>Properties</strong>
+    bitrate="0"
+    streamName=""
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DynamicStreamingVideoItem представляет видеопоток на сервере плюс скорость передачи этого потока. Этот класс используется для определения значений свойства <codeph>streamItems</codeph> класса DynamicStreamingVideoSource. Класс DynamicStreamingVideoSource представляет потоковое видео и может использоваться для записанного заранее либо живого потокового видео.  
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoItem:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:bitrate:get"><apiName>bitrate</apiName><shortdesc>
+      Скорость битовой передачи видеопотока.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Скорость битовой передачи видеопотока.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:streamName:get"><apiName>streamName</apiName><shortdesc>
+      Имя потока на сервере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя потока на сервере. Свойство <codeph>host</codeph> класса DynamicStreamingVideoSource используется для указания URI сервера.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource/host"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource.host</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+  Класс MuteButton определяет кнопку выключения звука, используемую элементом управления VideoPlayer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="label"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MuteButton определяет кнопку выключения звука, используемую элементом управления VideoPlayer. Щелчок по кнопке выключает или включает звук.  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:MuteButton_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  Отправляется при включении или отключении звука видеоролика пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при включении или отключении звука видеоролика пользователем.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:MuteButton:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:MuteButton:muted:get"><apiName>muted</apiName><shortdesc>
+      Содержит true, если звук видеоролика выключен, и false в противном случае.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит <codeph>true</codeph>, если звук видеоролика выключен, и <codeph>false</codeph> в противном случае.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:MuteButton:volume:get"><apiName>volume</apiName><shortdesc>
+      Громкость видеопроигрывателя, указанная как значение между 0 и 1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Громкость видеопроигрывателя, указанная как значение между 0 и 1.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+  Класс VolumeBar определяет раскрывающийся ползунок для управления громкостью элемента управления VideoDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinStates><SkinState name="open" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10">
+<description>
+  Открытое состояние раскрывающегося ползунка.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><styles><style inherit="no" name="rollOverOpenDelay" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" type="Number">
+<description>
+  Задержка в миллисекундах перед открытием ползунка громкости после наведения пользователем указателя мыши на значок громкости в элементе управления VideoDisplay.
+  
+  </description>
+<default>200
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><skinParts><SkinPart name="muteButton" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="spark.components.mediaClasses:MuteButton">
+<description>
+      Элемент темы оформления, определяющий кнопку «Выключить/включить звук».  
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the mute/unmute button.</shortdesc></SkinPart><SkinPart name="dropDown" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="flash.display:DisplayObject">
+<description>
+      Компонент темы оформления, определяющий раскрывающуюся область раскрывающегося ползунка громкости. Когда раскрывающийся ползунок громкости открыт, то нажатие в любом месте за пределами элемента темы оформления <codeph>dropDown</codeph> закрывает раскрывающийся ползунок. 
+     
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the drop-down area of the volume drop-down slider.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:VSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс VolumeBar определяет раскрывающийся ползунок для управления громкостью элемента управления VideoDisplay. Раскрывающийся ползунок открывается по умолчанию, когда пользователь наводит указатель мыши на значок громкости элемента управления VideoDisplay.  Стиль <codeph>rollOverOpenDelay</codeph> определяет задержку на 200 миллисекунд перед открытием раскрывающегося ползунка.  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  Отправляется при включении или отключении громкости звука пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при включении или отключении громкости звука пользователем.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.OPEN_open"><apiName>open</apiName><shortdesc>
+  Отправляется при наведении пользователем курсора мыши на раскрывающийся ползунок для его отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.OPEN</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при наведении пользователем курсора мыши на раскрывающийся ползунок для его отображения. Передается также при использовании клавиатуры и нажатии клавиш Ctrl-Down для раскрытия ползунка.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.CLOSE_close"><apiName>close</apiName><shortdesc>
+  Передается при отклонении раскрывающегося ползунка громкости по какой-либо причине, например в случае если пользователь: выбирает элемент в раскрывающемся ползунке; щелкает за пределами раскрывающегося ползунка.
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.CLOSE</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при отклонении раскрывающегося ползунка громкости по какой-либо причине, например в случае если пользователь:
+  <ul>
+      <li>выбирает элемент в раскрывающемся ползунке;</li>
+      <li>щелкает за пределами раскрывающегося ползунка.</li>
+  </ul>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:VolumeBar:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:VolumeBar:closeDropDown"><apiName>closeDropDown</apiName><shortdesc>
+      Закрывает раскрывающийся ползунок.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>commit</apiItemName><apiType value="Boolean"/><apiDesc>Установлено на <codeph>true</codeph>, если компонент должен передать значение от раскрывающегося ползунка. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Закрывает раскрывающийся ползунок. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:VolumeBar:openDropDown"><apiName>openDropDown</apiName><shortdesc>
+      Открывает раскрывающийся ползунок.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Открывает раскрывающийся ползунок. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:VolumeBar:protected:dropDownController:get"><apiName>dropDownController</apiName><shortdesc>
+      Экземпляр класса DropDownController, обрабатывающий все действия пользователя мыши, клавиатуры и фокуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:DropDownController</apiValueClassifier></apiValueDef><apiDesc>
+      Экземпляр класса DropDownController, обрабатывающий все действия пользователя мыши, клавиатуры и фокуса.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:isDropDownOpen:get"><apiName>isDropDownOpen</apiName><shortdesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:muted:get"><apiName>muted</apiName><shortdesc>
+      Содержит true, если звук видеоролика выключен, и false в противном случае.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит <codeph>true</codeph>, если звук видеоролика выключен, и <codeph>false</codeph> в противном случае.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+  Класс DynamicStreamingVideoSource представляет потоковое видео и может использоваться для записанного заранее либо живого потокового видео.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="streamItems"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoSource&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoSource 
+    <strong>Properties</strong>
+    host=""
+    initialIndex="0"
+    streamType="any"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DynamicStreamingVideoSource представляет потоковое видео и может использоваться для записанного заранее либо живого потокового видео. Этот класс используется для определения видеопотока для элементов управления VideoPlayer и VideoDisplay.
+ 
+  <p>Этот класс поддерживает один поток или несколько потоков, связанных с различной скоростью передачи. Классы <codeph>VideoPlayer</codeph> и <codeph>VideoDisplay</codeph> в качестве свойства <codeph>source</codeph> могут принимать экземпляр DynamicStreamingVideoSource.</p>
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoSource:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:host:get"><apiName>host</apiName><shortdesc>
+      URI-адрес местоположения сервера видеоролика.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      URI-адрес местоположения сервера видеоролика. Если типом этого свойства является Object, передайте URI как строку. 
+     
+      <p>Свойство <codeph>streamName</codeph> класса DynamicStreamingVideoItem используется для указания имени потока на сервере.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem/streamName"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem.streamName</linktext></link></related-links></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:initialIndex:get"><apiName>initialIndex</apiName><shortdesc>
+      Предпочтительный начальный индекс.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предпочтительный начальный индекс. Это соответствует потоковому элементу, к которому следует обратиться сначала.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamItems:get"><apiName>streamItems</apiName><shortdesc>
+      Инфо-объект метаданных со свойствами, описывающими файл FLB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.components.mediaClasses:DynamicStreamingVideoItem"/></apiValueDef><apiDesc>
+      Инфо-объект метаданных со свойствами, описывающими файл FLB.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamType:get"><apiName>streamType</apiName><shortdesc>
+      Тип потока, к которому выполняется попытка подключения: any, live или recorded.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>any
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Тип потока, к которому выполняется попытка подключения: any, live или recorded.
+     
+      <p>Если streamType является <codeph>any</codeph>, то сначала будет выполнена попытка подключения к прямому потоку. Если прямой поток не найден, будет выполнена попытка подключения к записанному потоку. Если записанный поток не найден, то будет создан прямой поток.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="org.osmf.net.StreamType.xml"><linktext>org.osmf.net.StreamType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+  Класс VideoScrubBar определяет временную шкалу, которая показывает текущее расположение точки воспроизведения в видеоролике, количество видео, которое уже воспроизведено и которое загружено в части видеоролика.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinParts><SkinPart name="playedArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      Дополнительная часть темы оформления для области дорожки, представляющей воспроизведенное видео.
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the video that's been played.</shortdesc></SkinPart><SkinPart name="loadedRangeArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      Необязательный элемент темы оформления для области дорожки, которая представляет загруженную в настоящий момент часть видеоролика.
+     
+      <p>Для последовательно загружаемого видеофайла это будет соответствовать числу загружаемых байтов. Потоковый видеофайл загружается полностью, что позволяет с легкостью перейти к любой точке в видеофайле.</p>
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the currently loaded in part of the video.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:HSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс VideoScrubBar определяет временную шкалу, которая показывает текущее расположение точки воспроизведения в видеоролике, количество видео, которое уже воспроизведено и которое загружено в части видеоролика. Временная шкала появляется в нижней части элемента управления VideoPlayer.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:ScrubBar:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizeLoadedRangeArea"><apiName>sizeLoadedRangeArea</apiName><shortdesc>
+      Определяет размер загруженной области диапазона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>loadedRangeAreaSize</apiItemName><apiType value="Number"/><apiDesc>Новый размер загруженной области диапазона.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет размер загруженной области диапазона. Загруженная область диапазона определяет область на временной шкале, которая представляет загруженную в настоящий момент часть видеоролика.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizePlayedArea"><apiName>sizePlayedArea</apiName><shortdesc>
+      Определяет размер области воспроизведения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>playedAreaSize</apiItemName><apiType value="Number"/><apiDesc>Новый размер воспроизведенной области.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет размер области воспроизведения. Воспроизведенная область определяет область на временной шкале, которая представляет часть воспроизведенного видеоролика. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:ScrubBar:loadedRangeEnd:get"><apiName>loadedRangeEnd</apiName><shortdesc>
+      Диапазон загруженных в настоящее время значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Диапазон загруженных в настоящее время значений. Данное свойство соответствует концу этого диапазона.
+     
+      <p>Для последовательно загружаемого видеофайла это будет соответствовать числу загружаемых байтов. Потоковый видеофайл загружается полностью, что позволяет с легкостью перейти к любой точке в видеофайле.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

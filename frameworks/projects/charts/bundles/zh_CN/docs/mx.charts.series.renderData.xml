@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.renderData"><apiName>mx.charts.series.renderData</apiName><apiDetail/><apiClassifier id="mx.charts.series.renderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+  给出呈示 HLOCSeries 和 CandlestickSeries 对象需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  给出呈示 HLOCSeries 和 CandlestickSeries 对象需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:HLOCSeriesRenderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出数据提供程序中项目的 HLOCSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出筛选后保留在数据提供程序中的项目的 HLOCSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>项目宽度的一半（以像素为单位）。
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>	每个项目相对于 x 值的偏移量（以像素为单位）。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+	  项目宽度的一半（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  项目宽度的一半（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+	  每个项目相对于 x 值的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  每个项目相对于 x 值的偏移量（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+  表示呈示 PlotSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 PlotSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PlotSeriesRenderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 dataProvider 中项目的 PlotSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示筛选后保留在 dataProvider 中的项目的 PlotSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>各个 PlotSeriesItem 对象的半径。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PlotSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  各个 PlotSeriesItem 对象的半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  各个 PlotSeriesItem 对象的半径。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+  表示呈示 ColumnSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 ColumnSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:ColumnSeriesRenderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出 dataProvider 中项目的 ColumnSeriesItem 对象的列表。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出筛选后保留在 dataProvider 中的项目的 ColumnSeriesItem 对象列表。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>列底部的垂直位置（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>列宽度的一半（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>每列相对于 x 值的偏移量（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>列系列呈示的标签的缩放系数。
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>与列系列呈示的标签布局关联的数据结构。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      与列系列呈示的标签布局关联的数据结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      与列系列呈示的标签布局关联的数据结构。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      列系列呈示的标签的缩放系数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      列系列呈示的标签的缩放系数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      列底部的垂直位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      列底部的垂直位置（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      列宽度的一半（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      列宽度的一半（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+      每列相对于 x 值的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      每列相对于 x 值的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+  表示呈示 AreaSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 AreaSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:AreaSeriesRenderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiDesc>此结构关联的 AreaSeries 对象。
+      </apiDesc></apiParam><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 dataProvider 中项目的 AreaSeriesItem 对象列表。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示筛选后保留在 dataProvider 中的项目的 AreaSeriesItem 对象列表。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>区域系列底部的垂直位置（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>AreaSeries 项目的半径。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:element"><apiName>element</apiName><shortdesc>
+      此结构关联的 AreaSeries。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:AreaSeries</apiValueClassifier></apiValueDef><apiDesc>
+      此结构关联的 AreaSeries。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+      AreaSeries 项目的半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      AreaSeries 项目的半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      区域系列底部的垂直位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      区域系列底部的垂直位置（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+  表示呈示 LineSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 LineSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:LineSeriesRenderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 dataProvider 中项目的 LineSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示筛选后保留在 dataProvider 中的项目的 LineSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>validPoints</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>缓存中的有效点数。
+	 </apiDesc></apiParam><apiParam><apiItemName>segments</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 LineSeries 的每个不连续段的 LineSeriesSegment 对象 Array。
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>LineSeries 中各项目的半径。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  线条系列中各项目的半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  线条系列中各项目的半径。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:segments"><apiName>segments</apiName><shortdesc>
+	  表示线条系列每个不连续段的 LineSeriesSegment 实例 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  表示线条系列每个不连续段的 LineSeriesSegment 实例 Array。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:validPoints"><apiName>validPoints</apiName><shortdesc>
+	  缓存中并非根据轴筛选出的点数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  缓存中并非根据轴筛选出的点数。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+  表示呈示 BubbleSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 BubbleSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BubbleSeriesRenderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 dataProvider 中项目的 BubbleSeriesItem 对象列表。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示筛选后保留在 dataProvider 中的项目的 BubbleSeriesItem 对象列表。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.charts.series.renderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+  表示呈示 BarSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 BarSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BarSeriesRenderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示 dataProvider 中项目的 BarSeriesItem 对象列表
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>表示筛选后保留在 dataProvider 中的项目的 BarSeriesItem 对象列表。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>条形图底部的水平位置（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>条形图宽度的一半（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedYOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>每个条形图相对于 y 值的偏移量（以像素为单位）。
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>bar 系列呈示的标签缩放系数。
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>与条系列呈示的标签布局关联的数据结构。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      与条系列呈示的标签布局关联的数据结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      与条系列呈示的标签布局关联的数据结构。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      bar 系列呈示的标签缩放系数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      bar 系列呈示的标签缩放系数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      条形图底部的水平位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      条形图底部的水平位置（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      条形图宽度的一半（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      条形图宽度的一半（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedYOffset"><apiName>renderedYOffset</apiName><shortdesc>
+      每个条形图相对于 y 值的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      每个条形图相对于 y 值的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+  表示呈示 PieSeries 需要的所有信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示呈示 PieSeries 需要的所有信息。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PieSeriesRenderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出 dataProvider 中项目的 PieSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>给出筛选后保留在 dataProvider 中的项目的 PieSeriesItem 对象列表。
+	 </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>PieSeries 呈示的标签的缩放系数。
+	 </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>与 PieSeries 呈示的标签布局关联的数据结构。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:itemSum"><apiName>itemSum</apiName><shortdesc>
+	  饼图系列中给出的值的总和。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  饼图系列中给出的值的总和。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+	  与饼图系列呈示的标签布局关联的数据结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  与饼图系列呈示的标签布局关联的数据结构。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+	  饼图系列呈示的标签的缩放系数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  饼图系列呈示的标签的缩放系数。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

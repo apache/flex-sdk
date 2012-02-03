@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.validators"><apiName>mx.validators</apiName><apiDetail/><apiClassifier id="mx.validators:CurrencyValidatorAlignSymbol"><apiName>CurrencyValidatorAlignSymbol</apiName><shortdesc>
+  CurrencyValidatorAlignSymbol クラスは、通貨記号の配置を指定する定数値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyValidatorAlignSymbol クラスは、通貨記号の配置を指定する定数値を定義します。 これらの値は <codeph>CurrencyValidator.alignSymbol</codeph> プロパティで使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#CurrencyValidator"><linktext>mx.validators.CurrencyValidator</linktext></link></related-links><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:ANY"><apiName>ANY</apiName><shortdesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として "any" を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>any</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として <codeph>"any"</codeph> を指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として "left" を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として <codeph>"left"</codeph> を指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として "right" を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  CurrencyValidator クラスの通貨記号の整列設定として <codeph>"right"</codeph> を指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:DateValidator"><apiName>DateValidator</apiName><shortdesc>
+  DateValidator クラスでは、String、Date または Object に適切な日付が含まれており、指定した形式に適合するかどうかを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:DateValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>  
+  
+  <pre>
+  &lt;mx:DateValidator 
+    allowedFormatChars="/\-. " 
+    dayListener="<i>Object specified by daySource</i>"
+    dayProperty="<i>No default</i>"
+    daySource="<i>No default</i>"
+    formatError= "Configuration error: Incorrect formatting string." 
+    inputFormat="MM/DD/YYYY" 
+    invalidCharError="The date contains invalid characters."
+    monthListener="<i>Object specified by monthSource</i>"
+    monthProperty="<i>No default</i>"
+    monthSource="<i>No default</i>"
+    validateAsString="true|false"
+    wrongDayError="Enter a valid day for the month."
+    wrongLengthError="Type the date in the format <i>inputFormat</i>." 
+    wrongMonthError="Enter a month between 1 and 12."
+    wrongYearError="Enter a year between 0 and 9999."
+    yearListener="<i>Object specified by yearSource</i>"
+    yearProperty="<i>No default</i>"
+    yearSource="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateValidator クラスでは、String、Date または Object に適切な日付が含まれており、指定した形式に適合するかどうかを検証します。 月、日、および年については、1 桁または 2 桁の数字で入力できます。 デフォルトでは、このバリデーターは次の形式に適合するかどうかを検証します。
+ 
+  <ul>
+    <li>月の範囲は 1 から 12 の間（または <codeph>Date</codeph> オブジェクトの場合は 0 から 11 の間）です。</li>
+    <li>日は、1 ～ 31 までです。</li>
+    <li>年は、数値です。</li>
+  </ul>
+ 
+  <p>DateValidator クラスで日付を指定する方法は 2 通りあります。</p>
+  <ul>
+    <li>日付が 1 つのストリングに含まれている場合、<codeph>source</codeph> プロパティと <codeph>property</codeph> プロパティを使用してストリングを指定します。 このストリングには、数字のほか、<codeph>allowedFormatChars</codeph> プロパティで指定した書式文字（"/¥-." など）が使用できます。 デフォルトでは、String フィールドの日付の入力形式が "MM/DD/YYYY"（"MM" は月、"DD" は日、"YYYY" は年）となります。 <codeph>inputFormat</codeph> プロパティを使用して異なる形式を指定できます。</li>
+ 	  <li><codeph>Date</codeph> オブジェクト。</li>
+    <li>日、月、および年を含むオブジェクトまたは複数のフィールド。 <codeph>daySource</codeph>、<codeph>dayProperty</codeph>、<codeph>monthSource</codeph>、<codeph>monthProperty</codeph>、<codeph>yearSource</codeph>、および <codeph>yearProperty</codeph> のプロパティをすべて使用して、日、月、および年の入力値を指定します。</li>
+  </ul>
+  
+  </apiDesc><example conref="DateValidatorExample.mxml"><swfblock conref="examples/DateValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:DateValidator:DateValidator"><apiName>DateValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:DateValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      日付を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するストリングまたはオブジェクトのいずれかとなります。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      日付を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+	 
+	  <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:DateValidator:validateDate"><apiName>validateDate</apiName><shortdesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:DateValidator</apiOperationClassifier><apiDesc>DateValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>value パラメーターで指定したサブフィールドのテキストの型を表します。 例えば、<codeph>value</codeph> パラメーターで value.date を指定する場合、<codeph>baseField</codeph> の値は "date" です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:DateValidator:dayProperty"><apiName>dayProperty</apiName><shortdesc>
+	  検証する日付プロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  検証する日付プロパティの名前を表します。 このプロパティはオプションですが、<codeph>daySource</codeph> プロパティを指定する場合は、このプロパティも設定する必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthProperty"><apiName>monthProperty</apiName><shortdesc>
+	  検証する月プロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  検証する月プロパティの名前を表します。 このプロパティはオプションですが、<codeph>monthSource</codeph> プロパティを指定する場合は、このプロパティも設定する必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearProperty"><apiName>yearProperty</apiName><shortdesc>
+	  検証する年プロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  検証する年プロパティの名前を表します。 このプロパティはオプションですが、<codeph>yearSource</codeph> プロパティを指定する場合は、このプロパティも設定する必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  月、日、年の各値を区切るために使用できる書式文字のセットを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"/\-. "
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  月、日、年の各値を区切るために使用できる書式文字のセットを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:dayListener:get"><apiName>dayListener</apiName><shortdesc> 
+	  日付サブフィールドの検証結果をリッスンするコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  日付サブフィールドの検証結果をリッスンするコンポーネントを表します。 何も指定されていない場合、<codeph>daySource</codeph> プロパティに指定された値が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:daySource:get"><apiName>daySource</apiName><shortdesc> 
+	  日付フィールドの値を含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  日付フィールドの値を含むオブジェクトを表します。 このプロパティの値を指定する場合は、<codeph>dayProperty</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを設定する場合は、このプロパティを使用しないでください。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:formatError:get"><apiName>formatError</apiName><shortdesc> 
+	  inputFormat プロパティが正しい形式でないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Configuration error: Incorrect formatting string." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>inputFormat</codeph> プロパティが正しい形式でないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:inputFormat:get"><apiName>inputFormat</apiName><shortdesc> 
+	  値の検証に使用する日付形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  値の検証に使用する日付形式。 ここで、"MM" は月、"DD" は日、"YYYY" は年です。 このストリングは大文字と小文字が区別されます。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  無効な文字が日付に存在するときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid characters in your date."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  無効な文字が日付に存在するときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthListener:get"><apiName>monthListener</apiName><shortdesc> 
+	  月サブフィールドの検証結果をリッスンするコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  月サブフィールドの検証結果をリッスンするコンポーネントを表します。 何も指定されていない場合、<codeph>monthSource</codeph> プロパティに指定された値が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthSource:get"><apiName>monthSource</apiName><shortdesc> 
+	  月フィールドの値を含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  月フィールドの値を含むオブジェクトを表します。 このプロパティの値を指定する場合は、<codeph>monthProperty</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを設定する場合は、このプロパティを使用しないでください。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:validateAsString:get"><apiName>validateAsString</apiName><shortdesc> 
+	  値の検証方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true	 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  値の検証方法を決定します。 <codeph>true</codeph> に設定すると、値に <codeph>month</codeph>、<codeph>day</codeph>、または <codeph>year</codeph> プロパティがない限り、バリデーターは値をストリングとして評価します。 <codeph>false</codeph> の場合、バリデーターはその値を Date オブジェクトとして評価します。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongDayError:get"><apiName>wrongDayError</apiName><shortdesc> 
+	  日が無効なときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a valid day for the month." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  日が無効なときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+	  日付の長さが inputFormat プロパティの長さと一致しないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Type the date in the format &lt;i>inputFormat&lt;/i>." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  日付の長さが <codeph>inputFormat</codeph> プロパティの長さと一致しないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongMonthError:get"><apiName>wrongMonthError</apiName><shortdesc> 
+	  月が無効なときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a month between 1 and 12."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  月が無効なときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongYearError:get"><apiName>wrongYearError</apiName><shortdesc> 
+	  年が無効なときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a year between 0 and 9999."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  年が無効なときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearListener:get"><apiName>yearListener</apiName><shortdesc> 
+	  年サブフィールドの検証結果をリッスンするコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  年サブフィールドの検証結果をリッスンするコンポーネントを表します。 何も指定されていない場合、<codeph>yearSource</codeph> プロパティに指定された値が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearSource:get"><apiName>yearSource</apiName><shortdesc> 
+	  年フィールドの値を含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  年フィールドの値を含むオブジェクトを表します。 このプロパティの値を指定する場合は、<codeph>yearProperty</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを設定する場合は、このプロパティを使用しないでください。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ZipCodeValidator"><apiName>ZipCodeValidator</apiName><shortdesc>
+  ZipCodeValidator クラスでは、ストリングの長さと書式が 5 桁の ZIP コード、5 桁 + 4 桁の米国 ZIP コード、またはカナダ郵便番号として適切であるかどうかを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ZipCodeValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeValidator
+    allowedFormatChars=" -" 
+    domain="US Only | US or Canada | Canada Only"
+    invalidCharError="The ZIP code contains invalid characters." 
+    invalidDomainError="The domain parameter is invalid. It must be either 'US Only', 'Canada Only', or 'US or Canada'." 
+    wrongCAFormatError="The Canadian postal code must be formatted 'A1B 2C3'." 
+    wrongLengthError="The ZIP code must be 5 digits or 5+4 digits." 
+    wrongUSFormatError="The ZIP+4 code must be formatted '12345-6789'." 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeValidator クラスでは、ストリングの長さと書式が 5 桁の ZIP コード、5 桁 + 4 桁の米国 ZIP コード、またはカナダ郵便番号として適切であるかどうかを検証します。
+  
+  </apiDesc><example conref="ZipCodeValidatorExample.mxml"><swfblock conref="examples/ZipCodeValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#ZipCodeValidatorDomainType"><linktext>mx.validators.ZipCodeValidatorDomainType</linktext></link></related-links><apiConstructor id="mx.validators:ZipCodeValidator:ZipCodeValidator"><apiName>ZipCodeValidator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:ZipCodeValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      郵便番号の妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      郵便番号の妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+      <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:ZipCodeValidator:validateZipCode"><apiName>validateZipCode</apiName><shortdesc>
+      バリデーターを呼び出す上で便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:ZipCodeValidator</apiOperationClassifier><apiDesc>ZipCodeValidator インスタンスを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.zipCode を指定する場合、<codeph>baseField</codeph> の値は <codeph>"zipCode"</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バリデーターを呼び出す上で便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:ZipCodeValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+      郵便番号で使用できる書式文字のセットを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>" -". 
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      郵便番号で使用できる書式文字のセットを表します。 数値またはアルファベット（a ～ z、A ～ Z）は指定できません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:domain:get"><apiName>domain</apiName><shortdesc> 
+      チェックする郵便番号の種類を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZipCodeValidatorDomainType.US_ONLY
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      チェックする郵便番号の種類を表します。 MXML では、以下の値を指定できます。<codeph>"US or Canada"</codeph>、<codeph>"US Only"</codeph> および <codeph>"Canada Only"</codeph>。
+     
+      <p>ActionScript では、定数 <codeph>ZipCodeValidatorDomainType.US_ONLY</codeph>、<codeph>ZipCodeValidatorDomainType.US_OR_CANADA</codeph> または <codeph>ZipCodeValidatorDomainType.CANADA_ONLY</codeph> を使用してこのプロパティを設定できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+      郵便番号に無効な文字が含まれる場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP code contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      郵便番号に無効な文字が含まれる場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:invalidDomainError:get"><apiName>invalidDomainError</apiName><shortdesc> 
+      domain プロパティに無効な値が含まれる場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain parameter is invalid. It must be either 'US Only' or 'US or Canada'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      <codeph>domain</codeph> プロパティに無効な値が含まれる場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongCAFormatError:get"><apiName>wrongCAFormatError</apiName><shortdesc> 
+      カナダの無効な郵便番号に対して発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The Canadian postal code must be formatted 'A1B 2C3'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      カナダの無効な郵便番号に対して発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+      米国の無効な郵便番号に対して発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP code must be 5 digits or 5+4 digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      米国の無効な郵便番号に対して発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongUSFormatError:get"><apiName>wrongUSFormatError</apiName><shortdesc> 
+      誤った書式の郵便番号に対して発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP+4 code must be formatted '12345-6789'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      誤った書式の郵便番号に対して発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:IValidator"><apiName>IValidator</apiName><shortdesc>
+  このインターフェイスは、Validator オブジェクトが実装する必要があるメソッドとプロパティを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、Validator オブジェクトが実装する必要があるメソッドとプロパティを指定します。 
+  <p>このインターフェイスでは、mx と spark の両方の名前空間で定義される数字、通貨、電話番号、郵便番号などの複数のデータ型を検証できます。 mx:Validator クラスと spark:GlobaliationValidatorBase クラスは、このインターフェイスを実装します。 これらのクラスの validateAll() メソッドは、このインターフェイスタイプを使用して、複数のバリデーターオブジェクトで validate() メソッドを呼び出します。</p>
+  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#Validator"><linktext>mx.validators.Validator</linktext></link><link href="" invalidHref="spark.validators.GlobalizationValidatorBase.xml"><linktext>spark.validators.GlobalizationValidatorBase</linktext></link></related-links><apiOperation id="mx.validators:IValidator:mx.validators:IValidator:validate"><apiName>validate</apiName><shortdesc>
+      検証を実行し、リスナーに任意で結果を通知します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>検証結果を含む ValidationResultEvent オブジェクトを表します。 検証が成功した場合、<codeph>ValidationResultEvent.results</codeph> 配列プロパティは空となります。 検証に失敗した場合、<codeph>ValidationResultEvent.results</codeph> 配列プロパティには、バリデーターによる検証の成功または失敗を問わず、検証したフィールドそれぞれにつき 1 つの ValidationResult オブジェクトが含まれます。 <codeph>ValidationResult.isError</codeph> プロパティを調べれば、フィールドが検証に合格したか失敗したかを判別できます。 
+     
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>検証するオプションの値です。 null の場合、バリデーターは <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを使用して値を決定します。 このパラメーターを指定する場合、<codeph>listener</codeph> プロパティも設定して検証エラーメッセージの対象となるコンポーネントを指定する必要があります。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>false</codeph> の場合、検証後にバリデーターがリスナーに結果を通知します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      検証を実行し、リスナーに任意で結果を通知します。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:IValidator:mx.validators:IValidator:enabled:get"><apiName>enabled</apiName><shortdesc>
+      検証処理を有効または無効にするプロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      検証処理を有効または無効にするプロパティです。
+      <p>この値を <codeph>false</codeph> に設定すると、バリデーターによる検証が行えなくなります。 バリデーターが無効になると、イベントは送出されず、<codeph>validate()</codeph> メソッドにより null が返されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  CurrencyValidator クラスは、ストリングが有効な通貨の式であることを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.validators:CurrencyValidator" replacement="spark.validators.CurrencyValidator" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:CurrencyValidator&gt;</code> tag
+  inherits all of the tag properties of its superclass,
+  and adds the following tag properties:</p>
+ 
+  <pre>
+  &lt;mx:CurrencyValidator
+    alignSymbol="left|right|any"
+    allowNegative="true|false"
+    currencySymbol="$"
+    currencySymbolError="The currency symbol occurs in an invalid location."
+    decimalPointCountError="The decimal separator can occur only once."
+    decimalSeparator="."
+    exceedsMaxError="The amount entered is too large."
+    invalidCharError="The input contains invalid characters."
+    invalidFormatCharsError="One of the formatting parameters is invalid."
+    lowerThanMinError="The amount entered is too small."
+    maxValue="NaN"
+    minValue="NaN"
+    negativeError="The amount may not be negative."
+    precision="2"
+    precisionError="The amount entered has too many digits beyond the decimal point."
+    separationError="The thousands separator must be followed by three digits."
+    thousandsSeparator=","
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyValidator クラスは、ストリングが有効な通貨の式であることを確認します。 このクラスでは、入力値が特定の範囲（<codeph>minValue</codeph> と <codeph>maxValue</codeph> で指定）に収まっていること、負の数値ではないこと（<codeph>allowNegative</codeph> で指定）、および表示される桁数が指定した <codeph>precision</codeph> を超えないことを確認できます。 CurrencyValidator クラスは、"$12,345.00" のように書式設定されている通貨の式でも、また "12345" のように書式設定されていない通貨の式でも、正確に検証します。 <codeph>currencySymbol</codeph>、<codeph>alignSymbol</codeph>、<codeph>thousandsSeparator</codeph>、および <codeph>decimalSeparator</codeph> の各プロパティは、国際化に対応してカスタマイズできます。
+ 
+  </apiDesc><example conref="CurrencyValidatorExample.mxml"><swfblock conref="examples/CurrencyValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#CurrencyValidatorAlignSymbol"><linktext>mx.validators.CurrencyValidatorAlignSymbol</linktext></link></related-links><apiConstructor id="mx.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:CurrencyValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      通貨の式の妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通貨の式の妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+      <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      バリデーターを呼び出す上で便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:CurrencyValidator</apiOperationClassifier><apiDesc>CurrencyValidator インスタンスを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.currency を指定する場合、baseField の値は "currency" です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バリデーターを呼び出す上で便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:CurrencyValidator:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      式の残りの部分を基準とした currencySymbol の整列設定を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CurrencyValidatorAlignSymbol.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      式の残りの部分を基準とした <codeph>currencySymbol</codeph> の整列設定を指定します。 ActionScript で指定できる値は、<codeph>CurrencyValidatorAlignSymbol.LEFT</codeph>、<codeph>CurrencyValidatorAlignSymbol.RIGHT</codeph>、および <codeph>CurrencyValidatorAlignSymbol.ANY</codeph> です。 MXML で指定できる値は、<codeph>"left"</codeph>、<codeph>"right"</codeph>、および <codeph>"any"</codeph> です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.validators.xml#CurrencyValidatorAlignSymbol"><linktext>mx.validators.CurrencyValidatorAlignSymbol</linktext></link></related-links></apiValue><apiValue id="mx.validators:CurrencyValidator:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      負の数値が使用可能かどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      負の数値が使用可能かどうかを指定します。 <codeph>true</codeph> または <codeph>false</codeph> を指定できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:currencySymbolError:get"><apiName>currencySymbolError</apiName><shortdesc>
+      currencySymbol で定義した通貨記号が誤った場所にある場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The currency symbol occurs in an invalid location."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>currencySymbol</codeph> で定義した通貨記号が誤った場所にある場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      "$"、"R$" または "&amp;#163;" など、通貨記号の指定に使用する文字ストリングを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      "$"、"R$" または "£" など、通貨記号の指定に使用する単一文字ストリングを表します。数字は使用できず、<codeph>thousandsSeparator</codeph> および <codeph>decimalSeparator</codeph> とは異なるストリングにする必要があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      小数点の記号を複数個含む場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can only occur once."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数点の記号を複数個含む場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      小数部を区切る文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数部を区切る文字を表します。 数字は使用できず、<codeph>currencySymbol</codeph> および <codeph>thousandsSeparator</codeph> とは異なるストリングにする必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:exceedsMaxError:get"><apiName>exceedsMaxError</apiName><shortdesc>
+      値が maxValue を超える場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too large."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が <codeph>maxValue</codeph> を超える場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      通貨に無効な文字が含まれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      通貨に無効な文字が含まれている場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      値に無効な書式文字が含まれる場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値に無効な書式文字が含まれる場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:lowerThanMinError:get"><apiName>lowerThanMinError</apiName><shortdesc>
+      値が minValue 未満の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が <codeph>minValue</codeph> 未満の場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      有効な数値の最大値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有効な数値の最大値を表します。 値が NaN の場合、値は無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:minValue:get"><apiName>minValue</apiName><shortdesc>
+      有効な数値の最小値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有効な数値の最小値を表します。 値が NaN の場合、値は無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      負の値で、allowNegative プロパティが false の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      負の値で、<codeph>allowNegative</codeph> プロパティが <codeph>false</codeph> の場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:precisionError:get"><apiName>precisionError</apiName><shortdesc>
+      値が、precision プロパティで定義されている桁数を超える場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond 
+      the decimal point."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が、<codeph>precision</codeph>プロパティで定義されている桁数を超える場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:precision:get"><apiName>precision</apiName><shortdesc>
+      小数部の最大桁数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数部の最大桁数を表します。 負以外の任意の整数を設定できます。 メモ：<codeph>0</codeph> に設定すると、<codeph>NumberValidator.domain</codeph> を <codeph>int</codeph> に設定する場合と同じ効果があります。 -1 に設定すると、値は無視されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:separationError:get"><apiName>separationError</apiName><shortdesc>
+      桁区切り記号が誤った場所に配置されている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The thousands separator must be followed by three digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      桁区切り記号が誤った場所に配置されている場合に発生するエラーメッセージを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:thousandsSeparator:get"><apiName>thousandsSeparator</apiName><shortdesc>
+      桁区切りに使用される文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      桁区切りに使用される文字を表します。 数字は使用できず、<codeph>currencySymbol</codeph> および <codeph>decimalSeparator</codeph> とは異なるストリングにする必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:NumberValidatorDomainType"><apiName>NumberValidatorDomainType</apiName><shortdesc>
+  NumberValidatorDomainType クラスは、NumberValidator クラスの domain プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidatorDomainType クラスは、NumberValidator クラスの <codeph>domain</codeph> プロパティの値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#NumberValidator"><linktext>mx.validators.NumberValidator</linktext></link></related-links><apiValue id="mx.validators:NumberValidatorDomainType:INT"><apiName>INT</apiName><shortdesc>
+	  整数を検証する場合に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>int</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  整数を検証する場合に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidatorDomainType:REAL"><apiName>REAL</apiName><shortdesc>
+	  実数を検証する場合に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>real</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  実数を検証する場合に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:StringValidator"><apiName>StringValidator</apiName><shortdesc>
+  StringValidator クラスでは、ストリングの長さが指定の範囲内かどうかを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:StringValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and add the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:StringValidator
+    maxLength="NaN" 
+    minLength="NaN" 
+    tooLongError="This string is longer than the maximum allowed length. This must be less than {0} characters long." 
+    tooShortError="This string is shorter than the minimum allowed length. This must be at least {0} characters long." 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StringValidator クラスでは、ストリングの長さが指定の範囲内かどうかを検証します。 
+  
+  </apiDesc><example conref="StringValidatorExample.mxml"><swfblock conref="examples/StringValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:StringValidator:StringValidator"><apiName>StringValidator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:StringValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      ストリングを検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングを検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+      <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:StringValidator:validateString"><apiName>validateString</apiName><shortdesc>
+      バリデーターを呼び出す上で便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:StringValidator</apiOperationClassifier><apiDesc>StringValidator インスタンスを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.mystring を指定する場合、<codeph>baseField</codeph> の値は <codeph>"mystring"</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バリデーターを呼び出す上で便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:StringValidator:maxLength:get"><apiName>maxLength</apiName><shortdesc> 
+      有効なストリングの最大の長さを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有効なストリングの最大の長さを表します。 値が NaN の場合、このプロパティは無視されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:minLength:get"><apiName>minLength</apiName><shortdesc> 
+      有効なストリングの最小の長さを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有効なストリングの最小の長さを表します。 値が NaN の場合、このプロパティは無視されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:tooLongError:get"><apiName>tooLongError</apiName><shortdesc> 
+      ストリングの長さが maxLength プロパティの値より大きい場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This string is longer than the maximum allowed length. This must be less than {0} characters long."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      ストリングの長さが <codeph>maxLength</codeph> プロパティの値より大きい場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:tooShortError:get"><apiName>tooShortError</apiName><shortdesc> 
+      ストリングの長さが minLength プロパティの値より小さい場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This string is shorter than the minimum allowed length. This must be at least {0} characters long."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      ストリングの長さが <codeph>minLength</codeph> プロパティの値より小さい場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ZipCodeValidatorDomainType"><apiName>ZipCodeValidatorDomainType</apiName><shortdesc>
+  ZipCodeValidatorDomainType クラスにより、ZipCodeValidator クラスの domain プロパティ値が定義されます。この値を使用して、検証する郵便番号のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeValidatorDomainType クラスにより、ZipCodeValidator クラスの <codeph>domain</codeph> プロパティ値が定義されます。この値を使用して、検証する郵便番号のタイプを指定します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#ZipCodeValidator"><linktext>mx.validators.ZipCodeValidator</linktext></link></related-links><apiValue id="mx.validators:ZipCodeValidatorDomainType:CANADA_ONLY"><apiName>CANADA_ONLY</apiName><shortdesc>
+	  カナダの郵便番号を検証する場合に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Canada Only</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カナダの郵便番号を検証する場合に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidatorDomainType:US_ONLY"><apiName>US_ONLY</apiName><shortdesc>
+	  米国の郵便番号を検証する場合に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>US Only</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  米国の郵便番号を検証する場合に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidatorDomainType:US_OR_CANADA"><apiName>US_OR_CANADA</apiName><shortdesc>
+	  米国またはカナダの郵便番号を検証する場合に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>US or Canada</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  米国またはカナダの郵便番号を検証する場合に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:RegExpValidator"><apiName>RegExpValidator</apiName><shortdesc> 
+  RegExpValidator クラスでは、正規表現を使用してフィールドを検証できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RegExpValidator&gt;</code> tag 
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:RegExpValidator
+    expression="<i>No default</i>" 
+    flags="<i>No default</i>" 
+    noExpressionError="The expression is missing." 
+    noMatchError="The field is invalid." 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  RegExpValidator クラスでは、正規表現を使用してフィールドを検証できます。 <codeph>expression</codeph> プロパティを使用してバリデーターに正規表現を渡します。正規表現のパターンマッチングを制御するフラグがあれば、<codeph>flags</codeph> プロパティを使用して渡します。 
+ 
+  <p>バリデーターが検証対象のフィールドで正規表現に一致するものを検出できた場合、検証は成功です。 バリデーターが、一致を検出できなかった場合は、検証エラーが発生します。</p>
+ 
+  <p>RegExpValidator クラスは、<codeph>valid</codeph> イベントと <codeph>invalid</codeph> イベントを送出します。 <codeph>invalid</codeph> イベントの場合、イベントオブジェクトは ValidationResultEvent クラスのインスタンスで、ValidationResult オブジェクトの配列を含んでいます。</p>
+ 
+  <p>一方、<codeph>valid</codeph> イベントでは、ValidationResultEvent オブジェクトに RegExpValidationResult オブジェクトの配列が格納されます。 RegExpValidationResult クラスは ValidationResult クラスの子クラスで、次のような正規表現で使用される追加のプロパティを含んでいます。</p>
+  <ul>
+    <li><codeph>matchedIndex</codeph> は、一致した入力ストリング中の開始インデックスを含む整数を表します。</li>
+    <li><codeph>matchedString</codeph> は、正規表現と一致する入力ストリングのサブストリングが含まれたストリングを表します。</li>
+    <li><codeph>matchedSubStrings</codeph> は、ストリングの配列を表します。一致するサブストリングが存在する場合は、そのサブストリングが括弧に囲まれた状態で配列内に格納されます。 サブストリングに一致するものが見つからない場合、この配列の長さは 0 です。matchedSubStrings[0] を使用すると最初にサブストリングが一致したものにアクセスできます。</li>
+  </ul>
+  
+  </apiDesc><example conref="RegExValidatorExample.mxml"><swfblock conref="examples/RegExValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#RegExpValidationResult"><linktext>mx.validators.RegExpValidationResult</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="mx.validators.RegExp.xml"><linktext>RegExp</linktext></link></related-links><apiConstructor id="mx.validators:RegExpValidator:RegExpValidator"><apiName>RegExpValidator</apiName><shortdesc> 
+      コンストラクター
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc> 
+      コンストラクター
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:RegExpValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      正規表現の妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>無効な結果における ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      正規表現の妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+      <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.validators:RegExpValidator:expression:get"><apiName>expression</apiName><shortdesc>
+      検証に使用する正規表現を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      検証に使用する正規表現を表します。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:flags:get"><apiName>flags</apiName><shortdesc>
+      一致処理を行う場合に用いられる正規表現フラグを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      一致処理を行う場合に用いられる正規表現フラグを表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:noExpressionError:get"><apiName>noExpressionError</apiName><shortdesc> 
+      正規表現が指定されていない場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc> 
+      正規表現が指定されていない場合に発生するエラーメッセージを表します。 デフォルト値は "式がありません" です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:noMatchError:get"><apiName>noMatchError</apiName><shortdesc> 
+      正規表現と一致するデータが存在しない場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc> 
+      正規表現と一致するデータが存在しない場合に発生するエラーメッセージを表します。 デフォルト値は "フィールドが無効です" です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  NumberValidator クラスは、ストリングが有効な数値であるかどうかを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.validators:NumberValidator" replacement="spark.validators.NumberValidator" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberValidator 
+    allowNegative="true|false" 
+    decimalPointCountError="The decimal separator can only occur once." 
+    decimalSeparator="." 
+    domain="real|int" 
+    exceedsMaxError="The number entered is too large." 
+    integerError="The number must be an integer." 
+    invalidCharError="The input contains invalid characters." 
+    invalidFormatCharsError="One of the formatting parameters is invalid." 
+    lowerThanMinError="The amount entered is too small." 
+    maxValue="NaN" 
+    minValue="NaN" 
+    negativeError="The amount may not be negative." 
+    precision="-1" 
+    precisionError="The amount entered has too many digits beyond the decimal point." 
+    separationError="The thousands separator must be followed by three digits." 
+    thousandsSeparator="," 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidator クラスは、ストリングが有効な数値であるかどうかを確認します。 このクラスでは、入力値が特定の範囲（<codeph>minValue</codeph> および <codeph>maxValue</codeph> で指定）に収まっていること、整数であること（<codeph>domain</codeph> で指定）、負の数値ではないこと（<codeph>allowNegative</codeph> で指定）、および表示される桁数が指定した <codeph>precision</codeph> を超えないことを確認できます。 このバリデーターでは、"12,345.67" のように形式化された数値を正確に検証します。<codeph>thousandsSeparator</codeph> プロパティおよび <codeph>decimalSeparator</codeph> プロパティは、国際化に対応してカスタマイズできます。
+  
+  </apiDesc><example conref="NumberValidatorExample.mxml"><swfblock conref="examples/NumberValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:NumberValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      数値を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      数値を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+	  <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:NumberValidator</apiOperationClassifier><apiDesc>NumberValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.number を指定する場合、<codeph>baseField</codeph> の値は "number" です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:NumberValidator:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      負の数値が使用可能かどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      負の数値が使用可能かどうかを指定します。 有効な値は、<codeph>true</codeph> または <codeph>false</codeph> です。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      小数点の記号を複数個含む場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can occur only once."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数点の記号を複数個含む場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      小数部を区切る文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数部を区切る文字を表します。 数字は使用できず、<codeph>thousandsSeparator</codeph> とは異なるストリングにする必要があります。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:domain:get"><apiName>domain</apiName><shortdesc>
+      検証する数値の型を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"real"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      検証する数値の型を表します。 指定できる値は、<codeph>"real"</codeph> および <codeph>"int"</codeph> です。
+	 
+	  <p>ActionScript の場合、このプロパティを設定するために使用できる定数は、<codeph>NumberValidatorDomainType.REAL</codeph> または <codeph>NumberValidatorDomainType.INT</codeph> です。</p>
+     
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:exceedsMaxError:get"><apiName>exceedsMaxError</apiName><shortdesc>
+      値が maxValue プロパティの値を超過する場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number entered is too large."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が <codeph>maxValue</codeph> プロパティの値を超過する場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:integerError:get"><apiName>integerError</apiName><shortdesc>
+      domain プロパティで数値型に整数を指定する必要がある場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number must be an integer."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>domain</codeph> プロパティで数値型に整数を指定する必要がある場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      値に無効な文字が含まれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>The input contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値に無効な文字が含まれている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      値に無効な形式の文字が含まれる場合に発生するエラーメッセージを表します。具体的には、区切り文字に数字またはマイナス記号（-）が使用されている場合や区切り文字が複数個連続して使用されている場合がそれに該当します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値に無効な形式の文字が含まれる場合に発生するエラーメッセージを表します。具体的には、区切り文字に数字またはマイナス記号（-）が使用されている場合や区切り文字が複数個連続して使用されている場合がそれに該当します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:lowerThanMinError:get"><apiName>lowerThanMinError</apiName><shortdesc>
+      値が minValue 未満の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が <codeph>minValue</codeph> 未満の場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      有効な数値の最大値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有効な数値の最大値を表します。 値が NaN の場合、最大値がないことを意味します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:minValue:get"><apiName>minValue</apiName><shortdesc>
+      有効な数値の最小値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有効な数値の最小値を表します。 値が NaN の場合、最小値がないことを意味します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      負の値で、allowNegative プロパティが false の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      負の値で、<codeph>allowNegative</codeph> プロパティが <codeph>false</codeph> の場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:precisionError:get"><apiName>precisionError</apiName><shortdesc>
+      値が、precision プロパティで定義されている桁数を超える場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond the decimal point."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が、precision プロパティで定義されている桁数を超える場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:precision:get"><apiName>precision</apiName><shortdesc>
+      小数部の最大桁数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数部の最大桁数を表します。 負以外の任意の整数を設定できます。 メモ：<codeph>0</codeph> に設定すると、<codeph>domain</codeph> を <codeph>"int"</codeph> に設定する場合と同じ効果があります。 値が -1 の場合、値は無視されます。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:separationError:get"><apiName>separationError</apiName><shortdesc>
+      桁区切り記号が誤った位置に置かれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The thousands separator must be followed by three digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      桁区切り記号が誤った位置に置かれている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:thousandsSeparator:get"><apiName>thousandsSeparator</apiName><shortdesc>
+      数値の整数部を 3 桁ごとに区切るのに使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数値の整数部を 3 桁ごとに区切るのに使用する文字を表します。 数字は使用できず、<codeph>decimalSeparator</codeph> とは異なるストリングにする必要があります。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:PhoneNumberValidator"><apiName>PhoneNumberValidator</apiName><shortdesc>
+  PhoneNumberValidator クラスでは、ストリングが電話番号として有効かどうかを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:PhoneNumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneNumberValidator 
+    allowedFormatChars="()- .+" 
+    invalidCharError="Your telephone number contains invalid characters."
+ 	  minDigits="10"
+    wrongLengthError="Your telephone number must contain at least 10 digits."
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PhoneNumberValidator クラスでは、ストリングが電話番号として有効かどうかを検証します。 有効な電話番号には、少なくとも 10 桁の番号と、追加の書式文字が含まれます。 この検証では、電話番号が実在するかどうかはチェックされません。
+  
+  </apiDesc><example conref="PhoneNumberValidatorExample.mxml"><swfblock conref="examples/PhoneNumberValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:PhoneNumberValidator:PhoneNumberValidator"><apiName>PhoneNumberValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:PhoneNumberValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      電話番号を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      電話番号を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+	  <p>このメソッドは通常、ユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:PhoneNumberValidator:validatePhoneNumber"><apiName>validatePhoneNumber</apiName><shortdesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:PhoneNumberValidator</apiOperationClassifier><apiDesc>PhoneNumberValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.phone を指定する場合、<codeph>baseField</codeph> の値は "phone" です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:PhoneNumberValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  使用できる書式文字のセットを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"()- .+"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  使用できる書式文字のセットを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  値に無効な文字が含まれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your telephone number contains invalid characters."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  値に無効な文字が含まれている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:minDigits:get"><apiName>minDigits</apiName><shortdesc> 
+      有効な電話番号の最小桁数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有効な電話番号の最小桁数です。値が NaN の場合、このプロパティは無視されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+	  値の桁数が 10 桁より少ない場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your telephone number must contain at least 10 digits."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  値の桁数が 10 桁より少ない場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:EmailValidator"><apiName>EmailValidator</apiName><shortdesc>
+  EmailValidator クラスは、ストリングに 1 つのアットマーク（&amp;#64;）があり、ドメイン名に 1 つのピリオドが含まれ、最上位のドメインの接尾辞は 2 文字、3 文字、4 文字または 6 文字からなることを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:EmailValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:EmailValidator 
+    invalidCharError="Your e-mail address contains invalid characters."
+    invalidDomainError= "The domain in your e-mail address is incorrectly formatted." 
+    invalidIPDomainError="The IP domain in your e-mail address is incorrectly formatted." 
+    invalidPeriodsInDomainError="The domain in your e-mail address has consecutive periods." 
+    missingAtSignError="An at sign (&64;) is missing in your e-mail address."
+    missingPeriodInDomainError="The domain in your e-mail address is missing a period." 
+    missingUsernameError="The username in your e-mail address is missing." 
+    tooManyAtSignsError="Your e-mail address contains too many &64; characters."
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EmailValidator クラスは、ストリングに 1 つのアットマーク（@）があり、ドメイン名に 1 つのピリオドが含まれ、最上位のドメインの接尾辞は 2 文字、3 文字、4 文字、または 6 文字からなることを検証します。 IP ドメイン名は、角括弧に囲まれていれば有効です。 この検証では、ドメインとユーザー名が実在するかどうかはチェックされません。
+ 
+  <p>IP ドメイン名も、角括弧で囲めば使用できます（例:myname@[206.132.22.1]）。 0 ～ 255 の範囲の IP 番号を使用できます。</p>
+  
+  </apiDesc><example conref="EmailValidatorExample.mxml"><swfblock conref="examples/EmailValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:EmailValidator:EmailValidator"><apiName>EmailValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:EmailValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      電子メールアドレスの妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するストリングまたはオブジェクトのいずれかとなります。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      電子メールアドレスの妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+	 
+	  <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:EmailValidator:validateEmail"><apiName>validateEmail</apiName><shortdesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:EmailValidator</apiOperationClassifier><apiDesc>EmailValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>value パラメーターで指定したサブフィールドのテキストの型を表します。 例えば、<codeph>value</codeph> パラメーターで value.email を指定する場合、<codeph>baseField</codeph> の値は "email" です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:EmailValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+	  無効な文字が電子メールアドレスに存在するときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your e-mail address contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  無効な文字が電子メールアドレスに存在するときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidDomainError:get"><apiName>invalidDomainError</apiName><shortdesc>
+	  接尾辞（最上位のドメイン）の長さが 2 文字、3 文字、4 文字または 6 文字ではないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address is incorrectly formatted."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  接尾辞（最上位のドメイン）の長さが 2 文字、3 文字、4 文字または 6 文字ではないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidIPDomainError:get"><apiName>invalidIPDomainError</apiName><shortdesc>
+	  IP ドメインが無効なときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The IP domain in your e-mail address is incorrectly formatted."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  IP ドメインが無効なときのエラーメッセージを表します。 IP ドメインは角括弧で囲む必要があります。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidPeriodsInDomainError:get"><apiName>invalidPeriodsInDomainError</apiName><shortdesc>
+	  連続するピリオドがドメインに存在するときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address has continous periods."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  連続するピリオドがドメインに存在するときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingAtSignError:get"><apiName>missingAtSignError</apiName><shortdesc>
+	  アットマークが電子メールアドレスに存在しないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"An at sign (&amp;64;) is missing in your e-mail address."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  アットマークが電子メールアドレスに存在しないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingPeriodInDomainError:get"><apiName>missingPeriodInDomainError</apiName><shortdesc>
+	  ピリオドがドメインに存在しないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address is missing a period."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  ピリオドがドメインに存在しないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingUsernameError:get"><apiName>missingUsernameError</apiName><shortdesc>
+	  ユーザー名が存在しないときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The username in your e-mail address is missing."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  ユーザー名が存在しないときのエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:tooManyAtSignsError:get"><apiName>tooManyAtSignsError</apiName><shortdesc>
+	  アットマークが電子メールアドレスに複数存在するときのエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your e-mail address contains too many &amp;64; characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  アットマークが電子メールアドレスに複数存在するときのエラーメッセージを表します。 このプロパティはオプションです。 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:RegExpValidationResult"><apiName>RegExpValidationResult</apiName><shortdesc>
+  RegExpValidator クラスは、valid イベントと invalid イベントを送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:ValidationResult</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RegExpValidator クラスは、<codeph>valid</codeph> イベントと <codeph>invalid</codeph> イベントを送出します。 <codeph>invalid</codeph> イベントでは、イベントオブジェクトが ValidationResultEvent クラスのインスタンスであり、<codeph>ValidationResultEvent.results</codeph> プロパティに ValidationResult オブジェクトの配列が含まれます。
+ 
+  <p>ただし、<codeph>valid</codeph> イベントの場合、<codeph>ValidationResultEvent.results</codeph> プロパティには RegExpValidationResult オブジェクトの配列が含まれます。 RegExpValidationResult クラスは ValidationResult クラスの子クラスとなっており、正規表現とあわせて使用するプロパティが追加で格納されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links><apiConstructor id="mx.validators:RegExpValidationResult:RegExpValidationResult"><apiName>RegExpValidationResult</apiName><shortdesc> 
+	  コンストラクター
+	  
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>isError</apiItemName><apiType value="Boolean"/><apiDesc>検証エラーが発生した場合は、<codeph>true</codeph> を渡します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>subField</apiItemName><apiType value="String"/><apiData/><apiDesc>検証したオブジェクトのサブフィールドの名前を表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorCode</apiItemName><apiType value="String"/><apiData/><apiDesc> 検証エラーコードを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorMessage</apiItemName><apiType value="String"/><apiData/><apiDesc>検証エラーメッセージを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedString</apiItemName><apiType value="String"/><apiData/><apiDesc>一致するサブストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>一致するストリングのインデックスを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedSubstrings</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>一致するサブストリングの配列を表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc> 
+	  コンストラクター
+	  
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.validators:RegExpValidationResult:matchedIndex"><apiName>matchedIndex</apiName><shortdesc> 
+	  一致した入力ストリング中の開始インデックスを含む整数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc> 
+	  一致した入力ストリング中の開始インデックスを含む整数を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidationResult:matchedString"><apiName>matchedString</apiName><shortdesc>
+	  正規表現と一致する入力ストリングのサブストリングが含まれたストリングを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  正規表現と一致する入力ストリングのサブストリングが含まれたストリングを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidationResult:matchedSubstrings"><apiName>matchedSubstrings</apiName><shortdesc>
+	  ストリングの配列を表します。一致するサブストリングが存在する場合は、そのサブストリングが括弧に囲まれた状態で配列内に格納されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  ストリングの配列を表します。一致するサブストリングが存在する場合は、そのサブストリングが括弧に囲まれた状態で配列内に格納されます。 サブストリングに一致するものが見つからない場合、この配列の長さは 0 になります。<codeph>matchedSubStrings[0]</codeph> を使用すると最初にサブストリングが一致したものにアクセスできます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ValidationResult"><apiName>ValidationResult</apiName><shortdesc>
+  ValidationResult クラスには検証結果が格納されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ValidationResult クラスには検証結果が格納されます。 
+ 
+  <p>ValidationResultEvent クラスは、<codeph>valid</codeph> および <codeph>invalid</codeph> の各検証イベントに必要とされるイベントリスナーに渡すイベントオブジェクトを定義します。 さらに、このクラスは <codeph>results</codeph> プロパティも定義します。このプロパティには ValidationResult オブジェクトの配列（検証された各フィールドにつき 1 つ）が格納されます。 これにより、イベントリスナー内から ValidationResult オブジェクトへのアクセスが可能となります。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links><apiConstructor id="mx.validators:ValidationResult:ValidationResult"><apiName>ValidationResult</apiName><shortdesc>
+	  コンストラクター
+	 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>isError</apiItemName><apiType value="Boolean"/><apiDesc>検証エラーが発生した場合は、<codeph>true</codeph> を渡します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>subField</apiItemName><apiType value="String"/><apiData/><apiDesc>検証したオブジェクトのサブフィールドの名前を表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorCode</apiItemName><apiType value="String"/><apiData/><apiDesc> 検証エラーコードを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorMessage</apiItemName><apiType value="String"/><apiData/><apiDesc>検証エラーメッセージを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクター
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.validators:ValidationResult:errorCode"><apiName>errorCode</apiName><shortdesc>
+	  isError プロパティの値が true の場合、検証エラーコードを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>isError</codeph> プロパティの値が <codeph>true</codeph> の場合、検証エラーコードを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:errorMessage"><apiName>errorMessage</apiName><shortdesc>
+	  isError プロパティの値が true の場合、検証エラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>isError</codeph> プロパティの値が <codeph>true</codeph> の場合、検証エラーメッセージを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:isError"><apiName>isError</apiName><shortdesc>
+	  フィールドで検証エラーが発生すると、値が true に設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  フィールドで検証エラーが発生すると、値が <codeph>true</codeph> に設定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:subField"><apiName>subField</apiName><shortdesc>
+	  結果と関連付けられているサブフィールドの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  結果と関連付けられているサブフィールドの名前を表します。 一部のバリデーター（CreditCardValidator や DateValidator など）では、検証を複数のサブフィールドで同時に行います。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CreditCardValidatorCardType"><apiName>CreditCardValidatorCardType</apiName><shortdesc>
+  CreditCardValidatorCardType クラスにより、検証するクレジットカードのタイプを指定する値定数が定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CreditCardValidatorCardType クラスにより、検証するクレジットカードのタイプを指定する値定数が定義されます。 これらの値は <codeph>CreditCardValidator.cardType</codeph> プロパティで使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#CreditCardValidator"><linktext>mx.validators.CreditCardValidator</linktext></link></related-links><apiValue id="mx.validators:CreditCardValidatorCardType:AMERICAN_EXPRESS"><apiName>AMERICAN_EXPRESS</apiName><shortdesc>
+	  カードのタイプを American Express に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>American Express</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カードのタイプを American Express に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:DINERS_CLUB"><apiName>DINERS_CLUB</apiName><shortdesc>
+	  カードのタイプを Diners Club に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Diners Club</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カードのタイプを Diners Club に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:DISCOVER"><apiName>DISCOVER</apiName><shortdesc>
+	  カードのタイプを Discover に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Discover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カードのタイプを Discover に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:MASTER_CARD"><apiName>MASTER_CARD</apiName><shortdesc>
+	  カードのタイプを MasterCard に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>MasterCard</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カードのタイプを MasterCard に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:VISA"><apiName>VISA</apiName><shortdesc>
+	  カードのタイプを Visa に指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Visa</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  カードのタイプを Visa に指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:Validator"><apiName>Validator</apiName><shortdesc>
+  Validator クラスはすべての Flex 検証クラスの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Validator class defines the following tag attributes, 
+  which all of its subclasses inherit:</p>
+ 
+  <pre>
+  &lt;mx:Validator 
+    enabled="true|false" 
+    listener="<i>Value of the source property</i>" 
+    property="<i>No default</i>" 
+    required="true|false" 
+    requiredFieldError="This field is required." 
+    source="<i>No default</i>" 
+    trigger="<i>Value of the source property</i>" 
+    triggerEvent="valueCommit" 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseInterface>mx.validators:IValidator</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Validator クラスはすべての Flex 検証クラスの基本クラスです。 このクラスにより、バリデーター機能が実装され、必要なフィールドを作成します。つまり、ユーザーがこのフィールドに値を入力しないと、検証は失敗します。
+ 
+  </apiDesc><example conref="SimpleValidatorExample.mxml"><swfblock conref="examples/SimpleValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link><link href="mx.validators.xml#RegExpValidationResult"><linktext>mx.validators.RegExpValidationResult</linktext></link></related-links><adobeApiEvent id="mx.validators:Validator_mx.events.ValidationResultEvent.INVALID_invalid"><apiName>invalid</apiName><shortdesc> 
+  検証が失敗すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.INVALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc> 
+  検証が失敗すると送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.validators:Validator_mx.events.ValidationResultEvent.VALID_valid"><apiName>valid</apiName><shortdesc>
+  検証が正常に完了すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.VALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  検証が正常に完了すると送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.validators:Validator:Validator"><apiName>Validator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:Validator:protected:addListenerHandler"><apiName>addListenerHandler</apiName><shortdesc>
+      バリデーターから送出された valid イベントおよび invalid イベントのすべてのリスナーを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      バリデーターから送出された <codeph>valid</codeph> イベントおよび <codeph>invalid</codeph> イベントのすべてのリスナーを設定します。 Validator クラスのサブクラスはまず <codeph>removeListenerHandler()</codeph> メソッドを呼び出し、サブクラスのリスナーまたはソースのいずれかの値が変更された場合は、<codeph>addListenerHandler()</codeph> メソッドを呼び出す必要があります。 CreditCardValidator クラスと DateValidator クラスはこの関数を内部的に使用します。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      required プロパティの値で定義されるような、検証エラーの原因となる欠損値および空値の検証をはじめ、このバリデーターの検証ロジックを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>無効な結果における ValidationResult オブジェクトの配列です。このオブジェクトは、検証に失敗したバリデーターで検証が行われる各フィールドごとに 1 つ含まれます。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証する値を表します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>required</codeph> プロパティの値で定義されるような、検証エラーの原因となる欠損値および空値の検証をはじめ、このバリデーターの検証ロジックを実行します。
+     
+      <p>バリデータークラスのサブクラスを作成する場合、このメソッドをオーバーライドする必要があります。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiOperation id="mx.validators:Validator:protected:getValueFromSource"><apiName>getValueFromSource</apiName><shortdesc>
+      検証するオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>検証するオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      検証するオブジェクトを返します。 CreditCardValidator クラスや DateValidator クラスなどのサブクラスは、複数のサブフィールドから値にアクセスする必要があるため、このメソッドをオーバーライドします。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:handleResults"><apiName>handleResults</apiName><shortdesc>
+      エラー結果の配列から ValidationResultEvent を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>validate()</codeph> メソッドにより返される ValidationResultEvent です。 
+      
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>errorResults</apiItemName><apiType value="Array"/><apiDesc>ValidationResult オブジェクトの配列です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      エラー結果の配列から ValidationResultEvent を返します。 この関数は内部的に <codeph>doValidation()</codeph> メソッドの結果を取得し、ValidationResultEvent オブジェクトに配置します。 RegExpValidator クラスなどのサブクラスは、RegExpValidationResult オブジェクトなどの ValidationResultEvent オブジェクトのサブクラスを出力し、オブジェクトに情報を追加する必要がある場合は、この関数をオーバーライドします。 この関数は直接呼び出されないため、オーバーライドされることはほとんどありません。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:initialized"><apiName>initialized</apiName><shortdesc>
+       MXML タグを使用してバリデーターを作成したときに、MXML コンパイラーによって自動的に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>このバリデーターを含む MXML ドキュメントを表します。
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>無視されます。
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       MXML タグを使用してバリデーターを作成したときに、MXML コンパイラーによって自動的に呼び出されます。  
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:isRealValue"><apiName>isRealValue</apiName><shortdesc>
+      value が null でない場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは、<codeph>value</codeph> が null でない場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>テストする値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>true</codeph> が返されるのは、<codeph>value</codeph> が null でない場合です。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:removeListenerHandler"><apiName>removeListenerHandler</apiName><shortdesc>
+      バリデーターから送出された valid イベントおよび invalid イベントのすべてのリスナーを切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      バリデーターから送出された <codeph>valid</codeph> イベントおよび <codeph>invalid</codeph> イベントのすべてのリスナーを切断します。 サブクラスはまず <codeph>removeListenerHandler()</codeph> メソッドを呼び出し、サブクラスのリスナーまたはソースのいずれかの値が変更された場合は、<codeph>addListenerHandler</codeph> メソッドを呼び出す必要があります。 CreditCardValidator クラスと DateValidator クラスはこの関数を内部的に使用します。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+      このメソッドは、バリデーターが作成されたときと、ResourceManager が "change" イベントを送出してローカライズされたリソースが何らかの点で変更されたことを示すときに再び呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドは、バリデーターが作成されたときと、ResourceManager が <codeph>"change"</codeph> イベントを送出してローカライズされたリソースが何らかの点で変更されたことを示すときに再び呼び出されます。
+     
+      <p>このイベントは、ResourceManager の <codeph>localeChain</codeph> プロパティを設定したとき、リソースモジュールがロードを終了したとき、および ResourceManager の <codeph>update()</codeph> メソッドを呼び出すときに送出されます。</p>
+     
+      <p>サブクラスでは、このメソッドをオーバーライドし、<codeph>super.resourcesChanged()</codeph> を呼び出した後、リソース値の変化に応じて必要となる処理を実行する必要があります。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:validateAll"><apiName>validateAll</apiName><shortdesc>
+      validators 配列に含まれるすべてのバリデーターを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResultEvent オブジェクトの配列で、配列には失敗したバリデーターごとに 1 つの ValidationResultEvent オブジェクトが含まれます。 すべてのバリデーターが成功した場合、配列は空になります。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validators</apiItemName><apiType value="Array"/><apiDesc>実行する Validator オブジェクトを含む配列です。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>validators</codeph> 配列に含まれるすべてのバリデーターを呼び出します。 失敗したバリデーターごとに 1 つの ValidationResultEvent オブジェクトを含む配列を返します。 すべてのバリデーターが成功した場合は、空の配列を返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:validate"><apiName>validate</apiName><shortdesc>
+      検証を実行し、リスナーに任意で結果を通知します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>検証結果を含む ValidationResultEvent オブジェクトを表します。 検証が成功した場合、<codeph>ValidationResultEvent.results</codeph> 配列プロパティは空となります。 検証に失敗した場合、<codeph>ValidationResultEvent.results</codeph> 配列プロパティには、バリデーターによる検証の成功または失敗を問わず、検証したフィールドそれぞれにつき 1 つの ValidationResult オブジェクトが含まれます。 <codeph>ValidationResult.isError</codeph> プロパティを調べれば、フィールドが検証に合格したか失敗したかを判別できます。 
+     
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>検証するオプションの値です。 null の場合、バリデーターは <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを使用して値を決定します。 このパラメーターを指定する場合、<codeph>listener</codeph> プロパティも設定して検証エラーメッセージの対象となるコンポーネントを指定する必要があります。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>false</codeph> の場合、検証後にバリデーターがリスナーに結果を通知します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      検証を実行し、リスナーに任意で結果を通知します。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:Validator:protected:DECIMAL_DIGITS"><apiName>DECIMAL_DIGITS</apiName><shortdesc>
+      0 から 9 の 10 進数字を含むストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>0123456789</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      0 から 9 の 10 進数字を含むストリングです。    
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:ROMAN_LETTERS"><apiName>ROMAN_LETTERS</apiName><shortdesc>
+      ローマ字アルファベットの大文字と小文字を含む（"A" から "Z"、および "a" から "z"）ストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ローマ字アルファベットの大文字と小文字を含む（"A" から "Z"、および "a" から "z"）ストリングです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:required"><apiName>required</apiName><shortdesc>
+      true の場合、検証エラーの原因となる欠損値または空値を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、検証エラーの原因となる欠損値または空値を指定します。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:subFields"><apiName>subFields</apiName><shortdesc>
+      validate() メソッドに渡された value オブジェクトに含まれるプロパティ名を含むストリングの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>value</codeph> オブジェクト（<codeph>validate()</codeph> メソッドに渡された）に含まれるプロパティ名を含むストリングの配列です。 例えば、CreditCardValidator はこのプロパティを <codeph>[ "cardNumber", "cardType" ]</codeph> に設定します。 この値は、<codeph>value</codeph> オブジェクト（<codeph>validate()</codeph> メソッドに渡された）に <codeph>cardNumber</codeph> プロパティおよび <codeph>cardType</codeph> プロパティが含まれることを意味します。 
+     
+      <p>複数のデータフィールドを検証する Validator クラスのサブクラス（CreditCardValidator および DateValidator など）は、コンストラクターにこのプロパティを割り当てる必要があります。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:actualListeners:get"><apiName>actualListeners</apiName><shortdesc>
+      リスナーオブジェクトが存在する場合はリスナーオブジェクトを含みます。そうでない場合は、ソースオブジェクトを含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      リスナーオブジェクトが存在する場合はリスナーオブジェクトを含みます。そうでない場合は、ソースオブジェクトを含みます。 検証結果について通知するオブジェクトを判断するために使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:actualTrigger:get"><apiName>actualTrigger</apiName><shortdesc>
+      トリガーオブジェクトが存在する場合はトリガーオブジェクトを含みます。そうでない場合は、ソースオブジェクトを含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      トリガーオブジェクトが存在する場合はトリガーオブジェクトを含みます。そうでない場合は、ソースオブジェクトを含みます。 <codeph>triggerEvent</codeph> のリスナーオブジェクトを判断するために使用します。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:enabled:get"><apiName>enabled</apiName><shortdesc> 
+      この値を false に設定すると、バリデーターによる検証が行えなくなります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      この値を <codeph>false</codeph> に設定すると、バリデーターによる検証が行えなくなります。 バリデーターが無効になると、イベントは送出されず、<codeph>validate()</codeph> メソッドにより null が返されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:listener:get"><apiName>listener</apiName><shortdesc>
+      検証のリスナーを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      検証のリスナーを指定します。
+     
+      <p>リスナーを指定しない場合、Flex は <codeph>source</codeph> プロパティの値を使用します。 Flex がソースコンポーネントを調べた後、コンポーネントの境界線色を変更し、検証に失敗した際のエラーメッセージを表示するか、成功した際の既存のエラーメッセージを非表示にします。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:property:get"><apiName>property</apiName><shortdesc>
+      検証する値を含む source オブジェクトのプロパティの名前を指定するストリングを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      検証する値を含む <codeph>source</codeph> オブジェクトのプロパティの名前を指定するストリングを表します。 このプロパティはオプションですが、<codeph>source</codeph> を指定する場合、このプロパティにも値を設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:requiredFieldError:get"><apiName>requiredFieldError</apiName><shortdesc>
+      値が欠損し、required プロパティが true の場合に発生するエラーメッセージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This field is required."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      値が欠損し、<codeph>required</codeph> プロパティが <codeph>true</codeph> の場合に発生するエラーメッセージです。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:source:get"><apiName>source</apiName><shortdesc>
+      検証するプロパティを含むオブジェクトを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      検証するプロパティを含むオブジェクトを指定します。 このプロパティには、コンポーネントまたはデータモデルのインスタンスを設定します。 MXML のデータバインディングシンタックスを使用して、値を指定します。 ネストされたプロパティを指定するために、ドット区切りのストリングがサポートされています。 <codeph>source</codeph> プロパティに値を指定する場合、<codeph>property</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティはオプションです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:triggerEvent:get"><apiName>triggerEvent</apiName><shortdesc>
+      検証をトリガーするイベントを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      検証をトリガーするイベントを指定します。 指定を省略すると、Flex は <codeph>valueCommit</codeph> イベントを使用します。 ユーザーがコントロールにデータを入力し終えると、Flex は <codeph>valueCommit</codeph> イベントを送出します。 通常これは、ユーザーがコンポーネントからフォーカスを移動したときか、プロパティ値がプログラムによって変更されたときです。 バリデーターにすべてのイベントを無視させる場合は、<codeph>triggerEvent</codeph> を空のストリング（""）に設定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:trigger:get"><apiName>trigger</apiName><shortdesc>
+      バリデーターをトリガーするイベントの生成を行うコンポーネントを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      バリデーターをトリガーするイベントの生成を行うコンポーネントを指定します。 指定を省略した場合、Flex はデフォルトで <codeph>source</codeph> プロパティの値を使用します。 <codeph>trigger</codeph> により <codeph>triggerEvent</codeph> が送出されると、検証が実行されます。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CreditCardValidator"><apiName>CreditCardValidator</apiName><shortdesc>
+  CreditCardValidator クラスは、クレジットカード番号が正しい長さで、かつ正しい接頭辞で始まっていることを検証し、指定されたカードタイプ用の Luhn mod10 アルゴリズムを渡します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:CreditCardValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CreditCardValidator
+    allowedFormatChars=" -" 
+    cardNumberListener="<i>Object specified by cardNumberSource</i>"
+    cardNumberProperty="<i>No default</i>"
+    cardNumberSource="<i>No default</i>"
+    cardTypeListener="<i>Object specified by cardTypeSource</i>"
+    cardTypeProperty="<i>No default</i>"
+    cardTypeSource="<i>No default</i>"
+    invalidCharError= "Invalid characters in your credit card number. (Enter numbers only.)"
+    invalidNumberError="The credit card number is invalid." 
+    noNumError="No credit card number is specified."
+    noTypeError="No credit card type is specified or the type is not valid." 
+    wrongLengthError="Your credit card number contains the wrong number of digits." 
+    wrongTypeError="Incorrect card type is specified." 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CreditCardValidator クラスは、クレジットカード番号が正しい長さで、かつ正しい接頭辞で始まっていることを検証し、指定されたカードタイプ用の Luhn mod10 アルゴリズムを渡します。 検証では、クレジットカードが実際に有効なクレジットカードアカウントであるかどうかはチェックされません。
+ 
+  <p>CreditCardValidator への入力を次の 2 通りの方法で行うことができます。</p>
+  <ul>
+    <li><codeph>cardNumberSource</codeph> プロパティおよび <codeph>cardNumberProperty</codeph> プロパティを使用してクレジットカード番号の位置を指定し、<codeph>cardTypeSource</codeph> プロパティおよび <codeph>cardTypeProperty</codeph> プロパティを使用して検証するクレジットカードの種類の位置を指定します。</li>
+    <li><codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを使用して単一のオブジェクトを指定します。 オブジェクトには次のフィールドが必要です。
+    <ul>
+        <li><codeph>cardType</codeph> - 検証するクレジットカードの種類を指定します。 
+         <p>MXML では以下の値を使用できます。<codeph>"American Express"</codeph>、<codeph>"Diners Club"</codeph>、<codeph>"Discover"</codeph>、<codeph>"MasterCard"</codeph>、または <codeph>"Visa"</codeph>。</p>
+         <p>ActionScript では、静的定数として <codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph>、<codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph> <codeph>CreditCardValidatorCardType.DISCOVER</codeph>、または <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph> を使用します。</p>
+          </li>
+       <li><codeph>cardNumber</codeph> - 検証するカードの番号を指定します。</li>
+     </ul>
+    </li>
+  </ul>
+  
+  <p>検証時には、次のガイドラインが使用されます。</p>
+  <p>長さ：</p>
+  <ol>
+    <li>Visa：13 または 16 桁</li> 
+    <li>MasterCard：16 桁</li> 
+    <li>Discover：16 桁</li> 
+    <li>American Express：15 桁</li> 
+    <li>DinersClub：14 桁、MasterCard としても機能する場合は 16 桁</li>
+  </ol>
+  接頭辞：
+  <ol>
+    <li>Visa：4</li> 
+    <li>MasterCard：51 ～ 55</li>
+    <li>Discover：6011</li>
+    <li>American Express：34 または 37</li>
+    <li>Diners Club：300 ～ 305、36 または 38、51 ～ 55</li>
+  </ol>
+  
+  </apiDesc><example conref="CreditCardValidatorExample.mxml"><swfblock conref="examples/CreditCardValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#CreditCardValidatorCardType"><linktext>mx.validators.CreditCardValidatorCardType</linktext></link></related-links><apiConstructor id="mx.validators:CreditCardValidator:CreditCardValidator"><apiName>CreditCardValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:CreditCardValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      クレジットカード番号の妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      クレジットカード番号の妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+	 
+	  <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:CreditCardValidator:validateCreditCard"><apiName>validateCreditCard</apiName><shortdesc>
+	  バリデーターを呼び出す上で便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:CreditCardValidator</apiOperationClassifier><apiDesc>CreditCardValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドであり、その次のフィールドを含む必要があります。
+	  <ul>
+	    <li><codeph>cardType</codeph> - 検証するクレジットカードの種類を指定します。 静的定数 <codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph>、<codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph>、または <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph> を使用します。</li>
+	    <li><codeph>cardNumber</codeph> - 検証するカードの番号を指定します。</li></ul>
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>value パラメーターで指定したサブフィールドのテキストの型を表します。 例えば、<codeph>value</codeph> パラメーターで value.date を指定する場合、<codeph>baseField</codeph> の値は "date" です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  バリデーターを呼び出す上で便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:CreditCardValidator:cardNumberProperty"><apiName>cardNumberProperty</apiName><shortdesc>
+	  検証するカード番号プロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  検証するカード番号プロパティの名前を表します。 この属性はオプションですが、<codeph>cardNumberSource</codeph> プロパティを指定する場合は、このプロパティも設定する必要があります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeProperty"><apiName>cardTypeProperty</apiName><shortdesc>
+	  検証するカードの種類を示すプロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  検証するカードの種類を示すプロパティの名前を表します。 この属性はオプションですが、<codeph>cardTypeSource</codeph> プロパティを指定する場合は、このプロパティも設定する必要があります。
+	 
+      <p>MXML で、次の値を指定できます。</p>
+      <ul>
+        <li><codeph>"American Express"</codeph></li>
+        <li><codeph>"Diners Club"</codeph></li>
+        <li><codeph>"Discover"</codeph></li>
+        <li><codeph>"MasterCard"</codeph></li>
+        <li><codeph>"Visa"</codeph></li>
+      </ul>
+	 
+	  <p>ActionScript では、このプロパティを設定するために次の定数を使用できます。</p>
+	  <p><codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph>、<codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、および <codeph>CreditCardValidatorCardType.VISA</codeph>。</p>
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.validators.xml#CreditCardValidatorCardType"><linktext>mx.validators.CreditCardValidatorCardType</linktext></link></related-links></apiValue><apiValue id="mx.validators:CreditCardValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  cardNumber フィールドで使用できる書式文字のセットを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>" -" (space and dash)
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> フィールドで使用できる書式文字のセットを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardNumberListener:get"><apiName>cardNumberListener</apiName><shortdesc> 
+	  カード番号サブフィールドの検証結果をリッスンするコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  カード番号サブフィールドの検証結果をリッスンするコンポーネントを表します。 何も指定されていない場合、<codeph>cardNumberSource</codeph> プロパティに指定された値が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardNumberSource:get"><apiName>cardNumberSource</apiName><shortdesc> 
+	  カード番号フィールドの値を含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  カード番号フィールドの値を含むオブジェクトを表します。 このプロパティの値を指定する場合は、<codeph>cardNumberProperty</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを設定する場合は、このプロパティを使用しないでください。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeListener:get"><apiName>cardTypeListener</apiName><shortdesc> 
+	  カードの種類を示すサブフィールドの検証結果をリッスンするコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  カードの種類を示すサブフィールドの検証結果をリッスンするコンポーネントを表します。 何も指定されていない場合、<codeph>cardTypeSource</codeph> プロパティに指定された値が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeSource:get"><apiName>cardTypeSource</apiName><shortdesc> 
+	  カードの種類を指定するフィールドの値を含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  カードの種類を指定するフィールドの値を含むオブジェクトを表します。 このプロパティの値を指定する場合は、<codeph>cardTypeProperty</codeph> プロパティにも値を指定する必要があります。 <codeph>source</codeph> プロパティおよび <codeph>property</codeph> プロパティを設定する場合は、このプロパティを使用しないでください。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  cardNumber フィールドに無効な文字が含まれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid characters in your credit card number. (Enter numbers only.)"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> フィールドに無効な文字が含まれている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:invalidNumberError:get"><apiName>invalidNumberError</apiName><shortdesc> 
+	  クレジットカード番号が無効になっている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The credit card number is invalid."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  クレジットカード番号が無効になっている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:noNumError:get"><apiName>noNumError</apiName><shortdesc> 
+	  cardNumber フィールドが空の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"No credit card number is specified."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> フィールドが空の場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:noTypeError:get"><apiName>noTypeError</apiName><shortdesc> 
+	  cardType フィールドが空の場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"No credit card type is specified or the type is not valid."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardType</codeph> フィールドが空の場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc>
+	  指定されたクレジットカードの種類に対応していない桁数の番号が cardNumber フィールドに含まれる場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your credit card number contains the wrong number of digits." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  指定されたクレジットカードの種類に対応していない桁数の番号が <codeph>cardNumber</codeph> フィールドに含まれる場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:wrongTypeError:get"><apiName>wrongTypeError</apiName><shortdesc> 
+	  cardType フィールドに無効なクレジットカードの種類が含まれる場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Incorrect card type is specified."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardType</codeph> フィールドに無効なクレジットカードの種類が含まれる場合に発生するエラーメッセージを表します。 <codeph>cardType</codeph> フィールドには、事前に定義した以下の定数を使用する必要があります。<codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph>、<codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph>、または <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:SocialSecurityValidator"><apiName>SocialSecurityValidator</apiName><shortdesc>
+  SocialSecurityValidator クラスは、ストリングが有効な米国の社会保障番号であることを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SocialSecurityValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SocialSecurityValidator
+    allowedFormatChars=" -"
+    invalidCharError="You entered invalid characters in your Social Security number."
+    wrongFormatError="The Social Security number must be 9 digits or in the form NNN-NN-NNNN."
+    zeroStartError="Invalid Social Security number; the number cannot start with 000."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SocialSecurityValidator クラスは、ストリングが有効な米国の社会保障番号であることを検証します。 実在の社会保障番号であるかどうかはチェックしません。
+ 
+  </apiDesc><example conref="SocialSecurityValidatorExample.mxml"><swfblock conref="examples/SocialSecurityValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:SocialSecurityValidator:SocialSecurityValidator"><apiName>SocialSecurityValidator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:SocialSecurityValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      社会保障番号の妥当性を検証する上で基本クラスの doValidation() メソッドをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するオブジェクトです。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      社会保障番号の妥当性を検証する上で基本クラスの <codeph>doValidation()</codeph> メソッドをオーバーライドします。
+     
+	  <p>このメソッドはユーザーが直接呼び出すものではなく、妥当性を検証する際に Flex から呼び出されます。 Validator クラスをカスタムで作成する場合は、このメソッドを実装する必要があります。</p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:SocialSecurityValidator:validateSocialSecurity"><apiName>validateSocialSecurity</apiName><shortdesc>
+	  バリデーターを呼び出す上で便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:SocialSecurityValidator</apiOperationClassifier><apiDesc>SocialSecurityValidator インスタンスを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証するフィールドを表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.social を指定する場合、<codeph>baseField</codeph> の値は <codeph>social</codeph> です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  バリデーターを呼び出す上で便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:SocialSecurityValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc>
+	  入力で使用できる書式文字のセットを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"()- .+" // ?????
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  入力で使用できる書式文字のセットを指定します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+	  allowedFormatChars プロパティで指定した数字や書式文字以外の文字が値に含まれる場合に発生するエラーメッセージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"You entered invalid characters in your Social Security number."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  <codeph>allowedFormatChars</codeph> プロパティで指定した数字や書式文字以外の文字が値に含まれる場合に発生するエラーメッセージです。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:wrongFormatError:get"><apiName>wrongFormatError</apiName><shortdesc>
+	  値の書式が誤っている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The Social Security number must be 9 digits or in the form NNN-NN-NNNN."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  値の書式が誤っている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:zeroStartError:get"><apiName>zeroStartError</apiName><shortdesc>
+	  値に無効な社会保障番号が含まれている場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid Social Security number; the number cannot start with 000."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  値に無効な社会保障番号が含まれている場合に発生するエラーメッセージを表します。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:IValidatorListener"><apiName>IValidatorListener</apiName><shortdesc>
+  Flex データ検証メカニズムをサポートするためにコンポーネントが実装するインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Flex データ検証メカニズムをサポートするためにコンポーネントが実装するインターフェイスです。 UIComponent クラスが、このインターフェイスを実装します。 したがって、UIComponent のサブクラスもこのインターフェイスを実装します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:validationResultHandler"><apiName>validationResultHandler</apiName><shortdesc>
+	  このコンポーネントに割り当てられたバリデーターからの valid と invalid の両方のイベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier><apiDesc>検証用のイベントオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  このコンポーネントに割り当てられたバリデーターからの <codeph>valid</codeph> と <codeph>invalid</codeph> の両方のイベントを処理します。  
+	 
+	  <p>通常、バリデーターにイベントリスナーを割り当てることで、バリデーターによって送出された <codeph>valid</codeph> イベントおよび <codeph>invalid</codeph> イベントを処理します。 検証中のコンポーネントで直接検証イベントを処理する場合は、このメソッドをオーバーライドすると <codeph>valid</codeph> イベントおよび <codeph>invalid</codeph> イベントを処理できます。 バリデーターが <codeph>valid</codeph> イベントおよび <codeph>invalid</codeph> イベントをリッスンしている場合、実装内から、<codeph>dispatchEvent()</codeph> メソッドを使用してこれらのイベントを送出できます。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links></apiOperation><apiValue id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:errorString:get"><apiName>errorString</apiName><shortdesc>
+      バリデーターによってコンポーネントを監視しているとき、検証が失敗した場合に、そのコンポーネントのエラーヒントに表示されるテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      バリデーターによってコンポーネントを監視しているとき、検証が失敗した場合に、そのコンポーネントのエラーヒントに表示されるテキストです。
+     
+      <p>Validator クラスを実際に使用しないでコンポーネントの検証エラーを表示するには、<codeph>errorString</codeph> プロパティを使用します。 <codeph>errorString</codeph> プロパティにストリング値を書き込むと、検証エラーを示すためにコンポーネントの周りに赤い境界線が描画されます。バリデーターが検証エラーを検出した場合と同様に、マウスポインターをコンポーネント上に重ねると、ツールヒントに検証エラーメッセージとしてそのストリングが表示されます。</p>
+     
+      <p>検証エラーをクリアするには、<codeph>errorString</codeph> プロパティに空のストリング（""）を指定します。</p>
+     
+      <p><codeph>errorString</codeph> プロパティに値を書き込んでも、valid または invalid イベントはトリガーされません。単に、境界線の色が変更され、検証エラーメッセージが表示されるだけです。</p>
+ 	  
+ 	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:validationSubField:get"><apiName>validationSubField</apiName><shortdesc>
+	  バリデーターがサブフィールドを割り当てる場合に使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  バリデーターがサブフィールドを割り当てる場合に使用します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

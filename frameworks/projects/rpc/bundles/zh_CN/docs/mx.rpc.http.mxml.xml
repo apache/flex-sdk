@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.http.mxml"><apiName>mx.rpc.http.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.http.mxml:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+ 在 MXML 文件中可以使用 &amp;lt;mx:HTTPService&amp;gt 标记来表示 HTTPService 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:HTTPService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:HTTPService
+ <b>Properties</b>
+ concurrency="multiple|single|last"
+ contentType="application/x-www-form-urlencoded|application/xml"
+ destination="<i>DefaultHTTP</i>"
+ id="<i>No default.</i>"
+ method="GET|POST|HEAD|OPTIONS|PUT|TRACE|DELETE"
+ resultFormat="object|array|xml|e4x|flashvars|text"
+ showBusyCursor="false|true"
+ makeObjectsBindable="false|true"
+ url="<i>No default.</i>"
+ useProxy="false|true"
+ xmlEncode="<i>No default.</i>"
+ xmlDecode="<i>No default.</i>"
+ 
+ <b>Events</b>
+ fault="<i>No default.</i>"
+ result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ 
+ The <code>&lt;mx:HTTPService&gt;</code> tag can have a single &lt;mx:request&gt; tag under which the parameters can be specified.
+ </p>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.http:HTTPService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 在 MXML 文件中使用 <codeph>&lt;mx:HTTPService></codeph> 标签代表 HTTPService 对象。当调用 HTTPService 对象的 <codeph>send()</codeph> 方法时，将发出对指定 URL 的 HTTP 请求，并且返回 HTTP 响应。可以选择向指定 URL 传递参数。如果没有使用基于服务器的代理服务，则只能使用 HTTP GET 或 POST 方法。如果将 useProxy 属性设置为 true 并使用基于服务器的代理服务，则还可以使用 HTTP HEAD、OPTIONS、TRACE 和 DELETE 方法。
+ 
+ <p><b>注意：</b>由于软件限制，当使用 GET 时 HTTPService 不生成用户界面友好的错误消息。
+ </p>
+ 
+ </apiDesc><example conref="HTTPServiceExample.mxml"/></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPService"><linktext>mx.rpc.http.HTTPService</linktext></link><link href="" invalidHref="mx.validators.Validator.xml"><linktext>mx.validators.Validator</linktext></link><link href="" invalidHref="mx.managers.CursorManager.xml"><linktext>mx.managers.CursorManager</linktext></link></related-links><apiConstructor id="mx.rpc.http.mxml:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+     创建一个新的 HTTPService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>HTTPService 在计算相对 URL 时应使用的 URL。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>service-config.xml 文件中的 HTTPService 目标名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 HTTPService。此构造函数通常由 MXML 文档生成的代码调用。通常使用 mx.rpc.http.HTTPService 类在 ActionScript 中创建 HTTPService。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http.mxml:HTTPService:initialized"><apiName>initialized</apiName><shortdesc>
+     创建实现对象且初始化在 MXML 标签上指定的所有组件属性后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>创建此对象的 MXML 文档。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc><codeph>document</codeph> 用来引用此对象的标识符。如果此对象是文档上的深层属性，则 <codeph>id</codeph> 为 null。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     创建实现对象且初始化在 MXML 标签上指定的所有组件属性后调用。如果在 ActionScript 中创建此类并希望在其执行时使用验证，则必须调用此方法并传入 MXML 文档和 HTTPService 的 <codeph>id</codeph>。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.http.mxml:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+ 在 MXML 文件中可以使用 &amp;lt;mx:HTTPMultiService&amp;gt; 标记来表示 HTTPMultiService 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="operationList"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.http:HTTPMultiService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 在 MXML 文件中可以使用 <codeph>&lt;mx:HTTPMultiService></codeph> 标记来表示 HTTPMultiService 对象。HTTPMultiService 类似于 HTTPService，但它对每个单独的标记都支持多个操作。
+ 
+ <p><b>注意：</b>由于软件限制，当使用 GET 时 HTTPService 不生成用户界面友好的错误消息。
+ </p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPMultiService"><linktext>mx.rpc.http.HTTPMultiService</linktext></link></related-links><apiConstructor id="mx.rpc.http.mxml:HTTPMultiService:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+     创建新的 HTTPMultiService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>HTTPService 在计算相对 URL 时应使用的 URL。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>service-config.xml 文件中的 HTTPService 目标名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建新的 HTTPMultiService。此构造函数通常由 MXML 文档生成的代码调用。通常使用 mx.rpc.http.HTTPService 类在 ActionScript 中创建 HTTPService。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http.mxml:HTTPMultiService:initialized"><apiName>initialized</apiName><shortdesc>
+     创建实现对象且初始化在 MXML 标签上指定的所有组件属性后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>创建此对象的 MXML 文档。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc><codeph>document</codeph> 用来引用此对象的标识符。如果此对象是文档上的深层属性，则 <codeph>id</codeph> 为 null。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     创建实现对象且初始化在 MXML 标签上指定的所有组件属性后调用。如果在 ActionScript 中创建此类并希望在其执行时使用验证，则必须调用此方法并传入 MXML 文档和 HTTPService 的 <codeph>id</codeph>。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

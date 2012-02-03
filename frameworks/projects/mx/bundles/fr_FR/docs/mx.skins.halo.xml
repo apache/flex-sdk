@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+  Définit les états haut, bas, et survolé pour les objets MenuBarItem. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Définit les états haut, bas, et survolé pour les objets MenuBarItem. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ActivatorSkin:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+  Habillage de l’état indéterminé d’un composant ProgressBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’état indéterminé d’un composant ProgressBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressIndeterminateSkin:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du curseur d’un composant ScrollBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du curseur d’un composant ScrollBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollThumbSkin:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états d’un composant Button. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états d’un composant Button. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonSkin:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+  Habillage du dégradé d’arrière-plan de l’application. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du dégradé d’arrière-plan de l’application. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ApplicationBackground:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+      Constructeur	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+  Habillage de l’arrière-plan d’un composant MenuBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’arrière-plan d’un composant MenuBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:MenuBarBackgroundSkin:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+  Habillage du dégradé d’arrière-plan d’un composant Window. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du dégradé d’arrière-plan d’un composant Window. 
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:WindowBackground:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+      Constructeur  
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur  
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du bouton vers le haut ou vers le bas d’un composant ScrollBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du bouton vers le haut ou vers le bas d’un composant ScrollBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollArrowSkin:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états d’un composant ColorPicker. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états d’un composant ColorPicker. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ColorPickerSkin:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+  Habillage du rail d’un composant ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du rail d’un composant ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollTrackSkin:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+  Habillage de l’ensemble des états de l’icône d’un composant CheckBox. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états de l’icône d’un composant CheckBox. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:CheckBoxIcon:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+  Habillage de l’arrière-plan des en-têtes de colonne d’un contrôle DataGrid. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’arrière-plan des en-têtes de colonne d’un contrôle DataGrid. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.skins.halo:DataGridHeaderBackgroundSkin:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états d’un onglet dans un conteneur TabNavigator ou TabBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états d’un onglet dans un conteneur TabNavigator ou TabBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TabSkin:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+  Habillage de l’ensemble des états de l’icône d’un composant RadioButton. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états de l’icône d’un composant RadioButton. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:RadioButtonIcon:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du curseur d’un composant Slider. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du curseur d’un composant Slider. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderThumbSkin:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins.halo:SliderThumbSkin:protected:drawThumbState"><apiName>drawThumbState</apiName><shortdesc>
+	 Pour usage interne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>borderColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillAlphas</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>drawBacking</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>drillHole</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+	 Pour usage interne. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+  Habillage de la bordure d’un composant SwatchPanel. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de la bordure d’un composant SwatchPanel.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchPanelSkin:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du bouton vers le bas d’un composant NumericStepper. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du bouton vers le bas d’un composant NumericStepper. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperDownSkin:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du bouton vers le haut d’un composant NumericStepper. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du bouton vers le haut d’un composant NumericStepper. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperUpSkin:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+  Habillage du séparateur entre les liens Links d’un composant LinkBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du séparateur entre les liens Links d’un composant LinkBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkSeparator:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+  Définit l’aspect de la bordure par défaut pour le thème Halo. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Définit l’aspect de la bordure par défaut pour le thème Halo. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloBorder:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+  Habillage de l’ensemble des états de l’icône d’un composant PopUpButton. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états de l’icône d’un composant PopUpButton. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpIcon:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+      Constructeur	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+  La classe PanelSkin définit l’habillage des composants Panel, TitleWindow et Alert. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:HaloBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PanelSkin définit l’habillage des composants Panel, TitleWindow et Alert. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PanelSkin:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+      Constructeur
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+  Habillage du masque des barres déterminées et indéterminées du composant ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du masque des barres déterminées et indéterminées du composant ProgressBar. Le masque définit la zone dans laquelle la barre de progression ou barre de progression indeterminée est affichée. Par défaut, le masque définit le déclalage de 1 pixel vers l’intérieur de la barre de progression par rapport au rail. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#ProgressBar"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiConstructor id="mx.skins.halo:ProgressMaskSkin:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+  Habillage de la barre de titre d’un composant Panel. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de la barre de titre d’un composant Panel. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TitleBackground:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+  Habillage de l’indicateur de dépôt de colonne d’un composant DataGrid. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’indicateur de dépôt de colonne d’un composant DataGrid. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnDropIndicator:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états du bouton d’un composant ComboBox. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états du bouton d’un composant ComboBox. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ComboBoxArrowSkin:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états d’un en-tête AccordionHeader d’un composant Accordion. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états d’un en-tête AccordionHeader d’un composant Accordion. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:AccordionHeaderSkin:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+  Habillage du rail d’un composant Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du rail d’un composant Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderTrackSkin:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+  Habillage de la flèche du tri dans l’en-tête de colonne d’un composant DataGrid. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de la flèche du tri dans l’en-tête de colonne d’un composant DataGrid. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridSortArrow:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états d’un composant LinkButton. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états d’un composant LinkButton. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkButtonSkin:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+  Habillage des indicateurs du composant DateChooser pour l’affichage des dates d’aujourd’hui, survolées et sélectionnées. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage des indicateurs du composant DateChooser pour l’affichage des dates d’aujourd’hui, survolées et sélectionnées. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserIndicator:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+      Constructeur	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+  Habillage du redimensionneur de colonne d’un composant DataGrid. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du redimensionneur de colonne d’un composant DataGrid. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnResizeSkin:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+  Habillage du séparateur situé entre les en-têtes de colonnes d’un composant DataGrid. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du séparateur situé entre les en-têtes de colonnes d’un composant DataGrid. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridHeaderSeparator:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états des boutons ButtonBarButtons d’un composant ButtonBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états des boutons ButtonBarButtons d’un composant ButtonBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonBarButtonSkin:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+  Habillage de l’état mis en surbrillance de la piste d’un composant Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’état mis en surbrillance de la piste d’un composant Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderHighlightSkin:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloColors"><apiName>HaloColors</apiName><shortdesc>
+  Définit les couleurs utilisées par les composants qui prennent en charge le thème Halo. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Définit les couleurs utilisées par les composants qui prennent en charge le thème Halo. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.skins.halo:HaloColors:addHaloColors"><apiName>addHaloColors</apiName><shortdesc>
+	  Calcule les couleurs utilisées par les composants qui prennent en charge le thème Halo, telles que les couleurs des bordures biseautées. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Object"/><apiDesc>Objet sur lequel les valeurs de couleur calculées des valeurs sont stockées.   
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>themeColor</apiItemName><apiType value="uint"/><apiDesc>Valeur de la propriété de style <codeph>themeColor</codeph>. 
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor0</apiItemName><apiType value="uint"/><apiDesc>Couleur de départ d’un remplissage. 
+
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor1</apiItemName><apiType value="uint"/><apiDesc>Couleur de fin d’un remplissage. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Calcule les couleurs utilisées par les composants qui prennent en charge le thème Halo, telles que les couleurs des bordures biseautées. Cette méthode utilise les propriétés <codeph>themeColor</codeph> <codeph>fillColors</codeph> pour calculer ses couleurs. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins.halo:HaloColors:getCacheKey"><apiName>getCacheKey</apiName><shortdesc>
+	  Renvoie une clé de hashage unique, basée sur les couleurs transmises. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="restParam"/><apiDesc>Nombre arbitraire de couleurs RVB exprimées en valeurs <codeph>uint</codeph> (par exemple, 0xFF0000). 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Renvoie une clé de hashage unique, basée sur les couleurs transmises. Cette touche est utilisée pour stocker les couleurs calculées, afin qu’elles ne soient calculées qu’une fois. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états des boutons de l’année suivante et de l’année précédente d’un composant DateChooser. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états des boutons de l’année suivante et de l’année précédente d’un composant DateChooser. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserYearArrowSkin:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+  Habillage de tous les états d’un composant PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de tous les états d’un composant PopUpButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpButtonSkin:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+  Habillage utilisée pour tous les nuanciers d’un composant ColorPicker. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage utilisée pour tous les nuanciers d’un composant ColorPicker. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchSkin:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+  Habillage d’un composant ProgressBar. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage d’un composant ProgressBar. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressBarSkin:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+  Habillage de l’ensemble des états des boutons du mois suivant et du mois précédent d’un composant DateChooser. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états des boutons du mois suivant et du mois précédent d’un composant DateChooser. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserMonthArrowSkin:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+  Habillage du rail d’un composant ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage du rail d’un composant ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressTrackSkin:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+  Habillage de l’ensemble des états de l’icône d’un composant PopUpMenuButton. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:PopUpIcon</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Habillage de l’ensemble des états de l’icône d’un composant PopUpMenuButton. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpMenuIcon:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+      Constructeur	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

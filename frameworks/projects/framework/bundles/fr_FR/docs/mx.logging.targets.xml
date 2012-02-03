@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.targets"><apiName>mx.logging.targets</apiName><apiDetail/><apiClassifier id="mx.logging.targets:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+  Fournit une cible de journal qui utilise la méthode globale trace() pour générer des messages de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging.targets:LineFormattedTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fournit une cible de journal qui utilise la méthode globale <codeph>trace()</codeph> pour générer des messages de journal.
+  
+  <p>Pour afficher la sortie de la méthode <codeph>trace()</codeph>, vous devez exécuter la version débogueur de Flash Player ou l’application de débogage du lanceur AIR.</p>
+  
+  <p>La version débogueur de Flash Player et l’application de débogage du lanceur AIR renvoient la sortie de la méthode <codeph>trace()</codeph> vers le fichier flashlog.txt. Par défaut, ce fichier se trouve dans le même répertoire que le fichier mm.cfg. Vous pouvez choisir un autre emplacement pour ce fichier par le biais de la propriété <codeph>TraceOutputFileName</codeph> du fichier mm.cfg. En outre, vous devez attribuer la valeur 1 à la propriété <codeph>TraceOutputFileEnable</codeph> de du fichier mm.cfg.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:TraceTarget:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      <p>Crée une occurrence de cible de journal qui enverra les données de journal à la méthode globale <codeph>trace()</codeph>. Par défaut, la sortie est envoyée dans le fichier flashlog.txt.</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.logging.targets:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+  Toutes les implémentations de cible de journal dont la sortie comporte un style de ligne formaté doivent étendre cette classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging:AbstractTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Toutes les implémentations de cible de journal dont la sortie comporte un style de ligne formaté doivent étendre cette classe. Elle fournit le comportement par défaut permettant d’inclure les informations de date, d’heure, de catégorie et de niveau dans la sortie.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:LineFormattedTarget:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      <p>Crée une occurrence de cible de journal qui formatera les données du message sur une seule ligne.</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.targets:LineFormattedTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      Cette méthode traite un événement LogEvent issu d’un journal associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>Evénement <codeph>LogEvent</codeph> traité par cette méthode.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode traite un événement <codeph>LogEvent</codeph> issu d’un journal associé. Une cible utilise cette méthode pour convertir l’événement au format adapté à la transmission, au stockage ou à l’affichage. Cette méthode est appelée uniquement si le niveau de l’événement est dans la zone de portée du niveau de la cible.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging.targets:LineFormattedTarget:fieldSeparator"><apiName>fieldSeparator</apiName><shortdesc>
+      Chaîne de séparation à utiliser entre les champs (par défaut : «   »)
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData> </apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Chaîne de séparation à utiliser entre les champs (par défaut : «   »)
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeCategory"><apiName>includeCategory</apiName><shortdesc>
+      Indique si la catégorie de cette cible doit être ajoutée à la trace.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la catégorie de cette cible doit être ajoutée à la trace.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeDate"><apiName>includeDate</apiName><shortdesc>
+      Indique si la date doit être ajoutée à la trace.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la date doit être ajoutée à la trace.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeLevel"><apiName>includeLevel</apiName><shortdesc>
+      Indique si le niveau de l’événement doit être ajouté à la trace.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si le niveau de l’événement doit être ajouté à la trace.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeTime"><apiName>includeTime</apiName><shortdesc>
+      Indique si l’heure doit être ajoutée à la trace.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si l’heure doit être ajoutée à la trace.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

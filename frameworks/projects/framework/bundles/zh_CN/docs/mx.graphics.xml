@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics"><apiName>mx.graphics</apiName><apiDetail/><apiClassifier id="mx.graphics:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+  一种帮助器类，用于捕获实现了 flash.display.IBitmapDrawable 的任何 Flash 组件（包括 Flex UIComponent）的快照。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  一种帮助器类，用于捕获实现了 <codeph>flash.display.IBitmapDrawable</codeph> 的任何 Flash 组件（包括 Flex UIComponent）的快照。
+ 
+  <p>可以将此类的实例作为 RemoteObject 发送到 Adobe 的 LiveCycle Data Services 中，以便生成客户端图像的 PDF 文件。如果您需要指定此图像的除 <codeph>contentType</codeph>、<codeph>width</codeph> 和 <codeph>height</codeph> 属性之外的其他属性，则应该对 <codeph>properties</codeph> 对象设置名称/值对。</p>
+ 
+  <p>在 Flex 的早期版本中，您可以对 ImageSnapshot 实例本身设置这些附加属性。此类仍然是动态的，以便允许设置附加属性。但在将来版本的 Flex 中，它可能不再是动态的。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:ImageSnapshot:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>图像的宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>图像的高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>包含图像的字节数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>图像的编码器格式类型：PNGEncoder 或 JPEGEncoder。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:ImageSnapshot:captureBitmapData"><apiName>captureBitmapData</apiName><shortdesc>
+      用于获取 UI 组件的原始快照作为 BitmapData 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示捕获快照的 BitmapData 对象；如果源没有可见边界，则为 null。
+      
+      </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>实现了 <codeph>flash.display.IBitmapDrawable</codeph> 接口的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>一个 Matrix 对象，用于缩放、旋转捕获的位图或转换其坐标。如果不想将矩阵转换应用于图像，请将此参数设置为恒等矩阵（使用默认 new Matrix() 构造函数创建），或传递 null 值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorTransform</apiItemName><apiType value="flash.geom:ColorTransform"/><apiData>null</apiData><apiDesc>一个 ColorTransform 对象，用于调整位图的颜色值。如果没有提供任何对象，则不会转换位图图像的颜色。如果必须传递此参数但又不想转换图像，请将此参数设置为使用默认 new ColorTransform() 构造函数创建的 ColorTransform 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>blendMode</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>来自 flash.display.BlendMode 类的一个字符串值，指定要应用于所生成位图的混合模式。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clipRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>一个 Rectangle 对象，定义要绘制的源对象的区域。 如果不提供此值，则不会进行剪裁，并且将绘制整个源对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>smoothing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>一个布尔值，确定缩放时是否要对 BitmapData 对象进行平滑处理。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于获取 UI 组件的原始快照作为 BitmapData 的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:captureImage"><apiName>captureImage</apiName><shortdesc>
+      用于获取组件快照、将其缩放到特定分辨率（以 dpi 为单位）并编码为特定图像格式的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个 ImageSnapshot，用于容纳经过编码的捕获快照和关联图像元数据。
+      
+      </apiDesc><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>实现了 <codeph>flash.display.IBitmapDrawable</codeph> 接口的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>分辨率，以每英寸的点数表示。如果未提供分辨率，则默认情况下使用当前屏幕的分辨率。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>encoder</apiItemName><apiOperationClassifier>mx.graphics.codec:IImageEncoder</apiOperationClassifier><apiData>null</apiData><apiDesc>用于对原始位图进行编码的图像格式。可以使用的两个编码器为 PNGEncoder 和 JPEGEncoder。如果未提供编码器，则默认为 PNGEncoder。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleLimited</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Flash 中位图的最大宽度或高度为 2880 个像素，如果将 scaleLimited 设置为 true，则会相应减少分辨率以适合 2880 个像素，相反，如果将 scaleLimited 设置为 false，则将使用较小的快照窗口并缝合它们以捕获更大的图像。默认值为 true。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于获取组件快照、将其缩放到特定分辨率（以 dpi 为单位）并编码为特定图像格式的实用程序方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:encodeImageAsBase64"><apiName>encodeImageAsBase64</apiName><shortdesc>
+      一种实用程序方法，用于将 ImageSnapshot 转换为 Base-64 编码的 String，以便使用基于文本的序列化格式（如 XML）进行传输。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示经过 base64 编码的快照的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>snapshot</apiItemName><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier><apiDesc>捕获为 <codeph>mx.graphics.ImageSnapshot</codeph> 的图像。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      一种实用程序方法，用于将 ImageSnapshot 转换为 Base-64 编码的 String，以便使用基于文本的序列化格式（如 XML）进行传输。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.graphics.xml#ImageSnapshot/captureImage"><linktext>captureImage</linktext></link></related-links></apiOperation><apiValue id="mx.graphics:ImageSnapshot:MAX_BITMAP_DIMENSION"><apiName>MAX_BITMAP_DIMENSION</apiName><shortdesc>
+      Bitmap 的最大宽度和高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2880</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Bitmap 的最大宽度和高度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:defaultEncoder"><apiName>defaultEncoder</apiName><shortdesc>
+      用于捕获图像的默认 mx.graphics.codec.IImageEncoder 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Class"/></apiValueDef><apiDesc>
+      用于捕获图像的默认 <codeph>mx.graphics.codec.IImageEncoder</codeph> 实现。两个实现包括 PNGEncoder 和 JPEGEncoder。默认编码器使用 PNG 格式。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:contentType:get"><apiName>contentType</apiName><shortdesc>
+      用于捕获此快照的图像编码格式的 MIME 内容类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      用于捕获此快照的图像编码格式的 MIME 内容类型。对于 PNG 格式图像，MIME 类型为“image/png”。对于 JPG 或 JPEG 图像，MIME 类型为“image/jpeg”
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:data:get"><apiName>data</apiName><shortdesc>
+      表示图像快照的编码数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      表示图像快照的编码数据。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:height:get"><apiName>height</apiName><shortdesc>
+      图像高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      图像高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:properties:get"><apiName>properties</apiName><shortdesc>
+      一个 Object，包含指定图像附加属性的名称/值对。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>{}
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个 Object，包含指定图像附加属性的名称/值对。
+     
+      <p>通常只有在向 Adobe 的 LiveCycle Data Services 发送 ImageSnapshot 实例以生成 PDF 文件时，才需要提供此类信息。您可以设置整个对象，也可以对预先存在的空 Object 设置单个名称/值对。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:width:get"><apiName>width</apiName><shortdesc>
+     图像宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     图像宽度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+  GradientStroke 类使您可以指定渐变填充的笔触。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientStroke 类使您可以指定渐变填充的笔触。可以将 GradientStroke 类与 GradientEntry 类配合使用以定义渐变笔触。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:GradientStroke:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>指定线条的粗细（以像素为单位）。此参数是可选的，默认值为 <codeph>1</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>用于指定是否提示笔触采用完整像素的布尔值。它同时影响曲线锚点的位置以及线条笔触大小本身。在 <codeph>pixelHinting</codeph> 设置为 <codeph>true</codeph> 的情况下，Flash Player 和 AIR 将提示线条宽度采用完整像素宽度。在 <codeph>pixelHinting</codeph> 设置为 <codeph>false</codeph> 的情况下，对于曲线和直线可能会出现脱节。此参数是可选的，默认值为 <codeph>false</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为 <codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> 和 <codeph>LineScaleMode.VERTICAL</codeph>。此参数是可选的，默认值为 <codeph>LineScaleMode.NORMAL</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>用于指定线条末端处端点类型的 CapsStyle 类的值。有效值为 <codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> 和 <codeph>CapsStyle.SQUARE</codeph>。<codeph>null</codeph> 值等效于 <codeph>CapsStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>CapsStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>JointStyle 类的值，指定用于拐角的连接外观的类型。有效值为 <codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.ROUND</codeph>。<codeph>null</codeph> 值等效于 <codeph>JointStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>JointStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>一个表示将在哪个限制位置切断尖角的数字。有效值的范围是 1 到 255（超出该范围的值将舍入为 1 或 255）。只有在将 <codeph>jointStyle</codeph> 属性设置为 <codeph>miter</codeph> 时，才使用此值。<codeph>miterLimit</codeph> 值表示向外延伸的尖角可以超出角边相交所形成的结合点的长度。此值表示为线条 <codeph>thickness</codeph> 的因子。例如，<codeph>miterLimit</codeph> 因子为 2.5 且 <codeph>thickness</codeph> 为 10 像素时，尖角将在 25 像素处切断。此参数是可选的，默认值为 <codeph>3</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:GradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  对指定的 Graphics 对象应用属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要对其应用属性的 Graphics 对象。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触所应用到的形状的边界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  对指定的 Graphics 对象应用属性。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:GradientStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      生成表示此笔触的 GraphicsStroke 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示此笔触的 Drawing API-2 GraphicsStroke 对象。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触的定界框。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      生成表示此笔触的 GraphicsStroke 对象。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:GradientStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      指定各行末尾的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定各行末尾的外观。
+     
+      <p>有效值为 <codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> 和 <codeph>CapsStyle.SQUARE</codeph>。<codeph>null</codeph> 值等效于 <codeph>CapsStyle.ROUND</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.CapStyle.xml"><linktext>flash.display.CapStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      JointStyle 类的值，指定用于拐角的连接外观的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      JointStyle 类的值，指定用于拐角的连接外观的类型。
+     
+      <p>有效值为 <codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.ROUND</codeph>。<codeph>null</codeph> 值等效于 <codeph>JointStyle.ROUND</codeph>。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JointStyle.xml"><linktext>flash.display.JointStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      一个表示将在哪个限制位置切断尖角的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个表示将在哪个限制位置切断尖角的数字。 
+     
+      <p>有效值的范围是 1 到 255（超出该范围的值将舍入为 1 或 255）。</p>
+     
+      <p>仅当将 <codeph>JointStyle.MITER</codeph> 属性设置为 <codeph>jointStyle</codeph> 时，才使用此值。</p>
+     
+      <p><codeph>miterLimit</codeph> 属性的值表示向外延伸的尖角可以超出角边相交所形成的结合点的长度。此值表示为线条 <codeph>thickness</codeph> 的因子。例如，<codeph>miterLimit</codeph> 因子为 2.5 且 <codeph>thickness</codeph> 为 10 像素时，尖角将在 25 像素处切断。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      用于指定是否提示笔触采用完整像素的布尔值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于指定是否提示笔触采用完整像素的布尔值。
+     
+      <p>它同时影响曲线锚点的位置以及线条笔触大小本身。</p>
+     
+      <p>在 <codeph>pixelHinting</codeph> 设置为 <codeph>true</codeph> 的情况下，Flash Player 和 AIR 将提示线条宽度采用完整像素宽度。在 <codeph>pixelHinting</codeph> 设置为 <codeph>false</codeph> 的情况下，对于曲线和直线可能会出现脱节。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      指定要使用的缩放模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定要使用的缩放模式。有效值为：
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>始终在缩放对象时缩放线条的粗细（默认值）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>从不缩放线条粗细。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>如果<i>仅</i>垂直缩放对象，则不缩放线条粗细。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>如果<i>仅</i>水平缩放对象，则不缩放线条粗细。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      笔触粗细（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      笔触粗细（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IFill"><apiName>IFill</apiName><shortdesc>
+  定义执行填充的类必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  定义执行填充的类必须实现的接口。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:begin"><apiName>begin</apiName><shortdesc>
+	  开始填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的目标 Graphics 对象。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>定义 <codeph>target</codeph> 内填充大小的 Rectangle 对象。如果 Rectangle 的尺寸大于 <codeph>target</codeph> 的尺寸，则将剪裁填充。如果 Rectangle 的尺寸小于 <codeph>target</codeph> 的尺寸，则将扩展填充以填充整个 <codeph>target</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  开始填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:end"><apiName>end</apiName><shortdesc>
+	  结束填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的 Graphics 对象。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  结束填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.graphics:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+  GradientEntry 类定义多个对象，这些对象控制渐变填充过程中的过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:GradientEntry&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GradientEntry
+    <b>Properties</b>
+    alpha="1.0"
+    color="0x000000"
+    ratio="NaN"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientEntry 类定义多个对象，这些对象控制渐变填充过程中的过渡。将此类与 LinearGradient 和 RadialGradient 类配合使用可以定义渐变填充。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiConstructor id="mx.graphics:GradientEntry:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>此渐变条目的颜色。默认值为 0x000000（黑色）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ratio</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>在图形元素中的某位置，以 100% 对关联颜色采样。Flex 使用缺失比例值均匀分隔所有 GradientEntry。默认值为 NaN。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>渐变中此条目的 alpha 值。此参数是可选的。默认值为 1.0。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientEntry:alpha:get"><apiName>alpha</apiName><shortdesc>
+      渐变填充的透明度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      渐变填充的透明度。可能的值为 0.0（不可见）到 1.0（不透明）。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:color:get"><apiName>color</apiName><shortdesc>
+      渐变填充的颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      渐变填充的颜色值。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:ratio:get"><apiName>ratio</apiName><shortdesc>
+      在图形元素中的某位置，百分比值为 0.0 到 1.0，Flex 以 100% 对关联颜色采样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在图形元素中的某位置，百分比值为 0.0 到 1.0，Flex 以 100% 对关联颜色采样。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFillMode"><apiName>BitmapFillMode</apiName><shortdesc>
+  BitmapFillMode 类定义了调整大小模式的一个枚举，这些模式确定 BitmapImage 如何填充由布局系统指定的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapFillMode 类定义了调整大小模式的一个枚举，这些模式确定 BitmapImage 如何填充由布局系统指定的尺寸。
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/fillMode"><linktext>spark.components.Image.fillMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/fillMode"><linktext>spark.primitives.BitmapImage.fillMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapFillMode:CLIP"><apiName>CLIP</apiName><shortdesc>
+      位图在区域的边缘处结束。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clip</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      位图在区域的边缘处结束。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:REPEAT"><apiName>REPEAT</apiName><shortdesc>
+      重复位图以填充区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>repeat</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      重复位图以填充区域。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:SCALE"><apiName>SCALE</apiName><shortdesc>
+      位图填充拉伸以填充区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>scale</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      位图填充拉伸以填充区域。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+  RadialGradient 类允许指定在填充颜色中逐渐产生的颜色过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RadialGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RadialGradient
+    <b>Properties</b>
+    angle="0"
+    focalPointRatio="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadialGradient 类允许指定在填充颜色中逐渐产生的颜色过渡。径向渐变定义从图形元素中心向外以放射方式进行的填充模式。您可以将一系列 GradientEntry 对象添加到 RadialGradient 对象的 <codeph>entries</codeph> Array 中，以定义组成渐变填充的颜色。
+  
+  <p>在 MXML 中，您可以通过添加一系列 GradientEntry 对象来定义 RadialGradient，如以下示例所示：
+  <pre>
+  &lt;mx:fill>
+      &lt;mx:RadialGradient>
+          &lt;mx:entries>
+              &lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+          &lt;/mx:entries>
+      &lt;/mx:RadialGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>在 ActionScript 中，您还可以将 RadialGradient 定义为任何图形元素的填充，如以下示例所示：
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+      &lt;mx:Script>
+      import flash.display.Graphics;
+      import flash.geom.Rectangle;
+      import mx.graphics.GradientEntry;
+      import mx.graphics.RadialGradient;
+  
+      private function init():void
+      {
+          var w:Number = 200;
+          var h:Number = 200;
+  
+          var s:Sprite = new Sprite();
+          // Add the new Sprite to the display list.
+          rawChildren.addChild(s);    
+  
+          var g:Graphics = s.graphics;
+          g.lineStyle(1, 0x33CCFF, 1.0);
+  
+          var fill:RadialGradient = new RadialGradient();
+          
+          var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+          var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+          var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+          
+          fill.entries = [ g1, g2, g3 ];
+  
+          // Set focal point to upper left corner.
+          fill.angle = 45;
+          fill.focalPointRatio = -0.8;
+  
+          // Draw a box and fill it with the RadialGradient.
+          g.moveTo(0, 0);
+          fill.begin(g,new Rectangle(0, 0, w, h));
+          g.lineTo(w, 0);
+          g.lineTo(w, h);
+          g.lineTo(0, h);
+          g.lineTo(0, 0);      
+          fill.end(g);
+      }
+      &lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradient:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RadialGradient:begin"><apiName>begin</apiName><shortdesc>
+      
+	  开始填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的目标 Graphics 对象。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>定义 <codeph>target</codeph> 内填充大小的 Rectangle 对象。如果 Rectangle 的尺寸大于 <codeph>target</codeph> 的尺寸，则将剪裁填充。如果 Rectangle 的尺寸小于 <codeph>target</codeph> 的尺寸，则将扩展填充以填充整个 <codeph>target</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  开始填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:RadialGradient:end"><apiName>end</apiName><shortdesc>
+      
+	  结束填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的 Graphics 对象。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  结束填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RadialGradient:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      设置径向填充的起始位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置径向填充的起始位置。
+     
+      <p>有效值范围是从 <codeph>-1.0</codeph> 到 <codeph>1.0</codeph>。如果值为 <codeph>-1.0</codeph>，则会将焦点（或渐变填充的起始点）设置在边界 Rectangle 的左侧。如果值为 <codeph>1.0</codeph>，则会将焦点设置在边界 Rectangle 的右侧。
+      
+      <p>如果将此属性与 <codeph>angle</codeph> 属性配合使用，则此值指定焦点相对于中心的偏移量。例如，如果角度为 45 并且 <codeph>focalPointRatio</codeph> 为 0.25，则焦点位于中心的右下方。如果将 <codeph>focalPointRatio</codeph> 设置为 <codeph>0</codeph>，则焦点位于边界 Rectangle 的中央。</p>
+      如果将 <codeph>focalPointRatio</codeph> 设置为 <codeph>1</codeph>，则焦点始终位于边界 Rectangle 的右下角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      渐变转换的垂直缩放，用于定义（未旋转）渐变的高度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的垂直缩放，用于定义（未旋转）渐变的高度
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IStroke"><apiName>IStroke</apiName><shortdesc>
+  定义用于定义线条的类必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  定义用于定义线条的类必须实现的接口。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:apply"><apiName>apply</apiName><shortdesc>
+	  对指定的 Graphics 对象应用属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要对其应用属性的 Graphics 对象。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触所应用到的形状的边界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  对指定的 Graphics 对象应用属性。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      生成表示此笔触的 GraphicsStroke 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示此笔触的 Drawing API-2 GraphicsStroke 对象。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触的定界框。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      生成表示此笔触的 GraphicsStroke 对象。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      指定角度所用的直线相交处的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定角度所用的直线相交处的外观。有效值为：<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.BEVEL</codeph>。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JoingStyle.xml"><linktext>flash.display.JoingStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      表示将在哪个限制位置切断尖角。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示将在哪个限制位置切断尖角。有效值范围是 0 到 255。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      LineScaleMode 类中的一个值，指定要使用的缩放模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为：
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>始终在缩放对象时缩放线条的粗细（默认值）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>从不缩放线条粗细。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>如果<i>仅</i>垂直缩放对象，则不缩放线条粗细。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>如果<i>仅</i>水平缩放对象，则不缩放线条粗细。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:weight:get"><apiName>weight</apiName><shortdesc>
+	  线条粗细（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  线条粗细（以像素为单位）。对于许多图表线，默认值都为 1 个像素。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFill"><apiName>BitmapFill</apiName><shortdesc> 
+  定义使用位图或其他 DisplayObject 填充屏幕上的区域时使用的一组值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  定义使用位图或其他 DisplayObject 填充屏幕上的区域时使用的一组值。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:BitmapFill:BitmapFill"><apiName>BitmapFill</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:BitmapFill:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      包含矩阵和简便转换属性（x、y 和 rotation）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      包含矩阵和简便转换属性（<codeph>x</codeph>、<codeph>y</codeph> 和 <codeph>rotation</codeph>）。仅当设置 <codeph>matrix</codeph> 属性之后才能创建 compoundTransform。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:alpha:get"><apiName>alpha</apiName><shortdesc>
+      填充的透明度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      填充的透明度。可能的值为 0.0（不可见）到 1.0（不透明）。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      确定位图填充尺寸的方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定位图填充尺寸的方式。如果在标签中设置此属性的值，请使用字符串（如“repeat”）。如果在 ActionScript 中设置此属性的值，则使用该常量（如 <codeph>BitmapFillMode.CLIP</codeph>）。设置为 <codeph>BitmapFillMode.CLIP</codeph>（“clip”）时，位图在区域的边缘处结束。设置为 <codeph>BitmapFillMode.REPEAT</codeph>（“repeat”）时，位图将重复以填充区域。设置为 <codeph>BitmapFillMode.SCALE</codeph>（“scale”）时，位图将拉伸以填充区域。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:matrix:get"><apiName>matrix</apiName><shortdesc>
+      用于矩阵转换的值的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      用于矩阵转换的值的数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetX:get"><apiName>offsetX</apiName><shortdesc>
+      位图距原点的水平偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="x" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      位图距原点的水平偏移量。在旋转和缩放位图后执行此调整。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetY:get"><apiName>offsetY</apiName><shortdesc>
+      位图距原点的垂直偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="y" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      位图距原点的垂直偏移量。在旋转和缩放位图后执行此调整。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originX:get"><apiName>originX</apiName><shortdesc>
+      位图填充的水平原点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformX" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      位图填充的水平原点。应该偏移位图填充以便使此点位于原点处。对位图执行的缩放和旋转操作都围绕此点进行。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originY:get"><apiName>originY</apiName><shortdesc>
+      位图填充的垂直原点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformY" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      位图填充的垂直原点。应该偏移位图填充以便使此点位于原点处。对位图执行的缩放和旋转操作都围绕此点进行。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:repeat:get"><apiName>repeat</apiName><shortdesc>
+      填充区域时是否重复使用位图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue><apiDeprecated replacement="fillMode" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      填充区域时是否重复使用位图。如果设置为 <codeph>true</codeph>，则会使填充向外平铺到填充区域的边缘。如果设置为 <codeph>false</codeph>，则会在区域边缘结束填充。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:rotation:get"><apiName>rotation</apiName><shortdesc>
+      将旋转位图的度数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将旋转位图的度数。有效值范围是 0.0 到 360.0。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      在填充时对位图进行水平缩放的百分比，范围介于 0.0 到 1.0 之间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在填充时对位图进行水平缩放的百分比，范围介于 0.0 到 1.0 之间。如果为 1.0，则将填充实际大小的位图。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      在填充时对位图进行垂直缩放的百分比，范围介于 0.0 到 1.0 之间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在填充时对位图进行水平缩放的百分比，范围介于 0.0 到 1.0 之间。如果为 1.0，则将填充实际大小的位图。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:smooth:get"><apiName>smooth</apiName><shortdesc>
+      一个标志，指示在使用位图进行填充时是否对位图数据进行平滑处理。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示在使用位图进行填充时是否对位图数据进行平滑处理。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:source:get"><apiName>source</apiName><shortdesc>
+      用于位图填充的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于位图填充的源。可以呈示基于各种图形源的填充，其中包括： 
+      <ul>
+       <li>Bitmap 或 BitmapData 实例。</li>
+       <li>表示 DisplayObject 子类的类。BitmapFill 会将该类实例化并为其创建位图呈示。</li>
+       <li>DisplayObject 的实例。BitmapFill 将其复制到 Bitmap 中以供填充使用。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformX:get"><apiName>transformX</apiName><shortdesc>
+      填充的 x 位置转换点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      填充的 x 位置转换点。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformY:get"><apiName>transformY</apiName><shortdesc>
+      填充的 y 位置转换点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      填充的 y 位置转换点。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:x:get"><apiName>x</apiName><shortdesc>
+      沿 x 轴平移每个点的距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      沿 x 轴平移每个点的距离。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:y:get"><apiName>y</apiName><shortdesc>
+      沿 y 轴平移每个点的距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      沿 y 轴平移每个点的距离。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+  使用 LinearGradient 类，您可以指定图形元素的填充，其中渐变指定在填充颜色中逐渐产生的颜色过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:LinearGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:LinearGradient
+    <b>Properties</b>
+    angle="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  使用 LinearGradient 类，您可以指定图形元素的填充，其中渐变指定在填充颜色中逐渐产生的颜色过渡。您可以将一系列 GradientEntry 对象添加到 LinearGradient 对象的 <codeph>entries</codeph> Array 中，以定义组成渐变填充的颜色。
+  
+  <p>在 MXML 中，您可以通过添加一系列 GradientEntry 对象来定义 LinearGradient，如以下示例所示：
+  <pre>
+  &lt;mx:fill>
+  	&lt;mx:LinearGradient>
+  		&lt;mx:entries>
+  			&lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+  		&lt;/mx:entries>
+  	&lt;/mx:LinearGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>在 ActionScript 中，您还可以将 LinearGradient 定义为任何图形元素的填充，如以下示例所示：
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+  	&lt;mx:Script>
+  	import flash.display.Graphics;
+  	import flash.geom.Rectangle;
+  	import mx.graphics.GradientEntry;
+  	import mx.graphics.LinearGradient;
+  
+  	private function init():void
+      {
+  		var w:Number = 200;
+  		var h:Number = 200;
+  
+  		var s:Sprite = new Sprite();
+  		// Add the new Sprite to the display list.
+  		rawChildren.addChild(s);	
+  
+  		var g:Graphics = s.graphics;
+  		g.lineStyle(1, 0x33CCFF, 1.0);
+  
+  		var fill:LinearGradient = new LinearGradient();
+  		
+  		var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+  		var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+  		var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+    		
+   		fill.entries = [ g1, g2, g3 ];
+  		fill.angle = 240;
+  
+   		// Draw a box and fill it with the LinearGradient.
+  		g.moveTo(0, 0);
+  		fill.begin(g, new Rectangle(0, 0, w, h));
+  		g.lineTo(w, 0);
+  		g.lineTo(w, h);
+  		g.lineTo(0, h);
+  		g.lineTo(0, 0);		
+  		fill.end(g);
+  	}
+  	&lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradient:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradient:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  开始填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的目标 Graphics 对象。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>定义 <codeph>target</codeph> 内填充大小的 Rectangle 对象。如果 Rectangle 的尺寸大于 <codeph>target</codeph> 的尺寸，则将剪裁填充。如果 Rectangle 的尺寸小于 <codeph>target</codeph> 的尺寸，则将扩展填充以填充整个 <codeph>target</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  开始填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:LinearGradient:end"><apiName>end</apiName><shortdesc>
+	  
+	  结束填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的 Graphics 对象。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  结束填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+  通常使用 DropShadowFilter 类创建投影。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  通常使用 DropShadowFilter 类创建投影。但是，与所有位图滤镜一样，DropShadowFilter 从运算角度看可能需要昂贵的成本。如果将 DropShadowFilter 应用到 DisplayObject，则在对象外观发生更改时将重新计算投影。如果已对 DisplayObject 设置了动画效果（例如，使用 Resize 效果），则显示投影会影响动画刷新频率。
+ 
+  <p>此类通常用于优化投影。如果打算对边缘位于像素边界上的 rectangularly-shaped 对象应用投影，则应使用此类，而非直接使用 DropShadowFilter。</p>
+ 
+  <p>此类接受传递到 DropShadowFilter 的前四个参数：<codeph>alpha</codeph>、<codeph>angle</codeph>、<codeph>color</codeph> 和 <codeph>distance</codeph>。此外，此类接受投射阴影的 rectangularly-shaped 对象每个角（共四个角）的角半径。</p>
+ 
+  <p>如果已经设置了这 8 个值，则此类会预先计算在屏幕外 Bitmap 中的投影。调用 <codeph>drawShadow()</codeph> 方法时，则会将预先计算的投影复制到传入的 Graphics 对象。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RectangularDropShadow:drawShadow"><apiName>drawShadow</apiName><shortdesc>
+      在屏幕上呈示阴影。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要对其绘制阴影的 Graphics 对象。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>投影相对于 Graphics 对象位置的水平偏移量。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>投影相对于 Graphics 对象位置的垂直偏移量。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>阴影的宽度（以像素为单位）。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>阴影的高度（以像素为单位）。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在屏幕上呈示阴影。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="flash.filters.DropShadowFilter#alpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#alpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="flash.filters.DropShadowFilter#angle">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#angle">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+      投射阴影的圆角矩形左下角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      投射阴影的圆角矩形左下角的顶点半径。对于非圆角矩形，可能为零。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平模糊量。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直模糊量。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+      投射阴影的圆角矩形右下角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      投射阴影的圆角矩形右下角的顶点半径。对于非圆角矩形，可能为零。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="flash.filters.DropShadowFilter#color">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#color">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+      投射阴影的圆角矩形左上角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      投射阴影的圆角矩形左上角的顶点半径。对于非圆角矩形，可能为零。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+      投射阴影的圆角矩形右上角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      投射阴影的圆角矩形右上角的顶点半径。对于非圆角矩形，可能为零。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColor"><apiName>SolidColor</apiName><shortdesc> 
+  定义颜色的表示形式，包括颜色值和 alpha 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="color"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  定义颜色的表示形式，包括颜色值和 alpha 值。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColor:SolidColor"><apiName>SolidColor</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>指定颜色。默认值为 0x000000（黑色）。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>指定透明度级别。有效值的范围为 0.0（完全透明）到 1.0（完全不透明）。默认值为 1.0。
+ 	  
+ 	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColor:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  开始填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的目标 Graphics 对象。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>定义 <codeph>target</codeph> 内填充大小的 Rectangle 对象。如果 Rectangle 的尺寸大于 <codeph>target</codeph> 的尺寸，则将剪裁填充。如果 Rectangle 的尺寸小于 <codeph>target</codeph> 的尺寸，则将扩展填充以填充整个 <codeph>target</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  开始填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColor:end"><apiName>end</apiName><shortdesc>
+	  
+	  结束填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要填充的 Graphics 对象。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  结束填充。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColor:alpha:get"><apiName>alpha</apiName><shortdesc>
+	  颜色的透明度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  颜色的透明度。可能的值为 0.0（不可见）到 1.0（不透明）。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColor:color:get"><apiName>color</apiName><shortdesc>
+	  颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+	  颜色值。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+  RadialGradientStroke 类使您可以指定渐变填充的笔触。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadialGradientStroke 类使您可以指定渐变填充的笔触。可以将 RadialGradientStroke 类与 GradientEntry 类配合使用以定义渐变笔触。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradientStroke:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>指定线条的粗细（以像素为单位）。此参数是可选的，默认值为 <codeph>1</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>用于指定是否提示笔触采用完整像素的布尔值。它同时影响曲线锚点的位置以及线条笔触大小本身。在 <codeph>pixelHinting</codeph> 设置为 <codeph>true</codeph> 的情况下，Flash Player 和 AIR 将提示线条宽度采用完整像素宽度。在 <codeph>pixelHinting</codeph> 设置为 <codeph>false</codeph> 的情况下，对于曲线和直线可能会出现脱节。此参数是可选的，默认值为 <codeph>false</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为 <codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> 和 <codeph>LineScaleMode.VERTICAL</codeph>。此参数是可选的，默认值为 <codeph>LineScaleMode.NORMAL</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>用于指定线条末端处端点类型的 CapsStyle 类的值。有效值为 <codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> 和 <codeph>CapsStyle.SQUARE</codeph>。<codeph>null</codeph> 值等效于 <codeph>CapsStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>CapsStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>JointStyle 类的值，指定用于拐角的连接外观的类型。有效值为 <codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.ROUND</codeph>。<codeph>null</codeph> 值等效于 <codeph>JointStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>JointStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>一个表示将在哪个限制位置切断尖角的数字。有效值的范围是 1 到 255（超出该范围的值将舍入为 1 或 255）。只有在将 <codeph>jointStyle</codeph> 属性设置为 <codeph>miter</codeph> 时，才使用此值。<codeph>miterLimit</codeph> 值表示向外延伸的尖角可以超出角边相交所形成的结合点的长度。此值表示为线条 <codeph>thickness</codeph> 的因子。例如，<codeph>miterLimit</codeph> 因子为 2.5 且 <codeph>thickness</codeph> 为 10 像素时，尖角将在 25 像素处切断。此参数是可选的，默认值为 <codeph>3</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:RadialGradientStroke:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      设置径向填充的起始位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置径向填充的起始位置。
+     
+      <p>有效值范围是从 <codeph>-1.0</codeph> 到 <codeph>1.0</codeph>。如果值为 <codeph>-1.0</codeph>，则会将焦点（或渐变填充的起始点）设置在边界 Rectangle 的左侧。如果值为 <codeph>1.0</codeph>，则会将焦点设置在边界 Rectangle 的右侧。
+      
+      <p>如果将此属性与 <codeph>angle</codeph> 属性配合使用，则此值指定焦点相对于中心的偏移量。例如，如果角度为 45 并且 <codeph>focalPointRatio</codeph> 为 0.25，则焦点位于中心的右下方。如果将 <codeph>focalPointRatio</codeph> 设置为 <codeph>0</codeph>，则焦点位于边界 Rectangle 的中央。</p>
+      如果将 <codeph>focalPointRatio</codeph> 设置为 <codeph>1</codeph>，则焦点始终位于边界 Rectangle 的右下角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      渐变转换的垂直缩放，用于定义（未旋转）渐变的高度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的垂直缩放，用于定义（未旋转）渐变的高度
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+  LinearGradientStroke 类允许您指定渐变填充的笔触。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinearGradientStroke 类允许您指定渐变填充的笔触。您可以将 LinearGradientStroke 类与 GradientEntry 类配合使用以定义渐变笔触。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradientStroke:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>指定线条的粗细（以像素为单位）。此参数是可选的，默认值为 <codeph>1</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>用于指定是否提示笔触采用完整像素的布尔值。它同时影响曲线锚点的位置以及线条笔触大小本身。在 <codeph>pixelHinting</codeph> 设置为 <codeph>true</codeph> 的情况下，Flash Player 和 AIR 将提示线条宽度采用完整像素宽度。在 <codeph>pixelHinting</codeph> 设置为 <codeph>false</codeph> 的情况下，对于曲线和直线可能会出现脱节。此参数是可选的，默认值为 <codeph>false</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为 <codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> 和 <codeph>LineScaleMode.VERTICAL</codeph>。此参数是可选的，默认值为 {41628<codeph>LineScaleMode.NONE</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>用于指定线条末端处端点类型的 CapsStyle 类的值。有效值为 <codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> 和 <codeph>CapsStyle.SQUARE</codeph>。<codeph>null</codeph> 值等效于 <codeph>CapsStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>CapsStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>JointStyle 类的值，指定用于拐角的连接外观的类型。有效值为 <codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.ROUND</codeph>。<codeph>null</codeph> 值等效于 <codeph>JointStyle.ROUND</codeph>。此参数是可选的，默认值为 {41628<codeph>JointStyle.ROUND</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>一个表示将在哪个限制位置切断尖角的数字。有效值的范围是 1 到 255（超出该范围的值将舍入为 1 或 255）。只有在将 <codeph>jointStyle</codeph> 属性设置为 <codeph>miter</codeph> 时，才使用此值。<codeph>miterLimit</codeph> 值表示向外延伸的尖角可以超出角边相交所形成的结合点的长度。此值表示为线条 <codeph>thickness</codeph> 的因子。例如，<codeph>miterLimit</codeph> 因子为 2.5 且 <codeph>thickness</codeph> 为 10 像素时，尖角将在 25 像素处切断。此参数是可选的，默认值为 <codeph>3</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  对指定的 Graphics 对象应用属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要对其应用属性的 Graphics 对象。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触所应用到的形状的边界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  对指定的 Graphics 对象应用属性。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      渐变转换的水平缩放，用于定义（未旋转）渐变的宽度
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+  SolidColorStroke 类定义线条的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SolidColorStroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SolidColorStroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="round|none|square"
+    color="0x000000"
+    joints="round|bevel|miter"
+    miterLimit="3"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SolidColorStroke 类定义线条的属性。您可以在 MXML 中定义 SolidColorStroke 对象，但是必须将该 SolidColorStroke 附加到其他对象上，才能在应用程序中显示出来。以下示例首先定义了两个 SolidColorStroke 对象，然后将其应用于 LineChart 控件的 horizontalAxisRenderer 中：
+  
+  <pre>
+  ...
+  &lt;mx:SolidColorStroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:SolidColorStroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColorStroke:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>指定线条颜色。默认值为 0x000000（黑色）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>指定线条的粗细（以像素为单位）。默认值为 1。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>指定 alpha 值，介于 0.0 到 1.0 之间。默认值为 1.0（不透明）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否提示笔触采用完整像素。此值同时影响曲线锚点的位置以及线条笔触大小本身。默认值为 false。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为 <codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> 和 <codeph>LineScaleMode.VERTICAL</codeph>。此参数是可选的，默认值为 <codeph>LineScaleMode.NORMAL</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>指定线条结尾处的端点的类型。有效值为：<codeph>CapsStyle.ROUND</codeph>、<codeph>CapsStyle.SQUARE</codeph> 和 <codeph>CapsStyle.NONE</codeph>。默认值为 <codeph>CapsStyle.ROUND</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>指定拐角处使用的连接外观的类型。有效值为：<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.BEVEL</codeph>。默认值为 <codeph>JointStyle.ROUND</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>表示将在哪个限制位置切断尖角。有效值范围是 1 到 255。默认值为 3。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColorStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  对指定的 Graphics 对象应用属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要对其应用属性的 Graphics 对象。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触所应用到的形状的边界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  对指定的 Graphics 对象应用属性。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColorStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      生成表示此笔触的 GraphicsStroke 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示此笔触的 Drawing API-2 GraphicsStroke 对象。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>笔触的定界框。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>在目标的坐标系中定义形状的原点 (0,0) 的点。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      生成表示此笔触的 GraphicsStroke 对象。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColorStroke:alpha:get"><apiName>alpha</apiName><shortdesc>
+      线条的透明度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      线条的透明度。可能的值为 0.0（不可见）到 1.0（不透明）。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      指定线条结尾处的端点的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定线条结尾处的端点的类型。有效值为：<codeph>CapsStyle.ROUND</codeph>、<codeph>CapsStyle.SQUARE</codeph> 和 <codeph>CapsStyle.NONE</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:color:get"><apiName>color</apiName><shortdesc>
+      线条颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000 (black). 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      线条颜色。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      指定拐角处使用的连接外观的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定拐角处使用的连接外观的类型。有效值为：<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph> 和 <codeph>JointStyle.BEVEL</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      表示将在哪个限制位置切断尖角。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示将在哪个限制位置切断尖角。有效值范围是 1 到 255。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      指定是否提示笔触采用完整像素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否提示笔触采用完整像素。此值同时影响曲线锚点的位置以及线条笔触大小本身。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      LineScaleMode 类中的一个值，指定要使用的缩放模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为：
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>始终在缩放对象时缩放线条的粗细（默认值）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>从不缩放线条粗细。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>如果<i>仅</i>垂直缩放对象，则不缩放线条粗细。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>如果<i>仅</i>水平缩放对象，则不缩放线条粗细。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      线条粗细（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      线条粗细（以像素为单位）。对于很多图表，默认值都为 1 个像素。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+  GradientBase 类是 LinearGradient、LinearGradientStroke 和 RadialGradient 的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientBase 类是 LinearGradient、LinearGradientStroke 和 RadialGradient 的基类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:GradientBase:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientBase:GRADIENT_DIMENSION"><apiName>GRADIENT_DIMENSION</apiName><shortdesc>
+      未转换的渐变的宽度值和高度值
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1638.4</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      未转换的渐变的宽度值和高度值
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      包含矩阵和简便转换属性（x、y 和 rotation）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      包含矩阵和简便转换属性（<codeph>x</codeph>、<codeph>y</codeph> 和 <codeph>rotation</codeph>）。仅当设置 <codeph>matrix</codeph> 属性之后才能创建 compoundTransform。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:angle:get"><apiName>angle</apiName><shortdesc>
+      默认情况下，LinearGradientStroke 定义控件进行从左到右的过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue><apiDeprecated replacement="rotation"/></apiValueDef><apiDesc>
+      默认情况下，LinearGradientStroke 定义控件进行从左到右的过渡。使用 <codeph>angle</codeph> 属性可以控制过渡方向。例如，当值为 180.0 时，将会发生从右到左的过渡，而非从左到右的过渡。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:entries:get"><apiName>entries</apiName><shortdesc>
+      GradientEntry 对象 Array，用于定义渐变填充的填充模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      GradientEntry 对象 Array，用于定义渐变填充的填充模式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:interpolationMethod:get"><apiName>interpolationMethod</apiName><shortdesc>
+      InterpolationMethod 类中的一个值，指定要使用的 interpolation 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>InterpolationMethod.RGB
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      InterpolationMethod 类中的一个值，指定要使用的 interpolation 方法。
+     
+      <p>有效值为 <codeph>InterpolationMethod.LINEAR_RGB</codeph> 和 <codeph>InterpolationMethod.RGB</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:matrix:get"><apiName>matrix</apiName><shortdesc>
+      用于矩阵转换的值的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于矩阵转换的值的数组。
+     
+      <p>渐变 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性表示像素，而 Matrix scale 属性表示倍增。因此，它们不兼容。另一个差异是，大多数转换属性（<codeph>x</codeph>、<codeph>y</codeph>、<codeph>scaleX</codeph> 和 <codeph>scaleY</codeph>）支持 NaN 值而矩阵不支持。NaN 值意味着渐变将选择一个相应的值。</p>
+      
+      <p><codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性不能由矩阵表示。设置矩阵之后，就不再能设置 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph>。也无法将 <codeph>x</codeph> 和 <codeph>y</codeph> 设置为 NaN。可以将矩阵设置为 null，这样也会将所有简便转换属性重置为其默认值。</p>
+      
+      <p>如果已设置矩阵，则渐变绘制逻辑将缩放渐变以适合图形元素的界限。它接着会将渐变定位到图形元素的左上角。最后，它将应用矩阵变换。</p>
+    
+      <p>默认情况下，LinearGradientStroke 定义控件进行从左到右的过渡。使用 <codeph>rotation</codeph> 属性可以控制过渡方向。例如，当值为 180.0 时，将会发生从右到左的过渡，而非从左到右的过渡。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:rotation:get"><apiName>rotation</apiName><shortdesc>
+      默认情况下，LinearGradientStroke 定义控件进行从左到右的过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      默认情况下，LinearGradientStroke 定义控件进行从左到右的过渡。使用 <codeph>rotation</codeph> 属性可以控制过渡方向。例如，当值为 180.0 时，将会发生从右到左的过渡，而非从左到右的过渡。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:spreadMethod:get"><apiName>spreadMethod</apiName><shortdesc>
+      SpreadMethod 类中用于指定要使用的扩展方法的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SpreadMethod.PAD
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      SpreadMethod 类中用于指定要使用的扩展方法的值。
+     
+      <p>有效值为 <codeph>SpreadMethod.PAD</codeph>、<codeph>SpreadMethod.REFLECT</codeph> 和 <codeph>SpreadMethod.REPEAT</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:x:get"><apiName>x</apiName><shortdesc>
+      沿 x 轴平移每个点的距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      沿 x 轴平移每个点的距离。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:y:get"><apiName>y</apiName><shortdesc>
+      沿 y 轴平移每个点的距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      沿 y 轴平移每个点的距离。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapScaleMode"><apiName>BitmapScaleMode</apiName><shortdesc>
+  BitmapScaleMode 类定义缩放模式的一个枚举，这些模式确定当 fillMode 设置为 mx.graphics.BitmapFillMode.SCALE 时 BitmapImage 如何缩放图像内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapScaleMode 类定义缩放模式的一个枚举，这些模式确定当 <codeph>fillMode</codeph> 设置为 <codeph>mx.graphics.BitmapFillMode.SCALE</codeph> 时 BitmapImage 如何缩放图像内容。
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/scaleMode"><linktext>spark.components.Image.scaleMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/scaleMode"><linktext>spark.primitives.BitmapImage.scaleMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapScaleMode:LETTERBOX"><apiName>LETTERBOX</apiName><shortdesc>
+      缩放位图填充时保持原始内容的高宽比。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>letterbox</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      缩放位图填充时保持原始内容的高宽比。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:STRETCH"><apiName>STRETCH</apiName><shortdesc>
+      位图填充拉伸以填充区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      位图填充拉伸以填充区域。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:ZOOM"><apiName>ZOOM</apiName><shortdesc>
+      位图填充会被缩放和裁剪，以使原始内容的高宽比保持不变并且不显示信箱或邮筒。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>zoom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      位图填充会被缩放和裁剪，以使原始内容的高宽比保持不变并且不显示信箱或邮筒。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapSmoothingQuality"><apiName>BitmapSmoothingQuality</apiName><shortdesc>
+  平滑处理品质模式的枚举，这些模式用于确定当 fillMode 设置为 BitmapFillMode.SCALE 并且 smooth 值为 true 时，BitmapImage 如何缩放图像内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  平滑品质模式的枚举，这些模式用于确定当 fillMode 设置为 BitmapFillMode.SCALE 并且 <codeph>smooth</codeph> 值为 true 时，BitmapImage 如何缩放图像内容。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.graphics:BitmapSmoothingQuality:DEFAULT"><apiName>DEFAULT</apiName><shortdesc>
+      缩放时使用默认的平滑处理算法，与舞台品质 (stage.quality) 一致。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>default</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      缩放时使用默认的平滑处理算法，与舞台品质 (stage.quality) 一致。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapSmoothingQuality:HIGH"><apiName>HIGH</apiName><shortdesc>
+      缩放时使用高品质平滑处理算法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>high</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      缩放时使用高品质平滑处理算法。当首选较高品质的（取样缩小）缩放时使用。此选项在图像缩放到大小与原始图像的高宽比相等时将生成最佳效果，且对于生成高品质缩略图很有用。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:Stroke"><apiName>Stroke</apiName><shortdesc>
+  Stroke 类定义线条的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Stroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Stroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="null|none|round|square"
+    color="0x000000"
+    joints="null|bevel|miter|round"
+    miterLimit="1"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SolidColorStroke" sinceVersion="4.0"/><apiBaseClassifier>mx.graphics:SolidColorStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Stroke 类定义线条的属性。您可以使用 MXML 定义 Stroke 对象，但是必须将该 Stroke 附加到其它对象上，才能在应用程序中显示出来。以下示例首先定义了两个 Stroke 对象，然后将其应用于 LineChart 控件的 horizontalAxisRenderer 中：
+  
+  <pre>
+  ...
+  &lt;mx:Stroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:Stroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:Stroke:Stroke"><apiName>Stroke</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>指定线条颜色。默认值为 0x000000（黑色）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>指定线条的粗细（以像素为单位）。默认值为 0。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>指定 alpha 值，介于 0.0 到 1.0 之间。默认值为 1.0（不透明）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否提示笔触采用完整像素。此值同时影响曲线锚点的位置以及线条笔触大小本身。默认值为 false。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>LineScaleMode 类中的一个值，指定要使用的缩放模式。有效值为 <codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> 和 <codeph>LineScaleMode.VERTICAL</codeph>。此参数是可选的，默认值为 <codeph>LineScaleMode.NORMAL</codeph>。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定线条结尾处的端点的类型。有效值为 <codeph>"round"</codeph>、<codeph>"square"</codeph> 和 <codeph>"none"</codeph>。默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定拐角处使用的连接外观的类型。有效值为 <codeph>"round"</codeph>、<codeph>"miter"</codeph> 和 <codeph>"bevel"</codeph>。默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>表示将在哪个限制位置切断尖角。有效值范围是 1 到 255。默认值为 1。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

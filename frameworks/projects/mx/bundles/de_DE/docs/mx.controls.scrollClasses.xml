@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.scrollClasses"><apiName>mx.controls.scrollClasses</apiName><apiDetail/><apiClassifier id="mx.controls.scrollClasses:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+  Die ScrollThumb-Klasse definiert das Bildlauffeld in einem ScrollBar-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ScrollThumb-Klasse definiert das Bildlauffeld in einem ScrollBar-Steuerelement. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollThumb:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+  Die ScrollBar-Klasse ist die Basisklasse für die Steuerelemente HScrollBar und VScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="style" name="errorColor"/><Exclude kind="property" name="doubleClickEnabled"/><styles><style inherit="no" name="upArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach oben verwendet wird. 
+  
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+    
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach oben verwendet wird, wenn sich der Mauszeiger über der Pfeilschaltfläche befindet.
+  
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach oben verwendet wird, wenn auf die Pfeilschaltfläche geklickt wird. 
+ 
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach oben verwendet wird, wenn sie deaktiviert ist. 
+ 
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Standardskin für die Bildlaufleistenschaltfläche mit dem Pfeil nach oben verwendet wird. 
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Leiste der Bildlaufleiste verwendet wird.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Leiste der Bildlaufleiste verwendet wird, wenn der Mauszeiger über der Bildlaufleiste steht.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Leiste der Bildlaufleiste verwendet wird, wenn auf die Leiste geklickt wird. 
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Leiste der Bildlaufleiste verwendet wird, wenn die Bildlaufleiste deaktiviert ist.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Standard-Skin für die Leiste der Bildlaufleiste verwendet wird. 
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollTrackSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarTrackSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Die Farben der Leiste als Array von zwei Farben. Sie können dieselbe Farbe zweimal für eine durchgängige Leistenfarbe verwenden.
+ 
+  </description>
+<default>[0x94999b, 0xe7e7e7]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für das Bildlauffeld der Bildlaufleiste verwendet wird.
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollThumbSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für das Bildlauffeld der Bildlaufleiste verwendet wird, wenn sich der Mauszeiger über dem Bildlauffeld befindet. 
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollThumbSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOffset" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Number">
+<description>
+  Die Anzahl der Pixel für den Offset des Bildlauffelds von der Mitte der Bildlaufleiste. 
+ 
+  </description>
+<default>0 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbIcon" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Symbol für das Bildlauffeld der Bildlaufleiste verwendet wird. 
+  
+  </description>
+<default>"undefined"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für das Bildlauffeld der Bildlaufleiste verwendet wird, wenn auf das Bildlauffeld geklickt wird. 
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollThumbSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Standardskin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird. 
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollThumbSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Farbe eines beliebigen Symbols einer Komponente. Beispiele sind etwa das Häkchen eines Kontrollkästchens oder der Pfeil auf der Schaltfläche einer Bildlaufleiste.
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird.  
+  
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird, wenn sich der Mauszeiger über der Pfeilschaltfläche befindet. 
+ 
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird, wenn auf die Pfeilschaltfläche geklickt wird.  
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+  
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Skin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird, wenn sie deaktiviert ist.  
+ 
+  <p>Wenn Sie die Skin entweder grafisch oder programmgesteuert ändern, stellen Sie sicher, dass die neue Skin dieselbe Höhe (für horizontale Bildlaufleisten) bzw. Breite (für vertikale Bildlaufleisten) wie die Leiste hat. </p>
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  Name der Klasse, die als Standardskin für die Bildlaufleistenschaltfläche mit dem Pfeil nach unten verwendet wird.
+ 
+  <p>Die Standardskinklasse basiert auf dem Design. Beispielsweise ist die Standardskinklasse beim Halo-Design <codeph>mx.skins.halo.ScrollArrowSkin</codeph>. Beim Spark-Design ist die Standardskinklasse <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="highlightAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Alphatransparenzwerte für die Glanzlichtfüllung von Steuerelementen. Der erste Wert legt die Transparenz im oberen Bereich des Glanzlichts fest, der zweite Wert die Transparenz im unteren Bereich. Das Glanzlicht deckt die obere Hälfte der Skin ab.
+  
+  </description>
+<default>[ 0.3, 0.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Farben zum Tönen des Hintergrunds von Steuerelementen. Verwenden Sie für ein einheitliches Erscheinungsbild des Steuerelements dieselbe Farbe für beide Werte.
+  
+  </description>
+<default>[ 0xFFFFFF, 0xCCCCCC ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Alphatransparenz für die Hintergrundfüllung von Steuerelementen. Verwenden Sie [1, 1], um den Hintergrund undurchsichtig zu gestalten.
+  
+  </description>
+<default>[ 0.6, 0.4 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  Radius von Komponentenecken. Dieser Stil wird von den folgenden Komponenten unterstützt: Alert, Button, ComboBox, LinkButton, MenuBar, NumericStepper, Panel, ScrollBar, Tab, TitleWindow und alle Komponenten, die bei der <codeph>borderStyle</codeph>-Eigenschaft die Einstellung <codeph>"solid"</codeph> unterstützen. Der Standardwert hängt von der Komponentenklasse ab. Wenn er für diese Klasse nicht überschrieben wird, lautet er für das Halo-Design <codeph>0</codeph> und für das Spark-Design <codeph>2</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Farbe des Rahmens. Die folgenden Steuerelemente unterstützen diesen Stil: Button, CheckBox, ComboBox, MenuBar, NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider und alle Komponenten, die den <codeph>borderStyle</codeph>-Stil unterstützen. Der Standardwert hängt von der Komponentenklasse ab. Wenn er für diese Klasse nicht außer Kraft gesetzt wird, ist er <codeph>0xB7BABC</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ScrollBar&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:ScrollBar
+    <strong>Properties</strong>
+    direction="vertical|horizontal"
+    lineScrollSize="1"
+    maxScrollPosition="0"
+    minScrollPosition="0"
+    pageScrollSize="<i>Reset to the pageSize parameter of setScrollProperties</i>"
+    pageSize="0"
+    scrollPosition="0"
+ 
+    <strong>Styles</strong>
+    borderColor="0xB7BABC" 
+    cornerRadius="0" 
+    disabledIconColor="0x999999"
+    downArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+    fillAlphas="[0.6, 0.4]" 
+    fillColors="[0xFFFFFF, 0xCCCCCC]" 
+    highlightAlphas="[0.3, 0.0]" 
+    iconColor="0x111111"
+    thumbDownSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbIcon="undefined"
+    thumbOffset="0"
+    thumbOverSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbUpSkin="mx.skins.halo.ScrollThumbSkin"
+    trackColors="[0x94999b, 0xe7e7e7]"
+    trackSkin="mx.skins.halo.ScrollTrackSkin"
+    upArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ScrollBar-Klasse ist die Basisklasse für die Steuerelemente HScrollBar und VScrollBar. Ein ScrollBar-Element besteht aus zwei Pfeilschaltflächen, einer Leiste dazwischen und einem Bildlauffeld mit variabler Größe. Das Bildlauffeld wird bewegt, indem der Benutzer auf eine der Pfeilschaltflächen klickt, das Bildlauffeld in der Leiste zieht oder auf die Leiste klickt. 
+ 
+  <p>Die Breite einer Bildlaufleiste richtet sich nach der größten Breite einer ihrer Komponenten (Pfeil nach oben, Pfeil nach unten, Bildlauffeld, Leiste). Alle Subkomponenten sind in der Bildlaufleiste zentriert.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link><link href="mx.controls.xml#Button"><linktext>mx.controls.Button</linktext></link><link href="mx.controls.scrollClasses.xml#ScrollThumb"><linktext>mx.controls.scrollClasses.ScrollThumb</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollBar:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.scrollClasses:ScrollBar:setScrollProperties"><apiName>setScrollProperties</apiName><shortdesc>
+      Legt den Bereich und die Anzeigengröße des ScrollBar-Steuerelements fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pageSize</apiItemName><apiType value="Number"/><apiDesc>Zahl, die die Größe einer Seite darstellt. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>minScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Zahl, die das untere Ende des Bildlaufbereichs darstellt.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>maxScrollPosition</apiItemName><apiType value="Number"/><apiDesc>Zahl, die das obere Ende des Bildlaufbereichs darstellt.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pageScrollSize</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Zahl, die die Schrittgröße darstellt, um die der Inhalt weiterbewegt wird, wenn auf die Bildlaufleiste geklickt wird.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Legt den Bereich und die Anzeigegröße des ScrollBar-Steuerelements fest. Das ScrollBar-Steuerelement aktualisiert dementsprechend den Status der Bildlaufpfeile und die Größe des Bildlauffelds.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.scrollClasses:ScrollBar:THICKNESS"><apiName>THICKNESS</apiName><shortdesc>
+      Die Breite einer vertikalen Bildlaufleiste oder die Höhe einer horizontalen Bildlaufleiste in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>16</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Breite einer vertikalen Bildlaufleiste oder die Höhe einer horizontalen Bildlaufleiste in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:direction:get"><apiName>direction</apiName><shortdesc>
+      Legt fest, ob es sich um eine ScrollBar-Instanz für horizontalen oder vertikalen Bildlauf handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollBarDirection.VERTICAL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt fest, ob es sich um eine ScrollBar-Instanz für horizontalen oder vertikalen Bildlauf handelt. Gültige Werte in MXML sind <codeph>„vertical“</codeph> und <codeph>„horizontal“</codeph>.
+     
+      <p>In ActionScript verwenden Sie die folgenden Konstanten, um diese Eigenschaft festzulegen: <codeph>ScrollBarDirection.VERTICAL</codeph> und <codeph>ScrollBarDirection.HORIZONTAL</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBarDirection"><linktext>mx.controls.scrollClasses.ScrollBarDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:downArrowStyleFilters:get"><apiName>downArrowStyleFilters</apiName><shortdesc>
+      Gruppe von Stilen, die von der ScrollBar an den Pfeil nach unten übergeben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Gruppe von Stilen, die von der ScrollBar an den Pfeil nach unten übergeben werden.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:lineScrollSize:get"><apiName>lineScrollSize</apiName><shortdesc>
+      Einheit, um die die Bildfläche verschoben wird, wenn auf einen Bildlaufpfeil geklickt wird (in Pixeln).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Einheit, um die die Bildfläche verschoben wird, wenn auf einen Bildlaufpfeil geklickt wird (in Pixeln).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:maxScrollPosition:get"><apiName>maxScrollPosition</apiName><shortdesc>
+      Zahl, die die maximale Bildlaufposition angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Zahl, die die maximale Bildlaufposition angibt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:minScrollPosition:get"><apiName>minScrollPosition</apiName><shortdesc>
+      Zahl, die die minimale Bildlaufposition angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Zahl, die die minimale Bildlaufposition angibt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageScrollSize:get"><apiName>pageScrollSize</apiName><shortdesc>
+      Einheit, um die das Bildlauffeld bewegt wird, wenn auf die Bildlaufleiste geklickt wird, in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Einheit, um die das Bildlauffeld bewegt wird, wenn auf die Bildlaufleiste geklickt wird, in Pixeln.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageSize:get"><apiName>pageSize</apiName><shortdesc>
+      Die Anzahl der Zeilen, die einer Seite entsprechen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Anzahl der Zeilen, die einer Seite entsprechen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:scrollPosition:get"><apiName>scrollPosition</apiName><shortdesc>
+      Zahl, die die aktuelle Bildlaufposition angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Zahl, die die aktuelle Bildlaufposition angibt. Der Wert reicht von <codeph>minScrollPosition</codeph> bis <codeph>maxScrollPosition</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Gruppe von Stilen, die von der ScrollBar an das Bildlauffeld übergeben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Gruppe von Stilen, die von der ScrollBar an das Bildlauffeld übergeben werden.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:upArrowStyleFilters:get"><apiName>upArrowStyleFilters</apiName><shortdesc>
+      Gruppe von Stilen, die von der ScrollBar an den Pfeil nach oben übergeben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Gruppe von Stilen, die von der ScrollBar an den Pfeil nach oben übergeben werden.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBarDirection"><apiName>ScrollBarDirection</apiName><shortdesc>
+  Die ScrollBarDirection-Klasse definiert die Werte für die Richtungseigenschaft des ScrollBar-Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ScrollBarDirection-Klasse definiert die Werte für die <codeph>direction</codeph>-Eigenschaft des ScrollBar-Steuerelements.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Legt fest, dass es sich um ein ScrollBar-Steuerelement für horizontalen Bildlauf handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass es sich um ein ScrollBar-Steuerelement für horizontalen Bildlauf handelt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Legt fest, dass es sich um ein ScrollBar-Steuerelement für vertikalen Bildlauf handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass es sich um ein ScrollBar-Steuerelement für vertikalen Bildlauf handelt.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts.supportClasses"><apiName>spark.layouts.supportClasses</apiName><apiDetail/><apiClassifier id="spark.layouts.supportClasses:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+  LayoutBase 类为所有 Spark 布局定义基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:LayoutBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:LayoutBase 
+    <strong>Properties</strong>
+    clipAndEnableScrolling="false"
+    dropIndicator="<i>defined by the skin class</i>"
+    horizontalScrollPosition="0"
+    target="null"
+    typicalLayoutElement="null"
+    useVirtualLayout="false"
+    verticalScrollPosition="0"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LayoutBase 类为所有 Spark 布局定义基类。若要创建使用 Spark 容器的自定义布局，必须扩展 <codeph>LayoutBase</codeph> 或其子类之一。
+   <p>至少，子类必须实现 <codeph>updateDisplayList()</codeph> 方法（定位 <codeph>target</codeph> GroupBase 的元素并调整这些元素的大小）和 <codeph>measure()</codeph> 方法（计算 <codeph>target</codeph> 的默认大小）。</p>
+   <p>子类可能会覆盖诸如 <codeph>getElementBoundsAboveScrollRect()</codeph> 和 <codeph>getElementBoundsBelowScrollRect()</codeph> 等方法，以自定义将目标连接到滚动条时目标行为的方式。</p>
+ 
+  <p>支持虚拟化的子类必须重视 <codeph>useVirtualLayout</codeph> 属性，且仅应该通过使用 <codeph>getVirtualElementAt()</codeph> 从 <codeph>updateDisplayList()</codeph> 内检索 scrollRect（<codeph>getScrollRect()</codeph> 的值）内的布局元素。</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts.supportClasses:LayoutBase:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDragScrollDelta"><apiName>calculateDragScrollDelta</apiName><shortdesc>
+      计算在拖放动作中为指定 dropLocation 滚动的数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>拖动滚动的数量；如果不需要拖动滚动，则为 null。
+           </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>通过调用 <codeph>calculateDropLocation()</codeph> 方法先前获得的有效 DropLocation 对象。
+           </apiDesc></apiParam><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="Number"/><apiDesc>拖动滚动开始后的持续时间（以毫秒为单位）。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      计算在拖放动作中为指定 <codeph>dropLocation</codeph> 滚动的数量。由 <codeph>showDropIndicator()</codeph> 方法调用以计算在拖动滚动期间滚动的数量。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>calculateDropIndicatorBounds()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      返回在完成某个拖放动作的同时用户在指定的坐标处释放鼠标的情况下应该插入新项目的位置的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>拖放索引 或 -1（如果在指定坐标处拖放操作不可用）。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>在本地坐标中拖放动作的 x 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>在放置目标的本地坐标中，拖放动作的 y 坐标。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回在完成某个拖放动作的同时用户在指定的坐标处释放鼠标的情况下应该插入新项目的位置的索引。由 <codeph>calculatedDropLocation()</codeph> 方法调用。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>calculateDropLocation()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      计算拖放指示符的边界，该指示符为用户提供关于在拖放动作结尾处将项插入的位置的可视反馈。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>拖放指示符的界限或 null。
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>由 <codeph>calculateDropLocation()</codeph> 方法先前返回的有效 DropLocation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      计算拖放指示符的边界，该指示符为用户提供关于在拖放动作结尾处将项插入的位置的可视反馈。由 <codeph>showDropIndicator()</codeph> 方法调用。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDragScrollDelta()"><linktext>calculateDragScrollDelta()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:calculateDropLocation"><apiName>calculateDropLocation</apiName><shortdesc>
+      为指定的 dragEvent 在放置目标的数据提供程序中计算拖放位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回此事件的拖放位置；如果拖放操作不可用，则返回 null。
+     
+      </apiDesc><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier></apiReturn><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>由 DragManager 分派的拖放事件。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为指定的 <codeph>dragEvent</codeph> 在放置目标的数据提供程序中计算拖放位置。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:clearVirtualLayoutCache"><apiName>clearVirtualLayoutCache</apiName><shortdesc>
+      如果 useVirtualLayout 为 true，则当布局目标改变时，布局目标可以使用此方法来清除已缓存布局信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果 <codeph>useVirtualLayout</codeph> 为 <codeph>true</codeph>，则当布局目标改变时，布局目标可以使用此方法来清除已缓存布局信息。   
+     
+      <p>例如，当 DataGroup 的 <codeph>dataProvider</codeph> 或 <codeph>itemRenderer</codeph> 属性更改时，缓存的元素大小将无效。 </p>
+     
+      <p>当 <codeph>useVirtualLayout</codeph> 属性变为 <codeph>false</codeph> 时，将自动调用此方法。</p>
+     
+      <p>支持 <codeph>useVirtualLayout</codeph> = <codeph>true</codeph> 的子类必须覆盖此方法。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementAdded"><apiName>elementAdded</apiName><shortdesc>
+      在已添加布局元素之后且在验证目标的大小和显示列表之前，由目标调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>已添加的元素的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在已添加布局元素之后且在验证目标的大小和显示列表之前，由目标调用。按元素状态缓存的布局（比如虚拟布局）可以覆盖此方法以更新其缓存。
+     
+      <p>如果目标调用此方法，则它仅保证在 <codeph>updateDisplayList()</codeph> 时将在指定的索引处存在一个布局元素，例如添加目标 <codeph>dataProvider</codeph> 项目时，虚拟布局内的 DataGroup 将调用此方法。</p>
+     
+      <p>默认情况下，此方法不执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementRemoved"><linktext>elementRemoved</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementRemoved"><apiName>elementRemoved</apiName><shortdesc>
+      必须在已删除布局元素之后且在验证目标的大小和显示列表之前，由目标调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>已添加的元素的索引。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      必须在已删除布局元素之后且在验证目标的大小和显示列表之前，由目标调用此方法。按元素状态缓存的布局（比如虚拟布局）可以覆盖此方法以更新其缓存。
+     
+      <p>如果目标调用此方法，则它仅保证在 <codeph>updateDisplayList()</codeph> 时在指定的索引处将不再存在布局元素。例如，将项目添加到 <codeph>dataProvider</codeph> 属性时，具有虚拟布局的 DataGroup 会调用此方法。</p>
+     
+      <p>默认情况下，此方法不执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementAdded"><linktext>elementAdded</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsAboveScrollRect"><apiName>getElementBoundsAboveScrollRect</apiName><shortdesc>
+      返回跨越 scrollRect 的顶边或在其顶边之上的第一个布局元素的界限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>跨越 scrollRect 的顶边或在其顶边之上的第一个元素的界限。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>目标的 scrollRect。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回跨越 scrollRect 的顶边或在其顶边之上的第一个布局元素的界限。
+     
+      <p>这是 <codeph>getVerticalScrollPositionDelta()</codeph> 方法的默认实现所用的一种简便方法。依赖于 <codeph>getVerticalScrollPositionDelta()</codeph> 的默认实现的子类应该覆盖此方法，以提供一个具有有效 <codeph>top</codeph> 和 <codeph>bottom</codeph> 属性的准确边界矩形。</p>
+     
+      <p>默认情况下，此方法会返回 width=0、height=1、顶边比 <codeph>scrollRect</codeph> 的顶边短且 left=0 的矩形。</p>
+     
+      <p>子类应该覆盖此方法，以提供一个具有有效 <codeph>top</codeph> 和 <codeph>bottom</codeph> 属性的准确边界矩形。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsBelowScrollRect"><apiName>getElementBoundsBelowScrollRect</apiName><shortdesc>
+      返回跨越 scrollRect 的底边或在其底边之下的第一个布局元素的界限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>跨越 scrollRect 的底边或在其底边之下的第一个元素的界限。
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>目标的 scrollRect。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回跨越 scrollRect 的底边或在其底边之下的第一个布局元素的界限。
+           <p>这是 <codeph>getVerticalScrollPositionDelta()</codeph> 方法的默认实现所用的一种简便方法。依赖于 <codeph>getVerticalScrollPositionDelta()</codeph> 的默认实现的子类应该覆盖此方法，以提供一个具有有效 <codeph>top</codeph> 和 <codeph>bottom</codeph> 属性的准确边界矩形。</p>
+           <p>默认情况下，此方法会返回 width=0、height=1、底边比 <codeph>scrollRect</codeph> 的底边长且 left=0 的矩形。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsLeftOfScrollRect"><apiName>getElementBoundsLeftOfScrollRect</apiName><shortdesc>
+      返回跨越 scrollRect 的左边或在其左边左侧的第一个布局元素的界限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>跨越 scrollRect 的左边或在其左边左侧的第一个元素的界限。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>目标的 scrollRect。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回跨越 scrollRect 的左边或在其左边左侧的第一个布局元素的界限。
+     
+      <p>这是 <codeph>getHorizontalScrollPositionDelta()</codeph> 方法的默认实现所用的一种简便方法。依赖于 <codeph>getHorizontalScrollPositionDelta()</codeph> 的默认实现的子类应该覆盖此方法，以提供一个具有有效 <codeph>left</codeph> 和 <codeph>right</codeph> 属性的准确边界矩形。</p>
+     
+      <p>默认情况下，此方法会返回 width=1、height=0、左边比 <codeph>scrollRect</codeph> 的左边短且 top=0 的矩形。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsRightOfScrollRect"><apiName>getElementBoundsRightOfScrollRect</apiName><shortdesc>
+      返回跨越 scrollRect 的右边或在其右边右侧的第一个布局元素的界限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>跨越 scrollRect 的右边或在其右边右侧的第一个元素的界限。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>目标的 scrollRect。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回跨越 scrollRect 的右边或在其右边右侧的第一个布局元素的界限。
+     
+      <p>这是 <codeph>getHorizontalScrollPositionDelta()</codeph> 方法的默认实现所用的一种简便方法。依赖于 <codeph>getHorizontalScrollPositionDelta()</codeph> 的默认实现的子类应该覆盖此方法，以提供一个具有有效 <codeph>left</codeph> 和 <codeph>right</codeph> 属性的准确边界矩形。</p>
+     
+      <p>默认情况下，此方法会返回 width=1、height=0、右边比 <codeph>scrollRect</codeph> 的右边长且 top=0 的矩形。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getElementBounds"><apiName>getElementBounds</apiName><shortdesc>
+      如果索引无效、相应的元素为 null、includeInLayout=false，或者如果此布局的 target 属性为 null，则将指定元素的布局界限返回为 Rectangle 或 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定元素的布局界限。
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>布局元素的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果索引无效，相应的元素为 null、<codeph>includeInLayout=false</codeph>，或者如果此布局的 <codeph>target</codeph> 属性为 null，则将指定元素的布局界限返回为 Rectangle 或 null。
+       
+      <p>支持 <codeph>useVirtualLayout=true</codeph> 的布局子类必须覆盖此方法来计算未在视图中的元素的可能近似值。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsX()"><linktext>mx.core.ILayoutElement.getLayoutBoundsX()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsY()"><linktext>mx.core.ILayoutElement.getLayoutBoundsY()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsWidth()"><linktext>mx.core.ILayoutElement.getLayoutBoundsWidth()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsHeight()"><linktext>mx.core.ILayoutElement.getLayoutBoundsHeight()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getHorizontalScrollPositionDelta"><apiName>getHorizontalScrollPositionDelta</apiName><shortdesc>
+      返回对水平滚动位置的更改以处理不同的滚动选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>对水平滚动位置的更改。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>采用以下值： 
+      <ul>
+      <li> 
+      <codeph>END</codeph> 返回滚动 delta，它将使 scrollRect 与内容区域右对齐。
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> 返回滚动 delta，它将使 scrollRect 与内容区域左对齐。
+      </li>
+     
+      <li> 
+      <codeph>LEFT</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的左边或在其左边左侧的第一个元素左对齐。
+      </li>
+     
+      <li>
+      <codeph>PAGE_LEFT</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的左边或在其左边左侧的第一个元素右对齐。
+      </li>
+     
+      <li> 
+      <codeph>PAGE_RIGHT</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的右边或在其右边右侧的第一个元素左对齐。
+      </li>
+     
+      <li> 
+      <codeph>RIGHT</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的右边或在其右边右侧的第一个元素右对齐。
+      </li>
+           </ul>
+     
+      <p>该实现调用 <codeph>getElementBoundsLeftOfScrollRect()</codeph> 和 <codeph>getElementBoundsRightOfScrollRect()</codeph> 来确定元素的界限。Layout 类通常覆盖这些方法而不是 <codeph>getHorizontalScrollPositionDelta()</codeph> 方法。</p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回对水平滚动位置的更改以处理不同的滚动选项。下列选项是由 NavigationUnit 类定义的：<codeph>END</codeph>、<codeph>HOME</codeph>、<codeph>LEFT</codeph>、<codeph>PAGE_LEFT</codeph>、<codeph>PAGE_RIGHT</codeph> 和 <codeph>RIGHT</codeph>。 
+          
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getNavigationDestinationIndex"><apiName>getNavigationDestinationIndex</apiName><shortdesc>
+      确定根据 NavigationUnit、基于当前处于焦点的项目和用户输入要导航到哪个项目的委派方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要跳到的下一个项目的索引。当布局不识别 navigationUnit 时，返回 -1。  
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>currentIndex</apiItemName><apiType value="int"/><apiDesc>具有焦点的项目的当前索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>确定下一步要导航到哪个项目的 NavigationUnit 常量。  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>arrowKeysWrapFocus</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>true</codeph>，则使用箭头键在组件内导航时，如果击中某一端则将折回。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定根据 NavigationUnit、基于当前处于焦点的项目和用户输入要导航到哪个项目的委派方法。此方法供 ListBase 的子类使用，以处理键盘导航。ListBase 将用户输入映射到 NavigationUnit 常量。
+     
+      <p>子类可以覆盖此方法来计算基于当前索引和遇到的击键的其他值。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getScrollPositionDeltaToElement"><apiName>getScrollPositionDeltaToElement</apiName><shortdesc>
+     计算所需的 verticalScrollPosition 和 horizontalScrollPosition delta，以将处于指定索引处的元素滚动到视图中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含到 horizontalScrollPosition 和 verticalScrollPosition 的偏移的一个点（会将指定的元素滚动到视图中）；或者如果不需要更改，则为 null。如果指定的元素部分可见且大于滚动矩形（这意味着它已经是唯一可见的元素），则返回 null。如果指定的索引无效，或目标为 null，则返回 null。如果指定索引处的元素为 null 或者 includeInLayout 为 false，则返回 null。
+    
+     </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要滚动到视图中的元素的索引。
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+     计算所需的 <codeph>verticalScrollPosition</codeph> 和 <codeph>horizontalScrollPosition</codeph> delta，以将处于指定索引处的元素滚动到视图中。
+    
+     <p>此方法试图最小化对 <codeph>verticalScrollPosition</codeph> 和 <codeph>horizontalScrollPosition</codeph> 的更改。</p>
+    
+     <p>如果 <codeph>clipAndEnableScrolling</codeph> 为 <codeph>true</codeph>，且位于指定索引处的元素相对于目标的滚动矩形不完全可见，则返回将添加到 <codeph>horizontalScrollPosition</codeph> 和 <codeph>verticalScrollPosition</codeph> 的 delta（将在滚动矩形的界限内完全滚动元素）。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/clipAndEnableScrolling"><linktext>clipAndEnableScrolling</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/udpdateScrollRect()"><linktext>udpdateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getScrollRect"><apiName>getScrollRect</apiName><shortdesc>
+      返回布局坐标中目标的滚动矩形的界限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>布局坐标中目标的 scrollRect 的界限；如果 target 或 clipAndEnableScrolling 为 false，则为 null。 
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn></apiOperationDef><apiDesc>
+      返回布局坐标中目标的滚动矩形的界限。Layout 方法不应该直接获取目标的滚动矩形。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getVerticalScrollPositionDelta"><apiName>getVerticalScrollPositionDelta</apiName><shortdesc>
+      返回对垂直滚动位置的更改以处理不同的滚动选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>对垂直滚动位置的更改。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>采用以下值： 
+      <ul>
+      <li> 
+      <codeph>DOWN</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的底边或在其底边之下的第一个元素底对齐。
+      </li>
+     
+      <li> 
+      <codeph>END</codeph> 返回滚动 delta，它将使 scrollRect 与内容区域底对齐。
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> 返回滚动 delta，它将使 scrollRect 与内容区域顶对齐。
+      </li>
+     
+      <li> 
+      <codeph>PAGE_DOWN</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的底边或在其底边之下的第一个元素顶对齐。
+      </li>
+     
+      <codeph>PAGE_UP</codeph>
+      <li>
+      返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的顶边或在其顶边之上的第一个元素底对齐。
+      </li>
+           <li> 
+      <codeph>UP</codeph> 返回滚动 delta，它将使 scrollRect 与跨越 scrollRect 的顶边或在其顶边之上的第一个元素顶对齐。
+      </li>
+           </ul>
+     
+      <p>该实现调用 <codeph>getElementBoundsAboveScrollRect()</codeph> 和 <codeph>getElementBoundsBelowScrollRect()</codeph> 来确定元素的界限。Layout 类通常覆盖这些方法而不是 <codeph>getVerticalScrollPositionDelta()</codeph> 方法。 </p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回对垂直滚动位置的更改以处理不同的滚动选项。下列选项是由 NavigationUnit 类定义的：<codeph>DOWN</codeph>、<codeph>END</codeph>、<codeph>HOME</codeph>、<codeph>PAGE_DOWN</codeph>、<codeph>PAGE_UP</codeph> 和 <codeph>UP</codeph>。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:hideDropIndicator"><apiName>hideDropIndicator</apiName><shortdesc>
+      隐藏由 showDropIndicator() 方法创建的先前显示的拖放指示符，将其从显示列表中删除，还将停止拖放滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      隐藏由 <codeph>showDropIndicator()</codeph> 方法创建的先前显示的拖放指示符，将其从显示列表中删除，还将停止拖放滚动。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:measure"><apiName>measure</apiName><shortdesc>
+      基于目标的内容测量其默认大小，并（可选）测量目标的默认最小大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基于目标的内容测量其默认大小，并（可选）测量目标的默认最小大小。
+           <p>这是创建 LayoutBase 的子类时必须覆盖的方法之一。另一个方法是 <codeph>updateDisplayList()</codeph>。您不直接调用这些方法。Flex 将此方法作为布局传递的一部分进行调用。布局传递由三个阶段组成。</p>
+           <p>首先，如果目标的属性无效，则 LayoutManager 会调用目标的 <codeph>commitProperties</codeph> 方法。</p>
+           <p>其次，如果目标的大小无效，则 LayoutManager 会调用目标的 <codeph>validateSize()</codeph> 方法。除非目标的 <codeph>validateSize()</codeph> 已由目标的 <codeph>explicitWidth</codeph> 和 <codeph>explicitHeight</codeph> 属性显式指定，否则它将依次调用布局的 <codeph>measure()</codeph> 来计算目标的默认大小。如果默认大小改变，则 Flex 将使目标的显示列表无效。</p>
+           <p>最后，如果目标的显示列表无效，则 LayoutManager 会调用目标的 <codeph>validateDisplayList</codeph>。目标的 <codeph>validateDisplayList</codeph> 将依次调用布局的 <codeph>updateDisplayList</codeph> 方法来调整目标的元素的大小并定位这些元素。</p>
+           <p>实现此方法时，必须设置目标的 <codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性以定义目标的默认大小。您可以选择设置 <codeph>measuredMinWidth</codeph> 和 <codeph>measuredMinHeight</codeph> 属性来定义默认的最小大小。典型实现循环访问目标的元素并使用由 <codeph>ILayoutElement</codeph> 定义的方法来累积元素的首选大小和/或最小大小，然后设置目标的 <codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredMinWidth</codeph> 和 <codeph>measuredMinHeight</codeph>。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:scrollPositionChanged"><apiName>scrollPositionChanged</apiName><shortdesc>
+      verticalScrollPosition 或 horizontalScrollPosition 属性更改时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>verticalScrollPosition</codeph> 或 <codeph>horizontalScrollPosition</codeph> 属性更改时调用。
+           <p>默认实现通过调用 <codeph>updateScrollRect()</codeph> 更新目标的 <codeph>scrollRect</codeph> 属性。子类可以覆盖此方法来计算基于当前 <codeph>scrollPosition</codeph> 或 <codeph>scrollRect</codeph> 的其他值。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateScrollRect()"><linktext>updateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:showDropIndicator"><apiName>showDropIndicator</apiName><shortdesc>
+      根据指定的拖放位置调整拖放指示符的大小、确定其位置并设置其父代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>指定要显示拖放指示符的位置。拖放位置是通过 <codeph>computeDropLocation()</codeph> 方法获得的。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据指定的拖放位置调整拖放指示符的大小、确定其位置并设置其父代。使用 <codeph>calculateDropLocation()</codeph> 方法可获得 DropLocation 对象。
+           <p>满足必要的条件时，启动/停止拖动滚动。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      调整目标的元素的大小并定位这些元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>指定目标在目标坐标中的宽度（以像素为单位）。
+           </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>指定组件在目标坐标中的高度（以像素为单位）。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调整目标的元素的大小并定位这些元素。
+           <p>这是创建 LayoutBase 的子类时必须覆盖的方法之一。另一个方法是 <codeph>measure()</codeph>。您不直接调用这些方法。Flex 将此方法作为布局传递的一部分进行调用。布局传递由三个阶段组成。</p>
+           <p>首先，如果目标的属性无效，则 LayoutManager 会调用目标的 <codeph>commitProperties</codeph> 方法。</p>
+           <p>其次，如果目标的大小无效，则 LayoutManager 会调用目标的 <codeph>validateSize()</codeph> 方法。除非目标的 <codeph>validateSize()</codeph> 已由目标的 <codeph>explicitWidth</codeph> 和 <codeph>explicitHeight</codeph> 属性显式指定，否则它将依次调用布局的 <codeph>measure()</codeph> 来计算目标的默认大小。如果默认大小改变，则 Flex 将使目标的显示列表无效。</p>
+           <p>最后，如果目标的显示列表无效，则 LayoutManager 会调用目标的 <codeph>validateDisplayList</codeph>。目标的 <codeph>validateDisplayList</codeph> 将依次调用布局的 <codeph>updateDisplayList</codeph> 方法来调整目标的元素的大小并定位这些元素。</p>
+           <p>典型实现循环访问目标的元素并使用由 <codeph>ILayoutElement</codeph> 定义的方法来定位这些元素并调整其大小。然后该布局还必须计算和设置目标的 <codeph>contentWidth</codeph> 和 <codeph>contentHeight</codeph> 属性来定义目标的滚动区域。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateScrollRect"><apiName>updateScrollRect</apiName><shortdesc>
+      在其 updateDisplayList 的结尾由目标调用，以使布局更新其 scrollRect。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>目标的宽度。
+           </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>目标的高度。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在其 <codeph>updateDisplayList</codeph> 的结尾由目标调用，以使布局更新其 scrollRect。
+     
+      <p>如果 <codeph>clipAndEnableScrolling</codeph> 为 <codeph>true</codeph>，则默认的实现会将目标的 <codeph>scrollRect</codeph> 的原点设置为 <codeph>verticalScrollPosition</codeph>、<codeph>horizontalScrollPosition</codeph>。它会将其大小设置为 <codeph>width</codeph>、<codeph>height</codeph> 参数（目标的未缩放宽度和高度）。</p>
+     
+      <p>如果 <codeph>clipAndEnableScrolling</codeph> 为 <codeph>false</codeph>，则默认实现会将 <codeph>scrollRect</codeph> 设置为 null。</p>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/target"><linktext>target</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scrollRect"><linktext>flash.display.DisplayObject.scrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList()"><linktext>updateDisplayList()</linktext></link></related-links></apiOperation><apiValue id="spark.layouts.supportClasses:LayoutBase:clipAndEnableScrolling:get"><apiName>clipAndEnableScrolling</apiName><shortdesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:dropIndicator:get"><apiName>dropIndicator</apiName><shortdesc>
+      该布局在拖放操作过程中用于拖放指示符的 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      该布局在拖放操作过程中用于拖放指示符的 <codeph>DisplayObject</codeph>。通常不直接设置该属性，而是在放置目标的外观类中定义 <codeph>dropIndicator</codeph> 外观部件。
+     
+      <p>List 控件设置此属性以响应 <codeph>DragEvent.DRAG_ENTER</codeph> 事件。List 使用其 <codeph>dropIndicator</codeph> 外观部件的一个实例初始化此属性。List 清除此属性以响应 <codeph>DragEvent.DRAG_EXIT</codeph> 事件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:target:get"><apiName>target</apiName><shortdesc>
+      此布局将测量其元素、调整其元素的大小并定位其元素的 GroupBase 容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:GroupBase</apiValueClassifier><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此布局将测量其元素、调整其元素的大小并定位其元素的 GroupBase 容器。
+     
+      <p>子类可能会覆盖 setter 以执行目标特定操作。例如，3D 布局可能会在此处设置目标的 <codeph>maintainProjectionCenter</codeph> 属性。</p> 
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:typicalLayoutElement:get"><apiName>typicalLayoutElement</apiName><shortdesc>
+      当请求固定的行/列大小而未指定某个特定大小时，由布局所使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:ILayoutElement"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      当请求固定的行/列大小而未指定某个特定大小时，由布局所使用。由虚拟布局所使用，以估计尚未滚动到视图中的布局元素的大小。
+           <p>此属性引用 Flex 用于定义所有容器子项的高度的组件，如以下示例所示：</p>
+     
+      <pre>
+      &lt;s:Group>
+        &lt;s:layout>
+          &lt;s:VerticalLayout variableRowHeight="false"
+              typicalLayoutElement="{b3}"/> 
+        &lt;/s:layout>
+        &lt;s:Button id="b1" label="Button 1"/>
+        &lt;s:Button id="b2" label="Button 2"/>
+        &lt;s:Button id="b3" label="Button 3" fontSize="36"/>
+        &lt;s:Button id="b4" label="Button 4" fontSize="24"/>
+      &lt;/s:Group></pre>
+     
+      <p>如果尚未设置此属性，且目标为非空，则会缓存目标的第一个布局元素并返回该元素。</p>
+     
+      <p>默认值为目标的第一个布局元素。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.supportClasses.target.xml"><linktext>target</linktext></link><link href="spark.layouts.xml#VerticalLayout/variableRowHeight"><linktext>spark.layouts.VerticalLayout.variableRowHeight</linktext></link><link href="spark.layouts.xml#HorizontalLayout/variableColumnWidth"><linktext>spark.layouts.HorizontalLayout.variableColumnWidth</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:useVirtualLayout:get"><apiName>useVirtualLayout</apiName><shortdesc>
+      一个容器可包含任意数量的子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个容器可包含任意数量的子项。但是，每个子项需要一个项呈示器的实例。如果该容器有许多子项，则在向容器添加更多子项时，您可能会注意到性能降低。 
+           <p>不必为每个子项创建一个项呈示器，而可以配置容器使用一个虚拟布局。使用虚拟布局，容器会重用项呈示器，这样它仅会为容器的当前可见子项创建项呈示器。随着将子项移出屏幕（可能通过滚动容器），滚动到屏幕上的新子项可以重用其项呈示器。 </p>
+      
+      <p>若要配置容器使用虚拟布局，请为与容器关联的布局将 <codeph>useVirtualLayout</codeph> 属性设置为 <codeph>true</codeph>。只有布局设置为 VerticalLayout、HorizontalLayout 或 TileLayout 的 DataGroup 或 SkinnableDataContainer 才支持虚拟布局。不支持虚拟化的布局子类必须禁止更改此属性。</p>
+           <p><b>注意：</b>如果将 <codeph>useVirtualLayout</codeph> 设置为 <codeph>true</codeph>，则 BasicLayout 类会引发运行时错误。</p>
+     
+      <p>若为 <codeph>true</codeph>，则支持虚拟化的布局必须使用 <codeph>target.getVirtualElementAt()</codeph> 方法（而不是 <codeph>getElementAt()</codeph>），且必须仅获取在给定 <codeph>getScrollRect()</codeph> 的值的情况下它们预期将可见的元素。</p>
+     
+      <p>设置为 <codeph>true</codeph> 时，该布局类必须能够专门根据缓存信息计算在其 <codeph>updateDisplayList()</codeph> 方法中重叠 <codeph>scrollRect</codeph> 的布局元素的索引，而不是通过获取布局元素并检查其边界来计算索引。</p>
+     
+      <p>通常虚拟布局根据为视图中的元素计算的大小和位置，在 <codeph>updateDisplayList()</codeph> 方法中更新其缓存信息。</p>
+     
+      <p>同样，在 <codeph>measure()</codeph> 方法中，虚拟布局应该根据 <codeph>typicalLayoutElement</codeph> 和其他缓存的布局信息（而不是通过测量元素）更新目标的测量大小属性。</p>
+     
+      <p>通过循环使用先前构造但不再使用的项呈示器，容器与 <codeph>useVirtualLayout</codeph> 为 <codeph>true</codeph> 的布局相互合作。如果某个项目的索引不在 <codeph>getVirtualElementAt()</codeph> 索引（是在容器的最近 <codeph>updateDisplayList()</codeph> 调用中请求的）的范围内，则认为该项目不再使用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getScrollRect"><linktext>getScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/typicalLayoutElement"><linktext>typicalLayoutElement</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#verticalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#verticalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts.supportClasses:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+  DropLocation 类包含描述拖放操作过程中已拖动数据的拖放位置的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DropLocation 类包含描述拖放操作过程中已拖动数据的拖放位置的信息。 
+ 
+  <p><codeph>DropLocation</codeph> 是当 <codeph>List</codeph> 调用布局的 <codeph>calculateDropLocation()</codeph> 方法以响应 <codeph>dragOver</codeph> 时，由 <codeph>LayoutBase</codeph> 类创建的。</p>
+ 
+  <p>DropLocation 类供布局使用，用于执行诸如计算拖放指示符边界和拖动滚动 delta 等操作。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropLocation()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropIndicatorBounds()</linktext></link></related-links><apiConstructor id="spark.layouts.supportClasses:DropLocation:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts.supportClasses:DropLocation:dragEvent"><apiName>dragEvent</apiName><shortdesc>
+      与此位置关联的 DragEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="mx.events:DragEvent"/></apiValueDef><apiDesc>
+      与此位置关联的 <codeph>DragEvent</codeph>。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropIndex"><apiName>dropIndex</apiName><shortdesc>
+      与事件对应的拖放索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      与事件对应的拖放索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropPoint"><apiName>dropPoint</apiName><shortdesc>
+      在布局的目标的本地坐标中的事件点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      在布局的目标的本地坐标中的事件点。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

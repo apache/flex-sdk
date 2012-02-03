@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor"><apiName>ITreeDataDescriptor</apiName><shortdesc>
+  Tree コントロールによって表示されるデータコレクションに対して、ノードの解析と追加を行うための方法を提供するインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Tree コントロールによって表示されるデータコレクションに対して、ノードの解析と追加を行うための方法を提供するインターフェイスです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>正常に実行された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>子の親になるノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>ノードの子になるノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>子ノードを配置する位置の 0 から始まるインデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      ノードの子へのアクセスを提供します。子のコレクションビューを返します（存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含むコレクションビューです。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの子へのアクセスを提供します。子のコレクションビューを返します（存在する場合）。 ノードは、その子としてコレクション内の任意のオブジェクトを返すことができます。子は、ネストしている必要はありません。 指定されたノードに対して同じコレクションビューを返すことをお勧めします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      ノードからデータを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要求されたデータです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>データを取得するノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ノードを含むコレクションです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードからデータを取得します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      終端ではないノードに子があるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードに 1 つ以上の子が存在する場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在のノードです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      終端ではないノードに子があるかどうかをテストします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      ノードが終端であるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このノードが終端でないかどうかを示すブール値です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが終端であるかどうかをテストします。 ブランチは終端ではありませんが、リーフノードは必要ありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      ノードの指定されたインデックス位置にある子ノードを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>正常に実行された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>この子の親であるノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>削除されるノードオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>まもなく削除されるノードの 0 から始まるインデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの指定されたインデックス位置にある子ノードを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor2"><apiName>ITreeDataDescriptor2</apiName><shortdesc>
+  ITreeDataDescriptor2 インターフェイスは、Tree コントロールによって表示されるデータコレクションを対象にノードの解析と追加を行うための方法を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ITreeDataDescriptor2 インターフェイスは、Tree コントロールによって表示されるデータコレクションを対象にノードの解析と追加を行うための方法を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      ICollectionView インスタンスを返します。これにより、階層データを直線的な ICollectionView インスタンスのように表示できるようになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ICollectionView インスタンスです。
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>階層データです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>オブジェクトをパラメーターに取り、UID をストリングとして返す関数です。 このパラメーターは、通常 <codeph>Tree.itemToUID()</codeph> メソッドです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>開かれた状態のアイテムまたは開くように設定されたアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ICollectionView インスタンスを返します。これにより、階層データを直線的な ICollectionView インスタンスのように表示できるようになります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      ノードの深度（上位要素の数）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの深度です。0 は最上位を表し、深度を計算できない場合は -1 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>計算の実行に使用できる IViewCursor インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの深度（上位要素の数）を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getParent"><apiName>getParent</apiName><shortdesc>
+      ノードの親を返します。最上位ノードの親は null です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードを子として含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>計算の実行に使用できる ICollectionView インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの親を返します。最上位ノードの親は <codeph>null</codeph> です。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+  TreeListData クラスは、Tree コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される listData プロパティのデータ型を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeListData クラスは、Tree コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される <codeph>listData</codeph> プロパティのデータ型を定義します。 すべてのドロップインアイテムレンダラーおよびドロップインアイテムエディターは、<codeph>listData</codeph> プロパティを定義する IDropInListItemRenderer インターフェイスを実装する必要があります。
+ 
+  <p>このクラスのプロパティは書き込み可能ですが、読み取り専用であると考えてください。 それらは Tree クラスによって初期化され、アイテムレンダラーまたはアイテムエディターによって読み取られます。 これらの値を変更すると、予期しない結果が生じる可能性があります。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:TreeListData:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>アイテムデータのテキスト表現です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>アイテムの一意の識別子です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Tree コントロールへの参照です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Tree コントロールのデータプロバイダー内のアイテムのインデックスです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>現在表示されているコントロールの列内の列インデックスです。
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeListData:depth"><apiName>depth</apiName><shortdesc>
+	  ツリーにおけるアイテムのレベルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  ツリーにおけるアイテムのレベルです。 最上位レベルは 1 です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+	  Tree コントロール内のアイテムの展開用アイコンを表すクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Tree コントロール内のアイテムの展開用アイコンを表すクラスです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+	  ノードに子がある場合は true を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  ノードに子がある場合は <codeph>true</codeph> を含みます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:icon"><apiName>icon</apiName><shortdesc>
+	  Tree コントロール内のアイテムのアイコンを表すクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Tree コントロール内のアイテムのアイコンを表すクラスです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:indent"><apiName>indent</apiName><shortdesc>
+	  Tree コントロールのこの行のデフォルトのインデントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Tree コントロールのこの行のデフォルトのインデントです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:item"><apiName>item</apiName><shortdesc>
+	  Tree コントロール内のこのアイテムのデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Tree コントロール内のこのアイテムのデータです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:open"><apiName>open</apiName><shortdesc>
+	  ノードが開いている場合は true を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  ノードが開いている場合は <codeph>true</codeph> を含みます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.treeClasses:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+  DefaultDataDescriptor クラスは、Tree や Menu などのコントロールで使用するデータへのアクセスと操作を行うためのデフォルトの実装を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor2</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuDataDescriptor</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DefaultDataDescriptor クラスは、Tree や Menu などのコントロールで使用するデータへのアクセスと操作を行うためのデフォルトの実装を提供します。 この実装では、e4x XML とオブジェクトノードを同様の方法で処理しますが、完全に同じというわけではありません。 メソッドがさまざまなタイプのノードの値にどのようにアクセスするかについては、各メソッドの説明を参照してください。 このクラスは、Tree、Menu、MenuBar、および PopUpMenuButton コントロールの <codeph>dataDescriptor</codeph> プロパティのデフォルト値です。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.treeClasses.xml#ITreeDataDescriptor"><linktext>mx.controls.treeClasses.ITreeDataDescriptor</linktext></link><link href="" invalidHref="mx.controls.menuClasses.IMenuDataDescriptor.xml"><linktext>mx.controls.menuClasses.IMenuDataDescriptor</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#PopUpMenuButton"><linktext>mx.controls.PopUpMenuButton</linktext></link><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:DefaultDataDescriptor:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>正常に実行された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>子の親になるノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>ノードの子になるノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>親に対する子ノードを配置する位置の 0 から始まるインデックスです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの指定されたインデックス位置に子ノードを追加します。 この実装では、以下の処理を行います。
+     
+      <ul>
+          <li><codeph>parent</codeph> パラメーターが null または未定義の場合に、<codeph>child</codeph> パラメーターを <codeph>model</codeph> パラメーターで指定されたコレクション内の指定のインデックス位置に挿入します。
+          </li>
+          <li><codeph>parent</codeph> パラメーターに <codeph>children</codeph> フィールドまたはプロパティが存在する場合、このメソッドは <codeph>child</codeph> パラメーターを <codeph>index</codeph> パラメーターの位置に追加します。 この場合、<codeph>model</codeph> パラメーターは不要です。
+         </li>
+         <li><codeph>parent</codeph> パラメーターに <codeph>children</codeph> フィールドまたはプロパティが存在しない場合、このメソッドは <codeph>children</codeph> プロパティを <codeph>parent</codeph> に追加します。 次にこのメソッドは、<codeph>child</codeph> パラメーターを <codeph>index</codeph> パラメーターの位置の親に追加します。 この場合、<codeph>model</codeph> パラメーターは不要です。
+         </li>
+         <li><codeph>index</codeph> の値がコレクションの長さより大きいか、親に含まれている子の数より大きい場合、オブジェクトを最後の子として追加します。
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      ノードの子へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>子ノードを含むオブジェクトです。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ノードを含むコレクションです。このクラスでは無視されます。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの子へのアクセスを提供します。 子のコレクションを返します（存在する場合）。 ノードが Object の場合、このメソッドは、オブジェクトの <codeph>children</codeph> フィールドの内容を ArrayCollection として返します。 ノードが XML の場合、メソッドは、子要素を含む XMLListCollection を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      ノードのデータを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ノードを含むコレクションです。このクラスでは無視されます。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードのデータを返します。 現時点でのノード全体を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getGroupName"><apiName>getGroupName</apiName><shortdesc>
+      ノードの所属先のラジオボタングループの名前を返します（存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの <codeph>groupName</codeph> 属性またはフィールドの値です。該当するエントリが存在しない場合は、空のストリングとなります。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>グループ名を取得するノードです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードの所属先のラジオボタングループの名前を返します（存在する場合）。 このメソッドは、メニューベースのコントロールで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      
+      ICollectionView インスタンスを返します。これにより、階層データを直線的な ICollectionView インスタンスのように表示できるようになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ICollectionView インスタンスです。
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>階層データです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>オブジェクトをパラメーターに取り、UID をストリングとして返す関数です。 このパラメーターは、通常 <codeph>Tree.itemToUID()</codeph> メソッドです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>開かれた状態のアイテムまたは開くように設定されたアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ICollectionView インスタンスを返します。これにより、階層データを直線的な ICollectionView インスタンスのように表示できるようになります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      
+      ノードの深度（上位要素の数）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの深度です。0 は最上位を表し、深度を計算できない場合は -1 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>計算の実行に使用できる IViewCursor インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードの深度（上位要素の数）を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getParent"><apiName>getParent</apiName><shortdesc>
+      
+      ノードの親を返します。最上位ノードの親は null です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードを子として含む親ノードです。最上位ノードの場合は <codeph>null</codeph>、親を決定できない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>ノードを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>計算の実行に使用できる ICollectionView インスタンスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードが属するコレクションです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ノードの親を返します。最上位ノードの親は <codeph>null</codeph> です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getType"><apiName>getType</apiName><shortdesc>
+      ノードのタイプ識別子を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>type</codeph> 属性またはフィールドの値です。そのようなフィールドがない場合は空のストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>タイプを取得するノードオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードのタイプ識別子を返します。 このメソッドは、ノードがセパレーター、ラジオボタン、チェックボックス、または通常のアイテムを表しているかどうかを調べるために、メニューベースのコントロールによって使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      ノードに実際に子があるかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このノードに子がある場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ノードを含むコレクションです。このクラスでは無視されます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードに実際に子があるかどうかを判別します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      ノードが終端であるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このノードが終端でない場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>現在評価されているノードオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ノードを含むコレクションです。このクラスでは無視されます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが終端であるかどうかをテストします。 ブランチは終端ではありませんが、リーフノードは必要ありません。 ノードが XML の場合、<codeph>true</codeph> を返します（ノードに子または <codeph>true isBranch</codeph> 属性がある場合）。 ノードがオブジェクトの場合、<codeph>true</codeph> を返します（ノードに <codeph>children</codeph> フィールド（フィールドは空の可能性があります）がある場合）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isEnabled"><apiName>isEnabled</apiName><shortdesc>
+      ノードが有効かどうかを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの <codeph>enabled</codeph> 属性またはフィールドの値です。<codeph>true</codeph> になるのは、該当するエントリが存在しないか、値が <codeph>false</codeph> でない場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>状態を取得するノードです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが有効かどうかを返します。 このメソッドは、メニューベースのコントロールで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isToggled"><apiName>isToggled</apiName><shortdesc>
+      ノードが切り替えられたかどうかを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの <codeph>toggled</codeph> 属性またはフィールドの値です。そのようなエントリがない場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>状態を取得するノードです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが切り替えられたかどうかを返します。 このメソッドは、メニューベースのコントロールで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>正常に実行された場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>この子ノードの現在の親であるノードオブジェクトです。 
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>削除されるノードです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>削除する子ノードの、親からの相対的な位置を示す、0 から始まるインデックスです。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このノードがその一部となっているコレクション全体です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたインデックス位置にある子ノードをノードから削除します。 <codeph>parent</codeph> パラメーターが null または未定義の場合、このメソッドは <codeph>model</codeph> パラメーターを通じて子にアクセスします。それ以外の場合は、<codeph>parent</codeph> パラメーターを使用し、<codeph>model</codeph> パラメーターを無視します。
+    
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setEnabled"><apiName>setEnabled</apiName><shortdesc>
+      ノードが有効かどうかを識別するデータプロバイダー内のフィールドまたは属性の値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>状態を設定するノードです。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>ノードが有効かどうかを示します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが有効かどうかを識別するデータプロバイダー内のフィールドまたは属性の値を設定します。 このメソッドでは、ノードの <codeph>enabled</codeph> 属性またはフィールドの値を設定します。 このメソッドは、メニューベースのコントロールで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setToggled"><apiName>setToggled</apiName><shortdesc>
+      ノードが切り替えられたどうかを識別するデータプロバイダー内のフィールドまたは属性の値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>状態を設定するノードです。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>ノードが切り替えられたかどうかを示します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ノードが切り替えられたどうかを識別するデータプロバイダー内のフィールドまたは属性の値を設定します。 このメソッドでは、ノードの <codeph>toggled</codeph> 属性またはフィールドの値を設定します。 このメソッドは、メニューベースのコントロールで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+  TreeItemRenderer クラスは、Tree コントロールのデフォルトのアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効である場合の色です。 デフォルト値は <codeph>0xAAB3B3</codeph> です。
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントラベルのテキストの色です。 Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeItemRenderer クラスは、Tree コントロールのデフォルトのアイテムレンダラーを定義します。 デフォルトでは、このアイテムレンダラーは、ツリーの各アイテムに関連付けられたテキスト、オプションのアイコン、およびオプションの展開用アイコンを描画します。
+ 
+  <p>カスタムアイテムレンダラーを作成することにより、デフォルトのアイテムレンダラーをオーバーライドできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.treeClasses:TreeItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.treeClasses:TreeItemRenderer:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+      このレンダラーに展開用アイコンを表示する内部 IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      このレンダラーに展開用アイコンを表示する内部 IFlexDisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:icon"><apiName>icon</apiName><shortdesc>
+      このレンダラーにアイコンを表示する内部 IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      このレンダラーにアイコンを表示する内部 IFlexDisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      このレンダラーにテキストを表示する内部 UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      このレンダラーにテキストを表示する内部 UITextField です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.modules"><apiName>mx.modules</apiName><apiDetail/><apiClassifier id="mx.modules:ModuleManager"><apiName>ModuleManager</apiName><shortdesc>
+  ModuleManager 类会集中管理动态加载模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ModuleManager 类会集中管理动态加载模块。并会维持 URL 到模块的映射。模块可以处于已加载（并且可使用）状态，也可以处于尚未加载状态。ModuleManager 会分派显示模块状态的事件。客户可以注册事件处理函数，然后调用 <codeph>load()</codeph> 方法，该方法可在 factory 就绪时（或者，在已加载时可立即）分派事件。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.modules:ModuleManager:getAssociatedFactory"><apiName>getAssociatedFactory</apiName><shortdesc>
+      查看引用的对象是否与已知 IFlexModuleFactory 实现关联（或者在该实现的受管 ApplicationDomain 中）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>会返回 IFlexModuleFactory 实现，或者如果无法从 factory 创建对象类型，则会返回 <codeph>null</codeph>。
+      
+      </apiDesc><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>ModuleManager 尝试创建的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      查看引用的对象是否与已知 IFlexModuleFactory 实现关联（或者在该实现的受管 ApplicationDomain 中）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:ModuleManager:getModule"><apiName>getModule</apiName><shortdesc>
+      获取与特定 URL 关联的 IModuleInfo 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与特定 URL 关联的 IModuleInfo 接口。
+      
+      </apiDesc><apiOperationClassifier>mx.modules:IModuleInfo</apiOperationClassifier></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>表示模块位置的 URL。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取与特定 URL 关联的 IModuleInfo 接口。没有成功加载此 URL 的要求，但是 ModuleManager 针对每个唯一的 URL 返回了一个唯一的 IModuleInfo 句柄。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.modules:IModule"><apiName>IModule</apiName><shortdesc>
+      将类标记为模块的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+      将类标记为模块的接口。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:ModuleBase"><apiName>ModuleBase</apiName><shortdesc>
+  基于 ActionScript 的动态加载模块的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  基于 ActionScript 的动态加载模块的基类。如果您编写仅 ActionScript 模块，则应该扩展此类。如果您使用 MXML 文件中的 <codeph>&lt;mx:Module></codeph> 标签编写基于 MXML 的模块，就应该扩展 Module 类。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:IModuleInfo"><apiName>IModuleInfo</apiName><shortdesc>
+  作为特殊模块句柄的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  作为特殊模块句柄的接口。在此接口中，可以查询模块状态、获得模块内部 factory 以及加载或卸载模块。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  卸载模块数据时由支持 ModuleInfo 分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  卸载模块数据时由支持 ModuleInfo 分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  充分加载该模块以调用 IModuleInfo.factory() 方法和 IFlexModuleFactory.info() 方法时，由支持 ModuleInfo 分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  充分加载该模块以调用 <codeph>IModuleInfo.factory()</codeph> 方法和 <codeph>IFlexModuleFactory.info()</codeph> 方法时，由支持 ModuleInfo 分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  充分加载该模块以调用 IModuleInfo.factory() 方法和 IFlexModuleFactory.create() 方法时，由支持 ModuleInfo 分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  充分加载该模块调用 <codeph>IModuleInfo.factory()</codeph> 方法和 <codeph>IFlexModuleFactory.create()</codeph> 方法时，由支持 ModuleInfo 分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  加载模块时由支持 ModuleInfo 以固定间隔分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  加载模块时由支持 ModuleInfo 以固定间隔分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  加载模块期间发生错误时，由支持 ModuleInfo 分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  加载模块期间发生错误时，由支持 ModuleInfo 分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:load"><apiName>load</apiName><shortdesc>
+      请求加载该模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>正在其中执行代码的当前应用程序域。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>当前安全性“沙箱”。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>一个 ByteArray 对象。ByteArray 应该包含代表已编译 Module 的 SWF 文件的字节数。可以使用 URLLoader 类获得 ByteArray 对象。如果指定了此参数，则将从 ByteArray 加载模块。如果此参数为 null，则将从 url 属性中指定的 url 加载模块。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiData>null</apiData><apiDesc>调用者的 moduleFactory。moduleFactory 的一个用途是确定已加载模块的父样式管理器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请求加载该模块。如果已加载该模块，则调用不起任何作用。否则，会开始加载模块，并在加载过程中分派 <codeph>progress</codeph> 事件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:publish"><apiName>publish</apiName><shortdesc>
+      将接口发布到 ModuleManager。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>factory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>实现模块的 IFlexModuleFactory 接口的类。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将接口发布到 ModuleManager。这允许具有 String 句柄的 factory 中存在延迟（或去耦）subscriptions。使用以 <codeph>publish://</codeph> 开始的 URL 来引用以此方式发布的 factory。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:release"><apiName>release</apiName><shortdesc>
+      将当前的引用释放到模块中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将当前的引用释放到模块中。这样不会卸载该模块，除非该模块没有其它打开的引用，并且 ModuleManager 设置为仅包括限制数目的加载模块。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:unload"><apiName>unload</apiName><shortdesc>
+      卸载模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      卸载模块。如果模块中存在未完成的定义引用，则 Flash Player 和 AIR 都不会完全卸载此模块，而是将其作为垃圾回收。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:data:get"><apiName>data</apiName><shortdesc>
+      与给定 URL 的 singleton IModuleInfo 关联的用户数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      与给定 URL 的 singleton IModuleInfo 关联的用户数据。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:error:get"><apiName>error</apiName><shortdesc>
+      如果加载模块期间发生错误，则标志显示为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果加载模块期间发生错误，则标志显示为 <codeph>true</codeph>。
+      
+      <p>ModuleManager 分派 <codeph>ModuleEvent.ERROR</codeph> 事件时此标志为 <codeph>true</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:factory:get"><apiName>factory</apiName><shortdesc>
+      模块中定义的 IFlexModuleFactory 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      模块中定义的 IFlexModuleFactory 实现。只有在调用 <codeph>ModuleEvent.SETUP</codeph> 事件（或 <codeph>IModuleInfo.setup()</codeph> 方法返回 <codeph>true</codeph>）后，它才会显示为非 <codeph>null</codeph>。此时可以调用 <codeph>IFlexModuleFactory.info()</codeph> 方法。一旦分派 <codeph>ModuleEvent.READY</codeph> 事件（或 <codeph>IModuleInfo.ready()</codeph> 方法返回 <codeph>true</codeph>），就可以调用 <codeph>IFlexModuleFactory.create()</codeph> 方法。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:loaded:get"><apiName>loaded</apiName><shortdesc>
+      如果已对此模块调用 load() 方法，则标志显示为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果已针对该模块调用 <codeph>load()</codeph> 方法，则标志显示为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:ready:get"><apiName>ready</apiName><shortdesc>
+      如果可以充分加载模块以获得其关联 IFlexModuleFactory 实现的句柄以及调用其 create() 方法，则标志显示为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果可以充分加载模块以获得其关联 IFlexModuleFactory 实现的句柄以及调用其 <codeph>create()</codeph> 方法，则标志显示为 <codeph>true</codeph>。
+      
+      <p>ModuleManager 分派 <codeph>ModuleEvent.READY</codeph> 事件时，此标志为 <codeph>true</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:setup:get"><apiName>setup</apiName><shortdesc>
+      如果可以充分加载模块以获得其关联 IFlexModuleFactory 实现的句柄以及调用其 info() 方法，则标志显示为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果可以充分加载模块以获得其关联 IFlexModuleFactory 实现的句柄以及调用其 <codeph>info()</codeph> 方法，则标志显示为 <codeph>true</codeph>。
+      
+      <p>ModuleManager 分派 <codeph>ModuleEvent.SETUP</codeph> 事件时，此标志为 <codeph>true</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:url:get"><apiName>url</apiName><shortdesc>
+      与此模块关联的 URL（如“MyImageModule.swf”或“http://somedomain.com/modules/MyImageModule.swf”）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      与此模块关联的 URL（如“MyImageModule.swf”或“http://somedomain.com/modules/MyImageModule.swf”）。URL 可以是本地的也可以是远程的，但如果是远程的，则必须在模块域和加载它的应用程序之间建立信任关系。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

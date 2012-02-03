@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators.supportClasses"><apiName>spark.validators.supportClasses</apiName><apiDetail/><apiClassifier id="spark.validators.supportClasses:NumberValidatorBase"><apiName>NumberValidatorBase</apiName><shortdesc>
+  La classe NumberValidatorBase contient toutes les fonctionnalités communes qui sont requises par les classes NumberValidator et CurrencyValidator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidatorBase
+    <strong>Properties</strong>
+    allowNegative="true"
+    decimalPointCountError="The decimal separator can only occur once."
+    decimalSeparator="<i>locale specified string or customized by user</i>."
+    digitsType="<i>locale specified string or customized by user</i>."
+    domain="real"
+    fractionalDigits="<i>locale specified string or customized by user</i>."
+    fractionalDigitsError="The amount entered has too many digits beyond the decimal point."
+    greaterThanMaxError="The number entered is too large."
+    groupingSeparator="<i>locale specified string or customized by user</i>."
+    invalidCharError="The input contains invalid characters."
+    invalidFormatCharsError="One of the formatting parameters is invalid."
+    lessThanMinError="The amount entered is too small."
+    localeUndefinedError="Locale is undefined."
+    maxValue="NaN"
+    minValue="NaN"
+    negativeError="The amount may not be negative."
+    negativeSymbolError="The negative symbol is repeated or not in right place."
+    notAnIntegerError="The number must be an integer."
+    parseError="The input string could not be parsed."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:GlobalizationValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe <codeph>NumberValidatorBase</codeph> contient toutes les fonctionnalités communes qui sont requises par les classes <codeph>NumberValidator</codeph> et <codeph>CurrencyValidator</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase"><linktext>spark.formatters.supportClasses.NumberFormatterBase</linktext></link></related-links><apiConstructor id="spark.validators.supportClasses:NumberValidatorBase:NumberValidatorBase"><apiName>NumberValidatorBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.validators.supportClasses:NumberValidatorBase:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      Indique si les nombres négatifs sont autorisés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si les nombres négatifs sont autorisés. Les valeurs possibles sont <codeph>true</codeph> ou <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      Message d’erreur lorsque le séparateur décimal apparaît plus d’une fois.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can occur only once."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque le séparateur décimal apparaît plus d’une fois.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      Séparateur décimal utilisé pour la validation des nombres ayant une partie décimale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>si cette propriété se voit attribuer une valeur null.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Séparateur décimal utilisé pour la validation des nombres ayant une partie décimale.
+     
+      <p>Cette propriété est initialement définie en fonction du style de paramètres régionaux de l’objet valideur.</p>
+     
+      <p>La valeur par défaut dépend des paramètres régionaux et du système d’exploitation.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      Définit le jeu de caractères numériques à utiliser lors de la validation des nombres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Définit le jeu de caractères numériques à utiliser lors de la validation des nombres.
+     
+      <p>Selon les langues et les régions, différents jeux de caractères sont utilisés pour représenter les chiffres de 0 à 9. Cette propriété définit le jeu de chiffres à utiliser.</p>
+     
+      <p>La valeur de cette propriété représente la valeur Unicode pour le chiffre zéro d’un jeu de chiffres décimaux. Les valeurs valides de cette propriété sont définies dans la classe <codeph>NationalDigitsType</codeph>.</p>
+     
+      <p>La valeur par défaut dépend des paramètres régionaux et du système d’exploitation.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:domain:get"><apiName>domain</apiName><shortdesc>
+      Type de nombre à valider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"real"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Type de nombre à valider. Les valeurs autorisées sont <codeph>"real"</codeph> et <codeph>"int"</codeph>.
+     
+      <p>Dans le langage ActionScript, vous pouvez utiliser les constantes suivantes pour définir cette propriété : <codeph>NumberValidatorDomainType.REAL</codeph> ou <codeph>NumberValidatorDomainType.INT</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/NumberValidatorDomainType"><linktext>NumberValidatorDomainType</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:fractionalDigitsError:get"><apiName>fractionalDigitsError</apiName><shortdesc>
+      Message d’erreur lorsque le nombre de décimales dépasse la valeur spécifiée par la propriété fractionalDigits.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond the decimal
+      point."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque le nombre de décimales dépasse la valeur spécifiée par la propriété fractionalDigits.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      Nombre maximal de chiffres pouvant apparaître après le séparateur décimal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Nombre maximal de chiffres pouvant apparaître après le séparateur décimal.
+     
+      <p>La valeur par défaut dépend des paramètres régionaux et du système d’exploitation.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:greaterThanMaxError:get"><apiName>greaterThanMaxError</apiName><shortdesc>
+      Message d’erreur lorsque la valeur est supérieure à la propriété maxValue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number entered is too large."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque la valeur est supérieure à la propriété <codeph>maxValue</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      Caractère ou chaîne utilisé(e) pour le séparateur de groupes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>si cette propriété se voit attribuer une valeur null.
+     
+      <p>La valeur par défaut dépend des paramètres régionaux et du système d’exploitation.</p>
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Caractère ou chaîne utilisé(e) pour le séparateur de groupes.
+     
+      <p>La valeur de cette propriété est utilisée comme séparateur de groupes lors de la validation de nombres. Cette propriété est initialement définie en fonction des paramètres régionaux sélectionnés lors de la construction de l’objet programme de validation.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link><link href="spark.validators.supportClasses.xml#NumberValidatorBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      Message d’erreur lorsque la valeur contient des caractères non valides.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input contains invalid characters."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque la valeur contient des caractères non valides.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      Message d’erreur lorsque la valeur contient des caractères de formatage non valides, ce qui signifie qu’elle contient un chiffre ou un signe moins (-) en tant que caractère de séparateur ou qu’elle contient deux caractères de séparateur consécutifs ou plus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque la valeur contient des caractères de formatage non valides, ce qui signifie qu’elle contient un chiffre ou un signe moins (-) en tant que caractère de séparateur ou qu’elle contient deux caractères de séparateur consécutifs ou plus.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      Etat de la dernière opération que cet objet de classe a effectuée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Etat de la dernière opération que cet objet de classe a effectuée. La propriété <codeph>lastOperationStatus</codeph> est définie chaque fois que le constructeur ou une méthode de cette classe est appelé, ou qu’une autre propriété est définie. Pour les valeurs disponibles, voir la description de chaque méthode.
+     
+     </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.Globalization.LastOperationStatus.xml"><linktext>spark.Globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:lessThanMinError:get"><apiName>lessThanMinError</apiName><shortdesc>
+      Message d’erreur lorsque la valeur est inférieure à la valeur minValue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque la valeur est inférieure à la valeur <codeph>minValue</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:localeUndefinedError:get"><apiName>localeUndefinedError</apiName><shortdesc>
+      Message d’erreur lorsque les paramètres régionaux sont non définis ou ne sont pas disponibles.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Locale is undefined."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque les paramètres régionaux sont non définis ou ne sont pas disponibles.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      Valeur maximale d’un nombre valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur maximale d’un nombre valide. Une valeur NaN signifie qu’il n’existe pas de maximum.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:minValue:get"><apiName>minValue</apiName><shortdesc>
+      Valeur minimale d’un nombre valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur minimale d’un nombre valide. Une valeur NaN signifie qu’il n’existe pas de minimum.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      Message d’erreur lorsque la valeur est négative et que la propriété allowNegative est false.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque la valeur est négative et que la propriété <codeph>allowNegative </codeph> est <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeSymbolError:get"><apiName>negativeSymbolError</apiName><shortdesc>
+      Message d’erreur lorsque le symbole négatif est répété ou est à un emplacement incorrect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative symbol is repeated or not in right place."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque le symbole négatif est répété ou est à un emplacement incorrect.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      Le symbole négatif à utiliser lors de la validation de valeurs négatives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Le symbole négatif à utiliser lors de la validation de valeurs négatives.
+     
+      <p>Ce symbole est utilisé lors de la validation d’un nombre négatif. Il s’agit d’une propriété en lecture seule car tous les systèmes d’exploitation n’autorisent pas la personnalisation de cette propriété.</p>
+     
+      <p>Cette propriété est définie sur une valeur par défaut spécifiée par les paramètres régionaux.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:notAnIntegerError:get"><apiName>notAnIntegerError</apiName><shortdesc>
+      Message d’erreur lorsque le nombre doit être un nombre entier, tel que défini par la propriété domain.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number must be an integer."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque le nombre doit être un nombre entier, tel que défini par la propriété <codeph>domain</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:parseError:get"><apiName>parseError</apiName><shortdesc>
+      Message d’erreur lorsque le nombre n’a pas pu être analysé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input string could not be parsed."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsque le nombre n’a pas pu être analysé.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.validators.supportClasses:GlobalizationUtils"><apiName>GlobalizationUtils</apiName><shortdesc>
+  GlobalizationUtils est une classe contenant des fonctionnalités liées à Unicode sans prise en charge directe dans Flex ou ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GlobalizationUtils est une classe contenant des fonctionnalités liées à Unicode sans prise en charge directe dans Flex ou ActionScript.
+ 
+  <p>Cette classe contient les routines d’utilitaire nécessaires pour tous les programmes de validation. Des exemples de routines standard incluent la recherche de l’espace blanc Unicode et la supression de tous les espaces au début et à la fin d’une chaîne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isDigit"><apiName>isDigit</apiName><shortdesc>
+      Renvoie la valeur true si un code est un chiffre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><returns><code>Boolean</code> <code>true</code> if a codepoint
+      is a numeric digit, and <code>false</code> if not.
+     
+      </returns></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si un code est un chiffre.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>point de code en entrée
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur <codeph>true</codeph> si un code est un chiffre. Les chiffres pris en charge sont répertoriés dans <codeph>flash.globalization.NationalDigitsType</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isLeadingSurrogate"><apiName>isLeadingSurrogate</apiName><shortdesc>
+      Renvoie la valeur true si un code s'agit d'une substitution d'interligne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si un code est une substitution d'interligne, et <codeph>false</codeph> si ce n'est pas le cas.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>Le code d'entrée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoyer <codeph>true</codeph> si un code est une substitution d'interligne.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isTrailingSurrogate"><apiName>isTrailingSurrogate</apiName><shortdesc>
+      Renvoie la valeur true si un code s'agit d'une substitution de fin de ligne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si un code s'agit d'une substitution de fin de ligne, et <codeph>false</codeph> si ce n'est pas le cas.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>Le code d'entrée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoyer <codeph>true</codeph> si un code est une substitution de fin de ligne.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isWhiteSpace"><apiName>isWhiteSpace</apiName><shortdesc>
+      Renvoie la valeur true si un code est un espace blanc.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si un code est un espace blanc, et <codeph>false</codeph> si ce n'est pas le cas.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>Le code d'entrée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoyer <codeph>true</codeph> si un code est un espace blanc. Prend en charge tous les caractères d’espace blanc Unicode. 
+     
+      <p>Les espaces blancs Unicode pris en charge sont les suivants :
+      <pre>
+      ASCII_SPACE (0x20)
+      NO_BREAK_SPACE (0xA0)
+      UNICODE_OGHAM_SPACE_MARK (0x1680)
+      Unicode spaces 0x2000 - 0x200B
+      UNICODE_NARROW_NOBREAK_SPACE (0x202F)
+      UNICODE_MEDIUM_MATHEMATICAL_SPACE (0x205F)
+      UNICODE_IDEOGRAPHIC_SPACE (0x3000)
+      UNICODE_ZEROWIDTH_NOBREAK_SPACE (0xFEFF)
+      </pre>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:surrogateToUTF32"><apiName>surrogateToUTF32</apiName><shortdesc>
+      Convertissez une paire de substitution au format utf32.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>La utf32 équivalentes.
+     
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>c0</apiItemName><apiType value="uint"/><apiDesc>Substitution haute.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c1</apiItemName><apiType value="uint"/><apiDesc>Substitution faible.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertissez une paire de substitution au format utf32.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:trim"><apiName>trim</apiName><shortdesc>
+      Supprime les espaces blancs à gauche ou à droite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne après avoir supprimé les espaces blancs à gauche ou à droite.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>input</apiItemName><apiType value="String"/><apiDesc>Chaîne d'entrée à traiter.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime les espaces blancs à gauche ou à droite.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.validators.supportClasses:GlobalizationValidatorBase"><apiName>GlobalizationValidatorBase</apiName><shortdesc>
+  La classe GlobalizationValidatorBase est la classe de base pour tous les valideurs Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:GlobalizationValidatorBase&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlobalizationValidatorBase
+    <strong>Properties</strong>
+    enabled="true"
+    listener="<i>Value of the source property</i>"
+    property="<i>No default</i>"
+    required="true"
+    requiredFieldError="This field is required."
+    source="<i>No default</i>"
+    trigger="<i>Value of the source property</i>"
+    triggerEvent="valueCommit"
+ 
+    <b>Events</b>
+    invalid="<i>No default</i>"
+    valid="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.validators:IValidator</apiBaseInterface><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GlobalizationValidatorBase est la classe de base pour tous les valideurs Spark. Cette classe implémente la capacité d’un programme de validation à rendre un champ obligatoire, ce qui signifie que la validation échoue si l’utilisateur n’entre pas de valeur dans le champ. Cette classe active ou désactive également le valideur. 
+ 
+  </apiDesc><example conref="SimpleValidatorExample.mxml"><swfblock conref="examples/SimpleValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.events.ValidationResultEvent.xml"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="mx.validators.RegExpValidationResult.xml"><linktext>mx.validators.RegExpValidationResult</linktext></link></related-links><adobeApiEvent id="spark.validators.supportClasses:GlobalizationValidatorBase_mx.events.ValidationResultEvent.INVALID_invalid"><apiName>invalid</apiName><shortdesc>
+  Distribué si la validation échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.INVALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué si la validation échoue.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.validators.supportClasses:GlobalizationValidatorBase_mx.events.ValidationResultEvent.VALID_valid"><apiName>valid</apiName><shortdesc>
+  Distribué si la validation réussit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.VALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué si la validation réussit.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.validators.supportClasses:GlobalizationValidatorBase:GlobalizationValidatorBase"><apiName>GlobalizationValidatorBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:addListenerHandler"><apiName>addListenerHandler</apiName><shortdesc>
+      Définit tous les écouteurs pour les événements valid et invalid distribués à partir du programme de validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Définit tous les écouteurs pour les événements <codeph>valid</codeph> et <codeph>invalid</codeph> distribués à partir du programme de validation. Les sous-classes de la classe GlobalizationValidatorBase doivent d’abord appeler la méthode <codeph>removeListenerHandler()</codeph>, puis la méthode <codeph>addListenerHandler()</codeph> si la valeur de l’un de leurs écouteurs ou de l’une de leurs sources change. Les classes CreditCardValidator et DateValidator utilisent cette fonction de manière interne.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      Exécute la logique de validation de ce programme de validation, y compris la validation du fait qu’une classe manquante ou vide provoque une erreur de validation tel que défini par la valeur de la propriété requise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Pour un résultat non valide, tableau d’objets ValidationResult, avec un objet ValidationResult pour chaque champ examiné par le programme de validation ayant échoué à la validation.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à valider.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Exécute la logique de validation de ce programme de validation, y compris la validation du fait qu’une classe manquante ou vide provoque une erreur de validation tel que défini par la valeur de la propriété <codeph>requise</codeph>.
+     
+      <p>Si vous créez une sous-classe d’une classe Validator, vous devez remplacer cette méthode. </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:getValueFromSource"><apiName>getValueFromSource</apiName><shortdesc>
+      Renvoie l’objet à valider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Objet à valider.
+     
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie l’objet à valider.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:handleResults"><apiName>handleResults</apiName><shortdesc>
+      Renvoie une classe ValidationResultEvent depuis le tableau des résultats d’erreurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Classe ValidationResultEvent renvoyée par la méthode <codeph>validate()</codeph>.
+     
+      </apiDesc><apiType value="mx.events:ValidationResultEvent"/></apiReturn><apiParam><apiItemName>errorResults</apiItemName><apiType value="Array"/><apiDesc>Tableau des objets ValidationResult.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une classe ValidationResultEvent depuis le tableau des résultats d’erreurs. En interne, cette fonction extrait les résultats de la méthode <codeph>doValidation()</codeph> pour les insérer dans un objet ValidationResultEvent. Vous n’appelez jamais cette fonction directement et ne devez la remplacez que rarement.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:isRealValue"><apiName>isRealValue</apiName><shortdesc>
+      Renvoie true si la valeur n’est pas nulle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la valeur <codeph>value</codeph> n’est pas nulle.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à tester.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si la valeur <codeph>value</codeph> n’est pas nulle.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:removeListenerHandler"><apiName>removeListenerHandler</apiName><shortdesc>
+      Déconnecte tous les écouteurs pour les événements valid et invalid distribués à partir du programme de validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte tous les écouteurs pour les événements <codeph>valid</codeph> et <codeph>invalid</codeph> distribués à partir du programme de validation. Les sous-classes doivent d’abord appeler la méthode <codeph>removeListenerHandler()</codeph>, puis la méthode <codeph>addListenerHandler</codeph> si la valeur de l’un de leurs écouteurs ou de l’une de leurs sources change. Les classes CreditCardValidator et DateValidator utilisent cette fonction de manière interne.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+      Cette méthode est appelée lors de la construction d’une classe GlobalizationValidatorBase, puis chaque fois que ResourceManager distribue un événement "change" pour indiquer que les ressources localisées ont subi une modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Cette méthode est appelée lors de la construction d’une classe GlobalizationValidatorBase, puis chaque fois que ResourceManager distribue un événement <codeph>"change"</codeph> pour indiquer que les ressources localisées ont subi une modification.
+     
+      <p>Cet événement est distribué lorsque vous définissez la propriété <codeph>localeChain</codeph> de la classe ResourceManager, lorsqu’un module de ressource termine de se charger et lorsque vous appelez la méthode <codeph>update()</codeph> de la classe ResourceManager.</p>
+     
+      <p>Les sous-classes doivent remplacer cette méthode et, après avoir appelé la méthode <codeph>super.resourcesChanged()</codeph>, effectuer les tâches appropriées en réponse aux nouvelles valeurs de ressources.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:validateAll"><apiName>validateAll</apiName><shortdesc>
+      Invoque tous les objets Validator dans le tableau d’objets Validator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Tableau d’objets ValidationResultEvent, qui contient un objet ValidationResultEvent pour chaque objet Validator ayant échoué. Le tableau est vide si tous les objets Validator ont réussi.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validators</apiItemName><apiType value="Array"/><apiDesc>Tableau contenant les objets GlobalizationValidatorBase à exécuter.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Invoque tous les objets Validator dans le tableau d’objets <codeph>Validator</codeph>. Retourne un tableau contenant un objet ValidationResultEvent pour chaque objet Validator ayant échoué. Renvoie un tableau vide si tous les objets Validator ont réussi.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:validate"><apiName>validate</apiName><shortdesc>
+      Procède à la validation et, le cas échéant, informe les écouteurs du résultat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet ValidationResultEvent contenant les résultats de la validation. Pour une validation réussie, la propriété de tableau <codeph>ValidationResultEvent.results</codeph> est vide. Pour un échec de validation, la propriété de tableau <codeph>ValidationResultEvent.results</codeph> contient un objet ValidationResult pour chaque champ vérifié par le programme de validation, à la fois pour les champs ayant réussi à la validation et pour ceux ayant échoué. Examine la propriété <codeph>ValidationResult.isError</codeph> pour déterminer si le champ a réussi ou échoué à la validation.
+     
+      </apiDesc><apiType value="mx.events:ValidationResultEvent"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur facultative à valider. Si nul, le programme de validation utilise les propriétés <codeph>source</codeph> et <codeph>property</codeph> pour déterminer la valeur. Si vous spécifiez cet argument, vous devez aussi définir la propriété <codeph>listener</codeph> afin de spécifier le composant cible pour les messages d’erreur de validation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si <codeph>false</codeph>, après la validation, le programme de validation informe l’écouteur du résultat.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Procède à la validation et, le cas échéant, informe les écouteurs du résultat.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.events.ValidationResultEvent.xml"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:required"><apiName>required</apiName><shortdesc>
+      Si true, indique qu’une valeur manquante ou vide provoque une erreur de validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si <codeph>true</codeph>, indique qu’une valeur manquante ou vide provoque une erreur de validation.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:subFields"><apiName>subFields</apiName><shortdesc>
+      Tableau de chaînes contenant les noms des propriétés contenues dans l’objet value transmis à la méthode validate().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau de chaînes contenant les noms des propriétés contenues dans l’objet <codeph>value</codeph> transmis à la méthode <codeph>validate()</codeph>. Par exemple, CreditCardValidator définit cette propriété sur <codeph>[ "cardNumber", "cardType" ]</codeph>. Cette valeur signifie que l’objet <codeph>value</codeph> transmis à la méthode <codeph>validate()</codeph> doit contenir une propriété <codeph>cardNumber</codeph> et <codeph>cardType</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:actualListeners:get"><apiName>actualListeners</apiName><shortdesc>
+      Contient un tableau d’objets d’écouteurs, le cas échéant, ou l’objet source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Contient un tableau d’objets d’écouteurs, le cas échéant, ou l’objet source. Permet de déterminer quel objet informer du résultat de validation.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:actualTrigger:get"><apiName>actualTrigger</apiName><shortdesc>
+      Contient l’objet déclencheur, le cas échéant, ou l’objet source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      Contient l’objet déclencheur, le cas échéant, ou l’objet source. Permet de déterminer l’objet d’écouteur de l’événement <codeph>triggerEvent</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:enabled:get"><apiName>enabled</apiName><shortdesc>
+      Si cette valeur est définie sur false, le programme de validation arrête la validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si cette valeur est définie sur <codeph>false</codeph>, le programme de validation arrête la validation. Lorsqu’un programme de validation est désactivé, il ne distribue aucun événement et la méthode <codeph>validate()</codeph> renvoie null.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:listener:get"><apiName>listener</apiName><shortdesc>
+      Spécifie l’écouteur de validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Spécifie l’écouteur de validation.
+     
+      <p>Si vous ne spécifiez aucun écouteur, Flex utilise la valeur de la propriété <codeph>source</codeph>. Une fois que Flex a déterminé le composant source, il en change la couleur de bordure, affiche un message d’erreur pour un échec ou masque tout message d’erreur existant pour une validation réussie.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:property:get"><apiName>property</apiName><shortdesc>
+      Chaîne spécifiant le nom de la propriété de l’objet source qui contient la valeur à valider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne spécifiant le nom de la propriété de l’objet <codeph>source</codeph> qui contient la valeur à valider. Cette propriété est facultative, mais si vous spécifiez la propriété <codeph>source</codeph>, définissez également une valeur pour cette propriété.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:requiredFieldError:get"><apiName>requiredFieldError</apiName><shortdesc>
+      Message d’erreur lorsqu’une valeur est manquante et que la propriété requise est true.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This field is required."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Message d’erreur lorsqu’une valeur est manquante et que la propriété <codeph>requise</codeph> est <codeph>true</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.resources:IResourceManager"/></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:source:get"><apiName>source</apiName><shortdesc>
+      Spécifie l’objet contenant la propriété à valider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie l’objet contenant la propriété à valider. Définissez ceci sur une occurrence d’un composant ou d’un modèle de données. Utilisez la syntaxe de liaison de données dans MXML pour spécifier la valeur. Cette propriété prend en charge les chaînes séparées par des points pour spécifier des propriétés imbriquées. Si vous spécifiez une valeur pour la propriété <codeph>source</codeph>, vous devez aussi en spécifier une pour la propriété <codeph>property</codeph>. La propriété <codeph>source</codeph> est facultative.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:triggerEvent:get"><apiName>triggerEvent</apiName><shortdesc>
+      Spécifie l’événement qui déclenche la validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie l’événement qui déclenche la validation. Si omis, Flex utilise l’événement <codeph>valueCommit</codeph>. Flex distribue l’événement <codeph>valueCommit</codeph> lorsqu’un utilisateur entre des données dans un contrôle. Cela se produit généralement lorsque l’utilisateur supprime le focus du composant ou lorsqu’une valeur de propriété est changée par programmation. Si vous voulez qu’un programme de validation ignore tous les événements, définissez <codeph>triggerEvent</codeph> sur la chaîne vide ("").
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:trigger:get"><apiName>trigger</apiName><shortdesc>
+      Spécifie le composant qui génère l’événement déclenchant le programme de validation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      Spécifie le composant qui génère l’événement déclenchant le programme de validation. Si omis, Flex utilise par défaut la valeur de la propriété <codeph>source</codeph>. Lorsque le <codeph>déclencheur</codeph> distribue un événement <codeph>triggerEvent</codeph>, la validation s’exécute.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

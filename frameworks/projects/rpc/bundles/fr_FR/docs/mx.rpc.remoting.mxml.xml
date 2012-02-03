@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting.mxml"><apiName>mx.rpc.remoting.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+ Opération utilisée pour la classe RemoteObject lorsqu’elle est créée dans un document MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Opération utilisée pour la classe RemoteObject lorsqu’elle est créée dans un document MXML.
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.rpc.remoting.mxml:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+  Utilisez la balise &amp;lt;mx:RemoteObject&amp;gt; pour représenter un objet HTTPService dans un fichier MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:RemoteObject&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:RemoteObject
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  destination="<i>No default.</i>"
+  id="<i>No default.</i>"
+  endpoint="<i>No default.</i>"
+  showBusyCursor="false|true"
+  source="<i>No default.</i>" (currently, Adobe ColdFusion only)
+  makeObjectsBindable="false|true"
+  
+  <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"  
+ /&gt;
+ </pre>
+ </p>
+ 
+ <p>
+ &lt;mx:RemoteObject&gt; can have multiple &lt;mx:method&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:method
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  name="<i>No default, required.</i>"
+  makeObjectsBindable="false|true"
+         
+ <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ <p>
+ It then can have a single &lt;mx:arguments&gt; child tag which is an array of objects that is passed
+ in order.
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:RemoteObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Utilisez la balise &lt;mx:RemoteObject> pour représenter un objet HTTPService dans un fichier MXML. Cette balise permet d’accéder aux méthodes des objets Java à l’aide du codage AMF (Action Message Format).
+
+ </apiDesc><example conref="RemoteObjectExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.remoting.mxml:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     Crée une nouvelle classe RemoteObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>la destination de la classe RemoteObject doit correspondre à un nom de destination dans le fichier services-config.xml.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle classe RemoteObject.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Renvoie une opération du nom donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Opération qui s’exécute pour ce nom.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom affichable de l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie une opération du nom donné. Si l’opération n’a pas été créée auparavant, une nouvelle opération <codeph>mx.rpc.remoting.mxml.Operation</codeph> est créée lors de cet appel. Pour accéder aux opérations, il suffit en général simplement de les nommer après la variable de service (<codeph>myService.someOperation</codeph>), mais si le nom de votre opération correspond à une méthode définie sur le service (par exemple, <codeph>setCredentials</codeph>), vous pouvez utiliser cette méthode pour obtenir l’opération à la place.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:initialized"><apiName>initialized</apiName><shortdesc>
+     Appelé automatiquement par le compilateur MXML lorsque la classe RemoteObject est configurée à l’aide d’une balise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>document MXML dans lequel cette classe RemoteObject réside.
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ID de cette classe RemoteObject au sein de ce document.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Appelé automatiquement par le compilateur MXML lorsque la classe RemoteObject est configurée à l’aide d’une balise. Si vous créez la classe RemoteObject via ActionScript, vous pouvez appeler cette méthode vous-même car elle est utile pour valider des arguments.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

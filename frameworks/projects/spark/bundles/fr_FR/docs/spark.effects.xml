@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects"><apiName>spark.effects</apiName><apiDetail/><apiClassifier id="spark.effects:AnimateTransform3D"><apiName>AnimateTransform3D</apiName><shortdesc>
+  L’effet AnimateTransform3D étend les possibilités de l’effet AnimateTransform pour les propriétés de transformation 3D. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransform&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransform
+    <b>Properties</b>
+    id="ID"
+    applyChangesPostLayout="true"
+    applyLocalProjection="false"
+    autoCenterProjection="true"
+    fieldOfView="no default"
+    focalLength="no default"
+    projectionX="0"
+    projectionY="0"
+    removeLocalProjectionWhenComplete="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet AnimateTransform3D étend les possibilités de l’effet AnimateTransform pour les propriétés de transformation 3D. Comme l’effet AnimateTransform, cet effet n’est pas destiné à être utilisé directement, mais fournit des fonctionnalités communes qui est utilisé par ses sous-classes. Pour obtenir des effets 3D, utilisez les sous-classes Move3D, Rotate3D, et Scale3D. 
+ 
+  <p>Comme avec l’effet AnimateTransform, il existe certaines propriétés de cet effet qui sont partagés avec tous les autres effets de transformation qui sont combinées avec l’exécution. En particulier, les propriétés liées à la projection <codeph>applyLocalProjection</codeph>, <codeph>removeProjectionWhenComplete</codeph>, <codeph>autoCenterProjection</codeph>, <codeph>fieldOfView</codeph>, <codeph>focalLength</codeph>, <codeph>projectionX</codeph> et <codeph>projectionY</codeph> sont toutes des propriétés partagées. Définissez ces propriétés de même sur tous les effets 3D qui sont combinés dans un effet composite pour obtenir des résultats prévisibles. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateTransformInstance"><linktext>spark.effects.supportClasses.AnimateTransformInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransform3D:AnimateTransform3D"><apiName>AnimateTransform3D</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransform3D:autoCenterProjection"><apiName>autoCenterProjection</apiName><shortdesc>
+      Défini sur false pour désactiver un effet 3D qui définirait automatiquement le point de projection au centre de la cible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Défini sur <codeph>false</codeph> pour désactiver un effet 3D qui définirait automatiquement le point de projection au centre de la cible. Vous utilisez ensuite les propriétés <codeph>projectionX</codeph> et <codeph>projectionY</codeph> pour définir explicitement le point de projection point comme décalage du point de projection de la coordonnée (0, 0) de la cible. 
+     
+      <p>Les effets 3D fonctionnant par la mise en correspondance d’une image en trois dimensions sur une représentation en deux dimensions pour un affichage sur un écran d’ordinateur. Le point de projection définit le centre du champ d’affichage et contrôle la façon dont la cible est projetée de trois dimensions sur l’écran. </p>
+     
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:fieldOfView"><apiName>fieldOfView</apiName><shortdesc>
+      Spécifie l’angle, en degrés compris entre 0 et 180, du champ de vision en trois dimensions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Spécifie l’angle, en degrés compris entre <codeph>0</codeph> et <codeph>180</codeph>, du champ de vision en trois dimensions. Cette valeur détermine la puissance de la transformation de perspective, et la distorsion s’applique à un objet d’affichage tridimensionnel avec coordonnée z non nulle.
+     
+      <p>Une valeur proche de <codeph>0</codeph> signifie que les coordonnées bidimensionnelles x et y de l’écran sont quasiment les mêmes que les coordonnées tridimensionnelles x, y et z, avec très peu ou aucune distorsion. En d’autres termes, dans le cas d’un angle faible, un objet d’affichage se déplaçant vers le bas de l’axe z semble conserver à peu près la même taille et ne se déplacer que très peu. </p>
+     
+      <p>Une valeur proche de <codeph>180</codeph> degrés entraînent un effet de déformation : les positions dont la valeur <codeph>z</codeph> est inférieure à <codeph>0</codeph> sont exagérées, tandis que les positions dont la valeur <codeph>z</codeph> est supérieure à <codeph>0</codeph> sont réduites. Avec un très grand angle, un objet d’affichage se déplaçant le long de l’axe z semble changer de taille rapidement et se déplacer sur de grandes distances. Si le champ de vision est défini sur <codeph>0</codeph> ou <codeph>180</codeph>, rien n’est visible à l’écran.</p>
+     
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link><link href="" invalidHref="flash.geom.PerspectiveProjection.xml"><linktext>flash.geom.PerspectiveProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:focalLength"><apiName>focalLength</apiName><shortdesc>
+      Distance entre l’oeil ou l’origine du point de vue (0,0,0) et l’objet d’affichage placé sur l’axe z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance entre l’oeil ou l’origine du point de vue (0,0,0) et l’objet d’affichage placé sur l’axe z. Pendant la transformation de la perspective, la propriété <codeph>focalLength</codeph> est calculée dynamiquement à l’aide de l’angle du champ de vision et des proportions de la scène (largeur de la scène divisée par sa hauteur).
+      
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link><link href="" invalidHref="flash.geom.PerspectiveProjection.xml"><linktext>flash.geom.PerspectiveProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:projectionX"><apiName>projectionX</apiName><shortdesc>
+      Définit le point de projection comme le décalage du point de projection dans la direction x à partir de la coordonnée (0, 0) de la cible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit le point de projection comme le décalage du point de projection dans la direction x à partir de la coordonnée (0, 0) de la cible. Par défaut, lorsque vous appliquez un effet 3D, l’effet définit automatiquement le point de projection au centre de la cible. Vous pouvez définir la propriété <codeph>autoCenterProjection</codeph> de l’effet sur <codeph>false</codeph> pour désactiver ce paramètre par défaut et utilisez les propriétés <codeph>projectionX</codeph> et <codeph>projectionY</codeph>.
+      
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:projectionY"><apiName>projectionY</apiName><shortdesc>
+      Définit le point de projection comme le décalage du point de projection dans la direction y à partir de la coordonnée (0, 0) de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit le point de projection comme le décalage du point de projection dans la direction y à partir de la coordonnée (0, 0) de la cible. Par défaut, lorsque vous appliquez un effet 3D, l’effet définit automatiquement le point de projection au centre de la cible. Vous pouvez définir la propriété <codeph>autoCenterProjection</codeph> de l’effet sur <codeph>false</codeph> pour désactiver ce paramètre par défaut et utilisez les propriétés <codeph>projectionX</codeph> et <codeph>projectionY</codeph>.
+      
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:removeLocalProjectionWhenComplete"><apiName>removeLocalProjectionWhenComplete</apiName><shortdesc>
+      Si la valeur est true, l’effet supprime la projection de perspective depuis le parent du composant cible lorsque la lecture se termine. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, l’effet supprime la projection de perspective depuis le parent du composant cible lorsque la lecture se termine. Par défaut, la projection de perspective est conservée. 
+     
+      <p>Cette propriété est uniquement utilisée lorsque la projection <codeph>applyLocalProjection</codeph> est définie sur <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:applyChangesPostLayout:get"><apiName>applyChangesPostLayout</apiName><shortdesc> 
+      Utilisé par les sous-classes de l’effet AnimateTransform afin de spécifier si l’effet modifie les valeurs de transformation utilisées par le gestionnaire de mise en page ou si elle change les valeurs utilisées après l’exécution de la mise en page. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Utilisé par les sous-classes de l’effet AnimateTransform afin de spécifier si l’effet modifie les valeurs de transformation utilisées par le gestionnaire de mise en page ou si elle change les valeurs utilisées après l’exécution de la mise en page. Etant donné que le système de mise en forme Flex ignore les propriétés de transformation 3D, cette classe remplace la propriété <codeph>AnimateTransform.applyChangesPostLayout</codeph> afin de définir la valeur par défaut sur <codeph>true</codeph> pour les effets 3D. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransform3D:applyLocalProjection:get"><apiName>applyLocalProjection</apiName><shortdesc>
+      Si la valeur est true, l’effet crée une projection de perspective à l’aide des autres propriétés de projection de l’effet et l’applique au parent du composant cible au début de la lecture. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, l’effet crée une projection de perspective à l’aide des autres propriétés de projection de l’effet et l’applique au parent du composant cible au début de la lecture. Par défaut, la projection reste appliquée au parent à la fin de l’effet. Pour la supprimer à ce moment-là, définissez <codeph>removeLocalProjectionWhenComplete</codeph> sur <codeph>true</codeph>. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/removeLocalProjectionWhenComplete"><linktext>removeLocalProjectionWhenComplete</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateTransitionShader"><apiName>AnimateTransitionShader</apiName><shortdesc>
+ L’effet AnimateShaderTransition anime une transition entre deux images bitmap, l’une d’entre elles représentant l’état de début (bitmapFrom), l’autre l’état de fin (bitmapTo). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:AnimateTransitionShader">
+<description>
+  L’effet AnimateShaderTransition utilise Pixel Bender, qui n’est pas pris en charge par les applications mobile AIR.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransitionShader&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransitionShader
+    <b>Properties</b>
+    id="ID"
+    bitmapFrom="no default"
+    bitmapTo="no default"
+    shaderByteCode="no default"
+    sahderProperties="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+ L’effet AnimateShaderTransition anime une transition entre deux images bitmap, l’une d’entre elles représentant l’état de début (<codeph>bitmapFrom</codeph>), l’autre l’état de fin (<codeph>bitmapTo</codeph>).
+ 
+ <p>L’animation est réalisée en exécutant un programme pixel shader, spécifié par la propriété <codeph>shader</codeph>, et en utilisant comme entrée les deux images bitmap. Les images bitmap sont représentées par une occurrence de la classe flash.display.BitmapData. Vous pouvez créer votre propre programme pixel shader à l’aide d’Adobe Pixel Bender Toolkit.</p>
+ 
+ <p>Si l’une des deux images bitmap n’est pas fournie, cette valeur est déterminée de façon dynamique, soit à partir de l’état approprié de la cible dans le cas d’une transition, soit directement à partir de la cible si l’effet ne fait pas partie d’une transition. Si l’effet fait partie d’une transition et que l’objet cible disparaît ou apparaît pendant ce changement d’état, une image bitmap entièrement transparente est utilisée pour représenter l’objet manquant.</p>
+ 
+ <p>Cet effet peut uniquement être exécuté sur des cibles de type UIComponent ou GraphicElement, car l’acquisition de l’image bitmap de l’objet nécessite de disposer d’informations sur l’objet qui sont présentes uniquement dans ces classes.</p>
+ 
+ <p>Comme l’effet s’appuie sur des images bitmap et que le programme pixel shader sous-jacent suppose que la taille des deux images est identique, l’effet fonctionne correctement uniquement si les deux images bitmap sont de la même taille. Par conséquent, si l’objet cible change de taille ou d’orientation et que cela entraîne une modification de la taille du cadre de sélection, il se peut que l’effet ne soit pas lu correctement.</p>
+ 
+ <p>Cet effet et ses sous-classes diffèrent des autres effets de Flex, dans la mesure où ils sont destinés à fonctionner de façon autonome. Par conséquent, leur résultat est imprévisible s’ils sont exécutés parallèlement à d’autres effets. Cette contrainte est due au fait que les deux images bitmap avant/après sont collectées avant le début de l’effet. Ainsi, si l’objet cible subit une quelconque modification après le calcul de ces images bitmap, par exemple si un autre effet modifie les propriétés de la cible, ces modifications ne sont pas prises en compte dans l’image bitmap précalculée et les résultats sont alors imprévisibles. Pour assurer le bon déroulement de ces effets bitmap, ils doivent être lus de façon exclusive sur leurs objets cible.</p>
+  
+  </apiDesc><example conref="AnimateTransitionShaderExample.mxml"><swfblock conref="examples/AnimateTransitionShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="spark.effects.supportClasses.xml#AnimateTransitionShaderInstance"><linktext>spark.effects.supportClasses.AnimateTransitionShaderInstance</linktext></link><link href="spark.primitives.supportClasses.xml#GraphicElement"><linktext>spark.primitives.supportClasses.GraphicElement</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransitionShader:AnimateTransitionShader"><apiName>AnimateTransitionShader</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransitionShader:bitmapFrom"><apiName>bitmapFrom</apiName><shortdesc>
+     Données bitmap représentant l’état de départ de cet effet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc>
+     Données bitmap représentant l’état de départ de cet effet. Si cette propriété n’est pas définie, elle est calculée automatiquement lors de la lecture de l’effet, en prenant un instantané de l’objet cible ou en utilisant une image bitmap transparente si l’objet n’existe pas dans l’état d’affichage de départ d’une transition.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:bitmapTo"><apiName>bitmapTo</apiName><shortdesc>
+     Données bitmap représentant l’état de fin de cet effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc>
+     Données bitmap représentant l’état de fin de cet effet. Si cette propriété n’est pas définie, elle est calculée automatiquement lors de la lecture de l’effet, en prenant un instantané de l’objet cible ou en utilisant une image bitmap transparente si l’objet n’existe pas dans l’état d’affichage de fin d’une transition.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:shaderByteCode"><apiName>shaderByteCode</apiName><shortdesc>
+     Pseudo-code binaire du programme pixel shader utilisé par l’effet pour réaliser l’animation entre les deux images bitmap.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Pseudo-code binaire du programme de pixel shader utilisé par l’effet pour réaliser l’animation entre les deux images bitmap. Cette propriété peut être représentée par un objet ByteArray ou un objet Class représentant un objet ByteArray (cet objet Class est obtenu lorsque vous imbriquez une ressource).
+     
+     <p>Le programme pixel shader peut disposer de fonctions et d’entrées arbitraires, mais il doit au minimum posséder trois entrées <codeph>image4</codeph>. La première entrée, dont le nom n’a pas d’importance, n’est normalement pas utilisée par le code de votre programme pixel shader : elle sert uniquement à satisfaire la première exigence de Flash, qui nécessite d’affecter un objet filtré à la première entrée. Les entrées qui ne sont pas du tout utilisées dans un programme pixel shader peuvent être optimisées en sortie. Par conséquent, le code doit faire référence au moins une fois à cette entrée.</p>
+     
+     <p>Au moins deux autres entrées d’images bitmap doivent être définies. Celles-ci doivent être appelées <codeph>from</codeph> et <codeph>to</codeph> et correspondre respectivement aux images avant et après. Enfin, vous devez définir un paramètre <codeph>float</codeph> appelé <codeph>progress</codeph>, qui doit contenir la fraction écoulée de l’effet.</p>
+     
+     <p>Deux paramètres facultatifs peuvent être définis : <codeph>width</codeph> et <codeph>height</codeph>. Lorsqu’ils sont définis, ils prennent automatiquement les valeurs de largeur et de hauteur de la cible de l’effet.</p>
+     
+     <p>Pour plus d’informations sur la création de programmes pixel shader pour Flash, voir la documentation de Pixel Bender Toolkit. Le code source du fichier CrossFade.pbk est disponible dans le répertoire frameworks\projects\flex4\src\spark\effects du code source de Flex.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:shaderProperties"><apiName>shaderProperties</apiName><shortdesc>
+     Mappage de paires de paramètres nom/valeur transmis au programme pixel shader avant la lecture.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Mappage de paires de paramètres nom/valeur transmis au programme pixel shader avant la lecture. Par exemple, pour définir un paramètre appelé <codeph>direction</codeph> dans un shader à l’aide d’un fichier Pixel Bender pbj dans Wipe.pbj, le code d’appel peut se présenter comme suit : 
+     
+     <pre>
+       [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
+       private var WipeCodeClass:Class;
+       var shaderEffect = new AnimateTransitionShader();
+       shaderEffect.shaderByteCode = WipeCodeClass;
+       shaderEffect.shaderProperties = {direction : 1};
+     </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Move3D"><apiName>Move3D</apiName><shortdesc>
+  La classe Move3D déplace un objet cible dans le x, y et z dimensions. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Move3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Move3D
+    <b>Properties</b>
+    id="ID"
+    xBy="no default"
+    xFrom="no default"
+    xTo="no default"
+    yBy="no default"
+    yFrom="no default"
+    yTo="no default"
+    zBy="no default"
+    zFrom="no default"
+    zTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Move3D déplace un objet cible dans le x, y et z dimensions. Les spécifications de propriété x, y et z de l’effet Move3D indiquent le changement sur x, y et z qui doit se passer dans le centre de transformation autour duquel l’effet de transformation globale se produit.  
+ 
+  <p>Comme tous les effets de type AnimateTransform, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement, car il dépend des fonctions de transformation propres à ces classes. Par ailleurs, les effets de transformation s’exécutant en parallèle sur la même cible s’exécutent comme une seule occurrence d’effet. Par conséquent, les effets de transformation partagent le centre de transformation défini par l’un des effets contributeurs. </p>
+  
+  </apiDesc><example conref="Move3DEffectExample.mxml"><swfblock conref="examples/Move3DEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#Move"><linktext>spark.effects.Move</linktext></link></related-links><apiConstructor id="spark.effects:Move3D:Move3D"><apiName>Move3D</apiName><shortdesc> 
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> 
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Move3D:xBy"><apiName>xBy</apiName><shortdesc> 
+      Nombre de pixels de déplacement de la position x de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels de déplacement de la position x de la cible. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:xFrom"><apiName>xFrom</apiName><shortdesc> 
+      Position x initiale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position x initiale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:xTo"><apiName>xTo</apiName><shortdesc> 
+      Valeur x finale, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Valeur x finale, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yBy"><apiName>yBy</apiName><shortdesc> 
+      Nombre de pixels de déplacement de la position y de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels de déplacement de la position y de la cible. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yFrom"><apiName>yFrom</apiName><shortdesc> 
+      Position y initiale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position y initiale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yTo"><apiName>yTo</apiName><shortdesc> 
+      Position y finale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position y finale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de fin si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zBy"><apiName>zBy</apiName><shortdesc> 
+      Nombre de pixels de déplacement de la position z de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels de déplacement de la position z de la cible. Les valeurs peuvent être négatives.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zFrom"><apiName>zFrom</apiName><shortdesc> 
+      Position z initiale de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position z initiale de la cible. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zTo"><apiName>zTo</apiName><shortdesc> 
+      Position z finale de la cible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position z finale de la cible. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Wipe"><apiName>Wipe</apiName><shortdesc>
+  L’effet Wipe réalise un effet de transition bitmap en opérant un balayage directionnel entre la première et la deuxième image bitmap.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:Wipe">
+<description>
+  L’effet Wipe utilise Pixel Bender, qui n’est pas pris en charge par les applications mobile AIR.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Wipe&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Wipe
+    <b>Properties</b>
+    id="ID"
+    direction="right"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransitionShader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Wipe réalise un effet de transition bitmap en opérant un balayage directionnel entre la première et la deuxième image bitmap. Ce balayage fait entrer la deuxième image bitmap pendant l’animation, dans le sens indiqué par la propriété <codeph>direction</codeph>.
+ 
+  <p>Un programme pixel shader chargé par l’effet exécute l’effet de l’image bitmap sous-jacente. Si vous souhaitez utiliser une autre comportement Wipe, vous pouvez spécifier un programme pixel shader. Le programme pixel shader doit se conformer aux contraintes spécifiée pour la propriété <codeph>shaderByteCode</codeph> de la classe AnimateTransitionShader et indiquer trois paramètres supplémentaires. Les paramètres supplémentaires requis par le shader Wipe sont les suivants : </p>
+ 
+  <ul>
+    <li>un paramètre int <codeph>direction</codeph>, dont la valeur a la même signification que la propriété String de la classe Wipe. </li>
+    <li>Deux paramètres à virgule flottante : <codeph>imageWidth</codeph> et <codeph>imageHeight</codeph>.  </li>
+  </ul>
+ 
+  <p>Tous ces paramètres sont définis sur le shader lorsque la lecture de l’effet commence. Par conséquent, les paramètres doivent exister et réaliser une action appropriée pour que l’effet puisse fonctionner correctement.</p>
+  
+  </apiDesc><example conref="WipeExample.mxml"><swfblock conref="examples/WipeExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#WipeDirection"><linktext>spark.effects.WipeDirection</linktext></link><link href="spark.effects.xml#AnimateTransitionShader"><linktext>spark.effects.AnimateTransitionShader</linktext></link><link href="spark.effects.xml#AnimateTransitionShader/shaderByteCode"><linktext>spark.effects.AnimateTransitionShader.shaderByteCode</linktext></link></related-links><apiConstructor id="spark.effects:Wipe:Wipe"><apiName>Wipe</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Wipe:direction"><apiName>direction</apiName><shortdesc>
+      Sens dans lequel le balayage est réalisé pendant l’animation : WipeDirection.RIGHT, WipeDirection.LEFT, WipeDirection.UP ou WipeDirection.DOWN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>right</apiData><apiType value="String"/><apiDefaultValue>WipeDirection.RIGHT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sens dans lequel le balayage est réalisé pendant l’animation : <codeph>WipeDirection.RIGHT</codeph>, <codeph>WipeDirection.LEFT</codeph>, <codeph>WipeDirection.UP</codeph> ou <codeph>WipeDirection.DOWN</codeph>. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#WipeDirection/RIGHT"><linktext>WipeDirection.RIGHT</linktext></link><link href="spark.effects.xml#WipeDirection/UP"><linktext>WipeDirection.UP</linktext></link><link href="spark.effects.xml#WipeDirection/LEFT"><linktext>WipeDirection.LEFT</linktext></link><link href="spark.effects.xml#WipeDirection/DOWN"><linktext>WipeDirection.DOWN</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.effects:CallAction"><apiName>CallAction</apiName><shortdesc>
+ L’effet CallAction applique la fonction spécifiée par la propriété functionName à l’objet target, en utilisant des arguments facultatifs spécifiés par la propriété args. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CallAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:CallAction
+    <b>Properties</b>
+    id="ID"
+    functionName="no default"
+    args="no default"
+  /&gt;
+  </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+ L’effet CallAction applique la fonction spécifiée par la propriété <codeph>functionName </codeph> à l’objet <codeph>target</codeph> en utilisant des arguments facultatifs spécifiés par la propriété <codeph>args</codeph>. Cet effet est utile dans les séquences d’effet dans lesquelles un appel de fonction peut être inclus dans un effet composite. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#CallActionInstance"><linktext>spark.effects.supportClasses.CallActionInstance</linktext></link></related-links><apiConstructor id="spark.effects:CallAction:CallAction"><apiName>CallAction</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:CallAction:args"><apiName>args</apiName><shortdesc> 
+     Arguments transmis à la fonction appelée par cet effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc> 
+     Arguments transmis à la fonction appelée par cet effet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:CallAction:functionName"><apiName>functionName</apiName><shortdesc> 
+     Nom de la fonction appelée sur la cible lors de la lecture de cet effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     Nom de la fonction appelée sur la cible lors de la lecture de cet effet.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AddAction"><apiName>AddAction</apiName><shortdesc>
+  La classe AddAction définit un effet d’action correspondant à la propriété AddChild d’une définition d’état d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AddAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AddAction
+    <b>Properties</b>
+    id="ID"
+    index="-1"
+    position="index"
+    relativeTo=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AddAction définit un effet d’action correspondant à la propriété <codeph>AddChild</codeph> d’une définition d’état d’affichage. L’effet AddAction peut notamment être utilisé dans une définition de transition pour définir à quel moment de la transition un changement d’état d’affichage défini par une propriété AddChild doit se produire.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AddActionInstance"><linktext>spark.effects.supportClasses.AddActionInstance</linktext></link><link href="" invalidHref="mx.states.AddChild.xml"><linktext>mx.states.AddChild</linktext></link></related-links><apiConstructor id="spark.effects:AddAction:AddAction"><apiName>AddAction</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AddAction:AFTER"><apiName>AFTER</apiName><shortdesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>after</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>.
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:BEFORE"><apiName>BEFORE</apiName><shortdesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>before</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>.
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:FIRST_CHILD"><apiName>FIRST_CHILD</apiName><shortdesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>firstChild</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>.
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:INDEX"><apiName>INDEX</apiName><shortdesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>index</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>.
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:LAST_CHILD"><apiName>LAST_CHILD</apiName><shortdesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>lastChild</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Constante permettant de spécifier la position à laquelle l’élément doit être ajouté, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>.
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:index"><apiName>index</apiName><shortdesc> 
+      Index de l’enfant dans le parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Index de l’enfant dans le parent. La valeur -1 signifie que l’enfant doit être ajouté comme dernier enfant du parent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AddAction:position"><apiName>position</apiName><shortdesc> 
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>index</apiData><apiType value="String"/><apiDefaultValue>AddAction.INDEX
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>. Les valeurs possibles sont les suivantes : <codeph>AddAction.BEFORE</codeph>, <codeph>AddAction.AFTER</codeph>, <codeph>AddAction.FIRST_CHILD</codeph>, <codeph>AddAction.LAST_CHILD</codeph> et <codeph>AddAction.INDEX</codeph>, où <codeph>AddAction.INDEX</codeph> indique que la propriété <codeph>index</codeph> doit être utilisée pour déterminer la position de l’enfant.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/BEFORE"><linktext>BEFORE</linktext></link><link href="spark.effects.xml#AddAction/AFTER"><linktext>AFTER</linktext></link><link href="spark.effects.xml#AddAction/FIRST_CHILD"><linktext>FIRST_CHILD</linktext></link><link href="spark.effects.xml#AddAction/LAST_CHILD"><linktext>LAST_CHILD</linktext></link><link href="spark.effects.xml#AddAction/INDEX"><linktext>INDEX</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+      Emplacement dans lequel le composant enfant est ajouté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+      Position à laquelle le composant enfant est ajouté. Par défaut, Flex détermine cette valeur à partir de la propriété <codeph>AddChild</codeph> de la définition d’état d’affichage.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateFilter"><apiName>AnimateFilter</apiName><shortdesc>
+  L’effet AnimateFilter applique une occurrence mx.filters.IBitmapFilter à la cible et vous permet d’animer les propriétés du filtre entre les valeurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateFilter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateFilter
+    <b>Properties</b>
+    id="ID"
+    bitmapFilter="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet AnimateFilter applique une occurrence mx.filters.IBitmapFilter à la cible et vous permet d’animer les propriétés du filtre entre les valeurs. Contrairement aux effets qui animent les propriétés de la cible, l’effet AnimateFilter anime les propriétés du filtre appliqué à la cible.
+ 
+  <p>Les filtres que vous pouvez utiliser avec cet effet sont définis dans le package spark.filters. DropShadowFilter, GlowFilter, BlurFilter, et ShaderFilter font partie des filtres couramment utilisés.</p>
+ 
+  <p>Pour définir les propriétés du filtre à animer, transmettez un tableau d’objets SimpleMotionPath à la propriété <codeph>motionPath</codeph> de l’effet AnimateFilter. Chaque objet SimpleMotionPath définit une propriété du filtre ainsi que les valeurs de départ et de fin de la propriété.</p>
+  
+  </apiDesc><example conref="AnimateFilterEffectExample.mxml"><swfblock conref="examples/AnimateFilterEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateFilterInstance"><linktext>spark.effects.supportClasses.AnimateFilterInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateFilter:AnimateFilter"><apiName>AnimateFilter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>filter</apiItemName><apiType value="mx.filters:IBitmapFilter"/><apiData>null</apiData><apiDesc>Filtre à appliquer à la cible. Les filtres que vous pouvez utiliser avec cet effet sont définis dans le package spark.filters.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateFilter:bitmapFilter"><apiName>bitmapFilter</apiName><shortdesc>
+      Occurrence IBitmapFilter à appliquer et à animer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.filters:IBitmapFilter"/></apiValueDef><apiDesc>
+      Occurrence IBitmapFilter à appliquer et à animer.
+     
+      <p>Les filtres que vous pouvez utiliser avec cet effet sont définis dans le package spark.filters. DropShadowFilter, GlowFilter, BlurFilter, et ShaderFilter font partie des filtres couramment utilisés.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Rotate"><apiName>Rotate</apiName><shortdesc>
+  L’effet Rotate fait pivoter un objet cible dans le plan x, y autour du centre de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Rotate&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Rotate
+    id="ID"
+    angleBy="val"
+    angleFrom="val"
+    angleTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Rotate fait pivoter un objet cible dans le plan x, y autour du centre de transformation. 
+ 
+  <p>Si vous spécifiez au moins deux des valeurs d’angle (angleFrom, angleTo ou angleBy), Flex calcule la troisième valeur. Si vous spécifiez les trois valeurs d’angle, Flex ignore la valeur <codeph>angleBy</codeph>.</p>
+ 
+  <p>Comme tous les effets de type AnimateTransform, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement, car il dépend des fonctions de transformation propres à ces classes. </p>
+  
+  </apiDesc><example conref="RotateEffectExample.mxml"><swfblock conref="examples/RotateEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Rotate:Rotate"><apiName>Rotate</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Rotate:angleBy"><apiName>angleBy</apiName><shortdesc> 
+      Degrés de rotation de l’objet cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Degrés de rotation de l’objet cible. La valeur peut être négative.
+     
+      <p>Si la valeur de <codeph>angleBy</codeph> est négative, la cible pivote en sens anti-horaire. Dans le cas contraire, elle pivote en sens horaire. Pour faire tourner la cible plusieurs fois, définissez cette valeur sur un grand nombre positif ou sur un petit nombre négatif.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+      Angle de départ de la rotation de l’objet cible, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de départ de la rotation de l’objet cible, en degrés. Les valeurs possibles vont de 0 à 360.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate:angleTo"><apiName>angleTo</apiName><shortdesc> 
+      Angle de fin de la rotation de l’objet cible, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de fin de la rotation de l’objet cible, en degrés. Les valeurs peuvent être soit positives, soit négatives.
+     
+      <p>Si la valeur de <codeph>angleTo</codeph> est inférieure à la valeur de <codeph>angleFrom</codeph>, la cible pivote en sens anti-horaire. Dans le cas contraire, elle pivote en sens horaire. Pour faire tourner la cible plusieurs fois, définissez cette valeur sur un grand nombre positif ou sur un petit nombre négatif.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Scale3D"><apiName>Scale3D</apiName><shortdesc>
+  La classe Scale3D met à l’échelle un objet cible en trois dimensions autour d centre de transformation. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Scale3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Scale3D
+    <b>Properties</b>
+    id="ID"
+    scaleXBy="no default"
+    scaleXFrom="no default"
+    scaleXTo="no default"
+    scaleYBy="no default"
+    scaleYFrom="no default"
+    scaleYTo="no default"
+    scaleZBy="no default"
+    scaleZFrom="no default"
+    scaleZTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Scale3D met à l’échelle un objet cible en trois dimensions autour d centre de transformation. Une échelle de 2.0 signifie que l’objet est agrandi d’un facteur 2 et une échelle de 0.5 que l’objet est réduit d’un facteur 2. La valeur de mise à l’échelle 0.0 n’est pas valide.
+ 
+  <p>Comme tous les effets de type AnimateTransform, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement, car il dépend des fonctions de transformation propres à ces classes. Par ailleurs, les effets de transformation s’exécutant en parallèle sur la même cible s’exécutent comme une seule occurrence d’effet. Par conséquent, les effets de transformation partagent le centre de transformation défini par l’un des effets contributeurs. </p>
+  
+  </apiDesc><example conref="Scale3DEffectExample.mxml"><swfblock conref="examples/Scale3DEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Scale3D:Scale3D"><apiName>Scale3D</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Scale3D:scaleXBy"><apiName>scaleXBy</apiName><shortdesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction x. Il s’agit d’un paramètre facultatif pouvant être utilisé à la place de l’une des valeurs de départ et de fin, pour spécifier le delta à ajouter à la valeur de départ ou obtenir la valeur de départ en soustrayant cette valeur de la valeur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+      Facteur de mise à l’échelle de départ dans la direction x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de départ dans la direction x. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleXTo"><apiName>scaleXTo</apiName><shortdesc>
+      Facteur de mise à l’échelle de fin dans la direction x. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de fin dans la direction x. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYBy"><apiName>scaleYBy</apiName><shortdesc>
+     Facteur de mise à l’échelle à appliquer à l’objet dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+     Facteur de mise à l’échelle à appliquer à l’objet dans la direction y. Il s’agit d’un paramètre facultatif pouvant être utilisé à la place de l’une des valeurs de départ et de fin, pour spécifier le delta à ajouter à la valeur de départ ou obtenir la valeur de départ en soustrayant cette valeur de la valeur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc>
+      Facteur de mise à l’échelle de départ dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de départ dans la direction y. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+      Facteur de mise à l’échelle de fin dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de fin dans la direction y. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZBy"><apiName>scaleZBy</apiName><shortdesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction z. Il s’agit d’un paramètre facultatif pouvant être utilisé à la place de l’une des valeurs de départ et de fin, pour spécifier le delta à ajouter à la valeur de départ ou obtenir la valeur de départ en soustrayant cette valeur de la valeur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZFrom"><apiName>scaleZFrom</apiName><shortdesc>
+      Facteur de mise à l’échelle de départ dans la direction z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de départ dans la direction z. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZTo"><apiName>scaleZTo</apiName><shortdesc>
+      Facteur de mise à l’échelle de fin dans la direction z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de fin dans la direction z. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Move"><apiName>Move</apiName><shortdesc>
+  L’effet Move déplace l’objet cible dans les directions x et y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Move&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Move
+    id="ID"
+    xBy="val"
+    xFrom="val" 
+    xTo="val"
+    yBy="val"
+    yFrom="val"
+    yTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Move déplace l’objet cible dans les directions x et y. Les spécifications de propriété x, y et z de l’effet Move indiquent le changement sur x, y et z qui doit se passer dans le centre de transformation autour duquel l’effet de transformation globale se produit. Ainsi, par exemple, si la propriété <codeph>autoCenterTransform</codeph> est définie, les valeurs from/to/by de cet effet définissent l’ampleur du déplacement du centre de la cible et non les coordonnées (x,y) de la cible.
+ 
+  <p>Comme tous les effets de transformation, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement.</p>
+  
+  </apiDesc><example conref="MoveEffectExample.mxml"><swfblock conref="examples/MoveEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Move:Move"><apiName>Move</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Move:xBy"><apiName>xBy</apiName><shortdesc> 
+      Nombre de pixels de déplacement de la position x de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels de déplacement de la position x de la cible. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:xFrom"><apiName>xFrom</apiName><shortdesc> 
+      Position x initiale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position x initiale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:xTo"><apiName>xTo</apiName><shortdesc> 
+      Valeur x finale, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Valeur x finale, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yBy"><apiName>yBy</apiName><shortdesc> 
+      Nombre de pixels de déplacement de la position y de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels de déplacement de la position y de la cible. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yFrom"><apiName>yFrom</apiName><shortdesc> 
+      Position y initiale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position y initiale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de départ si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yTo"><apiName>yTo</apiName><shortdesc> 
+      Position y finale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Position y finale de la cible, en pixels. Lorsque ce paramètre est omis, Flex utilise soit la valeur de l’état d’affichage de fin si l’effet fait partie d’une transition d’état, soit la valeur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:CrossFade"><apiName>CrossFade</apiName><shortdesc>
+ L’effet CrossFade réalise un effet de transition bitmap en opérant un effet crossfade entre la première et la deuxième image bitmap.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:CrossFade">
+<description>
+  L’effet CrossFade utilise Pixel Bender, qui n’est pas pris en charge par les applications mobile AIR.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransitionShader</apiBaseClassifier></apiClassifierDef><apiDesc>
+ L’effet CrossFade réalise un effet de transition bitmap en opérant un effet <i>crossfade</i> entre la première et la deuxième image bitmap. Le fondu enchaîné mélange les deux images bitmap sur la durée de l’animation.
+ 
+ <p>A chaque instant de l’animation, où la fraction écoulée et accélérée de l’animation est <codeph>f</codeph> et où les valeurs de pixel des première et deuxième images bitmap sont <codeph>v1</codeph> et <codeph>v2</codeph>, la nouvelle valeur de pixel <codeph>v</codeph> d’un pixel de l’image est : </p>
+ 
+ <pre>v = v1 * (1 - f) + v2 * f</pre>
+ 
+ <p>L’effet bitmap est exécuté par un programme pixel shader chargé par l’effet. Vous pouvez spécifier un autre comportement de fondu enchaîné en spécifiant un programme pixel shader pour la propriété <codeph>shaderCode</codeph>. Ce programme pixel shader doit respecter les exigences définies dans l’effet AnimateShaderTransition. </p>
+ 
+ </apiDesc><example conref="CrossFadeExample.mxml"><swfblock conref="examples/CrossFadeExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateTransitionShader"><linktext>spark.effects.AnimateTransitionShader</linktext></link><link href="spark.effects.xml#AnimateTransitionShader/shaderByteCode"><linktext>spark.effects.AnimateTransitionShader.shaderByteCode</linktext></link></related-links><apiConstructor id="spark.effects:CrossFade:CrossFade"><apiName>CrossFade</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects:Fade"><apiName>Fade</apiName><shortdesc>
+  L’effet Fade anime la propriété alpha d’un composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Fade&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Fade 
+    id="ID"
+    alphaFrom="val"
+    alphaTo="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Fade anime la propriété <codeph>alpha</codeph> d’un composant. Si lue manuellement (hors d’une transition) sur un objet dont la propriété <codeph>visible</codeph>est définie sur false, et pour animer<codeph>alpha </codeph> entre zéro et une valeur non nulle, il sera défini <codeph>visible </codeph> sur true comme un effet secondaire de fondu. Si elle est exécutée comme une partie intégrante d’une transition, elle respecte les valeurs spécifiées par l’état, mais peut utiliser la propriété <codeph>visible</codeph> ainsi que si l’objet est apparenté dans les états avant/après pour déterminer les valeurs pour animer <codeph>alpha</codeph> depuis et vers <codeph>alphaFrom</codeph> et <codeph>alphaTo</codeph> ne sont pas spécifiés pour l’effet.
+  
+  </apiDesc><example conref="FadeEffectExample.mxml"><swfblock conref="examples/FadeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#FadeInstance"><linktext>spark.effects.supportClasses.FadeInstance</linktext></link></related-links><apiConstructor id="spark.effects:Fade:Fade"><apiName>Fade</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur. 
+    
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Fade:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+      Valeur initiale de la propriété alpha, comprise entre 0.0 et 1.0, où 0.0 correspond à une transparence et 1.0 à une opacité totale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Valeur initiale de la propriété <codeph>alpha</codeph>, comprise entre 0.0 et 1.0, où 0.0 correspond à une transparence et 1.0 à une opacité totale. 
+     
+      <p>Si l’effet fait disparaître le composant cible, la valeur par défaut est la valeur actuelle de la propriété <codeph>alpha</codeph>. Si l’effet fait s’afficher le composant cible, la valeur par défaut est 0.0.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Fade:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+      Valeur finale de la propriété alpha, comprise entre 0.0 et 1.0, où 0.0 correspond à une transparence et 1.0 à une opacité totale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Valeur finale de la propriété <codeph>alpha</codeph>, comprise entre 0.0 et 1.0, où 0.0 correspond à une transparence et 1.0 à une opacité totale.
+     
+      <p>Si l’effet fait disparaître le composant cible, la valeur par défaut est 0.0. Si l’effet fait s’afficher le composant cible, la valeur par défaut est la valeur actuelle de la propriété <codeph>alpha</codeph> de la cible.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Animate"><apiName>Animate</apiName><shortdesc>
+ Cet effet Animate anime un ensemble arbitraire de propriétés entre des valeurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="suspendBackgroundProcessing"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Animate&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Animate
+    <b>Properties</b>
+    id="ID"
+    disableLayout="false"
+    easer="{spark.effects.easing.Sine(.5)}"
+    interpolator="NumberInterpolator"
+    motionPaths="no default"
+    repeatBehavior="loop"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cet effet Animate anime un ensemble arbitraire de propriétés entre des valeurs. Spécifiez les propriétés et valeurs à animer en définissant la propriété <codeph>motionPaths</codeph>. 
+  
+  </apiDesc><example conref="AnimateEffectExample.mxml"><swfblock conref="examples/AnimateEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><adobeApiEvent id="spark.effects:Animate_mx.events.EffectEvent.EFFECT_REPEAT_effectRepeat"><apiName>effectRepeat</apiName><shortdesc>
+ Distribué au début de chaque répétition de l’effet, dans le cas d’un effet répété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.EffectEvent.EFFECT_REPEAT</apiEventType><adobeApiEventClassifier>mx.events.EffectEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué au début de chaque répétition de l’effet, dans le cas d’un effet répété. Flex distribue en même temps un événement <codeph>effectUpdate</codeph> pour l’effet.
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.effects:Animate_mx.events.EffectEvent.EFFECT_UPDATE_effectUpdate"><apiName>effectUpdate</apiName><shortdesc>
+ Distribué chaque fois que l’effet met à jour la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.EffectEvent.EFFECT_UPDATE</apiEventType><adobeApiEventClassifier>mx.events.EffectEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué chaque fois que l’effet met à jour la cible.
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.effects:Animate:Animate"><apiName>Animate</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Animate:disableLayout:get"><apiName>disableLayout</apiName><shortdesc>
+     Si la valeur est true, l’effet désactive la mise en page des conteneurs parent de ses cibles, définissant la propriété autoLayout des conteneurs sur false, et désactive également toute contrainte de mise en page sur les objets cible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Si la valeur est <codeph>true</codeph>, l’effet désactive la mise en page de son objet parent des cibles aux conteneurs, aux conteneurs la définition de la propriété <codeph>autoLayout</codeph> sur false, et désactive également une mise en page contrainte sur les objets cible. Ces propriétés seront restaurées lorsque l’effet se termine. 
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Animate:easer:get"><apiName>easer</apiName><shortdesc>
+     Comportement d’accélération de cet effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>spark.effects.easing.Sine(.5)
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Comportement d’accélération de cet effet. Cet objet IEaser est utilisé pour convertir la partie écoulée de l’animation en partie accélérée, qui est ensuite utilisée pour calculer la valeur au niveau de cette fraction écoulée accélérée.
+     
+     <p>Remarque : il est possible d’avoir une accélération au niveau de l’effet et au niveau de l’image-clé (où les images-clés contiennent les valeurs/heures utilisées dans les structures d’accélération).  Ces comportements d’accélération se construisent les uns sur les autres. Le paramètre <codeph>easier</codeph> contrôle l'accélération de l'effet global. Keyframe contrôle l’accélération dans un intervalle de l’animation. Par défaut, l’accélération pour animer est non linéaire (Sine(.5)), tandis que l’option Accélération pour les images Keyframe est linéaire. Si vous souhaitez un effet avec l’accélération au niveau de l’image-clé, vous pouvez choisir de définir l’accélération de l’effet sur linéaire, puis définissez l’option Accélération spécifiquement sur les images Keyframe. </p>
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.easing.xml#Sine"><linktext>spark.effects.easing.Sine</linktext></link></related-links></apiValue><apiValue id="spark.effects:Animate:interpolator:get"><apiName>interpolator</apiName><shortdesc>
+     Interpolateur utilisé par cet effet pour calculer les valeurs situées entre les valeurs de début et de fin d’une propriété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+     Interpolateur utilisé par cet effet pour calculer les valeurs situées entre les valeurs de début et de fin d’une propriété. Par défaut, la classe NumberInterpolator gère l’interpolation ou, dans les cas où les valeurs de début et de fin sont des tableaux ou des vecteurs, par la classe MultiValueInterpolator. L’interpolation d’autres types ou de valeurs Number devant être interpolées de façon différente, par exemple des valeurs <codeph>uint</codeph> contenant des informations de canal de couleur, peut être traitée en spécifiant un autre interpolateur.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects:Animate:motionPaths:get"><apiName>motionPaths</apiName><shortdesc>
+     Un vecteur d’objets MotionPath contenant chacun le nom d’une propriété animée et les valeurs prises par la propriété au cours de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+     Un vecteur d’objets MotionPath contenant chacun le nom d’une propriété animée et les valeurs prises par la propriété au cours de l’animation. Ce vecteur est prioritaire par rapport aux propriétés déclarées dans les sous-classes de la classe Animate. Par exemple, si ce tableau est défini directement sur un effet Move, toutes les propriétés de l’effet Move, par exemple <codeph>xFrom</codeph>, sont ignorées. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Animate:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+     Comportement d’un effet répété, c’est-à-dire d’un effet dont la valeur repeatCount est égale à 0 ou supérieure à 1. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Comportement d’un effet répété, c’est-à-dire d’un effet dont la valeur <codeph>repeatCount</codeph> est égale à 0 ou supérieure à 1. Cette valeur doit être soit <codeph>RepeatBehavior.LOOP</codeph>, auquel cas l’animation est répétée systématiquement dans le même sens, soit <codeph>RepeatBehavior.REVERSE</codeph>, auquel cas l’animation est inversée à chaque répétition.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Resize"><apiName>Resize</apiName><shortdesc>
+  L’effet Resize modifie la largeur, la hauteur ou les deux dimensions d’un composant au cours d’un laps de temps spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Resize&gt;</code> tag
+  inherits all of the tag attributes of its superclass, 
+  and adds the following tab attributes:</p>
+  
+  <pre>
+  &lt;s:Resize
+    id="ID"
+    widthFrom="val"
+    heightFrom="val"
+    widthTo="val"
+    heightTo="val"
+    widthBy="val"
+    heightBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Resize modifie la largeur, la hauteur ou les deux dimensions d’un composant au cours d’un laps de temps spécifié. 
+  
+  <p>Si vous spécifiez seulement deux des trois valeurs <codeph>widthFrom</codeph>, <codeph>widthTo</codeph> et <codeph>widthBy</codeph>, Flex calcule la troisième valeur. Si vous spécifiez les trois valeurs, Flex ignore la valeur <codeph>widthBy</codeph>. Si vous spécifiez uniquement <codeph>widthBy</codeph> ou <codeph>widthTo</codeph>, la valeur définie pour la propriété <codeph>widthFrom</codeph> correspond à la largeur actuelle de l’objet. Il en va de même pour les valeurs des propriétés <codeph>heightFrom</codeph>, <codeph>heightTo</codeph> et <codeph>heightBy</codeph>.</p>
+  
+  </apiDesc><example conref="ResizeEffectExample.mxml"><swfblock conref="examples/ResizeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#ResizeInstance"><linktext>spark.effects.supportClasses.ResizeInstance</linktext></link></related-links><apiConstructor id="spark.effects:Resize:Resize"><apiName>Resize</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Resize:heightBy"><apiName>heightBy</apiName><shortdesc> 
+      Nombre de pixels correspondant à la modification de hauteur du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels correspondant à la modification de hauteur du composant. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+      Hauteur initiale, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Hauteur de départ, en pixels. Si ce paramètre est omis, Flex utilise la hauteur actuelle de la cible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:heightTo"><apiName>heightTo</apiName><shortdesc> 
+      Hauteur finale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Hauteur finale de la cible, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthBy"><apiName>widthBy</apiName><shortdesc> 
+      Nombre de pixels correspondant à la modification de largeur de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Nombre de pixels correspondant à la modification de largeur de la cible. Les valeurs peuvent être négatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+      Largeur initiale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Largeur initiale de la cible, en pixels. Si ce paramètre est omis, Flex utilise la largeur actuelle.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthTo"><apiName>widthTo</apiName><shortdesc> 
+      Largeur finale de la cible, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Largeur finale de la cible, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Scale"><apiName>Scale</apiName><shortdesc>
+  L’effet Scale met à l’échelle un objet cible dans les directions x et y autour du centre de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Scale&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Scale
+    id="ID"
+    scaleXBy="val"
+    scaleXFrom="val"
+    scaleXTo="val"
+    scaleYBy="val"
+    scaleYFrom="val"
+    scaleYTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet Scale met à l’échelle un objet cible dans les directions x et y autour du centre de transformation. Une échelle de 2.0 signifie que l’objet a été agrandi d’un facteur 2 et une échelle de 0.5 que l’objet a été réduit d’un facteur 2. La valeur de mise à l’échelle 0.0 n’est pas valide.
+ 
+  <p>Comme tous les effets de type AnimateTransform, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement, car il dépend des fonctions de transformation propres à ces classes. </p>
+  
+  </apiDesc><example conref="ScaleEffectExample.mxml"><swfblock conref="examples/ScaleEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Scale:Scale"><apiName>Scale</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Scale:scaleXBy"><apiName>scaleXBy</apiName><shortdesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle à appliquer à l’objet dans la direction x. Il s’agit d’un paramètre facultatif pouvant être utilisé à la place de l’une des valeurs de départ et de fin, pour spécifier le delta à ajouter à la valeur de départ ou obtenir la valeur de départ en soustrayant cette valeur de la valeur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+      Facteur de mise à l’échelle de départ dans la direction x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de départ dans la direction x. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleXTo"><apiName>scaleXTo</apiName><shortdesc>
+      Facteur de mise à l’échelle de fin dans la direction x. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de fin dans la direction x. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYBy"><apiName>scaleYBy</apiName><shortdesc>
+     Facteur de mise à l’échelle à appliquer à l’objet dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+     Facteur de mise à l’échelle à appliquer à l’objet dans la direction y. Il s’agit d’un paramètre facultatif pouvant être utilisé à la place de l’une des valeurs de départ et de fin, pour spécifier le delta à ajouter à la valeur de départ ou obtenir la valeur de départ en soustrayant cette valeur de la valeur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc>
+      Facteur de mise à l’échelle de départ dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de départ dans la direction y. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+      Facteur de mise à l’échelle de fin dans la direction y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur de mise à l’échelle de fin dans la direction y. La valeur de mise à l’échelle 0.0 n’est pas valide.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:RemoveAction"><apiName>RemoveAction</apiName><shortdesc>
+  La classe RemoveAction définit un effet d’action correspondant à la propriété RemoveChild d’une définition d’état d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:RemoveAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+
+  <pre>
+  &lt;s:RemoveAction
+    <b>Properties</b>
+    id="ID"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe RemoveAction définit un effet d’action correspondant à la propriété RemoveChild d’une définition d’état d’affichage. L’effet RemoveAction peut notamment être utilisé dans une définition de transition pour définir à quel moment de la transition un changement d’état d’affichage défini par une propriété RemoveChild doit se produire.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#RemoveActionInstance"><linktext>spark.effects.supportClasses.RemoveActionInstance</linktext></link><link href="" invalidHref="mx.states.RemoveChild.xml"><linktext>mx.states.RemoveChild</linktext></link></related-links><apiConstructor id="spark.effects:RemoveAction:RemoveAction"><apiName>RemoveAction</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects:SetAction"><apiName>SetAction</apiName><shortdesc>
+  La classe SetAction définit un effet d’action définissant la valeur d’une propriété nommée ou d’un style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:SetAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:SetAction
+    <b>Properties</b>
+    id="ID"
+    property=""
+    value=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SetAction définit un effet d’action définissant la valeur d’une propriété nommée ou d’un style. L’effet SetAction peut notamment être utilisé dans une définition de transition pour définir à quel moment de la transition un changement d’état d’affichage défini par un changement de propriété ou de style doit se produire.
+  
+  </apiDesc><example conref="SetActionEffectExample.mxml"><swfblock conref="examples/SetActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#SetActionInstance"><linktext>spark.effects.supportClasses.SetActionInstance</linktext></link></related-links><apiConstructor id="spark.effects:SetAction:SetAction"><apiName>SetAction</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:SetAction:property"><apiName>property</apiName><shortdesc> 
+      Nom de la propriété en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+      Nom de la propriété en cours de modification.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:SetAction:value"><apiName>value</apiName><shortdesc> 
+      Nouvelle valeur de la propriété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc> 
+      Nouvelle valeur de la propriété. Lorsque cet effet fait partie d’une transition et que la valeur n’est pas spécifiée, Flex détermine la valeur à partir de celle définie par le nouvel état d’affichage.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateTransform"><apiName>AnimateTransform</apiName><shortdesc>
+  L’effet AnimateTransform contrôle toutes les animations de transformation des objets cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatBehavior"/><Exclude kind="property" name="repeatCount"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransform&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransform
+    <b>Properties</b>
+    id="ID"
+    applyChangesPostLayout="false"
+    autoCenterTransform="false"
+    transformX="0"
+    transformY="0"
+    transformZ="0"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet AnimateTransform contrôle toutes les animations de transformation des objets cible. Les opérations de transformation (translations, mises à l’échelle, rotation, etc.) sont associées dans des opérations uniques réalisées en parallèle afin d’éviter tout conflit lors de la modification de valeurs de propriété qui se chevauchent. Cet effet fonctionne en regroupant tous les effets de transformation actuels d’une cible au sein d’une occurrence d’effet unique pour cette cible. Autrement dit, plusieurs effets de transformation dans le même effet Parallel sont combinés (les effets de transformation au sein d’une séquence sont exécutés séparément). 
+ 
+  <p>Même si la combinaison des différents effets de transformation est réalisée en interne, certaines contraintes doivent être prises en compte :</p>
+ 
+  <ul>
+    <li>La propriété <codeph>transformCenter</codeph> de l’objet cible est appliquée globalement à tous les effets de transformation de cette cible et sa valeur est donc normalement la même sur toutes les cibles.</li>
+    <li>Les effets de transformation ignorent les paramètres de répétition, car les effets d’un seul effet de transformation affectent tous les autres effets de transformation exécutés sur la même cible. Les effets peuvent être répétés en les encapsulant dans un effet CompositeEffect.</li>
+    <li>Les sous-classes de la classe AnimateTransform permettent de réaliser facilement des manipulations simples sur l’effet de transformation. Cependant, pour un contrôle plus approfondi et plus précis des positions temporelles des images-clés et des valeurs sous-jacentes, utilisez directement l’effet AnimateTransform.</li>
+  </ul>
+  
+  <p>Cet effet et ses sous-classes sont soumis à une autre contrainte : la cible doit être de type UIComponent ou GraphicElement (ou une sous-classe de ces classes), ou un objet qui définit et implémente de façon similaire les fonctions <codeph>transformAround()</codeph> et <codeph>transformPointToParent()</codeph>.</p>
+  
+  <p>Cet effet n’est pas destinée à être utilisés directement, mais expose plutôt les fonctionnalités communes utilisées par les sous-classes. Pour utiliser les effets de transformation, utilisez les effets de sous-classe (Move, Move3D, Scale, Scale3D, Rotate et Rotate3D). </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateTransformInstance"><linktext>spark.effects.supportClasses.AnimateTransformInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransform:AnimateTransform"><apiName>AnimateTransform</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransform:autoCenterTransform"><apiName>autoCenterTransform</apiName><shortdesc>
+      Spécifie si l’effet de transformation se produit autour du centre de la cible, (largeur/2, hauteur/2) lorsque l’effet commence la lecture. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si l’effet de transformation se produit autour du centre de la cible, <codeph>(width/2, height/2)</codeph> lorsque l’effet commence la lecture. Si l’indicateur n’est pas défini, le centre de la transformation est déterminé par le centre de transformation de l’objet (<codeph>transformX, transformY, transformZ</codeph>) et par les propriétés <codeph>transformX, transformY, transformZ</codeph> de cet effet. Ainsi, le centre de la transformation correspond au centre de transformation de l’objet cible, où les propriétés <codeph>transformX, transformY, transformZ</codeph> sont remplacées par les valeurs définies dans l’effet, le cas échéant.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformX"><linktext>mx.core.UIComponent.transformX</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/transformY"><linktext>mx.core.UIComponent.transformY</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/transformZ"><linktext>mx.core.UIComponent.transformZ</linktext></link><link href="spark.effects.xml#AnimateTransform/transformX"><linktext>transformX</linktext></link><link href="spark.effects.xml#AnimateTransform/transformY"><linktext>transformY</linktext></link><link href="spark.effects.xml#AnimateTransform/transformZ"><linktext>transformZ</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformX"><apiName>transformX</apiName><shortdesc>
+      Définit la coordonnée x du centre de transformation, sauf si la valeur est remplacée par la propriété autoCenterTransform.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit la coordonnée x du centre de transformation, sauf si la valeur est remplacée par la propriété <codeph>autoCenterTransform</codeph>.
+     
+      <p>Si la valeur de la propriété <codeph>autoCenterTransform</codeph> est <codeph>false</codeph>, le centre de la transformation est déterminé par les propriétés <codeph>transformX</codeph>, <codeph>transformY</codeph> et <codeph>transformZ</codeph> de l’objet cible, mais chacune de ces propriétés peut être remplacée en définissant la propriété correspondante dans cet effet.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformX"><linktext>mx.core.UIComponent.transformX</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformY"><apiName>transformY</apiName><shortdesc>
+      Définit la coordonnée y du centre de transformation, sauf si la valeur est remplacée par la propriété autoCenterTransform.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit la coordonnée y du centre de transformation, sauf si la valeur est remplacée par la propriété <codeph>autoCenterTransform</codeph>.
+     
+      <p>Si la valeur de la propriété <codeph>autoCenterTransform</codeph> est <codeph>false</codeph>, le centre de la transformation est déterminé par les propriétés <codeph>transformX</codeph>, <codeph>transformY</codeph> et <codeph>transformZ</codeph> de l’objet cible, mais chacune de ces propriétés peut être remplacée en définissant la propriété correspondante dans cet effet.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformY"><linktext>mx.core.UIComponent.transformY</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformZ"><apiName>transformZ</apiName><shortdesc>
+      Définit la coordonnée z du centre de transformation, sauf si la valeur est remplacée par la propriété autoCenterTransform.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit la coordonnée z du centre de transformation, sauf si la valeur est remplacée par la propriété <codeph>autoCenterTransform</codeph>.
+      
+      <p>Si la valeur de la propriété <codeph>autoCenterTransform</codeph> est <codeph>false</codeph>, le centre de la transformation est déterminé par les propriétés <codeph>transformX</codeph>, <codeph>transformY</codeph> et <codeph>transformZ</codeph> de l’objet cible, mais chacune de ces propriétés peut être remplacée en définissant la propriété correspondante dans cet effet.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformZ"><linktext>mx.core.UIComponent.transformZ</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:applyChangesPostLayout:get"><apiName>applyChangesPostLayout</apiName><shortdesc> 
+      Les sous-classes de l’effet AnimateTransform utilisent cet indicateur afin de spécifier si l’effet modifie les valeurs de transformation utilisées par le gestionnaire de présentation ou si elle change les valeurs utilisées après l’exécution de la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Les sous-classes de l’effet AnimateTransform utilisent cet indicateur afin de spécifier si l’effet modifie les valeurs de transformation utilisées par le gestionnaire de présentation ou si elle change les valeurs utilisées après l’exécution de la présentation.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateColor"><apiName>AnimateColor</apiName><shortdesc>
+  L’effet AnimateColor opère un changement de propriété de couleur sur une certaine durée, en réalisant une interpolation entre des valeurs de couleur de départ et de fin, canal par canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateColor&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateColor
+    <b>Properties</b>
+    id="ID"
+    colorFrom="no default"
+    colorPropertyName="color"
+    colorTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  L’effet AnimateColor opère un changement de propriété de couleur sur une certaine durée, en réalisant une interpolation entre des valeurs de couleur de départ et de fin, canal par canal. Utilisez cet effet à la place d’Animate ou d’un autre effet lorsque vous souhaitez animer des propriétés de couleur. 
+  
+  </apiDesc><example conref="AnimateColorEffectExample.mxml"><swfblock conref="examples/AnimateColorEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateColorInstance"><linktext>spark.effects.supportClasses.AnimateColorInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateColor:AnimateColor"><apiName>AnimateColor</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateColor:colorFrom"><apiName>colorFrom</apiName><shortdesc>
+      Valeur de couleur de départ.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de couleur de départ. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateColor:colorPropertyName"><apiName>colorPropertyName</apiName><shortdesc>
+      Nom de la propriété de couleur sur l’objet cible concerné par cette animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>color</apiData><apiType value="String"/><apiDefaultValue>"color"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom de la propriété de couleur sur l’objet cible concerné par cette animation. Une propriété de couleur est une propriété acceptant des valeurs de couleur 32 bits.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateColor:colorTo"><apiName>colorTo</apiName><shortdesc>
+     Valeur de couleur de fin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Valeur de couleur de fin.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Rotate3D"><apiName>Rotate3D</apiName><shortdesc>
+  La classe Rotate3D fait pivoter un objet cible en trois dimensions autour des axes x, y ou z. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Rotate3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Rotate3D
+    <b>Properties</b>
+    id="ID"
+    angleXFrom="no default"
+    angleXTo="no default"
+    angleYFrom="no default"
+    angleYTo="no default"
+    angleZFrom="no default"
+    angleZTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Rotate3D fait pivoter un objet cible en trois dimensions autour des axes x, y ou z. La rotation se produit autour du centre de transformation de la cible.  
+ 
+  <p>Comme tous les effets de type AnimateTransform, cet effet fonctionne uniquement sur les sous-classes des classes UIComponent et GraphicElement, car il dépend des fonctions de transformation propres à ces classes. Par ailleurs, les effets de transformation s’exécutant en parallèle sur la même cible s’exécutent comme une seule occurrence d’effet. Par conséquent, les effets de transformation partagent le centre de transformation défini par l’un des effets contributeurs. </p>
+  
+  </apiDesc><example conref="Rotate3DEffectExample.mxml"><swfblock conref="examples/Rotate3DEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Rotate3D:Rotate3D"><apiName>Rotate3D</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet à animer à l’aide de cet effet.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Rotate3D:angleXFrom"><apiName>angleXFrom</apiName><shortdesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe x, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe x, en degrés. Les valeurs possibles vont de 0 à 360.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleXTo"><apiName>angleXTo</apiName><shortdesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe x, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe x, en degrés. Les valeurs peuvent être soit positives, soit négatives.
+     
+      <p>Si la valeur de <codeph>angleTo</codeph> est inférieure à la valeur de <codeph>angleFrom</codeph>, la cible pivote en sens anti-horaire. Dans le cas contraire, elle pivote en sens horaire. Pour faire tourner la cible plusieurs fois, définissez cette valeur sur un grand nombre positif ou sur un petit nombre négatif.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleYFrom"><apiName>angleYFrom</apiName><shortdesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe y, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe y, en degrés. Les valeurs possibles vont de 0 à 360.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleYTo"><apiName>angleYTo</apiName><shortdesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe y, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe y, en degrés. Les valeurs peuvent être soit positives, soit négatives.
+     
+      <p>Si la valeur de <codeph>angleTo</codeph> est inférieure à la valeur de <codeph>angleFrom</codeph>, la cible pivote en sens anti-horaire. Dans le cas contraire, elle pivote en sens horaire. Pour faire tourner la cible plusieurs fois, définissez cette valeur sur un grand nombre positif ou sur un petit nombre négatif.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleZFrom"><apiName>angleZFrom</apiName><shortdesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe z, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de départ de la rotation de l’objet cible autour de l’axe z, en degrés. Les valeurs possibles vont de 0 à 360.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleZTo"><apiName>angleZTo</apiName><shortdesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe z, en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Angle de fin de la rotation de l’objet cible autour de l’axe z, en degrés. Les valeurs peuvent être soit positives, soit négatives.
+     
+      <p>Si la valeur de <codeph>angleTo</codeph> est inférieure à la valeur de <codeph>angleFrom</codeph>, la cible pivote en sens anti-horaire. Dans le cas contraire, elle pivote en sens horaire. Pour faire tourner la cible plusieurs fois, définissez cette valeur sur un grand nombre positif ou sur un petit nombre négatif.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:WipeDirection"><apiName>WipeDirection</apiName><shortdesc>
+  La classe WipeDirection définit les valeurs de la propriété direction de la classe Wipe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe WipeDirection définit les valeurs de la propriété <codeph>direction</codeph> de la classe Wipe.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Wipe"><linktext>spark.effects.Wipe</linktext></link></related-links><apiValue id="spark.effects:WipeDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      Sens d’un balayage commençant en haut et se déplaçant vers le bas.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Sens d’un balayage commençant en haut et se déplaçant vers le bas.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Sens d’un balayage commençant à droite et se déplaçant vers la gauche.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Sens d’un balayage commençant à droite et se déplaçant vers la gauche.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      Sens d’un balayage commençant à gauche et se déplaçant vers la droite.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Sens d’un balayage commençant à gauche et se déplaçant vers la droite.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:UP"><apiName>UP</apiName><shortdesc>
+      Sens d’un balayage commençant en bas et se déplaçant vers le haut.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Sens d’un balayage commençant en bas et se déplaçant vers le haut.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

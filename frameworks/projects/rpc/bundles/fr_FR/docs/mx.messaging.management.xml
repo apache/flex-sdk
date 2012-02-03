@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.management"><apiName>mx.messaging.management</apiName><apiDetail/><apiClassifier id="mx.messaging.management:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+ Représentation client d’une occurrence de nom d’objet pour les contrôles de gestion côté serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client d’une occurrence de nom d’objet pour les contrôles de gestion côté serveur.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectInstance:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence ObjectInstance vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence ObjectInstance vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectInstance:toString"><apiName>toString</apiName><shortdesc>
+      Retourne une représentation de chaîne de l’occurrence de nom d’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de chaîne de l’occurrence de nom d’objet.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Retourne une représentation de chaîne de l’occurrence de nom d’objet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectInstance:className"><apiName>className</apiName><shortdesc>
+     Nom de la classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Nom de la classe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectInstance:objectName"><apiName>objectName</apiName><shortdesc>
+     Nom de l’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.management:ObjectName</apiValueClassifier></apiValueDef><apiDesc>
+     Nom de l’objet.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’un constructeur MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’un constructeur MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanConstructorInfo:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanConstructorInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanConstructorInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanConstructorInfo:signature"><apiName>signature</apiName><shortdesc>
+	 Types de données de paramètres constituant la signature du constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 Types de données de paramètres constituant la signature du constructeur.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’un attribut MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’un attribut MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanAttributeInfo:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanAttributeInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanAttributeInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanAttributeInfo:isIs"><apiName>isIs</apiName><shortdesc>
+	 Indique si l’accesseur de lecture côté serveur de l’attribut comporte un préfixe « is ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si l’accesseur de lecture côté serveur de l’attribut comporte un préfixe « is ».
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:readable"><apiName>readable</apiName><shortdesc>
+	 Indique si l’attribut est lisible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si l’attribut est lisible.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:type"><apiName>type</apiName><shortdesc>
+	 Type de données de l’attribut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Type de données de l’attribut.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:writable"><apiName>writable</apiName><shortdesc>
+	 Indique si l’attribut est inscriptible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si l’attribut est inscriptible.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:Attribute"><apiName>Attribute</apiName><shortdesc>
+ Représentation client d’un attribut MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client d’un attribut MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:Attribute:Attribute"><apiName>Attribute</apiName><shortdesc>
+      Crée une nouvelle occurrence d’un attribut vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’un attribut vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:Attribute:toString"><apiName>toString</apiName><shortdesc>
+      Retourne une représentation de chaîne de l’attribut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de chaîne de l’attribut.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Retourne une représentation de chaîne de l’attribut.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:Attribute:name"><apiName>name</apiName><shortdesc>
+     Nom de l’attribut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Nom de l’attribut.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:Attribute:value"><apiName>value</apiName><shortdesc>
+     Valeur de l’attribut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Valeur de l’attribut.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’un paramètre de fonctionnement MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’un paramètre de fonctionnement MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanParameterInfo:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanParameterInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanParameterInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanParameterInfo:type"><apiName>type</apiName><shortdesc>
+	 Type de données du paramètre de fonctionnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Type de données du paramètre de fonctionnement.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’un MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’un MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanInfo:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanInfo:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une représentation de chaîne des informations MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de chaîne des informations MBean.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une représentation de chaîne des informations MBean.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanInfo:attributes"><apiName>attributes</apiName><shortdesc>
+	 Attributs exposés par le MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 Attributs exposés par le MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:className"><apiName>className</apiName><shortdesc>
+	 Nom de classe du MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Nom de classe du MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:constructors"><apiName>constructors</apiName><shortdesc>
+	 Constructeurs exposés par le MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 Constructeurs exposés par le MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:description"><apiName>description</apiName><shortdesc>
+	 Description du MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Description du MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:operations"><apiName>operations</apiName><shortdesc>
+	 Opérations fournies par le MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 Opérations fournies par le MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’une fonctionnalité MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’une fonctionnalité MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanFeatureInfo:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanFeatureInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanFeatureInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanFeatureInfo:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une représentation de chaîne des informations de fonctionnalité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de chaîne des informations de fonctionnalité.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une représentation de chaîne des informations de fonctionnalité.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanFeatureInfo:description"><apiName>description</apiName><shortdesc>
+	 Description de la fonctionnalité MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Description de la fonctionnalité MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanFeatureInfo:name"><apiName>name</apiName><shortdesc>
+	 Nom de la fonctionnalité MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Nom de la fonctionnalité MBean.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+ Représentation client des métadonnées d’une opération MBean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client des métadonnées d’une opération MBean.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanOperationInfo:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanOperationInfo vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence MBeanOperationInfo vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION_INFO"><apiName>ACTION_INFO</apiName><shortdesc>
+	 L’opération ressemble à la fois à une opération de lecture et à une opération d’écriture, mettant à jour le contrôle et renvoyant des informations.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 L’opération ressemble à la fois à une opération de lecture et à une opération d’écriture, mettant à jour le contrôle et renvoyant des informations.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION"><apiName>ACTION</apiName><shortdesc>
+	 L’opération ressemble à une opération d’écriture, mettant à jour le contrôle d’une certaine manière.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 L’opération ressemble à une opération d’écriture, mettant à jour le contrôle d’une certaine manière.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:INFO"><apiName>INFO</apiName><shortdesc>
+	 L’opération est purement informationnelle sans effets secondaires, en lecture seule.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 L’opération est purement informationnelle sans effets secondaires, en lecture seule.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:UNKNOWN"><apiName>UNKNOWN</apiName><shortdesc>
+	 Les effets secondaires de l’opération sont inconnus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 Les effets secondaires de l’opération sont inconnus.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:impact"><apiName>impact</apiName><shortdesc>
+	 Impact de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	 Impact de l’opération. Une valeur parmi quatre valeurs possibles, définies comme valeurs constantes pour cette classe.
+	 
+	 </apiDesc></apiValueDetail><related-links><link href="mx.messaging.management.xml#MBeanOperationInfo/INFO"><linktext>INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION"><linktext>ACTION</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION_INFO"><linktext>ACTION_INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/UNKNOWN"><linktext>UNKNOWN</linktext></link></related-links></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:returnType"><apiName>returnType</apiName><shortdesc>
+	 Type de données de retour de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Type de données de retour de l’opération.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:signature"><apiName>signature</apiName><shortdesc>
+	 Types de données de paramètres constituant la signature de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 Types de données de paramètres constituant la signature de l’opération.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+ Représentation client du nom des contrôles de gestion côté serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Représentation client du nom des contrôles de gestion côté serveur.
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectName:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+      Crée une nouvelle occurrence d’une occurrence ObjectName vide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence d’une occurrence ObjectName vide.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectName:getKeyProperty"><apiName>getKeyProperty</apiName><shortdesc>
+	 Renvoie la valeur associée à la clé de propriété spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiDesc>Clé de propriété.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	 Renvoie la valeur associée à la clé de propriété spécifiée.
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.management:ObjectName:toString"><apiName>toString</apiName><shortdesc>
+      Cette méthode renverra une représentation de chaîne du nom d’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de chaîne du nom d’objet.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Cette méthode renverra une représentation de chaîne du nom d’objet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectName:canonicalKeyPropertyListString"><apiName>canonicalKeyPropertyListString</apiName><shortdesc>
+	 Représentation de chaîne de la liste des propriétés de clés, les propriétés de clés étant triées dans l’ordre lexical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Représentation de chaîne de la liste des propriétés de clés, les propriétés de clés étant triées dans l’ordre lexical.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:canonicalName"><apiName>canonicalName</apiName><shortdesc>
+	 Forme canonique du nom ; représentation de chaîne avec les propriétés triées dans l’ordre lexical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Forme canonique du nom ; représentation de chaîne avec les propriétés triées dans l’ordre lexical.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domainPattern"><apiName>domainPattern</apiName><shortdesc>
+	 Indique si le nom de l’objet est un modèle sur la partie du domaine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si le nom de l’objet est un modèle sur la partie du domaine.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domain"><apiName>domain</apiName><shortdesc>
+	 Partie du domaine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Partie du domaine.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyListString"><apiName>keyPropertyListString</apiName><shortdesc>
+	 Représentation de chaîne de la liste des propriétés de clés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 Représentation de chaîne de la liste des propriétés de clés.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyList"><apiName>keyPropertyList</apiName><shortdesc>
+	 Propriétés de clés en tant qu’objet, triées par nom de propriété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	 Propriétés de clés en tant qu’objet, triées par nom de propriété.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:pattern"><apiName>pattern</apiName><shortdesc>
+	 Indique si le nom de l’objet est un modèle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si le nom de l’objet est un modèle.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:propertyPattern"><apiName>propertyPattern</apiName><shortdesc>
+	 Indique si le nom de l’objet est un modèle sur les propriétés de clés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 Indique si le nom de l’objet est un modèle sur les propriétés de clés.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

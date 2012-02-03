@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.managers"><apiName>mx.managers</apiName><apiDetail/><apiClassifier id="mx.managers:WindowedSystemManager"><apiName>WindowedSystemManager</apiName><shortdesc>
+  WindowedSystemManager 类可以管理基于 Flex 的 AIR 应用程序中的所有非应用程序窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.managers:ISystemManager</apiBaseInterface><apiBaseClassifier>flash.display:MovieClip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedSystemManager 类可以管理基于 Flex 的 AIR 应用程序中的所有非应用程序窗口。这包括作为 Window 组件或 Window 子类的实例的所有窗口，但不包括 WindowedApplication 窗口。对于这些窗口，WindowedSystemManager 的角色与 SystemManager 对于 WindowedApplication 实例或基于浏览器的 Flex 应用程序中的 Application 实例的角色相同。
+ 
+  <p>此比较表明 WindowedSystemManager 类可以充当多种角色。例如，它是 Window 的根显示对象，同时又管理工具提示、光标、弹出窗口及 Window 中的其他内容。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.SystemManager.xml"><linktext>mx.managers.SystemManager</linktext></link></related-links><apiConstructor id="mx.managers:WindowedSystemManager:WindowedSystemManager"><apiName>WindowedSystemManager</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootObj</apiItemName><apiType value="mx.core:IUIComponent"/></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.managers:WindowedSystemManager:callInContext"><apiName>callInContext</apiName><shortdesc>
+	  不应在 WindowedSystemManager 上调用此方法。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>fn</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>thisArg</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>argArray</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>returns</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+	  不应在 WindowedSystemManager 上调用此方法。它在此处是作为 IFlexModuleFactory 的约定的一部分。
+   	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:create"><apiName>create</apiName><shortdesc>
+      在自动生成的子类中将覆盖此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>params</apiItemName><apiType value="restParam"/></apiParam></apiOperationDef><apiDesc>
+      在自动生成的子类中将覆盖此方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:deployMouseShields"><apiName>deployMouseShields</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>deploy</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:getDefinitionByName"><apiName>getDefinitionByName</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:getFocus"><apiName>getFocus</apiName><shortdesc>
+     返回播放器视其为具有焦点的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>播放器视其为具有焦点的 InteractiveObject 类型的对象。如果焦点当前位于调用方无权访问的沙箱中，则将返回 null。
+      
+      </apiDesc><apiType value="flash.display:InteractiveObject"/></apiReturn></apiOperationDef><apiDesc>
+     返回播放器视其为具有焦点的对象。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:getSandboxRoot"><apiName>getSandboxRoot</apiName><shortdesc>
+     沿父级链上行，以到达此 SecurityDomain 中的顶级系统管理器
+     
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef><apiDesc>
+     沿父级链上行，以到达此 SecurityDomain 中的顶级系统管理器
+     
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:getTopLevelRoot"><apiName>getTopLevelRoot</apiName><shortdesc>
+     沿父级链上行，以到达顶级系统管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef><apiDesc>
+     沿父级链上行，以到达顶级系统管理器。如果我们不在显示列表中，或我们无权访问顶级系统管理器，则返回 null。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:getVisibleApplicationRect"><apiName>getVisibleApplicationRect</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><inheritdoc>
+      
+      </inheritdoc></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData></apiParam><apiParam><apiItemName>skipToSandboxRoot</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:invalidateParentSizeAndDisplayList"><apiName>invalidateParentSizeAndDisplayList</apiName><shortdesc>
+      尝试通知父 SWFLoader 应用程序的大小可能已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      尝试通知父 SWFLoader 应用程序的大小可能已更改。WindowedSystemManager 不需要，因此未执行任何操作
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:isFontFaceEmbedded"><apiName>isFontFaceEmbedded</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>textFormat</apiItemName><apiType value="flash.text:TextFormat"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:isTopLevelRoot"><apiName>isTopLevelRoot</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><inheritdoc>
+      
+      </inheritdoc></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:isTopLevelWindow"><apiName>isTopLevelWindow</apiName><shortdesc>
+      如果给定的 DisplayObject 是顶级窗口，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果给定的 DisplayObject 是顶级窗口，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果给定的 DisplayObject 是顶级窗口，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.managers:WindowedSystemManager:isTopLevel"><apiName>isTopLevel</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.managers:WindowedSystemManager:allowDomainsInNewRSLs:get"><apiName>allowDomainsInNewRSLs</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:allowInsecureDomainsInNewRSLs:get"><apiName>allowInsecureDomainsInNewRSLs</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:childAllowsParent:get"><apiName>childAllowsParent</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><inheritdoc>
+      
+      </inheritdoc></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:cursorChildren:get"><apiName>cursorChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IChildList"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:document:get"><apiName>document</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:embeddedFontList:get"><apiName>embeddedFontList</apiName><shortdesc>
+      此应用程序中的嵌入字体表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此应用程序中的嵌入字体表。此对象是一个按字体名称编制索引的表格。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:focusPane:get"><apiName>focusPane</apiName><shortdesc conref="mx.core.UIComponent#focusPane">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.core.UIComponent#focusPane">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:height:get"><apiName>height</apiName><shortdesc>
+      此对象的高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的高度。对于 SystemManager 而言，只要该应用程序未加载到其他应用程序中，此值就应始终为舞台的宽度。如果此应用程序未加载到其他应用程序中，则设置此值不会起任何作用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:isProxy:get"><apiName>isProxy</apiName><shortdesc>
+	  如果 SystemManager 是代理而不是根类时为 true
+	 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  如果 SystemManager 是代理而不是根类时为 true
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:numChildren:get"><apiName>numChildren</apiName><shortdesc>
+      非浮动窗口的数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      非浮动窗口的数目。此值是主应用程序窗口以及添加到 SystemManager 中的除弹出窗口、工具提示或光标以外的任何其他窗口数目之和。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:numModalWindows:get"><apiName>numModalWindows</apiName><shortdesc>
+      模式窗口的数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      模式窗口的数量。模式窗口不允许在其他窗口中单击，因为这通常会激活该窗口中的 FocusManager。PopUpManager 在创建和销毁模式窗口时会修改此计数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:parentAllowsChild:get"><apiName>parentAllowsChild</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><inheritdoc>
+      
+      </inheritdoc></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:popUpChildren:get"><apiName>popUpChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IChildList"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:rawChildren:get"><apiName>rawChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IChildList"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:screen:get"><apiName>screen</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:toolTipChildren:get"><apiName>toolTipChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IChildList"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.managers:WindowedSystemManager:topLevelSystemManager:get"><apiName>topLevelSystemManager</apiName><shortdesc>
+      返回负责应用程序窗口的 SystemManager。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.managers:ISystemManager"/></apiValueDef><apiDesc>
+      返回负责应用程序窗口的 SystemManager。只要此应用程序尚未加载到其他应用程序中，这就是同一个 SystemManager。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.managers:WindowedSystemManager:width:get"><apiName>width</apiName><shortdesc>
+      此对象的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的宽度。对于 SystemManager 而言，只要该应用程序未加载到其他应用程序中，此值就应始终为舞台的宽度。如果此应用程序未加载到其它应用程序中，则设置此值不会起任何作用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

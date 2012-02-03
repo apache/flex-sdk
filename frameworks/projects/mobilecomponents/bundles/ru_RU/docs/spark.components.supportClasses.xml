@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.supportClasses"><apiName>spark.components.supportClasses</apiName><apiDetail/><apiClassifier id="spark.components.supportClasses:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+  Класс StyleableTextField - это текстовый примитив, который используется в темах оформления и средствах визуализации элементов ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  Смещение первой строки текста с левой стороны контейнера в пикселях. Это свойство не может быть представлено отрицательным числом, когда оно используется в мобильной теме.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  Определяет использование подчеркивания текста. Возможными значениями являются <codeph>none</codeph> и <codeph>underline</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  Выравнивание текста внутри контейнера. Возможными значениями являются <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>.
+ 
+  <p>Значением по умолчанию является <codeph>left</codeph>. Для компонента FormItem, значением по умолчанию является <codeph>right</codeph>. Для компонентов Button, LinkButton и AccordionHeader значением по умолчанию является <codeph>center</codeph> и это свойство является допустимым, только если свойство <codeph>labelPlacement</codeph> установлено на <codeph>left</codeph> или <codeph>right</codeph>. Если свойство <codeph>labelPlacement</codeph> установлено на <codeph>top</codeph> или <codeph>bottom</codeph>, текст и любой значок располагаются по центру.</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  Число дополнительных пикселей, отображаемых между каждым символом. Положительное значение увеличивает интервал между символами вне стандартного интервала, в то время как отрицательное значение его уменьшает.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  Дополнительный вертикальный пробел между строками текста.
+   <p>Значением по умолчанию является 0.</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  Определяет использование жирного шрифта в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph> bold</codeph>. Значение по умолчанию для элемента управления Button равно <codeph>bold</codeph>. Значением по умолчанию для всех прочих элементов управления является<codeph>normal</codeph>.
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  Определяет использование курсива в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph>italic</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  Высота текста в пикселях. Для тем Halo значением по умолчанию для всех элементов управления, кроме ColorPicker, является 10. Для элемента управления ColorPicker с темой Halo значением по умолчанию является 11. Для тем Spark значением по умолчанию для всех элементов управления, кроме ColorPicker, является 12. Для элемента управления ColorPicker с темой Spark значением по умолчанию является 11. Значение по умолчанию для темы Mobile - 24.
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  Имя используемого шрифта. В отличие от использования в реализации CSS, разделенные запятой списки не поддерживаются. Можно использовать любое имя гарнитуры шрифтов. При указании общего имени шрифта оно преобразовывается в соответствующий шрифт устройства. Шрифтом по умолчанию для темы Halo является <codeph>Verdana</codeph>. Шрифтом по умолчанию для темы Spark является <codeph>Arial</codeph>. Шрифт по умолчанию для темы Mobile - <codeph>"_sans"</codeph>.
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="uint">
+<description>
+  Цвет текста в компоненте, включая метку компонента. Значением по умолчанию для темы Halo является <codeph>0x0B333C</codeph>. Значение по умолчанию для темы Spark - <codeph>0x000000</codeph>. Значение по умолчанию для мобильной темы - <codeph>0xFFFFFF</codeph>.
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier>mx.core:FlexTextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс StyleableTextField - это текстовый примитив, который используется в темах оформления и средствах визуализации элементов ActionScript. Он не может использоваться в разметке MXML и несовместим с эффектами.
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:StyleableTextField:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableTextField:appendText"><apiName>appendText</apiName><shortdesc>
+      Присоединяет указанный текст к концу текстового компонента, как если бы пользователь щелкнул конечный фрагмент и ввел текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Текст, который будет добавлен.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Присоединяет указанный текст к концу текстового компонента, как если бы пользователь щелкнул конечный фрагмент и ввел текст.
+           <p>После нового текста устанавливается точка вставки. В случае необходимости текст будет прокручен для обеспечения видимости точки вставки.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:commitStyles"><apiName>commitStyles</apiName><shortdesc>
+      Сохранение стилей в TextField.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Сохранение стилей в TextField. Этот метод необходимо вызывать перед отображением текста и при каждом изменении стилей. Если стили уже сохранены, этот метод не действует.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:insertText"><apiName>insertText</apiName><shortdesc>
+      Присоединяет указанный текст к текстовому компоненту, как если бы пользователь ввел текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>
+     
+      </apiDesc><apiItemName>Error</apiItemName><apiOperationClassifier>Error</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Текст, который будет вставлен.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Присоединяет указанный текст к текстовому компоненту, как если бы пользователь ввел текст.
+           <p>При выборе диапазона новый текст заменяет выбранный текст. При наличии точки вставки новый текст вставляется в этом месте.</p>
+           <p>После нового текста устанавливается точка вставки. В случае необходимости текст будет прокручен для обеспечения видимости точки вставки.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:scrollToRange"><apiName>scrollToRange</apiName><shortdesc>
+      Прокрутка до отображения указанного диапазона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorPosition</apiItemName><apiType value="int"/><apiDesc>Позиция привязки диапазона выбора.
+      </apiDesc></apiParam><apiParam><apiItemName>activePosition</apiItemName><apiType value="int"/><apiDesc>Активная позиция диапазона выбора.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Прокрутка до отображения указанного диапазона.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectAll"><apiName>selectAll</apiName><shortdesc>
+      Выделяет весь текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Выделяет весь текст.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectRange"><apiName>selectRange</apiName><shortdesc>
+      Выбирает указанный диапазон символов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>Позиция символа, определяющая конец выделенного фрагмента, который остается фиксированным при расширении выделения.
+           </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>Позиция символа, определяющая конец выделенного фрагмента, который перемещается при расширении выделения.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выбирает указанный диапазон символов.
+           <p>Если любая из позиций является отрицательной, выбор текстового диапазона отменяется.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setFocus"><apiName>setFocus</apiName><shortdesc>
+      Установка фокуса в текстовом поле.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Установка фокуса в текстовом поле.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+           </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Новое значение стиля.
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.core.UIComponent#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Измененное свойство стиля.
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:truncateToFit"><apiName>truncateToFit</apiName><shortdesc>
+      Усекает текст для его полного горизонтального размещения в области, определенной для элемента управления, и присоединяет к тексту многоточие (...).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если текст требовал усечения.
+           </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>truncationIndicator</apiItemName><apiType value="String"/><apiData>...</apiData><apiDesc>Текст, добавляемый после усечения. При передаче значения <codeph>null</codeph> будет использоваться локализуемая строка, например <codeph>...</codeph>.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Усекает текст для его полного горизонтального размещения в области, определенной для элемента управления, и присоединяет к тексту многоточие (...). Эта функция действует только для текста, состоящего из одной строки.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:StyleableTextField:minHeight"><apiName>minHeight</apiName><shortdesc conref="mx.core.UIComponent#minHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:minWidth"><apiName>minWidth</apiName><shortdesc conref="mx.core.UIComponent#minWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:editable:get"><apiName>editable</apiName><shortdesc>
+      true, если текст можно редактировать, и false в противном случае.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true if type is TextFieldType.INPUT, otherwise false.
+           </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph>, если текст можно редактировать, и <codeph>false</codeph> в противном случае.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:enabled:get"><apiName>enabled</apiName><shortdesc>
+      Возможность использования компонента пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Возможность использования компонента пользователем. После установки свойства <codeph> enabled</codeph> на <codeph> false</codeph><codeph> некоторые компоненты по-прежнему отвечают на использование мыши, например на событие mouseOver</codeph>. В результате для полного отключения компонента требуется установить значение свойства <codeph>mouseEnabled</codeph> на <codeph>false</codeph>.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      Указывает, может ли компонент получить фокус при выборе вкладки с ним.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, может ли компонент получить фокус при выборе вкладки с ним. Можно установить для <codeph>focusEnabled</codeph> значение <codeph>false</codeph>, если компонент используется в качестве подчиненного компонента для другого компонента так, чтобы внешний компонент стал сущностью, которая может получить фокус. Если это свойство имеет значение <codeph>false</codeph>, фокус будет передан в первый вышестоящий элемент, в котором <codeph>focusEnable</codeph> установлено на <codeph>true</codeph>.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      Позиция горизонтальной прокрутки текста.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Позиция горизонтальной прокрутки текста.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:isTruncated:get"><apiName>isTruncated</apiName><shortdesc>
+      true, если текст был усечен, или false в противном случае.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph>, если текст был усечен, или <codeph>false</codeph> в противном случае.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:lineBreak:get"><apiName>lineBreak</apiName><shortdesc>
+      Управляет переносом слов в тексте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Управляет переносом слов в тексте. Это свойство соответствует стилю <codeph>lineBreak</codeph>.
+           <p>Текст можно настроить по ширине контейнера (<codeph>LineBreak.TO_FIT</codeph>) или установить разрыв только при наличии символов возврата каретки или символов перевода строки (<codeph>LineBreak.EXPLICIT</codeph>).</p>
+           <p>Допустимые значения: <codeph>flashx.textLayout.formats.LineBreak.EXPLICIT</codeph>, <codeph>flashx.textLayout.formats.LineBreak.TO_FIT</codeph> и <codeph>flashx.textLayout.formats.FormatValue.INHERIT</codeph>.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      Активная позиция или позиция последнего нажатия выбранного фрагмента. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Активная позиция или позиция последнего нажатия выбранного фрагмента. Если реализация не поддерживает привязку выбора, используется последний символ в выделенном фрагменте.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      Привязка или позиция первого нажатия выбранного фрагмента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Привязка или позиция первого нажатия выбранного фрагмента. Если реализация не поддерживает привязку выбора, используется первый символ в выделенном фрагменте.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      Обеспечивает хранение встроенных наследуемых стилей этого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      Обеспечивает хранение встроенных наследуемых стилей этого объекта. Этот элемент CSSStyleDeclaration впервые создается при вызове метода <codeph>setStyle()</codeph> для этого компонента в целях установки наследуемого стиля. Как правило, разработчикам не требуется вызывать это свойство напрямую.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleName:get"><apiName>styleName</apiName><shortdesc>
+      Стиль класса, используемый этим компонентом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Стиль класса, используемый этим компонентом. Он должен являться IStyleClient.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:text:get"><apiName>text</apiName><shortdesc>
+      Текст, отображаемый данным текстовым компонентом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Текст, отображаемый данным текстовым компонентом.
+           <p>Форматированием данного этого текста управляют стили CSS. Поддерживаемые стили зависят от подкласса.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      Позиция вертикальной прокрутки текста.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Позиция вертикальной прокрутки текста.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+  Класс ViewReturnObject инкапсулирует возвращаемое значение представления при его удалении из стека навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewReturnObject инкапсулирует возвращаемое значение представления при его удалении из стека навигации. Объект ViewReturnObject содержит ссылку на возвращенный объект и контекст, в котором было создано отображаемое представление. Контекст - это произвольный объект, который передается в метод <codeph>ViewNavigator.pushView()</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewReturnObject:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Возвращенный объект.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Контекст, в котором был создан владелец.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:ViewReturnObject:context"><apiName>context</apiName><shortdesc>
+      Идентификатор контекста, передаваемый во всплывающее представление при его перемещении в стек навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      Идентификатор контекста, передаваемый во всплывающее представление при его перемещении в стек навигации.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewReturnObject:object"><apiName>object</apiName><shortdesc>
+      Возвращаемый объект, созданный удаляемым представлением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      Возвращаемый объект, созданный удаляемым представлением.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+  Класс ViewNavigatorApplicationBase - это базовый класс для всех типов приложений на основе представлений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="style" name="backgroundAlpha"/><Exclude kind="property" name="preloaderChromeColor"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="viewMenu" owner="spark.components.supportClasses:ViewNavigatorApplicationBase" required="false" var_type="mx.core:IFactory">
+<description>
+      Динамическая часть темы оформления, которая определяет ViewMenu, используемый для отображения меню представления при нажатии кнопки меню. Стандартная тема оформления использует фабрику, которая создает экземпляр ViewMenu. 
+     </description>
+	<shortdesc>
+      Dynamic skin part that defines the ViewMenu used to display the
+      view menu when the menu button is pressed.</shortdesc></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorApplicationBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorApplicationBase
+    <strong>Properties</strong>
+    persistNavigatorState="false"
+    viewMenuOpen="false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewNavigatorApplicationBase - это базовый класс для всех типов приложений на основе представлений. Этот класс предоставляет основную инфраструктуру, чтобы обеспечить доступ к меню приложений устройства, аппаратным клавишам, состоянию ориентации и сохраняемости сеанса приложения.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link><link href="spark.components.xml#TabbedViewNavigatorApplication"><linktext>spark.components.TabbedViewNavigatorApplication</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_SAVING_navigatorStateSaving"><apiName>navigatorStateSaving</apiName><shortdesc>
+  Отправляется перед попыткой приложения сохранить свое состояние, когда приложение приостанавливается или закрывается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_SAVING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед попыткой приложения сохранить свое состояние, когда приложение приостанавливается или закрывается. При вызове <codeph>preventDefault</codeph> для этого события состояние приложения не сохраняется.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_LOADING_navigatorStateLoading"><apiName>navigatorStateLoading</apiName><shortdesc>
+  Отправляется перед попыткой приложения восстановить свое ранее сохраненное состояние, когда приложение запускается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_LOADING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед попыткой приложения восстановить свое ранее сохраненное состояние, когда приложение запускается. При вызове <codeph>preventDefault</codeph> для этого события состояние приложения не восстанавливается.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:ViewNavigatorApplicationBase:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+      Конструктор
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:backKeyUpHandler"><apiName>backKeyUpHandler</apiName><shortdesc>
+      Метод вызывается, когда пользователь нажимает аппаратную кнопку "Назад" в приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>Объект события, созданный в результате нажатия клавиши.
+       
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод вызывается, когда пользователь нажимает аппаратную кнопку "Назад" в приложении.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:createPersistenceManager"><apiName>createPersistenceManager</apiName><shortdesc>
+      Создает диспетчер сохраняемости для приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Объект диспетчера IPersistenceManager.
+      
+      </apiDesc><apiOperationClassifier>spark.managers:IPersistenceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Создает диспетчер сохраняемости для приложения. Этот метод автоматически вызывается при первом доступе к диспетчеру сохраняемости или если для флага <codeph>persistNavigatorState</codeph> устанавливается значение <codeph>true</codeph> в приложении.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:deactivateHandler"><apiName>deactivateHandler</apiName><shortdesc>
+      Вызывается, когда приложение закрывается или отправляется в фоновый режим операционной системой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Объект для события NAVIGATOR_STATE_SAVING.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается, когда приложение закрывается или отправляется в фоновый режим операционной системой. Если для <codeph>persistNavigatorState</codeph> указано <codeph>true</codeph>, то приложение приступит к сохранению состояния.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:invokeHandler"><apiName>invokeHandler</apiName><shortdesc>
+      Метод вызывается, когда операционная система обращается к приложению в ответ на событие InvokeEvent.INVOKEevent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:InvokeEvent"/><apiDesc>Объект InvokeEvent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод вызывается, когда операционная система обращается к приложению в ответ на событие <codeph>InvokeEvent.INVOKEevent</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:loadNavigatorState"><apiName>loadNavigatorState</apiName><shortdesc>
+      Обеспечивает восстановление состояния приложения, если свойство persistNavigatorState имеет значение true.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает восстановление состояния приложения, если свойство <codeph>persistNavigatorState</codeph> имеет значение <codeph>true</codeph>.
+     
+      <p>Этот метод вызывается только в том случае, если не отменено событие <codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:menuKeyUpHandler"><apiName>menuKeyUpHandler</apiName><shortdesc>
+      Вызывается при нажатии клавиши меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>Объект KeyboardEvent, связанный с нажимаемой клавишей меню.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается при нажатии клавиши меню. По умолчанию этот метод открывает или закрывает объект ViewMenu.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#ViewMenu"><linktext>spark.components.ViewMenu</linktext></link></related-links></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:saveNavigatorState"><apiName>saveNavigatorState</apiName><shortdesc>
+      Отвечает за сохранение состояния приложения в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отвечает за сохранение состояния приложения в диспетчере сохраняемости. Этот метод автоматически вызывается, если для <codeph>persistNavigatorState</codeph> указано <codeph>true</codeph>. По умолчанию этот метод сохраняет версию приложения в ключ <codeph>versionNumber</codeph> объекта PersistenceManager.
+     
+      <p>Этот метод вызывается только в том случае, если не отменено событие <codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistNavigatorState:get"><apiName>persistNavigatorState</apiName><shortdesc>
+      Переключает функцию кэширования сеанса приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Переключает функцию кэширования сеанса приложения. Если включено, приложение автоматически сохраняет стек представлений и хронологию переходов навигатора текущего представления в диспетчере сохраняемости. При повторном запуске приложения эти данные будут автоматически считаны из хранилища сохраняемости и применены к навигатору приложения.
+     
+      <p>После активации версия приложения будет добавлена в объект сохраняемости. Для доступа к этой информации можно использовать метод <codeph>getProperty()</codeph> диспетчера сохраняемости и запросить ключ<codeph>versionNumber</codeph>.</p>
+     
+      <p>При создании объекта сохраняемости приложение отправляет отменяемое событие <codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph> в начале процесса. При отмене события <codeph>NAVIGATOR_STATE_SAVING</codeph> объект сохраняемости не создается. Когда эта информация восстанавливается в приложении, отправляется отменяемое событие <codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph>. При отмене события <codeph>NAVIGATOR_STATE_LOADING</codeph> данные навигации не восстанавливаются.</p>
+     
+      <p>Флаг <codeph>persistNavigatorState</codeph> должен получить значение <codeph>true</codeph>, перед тем как приложение выполнит собственную инициализацию для автоматического восстановления состояния навигатора.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistenceManager:get"><apiName>persistenceManager</apiName><shortdesc>
+      Объект persistenceManager для приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.managers:IPersistenceManager</apiValueClassifier></apiValueDef><apiDesc>
+      Объект persistenceManager для приложения. Если необходимо, диспетчер сохраняемости автоматически создается при первом доступе. Для изменения типа созданного диспетчера сохраняемости следует изменить метод <codeph>createPersistenceManager()</codeph>.
+     
+      <p>Диспетчер сохраняемости автоматически сохраняет и восстанавливает стек навигатора текущего представления, если для флага <codeph>persistNavigatorState</codeph> указано значение <codeph>true</codeph>. Данные, хранимые в диспетчере сохраняемости, будут автоматически удалены с диска, когда выполнение приложения приостанавливается или отменяется.</p>
+      
+      <p>Стандартная реализация диспетчера сохраняемости использует общедоступный объект в качестве хранилища резервных данных. Вся информация, сохраняемая в этом объекте, должна соответствовать правилам Flash AMF для кодирования объектов. Это означает, что необходимо зарегистрировать пользовательские классы посредством <codeph>flash.net.registerClassAlias</codeph>.</p>
+     
+      <p>Значением по умолчанию является экземпляр класса spark.core.managers.PersistenceManager.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:viewMenuOpen:get"><apiName>viewMenuOpen</apiName><shortdesc>
+      Открывает меню представления, если установлено значение true, и закрывает его, если установлено значение false.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Открывает меню представления, если установлено значение <codeph>true</codeph>, и закрывает его, если установлено значение <codeph>false</codeph>. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+  Класс TextInputOperation представляет операцию текстового ввода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flashx.textLayout.operations:FlowOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TextInputOperation представляет операцию текстового ввода. Этот класс используется StyleableTextField только при отправке события CHANGING. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:TextInputOperation:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:TextInputOperation:text"><apiName>text</apiName><shortdesc>
+      Введенный текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Введенный текст. Если событие CHANGING не отменено, этот текст будет добавлен в TextFeld. При отмене события текст не добавляется.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+  Класс StyleableStageText — это текстовый примитив для тем оформления ActionScript, который используется, чтобы ознакомить пользователя с возможностями собственного поля для текстового ввода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion><Exclude kind="property" name="verticalScrollPosition"/><Exclude kind="property" name="selectable"/><Exclude kind="property" name="lineBreak"/><Exclude kind="property" name="isTruncated"/><Exclude kind="property" name="horizontalScrollPosition"/><Exclude kind="property" name="alpha"/><styles><style enumeration="start,end,left,right,center" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  Выравнивание текста внутри контейнера. Возможные значения: <codeph>start</codeph>, <codeph>end</codeph>, <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>.
+ 
+  </description>
+<default>"start"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description conref="spark.components.supportClasses.SkinnableTextBase#style:locale">
+  </description>
+
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  Определяет использование жирного шрифта в тексте. Распознаются значения <codeph>normal</codeph> и <codeph>bold</codeph>. 
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  Определяет использование курсива в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph>italic</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="Number">
+<description>
+  Высота текста в пикселах. 
+ 
+  </description>
+<default>24
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  Имя используемого шрифта. В отличие от использования в реализации CSS, разделенные запятой списки не поддерживаются. Можно использовать любое имя гарнитуры шрифтов. При указании общего имени шрифта оно преобразовывается в соответствующий шрифт устройства.
+ 
+  </description>
+<default>"_sans"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="uint">
+<description>
+  Цвет текста в компоненте, включая метку компонента.
+   </description>
+<default>0x000000
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>spark.core:ISoftKeyboardHintClient</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс StyleableStageText — это текстовый примитив для тем оформления ActionScript, который используется, чтобы ознакомить пользователя с возможностями собственного поля для текстового ввода. Он не может использоваться в разметке MXML и несовместим с эффектами и такими преобразованиями, как поворот, масштабирование или наклон.
+ 
+  <p>StageText позволяет более эффективно управлять вводом и обработкой текста на мобильных устройствах с использованием собственных текстовых полей. Собственные поля обеспечивают правильное отображение графических элементов, перекомпоновку и пробелы в тексте, возможности выбора и помощь при вводе текста. Этот класс может также использоваться на настольных платформах в качестве оболочки TextField.
+  </p>
+ 
+  Заполнение вокруг собственных элементов управления текста может отличаться от заполнения вокруг элементов управления TextField.
+ 
+  <p>Аналогично другим собственным приложениям, прикосновение вне текстового поля снимет фокус с этого текстового поля и скроет экранную клавиатуру. Это поведение отличается от прикосновения вне пределов TextField, при котором в TextField сохраняется фокус и экранная клавиатура остается видимой.</p>
+ 
+  <p><b>Ограничение элементов управления на основе StageText:</b>
+  <ul>
+  <li>Собственные поля ввода текста не могут быть обрезаны другим содержимым Flex и обрабатываются в слое над Stage. Из-за этого ограничения <b>компоненты, использующие классы тем оформления на основе StageText, всегда будут отображаться поверх других компонентов Flex</b>. Всплывающие и раскрывающиеся объекты Flex будут расположены под любыми видимыми собственными полями текста. Наконец, приложение не может управлять порядком по оси Z собственных текстовых полей.</li>
+ 
+  <li>Собственные элементы управления не поддерживают встроенные шрифты.</li>
+ 
+  <li>Ссылки и разметка HTML не поддерживаются.</li>
+ 
+  <li><codeph>text</codeph> всегда можно выбрать.</li>
+ 
+  <li>Дробные значения альфа-канала не поддерживаются.</li>
+ 
+  <li>События клавиатуры не отправляются для большинства клавиш. Это означает, что клавиша табуляции не будет отправлять события keyDown или keyUp, поэтому невозможно снять фокус с элемента управления на основе StageText с помощью клавиши табуляции.</li>
+ 
+  <li>В настоящее время StageText не может использоваться для измерения текста.</li>
+ 
+  <li>В настоящее время StageText не поддерживает программное управление положением прокрутки. </li>
+ 
+  <li>В настоящее время StageText не поддерживает модель событий, которая требуется для прокрутки с помощью прикосновений форм, содержащих собственные текстовые поля.</li>
+  </ul>
+  </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.text.StageText.xml"><linktext>flash.text.StageText</linktext></link><link href="spark.components.supportClasses.xml#StyleableTextField"><linktext>spark.components.supportClasses.StyleableTextField</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE_softKeyboardDeactivate"><apiName>softKeyboardDeactivate</apiName><shortdesc>
+  Передается при понижении или скрытии программной клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events. SoftKeyboardEvent. SOFT_KEYBOARD_DEACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при понижении или скрытии программной клавиатуры.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING_softKeyboardActivating"><apiName>softKeyboardActivating</apiName><shortdesc>
+  Передается непосредственно перед отображением программной клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events. SoftKeyboardEvent. SOFT_KEYBOARD_ACTIVATING</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается непосредственно перед отображением программной клавиатуры. При отмене посредством вызова <codeph>preventDefault</codeph> программная клавиатура не открывается.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE_softKeyboardActivate"><apiName>softKeyboardActivate</apiName><shortdesc>
+  Передается во время отображения программной клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events. SoftKeyboardEvent. SOFT_KEYBOARD_ACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается во время отображения программной клавиатуры.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_OUT_focusOut"><apiName>focusOut</apiName><shortdesc>
+  Передается после потери фокуса встроенным текстовым элементом управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_OUT</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после потери фокуса встроенным текстовым элементом управления. Происходит при выделении пользователем объекта, отличного от текстового поля, с помощью указателя, клавиатуры или сенсорного жеста.
+ 
+  <p>Примечание. Поскольку <codeph>flash.text.StageText</codeph> не является объектом <codeph>InteractiveObject</codeph>, свойство <codeph>Stage.focus</codeph> невозможно использовать для определения наличия фокуса у текстового поля.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_IN_focusIn"><apiName>focusIn</apiName><shortdesc>
+  Передается после получения фокуса встроенным текстовым элементом управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_IN</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после получения фокуса встроенным текстовым элементом управления. Происходит при выделении пользователем текстового поля с помощью указателя, клавиатуры или сенсорного жеста.
+ 
+  <p>Примечание. Поскольку <codeph>flash.text.StageText</codeph> не является объектом <codeph>InteractiveObject</codeph>, свойство <codeph>Stage.focus</codeph> невозможно использовать для определения наличия фокуса у текстового поля.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_mx.events.FlexEvent.ENTER_enter"><apiName>enter</apiName><shortdesc>
+  Передается, если StageText не является многострочным и пользователь нажимает клавишу enter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, если StageText не является многострочным и пользователь нажимает клавишу enter.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.Event.CHANGE_change"><apiName>change</apiName><shortdesc>
+  Передается после завершения пользователем операции редактирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после завершения пользователем операции редактирования.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:StyleableStageText:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiDefaultValue>false
+     
+      </apiDefaultValue><apiParam><apiItemName>multiline</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>При значении <codeph>true</codeph> допускается ввод текста, содержащего более одной строки.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      <p><codeph>multiline</codeph> определяет действия, происходящие при нажатии клавиши Enter. Если значение равно <codeph>true</codeph>, то нажатие клавиши Enter начинает новую строку. Если значение равно <codeph>false</codeph>, оно инициирует событие <codeph>FlexEvent.ENTER</codeph> для отправления.</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableStageText:appendText"><apiName>appendText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:insertText"><apiName>insertText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectAll"><apiName>selectAll</apiName><shortdesc>
+      Выделяет весь текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Выделяет весь текст.
+     
+      <p>В iOS эта функция не поддерживается для немногострочных объектов StyleableStageText и не выполняет никаких действий.</p>
+     
+      <p>На некоторых устройствах и в некоторых операционных системах выделенный фрагмент виден только при наличии фокуса в объекте StageText.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectRange"><apiName>selectRange</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.components.supportClasses:StyleableStageText:autoCapitalize:get"><apiName>autoCapitalize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"none"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.AutoCapitalize.xml"><linktext>flash.text.AutoCapitalize</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:autoCorrect:get"><apiName>autoCorrect</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:displayAsPassword:get"><apiName>displayAsPassword</apiName><shortdesc>
+      Показывает, является ли текстовое поле полем пароля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Показывает, является ли текстовое поле полем пароля.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:editable:get"><apiName>editable</apiName><shortdesc>
+      Флаг, указывающий на возможность редактирования текста в поле.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на возможность редактирования текста в поле.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:maxChars:get"><apiName>maxChars</apiName><shortdesc conref="flash.text.StageText#maxChars">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#maxChars">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:multiline:get"><apiName>multiline</apiName><shortdesc conref="flash.text.StageText#multiline">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.StageText#multiline">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:restrict:get"><apiName>restrict</apiName><shortdesc conref="flash.text.StageText#restrict">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#restrict">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:returnKeyLabel:get"><apiName>returnKeyLabel</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.ReturnKeyLabel.xml"><linktext>flash.text.ReturnKeyLabel</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      Активная позиция или позиция последнего нажатия выбранного фрагмента. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Активная позиция или позиция последнего нажатия выбранного фрагмента. Если реализация не поддерживает привязку выбора, используется последний символ в выделенном фрагменте.
+     
+      <p>Это значение не может использоваться в качестве источника для привязки данных.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      Привязка или позиция первого нажатия выбранного фрагмента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Привязка или позиция первого нажатия выбранного фрагмента. Если реализация не поддерживает привязку выбора, используется первый символ в выделенном фрагменте.
+      
+      <p>Это значение не может использоваться в качестве источника для привязки данных.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:softKeyboardType:get"><apiName>softKeyboardType</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.SoftKeyboardType.xml"><linktext>flash.text.SoftKeyboardType</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:text:get"><apiName>text</apiName><shortdesc>
+      Строка, представляющая текущий текст в текстовом поле.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, представляющая текущий текст в текстовом поле. Строки разделяются символом возврата каретки (\r, ASCII 13). Это свойство содержит неформатированный текст в текстовом поле без тегов форматирования.
+           <p>Выделение ранее выбранного фрагмента сохранится. Если длина предыдущего текста была меньше длины нового текста, выделение будет применено таким образом, что <codeph>selectionAnchorPosition</codeph> и <codeph>selectionActivePosition</codeph> не будут превышать длину нового текста.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+  Класс ViewNavigatorBase определяет логику и интерфейс базового класса, используемые навигаторами представлений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContentFactory"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorBase
+    <strong>Properties</strong>
+    icon="null"
+    label="null"
+    transitionsEnabled="true"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ViewNavigatorBase определяет логику и интерфейс базового класса, используемые навигаторами представлений. Этот класс содержит методы и свойства, относящиеся к управлению представлениями, и точки интеграции с классами приложений ViewNavigatorApplicationBase.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigator"><linktext>spark.components.ViewNavigator</linktext></link><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewNavigatorBase:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:loadViewData"><apiName>loadViewData</apiName><shortdesc>
+      Восстанавливает состояние представления навигатора на основе аргумента value.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, используемый для восстановления состояния навигатора.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Восстанавливает состояние представления навигатора на основе аргумента <codeph>value</codeph>. Объект, передаваемый как аргумент <codeph>value</codeph>, создается при вызове метода <codeph>saveViewData()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:saveViewData"><apiName>saveViewData</apiName><shortdesc>
+      Обеспечивает сериализацию всех данных, связанных с нижестоящими элементами навигатора в объекте, который может быть сохранен диспетчером сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, представляющий состояние навигаторов
+     
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает сериализацию всех данных, связанных с нижестоящими элементами навигатора в объекте, который может быть сохранен диспетчером сохраняемости. Возвращаемый объект передается в метод <codeph>restoreViewData()</codeph> при повторном создании экземпляра навигатора.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:updateControlsForView"><apiName>updateControlsForView</apiName><shortdesc>
+      Обновляет различные свойства навигатора при добавлении или активации нового представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>view</apiItemName><apiOperationClassifier>spark.components:View</apiOperationClassifier><apiDesc>Добавленное представление.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обновляет различные свойства навигатора при добавлении или активации нового представления.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorBase:activeView:get"><apiName>activeView</apiName><shortdesc>
+      Текущее активное представление навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Текущее активное представление навигатора. Только одно представление может быть активным.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:icon:get"><apiName>icon</apiName><shortdesc>
+      Значок, который используется, когда навигатор представлен визуальным компонентом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значок, который используется, когда навигатор представлен визуальным компонентом.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:isActive:get"><apiName>isActive</apiName><shortdesc>
+      Устанавливает значение true, когда этот навигатор активен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Устанавливает значение <codeph>true</codeph>, когда этот навигатор активен. Вышестоящий навигатор автоматически устанавливает этот флаг при изменении его состояния.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:label:get"><apiName>label</apiName><shortdesc>
+      Метка, который используется, когда навигатор представлен визуальным компонентом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Метка, который используется, когда навигатор представлен визуальным компонентом.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:parentNavigator:get"><apiName>parentNavigator</apiName><shortdesc>
+      Вышестоящий навигатор для данного навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components.supportClasses:ViewNavigatorBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Вышестоящий навигатор для данного навигатора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:transitionsEnabled:get"><apiName>transitionsEnabled</apiName><shortdesc>
+      При установке значения true переходы представлений включаются, когда изменяется представление или видимость элемента управления ActionBar или TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      При установке значения <codeph>true</codeph> переходы представлений включаются, когда изменяется представление или видимость элемента управления ActionBar или TabBar.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorAction"><apiName>ViewNavigatorAction</apiName><shortdesc>
+      Класс ViewNavigatorAction определяет значения констант для свойства action класса ViewNavigatorEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Класс ViewNavigatorAction определяет значения констант для свойства <codeph>action</codeph> класса ViewNavigatorEvent.
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.events.xml#ViewNavigatorEvent"><linktext>spark.events.ViewNavigatorEvent</linktext></link></related-links><apiValue id="spark.components.supportClasses:ViewNavigatorAction:NONE"><apiName>NONE</apiName><shortdesc>
+          Константа, указывающая отсутствие действий навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Константа, указывающая отсутствие действий навигатора.
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_ALL"><apiName>POP_ALL</apiName><shortdesc>
+          Константа, описывающая действие навигации при удалении всех представлений из навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Константа, описывающая действие навигации при удалении всех представлений из навигатора.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_TO_FIRST"><apiName>POP_TO_FIRST</apiName><shortdesc> 
+          Константа, описывающая действие навигации при удалении всех, кроме первого, представлений из навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popToFirst</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+          Константа, описывающая действие навигации при удалении всех, кроме первого, представлений из навигатора.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP"><apiName>POP</apiName><shortdesc>
+          Константа, описывающая действие навигации при удалении первого представления из навигатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Константа, описывающая действие навигации при удалении первого представления из навигатора.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:PUSH"><apiName>PUSH</apiName><shortdesc>
+          Константа, описывающая действие навигации при добавлении нового представления в навигатор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Константа, описывающая действие навигации при добавлении нового представления в навигатор.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:REPLACE"><apiName>REPLACE</apiName><shortdesc>
+          Константа, описывающая действие навигации при замене активного представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replace</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Константа, описывающая действие навигации при замене активного представления.
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

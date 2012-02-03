@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation"><apiName>mx.automation</apiName><apiDetail/><apiClassifier id="mx.automation:IAutomationObject"><apiName>IAutomationObject</apiName><shortdesc>
+ IAutomationObject 接口定义委托对象的接口，该委托对象用于实现某个组件的自动化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ IAutomationObject 接口定义委托对象的接口，该委托对象用于实现某个组件的自动化。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      返回标识此容器中的子项的一组属性作为自动 ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>描述稍后可用于解析组件的子项的几组属性。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>为其提供 ID 的子项。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/><apiDesc>形成该 ID 需要考虑的子项。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回标识此容器中的子项的一组属性作为自动 ID。在应用程序的生命期内，不应更改这些值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      返回标识此容器中的子项的一组属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>描述稍后可用于解析组件的子项的几组属性。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>为其提供 ID 的子项。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回标识此容器中的子项的一组属性。在应用程序的生命期内，不应更改这些值。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc> 
+      在指定的索引位置提供自动化对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>位于指定索引位置处的子项。
+      
+      </apiDesc><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要返回的子项的索引
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      在指定的索引位置提供自动化对象。该列表不应包含任何复合子项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      提供自动化对象列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>自动子代。
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      提供自动化对象列表。该列表不应包含任何复合子项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      重放指定的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果重放成功，则为 <codeph>true</codeph>。  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      重放指定的事件。如果已在 superclass 中定义默认重放行为，组件作者可能应调用 super.replayAutomatableEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      使用提供的 ID 解析子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>符合条件的子项的数组；如果可以解析所有子项，则为 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/><apiDesc>描述子项的几组属性。条件可以包含能导致多个子项匹配的常规表达式值。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用提供的 ID 解析子项。ID 是 <codeph>createAutomationIDPart()</codeph> 方法提供的一组属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      处理与自动化相关的功能的委托对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      处理与自动化相关的功能的委托对象。自动化在创建委托对象时设置此功能。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      如果此组件启用了自动化，则为 true；否则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果此组件启用了自动化，则为 true；否则为 false。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IUIComponent/enabled"><linktext>mx.core.IUIComponent.enabled</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationName:get"><apiName>automationName</apiName><shortdesc>
+      可用作此对象的标识符的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      可用作此对象的标识符的名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      用于自动化目的的此组件的所有者。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      用于自动化目的的此组件的所有者。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/owner"><linktext>mx.core.IVisualElement.owner</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      用于自动化目的的此组件的父级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      用于自动化目的的此组件的父级。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/parent"><linktext>mx.core.IVisualElement.parent</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      IAutomationTabularData 接口的实现，可用于检索数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      <codeph>IAutomationTabularData</codeph> 接口的实现，可用于检索数据。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+      此值通常对应于对象的经呈示的外观，当对象在应用中以可视方式显示时，此值使标识符与该对象相关联。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      此值通常对应于对象的经呈示的外观，当对象在应用中以可视方式显示时，此值使标识符与该对象相关联。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      如果此组件对于自动化是可见的，则为 true；否则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果此组件对于自动化是可见的，则为 true；否则为 false。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/visible"><linktext>flash.display.DisplayObject.visible</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      此容器包含的自动化子项数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此容器包含的自动化子项数。此和不应包含任何复合子项，尽管它在自动化层次中确实包含这些不重要的子项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc> 
+      用于确定自动化对象是否显示在自动化层次中的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      用于确定自动化对象是否显示在自动化层次中的标志。层次中不可见的容器的子项显示为下一个最高可见父项的子项。通常，用于布局的容器（如框和画布）不显示在层次中。
+     
+      <p>如果合适，某些控件强制其子项在层次中显示。例如，List 控件将始终强制项呈示器（包括框）显示在层次中。实现程序必须支持将此属性设置为 <codeph>true</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

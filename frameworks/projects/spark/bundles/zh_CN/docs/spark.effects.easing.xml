@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.easing"><apiName>spark.effects.easing</apiName><apiDetail/><apiClassifier id="spark.effects.easing:IEaser"><apiName>IEaser</apiName><shortdesc>
+  IEaser 接口是由为 Animation 类提供时间缓动功能的类实现的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IEaser 接口是由为 Animation 类提供时间缓动功能的类实现的。实现者负责单一函数 <codeph>ease()</codeph>，它根据所需的缓动行为采用某个部分并返回它。一个简单的示例是，LinearEase 只返回相同的输入部分，因为不存在由该缓动器所执行的缓动。另一个示例是，可以写入一个反转缓动器，它返回反向部分 (1 - <codeph>fraction</codeph>)。
+ 
+  <p>通过缓动在动画中已过去时间的部分值，这些类正在缓动动画的结果值，但它们仅必须处理时间的部分值而不是任何特定对象类型。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.easing:IEaser:spark.effects.easing:IEaser:ease"><apiName>ease</apiName><shortdesc>
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已过去时间的已缓动的值。通常，尽管有可能返回超出 0.0 和 1.0 之间的值，应该将此值约束到此范围。请注意，返回这样的值的结果是不明确的，这取决于哪种类型的效果正在使用此缓动的值。例如，一个以线性方式移动的对象可以在其开始和结束点之外计算位置而不会出现问题，但是，如果它们使用会使它们越过其端点值的时间值，则其它值类型（如 color）可能不会产生希望的效果。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，从 0.0 到 1.0。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。此值用于计算已设置动画的属性值。通过更改已过去部分的值，可有效地更改属性的动画。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  Bounce 类实现缓动功能，该功能模拟目标对象上的重力牵引和回弹目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Bounce 类实现缓动功能，该功能模拟目标对象上的重力牵引和回弹目标对象。效果目标的移动会向着最终值加速，然后对着最终值回弹几次。 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Bounce:Bounce"><apiName>Bounce</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Bounce:ease"><apiName>ease</apiName><shortdesc>
+      
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已过去时间的已缓动的值。通常，尽管有可能返回超出 0.0 和 1.0 之间的值，应该将此值约束到此范围。请注意，返回这样的值的结果是不明确的，这取决于哪种类型的效果正在使用此缓动的值。例如，一个以线性方式移动的对象可以在其开始和结束点之外计算位置而不会出现问题，但是，如果它们使用会使它们越过其端点值的时间值，则其它值类型（如 color）可能不会产生希望的效果。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，从 0.0 到 1.0。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。此值用于计算已设置动画的属性值。通过更改已过去部分的值，可有效地更改属性的动画。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Linear 类使用三个阶段定义缓动：加速、匀速运动和减速。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Linear&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Linear
+    id="ID"
+    easeInFraction="0" 
+    easeOutFraction="0"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Linear 类使用三个阶段定义缓动：加速、匀速运动和减速。在动画开始时，它会在由 <codeph>easeInFraction</codeph> 属性指定的时期内加速，它接着在下一个阶段中使用匀速（线性）运动，最后在由 <codeph>easeOutFraction</codeph> 属性指定的时期内减速，直到结束。
+ 
+  <p>会计算这三个阶段的缓动值，以使恒定加速、线性运动和恒定减速的行为全部发生在动画的指定持续时间内。</p>
+  
+  <p>通过将 <codeph>easeInFraction</codeph> 和 <codeph>easeOutFraction</codeph> 设置为 0.0 可以实现严格的线性运动。请注意，如果加速或减速不是 0.0，则在中间阶段的运动就不会是与纯线性运动相同的速度。中间阶段包括匀速运动，但运动的速度是由与整个动画相关的阶段的大小确定的。</p>
+  
+  </apiDesc><example conref="LinearEffectExample.mxml"><swfblock conref="examples/LinearEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Linear:Linear"><apiName>Linear</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>在加速阶段中整个持续时间的部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>easeOutFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>在减速阶段中整个持续时间的部分，在 0.0 和 1.0 之间。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Linear:ease"><apiName>ease</apiName><shortdesc>
+      基于 easeInFraction 和 easeOutFraction 属性计算缓动部分值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>动画的缓动部分。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于 <codeph>easeInFraction</codeph> 和 <codeph>easeOutFraction</codeph> 属性计算缓动部分值。如果 <codeph>fraction</codeph> 小于 <codeph>easeInFraction</codeph>，则它会基于加速到线性运动阶段来计算值。如果 <codeph>fraction</codeph> 大于 <codeph>easeInFraction</codeph> 且小于 <codeph>(1-easeOutFraction)</codeph>，则它会基于缓入阶段和缓出阶段之间的线性运动阶段计算值。否则，它会基于在线性运动阶段和 0.0 之间的恒定减速计算值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:Linear:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      动画在加速上花费的部分，在 0.0 和 1.0 之间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      动画在加速上花费的部分，在 0.0 和 1.0 之间。<codeph>easeOutFraction</codeph> 属性和 <codeph>easeInFraction</codeph> 属性的值必须满足等式 <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>，其中所有剩余时间都是在线性运动阶段花费的。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:Linear:easeOutFraction:get"><apiName>easeOutFraction</apiName><shortdesc>
+      动画在减速上将花费的百分比，在 0.0 和 1.0 之间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      动画在减速上将花费的百分比，在 0.0 和 1.0 之间。<codeph>easeOutFraction</codeph> 属性和 <codeph>easeInFraction</codeph> 属性的值必须满足等式 <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>，其中所有剩余时间都是在线性运动阶段花费的。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Power"><apiName>Power</apiName><shortdesc>
+  Power 类通过使用多项式表达式定义缓动功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Power&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Power
+    id="ID"
+    exponent="2"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Power 类通过使用多项式表达式定义缓动功能。缓动包括两个阶段：加速，或缓入阶段，接着是减速，或缓出阶段。加速和减速的速率基于 <codeph>exponent</codeph> 属性。<codeph>exponent</codeph> 属性的值越大，加速和减速的速率越快。使用 <codeph>easeInFraction</codeph> 属性指定动画加速的百分比。
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Power:Power"><apiName>Power</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>在加速阶段中整个持续时间的部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exponent</apiItemName><apiType value="Number"/><apiData>2</apiData><apiDesc>在缓动计算中使用的指数。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.easing:Power:exponent:get"><apiName>exponent</apiName><shortdesc>
+      在缓动计算中使用的指数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在缓动计算中使用的指数。<codeph>exponent</codeph> 属性的值越大，加速和减速的速率越快。例如，要获得二次行为，请将 <codeph>exponent</codeph> 设置为 2。要获得三次行为，请将 <codeph>exponent</codeph> 设置为 3。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  Elastic 类实现缓动功能，此时目标对象移动是由一个指数衰减正弦波定义的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Elastic 类实现缓动功能，此时目标对象移动是由一个指数衰减正弦波定义的。效果目标向着最终值减速，然后继续通过最终值。接着它围绕最终值在越来越小的增量内振荡，最后达到最终值。 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Elastic:Elastic"><apiName>Elastic</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Elastic:ease"><apiName>ease</apiName><shortdesc>
+      
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已过去时间的已缓动的值。通常，尽管有可能返回超出 0.0 和 1.0 之间的值，应该将此值约束到此范围。请注意，返回这样的值的结果是不明确的，这取决于哪种类型的效果正在使用此缓动的值。例如，一个以线性方式移动的对象可以在其开始和结束点之外计算位置而不会出现问题，但是，如果它们使用会使它们越过其端点值的时间值，则其它值类型（如 color）可能不会产生希望的效果。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，从 0.0 到 1.0。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。此值用于计算已设置动画的属性值。通过更改已过去部分的值，可有效地更改属性的动画。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:EasingFraction"><apiName>EasingFraction</apiName><shortdesc>
+  EasingFraction 类定义 EaseInOutBase 类的 easeInFraction 属性的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EasingFraction 类定义 EaseInOutBase 类的 <codeph>easeInFraction</codeph> 属性的常量。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.easing.xml#EaseInOutBase"><linktext>EaseInOutBase</linktext></link><link href="spark.effects.easing.xml#EaseInOutBase/easeInFraction"><linktext>EaseInOutBase.easeInFraction</linktext></link></related-links><apiValue id="spark.effects.easing:EasingFraction:IN_OUT"><apiName>IN_OUT</apiName><shortdesc>
+      指定 easing 实例缓入前半部分并缓出剩余的一半。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0.5</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定 easing 实例缓入前半部分并缓出剩余的一半。这等效于将 <codeph>easeInFraction</codeph> 属性设置为 0.5。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:IN"><apiName>IN</apiName><shortdesc>
+      指定 easing 实例花费整个动画进行缓入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定 easing 实例花费整个动画进行缓入。这等效于将 <codeph>easeInFraction</codeph> 属性设置为 1.0。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:OUT"><apiName>OUT</apiName><shortdesc>
+      指定 easing 实例花费整个动画进行缓出。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定 easing 实例花费整个动画进行缓出。这等效于将 <codeph>easeInFraction</codeph> 属性设置为 0.0。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Sine 类使用 Sine 函数定义缓动功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sine&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Sine
+    id="ID"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Sine 类使用 Sine 函数定义缓动功能。缓动包括两个阶段：加速，或缓入阶段，接着是减速，或缓出阶段。使用 <codeph>easeInFraction</codeph> 属性指定动画加速的百分比。
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Sine:Sine"><apiName>Sine</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>设置 <codeph>easeInFraction</codeph> 属性的值。默认值为 <codeph>EasingFraction.IN_OUT</codeph>，它会缓入前一半时间，并缓出剩余的一半时间。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.easing:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+  EaseInOutBase 类是提供缓动功能的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:EaseInOutBase
+    id="ID"
+    easeInFraction="0.5"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EaseInOutBase 类是提供缓动功能的基类。EaseInOutBase 类将缓动定义为由两个阶段组成：加速，或缓入阶段，接着是减速，或缓出阶段。此类的默认行为会为全部两个缓动阶段返回一个线性插值。可以创建 EaseInOutBase 的一个子类来获得更有趣的行为。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.easing:EaseInOutBase:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>设置 <codeph>easeInFraction</codeph> 属性的值。默认值为 <codeph>EasingFraction.IN_OUT</codeph>，它会缓入前一半时间，并缓出剩余的一半时间。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeIn"><apiName>easeIn</apiName><shortdesc>
+      返回表示在动画的缓入阶段期间已缓动部分的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>表示动画的此阶段的已缓动的值的值。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的缓入阶段的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回表示在动画的缓入阶段期间已缓动部分的值。此类返回的值仅是该部分本身，它代表该部分的一个线性插值。EaseInOutBase 的子类会实现更多有趣的行为。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeOut"><apiName>easeOut</apiName><shortdesc>
+      返回在动画的缓出阶段期间表示已缓动部分的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>表示动画的此阶段的已缓动的值的值。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的缓出阶段的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回在动画的缓出阶段期间表示已缓动部分的值。此类返回的值仅是该部分本身，它代表该部分的一个线性插值。EaseInOutBase 的子类会实现更多有趣的行为。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:ease"><apiName>ease</apiName><shortdesc>
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>动画的缓动部分。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      采用代表动画的已过去持续时间的部分（一个在 0.0 到 1.0 之间的值）并返回一个新的已过去的值。此值用于计算已设置动画的属性值。通过更改已过去部分的值，可有效地更改属性的动画。对于 EaseInOutBase，此方法会基于 <codeph>easeInFraction</codeph> 属性计算已缓动部分的值。如果 <codeph>fraction</codeph> 小于 <codeph>easeInFraction</codeph>，则此方法会调用 <codeph>easeIn()</codeph> 方法。否则，它会调用 <codeph>easeOut()</codeph> 方法。应该在一个子类中覆盖这些函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:EaseInOutBase:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      应该在加速上花费的动画的百分比。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.5
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      应该在加速上花费的动画的百分比。此因子设置一个隐含的 "easeOut" 参数，它等于 (1 - <codeph>easeIn</codeph>)，这样在缓入上未花费的任何时间会花费到缓出上。例如，要得到一个缓入和缓出各花费一半时间的缓动等式，请将 <codeph>easeIn</codeph> 设为 0.5。
+     
+      <p>有效值为 0.0 到 1.0。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

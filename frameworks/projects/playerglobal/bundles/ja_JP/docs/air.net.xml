@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="air.net" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">air.net</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="air.net:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ URLMonitor クラスは、HTTP または HTTPS ベースのサービスが使用可能かどうかを監視します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ URLMonitor クラスは、HTTP または HTTPS ベースのサービスが使用可能かどうかを監視します。
+ 
+ <p class="- topic/p ">このクラスは、aircore.swc ファイルに含まれます。Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR<sup class="+ topic/ph hi-d/sup ">®</sup> のプロジェクトを作成すると、Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Builder によって、このクラスが自動的にロードされます。この aircore.swc ファイルは Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex<sup class="+ topic/ph hi-d/sup ">™</sup> SDK にも含まれています。アプリケーションをコンパイルするときに Flex SDK を使用している場合は、このファイルを含める必要があります。
+ </p>
+ 
+ <p class="- topic/p ">Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional では、このクラスは ServiceMonitorShim.swc ファイルに含まれます。air.net パッケージのクラスを使用するには、最初にコンポーネントパネルから ServiceMonitorShim コンポーネントをライブラリにドラッグし、次の <codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントを ActionScript 3.0 コードに追加する必要があります。
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 またはそれ以降）で air.net パッケージを使用するには： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">ファイル／パブリッシュ設定コマンドを選択します。</li><li class="- topic/li ">Flash パネルで、ActionScript 3.0 の「設定」ボタンをクリックします。「ライブラリパス」を選択します。</li><li class="- topic/li ">「SWC ファイルを参照」ボタンをクリックします。Adobe Flash Professional インストールフォルダーで Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc ファイルを参照します。</li><li class="- topic/li ">「OK」をクリックします。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントの <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph> を ActionScript 3.0 コードに追加します。</li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:URLMonitor:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     特定の HTTP または HTTPS ベースのサービスに対する URLMonitor オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">urlRequest</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:URLRequest</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">サーバーをポーリングするためのプローブ要求を表す URLRequest オブジェクトです。
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">acceptableStatusCodes</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">正常な結果を表すコードがリストされた数値ステータスコードの配列です。
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> プロパティに値を指定しない場合は、次のステータスコードが正常な応答として認識されます。</p>
+     
+     <ul class="- topic/ul "><li class="- topic/li ">200（OK） </li><li class="- topic/li ">202（受け付けられました） </li><li class="- topic/li ">204（コンテンツなし） </li><li class="- topic/li ">205（コンテンツのリセット） </li><li class="- topic/li ">206（部分的なコンテンツ。Range ヘッダーを伴う要求に対する応答） </li></ul>
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     特定の HTTP または HTTPS ベースのサービスに対する URLMonitor オブジェクトを作成します。
+     
+     <p class="- topic/p ">URLMonitor を作成した後、呼び出し元は <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> メソッドを呼び出してサービスのステータスの監視を開始する必要があります。</p>
+     
+     <p class="- topic/p ">Timer オブジェクトと同様に、呼び出し元は、URLMonitor オブジェクトへの参照を維持する必要があります。維持しないと、場合によってはランタイムがオブジェクトを削除し、監視が終了します。</p>
+     
+     <p class="- topic/p ">サーバーをポーリングするためのプローブ要求を指定する URLRequest パラメーターです。通常、要求メソッドは、<codeph class="+ topic/ph pr-d/codeph ">"GET"</codeph> または <codeph class="+ topic/ph pr-d/codeph ">"HEAD"</codeph> のどちらかです。</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:URLMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+    返された HTTP ステータスコードをチェックするために、バックグラウンドで URL からコンテンツをロードしようとします。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    返された HTTP ステータスコードをチェックするために、バックグラウンドで URL からコンテンツをロードしようとします。 
+    <p class="- topic/p ">
+    <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> プロパティにリストされているステータスコードを受け取った場合、<codeph class="+ topic/ph pr-d/codeph ">available</codeph> プロパティは <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定されます。<codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> リストにないステータスコードを受け取った場合、またはセキュリティエラーや I/O エラーが発生した場合、<codeph class="+ topic/ph pr-d/codeph ">available</codeph> プロパティは <codeph class="+ topic/ph pr-d/codeph ">false</codeph> に設定されます。
+    </p>
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:URLMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+     
+	 指定されたオブジェクトのストリング表現を返します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">オブジェクトのストリング表現です。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+     
+	 指定されたオブジェクトのストリング表現を返します。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object クラスのメソッドは、Object のプロトタイプに動的に作成されます。Object のサブクラスでこのメソッドを再定義する場合は、<codeph class="+ topic/ph pr-d/codeph ">override</codeph> キーワードを使用しないでください。例えば、Object のサブクラスでは、基本クラスのオーバーライドを使用する代わりに <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> が実装されます。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:URLMonitor:acceptableStatusCodes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">acceptableStatusCodes</apiName><shortdesc class="- topic/shortdesc ">
+     正常な結果を表す数値ステータスコードです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     正常な結果を表す数値ステータスコードです。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:URLMonitor:urlRequest:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">urlRequest</apiName><shortdesc class="- topic/shortdesc ">
+     プローブ要求を表す URLRequest オブジェクトです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.net:URLRequest</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     プローブ要求を表す URLRequest オブジェクトです。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ ServiceMonitor クラスは、ネットワークサービスのステータスおよび使用可能かどうかを監視するフレームワークを実装します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ ServiceMonitor クラスは、ネットワークサービスのステータスおよび使用可能かどうかを監視するフレームワークを実装します。ServiceMonitor クラスは、他のすべてのサービスモニターの基本クラスとして機能します。
+ 
+ <p class="- topic/p ">このクラスは、aircore.swc ファイルに含まれます。Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR™ のプロジェクトを作成すると、Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash™ Builder™ によって、このクラスが自動的にロードされます。この aircore.swc ファイルは Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex™ SDK にも含まれています。アプリケーションをコンパイルするときに Flex SDK を使用している場合は、このファイルを含める必要があります。
+ </p>
+ 
+ <p class="- topic/p ">Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional では、このクラスは ServiceMonitorShim.swc ファイルに含まれます。air.net パッケージのクラスを使用するには、最初にコンポーネントパネルから ServiceMonitorShim コンポーネントをライブラリにドラッグし、次の <codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントを ActionScript 3.0 コードに追加する必要があります。
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 またはそれ以降）で air.net パッケージを使用するには： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">ファイル／パブリッシュ設定コマンドを選択します。</li><li class="- topic/li ">Flash パネルで、ActionScript 3.0 の「設定」ボタンをクリックします。「ライブラリパス」を選択します。</li><li class="- topic/li ">「SWC ファイルを参照」ボタンをクリックします。Adobe Flash Professional インストールフォルダーで Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc ファイルを参照します。</li><li class="- topic/li ">「OK」をクリックします。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントの <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph> を ActionScript 3.0 コードに追加します。</li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><adobeApiEvent id="air.net:ServiceMonitor_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+ サービスステータスが変化したことを示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ サービスステータスが変化したことを示します。
+ 
+ <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">code</codeph> プロパティの値は、<codeph class="+ topic/ph pr-d/codeph ">Service.available</codeph> または <codeph class="+ topic/ph pr-d/codeph ">Service.unavailable</codeph> のどちらかですが、<codeph class="+ topic/ph pr-d/codeph ">ServiceMonitor.available</codeph> プロパティの値を確認することをお勧めします。</p>
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="air.net:ServiceMonitor:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     ServiceMonitor オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     ServiceMonitor オブジェクトを作成します。 
+     
+     <p class="- topic/p ">このクラスは、通常、特定のサービスタイプを監視するためにサブクラス化されます。</p>
+     
+     
+     
+     <p class="- topic/p ">ServiceMonitor オブジェクト（またはサブクラスオブジェクト）を作成した後、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> メソッドを呼び出してサービスのステータスの監視を開始します。</p>
+     
+     <p class="- topic/p ">Timer オブジェクトと同様に、呼び出し元は、ServiceMonitor オブジェクトへの参照を維持する必要があります。維持しないと、ランタイムがオブジェクトを削除し、監視が終了します。</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:ServiceMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+     サービスのステータスを確認します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     サービスのステータスを確認します。
+     
+     <p class="- topic/p ">サービスのステータスを確認するために、サブクラスはメソッドをオーバーライドします。</p>
+     
+     <p class="- topic/p ">通常、このメソッドはネットワーク処理を開始します。ネットワーク処理が完了または失敗すると、<codeph class="+ topic/ph pr-d/codeph ">available</codeph> プロパティが設定されます。</p>
+     
+     <p class="- topic/p ">JavaScript コードは、「スペシャライザ」オブジェクトの <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> メソッドを定義することで、このメソッドを特化できます。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:makeJavascriptSubclass" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">makeJavascriptSubclass</apiName><shortdesc class="- topic/shortdesc ">
+     ServiceMonitor パブリックメソッドを JavaScript のコンストラクター関数のプロトタイプに追加します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">constructorFunction</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">JavaScript オブジェクトの <codeph class="+ topic/ph pr-d/codeph ">prototype</codeph> プロパティです。例えば、スペシャライザオブジェクトとして機能するように使用している JavaScript オブジェクトの名前が MyHTTPMonitor の場合、このパラメーターの値として <codeph class="+ topic/ph pr-d/codeph ">MyHTTPMonitor.prototype</codeph> を渡します。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     ServiceMonitor パブリックメソッドを JavaScript のコンストラクター関数のプロトタイプに追加します。
+     
+     <p class="- topic/p ">ServiceMonitor パブリック関数を ServiceMonitor オブジェクトに転送する JavaScript のコンストラクター関数のプロトタイプに関数を追加します。これは、ActionScript 基本クラスの標準の JavaScript サブクラスに似たものになります。</p>
+     
+     <p class="- topic/p ">JavaScript クラスは、ServiceMonitor を次のように特化します。</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     // JavaScript Constructor function
+     function MyHTTPMonitor(url, method)
+     {
+         // "that" variable makes "this" available in closures below
+         var that = this;
+         // Required initialization of the service monitor, returns the actual ServiceMonitor object.
+         this.monitor = this.initServiceMonitor();
+         // Initializes URLStream and event handlers.
+         this._urlStream = new air.URLStream();
+         this._urlRequest = new air.URLRequest(url);
+         if (method)
+         {
+             this._urlRequest.method = method;
+         }
+         else
+         {
+             this._urlRequest.method = "GET";
+         }
+         function onStatus(event) {
+             that.monitor.available = Number(event.status) == 200;
+             that._urlStream.close();
+         }
+         function onError(event)
+         {
+             that.monitor.available = false;
+             that._urlStream.close();
+         }
+         this._urlStream.addEventListener(air.HTTPStatusEvent.HTTP_RESPONSE_STATUS, onStatus);
+         this._urlStream.addEventListener(air.SecurityErrorEvent.SECURITY_ERROR, onError);
+         this._urlStream.addEventListener(air.IOErrorEvent.IO_ERROR, onError);
+     }
+     
+     // Augment JavaScript prototype with public methods from ServiceMonitor
+     air.ServiceMonitor.makeJavascriptSubclass(MyHTTPMonitor);
+     
+     // Implement specializer functions, just as you would when subclassing a JavaScript class
+     MyHTTPMonitor.prototype.checkStatus = function()
+     {
+         air.trace('OVERRIDDEN checkStatus!', this);
+         this._urlStream.load(this._urlRequest);
+     }
+     </codeblock>
+     
+     <p class="- topic/p ">JavaScript クラスを使用するには：</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var httpMon = new MyHTTPMonitor('http://www.adobe.com')
+     </codeblock>
+     
+     <p class="- topic/p ">AIRAliases.js ファイルおよび aircore.swf ファイルを、必ず <codeph class="+ topic/ph pr-d/codeph ">script</codeph> タグと一緒にロードしてください。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     サービスモニターを開始します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     サービスモニターを開始します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:stop" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stop</apiName><shortdesc class="- topic/shortdesc ">
+     サービスの監視を停止します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     サービスの監視を停止します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+	 指定されたオブジェクトのストリング表現を返します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">オブジェクトのストリング表現です。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+	 指定されたオブジェクトのストリング表現を返します。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object クラスのメソッドは、Object のプロトタイプに動的に作成されます。Object のサブクラスでこのメソッドを再定義する場合は、<codeph class="+ topic/ph pr-d/codeph ">override</codeph> キーワードを使用しないでください。例えば、Object のサブクラスでは、基本クラスのオーバーライドを使用する代わりに <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> が実装されます。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:ServiceMonitor:available:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">available</apiName><shortdesc class="- topic/shortdesc ">
+     サービスが現在 "使用可能" と見なされているかどうかを指定します。初期値は false です。ステータスチェックでプロパティが true に設定されるか、プロパティが明示的に true に初期化されるまでは false です。通常、このプロパティはサブクラスまたはスペシャライザの checkStatus() 実装で設定されますが、アプリケーションにサービスが使用可能かどうかに関する独自の情報（例えば、要求の成功または失敗など）があれば、プロパティが明示的に設定されることもあります。
+     
+     </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     サービスが現在 "使用可能" と見なされているかどうかを指定します。
+     
+     <p class="- topic/p ">初期値は false です。ステータスチェックでプロパティが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定されるか、プロパティが明示的に <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に初期化されるまでは <codeph class="+ topic/ph pr-d/codeph ">false</codeph> です。</p>
+     
+     <p class="- topic/p ">通常、このプロパティはサブクラスまたはスペシャライザの <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> 実装で設定されますが、アプリケーションにサービスが使用可能かどうかに関する独自の情報（例えば、要求の成功または失敗など）があれば、プロパティが明示的に設定されることもあります。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:lastStatusUpdate:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastStatusUpdate</apiName><shortdesc class="- topic/shortdesc ">
+     最後にステータスが更新された時刻です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Date</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     最後にステータスが更新された時刻です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:pollInterval:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pollInterval</apiName><shortdesc class="- topic/shortdesc ">
+     サーバーをポーリングする間隔（ミリ秒）です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     サーバーをポーリングする間隔（ミリ秒）です。
+     
+     <p class="- topic/p ">0 の場合、サーバーは定期的にポーリングされず、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> が呼び出されたときと、ネットワークステータスが変化したときの直後だけポーリングされます。</p>
+     
+     <p class="- topic/p ">ServiceMonitor オブジェクトは、サービスステータスが変化した場合にのみ（ポーリング間隔ごとに毎回ではなく）、<codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントを送出します。また、ネットワーク接続が変化した場合にも（ポーリング間隔とは無関係に）、<codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントを送出します。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:running:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">running</apiName><shortdesc class="- topic/shortdesc ">
+     モニターが開始されているかどうかを指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     モニターが開始されているかどうかを指定します。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ SecureSocketMonitor オブジェクトは、Secure Sockets Layer（SSL）および Transport Layer Security（TLS）プロトコル経由で TCP エンドポイントの可用性を監視します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:SocketMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ SecureSocketMonitor オブジェクトは、Secure Sockets Layer（SSL）および Transport Layer Security（TLS）プロトコル経由で TCP エンドポイントの可用性を監視します。 
+ 
+ <p class="- topic/p ">このクラスは、aircore.swc ファイルに含まれます。AIR のプロジェクトを作成すると、Flash Builder によって、このクラスが自動的にロードされます。この aircore.swc ファイルは Flex SDK にも含まれています。アプリケーションをコンパイルするときに Flex SDK を使用している場合は、このファイルを含める必要があります。
+ </p>
+ 
+ <p class="- topic/p ">Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional では、このクラスは ServiceMonitorShim.swc ファイルに含まれます。air.net パッケージのクラスを使用するには、最初にコンポーネントパネルから ServiceMonitorShim コンポーネントをライブラリにドラッグし、次の <codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントを ActionScript 3.0 コードに追加する必要があります。
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 またはそれ以降）で air.net パッケージを使用するには： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">ファイル／パブリッシュ設定コマンドを選択します。</li><li class="- topic/li ">Flash パネルで、ActionScript 3.0 の「設定」ボタンをクリックします。「ライブラリパス」を選択します。</li><li class="- topic/li ">「SWC ファイルを参照」ボタンをクリックします。Adobe Flash Professional インストールフォルダーで Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc ファイルを参照します。</li><li class="- topic/li ">「OK」をクリックします。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントの <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph> を ActionScript 3.0 コードに追加します。</li></ol>
+ 
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SecureSocketMonitor:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 指定された TCP エンドポイントに対する SecureSocketMonitor オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">監視するホストです。
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">監視するポートです。
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 指定された TCP エンドポイントに対する SecureSocketMonitor オブジェクトを作成します。
+	 
+	 <p class="- topic/p ">SecureSocketMonitor オブジェクトを作成した後、呼び出し元は <codeph class="+ topic/ph pr-d/codeph ">start</codeph> を呼び出してサービスのステータスの監視を開始する必要があります。</p>
+	 
+	 <p class="- topic/p ">Timer オブジェクトと同様に、呼び出し元は、SecureSocketMonitor オブジェクトへの参照を維持する必要があります。維持しないと、ランタイムがオブジェクトを削除し、監視が終了します。</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SecureSocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	SecureSocket オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">SecureSocket。この SocketMonitor が使用する SecureSocket オブジェクトです。現在のシステムでセキュアソケットがサポートされない場合は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> です。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	SecureSocket オブジェクトを作成します。
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SecureSocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	 
+     
+	 指定されたオブジェクトのストリング表現を返します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">オブジェクトのストリング表現です。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	 
+     
+	 指定されたオブジェクトのストリング表現を返します。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object クラスのメソッドは、Object のプロトタイプに動的に作成されます。Object のサブクラスでこのメソッドを再定義する場合は、<codeph class="+ topic/ph pr-d/codeph ">override</codeph> キーワードを使用しないでください。例えば、Object のサブクラスでは、基本クラスのオーバーライドを使用する代わりに <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> が実装されます。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier languages="" id="air.net:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ SocketMonitor オブジェクトは、TCP エンドポイントが使用可能かどうかを監視します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ SocketMonitor オブジェクトは、TCP エンドポイントが使用可能かどうかを監視します。
+ 
+ <p class="- topic/p ">このクラスは、aircore.swc ファイルに含まれます。AIR のプロジェクトを作成すると、Flash Builder によって、このクラスが自動的にロードされます。この aircore.swc ファイルは Flex SDK にも含まれています。アプリケーションをコンパイルするときに Flex SDK を使用している場合は、このファイルを含める必要があります。
+ </p>
+ 
+ <p class="- topic/p ">Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional では、このクラスは ServiceMonitorShim.swc ファイルに含まれます。air.net パッケージのクラスを使用するには、最初にコンポーネントパネルから ServiceMonitorShim コンポーネントをライブラリにドラッグし、次の <codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントを ActionScript 3.0 コードに追加する必要があります。
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 またはそれ以降）で air.net パッケージを使用するには： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">ファイル／パブリッシュ設定コマンドを選択します。</li><li class="- topic/li ">Flash パネルで、ActionScript 3.0 の「設定」ボタンをクリックします。「ライブラリパス」を選択します。</li><li class="- topic/li ">「SWC ファイルを参照」ボタンをクリックします。Adobe Flash Professional インストールフォルダーで Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc ファイルを参照します。</li><li class="- topic/li ">「OK」をクリックします。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">import</codeph> ステートメントの <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph> を ActionScript 3.0 コードに追加します。</li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SocketMonitor:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 特定の TCP エンドポイントに対する SocketMonitor オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">監視するホストです。
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">監視するポートです。
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 特定の TCP エンドポイントに対する SocketMonitor オブジェクトを作成します。
+	 
+	 <p class="- topic/p ">SocketMonitor オブジェクトを作成した後、呼び出し元は <codeph class="+ topic/ph pr-d/codeph ">start</codeph> を呼び出してサービスのステータスの監視を開始する必要があります。</p>
+	 
+	 <p class="- topic/p ">Timer オブジェクトと同様に、呼び出し元は、SocketMonitor オブジェクトへの参照を維持する必要があります。維持しないと、ランタイムがオブジェクトを削除し、監視が終了します。</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SocketMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+	SocketMonitor オブジェクトの checkStatus() メソッドを呼び出すと、アプリケーションは connect イベントを確認するために、ソケットに接続しようとします。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	SocketMonitor オブジェクトの <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> メソッドを呼び出すと、アプリケーションは <codeph class="+ topic/ph pr-d/codeph ">connect</codeph> イベントを確認するために、ソケットに接続しようとします。
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	Socket オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">この SocketMonitor が使用する Socket オブジェクトです。
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Socket オブジェクトを作成します。 
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+     
+	 指定されたオブジェクトのストリング表現を返します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">オブジェクトのストリング表現です。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+     
+	 指定されたオブジェクトのストリング表現を返します。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object クラスのメソッドは、Object のプロトタイプに動的に作成されます。Object のサブクラスでこのメソッドを再定義する場合は、<codeph class="+ topic/ph pr-d/codeph ">override</codeph> キーワードを使用しないでください。例えば、Object のサブクラスでは、基本クラスのオーバーライドを使用する代わりに <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> が実装されます。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:SocketMonitor:host:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">host</apiName><shortdesc class="- topic/shortdesc ">
+	 監視されるホストです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 監視されるホストです。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:SocketMonitor:port:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">port</apiName><shortdesc class="- topic/shortdesc ">
+	 監視されるポートです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 監視されるポートです。
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

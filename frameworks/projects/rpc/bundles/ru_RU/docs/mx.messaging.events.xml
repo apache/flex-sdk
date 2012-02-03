@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.events"><apiName>mx.messaging.events</apiName><apiDetail/><apiClassifier id="mx.messaging.events:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+  Класс ChannelFaultEvent используется для распространения событий ошибок каналов в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:ChannelEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ChannelFaultEvent используется для распространения событий ошибок каналов в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelFaultEvent:FAULT_channelFault"><apiName>channelFault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelFaultEvent:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+      Создает экземпляр этого события с указанным типом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, можно ли предотвратить поведение, связанное с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>Канал, генерирующий событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, находится канал в процессе повторного подключения или нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Код ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Уровень ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Описание ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, было ли отклонено подключение канала с подавлением автоматического повторного подключения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, подключен ли канал, сгенерировавший это событие.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр этого события с указанным типом. Учтите, что аргументы <codeph>rejected</codeph> и <codeph>connected</codeph>, которые соответствуют свойствам, определенным суперклассом <codeph>ChannelEvent</codeph>, первоначально не были включены в подпись этого метода. Они были добавлены в конец списка аргументов для обеспечения обратной совместимости даже в случае отличия данной подписи от подписи конструктора <codeph>ChannelEvent</codeph>.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      Клонирует ChannelFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Копия данного ChannelFaultEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Клонирует ChannelFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createErrorMessage"><apiName>createErrorMessage</apiName><shortdesc>
+      Создает ErrorMessage на основе ChannelFaultEvent путем копирования по faultCode, faultString, faultDetail и rootCause в новое сообщение ErrorMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ErrorMessage.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Создает ErrorMessage на основе ChannelFaultEvent путем копирования по faultCode, faultString, faultDetail и rootCause в новое сообщение ErrorMessage.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      Служебный метод для создания нового ChannelFaultEvent, который не имеет свойств bubble и cancelable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новое событие ChannelFaultEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Канал, генерирующий событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, находится канал в процессе повторного подключения или нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Код ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Уровень ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Описание ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, было ли отклонено подключение канала с подавлением автоматического повторного подключения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, подключен ли канал, сгенерировавший это событие.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для создания нового ChannelFaultEvent, который не имеет свойств bubble и cancelable.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление в виде строки для ChannelFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Строковое представление для ChannelFaultEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление в виде строки для ChannelFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      Тип события FAULT; указывает на наличие ошибки для канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelFault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события FAULT; указывает на наличие ошибки для канала.
+      <p>Значением этой константы является <codeph>channelFault</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+         
+          
+                  
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>Канал, сгенерировавший это событие.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>Предоставляет специфичную для адреса назначения подробную информацию об ошибке.</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>Предоставляет доступ к специфичной для адреса назначения причине ошибки.</entry></row><row><entry><codeph>faultString</codeph></entry><entry>Предоставляет доступ к основной причине ошибки, если она не была вызвана непосредственно каналом.</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> Указывает, выполняется ли повторное подключение канала, сгенерировавшего это событие.</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> Предоставляет доступ к основной причине ошибки, если она не была вызвана непосредственно каналом.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultCode"><apiName>faultCode</apiName><shortdesc>
+      Предоставляет доступ к специфичному для адреса назначения коду ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к специфичному для адреса назначения коду ошибки. Для получения дополнительной подробной информации см. описание свойств <codeph>faultString</codeph> и <codeph>faultDetails</codeph>.
+     
+      <p>Формат кодов ошибок предоставляется удаленным адресатом, но, как правило, имеет следующий вид: <codeph>host.operation.error</codeph> или <codeph>Channel.operation.error</codeph> Например, <codeph>Server.Connect.Failed</codeph> и <codeph>Channel.Connect.Failed</codeph>.</p>
+      <p>
+     Channel.Connect.Failed вызывается классом Channel и его подклассами (RTMPChannel, AMFChannel, HTTPChannel и т. д.) всякий раз, когда возникает проблема при попытке подключения канала к удаленному адресу назначения. Channel.Call.Failed вызывается AMFChannel, когда канал уже подключен, но получает код Call.Failed из основного NetConnection. Только класс AMFChannel прослушивает NetConnection.Call.Failed, преобразуемый в Channel.Call.Failed.</p>     
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      Предоставляет специфичную для адреса назначения подробную информацию об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет специфичную для адреса назначения подробную информацию об ошибке.
+     
+      <p>Как правило, подробная информация об ошибке представляет собой отслеживание стека для исключения в удаленном адресе назначения.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultString"><apiName>faultString</apiName><shortdesc>
+      Предоставляет доступ к специфичной для адреса назначения причине ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к специфичной для адреса назначения причине ошибки.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:rootCause"><apiName>rootCause</apiName><shortdesc>
+     Предоставляет доступ к основной причине ошибки, если она не была вызвана непосредственно каналом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Предоставляет доступ к основной причине ошибки, если она не была вызвана непосредственно каналом.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+  Класс MessageAckEvent используется для распространения сообщений подтверждения в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MessageAckEvent используется для распространения сообщений подтверждения в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageAckEvent:ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageAckEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageAckEvent:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+      Создает экземпляр данного события с указанным сообщением подтверждения и исходное связанное сообщение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип MessageAckEvent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, можно ли предотвратить поведение, связанное с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Сообщение AcknowledgeMessage, которое должно передавать это событие.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Сообщение, связанное с этим подтверждением.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр данного события с указанным сообщением подтверждения и исходное связанное сообщение.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageAckEvent:clone"><apiName>clone</apiName><shortdesc>
+      Клонирует MessageAckEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Копия данного MessageAckEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Клонирует MessageAckEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      Служебный метод для создания нового MessageAckEvent, которое не имеет свойств bubble и cancelable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новое событие MessageAckEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageAckEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Сообщение AcknowledgeMessage, которое должно передавать это событие.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Сообщение, связанное с данным подтверждением.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для создания нового MessageAckEvent, которое не имеет свойств bubble и cancelable.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление в виде строки для MessageAckEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Строковое представление MessageAckEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление в виде строки для MessageAckEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE"><apiName>ACKNOWLEDGE</apiName><shortdesc>
+      Тип события ACKNOWLEDGE; передается при получении подтверждения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>acknowledge</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события ACKNOWLEDGE; передается при получении подтверждения.
+      <p>Значением этой константы является <codeph>acknowledge</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+          
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>acknowledgeMessage</codeph></entry><entry> Служебное свойство для получения значения свойства message из MessageEvent в виде AcknowledgeMessage.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton.</entry></row><row><entry><codeph>correlate</codeph></entry><entry> Исходное сообщение, связанное с этим подтверждением.</entry></row><row><entry><codeph>message</codeph></entry><entry>Сообщение, связанное с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:correlation"><apiName>correlation</apiName><shortdesc>
+      Исходное сообщение, связанное с этим подтверждением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Исходное сообщение, связанное с этим подтверждением.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:acknowledgeMessage:get"><apiName>acknowledgeMessage</apiName><shortdesc>
+      Служебное свойство для получения значения свойства message из MessageEvent в виде AcknowledgeMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:AcknowledgeMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Служебное свойство для получения значения свойства message из MessageEvent в виде AcknowledgeMessage.  
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+  ChannelEvent используется для распространения событий канала в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelEvent используется для распространения событий канала в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelEvent:CONNECT_channelConnect"><apiName>channelConnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:ChannelEvent:DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelEvent:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+      Создает экземпляр данного события с указанным типом и экземпляр канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип ChannelEvent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, можно ли предотвратить поведение, связанное с событием; используется подклассами RPC.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>Канал, генерирующий событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, находится канал в процессе повторного подключения или нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, было ли отклонено подключение канала с подавлением автоматического повторного подключения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, подключен ли канал, сгенерировавший это событие.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр данного события с указанным типом и экземпляр канала.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelEvent:clone"><apiName>clone</apiName><shortdesc>
+      Клонирует ChannelEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Копия данного ChannelEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Клонирует ChannelEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      Служебный метод для создания нового ChannelEvent, которое не имеет свойств bubble и cancelable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новое событие ChannelEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип ChannelEvent.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>Канал, генерирующий событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, находится канал в процессе повторного подключения или нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, было ли отклонено подключение канала с подавлением автоматического повторного подключения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, подключен ли канал, сгенерировавший это событие.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для создания нового ChannelEvent, которое не имеет свойств bubble и cancelable.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление в виде строки для ChannelEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Строковое представление ChannelEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление в виде строки для ChannelEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelEvent:CONNECT"><apiName>CONNECT</apiName><shortdesc>
+      Тип события CONNECT; указывает, что канал подключен к конечной точке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelConnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события CONNECT; указывает, что канал подключен к конечной точке.
+      <p>Значением этой константы является <codeph>channelConnect</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>Канал, сгенерировавший это событие.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> Указывает, выполняется ли повторное подключение канала, сгенерировавшего это событие.</entry></row><row><entry><codeph>rejected</codeph></entry><entry> Указывает, был ли отклонен канал, сгенерировавший это событие. При этом значение будет true, если канал был отключен вследствие отсутствия активности и не должен предпринимать попыток преодоления отказа или подключения по альтернативному каналу.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:DISCONNECT"><apiName>DISCONNECT</apiName><shortdesc>
+      Тип события DISCONNECT; указывает, что канал отключен от конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelDisconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события DISCONNECT; указывает, что канал отключен от конечной точки.
+      <p>Значением этой константы является <codeph>channelDisconnect</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>Канал, сгенерировавший это событие.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> Указывает, выполняется ли повторное подключение канала, сгенерировавшего это событие.</entry></row><row><entry><codeph>rejected</codeph></entry><entry> Указывает, был ли отклонен канал, сгенерировавший это событие. При этом значение будет true, если канал был отключен вследствие отсутствия активности и не должен предпринимать попыток преодоления отказа или подключения по альтернативному каналу.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:channel"><apiName>channel</apiName><shortdesc>
+      Канал, сгенерировавший это событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      Канал, сгенерировавший это событие.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:connected"><apiName>connected</apiName><shortdesc>
+     Указывает, подключен ли канал, сгенерировавший это событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Указывает, подключен ли канал, сгенерировавший это событие.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:reconnecting"><apiName>reconnecting</apiName><shortdesc>
+      Указывает, выполняется повторно подключение канала, сгенерировавшего это событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, выполняется повторно подключение канала, сгенерировавшего это событие.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:rejected"><apiName>rejected</apiName><shortdesc>
+      Указывает, был ли отклонен канал, который генерировал это событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, был ли отклонен канал, который генерировал это событие. При этом значение будет true, если канал был отключен вследствие отсутствия активности и не должен предпринимать попыток преодоления отказа или подключения по альтернативному каналу.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+  Класс MessageEvent используется для рассылки сообщений в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MessageEvent используется для рассылки сообщений в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageEvent:MESSAGE_message"><apiName>message</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:MessageEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageEvent:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+      Создает экземпляр этого события с указанным типом и сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип для MessageEvent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, можно ли предотвратить поведение, связанное с событием; используется подклассами RPC.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Связанное сообщение.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр этого события с указанным типом и сообщением.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageEvent:clone"><apiName>clone</apiName><shortdesc>
+      Клонирует MessageEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Копия этого MessageEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Клонирует MessageEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      Служебный метод для создания нового MessageEvent, которое не имеет свойств bubble и cancelable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новый MessageEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип для MessageEvent.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Связанное сообщение.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для создания нового MessageEvent, которое не имеет свойств bubble и cancelable.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление строки MessageEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Строковое представление MessageEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление строки MessageEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageEvent:MESSAGE"><apiName>MESSAGE</apiName><shortdesc>
+      Тип события MESSAGE; обрабатывается по получении сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>message</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события MESSAGE; обрабатывается по получении сообщения.
+      <p>Значением этой константы является <codeph>message</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>message</codeph></entry><entry>Сообщение, связанное с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+      Тип события RESULT; передается при получении агентом RPC результата из удаленного адреса назначения службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события RESULT; передается при получении агентом RPC результата из удаленного адреса назначения службы.
+      <p>Значением этой константы является <codeph>result</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>message</codeph></entry><entry>Сообщение, связанное с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:message"><apiName>message</apiName><shortdesc>
+      Сообщение, связанное с этим событием.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Сообщение, связанное с этим событием.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+ Класс MessageFaultEvent используется для распространения сообщений об ошибках в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс MessageFaultEvent используется для распространения сообщений об ошибках в системе передачи сообщений.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageFaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageFaultEvent:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+      Создает экземпляр события сообщения об ошибке для указанного сообщения и информации об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип MessageAckEvent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, можно ли предотвратить поведение, связанное с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>ErrorMessage, связанное с ошибкой.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр события сообщения об ошибке для указанного сообщения и информации об ошибке.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      Клонирует MessageFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Копия данного MessageFaultEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      Клонирует MessageFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      Служебный метод для создания нового MessageFaultEvent, которое не имеет свойств bubble и cancelable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новое событие MessageFaultEvent.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>ErrorMessage, связанное с ошибкой.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для создания нового MessageFaultEvent, которое не имеет свойств bubble и cancelable.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление в виде строки для MessageFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Представление в виде строки для MessageFaultEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление в виде строки для MessageFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      Тип события FAULT; передается для сообщения об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип события FAULT; передается для сообщения об ошибке.
+      <p>Значением этой константы является <codeph>fault</codeph>.</p>
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+            
+         
+         
+         
+         
+             
+                  
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>Предоставляет специфичную для адреса назначения подробную информацию об ошибке.</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>Предоставляет доступ к специфичной для адреса назначения причине ошибки.</entry></row><row><entry><codeph>faultString</codeph></entry><entry>Предоставляет доступ к основной причине ошибки, если она не была вызвана непосредственно каналом.</entry></row><row><entry><codeph>message</codeph></entry><entry>ErrorMessage для этого события.</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> Предоставляет доступ к основной причине ошибки, если она существует.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:message"><apiName>message</apiName><shortdesc>
+      ErrorMessage для этого события.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      ErrorMessage для этого события.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+      Предоставляет доступ к специфичному для адреса назначения коду ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к специфичному для адреса назначения коду ошибки. Для получения дополнительной информации см. описание свойств <codeph>faultString</codeph> и <codeph>faultDetails</codeph>.
+     
+      <p>Формат кодов ошибок предоставляется удаленным адресатом, но, как правило, имеет следующий вид: <i>host.operation.error</i>, например <codeph>Server.Connect.Failed</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+      Предоставляет специфичную для адреса назначения подробную информацию об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет специфичную для адреса назначения подробную информацию об ошибке.
+     
+      <p>Как правило, подробная информация об ошибке представляет собой отслеживание стека для исключения в удаленном адресе назначения.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultString:get"><apiName>faultString</apiName><shortdesc>
+      Предоставляет доступ к специфичной для адреса назначения причине ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к специфичной для адреса назначения причине ошибки.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:rootCause:get"><apiName>rootCause</apiName><shortdesc>
+      Предоставляет доступ к корневой причине ошибки, если она существует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Предоставляет доступ к корневой причине ошибки, если она существует. В случае пользовательских исключений для адреса назначения корневой причиной является ошибка верхнего уровня, которая передается в сообщении ErrorMessage.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/rootCause"><linktext>MessageFaultEvent.rootCause</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

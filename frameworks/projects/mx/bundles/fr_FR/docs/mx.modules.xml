@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.modules"><apiName>mx.modules</apiName><apiDetail/><apiClassifier id="mx.modules:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+  ModuleLoader est un composant se comportant de manière très semblable à une classe SWFLoader, à la différence qu’il suit un contrat avec le contenu chargé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.modules:ModuleLoader" replacement="spark.modules.ModuleLoader" since="4.5">
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDeferredInstantiationUIComponent</apiBaseInterface><apiBaseClassifier>mx.containers:VBox</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ModuleLoader est un composant se comportant de manière très semblable à une classe SWFLoader, à la différence qu’il suit un contrat avec le contenu chargé. Ce contrat indique que le fichier SWF enfant implémente la classe IFlexModuleFactory et que la fabrique implémentée peut être utilisée pour créer plusieurs occurrences de la classe enfant selon les besoins.
+   <p>La classe ModuleLoader est connectée à une instanciation différée et assure qu’une seule copie du fichier SWF de module est transférée via le réseau à l’aide du singleton ModuleManager.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleManager.xml"><linktext>mx.modules.ModuleManager</linktext></link><link href="" invalidHref="mx.controls.SWFLoader.xml"><linktext>mx.controls.SWFLoader</linktext></link></related-links><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  Distribué lorsque les données de module sont déchargées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque les données de module sont déchargées.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  Distribué à intervalles réguliers alors que le module se charge.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué à intervalles réguliers alors que le module se charge.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  Distribué lorsque le module génère une erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le module génère une erreur.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  Distribué lorsque le chargement du module est terminé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le chargement du module est terminé.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  Distribué lorsque les informations relatives au module sont disponibles (avec la méthode info()) mais que le module n’est pas encore prêt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque les informations relatives au module sont disponibles (avec la méthode <codeph>info()</codeph>) mais que le module n’est pas encore prêt.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.FlexEvent.URL_CHANGED_urlChanged"><apiName>urlChanged</apiName><shortdesc>
+  Distribué lorsque la classe ModuleLoader reçoit une nouvelle URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.URL_CHANGED</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la classe ModuleLoader reçoit une nouvelle URL.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.FlexEvent.LOADING_loading"><apiName>loading</apiName><shortdesc>
+  Distribué lorsque la classe ModuleLoader commence à charger une URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.LOADING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la classe ModuleLoader commence à charger une URL.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.modules:ModuleLoader:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.modules:ModuleLoader:loadModule"><apiName>loadModule</apiName><shortdesc>
+      Charge le module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Emplacement du module, spécifié en tant qu’URL. Ce paramètre est facultatif. Si ce paramètre est nul, la valeur de la propriété <codeph>url</codeph> est utilisée. Si le paramètre url est fourni, la propriété <codeph>url</codeph> est mise à jour en fonction de la valeur de ce paramètre.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>Objet ByteArray. L’objet ByteArray est supposé contenir les octets d’un fichier SWF représentant un module compilé. L’objet ByteArray peut être obtenu via l’utilisation de la classe URLLoader. Si ce paramètre est spécifié, le module est chargé depuis l’objet ByteArray et le paramètre url est utilisé pour identifier le module dans la méthode <codeph>ModuleManager.getModule()</codeph> et ne doit pas être nul. Si ce paramètre est nul, le module est chargé depuis l’url, soit le paramètre url s’il n’est pas nul, soit la propriété url en tant que secours.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Charge le module. Lorsque le chargement du module est terminé, la classe ModuleLoader l’ajoute en tant qu’enfant avec la méthode <codeph>addChild()</codeph>. Cela est normalement déclenché avec l’instanciation différée.
+      
+      <p>Si le module a déjà été chargé, cette méthode ne fait rien. Elle ne charge pas le module une seconde fois.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:ModuleLoader:unloadModule"><apiName>unloadModule</apiName><shortdesc>
+      Décharge le module et le définit sur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Décharge le module et le définit sur <codeph>null</codeph>. Si une occurrence du module a précédemment été ajoutée en tant qu’enfant, cette méthode appelle la méthode <codeph>removeChild()</codeph> sur l’enfant. 
+      <p>Si le module n’existe pas ou a déjà été déchargé, cette méthode ne fait rien.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.modules:ModuleLoader:applicationDomain"><apiName>applicationDomain</apiName><shortdesc>
+      Domaine d’application dans lequel charger votre module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.system:ApplicationDomain"/></apiValueDef><apiDesc>
+      Domaine d’application dans lequel charger votre module. Les domaines d’application sont utilisés pour créer des partitions entre les classes qui appartiennent au même domaine de sécurité. Ils autorisent des définitions multiples de la même classe et permettent aux enfants de recycler les définitions des parents.
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link></related-links></apiValue><apiValue id="mx.modules:ModuleLoader:child"><apiName>child</apiName><shortdesc>
+      Objet DisplayObject créé via la fabrique de module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      Objet DisplayObject créé via la fabrique de module.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:ModuleLoader:url:get"><apiName>url</apiName><shortdesc>
+      Emplacement du module, spécifié en tant qu’URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Emplacement du module, spécifié en tant qu’URL.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.modules:Module"><apiName>Module</apiName><shortdesc>
+  Classe de base des modules MXML pouvant être chargés dynamiquement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.modules:Module" replacement="spark.modules.Module" since="4.5">
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base des modules MXML pouvant être chargés dynamiquement. Vous pouvez développer cette classe dans MXML à l’aide de la balise <codeph>&lt;mx:Module></codeph> dans un fichier MXML, comme l’illustre l’exemple suivant :
+  
+  <pre>
+  &lt;?xml version="1.0"?>
+  &lt;!-- This module loads an image. -->
+  &lt;mx:Module  width="100%" height="100%" xmlns:mx="http://www.adobe.com/2006/mxml">
+  
+    &lt;mx:Image source="trinity.gif"/>
+  
+  &lt;/mx:Module>
+  </pre>
+  
+  <p>Développer la classe Module dans ActionScript revient à utiliser la balise <codeph>&lt;mx:Module></codeph> dans un fichier MXML. Vous développez cette classe si votre module interagit avec la structure. Pour afficher un exemple d’une classe ActionScript qui développe la classe Module, créez un fichier MXML avec la balise racine <codeph>&lt;mx:Module></codeph>. Lorsque vous compilez ce fichier, définissez la valeur de l’option de compilateur <codeph>keep-generated-actionscript</codeph> sur <codeph>true</codeph>. Le compilateur Flex stocke la classe ActionScript générée dans un répertoire nommé generated, que vous pouvez examiner.</p>
+  
+  <p>Si votre module n’inclut aucun code de structure, vous pouvez créer une classe qui développe la classe ModuleBase. Si vous utilisez la classe ModuleBase, votre module est généralement plus petit que si vous créez un module basé sur la classe Module car il ne comporte aucune dépendance de classe de structure.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleBase.xml"><linktext>mx.modules.ModuleBase</linktext></link></related-links><apiConstructor id="mx.modules:Module:Module"><apiName>Module</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

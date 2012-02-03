@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.channels"><apiName>mx.messaging.channels</apiName><apiDetail/><apiClassifier id="mx.messaging.channels:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+  HTTPChannel 类支持使用 HTTP 进行消息传送。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTTPChannel 类支持使用 HTTP 进行消息传送。您可以配置此 Channel 每隔一段时间对服务器轮询以充分利用服务器推送技术。您还可以在禁用轮询的前提下使用此 Channel 将 RPC 消息发送到远程目标，以调用其方法。
+ 
+  <p>
+  HTTPChannel 依赖于 Flash Player 和 AIR 的本机网络服务，并由 URLLoader 类向 ActionScript 公开。此通道以独占方式使用 URLLoader，并在每次请求时创建一个新的 URLLoader。
+  </p>
+ 
+  <p>
+  使用 <codeph>ServerConfig.getChannel()</codeph> 方法在框架内创建通道。如果需要，可以直接构造通道并将其分配给 ChannelSet。
+  </p>
+ 
+  <p>
+  通道表示到远程端点的物理连接。默认情况下，通道可以跨目标共享。这意味着定向于不同目标的客户端可以使用同一 Channel 与这些目标进行通信。
+  </p>
+ 
+  <p>
+  在轮询模式下使用时，此 Channel 将基于配置文件中的 <codeph>polling-interval-seconds</codeph> 属性轮询服务器以查看是否有新消息，您可以通过设置 <codeph>pollingInterval</codeph> 属性更改此设置。默认值为 3 秒。若要启用轮询，必须连接此通道并将配置文件中的 <codeph>polling-enabled</codeph> 属性设置为 <codeph>true</codeph>，或者必须将此 Channel 的 <codeph>pollingEnabled</codeph> 属性设置为 <codeph>true</codeph>。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:HTTPChannel:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:HTTPChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      指示未处理的轮询还在等待处理时，此通道是否捎带轮询请求以及普通出站消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示未处理的轮询还在等待处理时，此通道是否捎带轮询请求以及普通出站消息。这允许服务器捎带客户端数据及其对客户端消息的响应。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      指示是否对此通道启用轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示是否对此通道启用轮询。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      提供对此 Channel 轮询间隔的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>如果分配给 pollingInterval 的值等于或小于 0。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      提供对此 Channel 轮询间隔的访问权限。此值以毫秒为单位。此值确定 Channel 从服务器请求消息的频率，以便充分利用服务器推送技术。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      报告当前是否正在轮询通道。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      报告当前是否正在轮询通道。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (http)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (http)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+  流通道使用帮助器类打开与处于打开状态的服务器之间的内部 HTTP 连接，以允许服务器将数据传送到无需轮询开销的客户端。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  流通道使用帮助器类打开与处于打开状态的服务器之间的内部 HTTP 连接，以允许服务器将数据传送到无需轮询开销的客户端。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.channels:StreamingConnectionHandler_flash.events.StatusEvent_status"><apiName>status</apiName><shortdesc>
+  当 StreamingConnectionHandler 收到来自服务器的状态命令时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.StatusEvent</apiEventType><adobeApiEventClassifier>flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 StreamingConnectionHandler 收到来自服务器的状态命令时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.channels:StreamingConnectionHandler:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>使用此类的 Channel。
+	  </apiDesc></apiParam><apiParam><apiItemName>log</apiItemName><apiType value="mx.logging:ILogger"/><apiDesc>引用相关联 Channel 的记录器。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:closeStreamingConnection"><apiName>closeStreamingConnection</apiName><shortdesc>
+      供流通道用于关闭流连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      供流通道用于关闭流连接。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:openStreamingConnection"><apiName>openStreamingConnection</apiName><shortdesc>
+      供流通道用于设置流连接（如果需要），并向服务器发布打开请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>appendToURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>在提出流连接请求时要附加到端点 url 的字符串，如会话 ID。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      供流通道用于设置流连接（如果需要），并向服务器发布打开请求。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:protected:readMessage"><apiName>readMessage</apiName><shortdesc>
+      供 StreamProgressHandler 用于读取消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回已读消息。
+	 
+	  </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      供 StreamProgressHandler 用于读取消息。默认实现返回 null，并且子类必须覆盖此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:StreamingConnectionHandler:DISCONNECT_CODE"><apiName>DISCONNECT_CODE</apiName><shortdesc>
+      从服务器收到断开连接命令时，处理函数分派的 StatusEvent 的代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>disconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从服务器收到断开连接命令时，处理函数分派的 StatusEvent 的代码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:channel"><apiName>channel</apiName><shortdesc>
+     使用此类的 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+     使用此类的 Channel。
+  	 
+  	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:chunkBuffer"><apiName>chunkBuffer</apiName><shortdesc>
+      字节缓冲区，用于存储来自远程端点的当前文本块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      字节缓冲区，用于存储来自远程端点的当前文本块。缓冲完整个文本块后，即可从该文本块中读取以二进制 AMF 格式编码的消息实例并进行分派。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataBytesToRead"><apiName>dataBytesToRead</apiName><shortdesc>
+      跟踪当前文本块中未读取数据字节数的计时器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      跟踪当前文本块中未读取数据字节数的计时器。警戒值为 -1 指示初始状态（等待第一个文本块或者刚刚解析完上一个文本块）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataOffset"><apiName>dataOffset</apiName><shortdesc>
+      文本块缓冲区中指向文本块数据第一个字节的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      文本块缓冲区中指向文本块数据第一个字节的索引。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+  SecureStreamingHTTPChannel 类与 StreamingHTTPChannel 类完全相同，只不过它使用安全协议 (HTTPS) 向 HTTP 端点发送消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingHTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureStreamingHTTPChannel 类与 StreamingHTTPChannel 类完全相同，只不过它使用安全协议 (HTTPS) 向 HTTP 端点发送消息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingHTTPChannel:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (https)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (https)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+  StreamingHTTPChannel 类支持消息传送并提供与基 HTTPChannel 不同的推送模型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StreamingHTTPChannel 类支持消息传送并提供与基 HTTPChannel 不同的推送模型。流通道将打开与处于打开状态的服务器之间的内部 HTTP 连接（而不是从服务器轮询数据），以允许服务器将数据传送到无需轮询开销的客户端。
+   <p>
+  通过此通道发送给服务器的消息使用 URLLoader 发送，并且在操作时间使用内部 HTTP 连接。消息发送并返回确认或错误消息后，通道将释放由 URLLoader 使用的 HTTP 连接。虽然通道保持打开状态可以接收服务器推送的数据，但这些客户端到服务器的消息并不通过流 HTTP 连接发送。
+  </p>
+   <p>
+  虽然此类可扩展基 HTTPChannel 来继承常规 HTTP 处理，但它并不支持轮询。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingHTTPChannel:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingHTTPChannel:poll"><apiName>poll</apiName><shortdesc>
+      此通道不支持轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此通道不支持轮询。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+  SecureStreamingAMFChannel 类与 StreamingAMFChannel 类完全相同，只不过它使用安全协议 HTTPS 向 AMF 端点发送消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingAMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureStreamingAMFChannel 类与 StreamingAMFChannel 类完全相同，只不过它使用安全协议 HTTPS 向 AMF 端点发送消息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingAMFChannel:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (https)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (https)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+  PollingChannel 类提供消息系统中的所有轮询通道需要的轮询行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Channel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PollingChannel 类提供消息系统中的所有轮询通道需要的轮询行为。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:PollingChannel:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+      创建具有指定 ID 的新 PollingChannel 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建具有指定 ID 的新 PollingChannel 实例。一旦与 PollingChannel 建立连接并开始轮询后，默认情况下会每隔三秒发布一次轮询请求。
+     
+      <p><b>注意</b>：不应直接构造 PollingChannel 类型，而应创建可进行扩展的特定于协议的子类实例，如 HTTPChannel 或 AMFChannel。</p>
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:PollingChannel:disablePolling"><apiName>disablePolling</apiName><shortdesc>
+      根据调用 enablePolling() 和 disablePolling() 的次数禁用轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      根据调用 <codeph>enablePolling()</codeph> 和 <codeph>disablePolling()</codeph> 的次数禁用轮询。如果最终结果是禁用轮询，则通道将停止轮询。
+      <p>通过 PollingChannel 从远程目标执行订阅或取消订阅操作自动进行调用。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:enablePolling"><apiName>enablePolling</apiName><shortdesc>
+      根据调用 enablePolling() 和 disablePolling() 的次数启用轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      根据调用 <codeph>enablePolling()</codeph> 和 <codeph>disablePolling()</codeph> 的次数启用轮询。如果最终结果是启用轮询，则通道将代表建立连接的 MessageAgent 对服务器轮询。
+      <p>通过 PollingChannel 从远程目标执行订阅或取消订阅操作自动进行调用。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:poll"><apiName>poll</apiName><shortdesc>
+      如果有使用者订阅此通道则会启动轮询操作，同时此通道也会启用轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果有使用者订阅此通道则会启动轮询操作，同时此通道也会启用轮询。请注意，如果当前正在进行轮询，则此方法不会启动新的轮询。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:send"><apiName>send</apiName><shortdesc>
+	  向其目标对象发送指定的消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiException><apiDesc>如果 MessageAgent 或消息都未指定对象，
+	  
+	  </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>正在发送消息的 MessageAgent。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的 Message。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  向其目标对象发送指定的消息。子类必须覆盖 <codeph>internalSend()</codeph> 方法才能实际进行发送。如果当前已完成某个轮询，则 <codeph>PollingChannel</codeph> 会将出站消息打包在轮询请求中。
+     
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:PollingChannel:protected:LOGIN_AFTER_DISCONNECT"><apiName>LOGIN_AFTER_DISCONNECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>login-after-disconnect</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:PIGGYBACKING_ENABLED"><apiName>PIGGYBACKING_ENABLED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>piggybacking-enabled</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_LEGACY"><apiName>POLLING_INTERVAL_LEGACY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_MILLIS"><apiName>POLLING_INTERVAL_MILLIS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-millis</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+  SecureAMFChannel 类与 AMFChannel 类完全相同，只不过它使用安全协议 HTTPS 向 AMF 端点发送消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureAMFChannel 类与 AMFChannel 类完全相同，只不过它使用安全协议 HTTPS 向 AMF 端点发送消息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureAMFChannel:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (https)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (https)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+  StreamingAMFChannel 类支持消息传送并提供与基 AMFChannel 不同的推送模型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StreamingAMFChannel 类支持消息传送并提供与基 AMFChannel 不同的推送模型。流通道将打开与处于打开状态的服务器之间的内部 HTTP 连接（而不是从服务器轮询数据），以允许服务器将数据传送到无需轮询开销的客户端。
+   <p>
+  通过此通道发送给服务器的消息使用 NetConnection 发送，并且在操作期间使用内部的 HTTP 连接。消息发送并返回确认或错误消息后，通道将释放 NetConnection 使用的 HTTP 连接。虽然通道保持打开状态可以接收服务器推送的数据，但这些客户端到服务器的消息并不通过流 HTTP 连接发送。
+  </p>
+   <p>
+  虽然此类可扩展基 AMFChannel 来继承常规 AMF 处理，但它并不支持轮询。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingAMFChannel:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingAMFChannel:poll"><apiName>poll</apiName><shortdesc>
+      此通道不支持轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此通道不支持轮询。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+  SecureHTTPChannel 类与 HTTPChannel 类完全相同，只不过它使用安全协议 HTTPS 向 HTTP 端点发送消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureHTTPChannel 类与 HTTPChannel 类完全相同，只不过它使用安全协议 HTTPS 向 HTTP 端点发送消息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureHTTPChannel:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (https)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (https)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+  NetConnectionChannel 对消息传送提供基本的 NetConnection 支持。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NetConnectionChannel 对消息传送提供基本的 NetConnection 支持。AMFChannel 和 RTMPChannel 都可以扩展此类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:NetConnectionChannel:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+      创建新的 NetConnectionChannel 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建新的 NetConnectionChannel 实例。
+      <p>
+      默认情况下，基础 NetConnection 的 <codeph>objectEncoding</codeph> 设置为 <codeph>ObjectEncoding.AMF3</codeph>，还可以通过访问通道的 <codeph>netConnection</codeph> 属性手动更改其设置。此通道没有全局 <codeph>NetConnection.defaultObjectEncoding</codeph> 设置。
+      </p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:NetConnectionChannel:netConnection:get"><apiName>netConnection</apiName><shortdesc>
+      提供对与此 Channel 相关联的 NetConnection 的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.net:NetConnection"/></apiValueDef><apiDesc>
+      提供对与此 Channel 相关联的 NetConnection 的访问权限。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+  AMFChannel 类支持使用 AMF 进行消息传送。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:NetConnectionChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AMFChannel 类支持使用 AMF 进行消息传送。您可以配置此 Channel 每隔一段时间对服务器轮询以充分利用服务器推送技术。您还可以在禁用轮询的前提下使用此 Channel 将 RPC 消息发送到远程目标，以调用其方法。
+ 
+  <p>
+  AMFChannel 依赖于 Flash Player 和 AIR 的本机网络服务，并由 NetConnection 类向 ActionScript 公开。此通道以独占方式使用 NetConnection，并为每个实例创建一个新 NetConnection。
+  </p>
+ 
+  <p>
+  使用 <codeph>ServerConfig.getChannel()</codeph> 方法在框架内创建通道。如果需要，可以直接构造通道并将其分配给 ChannelSet。
+  </p>
+ 
+  <p>
+  通道表示到远程端点的物理连接。默认情况下，通道可以跨目标共享。这意味着定向于不同目标的客户端可以使用同一 Channel 与这些目标进行通信。
+  </p>
+ 
+  <p>
+  在轮询模式下使用时，此 Channel 将基于配置文件中的 <codeph>polling-interval-seconds</codeph> 属性轮询服务器以查看是否有新消息，您可以通过设置 <codeph>pollingInterval</codeph> 属性更改此设置。默认值为 3 秒。若要启用轮询，必须连接此通道并将配置文件中的 <codeph>polling-enabled</codeph> 属性设置为 <codeph>true</codeph>，或者必须将此 Channel 的 <codeph>pollingEnabled</codeph> 属性设置为 <codeph>true</codeph>。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:AMFChannel:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 id。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此 Channel 的 uri。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:AMFChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      指示未处理的轮询还在等待处理时，此通道是否捎带轮询请求以及普通出站消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示未处理的轮询还在等待处理时，此通道是否捎带轮询请求以及普通出站消息。这允许服务器捎带客户端数据及其对客户端消息的响应。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      指示是否对此通道启用轮询。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示是否对此通道启用轮询。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      提供对此 Channel 轮询间隔的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>如果分配给 pollingInterval 的值等于或小于 0。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      提供对此 Channel 轮询间隔的访问权限。此值以毫秒为单位。此值确定 Channel 从服务器请求消息的频率，以便充分利用服务器推送技术。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      报告当前是否正在轮询通道。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      报告当前是否正在轮询通道。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      返回此通道的协议 (http)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      返回此通道的协议 (http)。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

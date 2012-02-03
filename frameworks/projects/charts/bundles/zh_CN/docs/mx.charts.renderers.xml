@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.renderers"><apiName>mx.charts.renderers</apiName><apiDetail/><apiClassifier id="mx.charts.renderers:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+  供 LineSeries 对象使用的线段呈示器的简单实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  供 LineSeries 对象使用的线段呈示器的简单实现。此类使用分别由所拥有系列的 <codeph>lineStroke</codeph> 和 <codeph>form</codeph> 样式定义的笔触和形式在屏幕上呈示线条。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:LineRenderer:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:LineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此呈示器表示的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此呈示器表示的图表项目。LineRenderers 假设此值是 LineSeriesItem 的一个实例。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+  用于呈示 AreaSeries 对象的数据点下方区域的默认类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于呈示 AreaSeries 对象的数据点下方区域的默认类。此类使用分别由 AreaSeries 对象的 <codeph>areaFill</codeph>、<codeph>areaStroke</codeph> 和 <codeph>form</codeph> 样式指定的填充、笔触和线条来呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:AreaRenderer:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:AreaRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  AreaRenderer 呈示的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  AreaRenderer 呈示的数据。AreaRenderer 希望为此属性分配一个 mx.charts.series.renderData.AreaRenderData 实例。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+  用于填充矩形区域并在其周围添加阴影的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于填充矩形区域并在其周围添加阴影的简单图表 itemRenderer 实现。可以将此类用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。它使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowBoxItemRenderer:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowBoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 正在显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 正在显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+  用于填充其分配区域中菱形的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于填充其分配区域中菱形的简单图表 itemRenderer 实现。可以将此类用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。它使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:DiamondItemRenderer:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:DiamondItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 正在显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 正在显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+  用于在其分配区域中进行交叉填充的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于在其分配区域中进行交叉填充的简单图表 itemRenderer 实现。可以将此类用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。它使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CrossItemRenderer:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+	  构造函数
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CrossItemRenderer:thickness"><apiName>thickness</apiName><shortdesc>
+	  所呈示的交叉的粗细（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  所呈示的交叉的粗细（以像素为单位）。要创建其它宽度的交叉呈示器，开发人员可扩展此类并在派生的类的构造函数中更改此值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.renderers:CrossItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 正在显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 正在显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+  供 LineSeries 对象使用的线段呈示器实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  供 LineSeries 对象使用的线段呈示器实现。此类使用分别由所拥有系列的 <codeph>lineStroke</codeph> 和 <codeph>form</codeph> 样式定义的笔触和形式在带有 dropshadow 的屏幕上呈示线条。
+  <p>ShadowLineRenderer 是 LineSeries 类的默认 lineSegmentRenderer。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowLineRenderer:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowLineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此呈示器表示的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此呈示器表示的图表项目。ShadowLineRenderers 假设此值是 LineSeriesItem 的一个实例。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+  PieSeries 对象的默认 itemRenderer。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PieSeries 对象的默认 itemRenderer。此类使用所拥有系列的 <codeph>stroke</codeph> 和 <codeph>radialStroke</codeph> 样式呈示楔形，以分别绘制楔形的内、外边缘和侧边缘。该楔形将使用相关联图表项目的 <codeph>fill</codeph> 属性值填充。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:WedgeItemRenderer:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:WedgeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此呈示器表示的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此呈示器表示的图表项目。WedgeItemRenderers 假设此值是 PieSeriesItem 的一个实例。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+  用于填充其分配区域中直角三角形的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于填充其分配区域中直角三角形的简单图表 itemRenderer 实现。可以将此类用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。它使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:TriangleItemRenderer:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:TriangleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 正在显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 正在显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+  HLOCSeries 对象的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HLOCSeries 对象的默认项呈示器。此类从高到低呈示一条垂直线，并使用刻度线标记图表项目的起始点和结束点。
+  
+  <p>垂直线使用所拥有系列的 <codeph>stroke</codeph> 样式值呈示。起始刻度线和结束刻度线分别使用所拥有系列的 <codeph>openTickStroke</codeph> 和 <codeph>closeTickStroke</codeph> 样式呈示。起始刻度线和结束刻度线的长度分别由所拥有系列的 <codeph>openTickLength</codeph> 和 <codeph>closeTickLength</codeph> 样式确定。</p>
+ 
+  <p>起始刻度值和结束刻度值都是可选的；仅当相关联图表项目上的起始值和结束值是非 <codeph>NaN</codeph> 值，HLOCItemRenderer 才会呈示刻度线。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.series.xml#HLOCSeries"><linktext>mx.charts.series.HLOCSeries</linktext></link><link href="" invalidHref="mx.charts.series.HLOCSeriesItem.xml"><linktext>mx.charts.series.HLOCSeriesItem</linktext></link></related-links><apiConstructor id="mx.charts.renderers:HLOCItemRenderer:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:HLOCItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      此呈示器表示的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此呈示器表示的图表项目。HLOCItemRenderers 假设此值是 HLOCSeriesItem 的一个实例。此值由所拥有的系列分配。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+  CandlestickSeries 对象的默认 itemRenderer。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CandlestickSeries 对象的默认 itemRenderer。此类使用其关联系列的 <codeph>stroke</codeph>、<codeph>boxStroke</codeph>、<codeph>fill</codeph> 和 <codeph>declineFill</codeph> 样式呈示标准的 CandlestickChart 项目。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CandlestickItemRenderer:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CandlestickItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此呈示器表示的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此呈示器表示的图表项目。CandlestickItemRenderers 假设此值是 HLOCSeriesItem 的一个实例。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+  用于填充矩形区域的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于填充矩形区域的简单图表 itemRenderer 实现。此类是 ColumnSeries 和 BarSeries 对象的默认 itemRenderer。可以将其用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。此类使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:BoxItemRenderer:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:BoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 正在显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 正在显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+  用于填充椭圆区域的简单图表 itemRenderer 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  用于填充椭圆区域的简单图表 itemRenderer 实现。可以将此类用作 ColumnSeries、BarSeries、AreaSeries、LineSeries、PlotSeries 和 BubbleSeries 对象的 itemRenderer。它使用其关联系列的 <codeph>fill</codeph> 和 <codeph>stroke</codeph> 样式在屏幕上呈示区域。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CircleItemRenderer:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CircleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  此 itemRenderer 显示的 chartItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  此 itemRenderer 显示的 chartItem。此值由所拥有的系列分配。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

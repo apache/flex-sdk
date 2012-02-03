@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.formatters"><apiName>mx.formatters</apiName><apiDetail/><apiClassifier id="mx.formatters:NumberBaseRoundType"><apiName>NumberBaseRoundType</apiName><shortdesc>
+  NumberBaseRoundType クラスは、端数の丸め処理の形式を指定するフォーマッタープロパティの定数値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberBaseRoundType クラスは、端数の丸め処理の形式を指定するフォーマッタープロパティの定数値を定義します。 たとえば、これらの定数を使用して <codeph>NumberFormatter.rounding</codeph> プロパティを設定できます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link></related-links><apiValue id="mx.formatters:NumberBaseRoundType:DOWN"><apiName>DOWN</apiName><shortdesc>
+	  数値を、入力数値以下でなおかつその入力数値に最も近い整数に切り捨てます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  数値を、入力数値以下でなおかつその入力数値に最も近い整数に切り捨てます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NEAREST"><apiName>NEAREST</apiName><shortdesc>
+	  数値をその最も近い整数に切り上げまたは切り捨てします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>nearest</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  数値をその最も近い整数に切り上げまたは切り捨てします。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NONE"><apiName>NONE</apiName><shortdesc>
+	  切り上げまたは切り下げは行いません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  切り上げまたは切り下げは行いません。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:UP"><apiName>UP</apiName><shortdesc>
+	  数値を、入力数値以上でなおかつその入力数値に最も近い整数に切り上げます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  数値を、入力数値以上でなおかつその入力数値に最も近い整数に切り上げます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  CurrencyFormatter クラスは有効な数値を通貨型としてフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:CurrencyFormatter" replacement="spark.formatters.CurrencyFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:CurrencyFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CurrencyFormatter
+    alignSymbol="left|right" 
+    currencySymbol="$"
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"
+ />  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyFormatter クラスは有効な数値を通貨型としてフォーマットします。 小数点以下の四捨五入と表示する桁数、桁区切り記号および負符号を調整し、通貨記号を追加します。 <codeph>alignSymbol</codeph> プロパティを使用して、通貨記号を数値の左右どちらに置くかを指定します。 通貨記号には、スペースも含め、複数の文字を使用できます。
+  
+  <p>エラーが発生すると、空のストリングが返され、エラーを説明するストリングが <codeph>error</codeph> プロパティに保存されます。 この <codeph>error</codeph> プロパティに保存される可能性のある値は、次のうちのいずれかです。</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> は、無効な数値が <codeph>format()</codeph> メソッドに渡されたことを示します。 値は、Number 型 または String 型の有効な数値である必要があります。</li>
+    <li><codeph>"Invalid format"</codeph> は、いずれかのパラメーターに、使用できない設定が含まれていることを示します。</li>
+  </ul>
+  
+  </apiDesc><example conref="CurrencyFormatterExample.mxml"><swfblock conref="examples/CurrencyFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      value を通貨としてフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>フォーマットしたストリング。 エラーが発生した場合は空です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>value</codeph> を通貨としてフォーマットします。 <codeph>value</codeph> をフォーマットできない場合、空のストリングが返され、<codeph>error</codeph> プロパティにエラーの説明が書き込まれます。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:CurrencyFormatter:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      通貨記号の位置を、フォーマット済み数値の左側または右側に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      通貨記号の位置を、フォーマット済み数値の左側または右側に設定します。 指定できる値は、<codeph>"left"</codeph> および <codeph>"right"</codeph> です。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      フォーマットの対象となる数値の通貨記号として使用される文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フォーマットの対象となる数値の通貨記号として使用される文字を表します。 "$" や "YEN" など、通貨記号を表す文字を使用できます。 さらに、通貨記号とフォーマット対象数値の間にスペースを挟むこともできます。 数値が負の値の場合、通貨記号は数値とマイナス記号の間、または数値と括弧の間に表示されます。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字を表します。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      出力ストリングに含める小数の桁数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      出力ストリングに含める小数の桁数を表します。 precision を <codeph>-1</codeph> に設定すると precision を無効にできます。 値が <codeph>-1</codeph> の場合、桁数は変更されません。 たとえば、入力値が 1.453 で、<codeph>rounding</codeph> が <codeph>NumberBaseRoundType.NONE</codeph> に設定されている場合、1.453 が返されます。 <codeph>precision</codeph> が -1 で、四捨五入の形式を設定している場合、その四捨五入の形式に基づいて値が返されます。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      数値を四捨五入する方法を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+ 	 
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      数値を四捨五入する方法を表します。 ActionScript では、値として <codeph>NumberBaseRoundType.NONE</codeph>、<codeph>NumberBaseRoundType.UP</codeph>、<codeph>NumberBaseRoundType.DOWN</codeph> または <codeph>NumberBaseRoundType.NEAREST</codeph> を指定できます。 MXML では、値として <codeph>"none"</codeph>、<codeph>"up"</codeph>、<codeph>"down"</codeph> または <codeph>"nearest"</codeph> を指定できます。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      true の場合、負数の前にマイナス（"-"）記号が付けられてフォーマットされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、負数の前にマイナス（"-"）記号が付けられてフォーマットされます。 <codeph>false</codeph> の場合、数値は、（400）のように括弧で囲まれてフォーマットされます。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      true の場合、数値は 3 桁ごとに区切り文字で区切られます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、数値は 3 桁ごとに区切り文字で区切られます。
+	 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+  SwitchSymbolFormatter クラスは、カスタムフォーマッターを作成するときに使用できるユーティリティクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><access>private
+  
+  </access></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SwitchSymbolFormatter クラスは、カスタムフォーマッターを作成するときに使用できるユーティリティクラスです。 このクラスは、あるストリングのプレースホルダーー文字を別のストリングの数値に置き換える処理を行います。
+  
+  <p>たとえば、SwitchSymbolFormatter クラスに次の情報を指定します。</p>
+ 
+  <p>フォーマットストリング： "The SocialSecurity number is: ###-##-####"</p>
+  <p>入力ストリング： "123456789"</p>
+  
+  <p>SwitchSymbolFormatter クラスは、フォーマットストリングを解析して、各プレースホルダーー文字（デフォルト "#"）を入力ストリングの数字に置換します。なお、入力ストリングの数字は、入力ストリングで指定されている順番で挿入されます。 別のプレースホルダーー記号を定義するには、SwitchSymbolFormatter オブジェクトをインスタンス化する際に、コンストラクターにその記号を渡します。</p>
+  
+  <p>SwitchSymbolFormatter クラスでこれらの 2 つのストリングから作成される出力ストリングは、次のようになります。</p>
+ 
+  <p>"The SocialSecurity number is: 123-45-6789"</p>
+  
+  <p>パターンには、ストリングの数値の部分の値の定数を表す任意の文字を指定できます ただし、フォーマットする値は数値である必要があります。</p>
+  
+  <p>ソース値で指定する桁数は、パターンストリングで定義されている桁数と一致する必要があります。 SwitchSymbolFormatter オブジェクトを呼び出すスクリプトでは、このことに注意してください。</p>
+  
+  </apiDesc><example conref="SwitchSymbolFormatterExample.mxml"><swfblock conref="examples/SwitchSymbolFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#PhoneFormatter"><linktext>mx.formatters.PhoneFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:SwitchSymbolFormatter:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>numberSymbol</apiItemName><apiType value="String"/><apiData>#</apiData><apiDesc>パターン文字として使用する文字を表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:SwitchSymbolFormatter:formatValue"><apiName>formatValue</apiName><shortdesc>
+      フォーマットパターンを使用してソースストリングをフォーマットすることによって、新しいストリングを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットしたストリングを表します。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>format</apiItemName><apiType value="String"/><apiDesc>ユーザーが要求したパターン追加を定義するストリングを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>有効な数値並びを表します。必要に応じてアルファ文字を使用できます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      フォーマットパターンを使用してソースストリングをフォーマットすることによって、新しいストリングを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  NumberFormatter クラスは、小数点以下の四捨五入や表示桁数、桁区切り記号、負符号などを調整して、有効な数値をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:NumberFormatter" replacement="spark.formatters.NumberFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:NumberFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberFormatter
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"/>  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatter クラスは、小数点以下の四捨五入や表示桁数、桁区切り記号、負符号などを調整して、有効な数値をフォーマットします。
+ 
+  <p><codeph>rounding</codeph> と <codeph>precision</codeph> の両方のプロパティを使用した場合、最初に rounding が適用され、次に <codeph>precision</codeph> に指定された値を使用して小数点以下の桁数が設定されます。 そのため、たとえば 303.99 = 304.00 のように、数値を丸めながら、小数点以下の桁を残すことができます。</p>
+ 
+  <p>エラーが発生すると、空のストリングが返され、エラーを説明するストリングが <codeph>error</codeph> プロパティに保存されます。 この <codeph>error</codeph> プロパティに保存される可能性のある値は、次のうちのいずれかです。</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> は、無効な数値が <codeph>format()</codeph> メソッドに渡されたことを示します。 値は、Number 型 または String 型の有効な数値である必要があります。</li>
+    <li><codeph>"Invalid format"</codeph> は、いずれかのパラメーターに、使用できない設定が含まれていることを示します。</li>
+  </ul>
+  
+  </apiDesc><example conref="NumberFormatterExample.mxml"><swfblock conref="examples/NumberFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      数値をストリングとしてフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>フォーマットしたストリングを表します。 エラーが発生した場合は空です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      数値をストリングとしてフォーマットします。 <codeph>value</codeph> をフォーマットできない場合、空のストリングが返され、<codeph>error</codeph> プロパティにエラーの説明が書き込まれます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字です。
+     
+      <p>このプロパティを設定するときは、<codeph>thousandsSeparatorFrom</codeph> プロパティの値がこのプロパティと同じでないことを確認してください。そうしないと、値のフォーマット時にエラーが発生します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。
+     
+      <p>このプロパティを設定するときは、<codeph>thousandsSeparatorTo</codeph> プロパティの値がこのプロパティと同じでないことを確認してください。そうしないと、値のフォーマット時にエラーが発生します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      出力ストリングに含める小数の桁数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      出力ストリングに含める小数の桁数を表します。 precision を <codeph>-1</codeph> に設定すると precision を無効にできます。 値が <codeph>-1</codeph> の場合、桁数は変更されません。 たとえば、入力値が 1.453 で、<codeph>rounding</codeph> が <codeph>NumberBaseRoundType.NONE</codeph> に設定されている場合、戻り値は 1.453 です。 <codeph>precision</codeph> が <codeph>-1</codeph> で、四捨五入の形式を設定している場合、その四捨五入の形式に基づいて値が返されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      数値を四捨五入する方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数値を四捨五入する方法を指定します。
+     
+      <p>ActionScript では、このプロパティを設定するために使用できる定数は、<codeph>NumberBaseRoundType.NONE</codeph>、<codeph>NumberBaseRoundType.UP</codeph>、<codeph>NumberBaseRoundType.DOWN</codeph> または <codeph>NumberBaseRoundType.NEAREST</codeph> です。 有効な MXML 値は、"down"、"nearest"、"up" および "none" です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。
+     
+      <p>このプロパティを設定するときは、<codeph>decimalSeparatorFrom</codeph> プロパティの値がこのプロパティと同じでないことを確認してください。そうしないと、値のフォーマット時にエラーが発生します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。
+     
+      <p>このプロパティを設定するときは、<codeph>decimalSeparatorTo</codeph> プロパティの値がこのプロパティと同じでないことを確認してください。そうしないと、値のフォーマット時にエラーが発生します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      true の場合、負数の前にマイナス（"-"）記号が付けられてフォーマットされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、負数の前にマイナス（"-"）記号が付けられてフォーマットされます。 <codeph>false</codeph> の場合、数値は、（400）のように括弧で囲まれてフォーマットされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      true の場合、数値は 3 桁ごとに区切り文字で区切られます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、数値は 3 桁ごとに区切り文字で区切られます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateBase"><apiName>DateBase</apiName><shortdesc>
+  DateBase クラスには、mx.formatters.DateFormatter クラスやパターンをレンダリングする解析関数でも使用される、ローカライズされたストリング情報が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateBase クラスには、mx.formatters.DateFormatter クラスやパターンをレンダリングする解析関数でも使用される、ローカライズされたストリング情報が含まれます。 これは DateFormatter クラスのヘルパークラスで、通常、単独で使用されることはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateFormatter"><linktext>mx.formatters.DateFormatter</linktext></link></related-links><apiValue id="mx.formatters:DateBase:dayNamesLong:get"><apiName>dayNamesLong</apiName><shortdesc>
+      長い形式の曜日名を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sunday", "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      長い形式の曜日名を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:dayNamesShort:get"><apiName>dayNamesShort</apiName><shortdesc>
+      短い形式の曜日名を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      短い形式の曜日名を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesLong:get"><apiName>monthNamesLong</apiName><shortdesc>
+      長い形式の月名を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"].
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      長い形式の月名を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesShort:get"><apiName>monthNamesShort</apiName><shortdesc>
+      短い形式の月名を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct","Nov", "Dec"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      短い形式の月名を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:timeOfDay:get"><apiName>timeOfDay</apiName><shortdesc>
+      午前または午後を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["AM", "PM"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      午前または午後を表します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+  DateFormatter クラスは、書式ストリングを使用して、入力ストリングまたは Date オブジェクトから、書式設定された日付および時刻のストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:DateFormatter" replacement="spark.formatters.DateTimeFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>You use the <code>&lt;mx:DateFormatter&gt;</code> tag
+  to render date and time Strings from a Date object.</p>
+ 
+  <p>The <code>&lt;mx:DateFormatter&gt;</code> tag
+  inherits all of the tag attributes  of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:DateFormatter
+    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
+   /> 
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFormatter クラスは、書式ストリングを使用して、入力ストリングまたは Date オブジェクトから、書式設定された日付および時刻のストリングを返します。 国際的な形式をはじめ、さまざまな形式を作成できます。
+ 
+  <p>エラーが発生すると、空のストリングが返され、エラーを説明するストリングが <codeph>error</codeph> プロパティに保存されます。 この <codeph>error</codeph> プロパティに保存される可能性のある値は、次のうちのいずれかです。</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> は、Date オブジェクトではない値、または日付のストリング表現とは認識できない値が <codeph>format()</codeph> メソッドに渡されたことを示します （空の引数は許可されています）。</li>
+    <li> <codeph>"Invalid format"</codeph> は、<codeph>formatString</codeph> プロパティに空の値（""）が設定されているか、<codeph>formatString</codeph> プロパティにパターン文字が含まれていないことを示します。</li>
+  </ul>
+ 
+  <p><codeph>parseDateString()</codeph> メソッドは、mx.formatters.DateBase クラスを使用して、ストリングとして書式設定された日付を Date オブジェクトに変換するために必要な、ローカライズされたストリングに関する情報を定義します。</p>
+  
+  </apiDesc><example conref="DateFormatterExample.mxml"><swfblock conref="examples/DateFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links><apiConstructor id="mx.formatters:DateFormatter:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:DateFormatter:format"><apiName>format</apiName><shortdesc>
+      日付形式のストリングまたは Date オブジェクトから日付形式のストリングを生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>フォーマットしたストリングを表します。 エラーが発生した場合は空です。 エラーの状態を示す説明が <codeph>error</codeph> プロパティに書き込まれます。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする日付を表します。 これには、Date オブジェクト、または "Thursday, April 22, 2004" などの日付形式のストリングを指定できます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      日付形式のストリングまたは Date オブジェクトから日付形式のストリングを生成します。 出力ストリングのフォーマットは <codeph>formatString</codeph> プロパティによって決まります。 <codeph>value</codeph> をフォーマットできない場合、空のストリングが返され、<codeph>error</codeph> プロパティにエラーの説明が書き込まれます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:DateFormatter:parseDateString"><apiName>parseDateString</apiName><shortdesc>
+      ストリングとしてフォーマットした日付を Date オブジェクトに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Date オブジェクトです。
+      
+      </apiDesc><apiType value="Date"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>ストリングとしてフォーマットした日付を表します。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングとしてフォーマットした日付を Date オブジェクトに変換します。 月名と曜日名は mx.formatters.DateBase 内の名前に一致する必要があります。ストリングの時間の値は、0 ～ 23 の間にする必要があります。分と秒の値は、0 ～ 59 の間にする必要があります。次の例では、このメソッドを使用して Date オブジェクトを作成します。
+     
+      <pre>
+      var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links></apiOperation><apiValue id="mx.formatters:DateFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      マスクパターンを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マスクパターンを表します。
+      
+      <p>パターンストリングは YYYY/MM のように特定の大文字を使用して構成します。</p>
+     
+      <p>DateFormatter パターンストリングには、パターン文字に加えてそれ以外のテキストを含めることができます。 有効なパターンストリングを作成するには、少なくとも 1 文字のパターン文字が必要です。</p>
+          
+      <p>次の表に、有効なパターン文字を示します。</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry>パターン文字</entry><entry>説明</entry></row></thead><tbody><row>
+          <entry>Y</entry>
+          <entry> 年です。パターン文字の数が 2 の場合、年は 2 桁に切り詰められます。それ以外の場合、4 桁で表示されます。 次の例の 3 番目に示すように、指定された桁数になるように 0 が追加されます。 
+            <ul>
+              <li>YY = 05</li>
+              <li>YYYY = 2005</li>
+              <li>YYYYY = 02005</li>
+            </ul></entry>
+        </row><row>
+          <entry>M</entry>
+          <entry> 月です。 形式は、次の条件により決まります。
+            <ul>
+              <li>パターン文字の数が 1 つの場合、形式は 1 桁または 2 桁の数値として解釈されます。 </li>
+              <li>パターン文字の数が 2 つの場合、形式は 2 桁の数値として解釈されます。</li>
+              <li>パターン文字の数が 3 つの場合、形式は省略したテキストとして解釈されます。</li>
+              <li>パターン文字の数が 4 つの場合、形式は省略されないテキストとして解釈されます。 </li>
+            </ul>
+              例：
+            <ul>
+              <li>M = 7</li>
+              <li>MM = 07</li>
+              <li>MMM = Jul</li>
+              <li>MMMM = July</li>
+            </ul></entry>
+        </row><row>
+          <entry>D</entry>
+          <entry>日付です。 1 文字の日付パターンストリングも有効ですが、通常は 2 文字のパターンストリングを使用します。
+     
+            <p>例：</p>
+            <ul>
+              <li>D = 4</li>
+              <li>DD = 04</li>
+              <li>DD = 10</li>
+            </ul></entry>
+        </row><row>
+          <entry>E</entry>
+          <entry>曜日です。 形式は、次の条件により決まります。
+            <ul>
+              <li>パターン文字の数が 1 つの場合、形式は 1 桁または 2 桁の数値として解釈されます。</li>
+              <li>パターン文字の数が 2 つの場合、形式は 2 桁の数値として解釈されます。</li>
+              <li>パターン文字の数が 3 つの場合、形式は省略したテキストとして解釈されます。 </li>
+              <li>パターン文字の数が 4 つの場合、形式は省略されないテキストとして解釈されます。 </li>
+            </ul>
+              例：
+            <ul>
+              <li>E = 1</li>
+              <li>EE = 01</li>
+              <li>EEE = Mon</li>
+              <li>EEEE = Monday</li>
+            </ul></entry>
+        </row><row>
+          <entry>A</entry>
+          <entry> 午前 / 午後を表します。</entry>
+        </row><row>
+          <entry>J</entry>
+          <entry>時刻（0 ～ 23）です。</entry>
+        </row><row>
+          <entry>H</entry>
+          <entry>時刻（1 ～ 24）です。</entry>
+        </row><row>
+          <entry>K</entry>
+          <entry>午前 / 午後で区切った時刻（0 ～ 11）です。</entry>
+        </row><row>
+          <entry>L</entry>
+          <entry>午前 / 午後で区切った時刻（1 ～ 12）です。</entry>
+        </row><row>
+          <entry>N</entry>
+          <entry>分数です。
+     
+            <p>例：</p>
+            <ul>
+              <li>N = 3</li>
+              <li>NN = 03</li>
+            </ul></entry>
+        </row><row>
+          <entry>S</entry>
+          <entry>秒数です。 
+     
+            <p>例：</p>
+            <ul>
+              <li>SS = 30</li>
+            </ul></entry>
+        </row><row>
+          <entry>Q</entry>
+          <entry>ミリ秒数です。
+     
+            <p>例：</p>
+            <ul>
+              <li>QQ = 78</li>
+              <li>QQQ = 078</li>
+            </ul></entry>
+        </row><row>
+          <entry>その他のテキスト</entry>
+          <entry>その他のテキストをパターンストリングに追加して、ストリングをさらにフォーマットすることができます。 句読点や数字、任意の小文字を使用できます。 大文字はパターン文字として解釈される場合があるため、大文字は使用しないでください。
+     
+            <p>例：</p>
+            <ul>
+              <li>EEEE, MMM. D, YYYY at L:NN:QQQ A = Tuesday, Sept. 8, 2005 at 1:26:012 PM</li>
+            </ul></entry>
+        </row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+  PhoneFormatter クラスは、有効な数値を電話番号（国際電話番号を含む）の形式にフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:PhoneFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneFormatter
+    areaCode="-1"
+    areaCodeFormat="(###)"
+    formatString="(###) ###-####"
+    validPatternChars="+()#-. "
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PhoneFormatter クラスは、有効な数値を電話番号（国際電話番号を含む）の形式にフォーマットします。
+ 
+  <p>7 桁の米国形式の電話番号については、ショートカットが用意されています。 <codeph>areaCode</codeph> プロパティに値が含まれ、7 桁の形式のストリング（###-####）を使用した場合、返されるストリングに自動的に市外局番が追加されます。 市外局番のデフォルトの形式は、（###）です。 この形式は <codeph>areaCodeFormat</codeph> プロパティを使用して変更できます。 エリアコードは、3 桁のプレースホルダーーを使用する限り任意に設定できます。</p>
+ 
+  <p>エラーが発生すると、空のストリングが返され、エラーを説明するストリングが <codeph>error</codeph> プロパティに保存されます。 この <codeph>error</codeph> プロパティに保存される可能性のある値は、次のうちのいずれかです。</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> は、無効な数値が <codeph>format()</codeph> メソッドに渡されたことを示します。 値は Number 型または String 型の有効な数値にする必要があります。または、値の桁数が、フォーマットストリングで指定された桁数と異なっています。</li>
+    <li> <codeph>"Invalid format"</codeph> は、<codeph>formatString</codeph> プロパティの任意の文字が <codeph>validPatternChars</codeph> プロパティで指定されている文字と一致しない、または <codeph>areaCodeFormat</codeph> プロパティが指定されているのに対して、数値プレースホルダーーの数が 3 ではないことを示します。</li>
+  </ul>
+  
+  </apiDesc><example conref="PhoneFormatterExample.mxml"><swfblock conref="examples/PhoneFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:PhoneFormatter:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:PhoneFormatter:format"><apiName>format</apiName><shortdesc>
+      ストリングを電話番号としてフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>フォーマットしたストリングを表します。 エラーが発生した場合は空です。 エラーの状態を示す説明が <codeph>error</codeph> プロパティに書き込まれます。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングを電話番号としてフォーマットします。 値をフォーマットできない場合、空のストリングが返され、<codeph>error</codeph> プロパティにエラーの説明が書き込まれます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:PhoneFormatter:areaCodeFormat:get"><apiName>areaCodeFormat</apiName><shortdesc>
+      areacode プロパティが 7 桁形式で表示された場合に使用される、市外局番のデフォルトの形式です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) "
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>areacode</codeph> プロパティが 7 桁形式で表示された場合に使用される、市外局番のデフォルトの形式です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:areaCode:get"><apiName>areaCode</apiName><shortdesc>
+      10 桁の電話番号を構成するために米国形式の 7 桁の電話番号に追加される市外局番（エリアコード）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1  
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      10 桁の電話番号を構成するために米国形式の 7 桁の電話番号に追加される市外局番（エリアコード）を表します。 値が <codeph>-1</codeph> の場合、前に市外局番を追加しません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      指定の電話番号のフォーマットを示すマスク文字を含むストリングを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) ###-####"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定の電話番号のフォーマットを示すマスク文字を含むストリングを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:validPatternChars:get"><apiName>validPatternChars</apiName><shortdesc>
+      formatString プロパティで使用できる有効な文字のリストを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"+()#- ."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>formatString</codeph> プロパティで使用できる有効な文字のリストを表します。 このプロパティは、<codeph>formatString</codeph> プロパティの検証に使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:IFormatter"><apiName>IFormatter</apiName><shortdesc>
+  このインターフェイスでは、フォーマッターオブジェクトを AdvancedDataGridColumn などの UI コントロールのフォーマッタープロパティとして使用できるようにするために、フォーマッターオブジェクトが実装する必要があるメソッドを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスでは、フォーマッターオブジェクトを <codeph>AdvancedDataGridColumn</codeph> などの UI コントロールのフォーマッタープロパティとして使用できるようにするために、フォーマッターオブジェクトが実装する必要があるメソッドを指定します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.xml#advancedDataGridClasses/formatter"><linktext>mx.controls.advancedDataGridClasses.formatter</linktext></link></related-links><apiOperation id="mx.formatters:IFormatter:mx.formatters:IFormatter:format"><apiName>format</apiName><shortdesc>
+      値をフォーマットし、新しくフォーマットされた値を含む String を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットしたストリングを表します。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      値をフォーマットし、新しくフォーマットされた値を含む <codeph>String</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+  ZipCodeFormatter クラスは、ユーザーが定義した formatString プロパティの設定に基づいて、有効な数値を次のいずれかの形式にフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:ZipCodeFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeFormatter
+    formatString="#####|#####-####|### ###"
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeFormatter クラスは、ユーザーが定義した <codeph>formatString</codeph> プロパティの設定に基づいて、有効な数値を次のいずれかの形式にフォーマットします。
+  
+  <ul>
+    <li>#####-####</li>
+    <li>##### ####</li>
+    <li>#####</li>
+    <li>### ###（カナダ式）</li>
+  </ul>
+  
+  <p>6 桁のマスクには 6 桁の数値を設定する必要があります。 5 桁または 9 桁のマスクを使用している場合は、5 桁または 9 桁の数値を使用してフォーマットできます。</p>
+ 
+  <p>エラーが発生すると、空のストリングが返され、エラーを説明するストリングが <codeph>error</codeph> プロパティに保存されます。 この <codeph>error</codeph> プロパティに保存される可能性のある値は、次のうちのいずれかです。</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> は、無効な数値が <codeph>format()</codeph> メソッドに渡されたことを示します。 値は、Number 型または String 型の有効な数値である必要があります。ただし、カナダの郵便番号の場合は英数字の値を使用できます。または、桁数が <codeph>formatString</codeph> プロパティで許可した桁数と一致していません。</li>
+    <li> <codeph>"Invalid format"</codeph> は、<codeph>formatString</codeph> プロパティの任意の文字が <codeph>validFormatChars</codeph> プロパティで指定された文字と一致しない、または数値プレースホルダーーの数が 9 つ、5 つ、6 つのいずれでもないことを示します。</li>
+  </ul>
+  
+  </apiDesc><example conref="ZipCodeFormatterExample.mxml"><swfblock conref="examples/ZipCodeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:ZipCodeFormatter:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:ZipCodeFormatter:format"><apiName>format</apiName><shortdesc>
+	  指定のフォーマットを使用して、ストリングをフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>フォーマットしたストリングを表します。 エラーが発生した場合は空です。 エラーの状態を示す説明が <codeph>error</codeph> プロパティに書き込まれます。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  指定のフォーマットを使用して、ストリングをフォーマットします。 値をフォーマットできない場合、空のストリングが返され、<codeph>error</codeph> プロパティにエラーの説明が書き込まれます。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:ZipCodeFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+	  マスクパターンを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"#####"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  マスクパターンを表します。 有効な値は、<codeph>"#####-####"</codeph>、<codeph>"##### ####"</codeph>、<codeph>"#####"</codeph>、<codeph>"###-###"</codeph> および <codeph>"### ###"</codeph> です。
+	  	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:Formatter"><apiName>Formatter</apiName><shortdesc>
+  Formatter クラスはすべてのデータフォーマッターの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Formatter class defines the following tag attributes,
+  which all of its subclasses inherit:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    error=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Formatter クラスはすべてのデータフォーマッターの基本クラスです。 Formatter クラスのすべてのサブクラスでは、<codeph>format()</codeph> メソッドをオーバーライドする必要があります。
+ 
+  </apiDesc><example conref="SimpleFormatterExample.mxml"><swfblock conref="examples/SimpleFormatterExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.formatters:Formatter:Formatter"><apiName>Formatter</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:Formatter:format"><apiName>format</apiName><shortdesc>
+	  値をフォーマットし、新しくフォーマットされた値を含むストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットしたストリングを表します。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする値を表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  値をフォーマットし、新しくフォーマットされた値を含むストリングを返します。 すべてのサブクラスでこのメソッドをオーバーライドし、フォーマッターを実装する必要があります。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:Formatter:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+	  このメソッドは、Formatter の作成時に呼び出されます。また、ローカライズされたリソースが何らかの方法で変更されたことを示すために、ResourceManager が "change" イベントを送出した時点で常に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  このメソッドは、Formatter の作成時に呼び出されます。また、ローカライズされたリソースが何らかの方法で変更されたことを示すために、ResourceManager が <codeph>"change"</codeph> イベントを送出した時点で常に呼び出されます。
+	 
+	  <p>このイベントは、ResourceManager の <codeph>localeChain</codeph> プロパティを設定したとき、リソースモジュールがロードを終了したとき、および ResourceManager の <codeph>update()</codeph> メソッドを呼び出すときに送出されます。</p>
+	 
+	  <p>サブクラスでは、このメソッドをオーバーライドし、<codeph>super.resourcesChanged()</codeph> を呼び出した後、リソース値の変化に応じて必要となる処理を実行する必要があります。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:Formatter:error"><apiName>error</apiName><shortdesc>
+	  エラーが発生したときにフォーマッターによって保存される説明を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  エラーが発生したときにフォーマッターによって保存される説明を表します。 このプロパティで使用可能な値については、各フォーマッターの説明を参照してください。
+	  <p>サブクラスでは、<codeph>format()</codeph> メソッドでこの値を設定する必要があります。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidFormatError:get"><apiName>defaultInvalidFormatError</apiName><shortdesc>
+	  無効なフォーマットストリングがフォーマッターに指定されたことを示すエラーメッセージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid format"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  無効なフォーマットストリングがフォーマッターに指定されたことを示すエラーメッセージです。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidValueError:get"><apiName>defaultInvalidValueError</apiName><shortdesc>
+	  無効な値がフォーマッターに指定されたことを示すエラーメッセージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid value"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  無効な値がフォーマッターに指定されたことを示すエラーメッセージです。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+  NumberBase クラスは、四捨五入、表示桁数、桁区切り記号、負符号フォーマットなどの一般的な数値フォーマット機能を含むユーティリティクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberBase クラスは、四捨五入、表示桁数、桁区切り記号、負符号フォーマットなどの一般的な数値フォーマット機能を含むユーティリティクラスです。 Formatter クラスの実装はこのクラスを使用しています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberBase:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>decimalSeparatorFrom</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>入力ストリングを解析する際に使用する小数点の区切り記号です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorFrom</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>入力ストリングで桁区切り記号として使用する文字を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>decimalSeparatorTo</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorTo</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>出力ストリングで桁区切り記号として使用する文字を表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberBase:expandExponents"><apiName>expandExponents</apiName><shortdesc>
+      指数表記の数値を 10 進数表記の数値にフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>指数表記で処理するストリング。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指数表記の数値を 10 進数表記の数値にフォーマットします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatDecimal"><apiName>formatDecimal</apiName><shortdesc>
+	  デフォルトの小数区切り記号である "." を decimalSeparatorTo で指定した小数区切り記号に置き換えて数値をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>入力のストリング表現（"." が小数のフォーマット文字に置き換えられる）。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Number のストリング値（アメリカ式 ####.## にフォーマットされる）。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  デフォルトの小数区切り記号である "." を <codeph>decimalSeparatorTo</codeph> で指定した小数区切り記号に置き換えて数値をフォーマットします。 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatNegative"><apiName>formatNegative</apiName><shortdesc>
+	  マイナス記号（-）か括弧 () のいずれかを使用して、負の数値をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>フォーマットする値を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>useSign</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> の場合、マイナス記号（-）が使用されます。 <codeph>false</codeph> の場合、括弧 () が使用されます。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  マイナス記号（-）か括弧 () のいずれかを使用して、負の数値をフォーマットします。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatPrecision"><apiName>formatPrecision</apiName><shortdesc>
+	  decimalSeparatorTo プロパティを小数区切り記号として使用して小数を設定し、数値をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>フォーマットする値を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>使用する小数点以下の桁数を表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>decimalSeparatorTo</codeph> プロパティを小数区切り記号として使用して小数を設定し、数値をフォーマットします。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRoundingWithPrecision"><apiName>formatRoundingWithPrecision</apiName><shortdesc>
+	  数値を四捨五入し、小数を設定してフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>四捨五入する値を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>実行する四捨五入のタイプを表します。NumberBaseRoundType.NONE、NumberBaseRoundType.UP、NumberBaseRoundType.DOWN または NumberBaseRoundType.NEAREST です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>使用する小数の桁数（整数）を表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  数値を四捨五入し、小数を設定してフォーマットします。 実行できる四捨五入のタイプは、mx.formatters.NumberBaseRoundType で定義されています。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRounding"><apiName>formatRounding</apiName><shortdesc>
+	  数値を四捨五入してフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>四捨五入する値を表します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>実行する四捨五入のタイプを表します。NumberBaseRoundType.NONE、NumberBaseRoundType.UP、NumberBaseRoundType.DOWN または NumberBaseRoundType.NEAREST です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  数値を四捨五入してフォーマットします。 実行できる四捨五入のタイプは、mx.formatters.NumberBaseRoundType で定義されています。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatThousands"><apiName>formatThousands</apiName><shortdesc>
+	  thousandsSeparatorTo プロパティを桁区切り記号、decimalSeparatorTo プロパティを小数区切り記号として使用し、数値をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットした数値。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>フォーマットする値を表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>thousandsSeparatorTo</codeph> プロパティを桁区切り記号、<codeph>decimalSeparatorTo</codeph> プロパティを小数区切り記号として使用し、数値をフォーマットします。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:parseNumberString"><apiName>parseNumberString</apiName><shortdesc>
+	  フォーマットしたストリングから数値を抽出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>小数になる可能性がある値です。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>数値として解析するストリングを表します。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  フォーマットしたストリングから数値を抽出します。 ストリングを左から右に向かって調べ、最初の数値を返します。 桁区切り記号を無視し、小数点と小数点以下の数値を含めます。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberBase:decimalSeparatorFrom"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングを解析する際に使用する小数点の区切り記号文字です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:decimalSeparatorTo"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      フォーマットした小数の値を出力するときに使用する小数点の区切り文字を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:isValid"><apiName>isValid</apiName><shortdesc>
+	  true の場合、フォーマットが成功したことを示します。それ以外の場合は false です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  <codeph>true</codeph> の場合、フォーマットが成功したことを示します。それ以外の場合は <codeph>false</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorFrom"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      入力ストリングで桁区切り記号として使用する文字を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorTo"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      出力ストリングで桁区切り記号として使用する文字を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

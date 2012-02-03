@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections.errors"><apiName>mx.collections.errors</apiName><apiDetail/><apiClassifier id="mx.collections.errors:ChildItemPendingError"><apiName>ChildItemPendingError</apiName><shortdesc>
+  Эта ошибка выводится, если при извлечении нижестоящего элемента из представления коллекции требуется асинхронный вызов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.collections.errors:ItemPendingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка выводится, если при извлечении нижестоящего элемента из представления коллекции требуется асинхронный вызов. Эта ошибка возникает, если при представлении данных из удаленного источника данные являются недоступными локально.
+ 
+  <p>Если получателю этой ошибки требуется уведомление о том, когда запрашиваемый элемент станет доступным (то есть по завершении асинхронного вызова), он должен использовать метод <codeph>addResponder()</codeph> и указать объект, поддерживающий интерфейс <codeph>mx.rpc.IResponder</codeph> для ответа, когда элемент станет доступным. Класс <codeph>mx.collections.ItemResponder</codeph> выполняет реализацию интерфейса IResponder и поддерживает свойство<codeph>data</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.errors.ItemPendingError.xml"><linktext>mx.collections.errors.ItemPendingError</linktext></link><link href="" invalidHref="mx.collections.ItemResponder.xml"><linktext>mx.collections.ItemResponder</linktext></link><link href="" invalidHref="mx.rpc.IResponder.xml"><linktext>mx.rpc.IResponder</linktext></link></related-links><apiConstructor id="mx.collections.errors:ChildItemPendingError:ChildItemPendingError"><apiName>ChildItemPendingError</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Сообщение c информацией о причине ошибки.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      <p>Вызывается HierarchicalCollectionViewCursor при запросе нижестоящего элемента, который не является локальным.</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

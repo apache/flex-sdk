@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.items"><apiName>mx.charts.series.items</apiName><apiDetail/><apiClassifier id="mx.charts.series.items:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série AreaSeries. Lors du rendu, la classe AreaSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:AreaSeriesItem:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:AreaSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est définie sur <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe. La valeur de ce champ est <codeph>undefined</codeph> si la série AreaSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe vertical du graphique conteneur. La valeur de ce champ est <codeph>undefined</codeph> si la série AreaSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Valeur minimale de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément. La valeur de ce champ est <codeph>undefined</codeph> si la série AreaSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran. La valeur de ce champ est <codeph>undefined</codeph> si la série AreaSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est définie sur <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en représentation numérique par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en représentation numérique par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est définie sur <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en représentation numérique par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en représentation numérique par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série BubbleSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série BubbleSeries. Lors du rendu, la classe BubbleSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BubbleSeriesItem:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BubbleSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BubbleSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zFilter"><apiName>zFilter</apiName><shortdesc>
+      Valeur z de cet élément, filtrée en fonction de l’axe du rayon du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur z de cet élément, filtrée en fonction de l’axe du rayon du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zNumber"><apiName>zNumber</apiName><shortdesc>
+      Valeur z de cet élément, convertie en nombre par l’axe du rayon du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur z de cet élément, convertie en nombre par l’axe du rayon du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zValue"><apiName>zValue</apiName><shortdesc>
+      Valeur z de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur z de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:z"><apiName>z</apiName><shortdesc>
+      Valeur z de cet élément, convertie en rayon de pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur z de cet élément, convertie en rayon de pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série HLOCSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série HLOCSeries. Lors du rendu, la classe HLOCSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:HLOCSeriesItem:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.chartClasses:HLOCSeriesBase</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeFilter"><apiName>closeFilter</apiName><shortdesc>
+      Valeur de fermeture de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur de fermeture de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeNumber"><apiName>closeNumber</apiName><shortdesc>
+      Valeur de fermeture de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur de fermeture de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeValue"><apiName>closeValue</apiName><shortdesc>
+      Valeur de fermeture de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur de fermeture de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:close"><apiName>close</apiName><shortdesc>
+      Valeur de fermeture de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur de fermeture de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+     Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+     Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highFilter"><apiName>highFilter</apiName><shortdesc>
+      Valeur supérieure de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur supérieure de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highNumber"><apiName>highNumber</apiName><shortdesc>
+      Valeur supérieure de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur supérieure de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highValue"><apiName>highValue</apiName><shortdesc>
+      Valeur supérieure de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur supérieure de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:high"><apiName>high</apiName><shortdesc>
+      Valeur supérieure de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur supérieure de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowFilter"><apiName>lowFilter</apiName><shortdesc>
+      Valeur inférieure de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur inférieure de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowNumber"><apiName>lowNumber</apiName><shortdesc>
+      Valeur inférieure de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur inférieure de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowValue"><apiName>lowValue</apiName><shortdesc>
+      Valeur inférieure de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur inférieure de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:low"><apiName>low</apiName><shortdesc>
+      Valeur inférieure de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur inférieure de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openFilter"><apiName>openFilter</apiName><shortdesc>
+      Valeur d’ouverture de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur d’ouverture de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openNumber"><apiName>openNumber</apiName><shortdesc>
+      Valeur d’ouverture de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur d’ouverture de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openValue"><apiName>openValue</apiName><shortdesc>
+      Valeur d’ouverture de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur d’ouverture de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:open"><apiName>open</apiName><shortdesc>
+      Valeur d’ouverture de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur d’ouverture de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série LineSeries. Lors du rendu, la classe LineSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesItem:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:LineSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série ColumnSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série ColumnSeries. Lors du rendu, la classe ColumnSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:ColumnSeriesItem:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:ColumnSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:ColumnSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe. La valeur de ce champ est <codeph>undefined</codeph> si la série ColumnSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe vertical du graphique conteneur. La valeur de ce champ est <codeph>undefined</codeph> si la série ColumnSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Valeur minimale de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément. La valeur de ce champ est <codeph>undefined</codeph> si la série ColumnSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran. La valeur de ce champ est <codeph>undefined</codeph> si la série ColumnSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série BarSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série BarSeries. Lors du rendu, la classe BarSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BarSeriesItem:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BarSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BarSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe. La valeur de ce champ est <codeph>undefined</codeph> si la série BarSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur. La valeur de ce champ est <codeph>undefined</codeph> si la série BarSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Valeur minimale de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément. La valeur de ce champ est <codeph>undefined</codeph> si la série BarSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur minimale de cet élément, convertie en coordonnées d’écran. La valeur de ce champ est <codeph>undefined</codeph> si la série BarSeries n’est pas empilée et que sa propriété <codeph>minField</codeph> n’est pas définie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série PlotSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un élément dans le cadre d’une série PlotSeries. Lors du rendu, la classe PlotSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PlotSeriesItem:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PlotSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Elément de l’objet dataProvider représenté par cet objet ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PlotSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Contient la couleur de remplissage de l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Contient la couleur de remplissage de l’élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:radius"><apiName>radius</apiName><shortdesc>
+      Rayon de cet élément, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon de cet élément, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, filtrée en fonction de l’axe horizontal du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en nombre par l’axe horizontal du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Valeur x de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur x de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur x de cet élément, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, filtrée en fonction de l’axe vertical du graphique conteneur. Cette valeur est <codeph>NaN</codeph> si la valeur est en dehors de la plage de valeurs de l’axe.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en nombre par l’axe vertical du graphique conteneur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Valeur y de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur y de cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur y de cet élément, convertie en coordonnées d’écran
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un segment dans une série LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un segment dans une série LineSeries. Lors du rendu, la classe LineSeries transmet une classe LineSeriesSegment à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesSegment:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiDesc>Série propriétaire.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>Index du segment dans le tableau de segments représentant la série de lignes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>Tableau d’éléments LineSeriesItems représentant l’intégralité de la série de lignes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>start</apiItemName><apiType value="uint"/><apiDesc>Index du premier élément de ce segment dans le tableau d’éléments.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>end</apiItemName><apiType value="uint"/><apiDesc>Index du dernier élément de ce segment dans le tableau d’éléments (inclus).
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.series.items:LineSeriesSegment:clone"><apiName>clone</apiName><shortdesc>
+      Renvoie une copie de ce segment.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Copie de ce segment.
+     
+      </apiDesc><apiOperationClassifier>mx.charts.series.items:LineSeriesSegment</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une copie de ce segment.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.charts.series.items:LineSeriesSegment:element"><apiName>element</apiName><shortdesc>
+      Série ou élément propriétaire de ce segment.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:LineSeries</apiValueClassifier></apiValueDef><apiDesc>
+      Série ou élément propriétaire de ce segment.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:end"><apiName>end</apiName><shortdesc>
+      Index du dernier élément de ce segment dans le tableau d’éléments (inclus).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Index du dernier élément de ce segment dans le tableau d’éléments (inclus).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:index"><apiName>index</apiName><shortdesc>
+      Index de ce segment dans le tableau de segments représentant la série de lignes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Index de ce segment dans le tableau de segments représentant la série de lignes.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:items"><apiName>items</apiName><shortdesc>
+      Tableau d’objets chartItem représentant l’ensemble de la série de lignes propriétaire de ce segment.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau d’objets chartItem représentant l’ensemble de la série de lignes propriétaire de ce segment.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:start"><apiName>start</apiName><shortdesc>
+      Index du premier élément de ce segment dans le tableau d’éléments.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Index du premier élément de ce segment dans le tableau d’éléments.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+  Représente les informations nécessaires au rendu d’un secteur dans le cadre d’une série PlotSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations nécessaires au rendu d’un secteur dans le cadre d’une série PlotSeries. Lors du rendu, la classe PieSeries transmet ces éléments à sa fonctionnalité de rendu itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PieSeriesItem:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PieSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Série propriétaire.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Elément de l’objet dataProvider représenté par cet objet ChartItem.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Index de l’élément, issu de l’objet dataProvider de la série.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PieSeriesItem:angle"><apiName>angle</apiName><shortdesc>
+      Angle sous-tendu par ce secteur, en radians.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Angle sous-tendu par ce secteur, en radians.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Valeur de remplissage associée à ce secteur du contrôle PieChart.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Valeur de remplissage associée à ce secteur du contrôle PieChart.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:innerRadius"><apiName>innerRadius</apiName><shortdesc>
+      Distance entre l’origine et le bord intérieur de ce secteur, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance entre l’origine et le bord intérieur de ce secteur, en pixels. Si la valeur est 0, le secteur est un simple point correspondant à l’origine.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:labelAngle"><apiName>labelAngle</apiName><shortdesc>
+      Angle du libellé de ce secteur, en radians.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Angle du libellé de ce secteur, en radians.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:number"><apiName>number</apiName><shortdesc>
+      Valeur représentée par ce secteur, convertie en coordonnées d’écran.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur représentée par ce secteur, convertie en coordonnées d’écran.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:origin"><apiName>origin</apiName><shortdesc>
+      Origine de ce secteur, par rapport au système de coordonnées de la série PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      Origine de ce secteur, par rapport au système de coordonnées de la série PieSeries.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:outerRadius"><apiName>outerRadius</apiName><shortdesc>
+      Distance entre l’origine et le bord extérieur de ce secteur, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance entre l’origine et le bord extérieur de ce secteur, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:percentValue"><apiName>percentValue</apiName><shortdesc>
+      Pourcentage du graphique total représenté par cette valeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Pourcentage du graphique total représenté par cette valeur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:startAngle"><apiName>startAngle</apiName><shortdesc>
+      Angle de départ de ce secteur, en radians.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Angle de départ de ce secteur, en radians.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:value"><apiName>value</apiName><shortdesc>
+      Valeur représentée par ce secteur dans l’objet dataProvider de cette série PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur représentée par ce secteur dans l’objet dataProvider de cette série PieSeries.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

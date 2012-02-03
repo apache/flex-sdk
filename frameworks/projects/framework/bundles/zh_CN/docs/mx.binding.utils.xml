@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.binding.utils"><apiName>mx.binding.utils</apiName><apiDetail/><apiClassifier id="mx.binding.utils:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+  ChangeWatcher 类定义能够与可绑定的 Flex 属性一起使用的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChangeWatcher 类定义能够与可绑定的 Flex 属性一起使用的实用程序方法。您可以使用这些方法定义一个事件处理函数，在每次更新可绑定的属性时都执行此函数。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.binding.utils:ChangeWatcher:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>access</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      构造函数。非公用。只能从 <codeph>watch()</codeph> 方法中调用此方法。有关参数用法，请参阅 <codeph>watch()</codeph> 方法。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.binding.utils:ChangeWatcher:canWatch"><apiName>canWatch</apiName><shortdesc>
+      允许您确定宿主是否在此属性上公开数据绑定事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 <codeph>host</codeph> 在 <codeph>name</codeph> 上公开了任何 change 事件，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>属性的宿主。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>该属性的名称。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应仅在提交 change 事件时调用处理函数，则设置为 <codeph>true</codeph>。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      允许您确定宿主是否在此属性上公开数据绑定事件。 
+     
+      <p>注意：<codeph>canWatch()</codeph> 方法不支持属性链。<codeph>watch()</codeph> 方法支持属性链。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getEvents"><apiName>getEvents</apiName><shortdesc>
+      返回宿主对象中可绑定属性的所有绑定事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>{ eventName: isCommitting, ... }</codeph> 形式的对象，包含该属性的所有 change 事件。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>属性的宿主。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>属性或属性链的名称。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>控制是否在返回值中包含不提交的 change 事件。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回宿主对象中可绑定属性的所有绑定事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getValue"><apiName>getValue</apiName><shortdesc>
+      检索观察的属性或属性链的当前值，当宿主对象为空时此值为空。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>观察的属性或属性链的当前值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      检索观察的属性或属性链的当前值，当宿主对象为空时此值为空。例如：
+      <pre>
+      watch(obj, ["a","b","c"], ...).getValue() === obj.a.b.c
+      </pre>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:isWatching"><apiName>isWatching</apiName><shortdesc>
+      如果链中的每个观察器都连接了至少一个 change 事件，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果链中的每个观察器都连接了至少一个 change 事件，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      如果链中的每个观察器都连接了至少一个 change 事件，则返回 <codeph>true</codeph>。请注意，<codeph>isWatching()</codeph> 方法随宿主而异，因为不同的宿主可能会根据观察器选择的属性公开不同的 change 事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:reset"><apiName>reset</apiName><shortdesc>
+      重置此 ChangeWatcher 实例可使用新的宿主对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newHost</apiItemName><apiType value="Object"/><apiDesc>新的宿主属性。有关详细信息，请参阅 <codeph>watch()</codeph> 方法。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      重置此 ChangeWatcher 实例可使用新的宿主对象。您可以调用此方法在其他宿主上重复使用观察器实例。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:setHandler"><apiName>setHandler</apiName><shortdesc>
+      设置处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>处理函数。此参数不得为空。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置处理函数。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:unwatch"><apiName>unwatch</apiName><shortdesc>
+      从当前宿主中断开此 ChangeWatcher 实例及其处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从当前宿主中断开此 ChangeWatcher 实例及其处理函数。您可以使用 <codeph>reset()</codeph> 方法重新连接 ChangeWatcher 实例，或在不同宿主对象上观察同一个属性或属性链。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:watch"><apiName>watch</apiName><shortdesc>
+      创建并启动 ChangeWatcher 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果已为 <codeph>chain</codeph> 参数至少指定了一个属性名称，则返回 ChangeWatcher 实例；否则返回 null。请注意，不能保证返回的监视程序已成功发现 change 事件并将自身附加到 change 事件，因为宿主可能没有在给定的属性或属性链上公开任何事件。您可以使用 <codeph>isWatching()</codeph> 方法来确定观察器的状态。
+           </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>用于承载要监视的属性或属性链的对象。创建 ChangeWatcher 实例后，您可以使用 <codeph>reset()</codeph> 方法更改 <codeph>host</codeph> 参数的值。<codeph>主机</codeph>维护当 <codeph>prop</codeph> 更改时要调用的<codeph>处理函数</codeph>列表。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>用于指定要监视的属性或属性链的值。合法值包括：
+      <ul>
+        <li>包含宿主对象公用可绑定属性名称的 String。</li>
+             <li>以下格式的 Object：<codeph>{ name: <i>属性名</i>, getter: function(host) { return host[name] } }</codeph>。此 Object 包含一个公用可绑定属性的名称以及一个充当该属性的 getter 的函数。</li>
+             <li>包含前两种选项的任意组合的非空 Array。这代表可从宿主访问的可绑定属性链。例如，要观察属性 <codeph>host.a.b.c</codeph>，需按以下形式调用此方法：<codeph>watch(host, ["a","b","c"], ...)</codeph>。</li>
+      </ul>
+           <p>请注意：在 <codeph>chain</codeph> 参数中命名的属性必须是公用属性，因为 <codeph>describeType()</codeph> 方法抑制非公用属性的所有相关信息，包括 ChangeWatcher 在查找为给定属性公开的 change 事件时扫描的可绑定元数据。但是，在使用上述 <codeph>{ name, getter }</codeph> 参数形式时提供的 getter 函数可用于将任意计算值与指定的（公用）属性关联。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>在修改观察属性（或观察链中任何属性）的值时调用的事件处理函数。如果观察器链中的任何宿主对象分派了在该宿主对象的 <codeph>[Bindable]</codeph> 元数据标记中为相应的观察属性指定的事件，则表明已经修改。默认事件名为 <codeph>propertyChange</codeph>。
+           <p>由可绑定属性分派的事件对象将传递到此处理函数，不会进行任何修改。默认情况下，Flex 将分派 PropertyChangeEvent 类型的事件对象。然而，在使用 <codeph>[Bindable]</codeph> 元数据标记定义可绑定属性时，您可以定义自己的事件类型。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果仅在提交 change 事件时需要调用处理函数，则设置为 <codeph>true</codeph>；如果无论是否提交 change 事件都调用处理函数，则设置为 <codeph>false</codeph>。请注意：属性是否存在不提交的 change 事件由 <codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph> 元数据标记来指示。通常，这些标记用于指示细化值更改，例如确认前在文本字段中进行的修改。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>(default = false) 确定对<codeph>处理函数</codeph>的引用是强还是弱。强引用（默认值）可防止<codeph>处理函数</codeph>被当作垃圾回收。弱引用则没有此作用。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建并启动 ChangeWatcher 实例。一个 ChangeWatcher 实例可观察一个属性或一个属性链。属性链是可从宿主对象访问的一系列属性。例如，表达式 <codeph>obj.a.b.c</codeph> 中包含属性链 (a, b, c)。
+           </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiValue id="mx.binding.utils:ChangeWatcher:useWeakReference"><apiName>useWeakReference</apiName><shortdesc>
+      确定对处理函数的引用是强还是弱。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定对<codeph>处理函数</codeph>的引用是强还是弱。强引用（默认值）可防止<codeph>处理函数</codeph>被当作垃圾回收。弱引用则没有此作用。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.binding.utils:BindingUtils"><apiName>BindingUtils</apiName><shortdesc>
+  BindingUtils 类定义用于从 ActionScript 执行数据绑定的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BindingUtils 类定义用于从 ActionScript 执行数据绑定的实用程序方法。您可以使用此类中定义的方法来配置数据绑定。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.binding.utils:BindingUtils:bindProperty"><apiName>bindProperty</apiName><shortdesc>
+      将公用属性（site Object 上的 prop）绑定到可绑定属性或属性链。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果已为 <codeph>chain</codeph> 参数指定了至少一个属性名称，则返回 ChangeWatcher 实例；否则返回 null。 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>site</apiItemName><apiType value="Object"/><apiDesc>定义绑定到 <codeph>chain</codeph> 的属性的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prop</apiItemName><apiType value="String"/><apiDesc>在要绑定的 <codeph>site</codeph> Object 中定义的公用属性的名称。当 <codeph>chain</codeph> 值更改时，该属性将接收 <codeph>chain</codeph> 的当前值。 
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>用于承载要监视的属性或属性链的对象。<codeph>主机</codeph>维护当 <codeph>prop</codeph> 更改时要更新的<codeph>站点</codeph>列表。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>用于指定要监视的属性或属性链的值。合法值包括：
+      <ul>
+        <li>包含宿主对象公用可绑定属性名称的字符串。</li>
+     
+        <li>以下格式的 Object：<codeph>{ name: <i>属性名</i>, getter: function(host) { return host[<i>property name</i>] } }</codeph>。此 Object 必须包含宿主对象的公用可绑定属性的名称和用于该属性的 getter 函数。</li>
+     
+        <li>包含前两个选项的组合的非空 Array，该数组表示可从宿主访问的可绑定属性链。例如，要绑定属性 <codeph>host.a.b.c</codeph>，需按以下形式调用该方法：<codeph>bindProperty(site, prop, host, ["a","b","c"])</codeph>。</li>
+      </ul>
+           <p>请注意：在 <codeph>chain</codeph> 参数中命名的属性必须是公用属性，因为 <codeph>describeType()</codeph> 方法抑制非公用属性的所有相关信息，包括 ChangeWatcher 在查找为给定属性公开的 change 事件时扫描的可绑定元数据。但是，在使用上述 <codeph>{ name, getter }</codeph> 参数形式时提供的 getter 函数可用于将任意计算值与指定的（公用）属性关联。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果仅在提交 change 事件时需要调用处理函数，则设置为 <codeph>true</codeph>；如果无论是否提交 change 事件都调用处理函数，则设置为 <codeph>false</codeph>。请注意：属性是否存在不提交的 change 事件由 <codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph> 元数据标记来指示。通常，这些标记用于指示细化值更改，例如确认前在文本字段中进行的修改。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定对<codeph>站点</codeph>的引用是强还是弱。强引用（默认值）可防止<codeph>站点</codeph>被当作垃圾回收。弱引用则没有此作用。对于 Flex 4，已进行了添加。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将公用属性（<codeph>site</codeph> Object 上的 <codeph>prop</codeph>）绑定到可绑定属性或属性链。如果已成功创建 ChangeWatcher 实例，则 <codeph>prop</codeph> 将初始化为 <codeph>chain</codeph> 的当前值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:BindingUtils:bindSetter"><apiName>bindSetter</apiName><shortdesc>
+      将 setter 函数 (setter) 绑定到可绑定属性或属性链。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果已为 <codeph>chain</codeph> 参数指定了至少一个属性名称，则返回 ChangeWatcher 实例；否则返回 null。 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>setter</apiItemName><apiType value="Function"/><apiDesc><codeph>chain</codeph> 的当前值更改时使用该值的参数进行调用的 Setter 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>属性的宿主。有关详细信息，请参阅 <codeph>bindProperty()</codeph> 方法。<codeph>主机</codeph>维护当 <codeph>prop</codeph> 更改时要更新的 <codeph>setter</codeph> 列表。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>属性或属性链的名称。有关详细信息，请参阅 <codeph>bindProperty()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应仅在提交 change 事件时调用处理函数，则设置为 <codeph>true</codeph>。有关详细信息，请参阅 <codeph>bindProperty()</codeph> 方法。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定对 <codeph>setter</codeph> 的引用是强还是弱。强引用（默认值）可防止 <codeph>setter</codeph> 被当作垃圾回收。弱引用则没有此作用。对于 Flex 4，已进行了添加。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 setter 函数（<codeph>setter</codeph>）绑定到可绑定属性或属性链。如果成功创建了一个 ChangeWatcher 实例，则会调用 setter 函数。setter 必须具有以下函数签名：
+           <pre>
+      function mySetterFunction(object:Object):void {
+          //Do whatever you want with the value of the bound property.
+      }</pre> 
+           <p>其中，<codeph>object</codeph> 包含 <codeph>chain</codeph> 的当前值。</p>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

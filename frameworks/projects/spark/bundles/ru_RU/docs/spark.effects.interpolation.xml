@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.interpolation"><apiName>spark.effects.interpolation</apiName><apiDetail/><apiClassifier id="spark.effects.interpolation:IInterpolator"><apiName>IInterpolator</apiName><shortdesc>
+  Интерфейс IInterpolator реализуется классами, обеспечивающими вычисление значения для класса Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IInterpolator реализуется классами, обеспечивающими вычисление значения для класса Animation. Класс Animation обеспечивает обработку параметрической интерполяции между числовыми значениями и массивами числовых значений, но не поддерживает обработку интерполяции различных типов или интерполяцию между различными типами значений. При реализации этого интерфейса можно обеспечить произвольные возможности интерполяции, создающие условия для создания элементов Animation между произвольными значениями.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания. Например, если объектами являются обыкновенные целые числа, результатом может быть разность <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Эта функция вызывается системой анимации при необходимости динамического вычисления значения с указанием некоторого конечного значения и «близкого» значения, которое должно быть вычтено из него. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции. Например, если объекты являются обыкновенными целыми числами, результатом может быть <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Этот метод вызывается системой анимации при необходимости динамического вычисления значения с указанием начального значения и «близкого» значения, которое должно быть добавлено к нему. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Принимает долю затраченного времени анимации в диапазоне от 0,0 и 1,0, начальное и конечное значение для интерполяции, возвращает интерполированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля прошедшего времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Конечное значение интерполяции.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает долю затраченного времени анимации в диапазоне от 0,0 и 1,0, начальное и конечное значение для интерполяции, возвращает интерполированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+  Класс MultiValueInterpolator обеспечивает интерполяцию каждого элемента массива или векторов начальных и конечных элементов в отдельности с использованием другого интерполятора для осуществления интерполяции для каждого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MultiValueInterpolator обеспечивает интерполяцию каждого элемента массива или векторов начальных и конечных элементов в отдельности с использованием другого интерполятора для осуществления интерполяции для каждого элемента. По умолчанию при интерполяции для каждого элемента используется класс NumberInterpolator, однако можно создать экземпляр MultiValueInterpolator с другим интерполятором.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href=""><linktext/></link></related-links><apiConstructor id="spark.effects.interpolation:MultiValueInterpolator:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>elementInterpolator</apiItemName><apiOperationClassifier>spark.effects.interpolation:IInterpolator</apiOperationClassifier><apiData>null</apiData><apiDesc>Интерполятор для каждого элемента массива. Если ни один интерполятор не указан, следует использовать класс NumberInterpolator.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+     
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания. Например, если объектами являются обыкновенные целые числа, результатом может быть разность <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Эта функция вызывается системой анимации при необходимости динамического вычисления значения с указанием некоторого конечного значения и «близкого» значения, которое должно быть вычтено из него. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:increment"><apiName>increment</apiName><shortdesc>
+     
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции. Например, если объекты являются обыкновенными целыми числами, результатом может быть <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Этот метод вызывается системой анимации при необходимости динамического вычисления значения с указанием начального значения и «близкого» значения, которое должно быть добавлено к нему. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Принимает долю затраченного времени анимации в диапазоне от 0,0 и 1,0, начальное и конечное значение для интерполяции, возвращает интерполированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля прошедшего времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Конечное значение интерполяции.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает долю затраченного времени анимации в диапазоне от 0,0 и 1,0, начальное и конечное значение для интерполяции, возвращает интерполированное значение. Интерполяция для MultiValueInterpolator заключается в выполнении отдельной интерполяции для каждого элемента массивов или векторов startValue и endValue с возвращением нового массива или вектора, содержащего эти интерполированные значения. Возвращенный объект будет массивом, если типом startValue и endValue будет массив, в ином случае типом возвращенного объекта будет вектор.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.interpolation:MultiValueInterpolator:elementInterpolator:get"><apiName>elementInterpolator</apiName><shortdesc>
+      Интерполятор для каждого элемента входного массива или вектора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier><apiDefaultValue>NumberInterpolator
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Интерполятор для каждого элемента входного массива или вектора. Значение null указывает на необходимость использования класса NumberInterpolator.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.interpolation:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+ Класс NumberInterpolator обеспечивает интерполяцию между начальным и конечным значением, представленным в виде экземпляров Number.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс NumberInterpolator обеспечивает интерполяцию между начальным и конечным значением, представленным в виде экземпляров Number.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:NumberInterpolator:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:NumberInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Принимает базовое значение и значение, вычитаемое из него, возвращает результат этой операции вычитания. Например, если объектами являются обыкновенные целые числа, результатом может быть разность <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Эта функция вызывается системой анимации при необходимости динамического вычисления значения с указанием некоторого конечного значения и «близкого» значения, которое должно быть вычтено из него. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Возвращает одиночный экземпляр этого класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Одиночный экземпляр этого класса.
+     
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:NumberInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает одиночный экземпляр этого класса. Так как все элементы NumberInterpolator обладают одинаковым вариантом поведения, отсутствует необходимость в более чем одном экземпляре.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Принимает базовое значение и значение, добавляемое к нему, возвращает результат этой операции. Например, если объекты являются обыкновенными целыми числами, результатом может быть <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Этот метод вызывается системой анимации при необходимости динамического вычисления значения с указанием начального значения и «близкого» значения, которое должно быть добавлено к нему. Оба этих аргумента имеют тип Object и не могут быть просто сложены друг с другом.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Интерполяция для класса NumberInterpolator представляет собой простое параметрическое вычисление для значений startValue и endValue с использованием fraction в качестве доли истекшего времени от начала до конца: возвращает сумму startValue + fraction (endValue - startValue);
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля прошедшего времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Конечное значение интерполяции.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Интерполяция для класса NumberInterpolator представляет собой простое параметрическое вычисление для значений <codeph>startValue</codeph> и <codeph>endValue</codeph> с использованием <codeph>fraction</codeph> в качестве доли истекшего времени от начала до конца:
+     
+      <pre>return startValue + fraction (endValue - startValue);</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+  Класс RGBInterpolator обеспечивает интерполяцию между начальным и конечным значениями uint, представляющими цвета в модели RGB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RGBInterpolator обеспечивает интерполяцию между начальным и конечным значениями <codeph>uint</codeph>, представляющими цвета в модели RGB. Интерполяция выполняется путем обработки начального и конечного значения в виде целых чисел с информацией цветовых каналов в 3 младших байтах и последующей интерполяцией каждого из каналов в отдельности.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:RGBInterpolator:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:RGBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      Возвращает результат для двух значений, вычтенных для каждого канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает результат для двух значений, вычтенных для каждого канала. Минимальным значением для каждого канала является 0, что позволяет избежать возможных проблем с отсутствием заполненных данных.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Возвращает одиночный экземпляр этого класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Одиночный экземпляр этого класса.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:RGBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает одиночный экземпляр этого класса. Поскольку все элементы RGBInterpolator обладают одним и тем же поведением, отсутствует необходимость в более чем одном экземпляре.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      Возвращает результат сложения двух значений для каждого канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает результат сложения двух значений для каждого канала. Максимальным значением для каждого канала является число 255, что позволяет избежать проблем с переполнением.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Интерполяция для класса RGBInterpolator принимает форму параметрических вычислений для каждого из трех нижних байтов значений startValue и endValue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля прошедшего времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Конечное значение интерполяции.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Интерполяция для класса RGBInterpolator принимает форму параметрических вычислений для каждого из трех нижних байтов значений <codeph>startValue</codeph> и <codeph>endValue</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+  Класс HSBInterpolator обеспечивает интерполяцию цветов в модели HSB (Hue, Saturation, Brightness: тон-насыщенность-яркость) между начальным и конечным значением uint в модели RGB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HSBInterpolator обеспечивает интерполяцию цветов в модели HSB (Hue, Saturation, Brightness: тон-насыщенность-яркость) между начальным и конечным значением <codeph>uint</codeph> в модели RGB. Интерполяция осуществляется путем обработки начального и конечного значения в виде целых чисел с информацией цветовых каналов RGB в 3 младших байтах, их преобразования в значения модели HSB и линейной интерполяции каждого из параметров h (тон), s (насыщенность) и b (яркость).
+ 
+  <p>Поскольку в данном интерполяторе может выполняться большее число вычислений, чем в типичном интерполяторе, обеспечивающим простую интерполяцию заданного типа, в особенности для преобразования начального и конечного значений RGB, этот интерполятор обеспечивает возможность предоставления начального и конечного значений в конструктор. При указании начального и конечного значений RGB, преобразование этих значений вычисляется только один раз, после чего необходимость в выполнении этой операции при каждом последующем вызове метода <codeph>interpolate()</codeph> отсутствует.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:HSBInterpolator:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>startRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>Начальный цвет в виде целочисленного значения RGB без знака.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>Конечный цвет в виде целочисленного значения RGB без знака.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. Дополнительные параметры значений <codeph>startRGB</codeph> и <codeph>endRGB</codeph> способствуют оптимизации производительности выполнения путем преобразования RGB в HSB в ходе создания вместо динамического преобразования с каждым вызовом метода <codeph>interpolate()</codeph>.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:HSBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      Возвращает результат сложения двух значений RGB в виде цветов в модели HSB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает результат сложения двух значений RGB в виде цветов в модели HSB. Вначале каждое значение преобразуется в цвет HSB, после чего каждый компонент (тон, насыщенность, яркость) обрабатывается отдельно. Компоненты насыщенности и яркости фиксируются в диапазоне от 0 до 1, а степени цветового тона модулируются в пределах 360 и поэтому находятся в диапазоне от 0 до 360.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Возвращает одиночный экземпляр этого класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Одиночный элемент класса HSBInterpolator.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:HSBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает одиночный экземпляр этого класса. 
+     
+      <p>Следует отметить, что отдельный экземпляр класса HSBInterpolator может быть менее полезен, чем отдельные экземпляры класса, поскольку экземпляры классов позволяют воспользоваться преимуществами предварительного вычисления преобразования RGB в HSB для начального и конечного цветов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      Возвращает результат сложения двух значений RGB в виде цветов в модели HSB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Изменение, применяемое к элементу <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает результат сложения двух значений RGB в виде цветов в модели HSB. Вначале каждое значение преобразуется в цвет HSB, после чего каждый компонент (тон, насыщенность и яркость) обрабатываются отдельно. Компоненты насыщенности и яркости фиксируются в диапазоне от 0 до 1, а степени цветового тона модулируются в пределах 360 и поэтому находятся в диапазоне от 0 до 360.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Интерполяция для класса HSBInterpolator принимает форму параметрических вычислений для каждого из трех значений h (тон), s (насыщенность) и b (яркость) цветов HSB, полученных из начального и конечного цветов RGB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля прошедшего времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное значение интерполяции.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Конечное значение интерполяции.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Интерполяция для класса HSBInterpolator принимает форму параметрических вычислений для каждого из трех значений h (тон), s (насыщенность) и b (яркость) цветов HSB, полученных из начального и конечного цветов RGB.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

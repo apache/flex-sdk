@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins"><apiName>mx.skins</apiName><apiDetail/><apiClassifier id="mx.skins:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+  RectangularBorder クラスは、UIComponents の周囲に矩形の境界線を描画する様々なクラスの抽象基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IRectangularBorder</apiBaseInterface><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RectangularBorder クラスは、UIComponents の周囲に矩形の境界線を描画する様々なクラスの抽象基本クラスです。
+ 
+  <p>このクラスは、<codeph>backgroundImage</codeph>、<codeph>backgroundSize</codeph> および <codeph>backgroundAttachment</codeph> の各スタイルのサポートを実装します。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:RectangularBorder:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:RectangularBorder:layoutBackgroundImage"><apiName>layoutBackgroundImage</apiName><shortdesc>
+      背景イメージをレイアウトします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      背景イメージをレイアウトします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:RectangularBorder:backgroundImageBounds:get"><apiName>backgroundImageBounds</apiName><shortdesc>
+      その中に背景イメージを描画する矩形領域です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      その中に背景イメージを描画する矩形領域です。 親コンテナにスクロール可能なコンテンツが含まれている場合、これは境界のサイズより大きくすることができます。 このプロパティが null の場合は、親のサイズと <codeph>viewMetrics</codeph> プロパティを使用して境界のサイズを決定できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:RectangularBorder:hasBackgroundImage:get"><apiName>hasBackgroundImage</apiName><shortdesc>
+      RectangularBorder インスタンスに背景イメージが含まれている場合、true になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      RectangularBorder インスタンスに背景イメージが含まれている場合、<codeph>true</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+  このクラスは、スキンエレメント自身をプログラムにより描画するための基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:FlexShape</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このクラスは、スキンエレメント自身をプログラムにより描画するための基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:ProgrammaticSkin:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:ProgrammaticSkin:protected:drawRoundRect"><apiName>drawRoundRect</apiName><shortdesc>
+	  このスキンの Graphics オブジェクトに矩形をプログラムにより描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>このスキン内の矩形の左上角の水平位置です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>このスキンの矩形の左上角の垂直位置です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>ピクセル単位で表したボタンの幅です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>ピクセル単位で表したボタンの高さです。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>矩形の角の丸みです。 <codeph>null</codeph>、Number または Object を指定できます。 <codeph>null</codeph> の場合、丸い角ではなく、直角の角を表します。 Number の場合、4 つの角すべてで同じ半径（ピクセル単位）を指定します。 Object の場合、<codeph>tl</codeph>、<codeph>tr</codeph>、<codeph>bl</codeph> および <codeph>br</codeph> という名前のプロパティを持ちます。それぞれの値は、左上、右上、左下、および右下の角の半径をピクセル単位で指定する Number です。 例えば、<codeph>{ tl: 5, tr: 5, bl: 0, br: 0 }</codeph> などのプレーンの Object を渡すことができます。 デフォルト値は null（直角の角）です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>塗りの RGB カラーです。 <codeph>null</codeph>、uint または Array を指定できます。 <codeph>null</codeph> の場合、矩形は塗りつぶされません。 uint の場合、塗りの RGB カラーを指定します。 例えば、赤で塗りつぶす場合は <codeph>0xFF0000</codeph> を渡します。Array の場合は、グラデーションカラーを指定する uint を格納した配列になります。例えば、赤黄青のグラデーションで塗りつぶす場合は、<codeph>[ 0xFF0000, 0xFFFF00, 0x0000FF ]</codeph> を渡します。グラデーション内で最大 15 のカラーを指定できます。デフォルト値は null（塗りなし）です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>塗りのアルファ値です。 null、Number または Array を指定できます。<codeph>color</codeph> が null の場合、この引数は無視されます。<codeph>color</codeph> が塗りの RGB カラーを指定する uint である場合、<codeph>alpha</codeph> は塗りの透明度を指定する Number になります。この場合、0.0 は完全に透明、1.0 は完全に不透明です。また、完全な不透明を指定するために、1.0 の代わりに null を渡すこともできます。<codeph>color</codeph> がグラデーションカラーを指定する Array である場合、<codeph>alpha</codeph> はグラデーションの対応するアルファ値を指定する、同じ長さの Number の Array になります。この場合、デフォルト値は <codeph>null</codeph>（完全に不透明）です。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>gradientMatrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>グラデーションの塗りで使用する Matrix オブジェクトです。 ユーティリティメソッド <codeph>horizontalGradientMatrix()</codeph>、<codeph>verticalGradientMatrix()</codeph> および <codeph>rotatedGradientMatrix()</codeph> を使用して、このパラメーターの値を作成できます。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientType</apiItemName><apiType value="String"/><apiData>linear</apiData><apiDesc>グラデーション塗りの種類です。 有効な値は <codeph>GradientType.LINEAR</codeph> または <codeph>GradientType.RADIAL</codeph> です （GradientType クラスは、パッケージ flash.display 内にあります）。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientRatios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>（オプションのデフォルト [0,255]） - カラー分布を指定します。項目数は、<codeph>color</codeph> パラメーターで定義された色の数と一致する必要があります。 各値は、100% でサンプリングされる色の幅の割合をパーセントで定義します。値 0 はグラデーションボックスの左の位置を表し、255 はグラデーションボックスの右の位置を表します。 
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hole</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>（オプション）別の不透明な角丸矩形の中央に彫り込む角丸矩形の空洞です。{x: #, y: #, w: #, h: #, r: # or {br: #, bl: #, tl: #, tr: #}}
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  このスキンの Graphics オブジェクトに矩形をプログラムにより描画します。
+	 
+	  <p>矩形の角を丸くすることができます。 矩形の端は、Graphics オブジェクトの現在の線スタイルによりストロークを設定できます。 単色またはグラデーションの塗りを適用することもできますし、塗りを適用しなくても構いません。 単色の塗りには、アルファ透明度を適用できます。 グラデーションの塗りは線状または放射状にできます。 グラデーションに沿った指定の点で、最大 15 のカラーとアルファ値を指定できます。さらにグラデーションの回転角度または変換マトリックスを指定できます。 最後に、矩形には角丸矩形の空洞を彫り込むことができます。</p>
+	 
+	  <p>この多用途の矩形描画ルーチンは、様々なスキンで使用されます。 このルーチンでは、このスキンの Graphics オブジェクトに描画するために、（flash.display.Graphics クラス内の）<codeph>drawRect()</codeph> メソッドまたは <codeph>drawRoundRect()</codeph> メソッドを呼び出します。</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#Graphics/beginGradientFill()"><linktext>flash.display.Graphics.beginGradientFill()</linktext></link></related-links></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:getStyle"><apiName>getStyle</apiName><shortdesc>
+      指定したスタイルプロパティの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>スタイル値です。 int、Number、String など、スタイルプロパティとして使用可能な任意の型のオブジェクトを指定できます。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したスタイルプロパティの値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:horizontalGradientMatrix"><apiName>horizontalGradientMatrix</apiName><shortdesc>
+	  水平方向のグラデーションマトリックスを作成するためのユーティリティ関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平方向のグラデーションマトリックスです。 これはテンポラリオブジェクトで、その後の <codeph>drawRoundRect()</codeph> メソッド呼び出しにのみ使用されます。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>グラデーションの左端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>グラデーションの上端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>グラデーションの幅です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>グラデーションの高さです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  水平方向のグラデーションマトリックスを作成するためのユーティリティ関数です。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+	  
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前にコンポーネントの validateProperties() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前にコンポーネントの <codeph>validateProperties()</codeph> メソッドが呼び出されます。
+	 
+	  <p>UIComponent を拡張するコンポーネントの場合は、<codeph>commitProperties()</codeph> が呼び出されることになります。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+	  
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの validateSize() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの <codeph>validateSize()</codeph> メソッドが呼び出されます。
+	 
+	  <p>UIComponent を拡張するコンポーネントの場合は、<codeph>measure()</codeph> が呼び出されることになります（ただし、コンポーネントに <codeph>explicitWidth</codeph> と <codeph>explicitHeight</codeph> の両方が設定されている場合を除く）。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:move"><apiName>move</apiName><shortdesc>
+	  このオブジェクトを指定の x および y 座標に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>水平位置（ピクセル単位）。
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>垂直位置（ピクセル単位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  このオブジェクトを指定の x および y 座標に移動します。
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:rotatedGradientMatrix"><apiName>rotatedGradientMatrix</apiName><shortdesc>
+	  回転したグラデーション行列を作成するためのユーティリティ関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平方向のグラデーションマトリックスです。 これはテンポラリオブジェクトで、その後の <codeph>drawRoundRect()</codeph> メソッド呼び出しにのみ使用されます。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>グラデーションの左端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>グラデーションの上端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>グラデーションの幅です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>グラデーションの高さです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="Number"/><apiDesc>回転量（角度）です。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  回転したグラデーション行列を作成するためのユーティリティ関数です。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+	  このオブジェクトの高さおよび幅を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの幅（ピクセル単位）。
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの高さ（ピクセル単位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  このオブジェクトの高さおよび幅を設定します。
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+	  いずれかのスタイルが変更された場合に、常にこのスキンを再描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>変更されたスタイルプロパティの名前、またはすべてのスタイルが変更された場合は null です。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  いずれかのスタイルが変更された場合に、常にこのスキンを再描画します。 サブクラスでは、このメソッドをオーバーライドしたうえで、より個別的なテストを invalidateDisplayList() を呼び出す前に実行できます。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+	  このスキンのグラフィックをプログラムで描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>  伸縮前のこのオブジェクトの幅（ピクセル単位）。
+	 
+          </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>  伸縮前のこのオブジェクトの高さ（ピクセル単位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  このスキンのグラフィックをプログラムで描画します。
+	 
+	  <p>サブクラスでは、このメソッドをオーバーライドし、<codeph>graphics.moveTo()</codeph> メソッドや <codeph>graphics.lineTo()</codeph> メソッドなどへの呼び出しを含める必要があります。</p>
+	 
+	  <p>これは、ユーザーコードやズームエフェクトなどのソースからの伸縮の前に行われます。 コンポーネントは、後で行われる伸縮は認識しません。</p> 
+	 
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+	  この関数は、このコントロール自身が描画するタイミングで LayoutManager により呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  この関数は、このコントロール自身が描画するタイミングで LayoutManager により呼び出されます。 この関数により呼び出される <codeph>updateDisplayList</codeph> 関数内で実際の描画が行われます。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  必要に応じて、このオブジェクトのプロパティとレイアウトを検証および更新し、それを再描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  必要に応じて、このオブジェクトのプロパティとレイアウトを検証および更新し、それを再描画します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+	  この関数は空のスタブであり、これにより ProgrammaticSkin が ILayoutManagerClient インターフェイスを実装することが可能になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  この関数は空のスタブであり、これにより ProgrammaticSkin が ILayoutManagerClient インターフェイスを実装することが可能になります。 スキンでは、通常このメソッドへの呼び出しをトリガーする <codeph>LayoutManager.invalidateProperties()</codeph> を呼び出しません。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateSize"><apiName>validateSize</apiName><shortdesc>
+	  この関数は空のスタブであり、これにより ProgrammaticSkin が ILayoutManagerClient インターフェイスを実装することが可能になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このスキンの子を検証するかどうかを決定します。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  この関数は空のスタブであり、これにより ProgrammaticSkin が ILayoutManagerClient インターフェイスを実装することが可能になります。 スキンでは、通常このメソッドへの呼び出しをトリガーする <codeph>LayoutManager.invalidateSize()</codeph> を呼び出しません。
+         
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:verticalGradientMatrix"><apiName>verticalGradientMatrix</apiName><shortdesc>
+	  垂直方向のグラデーションマトリックスを作成するためのユーティリティ関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平方向のグラデーションマトリックスです。 これはテンポラリオブジェクトで、その後の <codeph>drawRoundRect()</codeph> メソッド呼び出しにのみ使用されます。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>グラデーションの左端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>グラデーションの上端です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>グラデーションの幅です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>グラデーションの高さです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  垂直方向のグラデーションマトリックスを作成するためのユーティリティ関数です。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:ProgrammaticSkin:initialized:get"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+	  このオブジェクトの測定した高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  このオブジェクトの測定した高さです。 これは、スキンの推奨される高さを返すサブクラスによりオーバーライドする必要があります。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+	  このオブジェクトの測定した幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  このオブジェクトの測定した幅です。 これは、スキンの推奨される幅を返すサブクラスによりオーバーライドする必要があります。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc conref="mx.core.UIComponent#processedDescriptors">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#processedDescriptors">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:styleName:get"><apiName>styleName</apiName><shortdesc>
+      スタイル値の取得に使用する親コンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      スタイル値の取得に使用する親コンポーネントです。 通常、このスキンを作成したコンポーネントに設定されています。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+	  オブジェクトが 3 段階のレイアウト検証を完了したものであるかどうかを示すフラグです（いずれかの検証が必須であった場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  オブジェクトが 3 段階のレイアウト検証を完了したものであるかどうかを示すフラグです（いずれかの検証が必須であった場合）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:Border"><apiName>Border</apiName><shortdesc>
+  Border クラスは、UIComponents の周囲に矩形または非矩形の境界線を描画する様々なクラスの抽象基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3321
+  
+  </helpid></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>
+  </apiTipText></apiTipTexts><apiBaseInterface>mx.core:IBorder</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Border クラスは、UIComponents の周囲に矩形または非矩形の境界線を描画する様々なクラスの抽象基本クラスです。 このクラスは、自身で実際の描画を行うことはありません。
+ 
+  <p>新しい非矩形の境界線クラスを作成する場合は、このクラスを拡張する必要があります。 新しい矩形の境界線クラスを作成する場合は、抽象サブクラス RectangularBorder を拡張する必要があります。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:Border:Border"><apiName>Border</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins:Border:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+	  境界線の端の太さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:EdgeMetrics</apiValueClassifier></apiValueDef><apiDesc>
+	  境界線の端の太さです。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators"><apiName>spark.validators</apiName><apiDetail/><apiClassifier id="spark.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  Класс CurrencyValidator обеспечивает представление действительной денежной суммы в строке согласно соглашениям локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CurrencyValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+ <pre>
+  &lt;s:CurrencyValidator
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale specified string or customized by user</i>."
+    currencyStringError="Currency name is repeated or not correct."
+    currencySymbol="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormat="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormatError="The negative format of the input currency is incorrect."
+    positiveCurrencyFormat="<i>locale specified string or customized by user</i>."
+    positiveCurrencyFormatError="The positive format of the input currency is incorrect."
+  /&gt;
+  </pre>
+ 
+    
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс <codeph>CurrencyValidator</codeph> обеспечивает представление элементом String действительной суммы денежных средств в соответствии с условиями локали. Этот класс использует стиль <codeph>locale</codeph> для указания Locale ID.
+ 
+  <p>Средство проверки гарантирует, что строка денежной суммы соответствует указанному диапазону (определяется свойствами <codeph>minValue</codeph> и <codeph>maxValue</codeph>), является целым числом (определяется свойством <codeph>domain</codeph>), является неотрицательным числом (определяется свойством <codeph>allowNegative</codeph>), правильно указывает отрицательные и положительные числа, содержит правильный код ISO или символ валюты и не превышает указанное значение <codeph>fractionalDigits</codeph>. Поскольку средство проверки устанавливает стандартные значения свойств с помощью класса <codeph>flash.globalization.CurrencyFormatter</codeph>, значения на основе локалей предоставляет операционная система.</p>
+ 
+  <p>Класс <codeph>flash.globalization.CurrencyFormatter</codeph> использует базовую операционную систему для предоставления данных на основе локалей. Если операционная система не поддерживает форматирование денежных сумм, этот класс предоставляет резервные функциональные возможности.</p>
+ 
+  </apiDesc><example conref="CurrencyValidatorExample1.mxml"><swfblock conref="examples/CurrencyValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links><apiConstructor id="spark.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      Создает новый объект CurrencyValidator для проверки чисел, представляющих денежные суммы в соответствии с правилами данной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект <codeph>CurrencyValidator</codeph> для проверки чисел, представляющих денежные суммы в соответствиями с правилами данной локали.
+      <p>
+      Локаль для этого класса предоставляется свойством стиля <codeph>locale</codeph>. Стиль <codeph>locale</codeph> можно установить следующими способами.
+      </p>
+      <ul>
+      <li>
+      Наследование стиля из <codeph>UIComponent</codeph> посредством вызова используемого в <codeph>UIComponent</codeph> метода <codeph>addStyleClient</codeph>.
+      </li>
+      <li>
+      С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:CurrencyValidator id="cv" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      С использованием объявления MXML и указанием значения локали в списке назначений.
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:CurrencyValidator id="cv_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      Вызов метода setStyle, например <codeph>cv.setStyle("locale", "tr-TR")</codeph>
+      </li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>         
+      <p>Для свойств, связанных с форматом строки валюты, устанавливаются значения по умолчанию на основе локали.</p>
+     
+      <p><b>ПРИМЕЧАНИЕ.</b> Если используется резервная локаль, для свойств валюты устанавливаются стандартные значения локали en_US, которые могут не соответствовать проверяемой денежной сумме. Перед проверкой денежной суммы рекомендуется проверить значения свойств <codeph>currencySymbol</codeph> и <codeph>currencyISOCode</codeph>.
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link></related-links></apiConstructor><apiOperation id="spark.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      Удобный метод для вызова средства проверки в пользовательской функции проверки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив объектов <codeph>ValidationResult</codeph> с одним объектом <codeph>ValidationResult</codeph> для каждого поля, проверенного средством проверки.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Строка денежной суммы для проверки. Кроме символа «минус» формата ASCII, в числовой строке также могут использоваться такие символы «минус» формата Юникод, как 0x2212, 0xFE63 и 0xFF0D.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>Текстовое представление подчиненного поля определяется в параметре <codeph>value</codeph>. Например, если параметр <codeph>value</codeph> имеет значение value.number, то <codeph>baseField</codeph> имеет значение number.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удобный метод для вызова средства проверки в пользовательской функции проверки. Каждое стандартное средство проверки Flex имеет подобный удобный метод. Вызывающий модуль должен проверить объекты <codeph>ValidationResult</codeph> в возвращенном массиве для проверки состояния.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links></apiOperation><apiValue id="spark.validators:CurrencyValidator:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      Трехбуквенный код валюты ISO 4217 для используемой локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Трехбуквенный код валюты ISO 4217 для используемой локали.
+     
+      <p>Это свойство используется для проверки строки денежной суммы или символа валюты в денежной сумме с помощью метода <codeph>validate()</codeph>.
+      </p>
+     
+      <p>Это свойство инициализируется конструктором, исходя из фактически используемой локали. В случае использования резервной локали это свойство отражает предпочитаемый код валюты по умолчанию для резервной локали.</p>
+     
+      <p>Значение по умолчанию зависит от используемой локали и <codeph>операционной системы</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/validate()"><linktext>validate()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:currencyStringError:get"><apiName>currencyStringError</apiName><shortdesc>
+      Сообщение об ошибке, если символ валюты или код ISO валюты повторяются или находятся в недопустимом местоположении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Currency name is repeated or not correct."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Сообщение об ошибке, если символ валюты или код ISO валюты повторяются или находятся в недопустимом местоположении.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      Символ или строка валюты для используемой локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Символ или строка валюты для используемой локали.
+     
+      <p>Это свойство используется как символ валюты при проверке денежных сумм с помощью метода <codeph>validate()</codeph>. Символ или название валюты в проверяемой строке должны соответствовать значению свойства <codeph>currencySymbol</codeph> или <codeph>currencyISOCode</codeph>. </p>
+     
+      <p>Это свойство инициализируется конструктором, исходя из фактически используемой локали. В случае использования резервной локали это свойство отражает предпочитаемый символ валюты по умолчанию для резервной локали.</p>
+     
+      <p>Значение по умолчанию зависит от используемой локали и <codeph>операционной системы</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/setCurrency()"><linktext>setCurrency()</linktext></link><link href="spark.validators.xml#CurrencyValidator/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormatError:get"><apiName>negativeCurrencyFormatError</apiName><shortdesc>
+      Сообщение об ошибке, когда формат отрицательного числа в строке вводимой валюты является недействительным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Сообщение об ошибке, когда формат отрицательного числа в строке вводимой валюты является недействительным.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+       Числовое значение, которое представляет образец проверки для отрицательных денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 15.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+       Числовое значение, которое представляет образец проверки для отрицательных денежных сумм. Это свойство определяет местоположение символа валюты и отрицательного символа или круглых скобок относительно числовой части денежной суммы. Это свойство используется для проверки соответствия входной строки валюты этому шаблону для отрицательных денежных сумм.
+     
+       <p>В качестве значения этого свойства должна использоваться одна из констант, определенная в таблице ниже.
+      </p>
+     
+      <ul>
+       <li>Символ «¤» обозначает местоположение currencyISOCode или currencySymbol в строке валюты.
+       </li>
+       <li>Символ «-» обозначает местоположение negativeNumberSymbol.</li>
+       <li>Символ «n» обозначает денежную сумму.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата отрицательной денежной суммы</entry>
+                <entry>Шаблон форматирования</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormatError:get"><apiName>positiveCurrencyFormatError</apiName><shortdesc>
+      Сообщение об ошибке, когда формат положительного числа валюты является недействительным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The positive format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Сообщение об ошибке, когда формат положительного числа валюты является недействительным.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+        Числовое значение, которое представляет образец проверки для положительных денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 3.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+        Числовое значение, которое представляет образец проверки для положительных денежных сумм. Это свойство определяет местоположение символа валюты относительно числовой части денежной суммы. Это свойство используется для проверки соответствия входной строки валюты этому шаблону для положительных денежных сумм.
+     
+       <p>В качестве значения этого свойства должна использоваться одна из констант, определенная в таблице ниже.
+      </p>
+     
+      <ul>
+       <li>Символ «¤» обозначает местоположение <codeph>currencyISOCode</codeph> или <codeph>currencySymbol</codeph> в строке денежной суммы.</li>
+       <li>Символ «n» обозначает местоположение <codeph>currencyISOCode</codeph> или <codeph>currencySymbol</codeph>в строке денежной суммы.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата положительной денежной суммы</entry>
+                <entry>Шаблон форматирования</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  С помощью класса NumberValidator элемент String представляет действительное число в соответствии с условиями локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidator
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale specified string or customized by user</i>."
+    negativeNumberFormatError="The negative format of the input number is incorrect."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  С помощью класса NumberValidator элемент String представляет действительное число в соответствии с условиями локали. Он может выполнять проверку строк, представляющих объекты <codeph>int</codeph>, <codeph>uint</codeph> и <codeph>Number</codeph>.
+ 
+  <p>Этот класс использует стиль <codeph>locale</codeph> для указания запрашиваемого идентификатора локали.</p>
+ 
+  <p>Средство проверки гарантирует, что введенное число соответствует указанному диапазону (определяется свойствами <codeph>minValue</codeph> и <codeph>maxValue</codeph>), является целым числом (определяется свойством <codeph>domain</codeph>), является неотрицательным числом (определяется свойством <codeph>allowNegative</codeph>), правильно указывает отрицательные и положительные числа и не превышает указанное количество <codeph>fractionalDigits</codeph>. Поскольку средство проверки устанавливает стандартные значения свойств с помощью класса <codeph>flash.globalization.NumberFormatter</codeph>, значения на основе локалей предоставляет операционная система.</p>
+ 
+  <p>Класс <codeph>NumberValidator</codeph> можно использовать в объявлениях MXML или коде ActionScript. Этот класс использует стиль локали для указания запрашиваемого Locale ID, который требуется для класса <codeph>flash.globalization.NumberFormatter</codeph> и содержит привязываемые методы и свойства.</p>
+  
+  </apiDesc><example conref="NumberValidatorExample1.mxml"><swfblock conref="examples/NumberValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+      Создает новый объект NumberValidator для проверки чисел в соответствии с правилами данной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект NumberValidator для проверки чисел в соответствии с правилами данной локали.
+      <p>
+      Стиль <codeph>locale</codeph> определяет локаль для этого класса. Стиль <codeph>locale</codeph> можно установить следующими способами.
+      </p>
+      <ul>
+      <li>         
+      Наследование стиля из <codeph>UIComponent</codeph> посредством вызова используемого в <codeph>UIComponent</codeph> метода <codeph>addStyleClient</codeph>.
+      </li>
+      <li>
+      С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:NumberValidator id="nv" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      С использованием объявления MXML и указанием значения локали в списке назначений.
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberValidator id="nv_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      Вызов метода <codeph>setStyle</codeph>. Например, <codeph>nv.setStyle("locale", "fr-FR")</codeph>
+      </li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      Удобный метод для вызова средства проверки в пользовательской функции проверки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>Массив</codeph> объектов <codeph>ValidationResult</codeph> с одним объектом <codeph>ValidationResult</codeph> для каждого поля, проверенного средством проверки.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Числовая строка, которую необходимо проверить.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>Текстовое представление подчиненного поля определяется в объекте <codeph>value</codeph>. Например, если параметр <codeph>value</codeph> имеет значение value.number, то <codeph>baseField</codeph> имеет значение number.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удобный метод для вызова средства проверки в пользовательской функции проверки. Каждое стандартное средство проверки Flex имеет подобный удобный метод. Вызывающий модуль должен проверить объекты <codeph>ValidationResult</codeph> в возвращенном массиве для проверки состояния.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators:NumberValidator:negativeNumberFormatError:get"><apiName>negativeNumberFormatError</apiName><shortdesc>
+      Сообщение об ошибке, когда используемый формат отрицательного числа не соответствует шаблону, определенному в свойстве negativeNumberFormat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input number is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Сообщение об ошибке, когда используемый формат отрицательного числа не соответствует шаблону, определенному в свойстве negativeNumberFormat.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:NumberValidator:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      Числовое значение, которое представляет образец проверки для отрицательных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 4.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Числовое значение, которое представляет образец проверки для отрицательных чисел. Этот шаблон определяет местоположение отрицательного символа или круглых скобок относительно числовой части проверяемого числа.
+     
+      <p>В следующей таблице сведены все возможные форматы отрицательных чисел. При проверке отрицательного числа знак минуса обозначает значение свойства <codeph>negativeSymbol</codeph>, а символ "n" – числовое значение.</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата отрицательного числа</entry>
+                <entry>Формат</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      Значение по умолчанию зависит от <codeph>используемой локали</codeph> и <codeph>операционной системы</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#NumberValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.validators.xml#NumberValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

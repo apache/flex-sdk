@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.errors"><apiName>mx.messaging.errors</apiName><apiDetail/><apiClassifier id="mx.messaging.errors:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+  Dieser Fehler wird ausgegeben, wenn kein Zugriff auf einem Kanal möglich ist oder der Kanal für das aktuelle Ziel nicht gültig ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird ausgegeben, wenn kein Zugriff auf einem Kanal möglich ist oder der Kanal für das aktuelle Ziel nicht gültig ist. Dieser Fehler wird von den folgenden Methoden/Eigenschaften in der Architektur ausgegeben:
+  <ul>
+    <li><codeph>ServerConfig.getChannel()</codeph>, wenn der Kanal basierend auf der Kanal-ID nicht gefunden werden kann.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidChannelError:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+      Erstellt eine neue Instanz von InvalidChannelError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die diesen InvalidChannelError beschreibt.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Erstellt eine neue Instanz von InvalidChannelError mit der angegebenen Meldung.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+  Dieser Fehler wird nicht ausgegeben, wenn kein Zugriff auf ein Ziel möglich ist oder das Ziel nicht gültig ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird nicht ausgegeben, wenn kein Zugriff auf ein Ziel möglich ist oder das Ziel nicht gültig ist. Dieser Fehler wird von den folgenden Methoden/Eigenschaften in der Architektur ausgegeben:
+  <ul>
+    <li><codeph>ServerConfig.getChannelSet()</codeph>, wenn ein ungültiges Ziel angegeben wurde.</li>
+    <li><codeph>ServerConfig.getProperties()</codeph>, wenn ein ungültiges Ziel angegeben wurde.</li>
+    <li><codeph>Channel.send()</codeph>, wenn kein Ziel für die zu sendende Meldung angegeben wurde.</li>
+    <li><codeph>MessageAgent.destination</codeph>-Set-Eigenschaft, wenn der Zielwert leer ist oder eine Länge von null aufweist.</li>
+    <li><codeph>Producer.send()</codeph>, wenn kein Ziel für den Produzenten oder die zu sendende Meldung angegeben wurde.</li>
+    <li><codeph>Consumer.subscribe()</codeph>, wenn kein Ziel für den Verbraucher angegeben wurde.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidDestinationError:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+      Erstellt eine neue Instanz von einem InvalidDestinationError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die diesen InvalidDestinationError beschreibt.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Erstellt eine neue Instanz von einem InvalidDestinationError mit der angegebenen Meldung.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+  Dieser Fehler weist auf ein Problem beim Serialisieren einer Meldung in einem Kanal hin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler weist auf ein Problem beim Serialisieren einer Meldung in einem Kanal hin. Es wird eine fehlerhafte Eigenschaft zur Verfügung gestellt, die einer ErrorMessage entspricht, wenn dieser Fehler ausgegeben wurde.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessageSerializationError:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+	  Erstellt eine neue Instanz von MessageSerializationError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die den Fehler beschreibt.
+	  </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>Gibt bestimmte Informationen zum aufgetretenen Fehler und zur Meldung, in der der Fehler aufgetreten ist, an.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Erstellt eine neue Instanz von MessageSerializationError mit der angegebenen Meldung.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.errors:MessageSerializationError:fault"><apiName>fault</apiName><shortdesc>
+      Gibt bestimmte Informationen zum aufgetretenen Fehler und zur Meldung, in der der Fehler aufgetreten ist, an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Gibt bestimmte Informationen zum aufgetretenen Fehler und zur Meldung, in der der Fehler aufgetreten ist, an.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.errors:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+  Die Basisklasse für alle kanalbezogenen Fehler.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Basisklasse für alle kanalbezogenen Fehler. Das ermöglicht einen ungenaueren Abfangcode. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:ChannelError:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+	  Erstellt eine neue Instanz von ChannelError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die den Fehler beschreibt.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Erstellt eine neue Instanz von ChannelError mit der angegebenen Meldung.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+  Dieser Fehler wird ausgegeben, wenn kein Kanal zum Senden von Meldungen verfügbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird ausgegeben, wenn kein Kanal zum Senden von Meldungen verfügbar ist. Dieser Fehler wird von den folgenden Methoden in der Architektur ausgegeben:
+  <ul>
+    <li><codeph>ChannelSet.send()</codeph>, wenn ChannelSet über keine Kanäle verfügt.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:NoChannelAvailableError:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+      Erstellt eine neue Instanz von NoChannelAvailableError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die diesen NoChannelAvailableError beschreibt.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Erstellt eine neue Instanz von NoChannelAvailableError mit der angegebenen Meldung.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+  Die Basisklasse für alle meldungsbezogenen Fehler.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Basisklasse für alle meldungsbezogenen Fehler. Das ermöglicht einen ungenaueren Abfangcode.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessagingError:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+	  Erstellt eine neue Instanz von MessagingError mit der angegebenen Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>String, der die Meldung enthält, die den Fehler beschreibt.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Erstellt eine neue Instanz von MessagingError mit der angegebenen Meldung.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.errors:MessagingError:toString"><apiName>toString</apiName><shortdesc>
+      Gibt den String "[MessagingError]" standardmäßig zurück und schließt die Meldungseigenschaft (falls definiert) ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Stringdarstellung des MessagingError.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt den String "[MessagingError]" standardmäßig zurück und schließt die Meldungseigenschaft (falls definiert) ein.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

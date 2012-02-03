@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.wsdl"><apiName>mx.rpc.wsdl</apiName><apiDetail/><apiClassifier id="mx.rpc.wsdl:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+ Привязка определяет формат сообщения и протокол для сообщений, передаваемых в операции и обратно, как указано конкретным portType.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Привязка определяет формат сообщения и протокол для сообщений, передаваемых в операции и обратно, как указано конкретным portType.
+ <p>
+ В настоящее время для WSDL поддерживается только привязка SOAP.
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.wsdl:WSDLBinding:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+    Создает новый WSDLBinding.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Уникальное имя этой привязки.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+    Создает новый WSDLBinding. В настоящее время для WSDL поддерживается только привязка SOAP.
+    
+    </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.wsdl:WSDLBinding:name:get"><apiName>name</apiName><shortdesc>
+     Уникальное имя этой привязки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Уникальное имя этой привязки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:portType:get"><apiName>portType</apiName><shortdesc>
+     Значение portType для этой привязки, которое предоставляет определения интерфейсов для операций привязки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.rpc.wsdl:WSDLPortType"/></apiValueDef><apiDesc>
+     Значение portType для этой привязки, которое предоставляет определения интерфейсов для операций привязки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:style:get"><apiName>style</apiName><shortdesc>
+     Представляет атрибут стиля привязки SOAP, определенный по умолчанию для любой операции, которая относится к этой привязке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Представляет атрибут стиля привязки SOAP, определенный по умолчанию для любой операции, которая относится к этой привязке. Стиль указывает ориентацию для данной операции: RPC (сообщения, содержащие параметры и возвращаемые значения) или документ (сообщение, содержащее документ или документы).
+     <p>
+     Значением по умолчанию является <codeph>document</codeph>.
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:transport:get"><apiName>transport</apiName><shortdesc>
+     Представляет атрибут транспортировки привязки SOAP, определяющий URI для транспортировки, используемый при передаче закодированных сообщений SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Представляет атрибут транспортировки привязки SOAP, определяющий URI для транспортировки, используемый при передаче закодированных сообщений SOAP. URI по умолчанию является http://schemas.xmlsoap.org/soap/http/, который означает SOAP по HTTP (в настоящее время это единственный поддерживаемый транспорт).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

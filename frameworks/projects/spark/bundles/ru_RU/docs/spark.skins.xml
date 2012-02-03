@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.skins"><apiName>spark.skins</apiName><apiDetail/><apiClassifier id="spark.skins:IHighlightBitmapCaptureClient"><apiName>IHighlightBitmapCaptureClient</apiName><shortdesc>
+  IHighlightBitmapCaptureClient определяет интерфейс для тем оформления, поддерживающих захват растровых изображений с подсветкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHighlightBitmapCaptureClient определяет интерфейс для тем оформления, поддерживающих захват растровых изображений с подсветкой.
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:beginHighlightBitmapCapture"><apiName>beginHighlightBitmapCapture</apiName><shortdesc>
+	  Вызывается перед выполнением захвата растрового изображения для этой темы оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  Вызывается перед выполнением захвата растрового изображения для этой темы оформления. Возвращает true, если требуется обновление темы оформления перед захватом растрового изображения.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:endHighlightBitmapCapture"><apiName>endHighlightBitmapCapture</apiName><shortdesc>
+	  Вызывается после выполнения захвата растрового изображения для этой темы оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  Вызывается после выполнения захвата растрового изображения для этой темы оформления. Возвращает true, если требуется обновление темы оформления.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  Проверить тему оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Проверить тему оформления.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.skins:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+      Базовый класс для тем оформления кнопок Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.skins:SparkSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Базовый класс для тем оформления кнопок Spark. Как правило, используется для управления платными значками.
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkButtonSkin:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+         Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         Конструктор.
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkButtonSkin:autoIconManagement:get"><apiName>autoIconManagement</apiName><shortdesc>
+          При включении этого параметра будут автоматически созданы конструкции, необходимые для представления и размещения компонента iconDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          При включении этого параметра будут автоматически созданы конструкции, необходимые для представления и размещения компонента iconDisplay.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:gap:get"><apiName>gap</apiName><shortdesc>
+          Количество пикселов между значком и меткой кнопки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Количество пикселов между значком и меткой кнопки.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconDisplay:get"><apiName>iconDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.primitives:BitmapImage</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingBottom:get"><apiName>iconGroupPaddingBottom</apiName><shortdesc>
+          Количество пикселов между нижним краем кнопки и нижним краем значка или метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Количество пикселов между нижним краем кнопки и нижним краем значка или метки.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingLeft:get"><apiName>iconGroupPaddingLeft</apiName><shortdesc>
+          Минимальное количество пикселов между левым краем кнопки и левым краем значка или метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Минимальное количество пикселов между левым краем кнопки и левым краем значка или метки.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingRight:get"><apiName>iconGroupPaddingRight</apiName><shortdesc>
+          Минимальное количество пикселов между правым краем кнопки и правым краем значка или метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Минимальное количество пикселов между правым краем кнопки и правым краем значка или метки.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingTop:get"><apiName>iconGroupPaddingTop</apiName><shortdesc>
+          Количество пикселов между верхним краем кнопки и верхним краем первого значка или метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Количество пикселов между верхним краем кнопки и верхним краем первого значка или метки.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.core:IDisplayText</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.skins:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+  Базовый класс для тем оформления Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:Skin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Базовый класс для тем оформления Spark.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkSkin:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkSkin:protected:useChromeColor"><apiName>useChromeColor</apiName><shortdesc>
+      Указывает, будет ли на эту тему оформления воздействовать стиль chromeColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, будет ли на эту тему оформления воздействовать стиль <codeph>chromeColor</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:colorizeExclusions:get"><apiName>colorizeExclusions</apiName><shortdesc>
+      Имена элементов, для которых стиль chromeColor не должен применять цвет.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Имена элементов, для которых стиль <codeph>chromeColor</codeph> не должен применять цвет. Должны быть исключены только элементы типа DisplayObject или GraphicElement. Элементы других типов игнорируются.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:contentItems:get"><apiName>contentItems</apiName><shortdesc>
+     Имена элементов, свойство color которых должно определяться стилем contentBackgroundColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Имена элементов, свойство <codeph>color</codeph> которых должно определяться стилем <codeph>contentBackgroundColor</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:symbolItems:get"><apiName>symbolItems</apiName><shortdesc>
+     Имена элементов, свойство цветов которых должно определяться стилем symbolColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Имена элементов, свойство <codeph>color</codeph> которых должно определяться стилем <codeph>symbolColor</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

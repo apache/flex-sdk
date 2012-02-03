@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor"><apiName>ITreeDataDescriptor</apiName><shortdesc>
+  提供用于对 Tree 控件显示的数据集合执行分析和添加节点操作的方法的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  提供用于对 Tree 控件显示的数据集合执行分析和添加节点操作的方法的接口。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      在指定索引处向节点添加子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>如果成功，则为 true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>将成为子节点父级的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>节点将成为其父级的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>放置子节点的从零开始的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在指定索引处向节点添加子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      提供对子节点的访问，并返回子节点的集合视图（如果存在子节点）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的集合视图。
+      
+      </apiDesc><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供对子节点的访问，并返回子节点的集合视图（如果存在子节点）。节点可返回集合中作为其子节点的任何对象；子节点无需嵌套。最好为给定节点返回相同的集合视图。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      从节点中获取数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>请求的数据。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要从其中获取数据的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含节点的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从节点中获取数据。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      测试非终止节点中是否存在子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果节点至少有一个子节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前节点。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试非终止节点中是否存在子节点。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      测试节点的终止性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指示此节点是否为非终止节点的布尔值。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试节点的终止性。分支是非终止的但无需包含任何叶节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      从指定索引处的节点中删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>如果成功，则为 true.</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>作为子节点父级的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>将删除的节点对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>将要删除的节点的从零开始的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从指定索引处的节点中删除子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor2"><apiName>ITreeDataDescriptor2</apiName><shortdesc>
+  ITreeDataDescriptor2 接口定义用于对 Tree 控件显示的数据集合执行分析和添加节点操作的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ITreeDataDescriptor2 接口定义用于对 Tree 控件显示的数据集合执行分析和添加节点操作的方法。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      返回将层次结构数据显示为线性 ICollectionView 实例的 ICollectionView 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ICollectionView 实例。
+     
+      </apiDesc><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier><apiDesc>层次结构数据。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>使用 Object 并以 String 形式返回 UID 的函数。此参数通常为 <codeph>Tree.itemToUID()</codeph> 方法。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>已打开或已设置为打开的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回将层次结构数据显示为线性 ICollectionView 实例的 ICollectionView 实例。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      返回节点的深度，即节点具有的始祖数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的深度，其中 0 对应顶级，如果深度无法计算则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiOperationClassifier>mx.collections:IViewCursor</apiOperationClassifier><apiDesc>可用于计算的 IViewCursor 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的深度，即节点具有的始祖数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getParent"><apiName>getParent</apiName><shortdesc>
+      返回节点的父节点，顶级节点的父节点为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含作为子项的节点的父节点，如果为顶级节点，则返回 <codeph>null</codeph>；如果无法确定父节点，则返回 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier><apiDesc>可用于计算的 ICollectionView 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的父节点，顶级节点的父节点为 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+  TreeListData 类定义 listData 属性的数据类型，此属性由 Tree 控件的嵌入式项呈示器或嵌入式项目编辑器实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeListData 类定义 <codeph>listData</codeph> 属性的数据类型，此属性由 Tree 控件的嵌入式项呈示器或嵌入式项目编辑器实现。所有嵌入式项呈示器和嵌入式项目编辑器必须实现 IDropInListItemRenderer 接口，此接口定义了 <codeph>listData</codeph> 属性。
+ 
+  <p>尽管此类的属性是可写的，但应将其视为只读。它们由 Tree 类进行初始化，并由项呈示器或项目编辑器读取。更改这些值可能导致意外结果。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:TreeListData:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>项目数据的文本表示。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>项目的唯一标识符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>对 Tree 控件的引用。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Tree 控件的数据提供程序中项目的索引。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>该列在控件当前可见列中的索引。
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeListData:depth"><apiName>depth</apiName><shortdesc>
+	  树中项目的级别。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  树中项目的级别。顶级为 1。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+	  给出 Tree 控件中项目的显示图标的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  给出 Tree 控件中项目的显示图标的类。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+	  如果节点包含子节点，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  如果节点包含子节点，则包含 <codeph>true</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:icon"><apiName>icon</apiName><shortdesc>
+	  给出 Tree 控件中项目的图标的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  给出 Tree 控件中项目的图标的类。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:indent"><apiName>indent</apiName><shortdesc>
+	  Tree 控件的此行的默认缩进。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Tree 控件的此行的默认缩进。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:item"><apiName>item</apiName><shortdesc>
+	  Tree 控件中此项目的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Tree 控件中此项目的数据。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:open"><apiName>open</apiName><shortdesc>
+	  如果节点已打开，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  如果节点已打开，则包含 <codeph>true</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.treeClasses:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+  DefaultDataDescriptor 类提供了访问和操作数据的默认实现，以便在控件（如 Tree 和 Menu）中使用这些数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor2</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuDataDescriptor</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DefaultDataDescriptor 类提供了访问和操作数据的默认实现，以便在控件（如 Tree 和 Menu）中使用这些数据。此实现处理 e4x XML 和 object 节点的方式相似，但不尽相同。有关如何使用该方法访问各种节点中的值的详细信息，请参阅每个方法的描述。此类是 Tree、Menu、MenuBar 和 PopUpMenuButton 控件 <codeph>dataDescriptor</codeph> 属性的默认值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.treeClasses.xml#ITreeDataDescriptor"><linktext>mx.controls.treeClasses.ITreeDataDescriptor</linktext></link><link href="mx.controls.menuClasses.xml#IMenuDataDescriptor"><linktext>mx.controls.menuClasses.IMenuDataDescriptor</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#PopUpMenuButton"><linktext>mx.controls.PopUpMenuButton</linktext></link><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:DefaultDataDescriptor:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      将子节点添加到指定索引处的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>如果成功，则为 true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>将成为子节点父级的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>节点将成为其父级的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中放置子节点（相对于父项）的从零开始的索引。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将子节点添加到指定索引处的节点。此实现执行以下操作：
+     
+      <ul>
+          <li>如果 <codeph>parent</codeph> 参数为 null 或尚未定义，则会在 <codeph>model</codeph> 参数指定的集合中的指定索引处插入 <codeph>child</codeph> 参数。
+          </li>
+          <li>如果 <codeph>parent</codeph> 参数包含 <codeph>children</codeph> 字段或属性，则此方法会向其在 <codeph>index</codeph> 参数位置添加 <codeph>child</codeph> 参数。在这种情况下，不需要 <codeph>model</codeph> 参数。
+         </li>
+         <li>如果 <codeph>parent</codeph> 参数不包含 <codeph>children</codeph> 字段或属性，则此方法会向 <codeph>parent</codeph> 添加 <codeph>children</codeph> 属性。然后此方法会向父级在 <codeph>index</codeph> 参数位置上添加 <codeph>child</codeph> 参数。在这种情况下，不需要 <codeph>model</codeph> 参数。
+         </li>
+         <li>如果 <codeph>index</codeph> 值大于集合长度或父节点中的子节点数，则将对象添加为最后一个子节点。
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      提供对节点子项的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的对象。
+      
+      </apiDesc><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含节点的集合；此类会将其忽略。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供对节点子项的访问。如果存在，则返回节点子项的集合。如果节点是 Object，此方法会将该对象 <codeph>children</codeph> 字段的内容作为 ArrayCollection 返回。如果节点是 XML，此方法将返回包含子元素的 XMLListCollection。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      返回节点的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含节点的集合；此类会将其忽略。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的数据。当前返回整个节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getGroupName"><apiName>getGroupName</apiName><shortdesc>
+      返回节点所属的单选按钮组的名称（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的 <codeph>groupName</codeph> 属性或字段的值；如果不存在此类条目，则为空字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要获得组名称的节点。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点所属的单选按钮组的名称（如果存在）。基于菜单的控件使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      
+      返回将层次结构数据显示为线性 ICollectionView 实例的 ICollectionView 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ICollectionView 实例。
+     
+      </apiDesc><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier><apiDesc>层次结构数据。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>使用 Object 并以 String 形式返回 UID 的函数。此参数通常为 <codeph>Tree.itemToUID()</codeph> 方法。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>已打开或已设置为打开的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回将层次结构数据显示为线性 ICollectionView 实例的 ICollectionView 实例。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      
+      返回节点的深度，即节点具有的始祖数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的深度，其中 0 对应顶级，如果深度无法计算则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiOperationClassifier>mx.collections:IViewCursor</apiOperationClassifier><apiDesc>可用于计算的 IViewCursor 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回节点的深度，即节点具有的始祖数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getParent"><apiName>getParent</apiName><shortdesc>
+      
+      返回节点的父节点，顶级节点的父节点为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含作为子项的节点的父节点，如果为顶级节点，则返回 <codeph>null</codeph>；如果无法确定父节点，则返回 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:ICollectionView</apiOperationClassifier><apiDesc>可用于计算的 ICollectionView 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>此节点所属的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回节点的父节点，顶级节点的父节点为 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getType"><apiName>getType</apiName><shortdesc>
+      返回节点的类型标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>type</codeph> 属性或字段的值，或空字符串（如果不存在这样的字段）。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要获得类型的节点对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的类型标识符。基于菜单的控件使用此方法确定节点是否提供分隔符、单选按钮、复选框或常规项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      确定节点实际是否有子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果此节点当前有子节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含节点的集合；此类会将其忽略。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定节点实际是否有子节点。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      测试节点的终止性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果此节点不是终端节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>当前计算的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含节点的集合；此类会将其忽略。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试节点的终止性。分支是非终止的但无需包含任何叶节点。如果节点是 XML 且节点包含子节点或 <codeph>true isBranch</codeph> 属性，则返回 <codeph>true</codeph>。如果节点是一个对象且节点包含（可能为空）<codeph>children</codeph> 字段，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isEnabled"><apiName>isEnabled</apiName><shortdesc>
+      返回是否已启用节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的 <codeph>enabled</codeph> 属性或字段的值；如果不存在此类条目或值不是 <codeph>false</codeph>，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要获得状态的节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回是否已启用节点。基于菜单的控件使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isToggled"><apiName>isToggled</apiName><shortdesc>
+      返回是否已切换节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的 <codeph>toggled</codeph> 属性或字段的值；如果不存在此类条目，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要获得状态的节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回是否已切换节点。基于菜单的控件使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      从指定索引处的节点删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>如果成功，则为 true.</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>当前作为子节点的父节点的节点对象。
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>正在删除的节点。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要删除的相对于父项的子节点的从零开始的索引。
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含此节点的整个集合。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从指定索引处的节点删除子节点。如果 <codeph>parent</codeph> 参数为 null 或尚未定义，则此方法使用 <codeph>model</codeph> 参数访问子节点；否则使用 <codeph>parent</codeph> 参数并忽略 <codeph>model</codeph> 参数。
+    
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setEnabled"><apiName>setEnabled</apiName><shortdesc>
+      设置数据提供程序中用于标识是否已启用节点的字段或属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要设置状态的节点。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>是否已启用节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置数据提供程序中用于标识是否已启用节点的字段或属性的值。此方法设置节点的 <codeph>enabled</codeph> 属性或字段的值。基于菜单的控件使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setToggled"><apiName>setToggled</apiName><shortdesc>
+      设置数据提供程序中用于标识是否已切换节点的字段或属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>要设置状态的节点。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>是否已切换节点。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置数据提供程序中用于标识是否已切换节点的字段或属性的值。此方法设置节点的 <codeph>toggled</codeph> 属性或字段的值。基于菜单的控件使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+  TreeItemRenderer 类定义 Tree 控件的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  组件禁用时的颜色。默认值为 <codeph>0xAAB3B3</codeph>。
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  组件标签的文本颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeItemRenderer 类定义 Tree 控件的默认项呈示器。默认情况下，项呈示器绘制与树中每个项目、可选图标以及可选显示图标相关联的文本。
+ 
+  <p>通过创建自定义的项呈示器，您可以覆盖默认项呈示器。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.treeClasses:TreeItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.treeClasses:TreeItemRenderer:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+      在此渲染器中显示泄露图标的内部 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:IFlexDisplayObject</apiValueClassifier></apiValueDef><apiDesc>
+      在此渲染器中显示泄露图标的内部 IFlexDisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:icon"><apiName>icon</apiName><shortdesc>
+      在此渲染器中显示图标的内部 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:IFlexDisplayObject</apiValueClassifier></apiValueDef><apiDesc>
+      在此渲染器中显示图标的内部 IFlexDisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      在此渲染器中显示文本的内部 UITextField。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:IUITextField</apiValueClassifier></apiValueDef><apiDesc>
+      在此渲染器中显示文本的内部 UITextField。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

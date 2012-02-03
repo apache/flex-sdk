@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight= "13" viewWidth= "768"
+         scaleGridLeft="23" scaleGridRight="745" scaleGridTop="1" scaleGridBottom="12">
+      <Rect x="16" width="736" height="12" radiusX="5.43198" radiusY="5.43198">
+        <fill>
+          <LinearGradient x="368" y="0" scaleX="12.0005" rotation="90">
+            <GradientEntry ratio="0" alpha="0.5"/>
+            <GradientEntry ratio="1" alpha="0.2"/>
+          </LinearGradient>
+        </fill>
+      </Rect>
+      <Path x="16" y="7" data="M0 0C0 3 3 6 6 6L730 6C733 6 736 3 736 0 735 1 733 5 730 5L6 5C3 5 0 2 0 0Z">
+        <fill>
+          <LinearGradient x="368" y="0" scaleX="5" rotation="90">
+            <GradientEntry ratio="0" color="#FFFFFF" alpha="0.1"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.5"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path x="16" data="M0 6C1 4 3 1 6 1L730 1C733 1 735 4 736 6 736 3 733 0 730 0L6 0C3 0 0 3 0 6Z">
+        <fill>
+          <LinearGradient x="368" y="0" scaleX="6" rotation="90">
+            <GradientEntry ratio="0" alpha="0.4"/>
+            <GradientEntry ratio="1" alpha="0.05"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Rect width="768" height="13">
+        <fill>
+          <SolidColor alpha="0"/>
+        </fill>
+      </Rect>
+</Graphic>

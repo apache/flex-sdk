@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+  WipeDownInstance クラスは、WipeDown エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeDownInstance クラスは、WipeDown エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、WipeDown エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeDown"><linktext>mx.effects.WipeDown</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeDownInstance:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+  WipeLeftInstance クラスは、WipeLeft エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeLeftInstance クラスは、WipeLeft エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、WipeLeft エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeLeft"><linktext>mx.effects.WipeLeft</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeLeftInstance:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+  AddChildActionInstance クラスは、AddChildAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddChildActionInstance クラスは、AddChildAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、AddChildAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddChildAction"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddChildActionInstance:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddChildActionInstance:index"><apiName>index</apiName><shortdesc> 
+	  親の中で子が持つインデックスを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc> 
+	  親の中で子が持つインデックスを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:position"><apiName>position</apiName><shortdesc> 
+	  子コンポーネントが追加される relativeTo を基準とした子コンポーネントの相対位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  子コンポーネントが追加される relativeTo を基準とした子コンポーネントの相対位置です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  子コンポーネントが追加される位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  子コンポーネントが追加される位置です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+  AddItemActionInstance クラスは、AddItemAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddItemActionInstance クラスは、AddItemAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、AddItemAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddItemAction"><linktext>mx.effects.AddItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddItemActionInstance:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+  RemoveItemActionInstance クラスは、RemoveChildAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveItemActionInstance クラスは、RemoveChildAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、RemoveItemAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveItemAction"><linktext>mx.effects.RemoveItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveItemActionInstance:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+  GlowInstance クラスは、Glow エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GlowInstance クラスは、Glow エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Glow エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Glow エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 4 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:uint ターゲットの <codeph>GlowFilter.color</codeph> プロパティの値です。</li> 
+  
+    <li>value[1]:Number <codeph>Glow.alphaFrom</codeph> プロパティ値と <codeph>Glow.alphaTo</codeph> プロパティ値の間の値です。</li>
+  
+    <li>value[2]:Number <codeph>Glow.blurXFrom</codeph> プロパティ値と <codeph>Glow.blurXTo</codeph> プロパティ値の間の値です。</li>
+  
+    <li>value[3]:Number <codeph>Glow.blurYFrom</codeph> プロパティ値と <codeph>Glow.blurYTo</codeph> プロパティ値の間の値です。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Glow"><linktext>mx.effects.Glow</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:GlowInstance:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:GlowInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  開始時の透明度レベルを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  開始時の透明度レベルを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  終了時の透明度レベルを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  終了時の透明度レベルを表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  水平方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  水平方向のぼかしの開始量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  水平方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  水平方向のぼかしの終了量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  垂直方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの開始量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  垂直方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの終了量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:color"><apiName>color</apiName><shortdesc> 
+	  グローのカラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  グローのカラーを表します。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:inner"><apiName>inner</apiName><shortdesc> 
+	  グローの内部フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  グローの内部フラグです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:knockout"><apiName>knockout</apiName><shortdesc> 
+	  グローのノックアウトフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  グローのノックアウトフラグです。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:strength"><apiName>strength</apiName><shortdesc> 
+	  グローの強さを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  グローの強さを表します。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+  SetPropertyActionInstance クラスは、SetPropertyAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetPropertyActionInstance クラスは、SetPropertyAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、SetPropertyAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetPropertyAction"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetPropertyActionInstance:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  変更されるプロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  変更されるプロパティの名前を表します。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  プロパティの新しい値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  プロパティの新しい値を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+  WipeRightInstance クラスは、WipeRight エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeRightInstance クラスは、WipeRight エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、WipeRight エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeRight"><linktext>mx.effects.WipeRight</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeRightInstance:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+  RemoveChildActionInstance クラスは、RemoveChildAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveChildActionInstance クラスは、RemoveChildAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、RemoveChildAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveChildAction"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveChildActionInstance:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+  UnconstrainItemActionInstance クラスは、UnconstrainItemAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UnconstrainItemActionInstance クラスは、UnconstrainItemAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、UnconstrainItemAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#UnconstrainItemAction"><linktext>mx.effects.UnconstrainItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:UnconstrainItemActionInstance:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:UnconstrainItemActionInstance:effectHost"><apiName>effectHost</apiName><shortdesc>
+      エフェクトのホストコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>mx.controls.listClasses:ListBase</apiValueClassifier></apiValueDef><apiDesc>
+      エフェクトのホストコンポーネントです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+  WipeUpInstance クラスは、WipeUp エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeUpInstance クラスは、WipeUp エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、WipeUp エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeUp"><linktext>mx.effects.WipeUp</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeUpInstance:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+  ResizeInstance クラスは、Resize エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ResizeInstance クラスは、Resize エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Resize エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+  
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Resize エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 2 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:Number <codeph>Resize.widthFrom</codeph> プロパティ値と <codeph>Resize.widthTo</codeph> プロパティ値の間の値です。</li>
+  
+    <li>value[1]:Number <codeph>Resize.heightFrom</codeph> プロパティ値と <codeph>Resize.heightTo</codeph> プロパティ値の間の値です。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Resize"><linktext>mx.effects.Resize</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ResizeInstance:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ResizeInstance:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  初期の高さを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初期の高さを表します。 省略した場合、現在のサイズが使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  Panel の配列を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Panel の配列を表します。 これらの Panel の子は、Resize エフェクトの再生中は非表示になります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  初期の幅を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初期の幅を表します。 省略した場合、現在のサイズが使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightBy:get"><apiName>heightBy</apiName><shortdesc> 
+	  コンポーネントの高さを変更するピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントの高さを変更する際のピクセル数を表します。 負の数値を指定することもできます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightTo:get"><apiName>heightTo</apiName><shortdesc> 
+	  最終的な高さ（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な高さ（ピクセル単位）を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthBy:get"><apiName>widthBy</apiName><shortdesc> 
+	  コンポーネントの幅を変更するピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントの幅を変更する際のピクセル数を表します。 負の数値を指定することもできます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthTo:get"><apiName>widthTo</apiName><shortdesc> 
+	  最終的な幅をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な幅をピクセル単位で表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

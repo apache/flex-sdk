@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.scrollClasses"><apiName>mx.controls.scrollClasses</apiName><apiDetail/><apiClassifier id="mx.controls.scrollClasses:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+  ScrollThumb クラスは、ScrollBar コントロールのサムを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollThumb クラスは、ScrollBar コントロールのサムを定義します。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollThumb:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+  ScrollBar クラスは、HScrollBar および VScrollBar コントロールの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="style" name="errorColor"/><Exclude kind="property" name="doubleClickEnabled"/><styles><style inherit="no" name="upArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの上矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+    
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの上矢印ボタンにマウスポインターを合わせたときに、その上矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの上矢印ボタンをクリックしたときに、その上矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの上矢印ボタンが無効になったときに、その上矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの上矢印ボタンのデフォルトのスキンとして使用するクラスの名前です。 
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーのトラックのスキンとして使用するクラスの名前です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーにマウスポインターを合わせたときに、そのスクロールバーのトラックのスキンとして使用するクラスの名前です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  トラックをクリックしたときに、スクロールバーのトラックのスキンとして使用するクラスの名前です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーが無効になったときに、そのスクロールバーのトラックのスキンとして使用するクラスの名前です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーのトラックのデフォルトのスキンとして使用するクラスの名前です。 
+ 
+  </description>
+<default>mx.skins.halo.ScrollTrackSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  2 色の配列としてトラックの色を指定します。 単色のトラックの場合は同じ色を 2 回使用できます。
+ 
+  </description>
+<default>[0x94999b, 0xe7e7e7]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーのサムのスキンとして使用するクラスの名前です。
+  
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーのサムにマウスポインターを合わせたときに、そのサムのスキンとして使用するクラスの名前です。 
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOffset" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Number">
+<description>
+  スクロールバーの中心からスクロールサムをどのくらい離すかを指定するピクセル数です。 
+ 
+  </description>
+<default>0 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbIcon" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーのサムのアイコンとして使用するクラスの名前です。 
+  
+  </description>
+<default>"undefined"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  サムをクリックしたときに、スクロールバーのサムのスキンとして使用するクラスの名前です。 
+ 
+  </description>
+<default>mx.skins.halo.ScrollThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンのデフォルトのスキンとして使用するクラスの名前です。 
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  コンポーネントのシンボルのカラーです。CheckBox のチェックマークや ScrollBar ボタンの矢印などがあります。
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンにマウスポインターを合わせたときに、その下矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンをクリックしたときに、その下矢印ボタンのスキンとして使用するクラスの名前です。 グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+  
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンが無効になったときに、その下矢印ボタンのスキンとして使用するクラスの名前です。グラフィカルまたはプログラムのいずれかの方法でスキンを変更する場合は、新しいスキンの高さ（水平の ScrollBar の場合）または幅（垂直の ScrollBar の場合）をトラックと同じにする必要があります。
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  スクロールバーの下矢印ボタンのデフォルトのスキンとして使用するクラスの名前です。
+ 
+  </description>
+<default>mx.skins.halo.ScrollArrowSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="highlightAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  コントロールのハイライトの塗りつぶしで使用するアルファ透明度値です。 最初の値はハイライトの上端の透明度を指定し、2 番目の値はハイライトの下端の透明度を指定します。ハイライトは、スキンの上半分に適用されます。
+  
+  </description>
+<default>[ 0.3, 0.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  コントロールの背景の着色に使用されるカラーです。フラットな外観のコントロールを作成するには、どちらの値にも同じカラーを渡します。
+  
+  </description>
+<default>[ 0xFFFFFF, 0xCCCCCC ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  コントロールの背景の塗りつぶしで使用するアルファ値です。[1, 1] を使うと、コントロールの背景が不透明になります。
+  
+  </description>
+<default>[ 0.6, 0.4 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  コンポーネントの角に付いている丸みの半径です。 このスタイルは、Alert、Button、ComboBox、LinkButton、MenuBar、NumericStepper、Panel、ScrollBar、Tab、TitleWindow の各コンポーネントおよび <codeph>borderStyle</codeph> プロパティを <codeph>"solid"</codeph> に設定できるすべてのコンポーネントによってサポートされます。 デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合、Halo テーマでは <codeph>0</codeph>、Spark テーマでは <codeph>2</codeph> になります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  境界線の色です。 このスタイルは、Button、CheckBox、ComboBox、MenuBar、NumericStepper、ProgressBar、RadioButton、ScrollBar、Slider の各コントロールおよび <codeph>borderStyle</codeph> スタイルをサポートするすべてのコンポーネントによってサポートされます。 デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合は <codeph>0xB7BABC</codeph> になります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ScrollBar&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:ScrollBar
+    <strong>Properties</strong>
+    direction="vertical|horizontal"
+    lineScrollSize="1"
+    maxScrollPosition="0"
+    minScrollPosition="0"
+    pageScrollSize="<i>Reset to the pageSize parameter of setScrollProperties</i>"
+    pageSize="0"
+    scrollPosition="0"
+ 
+    <strong>Styles</strong>
+    borderColor="0xB7BABC" 
+    cornerRadius="0" 
+    disabledIconColor="0x999999"
+    downArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+    fillAlphas="[0.6, 0.4]" 
+    fillColors="[0xFFFFFF, 0xCCCCCC]" 
+    highlightAlphas="[0.3, 0.0]" 
+    iconColor="0x111111"
+    thumbDownSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbIcon="undefined"
+    thumbOffset="0"
+    thumbOverSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbUpSkin="mx.skins.halo.ScrollThumbSkin"
+    trackColors="[0x94999b, 0xe7e7e7]"
+    trackSkin="mx.skins.halo.ScrollTrackSkin"
+    upArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBar クラスは、HScrollBar および VScrollBar コントロールの基本クラスです。 ScrollBar は、2 つの矢印ボタンとその間のトラック、および可変サイズのスクロールサムから構成されます。 スクロールサムは、2 つの矢印ボタンのいずれかをクリックするか、スクロールサムをトラックに沿ってドラッグするか、またはトラックをクリックすることによって移動できます。 
+ 
+  <p>スクロールバーの幅は、そのサブコンポーネント（上矢印、下矢印、サムおよびトラック）の最大の幅と同じです。 すべてのサブコンポーネントがスクロールバーの中央に配置されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link><link href="mx.controls.xml#Button"><linktext>mx.controls.Button</linktext></link><link href="mx.controls.scrollClasses.xml#ScrollThumb"><linktext>mx.controls.scrollClasses.ScrollThumb</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollBar:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.scrollClasses:ScrollBar:setScrollProperties"><apiName>setScrollProperties</apiName><shortdesc>
+      ScrollBar コントロールの範囲とビューポートサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pageSize</apiItemName><apiType value="Number"/><apiDesc>1 ページのサイズを表す数値です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>minScrollPosition</apiItemName><apiType value="Number"/><apiDesc>スクロール範囲の最下部を表す数値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>maxScrollPosition</apiItemName><apiType value="Number"/><apiDesc>スクロール範囲の最上部を表す数値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pageScrollSize</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>スクロールトラックが押されたときの移動量を表す数値です。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ScrollBar コントロールの範囲とビューポートサイズを設定します。 この設定に応じて、ScrollBar コントロールの矢印ボタンの状態とスクロールサムのサイズが更新されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.scrollClasses:ScrollBar:THICKNESS"><apiName>THICKNESS</apiName><shortdesc>
+      垂直スクロールバーの幅または水平スクロールバーの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>16</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      垂直スクロールバーの幅または水平スクロールバーの高さ（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:direction:get"><apiName>direction</apiName><shortdesc>
+      ScrollBar が水平方向または垂直方向のいずれにスクロールするかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollBarDirection.VERTICAL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ScrollBar が水平方向または垂直方向のいずれにスクロールするかを指定します。 MXML での有効な値は <codeph>"vertical"</codeph> と <codeph>"horizontal"</codeph> です。
+     
+      <p>ActionScript では、定数 <codeph>ScrollBarDirection.VERTICAL</codeph> および <codeph>ScrollBarDirection.HORIZONTAL</codeph> を使用してこのプロパティを設定します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBarDirection"><linktext>mx.controls.scrollClasses.ScrollBarDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:downArrowStyleFilters:get"><apiName>downArrowStyleFilters</apiName><shortdesc>
+      ScrollBar から下矢印に渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ScrollBar から下矢印に渡すスタイルのセットです。
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:lineScrollSize:get"><apiName>lineScrollSize</apiName><shortdesc>
+      矢印ボタンが押されたときのスクロール量（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矢印ボタンが押されたときのスクロール量（ピクセル単位）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:maxScrollPosition:get"><apiName>maxScrollPosition</apiName><shortdesc>
+      最大スクロール位置を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      最大スクロール位置を表す数値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:minScrollPosition:get"><apiName>minScrollPosition</apiName><shortdesc>
+      最小スクロール位置を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      最小スクロール位置を表す数値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageScrollSize:get"><apiName>pageScrollSize</apiName><shortdesc>
+      スクロールバーのトラックが押されたときのスクロールサムの移動量（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スクロールバーのトラックが押されたときのスクロールサムの移動量（ピクセル単位）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageSize:get"><apiName>pageSize</apiName><shortdesc>
+      1 ページ分の行数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      1 ページ分の行数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:scrollPosition:get"><apiName>scrollPosition</apiName><shortdesc>
+      現在のスクロール位置を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      現在のスクロール位置を表す数値です。 これは、<codeph>minScrollPosition</codeph> 以上、<codeph>maxScrollPosition</codeph> 以下の数値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      ScrollBar からサムに渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ScrollBar からサムに渡すスタイルのセットです。
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:upArrowStyleFilters:get"><apiName>upArrowStyleFilters</apiName><shortdesc>
+      ScrollBar から上矢印に渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ScrollBar から上矢印に渡すスタイルのセットです。
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBarDirection"><apiName>ScrollBarDirection</apiName><shortdesc>
+  ScrollBarDirection クラスは、ScrollBar コントロールの direction プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBarDirection クラスは、ScrollBar コントロールの <codeph>direction</codeph> プロパティの値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  ScrollBar コントロールで水平方向のスクロールを使用するように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  ScrollBar コントロールで水平方向のスクロールを使用するように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  ScrollBar コントロールで垂直方向のスクロールを使用するように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  ScrollBar コントロールで垂直方向のスクロールを使用するように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.printing" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.printing</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.printing:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+ PrintUIOptions 类用于指定要显示给用户的“打印”对话框中的选项。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ PrintUIOptions 类用于指定要显示给用户的“打印”对话框中的选项。创建一个 PrintUIOptions 实例，设置其属性，然后将其作为 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> 方法的 <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> 参数传递。
+ 
+ <p class="- topic/p ">例如，显示“页面设置”对话框时，以下代码使用 PrintUIOptions 实例指定最小和最大页码：</p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import flash.printing.PrintJob;
+ 
+ var myPrintJob:PrintJob = new PrintJob();
+ if (myPrintJob.supportsPageSetupDialog)
+ {
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     myPrintJob.showPageSetupDialog(uiOpt);
+ }</codeblock>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links><apiConstructor id="flash.printing:PrintUIOptions:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 创建新 PrintUIOptions 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 创建新 PrintUIOptions 对象。将此对象传递给 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> 方法的 <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> 参数。
+	 
+	 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintUIOptions:disablePageRange" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">disablePageRange</apiName><shortdesc class="- topic/shortdesc ">
+	 指定禁用打印对话框中的页面范围 (true) 还是用户可以对其进行编辑 (false)。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiDefaultValue>false
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 指定禁用“打印”对话框中的页面范围 (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) 还是用户可以对其进行编辑 (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>)。默认值为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，表示对编辑页面范围无限制。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:maxPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPage</apiName><shortdesc class="- topic/shortdesc ">
+	 用户可以在打印对话框中输入的最大页码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 用户可以在打印对话框中输入的最大页码。默认值为 0，表示对最大页码无限制。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:minPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">minPage</apiName><shortdesc class="- topic/shortdesc ">
+	 用户可以在“打印”对话框中输入的最小页码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 用户可以在“打印”对话框中输入的最小页码。默认值为 0，表示对最小页码无限制。
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintMethod" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintMethod</apiName><shortdesc class="- topic/shortdesc ">
+此类为 PrintJobOptions.printMethod 属性提供值以指定打印页面的方法。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+此类为 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> 属性提供值以指定打印页面的方法。
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links><apiValue id="flash.printing:PrintMethod:AUTO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">AUTO</apiName><shortdesc class="- topic/shortdesc ">
+	对最佳打印方法的自动选择。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.auto, auto
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">auto</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	对最佳打印方法的自动选择。此值表示根据要打印的内容自动选择矢量打印或位图打印。只要内容可由该方法忠实地复制，即使用矢量打印。如果存在透明效果或某些其他效果，将使用位图打印。
+	
+	<p class="- topic/p ">此常量与 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> 属性一起使用。使用语法 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph>。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:BITMAP" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">BITMAP</apiName><shortdesc class="- topic/shortdesc ">
+	位图打印方法。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.bitmap, bitmap
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">bitmap</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	位图打印方法。 
+	
+	<p class="- topic/p ">此常量与 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> 属性一起使用。使用语法 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph>。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:VECTOR" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VECTOR</apiName><shortdesc class="- topic/shortdesc ">
+	矢量打印方法。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.vector, vector
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">vector</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	矢量打印方法。 
+	
+	<p class="- topic/p ">此常量与 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> 属性一起使用。使用语法 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph>。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 PrintJobOptions 类所包含的属性与 PrintJob.addPage() 方法的 options 参数配合使用。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 PrintJobOptions 类所包含的属性与 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 方法的 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 参数配合使用。有关 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 的详细信息，请参见 PrintJob 类。
+	 </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links><apiConstructor id="flash.printing:PrintJobOptions:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+		 创建一个新的 PrintJobOptions 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printAsBitmap</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，则此对象作为位图打印。如果为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，则此对象作为矢量图打印。 
+		 
+		 <p class="- topic/p ">如果要打印的内容包括位图图像，则请将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，以包括任何 Alpha 透明度和色彩效果。如果内容不包含位图图像，则请省略此参数，以便以较高品质的矢量格式（默认选项）打印内容。</p>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>Adobe AIR 在 Mac OS 中不支持矢量打印。</p>
+		 
+		 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 创建一个新的 PrintJobOptions 对象。将此对象传递给 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 方法的 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 参数。
+		 
+		 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintJobOptions:pixelsPerInch" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+		 指定位图使用的分辨率，以每英寸像素为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">NaN</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 指定位图使用的分辨率，以每英寸像素为单位。默认值是 <codeph class="+ topic/ph pr-d/codeph ">Number.NaN</codeph>，表明使用本机打印机分辨率。
+		 
+		 <p class="- topic/p ">此分辨率设置适用于位图和矢量打印。对于位图打印，分辨率控制如何将整张页面栅格化。对于矢量打印，分辨率控制如何将特定内容（如位图和渐变）栅格化。</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJobOptions:printAsBitmap" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printAsBitmap</apiName><shortdesc class="- topic/shortdesc ">
+		 指定打印作业中的内容是将作为位图打印还是将作为矢量打印。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 指定打印作业中的内容是将作为位图打印还是将作为矢量打印。默认值是 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，代表矢量打印。
+		 
+		 <p class="- topic/p ">如果要打印的内容包括位图图像，则请将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，以包括任何 Alpha 透明度和色彩效果。如果内容不包括位图图像，则使用较高品质的矢量格式（默认选项）打印内容。</p>
+		 <p class="- topic/p ">例如，要将内容作为位图打印，请使用以下语法：</p> 
+		 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+		 var options:PrintJobOptions = new PrintJobOptions();
+		 options.printAsBitmap = true;
+		 myPrintJob.addPage(mySprite, null, options);
+		 </codeblock>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>Adobe AIR 在 Mac OS 中不支持矢量打印。</p>
+		 
+		 </apiDesc><example conref="examples\printAsBitmapExample.as" class="- topic/example "> 下面的示例先加载一幅图片并放在矩形帧中，然后将该图片作为位图进行打印。  
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">构造函数使用 <codeph class="+ topic/ph pr-d/codeph ">Loader</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">URLRequest</codeph> 对象加载该图片 (<codeph class="+ topic/ph pr-d/codeph ">image.jpg</codeph>)。它还会检查在加载过程中是否发生了错误。此处，假定该文件位于与 SWF 文件相同的目录中。需要编译 SWF 文件，并将“本地播放安全性”设置为“只访问本地文件”。</li><li class="- topic/li ">在加载图片后（event 为 complete），将调用 <codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> 方法。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> 方法创建一个 <codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> 对象，并在其中加载该图片（位图）。将在 <codeph class="+ topic/ph pr-d/codeph ">Sprite</codeph> 对象中绘制一个矩形 (<codeph class="+ topic/ph pr-d/codeph ">frame</codeph>)，并使用 <codeph class="+ topic/ph pr-d/codeph ">beginBitmapFill()</codeph> 方法在矩形中填充该图片（<codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> 对象）。还使用了 <codeph class="+ topic/ph pr-d/codeph ">Matrix</codeph> 对象缩放图像以适应该矩形。（请注意，这会使图像发生扭曲。本示例中使用此对象是为了确保图像与矩形相适应。） 在填充图像后，将调用 <codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> 方法。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> 方法创建一个新的打印作业实例，启动打印过程（将为用户调用打印对话框）并填充打印作业属性。<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 方法包含有关打印作业的详细信息。此处，将包含图片（Sprite 对象）的帧设置为作为位图打印，而不是作为矢量图形打印。<codeph class="+ topic/ph pr-d/codeph ">options</codeph> 是 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions</codeph> 类的实例，并将其属性 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，以便作为位图打印（默认设置为 false）。</li></ol>
+ <p class="- topic/p ">注意：仅为本示例定义了非常有限的错误处理代码。</p>
+ 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.display.Loader;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;    
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOptions;
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.net.URLRequest;
+    import flash.geom.Matrix;
+
+    public class printAsBitmapExample extends Sprite {
+
+        private var frame:Sprite = new Sprite();
+        private var url:String = "image.jpg";
+        private var loader:Loader = new Loader();
+
+        public function printAsBitmapExample() {
+
+           var request:URLRequest = new URLRequest(url);
+  
+           loader.load(request);
+           loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
+           loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+        }
+
+        private function completeHandler(event:Event):void {
+        
+            var picture:Bitmap = Bitmap(loader.content);
+            var bitmap:BitmapData = picture.bitmapData;
+
+            var matrix:Matrix = new Matrix();
+
+            matrix.scale((200 / bitmap.width), (200 / bitmap.height));
+            
+            frame.graphics.lineStyle(10);
+            frame.graphics.beginBitmapFill(bitmap, matrix, true);
+            frame.graphics.drawRect(0, 0, 200, 200);
+            frame.graphics.endFill();
+
+            addChild(frame);
+             
+            printPage();    
+        }
+
+        private function ioErrorHandler(event:IOErrorEvent):void {
+            trace("Unable to load the image: " + url);
+        }
+
+        private function printPage ():void {
+            var myPrintJob:PrintJob = new PrintJob();
+            var options:PrintJobOptions = new PrintJobOptions();
+            options.printAsBitmap = true;
+            
+            myPrintJob.start();
+  
+            try {
+                myPrintJob.addPage(frame, null, options);
+            }
+            catch(e:Error) {
+                trace ("Had problem adding the page to print job: " + e);
+            }
+ 
+            try {
+            myPrintJob.send();
+            }
+            catch (e:Error) {
+                trace ("Had problem printing: " + e);    
+            }
+        }
+    }
+}
+
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOptions:printMethod:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printMethod</apiName><shortdesc class="- topic/shortdesc ">
+		 指定 Flash 运行时选择最合适的打印方法，或创作者希望显式选择矢量或位图打印。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定的 <codeph class="+ topic/ph pr-d/codeph ">printMethod</codeph> 不是在 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> 类中定义的值之一。
+     	 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 指定 Flash 运行时选择最合适的打印方法，或创作者希望显式选择矢量或位图打印。
+		 
+		 <p class="- topic/p ">将此属性设置为在 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> 类中定义的下列值之一：</p>
+		 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph>：指定根据要打印的内容，自动选择矢量或位图打印。只要内容可由该方法忠实地复制，即使用矢量打印。如果存在透明效果或某些其他效果，将使用位图打印。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph>：指定矢量打印。此设置与将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph> 等效。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph>：指定位图打印。与将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 等效。</li></ul>
+		 
+		 <p class="- topic/p ">如果将 printMethod 设置为这些支持的值之一，则将忽略 printAsBitmap。</p>
+		 
+		 <p class="- topic/p ">默认值是 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>；使用 printAsBitmap 属性。</p>
+		 
+     	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printAsBitmap" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printAsBitmap</linktext></link><link href="flash.printing.xml#PrintMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintMethod 类</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ PrintJob 类用于创建内容并将其打印为一页或多页。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, print
+ </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ PrintJob 类用于创建内容并将其打印为一页或多页。此类允许您呈现对用户为可见、动态或在屏幕以外的内容，通过一个“打印”对话框提示用户，以及按照与内容的比例相称的比例打印未缩放的文档。此功能特别适用于呈现和打印动态内容，例如数据库内容和动态文本。
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">移动浏览器支持：</b>移动浏览器不支持此类。</p>
+ 
+ <p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR 配置文件支持：</i>所有桌面操作系统均支持此功能，但移动设备或用于电视的 AIR 设备不支持此功能。您可以使用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.isSupported</codeph> 属性在运行时测试是否受支持。有关在多个配置文件之间支持 API 的详细信息，请参阅 <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR 配置文件支持</xref>。</p>
+ 
+ <p class="- topic/p ">使用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob()</codeph> 构造函数创建打印作业。</p>
+ 
+ <p class="- topic/p ">此外，利用 PrintJob 类的属性，您可以读取用户的打印机设置（如页高度、宽度和图像方向），并且您可以配置文档以动态方式设置适用于打印机设置的 Flash 内容的格式。</p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>与 ActionScript 的先前版本不同，ActionScript 3.0 未将 PrintJob 对象限定在单帧。然而，由于在用户单击“打印”对话框中的“确定”按钮之后，操作系统会向用户显示打印状态信息，所以应尽快调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph>，以将页面发送到后台处理程序。如果到达包含 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> 调用的帧时发生延迟，将会延迟打印过程。</p>
+ <p class="- topic/p ">另外，以下时间间隔存在 15 秒的脚本超时限制：</p>
+ <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 和第一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和下一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">最后的 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+ 
+ <p class="- topic/p ">如果以上任何一个间隔时间超过了 15 秒，则对 PrintJob 实例的下一次 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 调用将返回 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，并且对 PrintJob 实例的下一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 将使 Flash Player 或 Adobe AIR 引发运行时异常。</p>
+ 
+ </apiDesc><example conref="examples\PrintJobExample_Simple.as" class="- topic/example "> 以下示例显示打印的基本过程。新建了一个 PrintJob，如果已成功开始，<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 方法会将该 sprite 作为单个页添加。<codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 方法将该页后台打印到打印机。
+
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{ 
+    import flash.printing.PrintJob; 
+    import flash.display.Sprite; 
+ 
+    public class BasicPrintExample extends Sprite 
+    { 
+        var myPrintJob:PrintJob = new PrintJob(); 
+        var mySprite:Sprite = new Sprite();
+        mySprite.graphics.beginFill(0x336699);
+    mySprite.graphics.drawCircle(100, 100, 50);
+ 
+        public function BasicPrintExample() 
+        { 
+            if (myPrintJob.start()) {
+            try {
+                myPrintJob.addPage(mySprite);
+            }
+            catch(e:Error) {
+                // handle error 
+            }
+            myPrintJob.send();
+        } 
+    } 
+}
+</codeblock></example><example conref="examples\PrintJobExample.as" class="- topic/example "> 以下示例使用类 <codeph class="+ topic/ph pr-d/codeph ">PrintJobExample</codeph> 来创建一个小文档，然后将该文档发送到打印机。这是使用以下步骤完成的：
+ <ol class="- topic/ol "><li class="- topic/li ">声明两个 Sprite 类型的变量，名称为 <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph>。</li><li class="- topic/li ">调用 <codeph class="+ topic/ph pr-d/codeph ">init()</codeph>，它将一个新的 Sprite 实例同时赋给 <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph>，然后使用不同的参数调用 <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph>。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> 进行以下操作：
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">传入的 Sprite 对象用来在 x = 0、y = 0 处绘制一个矩形，矩形具有浅灰色背景和一个像素宽的黑色边框，宽度为 100 像素，高度为 200 像素。</li><li class="- topic/li ">创建一个新的 TextField 对象，名为 <codeph class="+ topic/ph pr-d/codeph ">txt</codeph>，尺寸和 Sprite 相同，wordWrap 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，并且 text 属性设置为作为参数传递给 <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> 的 String。</li><li class="- topic/li ">如果传递的 Object 参数不是 null，则创建一个新的 Sprite 实例，名为 <codeph class="+ topic/ph pr-d/codeph ">img</codeph>，该实例使用所传递的 Object 的坐标和尺寸属性绘制一个白色矩形。可将白色矩形添加到 Sprite 对象的显示列表中，方法是使用 <codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph>。</li><li class="- topic/li ">可将 <codeph class="+ topic/ph pr-d/codeph ">txt</codeph> TextField 添加到 Sprite 对象的显示列表中，方法是使用 <codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph>。</li></ol></li><li class="- topic/li ">回到构造函数中，调用已启用的（不是被注释掉的）打印方法 由于方法非常相似，因此下面将描述 <codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph>。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> 进行以下操作：
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">声明一个新的 PrintJob 对象，名称为 <codeph class="+ topic/ph pr-d/codeph ">pj</codeph>，并将 <codeph class="+ topic/ph pr-d/codeph ">pagesToPrint</codeph> 声明为 unit 类型。</li><li class="- topic/li ">打开操作系统的本机打印对话框，并等待用户单击 <codeph class="+ topic/ph pr-d/codeph ">OK</codeph>。</li><li class="- topic/li ">检查方向，如果选择了横向，则将引发错误并退出。</li><li class="- topic/li ">设置 <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> 的页面高度和宽度。</li><li class="- topic/li ">使用 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 将 <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> 发送到打印后台处理程序。</li><li class="- topic/li ">如果要打印的页数 > 0，则打印所有经过后台处理的页。</li></ol></li><li class="- topic/li ">调用 <codeph class="+ topic/ph pr-d/codeph ">draw()</codeph> 方法，它调整两个 Sprite 属性的大小以适合舞台大小，并重新定位 <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph>，以便它紧挨着 <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> 的右侧。</li></ol>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>设置构造函数后，可以根据首选项选择三种打印方法中的一种（每页一张，每页两张，或是在页面的上半部分打印）。如果不使用代码注释禁用其中的两种打印方法，则此示例将不能正确运行 示例经过设置，以调用 <codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph>。</p>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOrientation;
+    import flash.display.Stage;
+    import flash.display.Sprite;
+    import flash.text.TextField;
+    import flash.geom.Rectangle;
+       
+    public class PrintJobExample extends Sprite {
+        private var sheet1:Sprite;
+        private var sheet2:Sprite;
+           
+        public function PrintJobExample() {
+            init();
+            printOnePerPage();
+//            printTwoPerPage();
+//            printTopHalf();
+            draw();
+        }
+        
+        private function init():void {
+            sheet1 = new Sprite();
+            createSheet(sheet1, "Once upon a time...", {x:10, y:50, width:80, height:130});
+
+            sheet2 = new Sprite();
+            createSheet(sheet2, "There was a great story to tell, and it ended quickly.\n\nThe end.", null);
+        }
+        
+        private function createSheet(sheet:Sprite, str:String, imgValue:Object):void {
+            sheet.graphics.beginFill(0xEEEEEE);
+            sheet.graphics.lineStyle(1, 0x000000);
+            sheet.graphics.drawRect(0, 0, 100, 200);
+            sheet.graphics.endFill();
+            
+            var txt:TextField = new TextField();
+            txt.height = 200;
+            txt.width = 100;
+            txt.wordWrap = true;
+            txt.text = str;
+            
+            if(imgValue != null) {
+                var img:Sprite = new Sprite();
+                img.graphics.beginFill(0xFFFFFF);
+                img.graphics.drawRect(imgValue.x, imgValue.y, imgValue.width, imgValue.height);
+                img.graphics.endFill();
+                sheet.addChild(img);
+            }
+            sheet.addChild(txt);
+        }
+        
+        private function printOnePerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.LANDSCAPE) {    
+                    throw new Error("Without embedding fonts you must print one sheet per page with an orientation of portrait.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth;
+
+                try {
+                    pj.addPage(sheet1);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                try {
+                    pj.addPage(sheet2);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+        
+        private function printTwoPerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print two sheets per page with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+
+        private function printTopHalf():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print the top half with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets, new Rectangle(0, 0, sheets.width, sheets.height/2));
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+
+
+        private function draw():void {
+            var sheetWidth:Number = this.stage.stageWidth/2;
+            var sheetHeight:Number = this.stage.stageHeight;
+            
+            addChild(sheet1);
+            sheet1.width = sheetWidth;
+            sheet1.height = sheetHeight;
+            
+            addChild(sheet2);
+            sheet2.width = sheetWidth;
+            sheet2.height = sheetHeight;
+            sheet2.x = sheet1.width;
+        }        
+    }
+}
+</codeblock></example><example conref="examples\PrintJobExample.2.as" class="- topic/example "> 以下示例显示了一些其他的打印功能。本示例提供了有关打印份数、纸张大小 (legal) 和页面方向（横向）的初始化 PrintJob 设置。它会强制首先显示“页面设置”对话框，然后通过显示“打印”对话框来启动打印作业。
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock "> 
+package 
+ { 
+     import flash.display.Sprite; 
+     import flash.display.Stage; 
+     import flash.geom.Rectangle; 
+     import flash.printing.PaperSize; 
+     import flash.printing.PrintJob; 
+    import flash.printing.PrintJobOrientation; 
+    import flash.printing.PrintUIOptions; 
+    import flash.text.TextField; 
+      
+     public class PrintJobExample extends Sprite 
+     { 
+         private var bg:Sprite; 
+         private var txt:TextField; 
+        private var pj:PrintJob; 
+        private var uiOpt:PrintUIOptions; 
+  
+         public function PrintJobExample():void 
+         { 
+            var pj = new PrintJob(); 
+            uiOpt = new PrintUIOptions(); 
+            initPrintJob(); 
+             initContent(); 
+             draw(); 
+             printPage(); 
+         } 
+          
+         private function printPage():void 
+         { 
+            if (pj.supportsPageSetupDialog) 
+            { 
+                pj.showPageSetupDialog(); 
+            }
+            
+             if (pj.start2(uiOpt, true)) 
+             { 
+                   try 
+                 { 
+                     pj.addPage(this, new Rectangle(0, 0, 100, 100)); 
+                 } 
+                 catch (error:Error) 
+                 { 
+                     // Do nothing. 
+                 } 
+                 pj.send(); 
+             } 
+             else 
+             { 
+                 txt.text = "Print job terminated"; 
+                pj.terminate(); 
+             } 
+         } 
+         
+         private function initContent():void 
+         { 
+             bg = new Sprite(); 
+             bg.graphics.beginFill(0x00FF00); 
+             bg.graphics.drawRect(0, 0, 100, 200); 
+             bg.graphics.endFill(); 
+              
+             txt = new TextField(); 
+             txt.border = true; 
+             txt.text = "Hello World"; 
+         } 
+          
+        private function initPrintJob():void 
+        { 
+            pj.setPaperSize(PaperSize.LEGAL); 
+            pj.orientation = PrintJobOrientation.LANDSCAPE; 
+            pj.copies = 2; 
+            pj.jobName = "Flash test print";
+        } 
+         
+         private function draw():void 
+         { 
+             addChild(bg); 
+             addChild(txt); 
+             txt.x = 50; 
+             txt.y = 50; 
+         } 
+     } 
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.printing:PrintJob:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ 创建一个可用于打印一页或多页的 PrintJob 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>See <code>PrintJob.addPage()</code>.
+ 
+ </maelexample></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 在 Flash Player 和 AIR 2 之前的 AIR 中，如果其他 PrintJob 对象仍处于活动状态，将引发异常。
+ 
+ </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 创建一个可用于打印一页或多页的 PrintJob 对象。在创建一个 PrintJob 对象之后，需要依次使用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> 方法将打印作业发送到打印机。
+ 
+ <p class="- topic/p ">例如，可以用自定义参数来替换 <codeph class="+ topic/ph pr-d/codeph ">myPrintJob.addPage()</codeph> 方法调用的 <codeph class="+ topic/ph pr-d/codeph ">[params]</codeph> 占位符文本，如以下代码中所示：</p>
+ 
+ <pre xml:space="preserve" class="- topic/pre ">
+ // create PrintJob object
+ var myPrintJob:PrintJob = new PrintJob();
+  
+ // display Print dialog box, but only initiate the print job
+ // if start returns successfully.
+ if (myPrintJob.start()) {
+  
+    // add specified page to print job
+    // repeat once for each page to be printed
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+ 
+    // send pages from the spooler to the printer, but only if one or more
+    // calls to addPage() was successful. You should always check for successful 
+    // calls to start() and addPage() before calling send().
+    myPrintJob.send();
+ }
+ </pre>
+ 
+ <p class="- topic/p ">在 AIR 2 或更高版本中，您可以创建并使用多个 PrintJob 实例。打印完成后，对 PrintJob 实例设置的属性仍保留。这就允许您重用 PrintJob 实例并维持用户选择的打印首选项，同时还为应用程序中的其他内容提供不同的打印首选项。对于 Flash Player 和 AIR 版本 2 之前的版本中的内容，当某个 PrintJob 对象仍处于活动状态时，您无法再创建一个 PrintJob 对象。如果在第一个 PrintJob 对象仍处于活动状态时创建第二个 PrintJob 对象（通过调用 <codeph class="+ topic/ph pr-d/codeph ">new PrintJob()</codeph>），则第二个 PrintJob 对象不会被创建。因此，在创建其他 PrintJob 之前，您可以查看 <codeph class="+ topic/ph pr-d/codeph ">myPrintJob</codeph> 值。</p>
+ 
+ </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link></related-links></apiConstructor><apiOperation id="flash.printing:PrintJob:addPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">addPage</apiName><shortdesc class="- topic/shortdesc ">
+     将指定的 Sprite 对象作为单个页发送到打印后台处理程序。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.addpage, addpage
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果您尚未调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或用户取消了打印作业，将引发异常
+	 
+	 
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">sprite</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.display:Sprite</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">包含要打印内容的 Sprite。 
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printArea</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.geom:Rectangle</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 指定要打印的区域的 Rectangle 对象。	 
+	 
+	 <p class="- topic/p ">矩形的宽度和高度以像素为单位。打印机使用点来作为打印的度量单位。点的实际大小是固定的（1/72 英寸），但是在屏幕上，像素的大小取决于特定屏幕的分辨率。因此，像素和点之间的转换比率取决于打印机设置以及 sprite 是否经过缩放。一个 72 个像素宽的 Sprite 在未经缩放的情况下打印输出将为一英寸宽，这时，一点等于一个像素，且与屏幕分辨率无关。</p>
+	 
+	 <p class="- topic/p ">您可以使用以下换算公式将英寸或厘米转换为缇或点（1 缇为 1/20 点）：</p>
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">一点 = 1/72 英寸 = 20 缇</li><li class="- topic/li ">1 英寸 = 72 点 = 1440 缇</li><li class="- topic/li ">1 厘米 = 567 缇</li></ul>
+	 
+	 <p class="- topic/p ">如果省略了 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 参数或错误地传递了该参数，将打印 <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 参数的整个区域。</p>
+	 
+	 <p class="- topic/p ">如果您不希望指定 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 的值，而是希望指定 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph> 的值，请为 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 传递 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">options</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintJobOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">一个可选参数，指定是作为矢量打印还是作为位图打印。默认值为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>，表示请求矢量打印。要将 <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 作为位图打印，请将 PrintJobOptions 对象的 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。当确定是否将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 时，请记住以下建议：
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">如果您打印的内容包括位图图像，请将 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 以包括任何 Alpha 透明度和色彩效果。</li><li class="- topic/li ">如果内容不包含位图图像，则请省略此参数，以便以较高品质的矢量格式打印内容。</li></ul>
+	 
+	 <p class="- topic/p ">如果省略或错误传递了 <codeph class="+ topic/ph pr-d/codeph ">options</codeph>，则使用矢量打印。如果您不希望指定 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 的值，而是希望指定 <codeph class="+ topic/ph pr-d/codeph ">frameNumber</codeph> 的值，请为 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 传递 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">frameNum</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">一个可选数字，用于指定要打印的 MovieClip 对象的帧。传递 <codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph> 不会调用此帧上的 ActionScript。如果省略此参数并且 <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 参数是 MovieClip 对象，则打印 <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 中的当前帧。	 
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     将指定的 Sprite 对象作为单个页面发送到打印后台处理程序。在使用此方法之前，必须创建 PrintJob 对象，然后使用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph>。然后，在针对某个打印作业一次或多次调用 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 后，请使用 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 将经过后台处理的页发送到打印机。换言之，在创建 PrintJob 对象后，请使用（按照以下顺序）<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 将打印作业发送到打印机。在打印作业中，在调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 一次后，您可以多次调用 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 以打印多个页面。
+     
+     <p class="- topic/p ">如果 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 导致 Flash Player 引发异常（例如，如果您尚未调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或用户取消了打印作业），对 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 的任何后续调用都会失败。但是，如果之前对 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 的调用成功，则最后的 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 命令将经后台成功处理的页发送到打印机。</p>
+	 
+     <p class="- topic/p ">如果打印作业用 15 秒以上的时间完成一次 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 操作，则 Flash Player 在下一次调用 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 时将引发异常。</p>
+	 
+     <p class="- topic/p ">如果为 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 参数传递了值，则 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> Rectangle 的 <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">x</i></codeph> 和 <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">y</i></codeph> 坐标将映射到页上可打印区域的左上角（0, 0 坐标）。只读属性 <codeph class="+ topic/ph pr-d/codeph ">pageHeight</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">pageWidth</codeph> 规定了由 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 设置的可打印区域。因为打印输出与页面上可打印区域的左上角对齐，所以如果在 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 中定义的区域大于页面上的可打印区域，则打印输出会在由 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 定义的区域的右边和/或底部被截断。在 Flash Professional 中，如果没有为 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 传递值并且 Stage 大于可打印区域，则将发生此类型的剪裁。在 Flex 或 Flash Builder 中，如果没有为 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 传递值并且屏幕大于可打印区域，则将发生此类型的剪裁。</p>
+	 
+	 <p class="- topic/p ">如果要在打印前对 Sprite 对象进行缩放，则可在调用此方法之前设置缩放属性（参见 <codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleX</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleY</codeph>），并在打印之后将它们重新设置为原始值。Sprite 对象的缩放与 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 无关。也就是说，如果指定一个 50 x 50 像素的打印区域，则会打印 2500 像素。如果对 Sprite 对象进行缩放，则同样会打印 2500 像素，但是将按缩放后的大小打印 Sprite 对象。</p>
+	 
+	 <p class="- topic/p ">Flash Player 打印功能支持 PostScript 和非 PostScript 打印机。非 PostScript 打印机将矢量转换成位图。</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.display.xml#DisplayObject" class="- topic/link "><linktext class="- topic/linktext ">DisplayObject 类</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:selectPaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">selectPaperSize</apiName><shortdesc class="- topic/shortdesc ">
+     设置页面大小。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.selectPaperSize, selectPaperSize
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果 <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> 参数不属于在 PaperSize 类中定义的可接受值。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">paperSize</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">在打印作业中用于后续页的页面大小
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     设置页面大小。<codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> 参数可接受的值是 PaperSize 类中的常量。调用此方法将影响打印设置，如同用户在“页面设置”或“打印”对话框中选择页面大小。
+     
+     <p class="- topic/p ">您可以随时调用此方法。在开始打印作业之前调用此方法，以在“页面设置”和“打印”对话框中设置默认页面大小。在打印作业过程中调用此方法，以设置此作业中一系列页面的页面大小。</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PaperSize;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     myPrintJob.selectPaperSize(PaperSize.ENV_10);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PaperSize" class="- topic/link "><linktext class="- topic/linktext ">PaperSize</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:send" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">send</apiName><shortdesc class="- topic/shortdesc ">
+      在成功调用 start() 或 start2() 和 addPage() 方法后，将经过后台处理的页面发送到打印机。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.send, send
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+      在成功调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 方法后，将经过后台处理的页面发送到打印机。
+	 
+	 <p class="- topic/p ">如果调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法失败，或者如果调用 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 方法时引发异常，则该方法不会成功。要避免发生错误，在调用此方法之前，请核实 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法返回 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 并捕获任何 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 异常。以下示例演示了如何在调用此方法之前正确检查错误：</p>
+	 
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+     if (myPrintJob.start()) {
+       try {
+         myPrintJob.addPage([params]);
+       }
+       catch(e:Error) {
+          // handle error 
+       }
+     
+       myPrintJob.send();
+     }
+     </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:showPageSetupDialog" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">showPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     显示操作系统的“页面设置”对话框，如果当前环境支持该对话框。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.showPageSetupDialog, showPageSetupDialog
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果此系统不支持“页面设置”。使用 <codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> 属性确定是否支持“页面设置”。
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果任何打印作业（包括当前作业）处于活动状态。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果用户在“页面设置”对话框中选择“确定”，则为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。这表明某些 PrintJob 属性可能已更改。如果用户在“页面设置”对话框中选择“取消”，则返回 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     显示操作系统的“页面设置”对话框（如果当前环境支持该对话框）。使用 <codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> 属性确定是否支持“页面设置”。
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 if (myPrintJob.supportsPageSetupDialog)
+	 {
+	     myPrintJob.showPageSetupDialog();
+	 }
+	 </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/supportsPageSetupDialog" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.supportsPageSetupDialog</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start2" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start2</apiName><shortdesc class="- topic/shortdesc ">
+     选择性显示操作系统的“打印”对话框、开始后台处理，并可能修改 PrintJob 只读属性值。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start2, start2
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果正在显示“页面设置”对话框，或者如果其他打印作业当前处于活动状态
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果用户在“打印”对话框出现时单击“确定”，或者未显示“打印”对话框而且未发生错误，则值为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>；如果用户单击“取消”或有错误发生，值为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">uiOptions</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintUIOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">一个对象，指定在向用户显示的“打印”对话框中显示的选项。如果 <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> 参数是 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，则忽略此值。
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">showPrintDialog</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">true</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">在开始打印作业之前是否向用户显示“打印”对话框
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     选择性显示操作系统的“打印”对话框、开始后台处理，并可能修改 PrintJob 只读属性值。
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> 参数允许调用方控制在“打印”对话框中显示哪些选项。请参见 <codeph class="+ topic/ph pr-d/codeph ">PrintUIOptions</codeph> 类。如果 <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> 为 false，则忽略此参数。</p>
+     
+     <p class="- topic/p ">即使当 <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> 为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 时，此方法的行为也可能与 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 方法不同。在某些操作系统上，<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 在显示“页面设置”对话框后显示“打印”对话框。相反，<codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 从不显示“页面设置”对话框。</p>
+	 
+	 <p class="- topic/p ">在下面的示例中，在向用户显示“打印”对话框之前，需要对其中的最小和最大页面设置进行设置：</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PrintUIOptions;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     var accepted:Boolean = myPrintJob.start2(uiOpt);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     显示操作系统的“打印”对话框并开始后台处理。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start, print
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">在 AIR 2 或更高版本中，如果其他 PrintJob 当前处于活动状态
+	 
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">如果显示“打印”对话框时用户单击“确定”，则返回 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>；如果用户单击“取消”或出现错误，则返回 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     显示操作系统的“打印”对话框并开始后台处理。通过“打印”对话框，用户可更改打印设置。当 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 方法成功返回时（用户单击“打印”对话框中的“确定”），将填充下列属性，从而显示用户选择的打印设置：
+      
+     <adobetable class="innertable"><tgroup cols="4" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">属性</entry><entry class="- topic/entry ">类型</entry><entry class="- topic/entry ">单位</entry><entry class="- topic/entry ">注释</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">点</entry><entry class="- topic/entry ">纸张整体高度。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">点</entry><entry class="- topic/entry ">纸张整体宽度。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">点</entry><entry class="- topic/entry ">页上实际可打印区域的高度；忽略用户设置的任何边距。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">点</entry><entry class="- topic/entry ">页上实际可打印区域的宽度；忽略用户设置的任何边距。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph></entry><entry class="- topic/entry ">字符串</entry><entry class="- topic/entry "/><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">"portrait"</codeph> (<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.PORTRAIT</codeph>) 或 <codeph class="+ topic/ph pr-d/codeph ">"landscape"</codeph> (<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.LANDSCAPE</codeph>)。</entry></row></tbody></tgroup></adobetable>
+     	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>如果用户取消“打印”对话框，则不会填充属性。</p>
+     <p class="- topic/p ">当用户在“打印”对话框中单击“确定”之后，播放器开始在后台将打印作业处理到操作系统。因为操作系统随后开始向用户显示有关打印过程的信息，所以应尽快调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> 调用，以将页发送到后台处理程序。您可以使用此方法的只读 height、width 和 orientation 属性进行填充以设置打印输出格式。</p>
+     <p class="- topic/p ">进行测试，以查看此方法是否返回 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>（当用户在操作系统的“打印”对话框中单击“确定”时），这应在对 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> 执行任何后续调用之前进行：</p>
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+        if(myPrintJob.start()) {
+          // addPage() and send() statements here
+        }
+     </codeblock>
+     <p class="- topic/p ">对给定的打印作业实例而言，如果以下任何一个间隔的持续时间超过 15 秒，则对 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 的下一次调用将返回 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>：</p>
+     <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 和第一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和下一个 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">最后的 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> 和 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:terminate" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">terminate</apiName><shortdesc class="- topic/shortdesc ">
+     表示打印作业应终止，不发送。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.terminate, terminate
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示打印作业应终止，不发送。当打印作业已通过调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 启动，但不适合将任何页面发送到打印机时，请使用此方法。通常，<codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> 仅用于从错误恢复。
+     
+     <p class="- topic/p ">在调用此方法后，PrintJob 实例可以重用。尽可能保留作业的打印设置以供后续使用。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.printing:PrintJob:active:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">active</apiName><shortdesc class="- topic/shortdesc ">
+     表示打印作业当前是否处于活动状态。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示打印作业当前是否处于活动状态。打印作业在下列任一情况下处于活动状态（属性值是 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>）：
+	 
+     <ul class="- topic/ul "><li class="- topic/li ">正在显示“页面设置”或“打印”对话框。</li><li class="- topic/li ">已调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法（且返回值是 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>），以及未调用 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> 方法。</li></ul>
+	 
+	 <p class="- topic/p ">如果此属性是 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 并且调用了 <codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法，则运行时将引发异常。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/terminate()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.terminate()</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:copies:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">copies</apiName><shortdesc class="- topic/shortdesc ">
+     打印系统打印的、随后将添加到打印作业中的任何页面的备份数。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     打印系统打印的、随后将添加到打印作业中的任何页面的备份数。此值是用户在操作系统的“打印”对话框中输入的备份数。如果“打印”对话框中没有显示备份数，或者没有向用户显示此对话框，则值为 1（除非应用程序代码对其进行了更改）。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:firstPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">firstPage</apiName><shortdesc class="- topic/shortdesc ">
+     用户在操作系统的“打印”对话框中输入的范围内的第一页的页码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     用户在操作系统的“打印”对话框中输入的范围内的第一页的页码。如果用户请求打印所有页面，或如果“打印”对话框中没有显示页面范围，或没有向用户显示“打印”对话框，则该属性为 0。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isColor:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isColor</apiName><shortdesc class="- topic/shortdesc ">
+     表示当前选择的打印机（采用当前打印设置）使用彩色 (true) 打印还是灰度 (false) 打印。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示当前选择的打印机（采用当前打印设置）使用彩色 (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) 打印还是灰度 (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>) 打印。
+	 
+	 <p class="- topic/p ">如果无法确定彩色或灰度值，则此值为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+    表示当前平台上是否支持 PrintJob 类，支持为 true，不支持为 false。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    表示当前平台上是否支持 PrintJob 类，支持为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，不支持为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。 
+    
+    </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:jobName:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">jobName</apiName><shortdesc class="- topic/shortdesc ">
+     打印作业的名称或标题。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">当 <codeph class="+ topic/ph pr-d/codeph ">active</codeph> 属性为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 时，如果代码尝试设置此属性。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>null&lt;/code>
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     打印作业的名称或标题。通常，操作系统将作业名称作为打印队列中的作业的标题，或者作为打印到文件中的作业的默认名称。
+     
+     <p class="- topic/p ">如果尚未调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 且尚未设置属性的值，则该属性的值为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。</p>
+     
+     <p class="- topic/p ">对于您使用 PrintJob 实例执行的各个打印作业，请在调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法之前设置此属性。</p>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:lastPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastPage</apiName><shortdesc class="- topic/shortdesc ">
+     用户在操作系统的“打印”对话框中输入的范围内的最后一页的页码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     用户在操作系统的“打印”对话框中输入的范围内的最后一页的页码。如果用户请求打印所有页面，或如果“打印”对话框中没有显示页面范围，或没有向用户显示“打印”对话框，则该属性为 0。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:maxPixelsPerInch:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+     所选打印机的物理分辨率，以每英寸像素为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     所选打印机的物理分辨率，以每英寸像素为单位。根据操作系统报告的当前打印设置计算该值。
+     
+     <p class="- topic/p ">如果不能确定分辨率，则该值是标准的默认值。此默认值在 Linux 上为 600 ppi，在 Mac OS 上为 360 ppi。在 Windows 上，打印机分辨率始终可以确定，所以无需使用默认值。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:orientation:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">orientation</apiName><shortdesc class="- topic/shortdesc ">
+    图像的打印方向。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="read only" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read only" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read-write" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.orientation, orientation 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    图像的打印方向。可接受值被定义为 PrintJobOrientation 类中的常量。
+	
+    <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>对于 AIR 2 或更高版本，请在开始打印作业之前设置此属性，以在“页面设置”和“打印”对话框中设置默认方向。在打印作业正在进行时（调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 后）设置此属性，以设置作业中一系列页面的方向。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOrientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOrientation 类</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageHeight</apiName><shortdesc class="- topic/shortdesc ">
+     可在页面的实际可打印区域中居中放置的最大区域的高度，以点为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageHeight, pageHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     可在页面的实际可打印区域中居中放置的最大区域的高度，以点为单位。忽略用户设置的任何边距。仅当调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 方法后，此属性才是可用的。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>对于 AIR 2 或更高版本，不推荐使用此属性。请改用 <codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph>，此属性测量可打印区域（以小数点为单位）并精确描述中心外的可打印区域。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageWidth</apiName><shortdesc class="- topic/shortdesc ">
+     可在页面的实际可打印区域中居中放置的最大区域的宽度，以点为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageWidth, pageWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     可在页面的实际可打印区域中居中放置的最大区域的宽度，以点为单位。忽略用户设置的任何边距。仅当调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 方法后，此属性才是可用的。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>对于 AIR 2 或更高版本，不推荐使用此属性。请改用 <codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph>，此属性测量可打印区域（以小数点为单位）并精确描述中心外的可打印区域。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperArea</apiName><shortdesc class="- topic/shortdesc ">
+     打印机介质的范围，以点为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     打印机介质的范围，以点为单位。此值使用的坐标系与后续 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 调用使用的坐标系相同。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:paperHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperHeight</apiName><shortdesc class="- topic/shortdesc ">
+    纸张总高度（以点为单位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperHeight, paperHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    纸张总高度（以点为单位）。仅当调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 方法后，此属性才是可用的。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>对于 AIR 2 或更高版本，不推荐使用此属性。请改用 <codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph>，此属性可测量纸张尺寸（以小数点为单位）。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperWidth</apiName><shortdesc class="- topic/shortdesc ">
+    纸张总宽度（以点为单位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperWidth, paperWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    纸张总宽度（以点为单位）。仅当调用 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> 方法后，此属性才是可用的。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>对于 AIR 2 或更高版本，不推荐使用此属性。请改用 <codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph>，此属性可测量纸张尺寸（以小数点为单位）。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:printableArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printableArea</apiName><shortdesc class="- topic/shortdesc ">
+     打印机介质的可打印区域的范围，以点为单位。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     打印机介质的可打印区域的范围，以点为单位。此值使用的坐标系与后续 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 调用使用的坐标系相同。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printer:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printer</apiName><shortdesc class="- topic/shortdesc ">
+     获取或设置要用于当前打印作业的打印机。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     获取或设置要用于当前打印作业的打印机。已传递给 setter 并由 getter 返回的字符串应与由 <codeph class="+ topic/ph pr-d/codeph ">printers()</codeph> 方法返回的数组中的其中一个字符串相匹配。要表示应使用默认打印机，请将此值设置为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。在无法确定默认打印机的操作系统上，此属性的值为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 myPrintJob.printer = "HP_LaserJet_1";
+	 myPrintJob.start();
+	 </codeblock>
+     
+     <p class="- topic/p ">设置该属性的值会尝试立即选择打印机。如果打印机选择失败，此属性的值将重置为以前的值。您可以确定设置打印机值是否成功，方法如下：在尝试设置此值后读取该值并确认它是否与设置的值一致。</p>
+     
+     <p class="- topic/p ">处于活动状态的打印作业的 <codeph class="+ topic/ph pr-d/codeph ">printer</codeph> 属性无法更改。在成功调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 方法之后且在调用 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> 失败之前，尝试更改该值。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printers:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printers</apiName><shortdesc class="- topic/shortdesc ">
+     以 String 名称值的形式提供可用打印机的列表。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiType value="Vector$String" name="type" class="- topic/state reference/state apiRef/apiType "/></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     以 String 名称值的形式提供可用打印机的列表。列表不是预先计算好的，是在调用函数时生成的。如果没有可用的打印机或如果系统不支持打印，则该值为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。如果系统支持打印但不能返回打印机列表，则该值是一个包含单个元素的矢量（其 <codeph class="+ topic/ph pr-d/codeph ">length</codeph> 属性为 1）。在这种情况下，如果不能确定当前打印机名称，则该单个元素将是实际的打印机名称或默认名称。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:supportsPageSetupDialog:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">supportsPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     表示 Flash 运行时环境是否支持单独的“页面设置”对话框。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示 Flash 运行时环境是否支持单独的“页面设置”对话框。如果该属性为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，您可以调用 <codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph> 方法以显示操作系统的“页面设置”对话框。
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOrientation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOrientation</apiName><shortdesc class="- topic/shortdesc ">
+该类可为所打印页面的图像位置提供 PrintJob.orientation 属性所使用的值。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+该类可为所打印页面的图像位置提供 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> 属性所使用的值。
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link></related-links><apiValue id="flash.printing:PrintJobOrientation:LANDSCAPE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LANDSCAPE</apiName><shortdesc class="- topic/shortdesc ">
+	横向（水平）的图像打印方向。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.landscape, landscape
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">landscape</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	横向（水平）的图像打印方向。此常数用于 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> 属性。使用语法 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.LANDSCAPE</codeph>。
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/PORTRAIT" class="- topic/link "><linktext class="- topic/linktext ">PORTRAIT</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOrientation:PORTRAIT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">PORTRAIT</apiName><shortdesc class="- topic/shortdesc ">
+	纵向（垂直）的图像打印方向。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.portrait, portrait
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">portrait</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	纵向（垂直）的图像打印方向。此常数用于 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> 属性。使用语法 <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.PORTRAIT</codeph>。
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/LANDSCAPE" class="- topic/link "><linktext class="- topic/linktext ">LANDSCAPE</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PaperSize</apiName><shortdesc class="- topic/shortdesc ">
+此类为 PrintJob.selectPaperSize() 方法的 paperSize 参数提供了可用值。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+此类为 <codeph class="+ topic/ph pr-d/codeph ">PrintJob.selectPaperSize()</codeph> 方法的 <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> 参数提供了可用值。每个常量表示用于打印页面的页面大小。
+
+<p class="- topic/p ">下表显示了每种页面类型的近似大小。此大小是近似值，因为不同的打印机驱动程序之间存在一些差异。例如，A4 纸张的宽度可以是 595.0、595.2、595.22 或 595.28 点，视驱动程序而定。</p>
+
+<adobetable class="innertable"><tgroup cols="2" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">值</entry><entry class="- topic/entry ">尺寸（以点为单位）</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">A4</entry><entry class="- topic/entry ">595 x 842</entry></row><row class="- topic/row "><entry class="- topic/entry ">A5</entry><entry class="- topic/entry ">420 x 595</entry></row><row class="- topic/row "><entry class="- topic/entry ">A6</entry><entry class="- topic/entry ">297 x 420</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI3GOU</entry><entry class="- topic/entry ">340 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI4GOU</entry><entry class="- topic/entry ">298 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_10</entry><entry class="- topic/entry ">297 x 684</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_B5</entry><entry class="- topic/entry ">499 x 709</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_C5</entry><entry class="- topic/entry ">459 x 649</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_DL</entry><entry class="- topic/entry ">312 x 624</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_MONARCH</entry><entry class="- topic/entry ">279 x 540</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_PERSONAL</entry><entry class="- topic/entry ">261 x 468</entry></row><row class="- topic/row "><entry class="- topic/entry ">EXECUTIVE</entry><entry class="- topic/entry ">522 x 756</entry></row><row class="- topic/row "><entry class="- topic/entry ">FOLIO</entry><entry class="- topic/entry ">612 x 936</entry></row><row class="- topic/row "><entry class="- topic/entry ">JIS_B5</entry><entry class="- topic/entry ">516 x 729</entry></row><row class="- topic/row "><entry class="- topic/entry ">LEGAL</entry><entry class="- topic/entry ">612 x 1008</entry></row><row class="- topic/row "><entry class="- topic/entry ">LETTER</entry><entry class="- topic/entry ">612 x 792</entry></row><row class="- topic/row "><entry class="- topic/entry ">STATEMENT</entry><entry class="- topic/entry ">396 x 612</entry></row></tbody></tgroup></adobetable>
+
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/selectPaperSize()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.selectPaperSize()</linktext></link></related-links><apiValue id="flash.printing:PaperSize:A4" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A4</apiName><shortdesc class="- topic/shortdesc ">
+	 A4
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a4</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A4
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A5</apiName><shortdesc class="- topic/shortdesc ">
+	 A5
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A5
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A6" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A6</apiName><shortdesc class="- topic/shortdesc ">
+	 A6
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a6</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A6
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI3GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI3GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 日文 choukei 3 gou（信封）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei3gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 日文 choukei 3 gou（信封）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI4GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI4GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 日文 choukei 4 gou（信封）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei4gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 日文 choukei 4 gou（信封）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_10" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_10</apiName><shortdesc class="- topic/shortdesc ">
+	 法律专用信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_10</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 法律专用信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 B5 信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 B5 信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_C5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_C5</apiName><shortdesc class="- topic/shortdesc ">
+	 C5 信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_c5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 C5 信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_DL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_DL</apiName><shortdesc class="- topic/shortdesc ">
+	 DL 信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_dl</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 DL 信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_MONARCH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_MONARCH</apiName><shortdesc class="- topic/shortdesc ">
+	 君主式信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_monarch</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 君主式信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_PERSONAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_PERSONAL</apiName><shortdesc class="- topic/shortdesc ">
+	 私人信封
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_personal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 私人信封
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:EXECUTIVE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">EXECUTIVE</apiName><shortdesc class="- topic/shortdesc ">
+	 执行尺寸
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">executive</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 执行尺寸
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:FOLIO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">FOLIO</apiName><shortdesc class="- topic/shortdesc ">
+	 对开尺寸
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">folio</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 对开尺寸
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:JIS_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">JIS_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 日文 B5
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">jis_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 日文 B5
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LEGAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LEGAL</apiName><shortdesc class="- topic/shortdesc ">
+	 传统法律专用纸大小
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">legal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 传统法律专用纸大小
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LETTER" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LETTER</apiName><shortdesc class="- topic/shortdesc ">
+	 传统法律专用纸大小
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">letter</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 传统法律专用纸大小
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:STATEMENT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">STATEMENT</apiName><shortdesc class="- topic/shortdesc ">
+	 报告大小
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">statement</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 报告大小
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

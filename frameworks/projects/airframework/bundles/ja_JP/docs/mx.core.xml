@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core"><apiName>mx.core</apiName><apiDetail/><apiClassifier id="mx.core:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+  FlexHTMLLoader は、Flex HTML コントロールで使用される、Player の HTMLLoader クラスのサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.managers:IFocusManagerComplexComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>flash.html:HTMLLoader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexHTMLLoader は、Flex HTML コントロールで使用される、Player の HTMLLoader クラスのサブクラスです。 <codeph>toString()</codeph> メソッドをオーバーライドして、アプリケーション内の DisplayObject の階層におけるオブジェクトの位置を示したストリングを返します。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.core:FlexHTMLLoader:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      <p><codeph>name</codeph> プロパティを、mx.utils.NameUtils クラスの <codeph>createUniqueName()</codeph> メソッドから返されたストリングに設定します。</p>
+     
+      <p>このストリングは、<codeph>"FlexLoader13"</codeph> のように、オブジェクトのクラスと、アプリケーション内で一意の整数が連結された名前になります。</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/createUniqueName()"><linktext>mx.utils.NameUtils.createUniqueName()</linktext></link></related-links></apiConstructor><apiOperation id="mx.core:FlexHTMLLoader:assignFocus"><apiName>assignFocus</apiName><shortdesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>direction</apiItemName><apiType value="String"/><apiDesc>one of flash.display.FocusDirection
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。 コンポーネントは、受け取ったフォーカスを内部コンポーネントに設定します。コンポーネントの <codeph>setFocus()</codeph> メソッドは、マウスによってフォーカスが置かれた場合は引き続き呼び出されますが、キーボードによってフォーカスが変更された場合にも使用されるようになります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:drawFocus"><apiName>drawFocus</apiName><shortdesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>isFocused</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> の場合はフォーカスインジケーターを描画し、それ以外の場合は非表示にします。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。 コンポーネントは、コンポーネントにフォーカスがあることを示すグラフィックを描画するか、非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:setFocus"><apiName>setFocus</apiName><shortdesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      コンポーネントがフォーカスを受け取ったときに FocusManager によって呼び出されます。 コンポーネントは、受け取ったフォーカスを内部コンポーネントに設定します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:toString"><apiName>toString</apiName><shortdesc>
+      アプリケーションの DisplayObject の階層におけるこのオブジェクトの位置を示すストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>DisplayObject の階層におけるこのオブジェクトの位置を示したストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      アプリケーションの DisplayObject の階層におけるこのオブジェクトの位置を示すストリングを返します。 このストリングは、<codeph>"MyApp0.HBox5.FlexLoader13"</codeph> のように、mx.utils.NameUtils クラスの <codeph>displayObjectToString()</codeph> メソッドによって、このオブジェクトおよびその上位要素の <codeph>name</codeph> プロパティから作成されます。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/displayObjectToString()"><linktext>mx.utils.NameUtils.displayObjectToString()</linktext></link></related-links></apiOperation><apiValue id="mx.core:FlexHTMLLoader:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      コンポーネントが選択時にフォーカスを取得できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントが選択時にフォーカスを取得できるかどうかを示すフラグです。
+     
+      <p>最適化するには、使用するコンポーネントの子コンポーネントが IFocusManagerComponent インターフェイスを実装し、そのコンポーネントにフォーカスを取得させない場合、<codeph>focusEnabled</codeph> を <codeph>false</codeph> に設定します。これは、子コンポーネントで <codeph>addChild()</codeph> を呼び出す前に行います。</p>
+     
+      <p>これによって、FocusManager はこのコンポーネントを無視し、このコンポーネントの <codeph>tabFocusEnabled</codeph>、<codeph>tabChildren</codeph> および <codeph>mouseFocusEnabled</codeph> プロパティの変更を監視しなくなります。 これは、<codeph>addChild()</codeph> の後にはこの値を変更することも、FocusManager からの通知を期待することもできないことを意味します。</p>
+     
+      <p>メモ：これは、<codeph>setFocus()</codeph> メソッドで、プログラムによってこのオブジェクトにフォーカスを置くことができないことを意味するものではありません。これは単に、FocusManager に Tab およびマウスの検索でこの IFocusManagerComponent コンポーネントを無視するように指示するだけです。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:hasFocusableChildren:get"><apiName>hasFocusableChildren</apiName><shortdesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="hasFocusableChildrenChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      これは、インターフェイスをサポートするスタブにすぎません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      これは、インターフェイスをサポートするスタブにすぎません。親 mx.controls.HTML は、conversionMode を含んでおり、それを適用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:mouseFocusEnabled:get"><apiName>mouseFocusEnabled</apiName><shortdesc>
+      コンポーネントが、クリックされたときにフォーカスを受け付けるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンポーネントが、クリックされたときにフォーカスを受け付けるかどうかを指定します。 <codeph>false</codeph> の場合、フォーカスは <codeph>mouseFocusEnable</codeph> が <codeph>true</codeph> に設定された最初の親に転送されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:tabFocusEnabled:get"><apiName>tabFocusEnabled</apiName><shortdesc>
+      子オブジェクトがフォーカスを取得できるかどうかを示すフラグです。Flash Player で使用される tabEnabled プロパティと似ています。一般に、キーボード入力を処理するコンポーネントの場合は true ですが、コントロールバー内のコンポーネントの中には、エディターなどの他のコンポーネントからフォーカスを取得するべきではないという理由から、false を設定するものもあります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="tabFocusEnabledChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      子オブジェクトがフォーカスを取得できるかどうかを示すフラグ
+     
+      <p>Flash Player で使用される <codeph>tabEnabled</codeph> プロパティと似ています。</p>
+     
+      <p>一般に、キーボード入力を処理するコンポーネントの場合は <codeph>true</codeph> ですが、コントロールバー内のコンポーネントの中には、エディターなどの他のコンポーネントからフォーカスを取得するべきではないという理由から、<codeph>false</codeph> を設定するものもあります。
+      </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:Window"><apiName>Window</apiName><shortdesc>
+  Window は、AIR デスクトップアプリケーションの追加ウィンドウに対する最上位のコンテナです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:Window" replacement="spark.components.Window" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:Window">
+<description>
+  コンポーネントの最小化が解除されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:Window">
+<description>
+  コンポーネントが最小化されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:Window">
+<description>
+  ウィンドウが閉じられたときに再生されます。 
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルテキストのスタイル名です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:Window" playerVersion="AIR1.1" type="Array">
+<description>
+  ヘッダーの描画に使用される 2 色の配列です。 1 つ目の色は上の色です。2 つ目の色は下の色です。 デフォルト値は <codeph>undefined</codeph> であり、ヘッダーの背景はパネルの背景と同じになります。
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  一番外側にあるタイトルバーボタンからタイトルバーの端までの距離です。
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  タイトルの背景のスキンです。
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルバーでのタイトルの位置です。 有効な値は、<codeph>"left"</codeph>、<codeph>"center"</codeph>、<codeph>"auto"</codeph> です。
+ 
+  <p>値 <codeph>"left"</codeph> は、タイトルをタイトルバーの左側に配置することを意味します。 値 <codeph>"center"</codeph> は、タイトルをタイトルバーの中央に配置することを意味します。 値 <codeph>"auto"</codeph> は、タイトルを左側（Windows）または中央（Mac OS X）に配置することを意味します。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  ステータステキストのスタイル宣言です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  ステータスバーの背景のスキンです。
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:Window" playerVersion="AIR1.1" type="uint">
+<description>
+  ステータスバーの描画に使用される色です。
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:Window" playerVersion="AIR1.1" type="Boolean">
+<description>
+  ウィンドウが独自に Flex のクロムを描画するか、クロムの描画を開発者に委ねるかを指定します。ウィンドウが開いた後でこのスタイルを変更しても、効果はありません。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの復元ボタンのスキンです。Mac OS X の場合、このスタイルは無視されます。
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの最小化ボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの最大化ボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  ヘッダーの明示的な高さです。 スタイルが設定されていない場合は、テキストの高さ、ボタンの高さ、およびアイコンの高さのうちの最も大きいものを基準にして、ヘッダーの高さが計算されます。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  グリッパのスキンに使用するスタイル宣言です。
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  グリッパの周囲の追加スペースです。グリッパにその周縁部の追加スペースを加えた合計領域が、グリッパのサイズ変更に使用するヒット領域です。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの閉じるボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  titleBar のボタン間の距離を定義します。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルバーでのボタンの位置です。 有効な値は、<codeph>"left"</codeph>、<codeph>"right"</codeph>、<codeph>"auto"</codeph> です。
+ 
+  <p>値 <codeph>"left"</codeph> は、ボタンをタイトルバーの左側に配置することを意味します。 値 <codeph>"right"</codeph> は、ボタンをタイトルバーの右側に配置することを意味します。 値 <codeph>"auto"</codeph> は、ボタンをタイトルバーの左側（Mac OS X）または右側（Windows）に配置することを意味します。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    height="100"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemChrome="standard"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window は、AIR デスクトップアプリケーションの追加ウィンドウに対する最上位のコンテナです。
+ 
+  <p>Window コンテナは、他のレイアウトコンテナ内では使用できない、という点で特殊なコンテナです。mx:Window コンポーネントは、MXML ドキュメントの最上位コンポーネントである必要があります。</p>
+ 
+  <p>Window コンポーネントを使用してネイティブウィンドウを定義するための最も簡単な方法は、MXML ドキュメントを作成し、そのドキュメントの最上位タグとして <codeph>&lt;mx:Window></codeph> タグを使用することです。 Window コンポーネントの使用方法は、レイアウトのタイプを指定したり、子コントロールを定義したりする場合などを含め、他のコンテナの場合と同様です。他のカスタム MXML コンポーネントと同様に、アプリケーションがコンパイルされると、MXML ドキュメントも Window コンポーネントのサブクラスであるカスタムクラスにコンパイルされます。</p>
+ 
+  <p>アプリケーションコードで、Window サブクラスのインスタンスを画面に表示するには、まずコード内でそのクラスのインスタンスを（変数を定義し、<codeph>new MyWindowClass()</codeph> コンストラクターを呼び出して）作成します。 次に、新しいウィンドウに対して指定する必要のあるプロパティを設定します。 最後に、Window コンポーネントの <codeph>open()</codeph> メソッドを呼び出して、画面上でウィンドウを開きます。</p>
+ 
+  <p>Window クラスの一部のプロパティでは、そのプロパティを<b>先に</b>設定してから <codeph>open()</codeph> メソッドを呼び出してウィンドウを開く必要があることに注意してください。 基になる NativeWindow が作成された後には、これらの初期化プロパティを読み取ることはできますが、変更することはできなくなります。 この制限は、次のプロパティに適用されます。</p>
+ 
+  <ul>
+    <li><codeph>maximizable</codeph></li>
+    <li><codeph>minimizable</codeph></li>
+    <li><codeph>resizable</codeph></li>
+    <li><codeph>systemChrome</codeph></li>
+    <li><codeph>transparent</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  基になる NativeWindow のサイズが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow のサイズが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  ウィンドウの移動後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウの移動後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Window の初期レイアウトが完了し、基になる NativeWindow を開くときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Window の初期レイアウトが完了し、基になる NativeWindow を開くときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  基になる NativeWindow のサイズの変更前、つまり Window オブジェクトの境界のドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow のサイズの変更前、つまり Window オブジェクトの境界のドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  ウィンドウの移動前、およびウィンドウのドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウの移動前、およびウィンドウのドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  最小化、最大化、または復元するために表示状態が変化した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化、または復元するために表示状態が変化した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  ウィンドウが閉じる前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウが閉じる前に送出されます。このイベントはキャンセル可能です。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  このウィンドウが閉じられた後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウが閉じられた後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  このウィンドウが非アクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウが非アクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  このウィンドウがアクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウがアクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  このアプリケーションがアクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションがアクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Window:Window"><apiName>Window</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Window:activate"><apiName>activate</apiName><shortdesc>
+      基になる NativeWindow を（この Window のアプリケーションが現在アクティブでない場合でも）アクティブ化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基になる NativeWindow を（この Window のアプリケーションが現在アクティブでない場合でも）アクティブ化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:close"><apiName>close</apiName><shortdesc>
+      ウィンドウを閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを閉じます。このアクションはキャンセル可能です。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      コンポーネントの親である Window を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの親である Window です。
+      
+      </apiDesc><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Window を検索する対象となるコンポーネントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの親である Window を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      ウィンドウを最小化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最小化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:open"><apiName>open</apiName><shortdesc>
+      基になる NativeWindow を作成して開きます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc> は、ウィンドウがアクティブ化された状態で開くかどうか（つまり、フォーカスを持っているかどうか）を表します。 デフォルト値は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基になる NativeWindow を作成して開きます。閉じられた後でも Window オブジェクトは有効な参照として残りますが、ほとんどのプロパティやメソッドにはアクセスできません。閉じたウィンドウを再び開くことはできません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの前面になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの背後に移動します。IWindow を実装していない NativeWindow の背後にウィンドウを移動するには、このウィンドウの nativeWindow の <codeph>orderInBackOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの背後になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの前面に移動します。IWindow を実装していない NativeWindow の前面にウィンドウを移動するには、このウィンドウの nativeWindow の <codeph>orderInFrontOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:restore"><apiName>restore</apiName><shortdesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:Window:controlBar"><apiName>controlBar</apiName><shortdesc>
+      この Window の ApplicationControlBar です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この Window の ApplicationControlBar です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.containers.ApplicationControlBar.xml"><linktext>mx.containers.ApplicationControlBar</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      基になる NativeWindow を、常に他のウィンドウ（他のアプリケーションのウィンドウも含む）よりも前面に表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      基になる NativeWindow を、常に他のウィンドウ（他のアプリケーションのウィンドウも含む）よりも前面に表示するかどうかを指定します。 このプロパティを設定すると、基になる NativeWindow の <codeph>alwaysInFront</codeph> プロパティが設定されます。 このプロパティがウィンドウの積み重ね順序に与える影響の詳細については、<codeph>NativeWindow.alwaysInFront</codeph> プロパティの説明を参照してください。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      ウィンドウが閉じられているかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウが閉じられているかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      ウィンドウを最大化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最大化できるかどうかを指定します。このプロパティの値は、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      ウィンドウを最小化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最小化できるかどうかを指定します。このプロパティは、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      この Window コンポーネントで使用される、基になる NativeWindow です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      この Window コンポーネントで使用される、基になる NativeWindow です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。このプロパティは、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      true の場合、グリッパは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、グリッパは可視です。 
+     
+      <p>Mac OS X では、<codeph>systemChrome</codeph> が <codeph>"standard"</codeph> に設定されたウィンドウは常にオペレーティングシステムグリッパを持つため、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      true の場合、ステータスバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ステータスバーは可視です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      true の場合、ウィンドウのタイトルバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ウィンドウのタイトルバーは可視です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      ステータスバーとして使用するインスタンスを作成する IFactory です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      ステータスバーとして使用するインスタンスを作成する IFactory です。デフォルト値は、StatusBar の IFactory です。
+     
+      <p>カスタムのステータスバークラスを記述する場合は、<codeph>status</codeph> という名前のパブリックプロパティを公開する必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      ウィンドウからステータスバーに渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ウィンドウからステータスバーに渡すスタイルのセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      ステータスバーを表示する UIComponent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      ステータスバーを表示する UIComponent です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。有効な値のセットは、NativeWindowSystemChrome クラスの定数で定義されます。
+     
+      <p>このプロパティは、いったんウィンドウが開かれた後には読み取り専用になります。</p>
+     
+      <p>デフォルト値は、<codeph>NativeWindowSystemChrome.STANDARD</codeph> です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      タイトルバーとして使用するインスタンスを作成する IFactory です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      タイトルバーとして使用するインスタンスを作成する IFactory です。デフォルト値は、TitleBar の IFactory です。
+     
+      <p>カスタムのタイトルバークラスを記述する場合は、<codeph>titleIcon</codeph> および <codeph>title</codeph> という名前のパブリックプロパティを公開する必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      Window から titleBar に渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Window から titleBar に渡すスタイルのセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      タイトルバーを表示する UIComponent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      タイトルバーを表示する UIComponent です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      ウィンドウを透明にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを透明にするかどうかを指定します。 システムクロムを使用するウィンドウで、このプロパティを <codeph>true</codeph> に設定することはサポートされていません。
+     
+      <p>このプロパティは、ウィンドウが開かれた後には読み取り専用になります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:type:get"><apiName>type</apiName><shortdesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。有効な値のセットは、NativeWindowType クラスの定数で定義されます。
+     
+      <p>このプロパティは、いったんウィンドウが開かれた後には読み取り専用になります。</p>
+     
+      <p>デフォルト値は、<codeph>NativeWindowType.NORMAL</codeph> です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      このウィンドウのウィンドウメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      このウィンドウのウィンドウメニューです。一部のオペレーティングシステムでは、ウィンドウメニューはサポートされていません。その場合、このプロパティは無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:IWindow"><apiName>IWindow</apiName><shortdesc>
+  IWindow インターフェイスは、Flex ベースの AIR アプリケーションで最上位コンテナ（オペレーティングシステムのウィンドウを表すコンテナ）として機能するコンポーネントの API を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IWindow インターフェイスは、Flex ベースの AIR アプリケーションで最上位コンテナ（オペレーティングシステムのウィンドウを表すコンテナ）として機能するコンポーネントの API を定義します。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.core:IWindow:mx.core:IWindow:close"><apiName>close</apiName><shortdesc>
+      ウィンドウを閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを閉じます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:maximize"><apiName>maximize</apiName><shortdesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:minimize"><apiName>minimize</apiName><shortdesc>
+      ウィンドウを最小化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最小化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:restore"><apiName>restore</apiName><shortdesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:IWindow:mx.core:IWindow:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      ウィンドウを最大化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最大化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      ウィンドウを最小化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最小化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Window コンポーネントで使用される、基になる NativeWindow です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Window コンポーネントで使用される、基になる NativeWindow です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:resizable:get"><apiName>resizable</apiName><shortdesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。有効な値のセットは、NativeWindowSystemChrome クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/></apiValueDef><apiDesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:transparent:get"><apiName>transparent</apiName><shortdesc>
+      ウィンドウを透明にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを透明にするかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:type:get"><apiName>type</apiName><shortdesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。有効な値のセットは、NativeWindowType クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:visible:get"><apiName>visible</apiName><shortdesc>
+      ウィンドウの可視性を制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウの可視性を制御します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  WindowedApplication は、AIR アプリケーション用の Flex アプリケーションを作成するために使用するアプリケーションコンテナを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="scriptTimeLimit"/><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:WindowedApplication" replacement="spark.components.WindowedApplication" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  コンポーネントの最小化が解除されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  コンポーネントが最小化されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:WindowedApplication">
+<description>
+  ウィンドウが閉じられたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルテキストのスタイル名です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Array">
+<description>
+  ヘッダーの描画に使用される 2 色の配列です。 1 つ目の色は上の色です。2 つ目の色は下の色です。 デフォルト値は <codeph>undefined</codeph> であり、ヘッダーの背景はパネルの背景と同じになります。
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  一番外側にあるタイトルバーボタンからタイトルバーの端までの距離です。
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  タイトルの背景のスキンです。
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルバーでのタイトルの位置です。 有効な値は、<codeph>"left"</codeph>、<codeph>"center"</codeph>、<codeph>"auto"</codeph> です。
+ 
+  <p>値 <codeph>"left"</codeph> は、タイトルをタイトルバーの左側に配置することを意味します。 値 <codeph>"center"</codeph> は、タイトルをタイトルバーの中央に配置することを意味します。 値 <codeph>"auto"</codeph> は、タイトルを左側（Windows）または中央（Mac OS X）に配置することを意味します。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  ステータステキストのスタイル宣言です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="uint">
+<description>
+  ステータスバーの描画に使用される色です。
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  ステータスバーの背景のスキンです。
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Boolean">
+<description>
+  ウィンドウが独自に Flex のクロムを描画するか、クロムの描画を開発者に委ねるかを指定します。ウィンドウが開いた後でこのスタイルを変更しても、効果はありません。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの復元ボタンのスキンです。Mac OS X の場合、このスタイルは無視されます。
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの最小化ボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの最大化ボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  ヘッダーの明示的な高さです。 スタイルが設定されていない場合は、テキストの高さ、ボタンの高さ、およびアイコンの高さのうちの最も大きいものを基準にして、ヘッダーの高さが計算されます。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  グリッパのスキンに使用するスタイル宣言です。
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  グリッパの周囲の追加スペースです。グリッパにその周縁部の追加スペースを加えた合計領域が、グリッパのサイズ変更に使用するヒット領域です。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Flex のクロムを使用するときの閉じるボタンのスキンです。
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  titleBar のボタン間の距離を定義します。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  タイトルバーでのボタンの位置です。 有効な値は、<codeph>"left"</codeph>、<codeph>"right"</codeph>、<codeph>"auto"</codeph> です。
+ 
+  <p>値 <codeph>"left"</codeph> は、ボタンをタイトルバーの左側に配置することを意味します。 値 <codeph>"right"</codeph> は、ボタンをタイトルバーの右側に配置することを意味します。 値 <codeph>"auto"</codeph> は、ボタンをタイトルバーの左側（Mac OS X）または右側（Windows）に配置することを意味します。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="-1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    useNativeDragManager="true"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication は、AIR アプリケーション用の Flex アプリケーションを作成するために使用するアプリケーションコンテナを定義します。
+ 
+  <p>WindowedApplication は、2 つの役割を果たします。これは &lt;mx:Application> タグの代わりに使用され、Flex ベースの AIR アプリケーションへのエントリポイントとして機能します。また、WindowedApplication はコンテナとして、Flex AIR アプリケーションの最初のウィンドウのレイアウトを定義します。WindowedApplication で定義されたすべてのビジュアルコントロールは、AIR アプリケーションによってロードされる最初のウィンドウのコンテンツになります。</p>
+ 
+  <p>WindowedApplication は、Flex ベースの AIR アプリケーションの最上位アプリケーションです。他の Flex アプリケーションによってロードされるように設計されていません。WindowedApplication で他のアプリケーションをロードする必要がある場合は、これらのアプリケーションのコンテナとして Application クラスを使用します。他のウィンドウが必要な場合は、これらのウィンドウのコンテナとして Window クラスを使用します。</p>
+  
+  <p>WindowedApplication は、マルチウィンドウアプリケーションのすべてのウィンドウではなく、単一のウィンドウのビジュアルコンテンツのみを表すため、WindowedApplication のインスタンスは、アプリケーション内の他のウィンドウで発生したイベントについてではなく、それ自身のステージおよびウィンドウについての表示関連のイベント（WindowedApplication クラスが InteractiveObject や UIComponent などの表示オブジェクトの基本クラスから継承したイベント）のみを送出します。この点で、Application コンテナがアプリケーションのすべてのウィンドウのイベントを送出する、ブラウザーベースのアプリケーションとは異なっています（ブラウザーベースのアプリケーションでは、技術的にはウィンドウはすべて、単一の Application ステージにレンダリングされる表示オブジェクトです）。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  基になる NativeWindow オブジェクトのサイズが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow オブジェクトのサイズが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  WindowedApplication オブジェクトの移動後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトの移動後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  WindowedApplication が初期レイアウトを完了すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication が初期レイアウトを完了すると送出されます。デフォルトでは、WindowedApplication はこの時点で表示されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  WindowedApplication オブジェクトのサイズの変更前、つまり WindowedApplication オブジェクトの境界のドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトのサイズの変更前、つまり WindowedApplication オブジェクトの境界のドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  WindowedApplication オブジェクトの移動前、つまり WindowedApplication オブジェクトのドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトの移動前、つまり WindowedApplication オブジェクトのドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  アプリケーションが起動されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  アプリケーションが起動されたときに送出されます。
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  最小化、最大化、または復元するために表示状態が変化した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化、または復元するために表示状態が変化した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  WindowedApplication ウィンドウが閉じる前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication ウィンドウが閉じる前に送出されます。キャンセル可能です。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  このアプリケーションウィンドウが閉じられた後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウが閉じられた後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  このアプリケーションウィンドウが非アクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウが非アクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  このアプリケーションウィンドウがアクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウがアクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  このアプリケーションがアクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションがアクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      （このアプリケーションがアクティブなアプリケーションでない場合でも）基になる NativeWindow をアクティブ化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      （このアプリケーションがアクティブなアプリケーションでない場合でも）基になる NativeWindow をアクティブ化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      アプリケーションの NativeWindow （アプリケーションによって開かれた最初のネイティブウィンドウ）を閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アプリケーションの NativeWindow （アプリケーションによって開かれた最初のネイティブウィンドウ）を閉じます。このアクションはキャンセル可能です。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      ウィンドウを閉じ、アプリケーションを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを閉じ、アプリケーションを終了します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      ウィンドウを最小化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最小化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの前面になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの背後に移動します。IWindow を実装していない NativeWindow の背後にウィンドウを移動するには、このウィンドウの NativeWindow の <codeph>orderInBackOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの背後になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの前面に移動します。IWindow を実装していない NativeWindow の前面にウィンドウを移動するには、このウィンドウの NativeWindow の <codeph>orderInFrontOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:WindowedApplication:useNativeDragManager"><apiName>useNativeDragManager</apiName><shortdesc>
+      true の場合、DragManager は NativeDragManagerImpl 実装クラスを使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、DragManager は NativeDragManagerImpl 実装クラスを使用します。<codeph>false</codeph> の場合は、DragManagerImpl クラスを使用します。 
+       
+      <p>メモ：このプロパティは ActionScript コードでは設定できません。MXML コードで設定する必要があります。つまり、実行時にその値は変更できません。</p>
+     
+      <p>デフォルトでは、Flex で作成する AIR アプリケーションの DragManager は、実装クラスとして NativeDragManagerImpl クラスを使用します。Flex で作成する Flash Player アプリケーションは、DragManagerImpl クラスを使用します。 </p>
+     
+      <p>NativeDragManagerImpl クラスは、AIR NativeDragManager API および Flex DragManager API 間のブリッジです。AIR NativeDragManager クラスは、オペレーティングシステムのドラッグ＆ドロップ API を使用します。AIR ウィンドウ間のドラッグ、およびオペレーティングシステムと AIR 間のドラッグをサポートしています。オペレーティングシステムがドラッグ＆ドロップ操作を制御しているので、ドラッグ時のカーソルをカスタマイズすることはできません。また、ドロップアニメーションを制御することもできません。この動作はオペレーティングシステムに依存しており、異なるプラットフォームでは一貫性がない場合があります。</p>
+     
+      <p>DragManagerImpl クラスは、ドラッグ＆ドロップ時にオペレーティングシステムを使用しません。代わりに、ドラッグ＆ドロッププロセス全体を制御します。このクラスは、カーソルのカスタマイズをサポートしており、ドロップアニメーションを提供します。ただし、AIR ウィンドウ間のドラッグ、およびオペレーティングシステムと AIR ウィンドウ間のドラッグは行うことができません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      基になる NativeWindow を、常に他のウィンドウよりも前面に表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      基になる NativeWindow を、常に他のウィンドウよりも前面に表示するかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      AIR がアプリケーションの識別に使用する識別子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      AIR がアプリケーションの識別に使用する識別子です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      最後のウィンドウが閉じたときに、AIR アプリケーションが終了するか、バックグラウンドで実行を継続するかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      最後のウィンドウが閉じたときに、AIR アプリケーションが終了するか、バックグラウンドで実行を継続するかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      アプリケーションが非アクティブのときに使用するフレームレートを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アプリケーションが非アクティブのときに使用するフレームレートを指定します。-1 を設定すると、背景のフレームレートスロットルは実行されません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      基になるウィンドウが閉じられている場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      基になるウィンドウが閉じられている場合は、true を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      ドックアイコンメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      ドックアイコンメニューです。ドックアイコンメニューをサポートしないオペレーティングシステムもあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      ウィンドウを最大化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最大化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      アプリケーションメニューをサポートするオペレーティングシステムのアプリケーションメニュー、またはウィンドウメニューをサポートするオペレーティングシステムのアプリケーションの最初のウィンドウのウィンドウメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      アプリケーションメニューをサポートするオペレーティングシステムのアプリケーションメニュー、またはウィンドウメニューをサポートするオペレーティングシステムのアプリケーションの最初のウィンドウのウィンドウメニューです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      ウィンドウを最小化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最小化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      AIR アプリケーションを表す NativeApplication オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      AIR アプリケーションを表す NativeApplication オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      この WindowedApplication コンポーネント（アプリケーションの最初のネイティブウィンドウ）によって使用される NativeWindow です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      この WindowedApplication コンポーネント（アプリケーションの最初のネイティブウィンドウ）によって使用される NativeWindow です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      true の場合、グリッパは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、グリッパは可視です。 
+     
+      <p>Mac OS X では、<codeph>systemChrome</codeph> が <codeph>"standard"</codeph> に設定されたウィンドウは常にオペレーティングシステムグリッパを持つため、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      true の場合、ステータスバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ステータスバーは可視です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      true の場合、ウィンドウのタイトルバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ウィンドウのタイトルバーは可視です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      ステータスバーとして使用するインスタンスを作成する IFactory です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      ステータスバーとして使用するインスタンスを作成する IFactory です。デフォルト値は、StatusBar の IFactory です。
+     
+      <p>カスタムのステータスバークラスを記述する場合は、<codeph>status</codeph> という名前のパブリックプロパティを公開する必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      WindowedApplication からステータスバーに渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      WindowedApplication からステータスバーに渡すスタイルのセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      ステータスバーを表示する UIComponent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      ステータスバーを表示する UIComponent です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。有効な値のセットは、NativeWindowSystemChrome クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      システムトレイアイコンメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      システムトレイアイコンメニューです。システムトレイアイコンメニューをサポートしないオペレーティングシステムもあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      タイトルバーとして使用するインスタンスを作成する IFactory です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      タイトルバーとして使用するインスタンスを作成する IFactory です。デフォルト値は、TitleBar の IFactory です。
+     
+      <p>カスタムのタイトルバークラスを記述する場合は、<codeph>titleIcon</codeph> および <codeph>title</codeph> という名前のパブリックプロパティを公開する必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      WindowedApplication から titleBar に渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      WindowedApplication から titleBar に渡すスタイルのセットです。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      タイトルバーを表示する UIComponent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      タイトルバーを表示する UIComponent です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルです。 システムクロムを使用する場合、application.xml でこのプロパティを &lt;title> タグ以外に設定すると、XML ファイルから取得されたタイトルが最初に短時間だけ表示されることがあります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      ウィンドウを透明にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを透明にするかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。有効な値のセットは、NativeWindowType クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

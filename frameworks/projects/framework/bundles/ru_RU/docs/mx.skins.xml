@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins"><apiName>mx.skins</apiName><apiDetail/><apiClassifier id="mx.skins:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+  Класс RectangularBorder является абстрактным базовым классом для различных классов, обеспечивающих вывод прямоугольных границ вокруг элементов UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IRectangularBorder</apiBaseInterface><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RectangularBorder является абстрактным базовым классом для различных классов, обеспечивающих вывод прямоугольных границ вокруг элементов UIComponent.
+ 
+  <p>Этот класс обеспечивает реализацию поддержки стилей <codeph>backgroundImage</codeph>, <codeph>backgroundSize</codeph> и <codeph>backgroundAttachment</codeph>.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:RectangularBorder:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:RectangularBorder:layoutBackgroundImage"><apiName>layoutBackgroundImage</apiName><shortdesc>
+      Размещение фонового изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Размещение фонового изображения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:RectangularBorder:backgroundImageBounds:get"><apiName>backgroundImageBounds</apiName><shortdesc>
+      Прямоугольная область, в рамках которой будет отображено фоновое изображение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Прямоугольная область, в рамках которой будет отображено фоновое изображение. Она может превышать размеры, заданные границами, если вышестоящий контейнер включает содержимое с возможностью прокрутки. Если указанное свойство имеет значение null, для определения требуемого значения границами может использоваться размер вышестоящего элемента и свойство <codeph>viewMetrics</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:RectangularBorder:hasBackgroundImage:get"><apiName>hasBackgroundImage</apiName><shortdesc>
+      Содержит значение true, если экземпляр RectangularBorder содержит фоновое изображение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если экземпляр RectangularBorder содержит фоновое изображение.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+  Этот класс является базовым классом для элементов темы оформления, обеспечивающих собственное отображение программным способом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:FlexShape</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс является базовым классом для элементов темы оформления, обеспечивающих собственное отображение программным способом.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:ProgrammaticSkin:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:ProgrammaticSkin:protected:drawRoundRect"><apiName>drawRoundRect</apiName><shortdesc>
+	  Обеспечивает отображение прямоугольника в объекте Graphics указанной темы оформления программным способом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Горизонтальная координата верхнего левого угла прямоугольника в указанной теме оформления.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Вертикальная координата верхнего левого угла прямоугольника в указанной теме оформления.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина прямоугольника в пикселях.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота прямоугольника в пикселях.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Радиус/радиусы скругления углов прямоугольника. Может принимать значение <codeph>null</codeph>, являться числом или объектом. Значение <codeph>null</codeph> указывает на то, что углы должны быть прямыми, а не скругленными. Числовое значение указывает на одинаковый радиус в пикселях для всех четырех углов. Если используется объект, он должен обладать свойствами с именами <codeph>tl</codeph>, <codeph>tr</codeph>, <codeph>bl</codeph> и <codeph>br</codeph>, значениями которых являются числа, характеризующие радиус в пикселях для левого верхнего, правого верхнего, левого нижнего и правого нижнего углов. Например, можно передать простой объект в виде <codeph>{ tl: 5, tr: 5, bl: 0, br: 0 }</codeph>. По умолчанию используется значение null (квадратные углы).
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Цвет заливки в модели RGB. Может принимать значение <codeph>null</codeph>, являться параметром uint или массивом. Если значение равно <codeph>null</codeph>, заливка прямоугольника не осуществляется. Параметр uint определяет цвет заливки в модели RGB. Например, для заливки красным цветом передается значение <codeph>0xFF0000</codeph>. Если значением является массив, он должен содержать элементы uint, определяющие цвета градиента. Например, для заполнения с использованием градиента «красный-желтый-синий» передается значение <codeph>[0xFF0000, 0xFFFF00, 0x0000FF]</codeph>. В градиенте можно указать до 15 цветов. По умолчанию применяется значение null (нет заливки).
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Значение альфа-канала для заливки. Может принимать значение null, являться числом или массивом. Если значением свойства <codeph>color</codeph> является null, этот аргумент игнорируется. Если в качестве значения свойства <codeph>color</codeph> задан элемент uint, указывающий цвет заливки в модели RGB, то значением свойства <codeph>alpha</codeph> должно являться целое число, определяющее прозрачность заливки, для которого 0,0 соответствует полной прозрачности, а 1,0 – полной непрозрачности. Для указания полной непрозрачности вместо значения 1,0 также можно передать значение null. Если значением свойства <codeph>color</codeph> является массив, задающий цвета градиента, то свойство <codeph>alpha</codeph> должно содержать массив числовых значений с той же длиной, указывающий соответствующие значения альфа-фактора для градиента. В этом случае, значением по умолчанию является <codeph>null</codeph> (полностью непрозрачно).
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>gradientMatrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>Объект матрицы, используемый для градиентной заливки. Для создания значения этого параметра применяются служебные методы <codeph>horizontalGradientMatrix()</codeph>, <codeph>verticalGradientMatrix()</codeph> и <codeph>rotatedGradientMatrix()</codeph>.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientType</apiItemName><apiType value="String"/><apiData>linear</apiData><apiDesc>Тип градиентной заливки. Возможные значения: <codeph>GradientType.LINEAR</codeph> или <codeph>GradientType.RADIAL</codeph>. (Класс GradientType находится в пакете flash.display.)
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientRatios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>(необязательное значение по умолчанию [0,255]). Указывает распределение цветов. Количество значений должно соответствовать числу цветов, определенных в параметре <codeph>color</codeph>. Каждое значение определяет процентное значение ширины, на которой цвет представлен на 100 %. Значение 0 обозначает левую позицию окна градиента, а 255 - правую. 
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hole</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>(необязательно) Прямоугольное отверстие со скругленными углами, которое должно быть выделено в середине прямоугольника со скругленными углами и сплошной заливкой { x: #, y: #, w: #, h: #, r: # или { br: #, bl: #, tl: #, tr: # } }
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Обеспечивает отображение прямоугольника в объекте Graphics указанной темы оформления программным способом.
+	 
+	  <p>Прямоугольник может иметь скругленные углы. Его края отображаются штрихами с использованием текущего стиля линии объекта Graphics. Он может быть залит одним цветом, градиентом или не иметь заливки. Для сплошной заливки может существовать значение прозрачности альфа-канала. Градиентная заливка может быть линейной или радиальной. В определенных точках градиента можно указать до 15 значений цветов и значений альфа-фактора. Кроме того, существует возможность задать угол поворота и матрицу преобразования градиента. Наконец, прямоугольник может включать прямоугольное отверстие со скругленными углами, выделенное в его середине.</p>
+	 
+	  <p>Эта универсальная подпрограмма отображения прямоугольника применяется многими темами оформления. Она обеспечивает вызов методов <codeph>drawRect()</codeph> или <codeph>drawRoundRect()</codeph> (в классе flash.display.Graphics) для рисования данного объекта Graphics темы оформления.</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#Graphics/beginGradientFill()"><linktext>flash.display.Graphics.beginGradientFill()</linktext></link></related-links></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:getStyle"><apiName>getStyle</apiName><shortdesc>
+      Возвращает значение определенных свойств стиля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение стиля. Любой тип объекта, который может являться значением свойств стиля, например int, Number, String и т. д.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение определенных свойств стиля.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:horizontalGradientMatrix"><apiName>horizontalGradientMatrix</apiName><shortdesc>
+	  Служебная функция для создания матрицы горизонтального градиента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Матрица горизонтального градиента. Это временный объект, который должен использоваться только для однократного последующего вызова метода <codeph>drawRoundRect()</codeph>.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Левый край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Верхний край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота градиента.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Служебная функция для создания матрицы горизонтального градиента.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+	  
+	  Выполнение вызова этого метода приводит к вызову метода validateProperties() компонента до визуализации списка отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  Выполнение вызова этого метода приводит к вызову метода <codeph>validateProperties()</codeph> компонента до визуализации списка отображения.
+	 
+	  <p>Для компонентов, расширяющих UIComponent, это означает, что вызван метод <codeph>commitProperties()</codeph>.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+	  
+	  Вызов этого метода приводит к вызову метода validateSize() компонента до визуализации списка отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  Вызов этого метода приводит к вызову метода <codeph>validateSize()</codeph> компонента до визуализации списка отображения.
+	 
+	  <p>Для компонентов, расширяющих UIComponent, это означает, что вызван метод <codeph>measure()</codeph> до тех пор, пока не установлены свойства <codeph>explicitWidth</codeph> и <codeph>explicitHeight</codeph> для компонента.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:move"><apiName>move</apiName><shortdesc>
+	  Перемещает этот объект по указанным координатам осей x и y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Расположение по горизонтали в пикселях.
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Расположение по вертикали в пикселях.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Перемещает этот объект по указанным координатам осей x и y.
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:rotatedGradientMatrix"><apiName>rotatedGradientMatrix</apiName><shortdesc>
+	  Служебная функция для создания перевернутой матрицы градиентов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Матрица горизонтального градиента. Это временный объект, который должен использоваться только для однократного последующего вызова метода <codeph>drawRoundRect()</codeph>.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Левый край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Верхний край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="Number"/><apiDesc>Угол поворота в градусах.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Служебная функция для создания перевернутой матрицы градиентов.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+	  Устанавливает высоту и ширину этого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>Ширина этого объекта в пикселях.
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>Высота этого объекта в пикселях.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Устанавливает высоту и ширину этого объекта.
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+	  При каждом изменении стиля необходимо повторно создавать данную тему оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя измененного свойства стиля или значение null при изменении всех стилей для этого компонента.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  При каждом изменении стиля необходимо повторно создавать данную тему оформления. Подклассы могут переопределять этот метод и выполнять более подробное тестирование перед выполнением вызова invalidateDisplayList().
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+	  Обеспечивает программное отображение рисунка для этой темы оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>  Ширина этого объекта в пикселях перед любым масштабированием.
+	 
+          </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>  Высота этого объекта в пикселях перед любым масштабированием.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Обеспечивает программное отображение рисунка для этой темы оформления.
+	 
+	  <p>Подклассы должны обеспечить отмену этого метода и включать вызов методов, таких как <codeph>graphics.moveTo()</codeph> и <codeph>graphics.lineTo()</codeph>.</p>
+	 
+	  <p>Это осуществляется перед любым масштабированием исходных данных, например эффектом масштабирования или кода пользователя. Масштабирование, выполняемое позднее, в компоненте не учитывается.</p> 
+	 
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+	  Эта функция вызывается LayoutManager, когда данный элемент управления должен обеспечивать собственное отображение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Эта функция вызывается LayoutManager, когда данный элемент управления должен обеспечивать собственное отображение. Фактическое отображение производится в функции <codeph>updateDisplayList</codeph>, вызываемой этой функцией.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  Проверяет и обновляет свойства и макет этого объекта, а также перерисовывает его в случае необходимости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Проверяет и обновляет свойства и макет этого объекта, а также перерисовывает его в случае необходимости.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+	  Эта функция является пустой заглушкой, позволяющей элементу ProgrammaticSkin обеспечить реализацию интерфейса ILayoutManagerClient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Эта функция является пустой заглушкой, позволяющая элементу ProgrammaticSkin обеспечить реализацию интерфейса ILayoutManagerClient. Метод <codeph>LayoutManager.invalidateProperties()</codeph>, который обычно может инициировать вызов этого метода, не вызывается темами оформления.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateSize"><apiName>validateSize</apiName><shortdesc>
+	  Эта функция является пустой заглушкой, позволяющей элементу ProgrammaticSkin обеспечить реализацию интерфейса ILayoutManagerClient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, подлежат ли проверки нижестоящие элементы этой темы оформления. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Эта функция является пустой заглушкой, позволяющая элементу ProgrammaticSkin обеспечить реализацию интерфейса ILayoutManagerClient. Метод <codeph>LayoutManager.invalidateSize()</codeph>, который обычно может инициировать вызов данного метода, не вызывается темами оформления.
+         
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:verticalGradientMatrix"><apiName>verticalGradientMatrix</apiName><shortdesc>
+	  Служебная функция для создания вертикальной матрицы градиентов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Матрица горизонтального градиента. Это временный объект, который должен использоваться только для однократного последующего вызова метода <codeph>drawRoundRect()</codeph>.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Левый край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Верхний край градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина градиента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота градиента.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Служебная функция для создания вертикальной матрицы градиентов.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:ProgrammaticSkin:initialized:get"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+	  Рассчитанная высота этого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Рассчитанная высота этого объекта. Она должна быть переопределена подклассами для возвращения предпочтительной высоты в тему оформления.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+	  Измеренная ширина этого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Измеренная ширина этого объекта. Она должна быть переопределена подклассами для возвращения предпочтительной ширины в тему оформления.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc conref="mx.core.UIComponent#processedDescriptors">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#processedDescriptors">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:styleName:get"><apiName>styleName</apiName><shortdesc>
+      Вышестоящий компонент, используемый для получения значений стиля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Вышестоящий компонент, используемый для получения значений стиля. Как правило, в этом качестве устанавливается компонент, обеспечивший создание данной темы оформления.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+	  Флаг, определяющий, прошел ли объект все три фазы проверки макета (при условии, что все они требовались).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Флаг, определяющий, прошел ли объект все три фазы проверки макета (при условии, что все они требовались).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:Border"><apiName>Border</apiName><shortdesc>
+  Класс Border является абстрактным базовым классом для различных классов, обеспечивающих вывод границ (как прямоугольных, так и непрямоугольных) вокруг элементов UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3321
+  
+  </helpid></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>
+  </apiTipText></apiTipTexts><apiBaseInterface>mx.core:IBorder</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Border является абстрактным базовым классом для различных классов, обеспечивающих вывод границ (как прямоугольных, так и непрямоугольных) вокруг элементов UIComponent. Этот класс не обеспечивает выполнения фактических операций рисования.
+ 
+  <p>При создании нового класса для непрямоугольных границ этот класс должен быть расширен. При создании нового класса для прямоугольных границ следует расширить абстрактный подкласс RectangularBorder.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:Border:Border"><apiName>Border</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins:Border:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+	  Толщина ограничивающей рамки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:EdgeMetrics</apiValueClassifier></apiValueDef><apiDesc>
+	  Толщина ограничивающей рамки.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

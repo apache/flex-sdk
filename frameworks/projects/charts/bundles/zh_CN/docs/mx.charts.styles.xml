@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.styles"><apiName>mx.charts.styles</apiName><apiDetail/><apiClassifier id="mx.charts.styles:HaloDefaults"><apiName>HaloDefaults</apiName><shortdesc>
+  初始化图表类的核心默认样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  初始化图表类的核心默认样式。每个图表和元素都负责初始化各自的样式值，但都依赖于由 HaloDefaults 类计算的公用值。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.charts.styles:HaloDefaults:createSelector"><apiName>createSelector</apiName><shortdesc>
+	  创建一个 CSSStyleDeclaration 对象，或返回一个现有对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与提供的选择器名称相匹配的 CSSStyleDeclaration 对象。如果没有与该名称匹配的 CSSStyleDeclaration 对象，此方法将创建一个新对象，并将其返回。
+	  
+	  </apiDesc><apiType value="mx.styles:CSSStyleDeclaration"/></apiReturn><apiParam><apiItemName>selectorName</apiItemName><apiType value="String"/><apiDesc>要返回的选择器的名称。如果没有与该名称匹配的现有 CSSStyleDeclaration 对象，此方法将创建一个新对象，并将其返回。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>要用于获取和设置样式声明的 styleManager 实例。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  创建一个 CSSStyleDeclaration 对象，或返回一个现有对象。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.charts.styles:HaloDefaults:init"><apiName>init</apiName><shortdesc>
+	  初始化供图表和元素类的默认样式使用的公用值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>要用于获取和设置样式声明的 styleManager 实例。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  初始化供图表和元素类的默认样式使用的公用值。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

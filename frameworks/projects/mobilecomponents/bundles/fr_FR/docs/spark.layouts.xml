@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:ViewMenuLayout"><apiName>ViewMenuLayout</apiName><shortdesc>
+  La classe ViewMenuLayout définit la présentation du conteneur ViewMenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ViewMenuLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ViewMenuLayout 
+    <strong>Properties</strong>
+    horizontalGap="2"
+    requestedMaxColumnCount="3"
+    verticalGap="2"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ViewMenuLayout définit la présentation du conteneur ViewMenu. Le menu peut avoir plusieurs rangées selon le nombre d’éléments de menu.
+ 
+  <p>La propriété <codeph>requestedMaxColumnCount</codeph> définit le nombre maximal d’éléments de menu dans une rangée. Par défaut, la propriété est définie sur trois.</p>
+ 
+  <p>La classe ViewMenuLayout définit la présentation comme suit : </p>
+  
+  <ul>
+    <li>Si vous définissez trois éléments de menu ou moins, dans lesquels la propriété <codeph>requestedMaxColumnCount</codeph> contient la valeur par défaut de trois, les éléments de menu sont affichés dans une seule rangée. Chaque élément de menu a la même taille. 
+       <p>Si vous définissez quatre éléments de menu ou plus, ce qui signifie plus d’éléments de menu qu’il n’en est spécifié par la propriété <codeph>requestedMaxColumnCount</codeph>, le conteneur ViewMenu crée plusieurs rangées.</p></li>
+    <li>Si le nombre d’éléments de menu est divisible de façon égale par la propriété <codeph>requestedMaxColumnCount</codeph>, chaque rangée contient le même nombre d’éléments de menu. Chaque élément de menu a la même taille.
+       <p>Par exemple, la propriété <codeph>requestedMaxColumnCount</codeph> est définie sur la valeur par défaut de trois et vous définissez six éléments de menu. Le menu affiche deux lignes, chacune contenant trois éléments de menu. </p></li>
+    <li>Si le nombre d’éléments de menu n’est pas divisible de façon égale par la propriété <codeph>requestedMaxColumnCount</codeph>, les rangées peuvent contenir un nombre différent d’éléments de menu. La taille des éléments de menu dépend du nombre d’éléments de menu dans la rangée. 
+       <p>Par exemple, la propriété <codeph>requestedMaxColumnCount</codeph> est définie sur la valeur par défaut de trois et vous définissez huit éléments de menu. Le menu affiche trois lignes. La première rangée contient deux éléments de menu. Les deuxième et troisième lignes contiennent chacune trois éléments. </p></li>
+  </ul>
+  
+  <p>Vous pouvez créer votre propre présentation personnalisée pour le menu en créant votre propre classe de présentation. Par défaut, la classe spark.skins.mobile.ViewMenuSkin définit l’habillage du conteneur ViewMenu. Pour appliquer une classe ViewMenuLayout personnalisée au conteneur ViewMenu, définissez une nouvelle classe d’habillage pour le conteneur ViewMenu. </p>
+ 
+  <p>La classe ViewMenuSkin comprend la définition d’un conteneur Group nommé <codeph>contentGroup</codeph>, comme indiqué ci-dessous :</p>
+ 
+  <pre>
+    &lt;s:Group id="contentGroup" left="0" right="0" top="3" bottom="2" 
+        minWidth="0" minHeight="0"> 
+        &lt;s:layout> 
+            &lt;s:ViewMenuLayout horizontalGap="2" verticalGap="2" id="contentGroupLayout" 
+                requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/> 
+        &lt;/s:layout> 
+    &lt;/s:Group></pre>
+ 
+  <p>Pour appliquer votre classe ViewMenuLayout personnalisée, votre classe d’habillage doit définir un conteneur nommé <codeph>contentGroup</codeph>. Ce conteneur utilise la propriété <codeph>layout</codeph> pour spécifier votre classe de mise en forme personnalisée. </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewMenu"><linktext>spark.components.ViewMenu</linktext></link><link href="spark.components.xml#ViewMenuItem"><linktext>spark.components.ViewMenuItem</linktext></link><link href="" invalidHref="spark.skins.mobile.ViewMenuSkin.xml"><linktext>spark.skins.mobile.ViewMenuSkin</linktext></link></related-links><apiConstructor id="spark.layouts:ViewMenuLayout:ViewMenuLayout"><apiName>ViewMenuLayout</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts:ViewMenuLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      L’espace horizontal entre les colonnes, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L’espace horizontal entre les colonnes, en pixels.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#ViewMenuLayout/verticalGap"><linktext>verticalGap</linktext></link></related-links></apiValue><apiValue id="spark.layouts:ViewMenuLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      Le nombre maximal de colonnes à afficher dans une rangée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le nombre maximal de colonnes à afficher dans une rangée. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ViewMenuLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      L’espace vertical entre les lignes, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L’espace vertical entre les lignes, en pixels.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#ViewMenuLayout/horizontalGap"><linktext>horizontalGap</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

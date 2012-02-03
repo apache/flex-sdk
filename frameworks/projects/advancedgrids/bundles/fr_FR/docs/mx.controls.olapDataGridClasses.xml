@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.olapDataGridClasses"><apiName>mx.controls.olapDataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider"><apiName>OLAPDataGridItemRendererProvider</apiName><shortdesc>
+  Une occurrence OLAPDataGridItemRendererProvider vous permet de spécifier un formateur pour les éléments du contrôle OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Une occurrence OLAPDataGridItemRendererProvider vous permet de spécifier un formateur pour les éléments du contrôle OLAPDataGrid. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.formatters.Formatter.xml"><linktext>mx.formatters.Formatter</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider:formatter"><apiName>formatter</apiName><shortdesc>
+      Occurrence de la classe Formatter ou d’une sous-classe de la classe Formatter, appliquée au texte de l’élément IOLAPElement associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.formatters:Formatter"/></apiValueDef><apiDesc>
+      Occurrence de la classe Formatter ou d’une sous-classe de la classe Formatter, appliquée au texte de l’élément IOLAPElement associé.
+     
+      <p>Appliquez par exemple un formateur CurrencyFormatter à un contrôle OLAPDataGrid, comme l’illustre l’exemple suivant :</p>
+     
+      <pre>
+      &lt;mx:CurrencyFormatter id="usdFormatter" precision="2" 
+          currencySymbol="$" decimalSeparatorFrom="."
+          decimalSeparatorTo="." useNegativeSign="true" 
+          useThousandsSeparator="true" alignSymbol="left"/>
+      
+      ...
+      
+      &lt;mx:OLAPDataGrid id="myOLAPDG" 
+          width="100%" height="100%">
+      
+          &lt;mx:itemRendererProviders>
+              &lt;mx:OLAPDataGridItemRendererProvider 
+                  uniqueName="[QuarterDim].[Quarter]"
+                  type="{OLAPDataGrid.OLAP_HIERARCHY}"
+                  formatter="{usdFormatter}"/>
+          &lt;/mx:itemRendererProviders>
+      &lt;/mx:OLAPDataGrid></pre>
+     
+      <p>Dans cet exemple, les propriétés <codeph>uniqueName</codeph> et <codeph>type</codeph> spécifient que Quarter est une hiérarchie de la dimension QuarterDim. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+  La classe OLAPDataGridGroupRenderer définit le rendu d’élément par défaut d’un rendu de groupe d’un contrôle OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="horizontalAlign" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="String">
+<description>
+  Couleur du composant s’il est désactivé. La valeur par défaut est <codeph>0xAAB3B3</codeph>.
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur du composant s’il est désactivé. La valeur par défaut est <codeph>0xAAB3B3</codeph>.
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de texte de l’étiquette d’un composant. La valeur par défaut est <codeph>0x0B333C</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe OLAPDataGridGroupRenderer définit le rendu d’élément par défaut d’un rendu de groupe d’un contrôle OLAPDataGrid. Une occurrence de cette classe est la valeur par défaut de la propriété <codeph>OLAPDataGrid.groupItemRenderer</codeph>.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Distribué lorsque la propriété data change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>data</codeph> change.
+ 
+  <p>Lorsque vous utilisez un composant comme rendu d’élément, la propriété <codeph>data</codeph> contient les données à afficher. Vous pouvez écouter cet événement et mettre à jour le composant lorsque la propriété <codeph>data</codeph> change.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Implémentation de la propriété data, telle que définie par l’interface IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>data</codeph>, telle que définie par l’interface IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Implémentation de la propriété listData, telle que définie par l’interface IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>listData</codeph>, telle que définie par l’interface IDropInListItemRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider"><apiName>OLAPDataGridRendererProvider</apiName><shortdesc>
+  La classe OLAPDataGridRendererProvider définit la classe de base pour affecter les rendus d’élément utilisés par le contrôle OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe OLAPDataGridRendererProvider définit la classe de base pour affecter les rendus d’élément utilisés par le contrôle OLAPDataGrid. Utilisez les propriétés de la classe OLAPDataGridRendererProvider pour configurer l’endroit où un rendu d’élément est utilisé dans un contrôle OLAPDataGrid.
+ 
+  <p>Chaque cellule d’un contrôle OLAPDataGrid est le résultat d’une intersection entre les membres le long d’une rangée et les membres le long d’une colonne du contrôle. Toutefois, lorsque vous affectez un rendu d’élément à un contrôle OLAPDataGrid, vous ne spécifiez les propriétés <codeph>uniqueName</codeph> et <codeph>type</codeph> que pour une des dimensions, que ce soit la rangée ou la colonne. Par conséquent, vous pouvez créer une situation dans laquelle deux rendus d’élément différents sont affectés à la même cellule du contrôle.</p>
+  
+  <p>En cas de conflit entre deux rendus d’élément ou plus, le contrôle OLAPDataGrid applique le rendu d’élément en fonction des priorités suivantes : </p>
+ 
+  <ol>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_MEMBER</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph></li> 
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_DIMENSION</codeph></li> 
+  </ol>
+  
+  <p>Ainsi, si un rendu d’élément dont la valeur de type est <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> et un rendu d’élément dont la valeur de type est <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph> sont appliqués à la même cellule, le contrôle OLAPDataGrid applique le rendu d’élément ayant la valeur de type <codeph>OLAPDataGrid.OLAP_LEVEL</codeph>.</p>
+ 
+  <p>Si deux rendus d’élément ont la même valeur de propriété de type, le contrôle OLAPDataGrid détermine quelle fonctionnalité de rendu correspond le mieux à l’élément, et l’utilise.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:styleName"><apiName>styleName</apiName><shortdesc>
+      Nom d’une déclaration de style CSS permettant de contrôler l’apparence de la cellule.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom d’une déclaration de style CSS permettant de contrôler l’apparence de la cellule.
+     
+      <p>Par exemple, définissez le style suivant dans votre application, puis utilisez la propriété <codeph>styleName</codeph> pour l’associer à une hiérarchie spécifique dans un schéma OLAP :</p>
+     
+      <pre>
+      &lt;Style>
+        .monthStyle
+          {
+            color:0x755762
+            fontSize:14
+          }
+      &lt;/Style>
+     
+      &lt;mx:ODGHeaderRendererProvider 
+        type="OLAPDataGrid.OLAP_HIERARCHY" 
+        uniqueName="[Time][Month]" styleName="monthStyle"/> </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:renderer:get"><apiName>renderer</apiName><shortdesc>
+      Objet de la fonctionnalité de rendu utilisé pour personnaliser le contrôle OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Objet de la fonctionnalité de rendu utilisé pour personnaliser le contrôle OLAPDataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:type:get"><apiName>type</apiName><shortdesc>
+      Indique si la fonctionnalité de rendu est appliquée à une dimension (OLAPDataGrid.OLAP_DIMENSION), à une hiérarchie (OLAPDataGrid.OLAP_HIERARCHY), à un niveau (OLAPDataGrid.OLAP_LEVEL) ou à un membre (OLAPDataGrid.OLAP_MEMBER) d’un axe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Indique si la fonctionnalité de rendu est appliquée à une dimension (<codeph>OLAPDataGrid.OLAP_DIMENSION</codeph>), à une hiérarchie (<codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>), à un niveau (<codeph>OLAPDataGrid.OLAP_LEVEL</codeph>) ou à un membre (<codeph>OLAPDataGrid.OLAP_MEMBER</codeph>) d’un axe.
+     
+      <p>Définissez cette propriété en fonction du paramètre de la propriété <codeph>uniqueName</codeph>. Par exemple, si la propriété <codeph>uniqueName</codeph> fait référence à une hiérarchie d’un schéma OLAP, définissez cette propriété sur <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:uniqueName:get"><apiName>uniqueName</apiName><shortdesc>
+      Nom unique de l’élément IOLAPElement auquel la fonctionnalité de rendu est appliquée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom unique de l’élément IOLAPElement auquel la fonctionnalité de rendu est appliquée. Par exemple, "[TimeDim][YearHier][2007]" est un nom unique, dans lequel "2007" est le niveau appartenant à la hiérarchie "YearHier" de la dimension "TimeDim".
+     
+      <p>Les propriétés <codeph>uniqueName</codeph> et <codeph>type</codeph> indiquent ensemble la cible du rendu d’élément. Comme le nom unique "[TimeDim][YearHier][2007]" indique un niveau d’un schéma OLAP, définissez la propriété <codeph>type</codeph> sur <codeph>OLAPDataGrid.OLAP_LEVEL</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider"><apiName>OLAPDataGridHeaderRendererProvider</apiName><shortdesc>
+  La classe OLAPDataGridHeaderRendererProvider vous permet de spécifier un rendu d’en-tête personnalisé pour les colonnes du contrôle OLAPDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe OLAPDataGridHeaderRendererProvider vous permet de spécifier un rendu d’en-tête personnalisé pour les colonnes du contrôle OLAPDataGrid. 
+ 
+  <p>Afin de spécifier un rendu d’en-tête personnalisé pour le contrôle OLAPDataGrid, créez votre rendu d’en-tête personnalisé en tant que sous-classe de la classe OLAPDataGridHeaderRenderer, créez une occurrence de la classe OLAPDataGridHeaderRendererProvider, définissez la propriété <codeph>OLAPDataGridHeaderRendererProvider.renderer</codeph> sur votre rendu d’en-tête personnalisé, puis transmettez l’occurrence OLAPDataGridHeaderRendererProvider au contrôle OLAPDATAGrid en définissant la propriété <codeph>OLAPDataGrid.headerRendererProviders</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer.xml"><linktext>mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider:headerWordWrap"><apiName>headerWordWrap</apiName><shortdesc>
+      La valeur est définie sur true pour renvoyer le texte à la ligne dans l’en-tête de colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      La valeur est définie sur <codeph>true</codeph> pour renvoyer le texte à la ligne dans l’en-tête de colonne.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

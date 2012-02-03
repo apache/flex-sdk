@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core.windowClasses"><apiName>mx.core.windowClasses</apiName><apiDetail/><apiClassifier id="mx.core.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  Die standardmäßige Titelleiste für eine WindowedApplication oder ein Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die standardmäßige Titelleiste für eine WindowedApplication oder ein Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeButtons"><apiName>placeButtons</apiName><shortdesc>
+      Bestimmt die Platzierung der Schaltflächen in der Titelleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>align</apiItemName><apiType value="String"/><apiDesc>Schaltflächenausrichtung
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Breite der Titelleiste
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Höhe der Titelleiste
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>Zulässiger Abstand für Ecken usw. auf linker Seite
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>Zulässiger Abstand für Ecken usw. auf rechter Seite
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cornerOffset</apiItemName><apiType value="Number"/><apiDesc>Zu beachtende Einrückung bei Eckenradius
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bestimmt die Platzierung der Schaltflächen in der Titelleiste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeTitle"><apiName>placeTitle</apiName><shortdesc>
+      Bestimmt die Ausrichtung der Titel in der Titelleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>titleAlign</apiItemName><apiType value="String"/><apiDesc>Ausrichtung der Titel
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>Zulässiger Abstand für Ecken usw. auf linker Seite
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>Zulässiger Abstand für Ecken usw. auf rechter Seite
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonAlign</apiItemName><apiType value="String"/><apiDesc>Ausrichtung der Schaltflächen
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bestimmt die Ausrichtung der Titel in der Titelleiste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      Aufgerufen vom StyleManager bei einer Stiländerung</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Name des geänderten Stils. In einigen Fällen kann das „null“ entsprechen; normalerweise wenn der globale Stil oder styleName geändert wird.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Aufgerufen vom StyleManager bei einer Stiländerung
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core.windowClasses:TitleBar:closeButton"><apiName>closeButton</apiName><shortdesc>
+      Das Button-Objekt, das die Schaltfläche zum Schließen definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Das Button-Objekt, das die Schaltfläche zum Schließen definiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:maximizeButton"><apiName>maximizeButton</apiName><shortdesc>
+      Das Button-Objekt, das die Schaltfläche zum Maximieren definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Das Button-Objekt, das die Schaltfläche zum Maximieren definiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:minimizeButton"><apiName>minimizeButton</apiName><shortdesc>
+      Das Button-Objekt, das die Schaltfläche zum Minimieren definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Das Button-Objekt, das die Schaltfläche zum Minimieren definiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleTextField"><apiName>titleTextField</apiName><shortdesc>
+      Das UITextField in der Titelleiste, in dem der Anwendungstitel angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Das UITextField in der Titelleiste, in dem der Anwendungstitel angezeigt wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Das in der Titelleiste angezeigte Symbol.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Das in der Titelleiste angezeigte Symbol.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      Der Titel, der in der Titelleiste des Fensters und im Dock oder in der Taskleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Titel, der in der Titelleiste des Fensters und im Dock oder in der Taskleiste angezeigt wird.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core.windowClasses:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+  Die standardmäßige Statusleiste für eine WindowedApplication oder ein Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die standardmäßige Statusleiste für eine WindowedApplication oder ein Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:StatusBar:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core.windowClasses:StatusBar:statusTextField"><apiName>statusTextField</apiName><shortdesc>
+      Ein Verweis auf das UITextField, in dem der Text der Statusleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Ein Verweis auf das UITextField, in dem der Text der Statusleiste angezeigt wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:StatusBar:status:get"><apiName>status</apiName><shortdesc>
+      Der String, der in der Statusleiste angezeigt wird, wenn sie sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der String, der in der Statusleiste angezeigt wird, wenn sie sichtbar ist.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

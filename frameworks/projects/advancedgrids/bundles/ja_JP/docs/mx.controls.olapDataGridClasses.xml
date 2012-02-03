@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.olapDataGridClasses"><apiName>mx.controls.olapDataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider"><apiName>OLAPDataGridItemRendererProvider</apiName><shortdesc>
+  OLAPDataGridItemRendererProvider インスタンスにより、OLAPDataGrid コントロール内のアイテムのフォーマッターを指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridItemRendererProvider インスタンスにより、OLAPDataGrid コントロール内のアイテムのフォーマッターを指定できます。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.formatters.Formatter.xml"><linktext>mx.formatters.Formatter</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider:formatter"><apiName>formatter</apiName><shortdesc>
+      関連する IOLAPElement のテキストに適用される Formatter クラスのインスタンスまたは Formatter クラスのサブクラスのインスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.formatters:Formatter"/></apiValueDef><apiDesc>
+      関連する IOLAPElement のテキストに適用される Formatter クラスのインスタンスまたは Formatter クラスのサブクラスのインスタンスです。
+     
+      <p>たとえば、次の例に示すように、CurrencyFormatter フォーマッターを OLAPDataGrid コントロールに適用します。</p>
+     
+      <pre>
+      &lt;mx:CurrencyFormatter id="usdFormatter" precision="2" 
+          currencySymbol="$" decimalSeparatorFrom="."
+          decimalSeparatorTo="." useNegativeSign="true" 
+          useThousandsSeparator="true" alignSymbol="left"/>
+      
+      ...
+      
+      &lt;mx:OLAPDataGrid id="myOLAPDG" 
+          width="100%" height="100%">
+      
+          &lt;mx:itemRendererProviders>
+              &lt;mx:OLAPDataGridItemRendererProvider 
+                  uniqueName="[QuarterDim].[Quarter]"
+                  type="{OLAPDataGrid.OLAP_HIERARCHY}"
+                  formatter="{usdFormatter}"/>
+          &lt;/mx:itemRendererProviders>
+      &lt;/mx:OLAPDataGrid></pre>
+     
+      <p>この例では、<codeph>uniqueName</codeph> プロパティと <codeph>type</codeph> プロパティは、Quarter が QuarterDim 次元の階層であることを指定します。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+  OLAPDataGridGroupRenderer クラスは、OLAPDataGrid コントロールのグループレンダラーのデフォルトのアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="horizontalAlign" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="String">
+<description>
+  コンポーネントが無効である場合の色です。 デフォルト値は <codeph>0xAAB3B3</codeph> です。
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効である場合の色です。 デフォルト値は <codeph>0xAAB3B3</codeph> です。
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントラベルのテキストの色です。 デフォルト値は <codeph>0x0B333C</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridGroupRenderer クラスは、OLAPDataGrid コントロールのグループレンダラーのデフォルトのアイテムレンダラーを定義します。 このクラスのインスタンスは、<codeph>OLAPDataGrid.groupItemRenderer</codeph> プロパティのデフォルト値です。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      このレンダラーにテキストを表示する内部 UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      このレンダラーにテキストを表示する内部 UITextField です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:data:get"><apiName>data</apiName><shortdesc>
+      IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider"><apiName>OLAPDataGridRendererProvider</apiName><shortdesc>
+  OLAPDataGridRendererProvider クラスは、OLAPDataGrid コントロールで使用されるアイテムレンダラーを割り当てるための基本クラスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridRendererProvider クラスは、OLAPDataGrid コントロールで使用されるアイテムレンダラーを割り当てるための基本クラスを定義します。 OLAPDataGrid コントロールでアイテムレンダラーが使用される場所を設定するには、OLAPDataGridRendererProvider クラスのプロパティを使用します。
+ 
+  <p>OLAPDataGrid コントロール内の各セルは、コントロールの行に沿ったメンバーと列に沿ったメンバーの間の交差領域になります。 ただし、アイテムレンダラーを OLAPDataGrid コントロールに割り当てる場合は、行と列のいずれかの次元の <codeph>uniqueName</codeph> プロパティと <codeph>type</codeph> プロパティのみ指定します。 したがって、2 つの異なるアイテムレンダラーを、コントロールの同じセルに割り当てるという状況を作成できます。</p>
+  
+  <p>2 つ以上のアイテムレンダラーの間で競合が発生した場合、OLAPDataGrid コントロールは次の優先度に基づいてアイテムレンダラーを適用します。 </p>
+ 
+  <ol>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_MEMBER</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph></li> 
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_DIMENSION</codeph></li> 
+  </ol>
+  
+  <p>したがって、type の値が <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> のアイテムレンダラーと、type の値が <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph> のアイテムレンダラーを同じセルに適用すると、OLAPDataGrid コントロールにより type の値が <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> のアイテムレンダラーが適用されます。</p>
+ 
+  <p>2 つのアイテムレンダラーの type プロパティの値が同じ場合、OLAPDataGrid コントロールはアイテムにより近いレンダラーを判別し、そのレンダラーを適用します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:styleName"><apiName>styleName</apiName><shortdesc>
+      セルの外観を制御するための CSS スタイル宣言の名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      セルの外観を制御するための CSS スタイル宣言の名前です。
+     
+      <p>たとえば、アプリケーションで次のスタイルを定義し、<codeph>styleName</codeph> プロパティを使用して OLAP スキーマ内の特定の階層に関連付けます。</p>
+     
+      <pre>
+      &lt;Style>
+        .monthStyle
+          {
+            color:0x755762
+            fontSize:14
+          }
+      &lt;/Style>
+     
+      &lt;mx:ODGHeaderRendererProvider 
+        type="OLAPDataGrid.OLAP_HIERARCHY" 
+        uniqueName="[Time][Month]" styleName="monthStyle"/> </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:renderer:get"><apiName>renderer</apiName><shortdesc>
+      OLAPDataGrid コントロールのカスタマイズに使用されるレンダラーオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      OLAPDataGrid コントロールのカスタマイズに使用されるレンダラーオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:type:get"><apiName>type</apiName><shortdesc>
+      レンダラーが軸の次元（OLAPDataGrid.OLAP_DIMENSION）、階層（OLAPDataGrid.OLAP_HIERARCHY）、レベル（OLAPDataGrid.OLAP_LEVEL）、メンバー（OLAPDataGrid.OLAP_MEMBER）のうちのどれに適用されるかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      レンダラーが軸の次元（<codeph>OLAPDataGrid.OLAP_DIMENSION</codeph>）、階層（<codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>）、レベル（<codeph>OLAPDataGrid.OLAP_LEVEL</codeph>）、メンバー（<codeph>OLAPDataGrid.OLAP_MEMBER</codeph>）のうちのどれに適用されるかを指定します。
+     
+      <p><codeph>uniqueName</codeph> プロパティの設定に基づいてこのプロパティを設定します。例えば、<codeph>uniqueName</codeph> プロパティが OLAP スキーマの階層を参照する場合は、このプロパティを <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph> に設定します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:uniqueName:get"><apiName>uniqueName</apiName><shortdesc>
+      レンダラーが適用される IOLAPElement の一意の名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      レンダラーが適用される IOLAPElement の一意の名前です。 たとえば、"[TimeDim][YearHier][2007]" は一意の名前です。"2007" は、"TimeDim" 次元の "YearHier" 階層に属しているレベルです。
+     
+      <p><codeph>uniqueName</codeph> プロパティと <codeph>type</codeph> プロパティは、アイテムレンダラーのターゲットを指定します。 一意の名前 "[TimeDim][YearHier][2007]" は OLAP スキーマのレベルを指定するため、<codeph>type</codeph> プロパティを <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> に設定します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider"><apiName>OLAPDataGridHeaderRendererProvider</apiName><shortdesc>
+  OLAPDataGridHeaderRendererProvider クラスにより、OLAPDataGrid コントロール内の列のカスタムヘッダーレンダラーを指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridHeaderRendererProvider クラスにより、OLAPDataGrid コントロール内の列のカスタムヘッダーレンダラーを指定できます。 
+ 
+  <p>OLAPDataGrid コントロールに対してカスタムヘッダーレンダラーを指定するには、OLAPDataGridHeaderRenderer クラスのサブクラスとしてカスタムヘッダーレンダラーを作成し、OLAPDataGridHeaderRendererProvider のインスタンスを作成ます。次に <codeph>OLAPDataGridHeaderRendererProvider.renderer</codeph> プロパティを作成したカスタムヘッダーレンダラーに設定した後、<codeph>OLAPDataGrid.headerRendererProviders</codeph> プロパティを設定して、OLAPDataGridHeaderRendererProvider インスタンスを OLAPDATAGrid コントロールに渡します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer.xml"><linktext>mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider:headerWordWrap"><apiName>headerWordWrap</apiName><shortdesc>
+      列ヘッダー内のテキストを折り返す場合は、true に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      列ヘッダー内のテキストを折り返す場合は、<codeph>true</codeph> に設定します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

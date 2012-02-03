@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.gridClasses"><apiName>spark.components.gridClasses</apiName><apiDetail/><apiClassifier id="spark.components.gridClasses:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+  GridColumn クラスは、Spark DataGrid または Grid コントロールなどの Spark グリッドコントロールの列を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridColumn&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridColumn
+    <strong>Properties</strong>
+    dataField="null"
+    dataTipField="null"
+    dataTipFormatter="null"
+    dataTipFunction="null"
+    editable="true"
+    formatter="null"
+    headerRenderer="null"
+    headerText="<i>value of dataField</i>"
+    imeMode="null"
+    itemEditor="null"
+    itemRenderer="null"
+    itemRendererFunction="null"
+    labelFunction="null"
+    maxWidth="NaN"
+    minWidth="20"
+    rendererIsEditable="false"
+    resizeable="true"
+    showDataTips="undefined"
+    sortable="true"
+    sortCompareFunction="null"
+    sortDescending="false"
+    visible="true"
+    width="NaN"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridColumn クラスは、Spark DataGrid または Grid コントロールなどの Spark グリッドコントロールの列を定義します。コントロールの各データプロバイダーアイテムは、グリッドの 1 行に対応します。 GridColumn クラスは、列に値が表示されるデータプロバイダーアイテムのフィールドを指定します。 また、このクラスでは、その値を表示するために使用されるアイテムレンダラー、値を変更するために使用されるアイテムエディター、および列の他のプロパティも指定します。
+   </apiDesc><example conref="GridColumnExample.mxml"><swfblock conref="examples/GridColumnExample.swf"/></example><example conref="GridColumnVisibilityExample.mxml"><swfblock conref="examples/GridColumnVisibilityExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridColumn:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc><codeph>dataField</codeph> および <codeph>headerText</codeph> プロパティの初期値です。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      指定されたデータプロバイダーアイテムを列固有のデータヒントストリングに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定されたデータプロバイダーアイテムまたは <codeph>ERROR_TEXT</codeph> の列固有のストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> の値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたデータプロバイダーアイテムを列固有のデータヒントストリングに変換します。 
+     
+      <p>このメソッドは、値 <codeph>dataTipField</codeph> および <codeph>dataTipFunction</codeph> を使用します。 これらのプロパティが null の場合は、関連付けられているグリッドコントロールの対応するプロパティを使用します。 グリッドコントロールの <codeph>dataTipField</codeph> プロパティも null の場合は、<codeph>dataField</codeph> プロパティを使用します。</p>
+     
+      <p><codeph>dataTipFunction</codeph> と <codeph>dataTipFormatter</codeph> が null の場合、このメソッドの値は <codeph>item[dataTipField].toString()</codeph> と同じになります。<codeph>dataTipFormatter</codeph> が指定されている場合、このメソッドの値は <codeph>dataTipFormatter.format(item[dataTipField])</codeph> と同じになります。アイテムの <codeph>dataField</codeph> の解決でエラーがスローされた場合は、<codeph>ERROR_TEXT</codeph> が返されます。</p>
+     
+      <p><codeph>item</codeph> および <codeph>dataTipFunction</codeph> が null でない場合、このメソッドは <codeph>dataTipFunction(item, this)</codeph> を返します。ここで、2 つ目の引数はこの GridColumn です。</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      指定されたデータプロバイダーアイテムを列固有のストリングに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された dataProvider アイテムの列固有のストリングまたは ERROR_TEXT です。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> の値。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたデータプロバイダーアイテムを列固有のストリングに変換します。このメソッドは、アイテムレンダラーの <codeph>label</codeph> プロパティを初期化するために使用されます。
+     
+      <p><codeph>labelFunction</codeph> が null であり、<codeph>dataField</codeph> が "." というフィールド名のセパレーター文字を含まないストリングであり、フォーマッターが null である場合、このメソッドは次に等しくなります。</p>
+           <pre>item[dataField].toString()</pre>   
+     
+      <p>フォーマッターが指定された場合、このメソッドの値は次のようになります。</p>
+     
+      <pre>formatter.format(item[dataField])</pre>
+           <p><codeph>dataField</codeph> が "." で区切られたパスである場合、このメソッドでは連続する各パスエレメントを検索します。 例えば、<codeph>="foo.bar.baz"</codeph> の場合、このメソッドは <codeph>item.foo.bar.baz</codeph> の値に基づくストリングを返します。アイテムの <codeph>dataField</codeph> の解決によってエラーがスローされた場合、ERROR_TEXT が返されます。</p>
+     
+      <p><codeph>item</codeph> および <codeph>labelFunction</codeph> が null でない場合、このメソッドは <codeph>labelFunction(item, this)</codeph> を返します。ここで、2 つ目の引数はこの GridColumn です。</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToRenderer"><apiName>itemToRenderer</apiName><shortdesc>
+      指定されたデータプロバイダーアイテムを列固有のアイテムレンダラーファクトリに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された dataProvider アイテムに対する列固有のアイテムレンダラーファクトリです。
+     
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> の値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたデータプロバイダーアイテムを列固有のアイテムレンダラーファクトリに変換します。デフォルトでは、このメソッドは null 以外の場合は <codeph>itemRendererFunction</codeph> を呼び出し、null の場合は列の <codeph>itemRenderer</codeph> プロパティの値を返します。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridColumn:ERROR_TEXT"><apiName>ERROR_TEXT</apiName><shortdesc>
+      対応するプロパティ名（パス）の解決に失敗した場合の、itemToLabel() または itemToDataTip() メソッドの戻り値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      対応するプロパティ名（パス）の解決に失敗した場合の、<codeph>itemToLabel()</codeph> または <codeph>itemToDataTip()</codeph> メソッドの戻り値です。 この定数の値は単一の空白文字 <codeph>" "</codeph> です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      グリッドの列リストにおけるこの列の場所、またはこの列のグリッドが null である場合は -1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      グリッドの列リストにおけるこの列の場所、またはこの列のグリッドが null である場合は -1 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      列に関連付けられているデータプロバイダーアイテム内のフィールドまたはプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列に関連付けられているデータプロバイダーアイテム内のフィールドまたはプロパティの名前です。 各 GridColumn では、アイテムレンダラーで表示できるテキストを計算するために、このプロパティまたは <codeph>labelFunction</codeph> プロパティが設定されている必要があります。 <codeph>dataField</codeph> プロパティおよび <codeph>labelFunction</codeph> プロパティが設定されている場合、データは <codeph>labelFunction</codeph> を使用して表示され、<codeph>dataField</codeph> を使用してソートされます。   
+           <p>このプロパティのこの値は、必ずしも列ヘッダーに表示されるストリングであるとは限りません。 このプロパティは、データプロバイダーのデータにアクセスする目的でのみ使用します。 詳細については、<codeph>headerText</codeph> プロパティを参照してください。</p>
+     
+      <p>列または列のグリッドで <codeph>labelFunction</codeph> が指定されている場合、dataField は使用されません。</p>
+          
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/labelFunction"><linktext>labelFunction</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      データヒントとして表示するデータプロバイダー内のフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データヒントとして表示するデータプロバイダー内のフィールドの名前です。 デフォルトでは、<codeph>showDataTips</codeph> が <codeph>true</codeph> の場合、関連付けられているグリッドコントロールは、各データプロバイダーアイテムで <codeph>label</codeph> という名前のプロパティを検索して表示します。 ただし、データプロバイダーに <codeph>label</codeph> プロパティが存在しない場合は、<codeph>dataTipField</codeph> プロパティを設定して別のプロパティ名を指定できます。 例えば、データベースに含まれる一連の人物名がユーザーに表示される場合には、値を "FullName" に設定できます。
+           <p><codeph>GridColumn.dataTipField</codeph> はこのプロパティよりも優先されます。</p>
+     
+      <p>この列または列のグリッドで <codeph>dataTipFunction</codeph> プロパティの値が指定されている場合、<codeph>dataTipField</codeph> プロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataTipFunction"><linktext>dataTipFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFormatter:get"><apiName>dataTipFormatter</apiName><shortdesc>
+      データプロバイダーアイテムをストリングに変換するために、列の itemToDataTip() メソッドで使用されるフォーマッターを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFormatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダーアイテムをストリングに変換するために、列の <codeph>itemToDataTip()</codeph> メソッドで使用されるフォーマッターを指定します。
+     
+      <p>フォーマッターの <codeph>styleParent</codeph> が指定されなかった場合は列のグリッドに設定されて、グリッドの <codeph>locale</codeph> スタイルをフォーマッターが継承するようになります。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/formatter"><linktext>formatter</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      データヒントを決定するためにデータプロバイダーの各アイテムで実行するコールバック関数を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データヒントを決定するためにデータプロバイダーの各アイテムで実行するコールバック関数を指定します。 このプロパティは <codeph>itemToDataTip</codeph> メソッドで使用します。
+     
+      <p>デフォルトでは、<codeph>showDataTips</codeph> が <codeph>true</codeph> の場合、各データプロバイダーアイテムで <codeph>label</codeph> という名前のプロパティが検索され、その値がデータヒントとして表示されます。ただし、データプロバイダーによっては、<codeph>label</codeph> プロパティが存在せず、また行にデータを表示するために使用できる別のプロパティも存在しない場合があります。 </p>
+           <p>例えば、フルネームをデータヒントとして表示したい場合に、データプロバイダーに lastName フィールドと firstName フィールドが別々に存在しているケースが考えられます。このような場合は、両方のフィールドの値を単一のストリングとして返す関数を <codeph>dataTipFunction</codeph> プロパティに指定します。 また、フォーマットとローカライズを処理するために <codeph>dataTipFunction</codeph> プロパティを使用することもできます。</p>
+     
+      <p><codeph>dataTipFunction</codeph> 関数の署名は、次と一致する必要があります。
+     
+      <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
+           <codeph>item</codeph> パラメーターは、行全体に対するデータプロバイダーアイテムです。 2 つ目のパラメーターはこの列オブジェクトです。</p>
+           <p>通常の関数は、アイテムの firstName および lastName プロパティを連結するか、Date 値のプロパティに対してカスタム書式を適用します。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipField"><linktext>dataTipField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      列のアイテムが編集可能かどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="editableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列のアイテムが編集可能かどうかを示します。このプロパティが <codeph>true</codeph> で、関連付けられているグリッドの <codeph>editable</codeph> プロパティも <codeph>true</codeph> であれば、列内のアイテムは編集可能です。選択したアイテムをクリックするか、アイテムに移動して F2 キーを押すことにより、アイテムを個別に編集できます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:formatter:get"><apiName>formatter</apiName><shortdesc>
+      データプロバイダーアイテムをストリングに変換するために、列の itemToLabel() メソッドで使用されるフォーマッターを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="formatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダーアイテムをストリングに変換するために、列の <codeph>itemToLabel()</codeph> メソッドで使用されるフォーマッターを指定します。
+     
+      <p>フォーマッターの <codeph>styleParent</codeph> が指定されなかった場合は列のグリッドに設定されて、グリッドの <codeph>locale</codeph> スタイルをフォーマッターが継承するようになります。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipFormatter"><linktext>dataTipFormatter</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:grid:get"><apiName>grid</apiName><shortdesc>
+      この列に関連付けられている Grid オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="gridChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      この列に関連付けられている Grid オブジェクトです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      この列のヘッダーとして使用される IGridItemRenderer クラスのクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      この列のヘッダーとして使用される IGridItemRenderer クラスのクラスファクトリです。指定しない場合、DataGrid コントロールの <codeph>columnHeaderGroup</codeph> スキンパーツはデフォルトのヘッダーレンダラーを定義します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/headerText"><linktext>headerText</linktext></link><link href="spark.components.gridClasses.xml#IGridItemRenderer"><linktext>IGridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      この列のヘッダーのテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      この列のヘッダーのテキストです。 デフォルトでは、関連付けられているグリッドコントロールは <codeph>dataField</codeph> プロパティの値をヘッダーテキストとして使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemEditor:get"><apiName>itemEditor</apiName><shortdesc>
+      この列の個々のグリッドセルを編集するために使用される IGridItemEditor クラスのクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemEditorChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      この列の個々のグリッドセルを編集するために使用される IGridItemEditor クラスのクラスファクトリです。このプロパティが null であり、列のグリッドのオーナーが DataGrid コントロールの場合、DataGrid コントロールの <codeph>itemEditor</codeph> プロパティの値が使用されます。 DataGrid コントロールでアイテムエディターが指定されていない場合は、DefaultGridItemEditor クラスを使用します。
+     
+      <p>デフォルトのアイテムエディターは DefaultGridItemEditor クラスです。これは単純なテキストフィールドを編集可能にします。 GridItemEditor クラスのサブクラスを作成することによって、カスタムアイテムレンダラーを作成できます。 カスタムアイテムエディターでは、データをグリッドの行全体に書き込み、より複雑なエディターを定義できます。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#DefaultGridItemEditor"><linktext>spark.components.gridClasses.DefaultGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRendererFunction:get"><apiName>itemRendererFunction</apiName><shortdesc>
+      指定する場合、このプロパティの値は、データプロバイダーアイテムおよび列パラメーターに基づいてアイテムレンダラーの IFactory を返す冪等関数にする必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定する場合、このプロパティの値は、データプロバイダーアイテムおよび列パラメーターに基づいてアイテムレンダラーの IFactory を返す冪等関数にする必要があります。<codeph>itemRendererFunction</codeph> プロパティに対する値を指定すると、この列で複数のアイテムレンダラーを使用できるようになります。
+     
+      <p><codeph>itemRendererFunction</codeph> プロパティに対して指定する関数には次のシグネチャが必要です。</p>
+           <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
+           <p><codeph>item</codeph> パラメーターは、行全体に対するデータプロバイダーアイテムです。 2 つ目のパラメーターはこの列オブジェクトです。</p> 
+     
+      <p>次に、アイテムレンダラー関数の例を示します。</p>
+      <pre>
+      function myItemRendererFunction(item:Object, column:GridColumn):IFactory
+      {
+          return (item is Array) ? myArrayItemRenderer : myItemRenderer;
+      }
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      個々のグリッドセルをレンダリングするために使用される IGridItemRenderer クラスのクラスファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      個々のグリッドセルをレンダリングするために使用される IGridItemRenderer クラスのクラスファクトリです。指定しない場合、関連付けられているグリッドコントロールの <codeph>itemRenderer</codeph> プロパティの値を使用します。
+     
+      <p>デフォルトのアイテムレンダラーは DefaultGridItemRenderer クラスです。これはデータアイテムをテキストとして表示します。 GridItemRenderer クラスのサブクラスを作成することによって、カスタムアイテムレンダラーを作成できます。 カスタムアイテムレンダラーでは、グリッドの行全体のデータにアクセスして、セルについてより複雑な視覚的表現を定義できます。 </p>
+     
+      <p>デフォルト値は、関連付けられているグリッドコントロールの <codeph>itemRenderer</codeph> プロパティの値か、または null です。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      データプロバイダーアイテムを、アイテムレンダラーの label プロパティの初期化に使用される列固有のストリングに変換する冪等関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダーアイテムを、アイテムレンダラーの <codeph>label</codeph> プロパティの初期化に使用される列固有のストリングに変換する冪等関数です。
+     
+      <p>ラベル関数を使用して、複数のデータプロバイダーアイテムの値を単一のストリングとして組み合わせることができます。 指定する場合、このプロパティは <codeph>itemToLabel()</codeph> メソッドで使用されます。このメソッドは、この列内の各アイテムレンダラーの <codeph>label</codeph> プロパティの値を計算します。</p>
+           <p><codeph>labelFunction</codeph> プロパティに対して指定する関数には次のシグネチャが必要です。</p>
+           <pre>labelFunction(item:Object, column:GridColumn):String</pre>
+           <p><codeph>item</codeph> パラメーターは、行全体に対するデータプロバイダーアイテムです。 2 つ目のパラメーターはこの列オブジェクトです。</p>
+           <p>一般的なラベル関数は、データプロバイダーアイテムの firstName および lastName プロパティを連結するか、Date 値のプロパティに対してカスタム書式を適用します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      この列の最大幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列の最大幅（ピクセル単位）です。指定する場合、グリッドのレイアウトにより、列のレイアウト幅が <codeph>typicalItem</codeph> および <codeph>maxWidth</codeph> のうちの小さい方の幅になります。 この列がサイズ変更可能な場合、このプロパティによって、ユーザーがこの列に指定できる幅の上限が設定されます。 このプロパティを設定しても、<codeph>width</codeph> および <codeph>minWidth</codeph> プロパティはいずれも変更されません。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      この列の最小幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列の最小幅（ピクセル単位）です。指定する場合、グリッドのレイアウトにより、列のレイアウト幅が <codeph>typicalItem</codeph> および <codeph>minWidth</codeph> のうちの大きい方の幅になります。 この列がサイズ変更可能な場合、このプロパティによって、ユーザーがこの列に指定できる幅の下限が指定されます。 このプロパティを設定しても、<codeph>width</codeph> および <codeph>maxWidth</codeph> プロパティのいずれも変更されません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:rendererIsEditable:get"><apiName>rendererIsEditable</apiName><shortdesc>
+      アイテムレンダラーのコントロールのいずれかが編集可能かどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rendererIsEditableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーのコントロールのいずれかが編集可能かどうかを判別します。列が編集可能な場合、ユーザーがアイテムレンダラーの編集を開始すると、アイテムレンダラーのフォーカス可能コントロールにはキーボードフォーカスが設定されます。
+           <p>このプロパティを <codeph>true</codeph> に設定すれば、ユーザーがセルの中をクリックするとセルが編集可能になります。 セルが編集可能なため、DataGrid は <codeph>editorIndicator</codeph> スキンパーツを表示します。このスキンパーツは <codeph>selectionIndicator</codeph> スキンパーツの上に表示されます。 そのため、編集セッションが完了するまで、セルの選択範囲のインジケーターがユーザーから見えなくなります。<codeph>editorIndicator</codeph> スキンパーツを削除または変更するカスタムスキンを作成すれば、<codeph>selectionIndicator</codeph> スキンパーツを表示できます。 例えば、<codeph>editorIndicator</codeph> の <codeph>alpha</codeph> プロパティを設定して <codeph>selectionIndicator</codeph> が透けて見えるようにしたり、セルより小さくなるように editorIndicator のサイズを変更したりできます。</p>
+     
+      <p>このプロパティを <codeph>true</codeph> に設定すると、アイテムレンダラーによって収集される入力の検証および保存はユーザーが行うこととなります。 アイテムレンダラーに <codeph>IGridItemRenderer.prepare()</codeph> メソッドのオーバーライドが含まれている場合、未保存の入力フィールドの変更が上書きされないようにする必要があります。 例えば、<codeph>rendererIsEditable</codeph> が <codeph>true</codeph> であり、レンダラーには <codeph>data.myDataField</codeph> の値を表示する単一の TextInput エレメントが含まれます。 レンダラーの <codeph>prepare()</codeph> メソッドが TextInput コントロールの <codeph>text</codeph> プロパティを設定する場合、保留中の変更が存在しているとき、<codeph>prepare()</codeph> メソッドが <codeph>text</codeph> プロパティを設定しないようにする必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:resizable:get"><apiName>resizable</apiName><shortdesc>
+      列の幅をユーザーが変更できるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resizableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の幅をユーザーが変更できるかどうかを示します。このプロパティが <codeph>true</codeph> であり、関連付けられているグリッドの <codeph>resizableColumns</codeph> プロパティも <codeph>true</codeph> である場合、ユーザーは列ヘッダー間のグリッド線をドラッグして列のサイズを変更できます。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      列にデータヒントが表示されるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列にデータヒントが表示されるかどうかを示します。<codeph>true</codeph> の場合、行のテキストに対してデータヒントが表示されます。 データヒントは、長すぎて行に収まらないテキストを表示するためのツールヒントです。   
+     
+      <p>このプロパティの値が undefined（デフォルト）の場合、関連付けられているグリッドの <codeph>showDataTips</codeph> プロパティによってデータヒントが表示されるかどうかが決まります。 このプロパティが設定されている場合、グリッドの <codeph>showDataTips</codeph> プロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/getShowDataTips"><linktext>getShowDataTips</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+      この列のデータエレメントに関してソートを実行するときに 2 つのエレメントを比較する関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列のデータエレメントに関してソートを実行するときに 2 つのエレメントを比較する関数です。<codeph>labelFunction</codeph> プロパティの値を指定する場合、通常、<codeph>sortCompareFunction</codeph> も指定します。
+           <p>sortCompareFunction のシグネチャは次と一致する必要があります。</p>
+           <pre>sortCompareFunction(obj1:Object, obj2:Object, column:GridColumn):int</pre>
+     
+      <p>この関数はオブジェクトの比較に基づいて次のような値を返す必要があります。 </p>
+      <ul>
+        <li>昇順で obj1 が obj2 よりも先に出現する場合は -1。 </li>
+        <li>obj1 と obj2 が同じ場合は 0。 </li>
+        <li>昇順で obj1 が obj2 よりも後で出現する場合は 1。</li>
+      </ul>
+      
+      <p>関数は、列パラメーターを使用して、一般的な比較関数を記述できます。</p>
+     
+      <p><b>メモ：</b><codeph>obj1</codeph> パラメーターと <codeph>obj2</codeph> パラメーターはデータプロバイダーエレメント全体です。特定のアイテムのデータではありません。</p>
+     
+      <p>dataProvider が ICollectionView でない場合、このプロパティは無視されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortDescending:get"><apiName>sortDescending</apiName><shortdesc>
+      true の場合、この列は降順でソートされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortDescendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、この列は降順でソートされます。 例えば、列の <codeph>dataField</codeph> に数値が含まれている場合、この列の最大値を持つ列が最初の行となります。 
+           <p>このプロパティを設定してもソートは実行されません。ソート方向のみが設定されます。 <codeph>dataProvider.refresh()</codeph> メソッドが呼び出されると、ソートが実行されます。</p>
+     
+      <p>データプロバイダーが ICollectionView でない場合、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortField:get"><apiName>sortField</apiName><shortdesc>
+      この列の dataField を基準にしてコレクションをソートするために使用できる SortField を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.collections:SortField</apiValueClassifier></apiValueDef><apiDesc>
+      この列の <codeph>dataField</codeph> を基準にしてコレクションをソートするために使用できる SortField を返します。
+      
+      <p><codeph>sortCompareFunction</codeph> プロパティが定義されている場合は、SortField の <codeph>compareFunction</codeph> が自動的に設定されます。</p>
+     
+      <p><codeph>sortCompareFunction</codeph> プロパティが定義されておらず、<codeph>dataField</codeph> が複雑な場合、SortField の比較関数は、複雑な <codeph>dataField</codeph> を処理するデフォルトの比較関数を囲む閉包に割り当てられます。</p>
+           <p><codeph>sortCompareFunction</codeph> および <codeph>dataField</codeph> プロパティが定義されておらず、<codeph>labelFunction</codeph> プロパティが定義されている場合、<codeph>compareFunction</codeph> は、データオブジェクトに適用される <codeph>labelFunction</codeph> に対して基本的なストリング比較を実行する閉包に割り当てられます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortable:get"><apiName>sortable</apiName><shortdesc>
+      このプロパティが true の場合、グリッドのデータプロバイダーが ICollectionView の場合、および関連付けられているグリッドの sortableColumns プロパティが true の場合、この列ではインタラクティブソートがサポートされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このプロパティが <codeph>true</codeph> の場合、グリッドのデータプロバイダーが ICollectionView の場合、および関連付けられているグリッドの <codeph>sortableColumns</codeph> プロパティが <codeph>true</codeph> の場合、この列ではインタラクティブソートがサポートされます。 通常、列のヘッダーでは、データプロバイダーの <codeph>sort</codeph> プロパティを Sort オブジェクト（SortField がこの列の <codeph>dataField</codeph> であるもの）に設定することによって、マウスクリックを処理します。
+      
+      <p>データプロバイダーが ICollectionView でない場合、このプロパティは無視されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      true の場合、この列を表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="visibleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、この列を表示します。 <codeph>false</codeph> の場合、この列には領域が割り当てられず、レイアウトに含められません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:width:get"><apiName>width</apiName><shortdesc>
+      この列の幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この列の幅（ピクセル単位）です。指定する場合、グリッドのレイアウトではその <codeph>typicalItem</codeph> プロパティとこの列の <codeph>minWidth</codeph> および <codeph>maxWidth</codeph> プロパティが無視されます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridVisualElement"><apiName>IGridVisualElement</apiName><shortdesc>
+  このインターフェイスは、動的に作成されたビジュアルエレメントが、自分が表示される前に自分を設定するために使用できるメソッドを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、動的に作成されたビジュアルエレメントが、自分が表示される前に自分を設定するために使用できるメソッドを提供します。このメソッドは、ファクトリによって生成されたビジュアルエレメントが作成または再使用されるときに必要に応じて呼び出されます。 このメソッドは直接呼び出さないでください。
+ 
+  <p>これは、ファクトリによって生成されたすべてのビジュアルエレメント用のオプションインターフェイスです。ただし、次の itemRenderer は例外です。<codeph>caretIndicator</codeph>、<codeph>hoverIndicator</codeph>、<codeph>editorIndicator</codeph>、<codeph>selectionIndicator</codeph>、<codeph>columnSeparator</codeph>、<codeph>rowSeparator</codeph>、<codeph>alternatingRowColorsBackground</codeph>（DataGrid を参照）、<codeph>sortIndicator</codeph>（GridColumnHeaderGroup を参照）。 通常、このインターフェイスは、生成されたビジュアルエレメントを DataGrid のスタイル値で設定するために使用されます。例えば、DataGrid の「symbolColor」スタイルの値をキャレットの塗りの色に使用するには、次のような <codeph>prepareGridVisualElement()</codeph> メソッドを定義します。</p> 
+ 
+  <p>
+  <pre>
+  public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+  {
+      caretStroke.color = grid.dataGrid.getStyle("caretColor");
+  }
+  </pre>
+  </p>        
+ 
+  <p><codeph>rowIndex</codeph> パラメーターおよび <codeph>columnIndex</codeph> パラメーターでは、ビジュアルエレメントが占有するセルを指定します。 <codeph>columnIndex</codeph> = -1 の場合は、ビジュアルエレメントが Grid 行に表示されます。<codeph>rowIndex</codeph> = -1 の場合は、ビジュアルエレメントが Grid 列に表示されます。</p>
+ 
+  <p>DataGridSkin.mxml には、このような例が他にもたくさんあります。カスタム DataGrid スキンのビジュアルエレメントでは、追加の柔軟性が不要な場合、このインターフェイスを実装しないように選択できます。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.components.gridClasses:IGridVisualElement:spark.components.gridClasses:IGridVisualElement:prepareGridVisualElement"><apiName>prepareGridVisualElement</apiName><shortdesc> 
+      このメソッドは、Grid のビジュアルエレメントがレンダリングされる前に呼び出されて、エレメントに自分を設定する機会を与えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>grid</apiItemName><apiOperationClassifier>spark.components:Grid</apiOperationClassifier><apiDesc>このビジュアルエレメントに関連付けられている Grid です。
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>ビジュアルエレメントが占有するセルの行座標または -1 です。
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>ビジュアルエレメントが占有するセルの列座標または -1 です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      このメソッドは、Grid のビジュアルエレメントがレンダリングされる前に呼び出されて、エレメントに自分を設定する機会を与えます。どのセル、行（columnIndex = -1 の場合）または列（rowIndex = -1 の場合）をビジュアルエレメントが占有するかを指定するメソッドのパラメーターです。
+     
+      <p>ビジュアルエレメントが selectionIndicator や hoverIndicator などの DataGrid スキンパーツの値が設定されたファクトリによって生成される場合、<codeph>grid.dataGrid</codeph> は、グリッドがスキンパーツである DataGrid です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.components.gridClasses:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+  CellPosition クラスは、コントロールで選択されたセルを表すために Spark データグリッドクラスで使用されるデータ構造を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CellPosition クラスは、コントロールで選択されたセルを表すために Spark データグリッドクラスで使用されるデータ構造を定義します。選択されたセルは、それぞれこのクラスの 1 つのインスタンスで表されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectedCell"><linktext>spark.components.DataGrid.selectedCell</linktext></link><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#Grid/selectedCell"><linktext>spark.components.Grid.selectedCell</linktext></link><link href="spark.components.xml#Grid/selectedCells"><linktext>spark.components.Grid.selectedCells</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellPosition:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>セルの 0 で始まる行インデックスです。 -1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>セルの 0 で始まる列インデックスです。 -1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellPosition:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      セルの 0 で始まる列インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セルの 0 で始まる列インデックスです。 -1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellPosition:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      セルの 0 で始まる行インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セルの 0 で始まる行インデックスです。 -1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IDataGridElement"><apiName>IDataGridElement</apiName><shortdesc>
+  グリッドのレイアウトおよびスクロール位置との同期を保つ必要がある Spark DataGrid コントロールのビジュアルエレメントには、このインターフェイスを実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  グリッドのレイアウトおよびスクロール位置との同期を保つ必要がある Spark DataGrid コントロールのビジュアルエレメントには、このインターフェイスを実装する必要があります。DataGrid コントロールの <codeph>grid</codeph> スキンパーツが追加されると、このスキンパーツによって <codeph>IDataGridElement.dataGrid</codeph> プロパティが設定されます。 IDataGridElements オブジェクトは、スクロール位置の変更に対するイベントリスナーを追加することによって応答できます。 DataGrid コントロールが変更され、その行または列のレイアウトに影響が発生した場合は、すべての IDataGridElements オブジェクトが無効になります。
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="spark.components.gridClasses:IDataGridElement:spark.components.gridClasses:IDataGridElement:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      このエレメントに関連付けられた DataGrid コントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      このエレメントに関連付けられた DataGrid コントロールです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>DefaultGridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロールで使用されるデフォルトのアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>DefaultGridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロールで使用されるデフォルトのアイテムレンダラーを定義します。DefaultGridItemEditor は、テキスト領域コントロールを表示します。 テキストエディターでセルの新しい値を入力します。
+      
+      <p>DefaultGridItemEditor を使用する代わりに、カスタムアイテムエディターを作成できます。 アイテムエディターには、spark.components.gridClasses.IGridItemEditor インターフェイスを実装する必要があります。 通常、spark.components.gridClasses.GridItemEditor クラスのサブクラスとしてアイテムエディターを作成します。</p>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#IGridItemEditor"><linktext>spark.components.gridClasses.IGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:DefaultGridItemEditor:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>コンストラクターです。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>コンストラクターです。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:DefaultGridItemEditor:textArea"><apiName>textArea</apiName><shortdesc>エディターの TextArea コンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:TextArea</apiValueClassifier></apiValueDef><apiDesc>エディターの TextArea コンポーネントです。 
+    
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+  GridSelectionMode クラスは、Spark DataGrid および Grid コントロールの selectionMode プロパティに対して有効な定数値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridSelectionMode クラスは、Spark DataGrid および Grid コントロールの <codeph>selectionMode</codeph> プロパティに対して有効な定数値を定義します。
+  
+  <p>次の例に示すように、ActionsScript で定数を使用します。 </p>
+  <pre>
+    myDG.selectionMode = GridSelectionMode.MULTIPLE_CELLS;
+  </pre>
+ 
+  <p>MXML では、次の例に示すように、定数の String 値を使用します。</p>
+  <pre>
+    &lt;s:DataGrid id="myGrid" width="350" height="150"
+        selectionMode="multipleCells"> 
+        ...
+    &lt;/s:DataGrid> 
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectionMode"><linktext>spark.components.DataGrid.selectionMode</linktext></link><link href="spark.components.xml#Grid/selectionMode"><linktext>spark.components.Grid.selectionMode</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridSelectionMode:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_CELLS"><apiName>MULTIPLE_CELLS</apiName><shortdesc>
+      1 つ以上のセルを選択できることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleCells</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      1 つ以上のセルを選択できることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_ROWS"><apiName>MULTIPLE_ROWS</apiName><shortdesc>
+      1 つ以上の行を選択できることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleRows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      1 つ以上の行を選択できることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:NONE"><apiName>NONE</apiName><shortdesc>
+      選択できないことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      選択できないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_CELL"><apiName>SINGLE_CELL</apiName><shortdesc>
+      1 つのセルを選択できることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleCell</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      1 つのセルを選択できることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_ROW"><apiName>SINGLE_ROW</apiName><shortdesc>
+      1 つの行を選択できることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      1 つの行を選択できることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+  CellRegion クラスは、コントロールでセルの矩形領域を表すために Spark データグリッドクラスで使用されるデータ構造を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CellRegion クラスは、コントロールでセルの矩形領域を表すために Spark データグリッドクラスで使用されるデータ構造を定義します。領域の原点は、<codeph>rowIndex</codeph> および <codeph>columnIndex</codeph> プロパティで指定します。 領域の範囲は、<codeph>rowCount</codeph> および <codeph>columnCount</codeph> プロパティで指定します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellRegion:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>原点セルの 0 で始まる行インデックスです。-1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>原点セルの 0 で始まる列インデックスです。 -1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>セル領域内の行数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>セル領域内の列数です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellRegion:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      セル領域内の列数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル領域内の列数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      セル領域の原点の 0 で始まる列インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル領域の原点の 0 で始まる列インデックスです。-1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      セル領域内の行数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル領域内の行数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      セル領域の原点の 0 で始まる行インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル領域の原点の 0 で始まる行インデックスです。-1 という値は、値が設定されていないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+  GridLayer クラスは、Grid コントロールのビジュアルエレメントのレイヤーに使用されるコンテナを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridLayer クラスは、Grid コントロールのビジュアルエレメントのレイヤーに使用されるコンテナを定義します。Grid コントロールは、必要に応じてビジュアルエレメントを作成し、そのレイヤーに追加します。このコントロールはそれらのレイアウトに関与します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridLayer:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+  GridItemRenderer クラスは、DataGrid や Grid などの Spark グリッドコントロール用のカスタムアイテムレンダラーの基本クラスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="property" name="transitions"/><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemRenderer</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridItemRenderer クラスは、DataGrid や Grid などの Spark グリッドコントロール用のカスタムアイテムレンダラーの基本クラスを定義します。アイテムレンダラーは、列固有のデータ側面を表示するためにのみ必要です。 これらは、選択インジケーターまたはホバーインジケーター、交互に使用される背景色（ある場合）または行 / 列セパレーターは表示しません。
+ 
+  <p>アイテムレンダラーはグリッドの各列に関連付けられます。 列のアイテムレンダラーは、<codeph>GridColumn.itemRenderer</codeph> プロパティを使用して設定します。</p> 
+ 
+  <p>デフォルトでは、アイテムレンダラーはセルの境界に合わせてクリップしません。レンダラーがセルの境界を超えてしまう場合は、<codeph>clipAndEnableScrolling</codeph> を <codeph>true</codeph> に設定すれば、セルの境界に合わせてレンダラーをクリッピングできます。</p>
+ 
+  <p>DataGrid アイテムレンダラーのトランジションがサポートされていません。 GridItemRenderer クラスの <codeph>transitions</codeph> プロパティが無効化されているので、設定しても無視されます。</p>
+ 
+  <p><b>効率に関する考慮事項</b></p>
+  
+  <p>DataGrid のスクロールと起動のパフォーマンスは、アイテムレンダラーの複雑さと DataGrid のスクローラー内に表示されるアイテムレンダラーの数と直接関係があります。カスタム GridItemRenderer のインスタンスは繰り返し再使用されるため、これらのインスタンスをできるだけ単純かつ効率的に定義することが重要です。</p>
+  
+  <p>アイテムレンダラーの役割が 1 行以上のテキストの表示に限定されている場合、開発者はその処理を非常に経済的に実行できる DefaultItemRenderer クラスの使用を真剣に検討する必要があります（Windows のみにデプロイされるアプリケーションの場合は、UITextFieldGridItemRenderer クラスを代わりに使用すると、さらにパフォーマンスが向上します）。GridItemRenderer を使用して GridColumn の dataField をテキストとして表示する最も効率的な方法は、<codeph>id="labelDisplay"</codeph> の GridItemRenderer のテキスト表示エレメントを識別する方法です。labelDisplay コンポーネントは <codeph>Label</codeph> や <codeph>RichText</codeph> のような <codeph>TextBase</codeph> サブクラスである必要があります。境界線や他のグラフィックエレメントのようにアイテムレンダラーのデータに依存しない追加のエレメントがアイテムレンダラーに含まれている場合は、単に DefaultGridItemRenderer を使用する代わりに、この方法を使用できます。</p>
+  
+  <p>プロパティがアイテムレンダラーのデータに依存するビジュアルエレメントが複数含まれているアイテムレンダラーでは、データバインディングを使用してプロパティの値を定義できます。この方法では、読みやすく保守しやすい MXML コードが生成され、表示されるアイテムレンダラーの数が限られている場合は、十分なパフォーマンスが得られます（DataGrid の <codeph>requestedRowCount</codeph> および <codeph>requestedColumnCount</codeph> プロパティを参照してください）。この種のアイテムレンダラーを設定する最も効率的な方法は、その <codeph>prepare()</codeph> メソッドをオーバーライドして、そこで処理する方法です。レンダラーの <codeph>prepare()</codeph> メソッドは、レンダラーが再表示されるたびに呼び出されるため、効率的なコードを書くことが重要です。例えば、内部値をキャッシュする場合のように、アイテムレンダラーがステートフルの場合は、<codeph>discard()</codeph> メソッドでステートをクリアできます。<codeph>discard()</codeph> メソッドは、レンダラーが DataGrid の内部フリーリストに移動し、再使用可能になるたびに呼び出されます。</p>
+  
+  <p>GridItemRenderer はできるだけ簡単にする必要があります。最高のパフォーマンスを得るために、コンポーネントの数と階層の深さはできるだけ少なくします。実際的であれば、制約ではなく明示的な位置とサイズを使用してレイアウトを定義します。<codeph>variableRowHeight="false"</codeph>（デフォルト）が指定された DataGrid のほうがパフォーマンスがよい傾向があります。<codeph>showDataTips="false"</codeph>（デフォルト）および <codeph>clipAndEnableScrolling="false"</codeph>（デフォルト）の場合も同様にパフォーマンスがよくなります。</p>
+  
+  <p>ここで説明する GridItemRenderer の様々な設定は、例の節に示されています。</p>
+ 
+  </apiDesc><example conref="GridItemRendererExample.mxml"><swfblock conref="examples/GridItemRendererExample.swf"/></example><example conref="GridItemRendererCustomBindingExample.mxml"><swfblock conref="examples/GridItemRendererCustomBindingExample.swf"/></example><example conref="GridItemRendererCustomPrepareExample.mxml"><swfblock conref="examples/GridItemRendererCustomPrepareExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemRenderer"><linktext>spark.components.gridClasses.GridColumn.itemRenderer</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link></related-links><adobeApiEvent id="spark.components.gridClasses:GridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.gridClasses:GridItemRenderer:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      
+      アイテムレンダラーが表示されなくなると判断された場合に、アイテムレンダラーの親の updateDisplayList() メソッドから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc>このレンダラーがオーナーの内部フリーリストに追加されて再利用される場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      アイテムレンダラーが表示されなくなると判断された場合に、アイテムレンダラーの親の <codeph>updateDisplayList()</codeph> メソッドから呼び出されます。<codeph>willBeRecycled</codeph> パラメーターが <codeph>true</codeph> の場合、オーナーはこのレンダラーを内部フリーリストに追加して再利用します。 実装では、このメソッドを使用して不要となったレンダラープロパティを消去できます。
+     
+      <p>このメソッドが直接呼び出されることは意図されていません。 このメソッドは、DataGrid の実装によって呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:protected:getCurrentRendererState"><apiName>getCurrentRendererState</apiName><shortdesc>
+      レンダラーに適用する状態の名前を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>レンダラーに適用する状態の名前を指定するストリングです。 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      レンダラーに適用する状態の名前を返します。例えば、基本的なアイテムレンダラーは、レンダラーの状態を指定するストリング "normal"、"hovered"、または "selected" を返します。 タッチ操作（または選択範囲が無視されるマウス操作）を処理する場合、"down" および "downAndSelected" も返されることがあります。
+     
+      <p>必要な動作がデフォルトの動作と異なる場合は、GridItemRenderer のサブクラスで値を返すようにこのメソッドをオーバーライドする必要があります。</p>
+     
+      <p>Flex 4.0 では、主な 3 つの状態は、"normal"、"hovered"、および "selected" でした。 Flex 4.5 では、"down" および "downAndSelected" が追加されました。</p>
+      
+      <p>サポートされている全状態（優先順）を次に示します。 
+        <ul>
+          <li>dragging</li>
+          <li>downAndSelected</li>
+          <li>selectedAndShowsCaret</li>
+          <li>hoveredAndShowsCaret</li>
+          <li>normalAndShowsCaret</li>
+          <li>down</li>
+          <li>selected</li>
+          <li>hovered</li>
+          <li>normal</li>
+        </ul>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      レンダラーのすべてのプロパティが設定された後、アイテムレンダラーの親の updateDisplayList() メソッドから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> このレンダラーが再利用中である場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      レンダラーのすべてのプロパティが設定された後、アイテムレンダラーの親の <codeph>updateDisplayList()</codeph> メソッドから呼び出されます。このレンダラーが今まで使用されたことがない場合、つまりリサイクルされなかった場合、<codeph>hasBeenRecycled</codeph> パラメーターは <codeph>false</codeph> です。 このメソッドは、レンダラーが表示されようとしているときに呼び出されます。また、レンダラープロパティの変更または再表示の明示的要求によってレンダラーが再表示されるたびに呼び出されます。 
+     
+      <p>このメソッドを使用して、レンダラーのすべてのビジュアルエレメントとプロパティを設定できます。このメソッドを使用すると、<codeph>data</codeph> プロパティをビジュアルエレメントのプロパティにバインドするよりも効率的な場合があります。注意：<codeph>prepare()</codeph> メソッドは頻繁に呼び出されるため、効率的なコードを書いてください。</p>
+     
+      <p><codeph>prepare()</codeph> メソッドは、<codeph>discard()</codeph> メソッドの呼び出し前に何度も呼び出されることがあります。</p>
+     
+      <p>このメソッドが直接呼び出されることは意図されていません。 このメソッドは、DataGrid の実装によって呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      
+      このアイテムレンダラーのセルの列インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      このアイテムレンダラーのセルの列インデックスです。これは <codeph>column.columnIndex</codeph> と同じ値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      
+      このアイテムレンダラーに関連付けられている列を表す GridColumn オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      このアイテムレンダラーに関連付けられている列を表す GridColumn オブジェクトです。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      アイテムレンダラーに対応するグリッド行のデータプロバイダーアイテムの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーに対応するグリッド行のデータプロバイダーアイテムの値です。この値は、<codeph>dataProvider.getItemAt(rowIndex)</codeph> メソッドの呼び出しによって返されるオブジェクトに対応します。
+     
+      <p>アイテムレンダラーは、このプロパティ定義をオーバーライドして、グリッドの行全体のデータにアクセスできます。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      
+      グリッドセル内で、2 つの入力ジェスチャのうちの 1 つが行われると、つまりマウスボタンまたはタッチスクリーンのどちらかが押されると、このプロパティが true に設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      グリッドセル内で、2 つの入力ジェスチャのうちの 1 つが行われると、つまりマウスボタンまたはタッチスクリーンのどちらかが押されると、このプロパティが <codeph>true</codeph> に設定されます。マウスボタンが放されるか、ユーザーがタッチ画面に触れなくなるか、またはマウスやタッチがグリッドセルの外にドラッグされると、<codeph>down</codeph> プロパティは <codeph>false</codeph> にリセットされます。   
+     
+      <p>List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、ダウンインジケーターを表示する排他的な役割はありません。Grid 自体は、選択された行またはセルのダウンインジケーターをレンダリングします。アイテムレンダラーは、そのビジュアルプロパティを変更して、押下されていることを強調することもできます。</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      
+      ドラッグ＆ドロップ操作中の場合のようにアイテムレンダラーがドラッグされている場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="draggingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      ドラッグ＆ドロップ操作中の場合のようにアイテムレンダラーがドラッグされている場合は <codeph>true</codeph> が含まれます。 現在、ドラッグ＆ドロップ操作は、Spark DataGrid コントロールではサポートされていません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      このアイテムレンダラーに関連付けられている Grid を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      このアイテムレンダラーに関連付けられている Grid を返します。これは <codeph>column.grid</codeph> と同じ値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      
+      アイテムレンダラーがマウスの下にあり、Grid の selectionMode が GridSelectionMode.SINGLE_CELL または GridSelectionMode.MULTIPLE_CELLS の場合、またはアイテムレンダラーが属する行内にマウスがあり、Grid の selectionMode が GridSelectionMode.SINGLE_ROW または GridSelectionMode.MULTIPLE_ROWS の場合は true になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      アイテムレンダラーがマウスの下にあり、Grid の selectionMode が <codeph>GridSelectionMode.SINGLE_CELL</codeph> または <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph> の場合、またはアイテムレンダラーが属する行内にマウスがあり、Grid の selectionMode が <codeph>GridSelectionMode.SINGLE_ROW</codeph> または <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph> の場合は <codeph>true</codeph> になります。
+     
+      <p>List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、レンダラーまたはその行がマウスの下にあることを表示する排他的な役割はありません。Grid 自体は、マウスポインターが置かれた行またはセルに対して、hoverIndicator スキンパーツを自動的に表示します。Grid アイテムレンダラーは、そのプロパティを変更して、マウスポインターが置かれていることを強調することもできます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc>
+      label プロパティを表示するためのアイテムレンダラー内のオプションのビジュアルコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelDisplayChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:TextBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>label</codeph> プロパティを表示するためのアイテムレンダラー内のオプションのビジュアルコンポーネントです。 このプロパティを使用してビジュアルコンポーネントを指定すると、コンポーネントの <codeph>text</codeph> プロパティとアイテムレンダラーの <codeph>label</codeph> プロパティの同期が保たれます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:label:get"><apiName>label</apiName><shortdesc conref="IGridItemRenderer#label">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="IGridItemRenderer#label">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      
+      レンダリングされているセルの行の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rowIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      レンダリングされているセルの行の 0 で始まるインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      
+      アイテムレンダラーのセルが現在の選択範囲に含まれている場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="selectedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      アイテムレンダラーのセルが現在の選択範囲に含まれている場合は <codeph>true</codeph> が含まれます。 
+     
+      <p> List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、自分が選択範囲の一部であることを表示する排他的な役割はありません。Grid 自体は、選択された行またはセルに対して、selectionIndicator スキンパーツを自動的に表示します。また、アイテムレンダラーは、選択範囲の一部であることを強調するためにビジュアルプロパティを変更できます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      
+      アイテムレンダラーのセルがキャレットで示される場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showsCaretChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      アイテムレンダラーのセルがキャレットで示される場合は <codeph>true</codeph> が含まれます。
+     
+      <p> List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、自分のセルまたは行にキャレットがあることを表示する排他的な役割はありません。Grid 自体は、キャレット行またはキャレットセルに対して、caretIndicator スキンパーツを自動的に表示します。また、アイテムレンダラーは、キャレットがあることを強調するためにビジュアルプロパティを変更できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemEditor"><apiName>IGridItemEditor</apiName><shortdesc>
+  IGridItemEditor インターフェイスは、Spark DataGrid および Spark Grid コントロールのアイテムエディターに実装する必要があるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGridItemEditor インターフェイスは、Spark DataGrid および Spark Grid コントロールのアイテムエディターに実装する必要があるインターフェイスを定義します。DataGrid および Grid コントロールは、アイテムレンダラーのオーナー、またはアイテムエディターのホストコンポーネントと呼ばれます。
+ 
+  <p>アイテムエディターのプロパティはすべて、エディターセッションの開始時にオーナーによって設定されます。 <codeph>data</codeph> プロパティは、最後に設定されるプロパティです。 <codeph>data</codeph> プロパティが設定されると、アイテムエディターはエディターのコントロールの値を設定する必要があります。 次に、エディターの <codeph>prepare()</codeph> メソッドが呼び出されます。 IGridItemEditor の実装で、<codeph>prepare()</codeph> メソッドをオーバーライドして、プロパティやビジュアルエレメントの縦横比を最終調整する必要があります。 エディターを閉じているとき、<codeph>discard()</codeph> メソッドが呼び出されます。</p>
+  
+  <p>エディターが閉じられたら、入力値を保存またはキャンセルできます。 保存する場合、エディターによって <codeph>save()</codeph> 関数が呼び出され、編集されたセルの行に対応するデータプロバイダーエレメントに新しい値が書き込まれます。 </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      エディターが閉じられる直前に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      エディターが閉じられる直前に呼び出されます。このメソッドを使用して、最終的なクリーンアップ（<codeph>prepare()</codeph> メソッドで設定されたすべての値のクリーンアップなど）を行います。
+      
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      エディターが作成されてサイズが設定された後、エディターが表示される前に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      エディターが作成されてサイズが設定された後、エディターが表示される前に呼び出されます。このメソッドを使用して、エディターが表示される前に、エディターの外観を調整したり、イベントリスナーを追加したり、他のすべての初期化処理を行ったりします。
+      
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:save"><apiName>save</apiName><shortdesc>
+      エディターの値をアイテムレンダラーのオーナーのデータプロバイダーに保存します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>保存操作が正常に完了した場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      エディターの値をアイテムレンダラーのオーナーのデータプロバイダーに保存します。このメソッドは、編集されたセルの行に対応するデータプロバイダーエレメントを更新します。この関数は、<codeph>GridItemEditor.validate()</codeph> を呼び出して、データを保存できるかどうかを確認します。 データが有効でない場合、データは保存されず、エディターは閉じられません。
+     
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。エディターを保存して閉じるには、アイテムレンダラーのオーナーの <codeph>endItemEditorSession()</codeph> メソッドを呼び出します。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links></apiOperation><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc> 
+      編集されている列の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+      編集されている列の 0 で始まるインデックスです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      編集されているセルの列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      編集されているセルの列です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      このアイテムエディターを所有するコントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      このアイテムエディターを所有するコントロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc> 
+      編集されているセルの行の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc> 
+      編集されているセルの行の 0 で始まるインデックスです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+  GridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロール用のカスタムアイテムエディターの基本クラスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridItemEditor&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridItemEditor
+    <strong>Properties</strong>
+    column="null"
+    data="null"
+    imeMode="null"
+    itemRenderer="null"
+    rowIndex="0"
+    value="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemEditor</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロール用のカスタムアイテムエディターの基本クラスを定義します。アイテムエディターでは、グリッドのセルの値を編集してから、その値をコントロールのデータプロバイダーに保存し直すことができます。
+   <p>アイテムエディターはグリッドの各列に関連付けられています。 <codeph>GridColumn.itemEditor</codeph> プロパティを使用して、列のアイテムエディターを設定します。</p> 
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemEditor"><linktext>spark.components.gridClasses.GridColumn.itemEditor</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridItemEditor:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      
+      エディターが閉じられる直前に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エディターが閉じられる直前に呼び出されます。このメソッドを使用して、最終的なクリーンアップ（<codeph>prepare()</codeph> メソッドで設定されたすべての値のクリーンアップなど）を行います。
+      
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      エディターが作成されてサイズが設定された後、エディターが表示される前に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エディターが作成されてサイズが設定された後、エディターが表示される前に呼び出されます。このメソッドを使用して、エディターが表示される前に、エディターの外観を調整したり、イベントリスナーを追加したり、他のすべての初期化処理を行ったりします。
+      
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:save"><apiName>save</apiName><shortdesc>
+      
+      エディターの値をアイテムレンダラーのオーナーのデータプロバイダーに保存します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>保存操作が正常に完了した場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エディターの値をアイテムレンダラーのオーナーのデータプロバイダーに保存します。このメソッドは、編集されたセルの行に対応するデータプロバイダーエレメントを更新します。この関数は、<codeph>GridItemEditor.validate()</codeph> を呼び出して、データを保存できるかどうかを確認します。 データが有効でない場合、データは保存されず、エディターは閉じられません。
+     
+      <p>このメソッドは直接呼び出さないでください。 アイテムエディターをホストするコントロールによってのみ呼び出される必要があります。エディターを保存して閉じるには、アイテムレンダラーのオーナーの <codeph>endItemEditorSession()</codeph> メソッドを呼び出します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:protected:validate"><apiName>validate</apiName><shortdesc>
+      エディターの値が有効であり、保存できるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>エディターの値が有効である場合は <codeph>true</codeph> です。 それ以外の場合は <codeph>false</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      エディターの値が有効であり、保存できるかどうかをテストします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+       
+      編集されている列の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+       
+      編集されている列の 0 で始まるインデックスです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      
+      編集されているセルの列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      編集されているセルの列です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      
+      このアイテムエディターを所有するコントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      
+      このアイテムエディターを所有するコントロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:data:get"><apiName>data</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンポーネントがフォーカスを得たときに、IME を有効にするかどうかを指定するフラグです。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      IME（Input Method Editor）のモードを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      IME（Input Method Editor）のモードを指定します。 IME を使用することによって、ユーザーは中国語、日本語、および韓国語のテキストを入力できます。Flex では、コントロールにフォーカスが置かれたときに、IME を指定されたモードに設定し、コントロールからフォーカスが離れたときに、元のモードに戻します。
+          <p>flash.system.IMEConversionMode クラスで、このプロパティの有効な値の定数を定義します。IME を指定しない場合は、<codeph>null</codeph> を指定します。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      編集されたセルに関連付けられているアイテムレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:IGridItemRenderer</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      編集されたセルに関連付けられているアイテムレンダラーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+       
+      編集されているセルの行の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+       
+      編集されているセルの行の 0 で始まるインデックスです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:value:get"><apiName>value</apiName><shortdesc> 
+      デフォルトでは、このプロパティは、data プロパティの setter メソッドによって初期化されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      デフォルトでは、このプロパティは、<codeph>data</codeph> プロパティの setter メソッドによって初期化されます。 このプロパティのデフォルト値は、グリッドコントロールのデータプロバイダーからのセルデータです。 アイテムエディターでは、このプロパティを使用して、アイテムエディター内のビジュアルエレメントを初期化できます。
+           <p>デフォルトでは、<codeph>save()</codeph> メソッドは、エディターが保存されて閉じられたときに、このプロパティの値をグリッドコントロールのデータプロバイダーに書き込み直します。 </p>
+     
+      <p>カスタムアイテムレンダラーの多くは、このプロパティの getter および setter メソッドをオーバーライドします。 setter メソッドをオーバーライドして、セル値に基づいてエディターを初期化します。 getter メソッドをオーバーライドして、新しいセル値を <codeph>save()</codeph> メソッドに返します。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemRenderer"><apiName>IGridItemRenderer</apiName><shortdesc>
+  IGridItemRenderer インターフェイスは DataGrid アイテムレンダラーで実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGridItemRenderer インターフェイスは DataGrid アイテムレンダラーで実装する必要があります。DataGrid では、この API を使用して、1 つのグリッドまたはヘッダーの<i>セル</i>をレンダリングするために必要な情報をアイテムレンダラーに提供します。  
+ 
+  <p>レンダラーのプロパティはすべて、親の <codeph>updateDisplayList()</codeph> メソッドの実行時に設定されます。プロパティが設定された後に、アイテムレンダラーの <codeph>prepare()</codeph> メソッドが呼び出されます。IGridItemRenderer の実装で、<codeph>prepare()</codeph> メソッドをオーバーライドして、プロパティやビジュアルエレメントの縦横比を最終調整する必要があります。一般に、<codeph>prepare()</codeph> は、<codeph>data</codeph> プロパティに基づいて、レンダラーのビジュアルエレメントを設定するために使用します。</p>
+ 
+  <p>再利用可能レンダラーの内部「フリー」リストに追加する場合や再利用される可能性がない場合など、アイテムレンダラーが不要になったら、IGridItemRenderer の <codeph>discard()</codeph> メソッドが呼び出されます。</p> 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      アイテムレンダラーが表示されなくなると判断された場合に、アイテムレンダラーの親の updateDisplayList() メソッドから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc>このレンダラーがオーナーの内部フリーリストに追加されて再利用される場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アイテムレンダラーが表示されなくなると判断された場合に、アイテムレンダラーの親の <codeph>updateDisplayList()</codeph> メソッドから呼び出されます。<codeph>willBeRecycled</codeph> パラメーターが <codeph>true</codeph> の場合、オーナーはこのレンダラーを内部フリーリストに追加して再利用します。 実装では、このメソッドを使用して不要となったレンダラープロパティを消去できます。
+     
+      <p>このメソッドが直接呼び出されることは意図されていません。 このメソッドは、DataGrid の実装によって呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      レンダラーのすべてのプロパティが設定された後、アイテムレンダラーの親の updateDisplayList() メソッドから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> このレンダラーが再利用中である場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーのすべてのプロパティが設定された後、アイテムレンダラーの親の <codeph>updateDisplayList()</codeph> メソッドから呼び出されます。このレンダラーが今まで使用されたことがない場合、つまりリサイクルされなかった場合、<codeph>hasBeenRecycled</codeph> パラメーターは <codeph>false</codeph> です。 このメソッドは、レンダラーが表示されようとしているときに呼び出されます。また、レンダラープロパティの変更または再表示の明示的要求によってレンダラーが再表示されるたびに呼び出されます。 
+     
+      <p>このメソッドを使用して、レンダラーのすべてのビジュアルエレメントとプロパティを設定できます。このメソッドを使用すると、<codeph>data</codeph> プロパティをビジュアルエレメントのプロパティにバインドするよりも効率的な場合があります。注意：<codeph>prepare()</codeph> メソッドは頻繁に呼び出されるため、効率的なコードを書いてください。</p>
+     
+      <p><codeph>prepare()</codeph> メソッドは、<codeph>discard()</codeph> メソッドの呼び出し前に何度も呼び出されることがあります。</p>
+     
+      <p>このメソッドが直接呼び出されることは意図されていません。 このメソッドは、DataGrid の実装によって呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      このアイテムレンダラーのセルの列インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      このアイテムレンダラーのセルの列インデックスです。これは <codeph>column.columnIndex</codeph> と同じ値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      このアイテムレンダラーに関連付けられている列を表す GridColumn オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      このアイテムレンダラーに関連付けられている列を表す GridColumn オブジェクトです。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      グリッドセル内で、2 つの入力ジェスチャのうちの 1 つが行われると、つまりマウスボタンまたはタッチスクリーンのどちらかが押されると、このプロパティが true に設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      グリッドセル内で、2 つの入力ジェスチャのうちの 1 つが行われると、つまりマウスボタンまたはタッチスクリーンのどちらかが押されると、このプロパティが <codeph>true</codeph> に設定されます。マウスボタンが放されるか、ユーザーがタッチ画面に触れなくなるか、またはマウスやタッチがグリッドセルの外にドラッグされると、<codeph>down</codeph> プロパティは <codeph>false</codeph> にリセットされます。   
+     
+      <p>List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、ダウンインジケーターを表示する排他的な役割はありません。Grid 自体は、選択された行またはセルのダウンインジケーターをレンダリングします。アイテムレンダラーは、そのビジュアルプロパティを変更して、押下されていることを強調することもできます。</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      ドラッグ＆ドロップ操作中の場合のようにアイテムレンダラーがドラッグされている場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ドラッグ＆ドロップ操作中の場合のようにアイテムレンダラーがドラッグされている場合は <codeph>true</codeph> が含まれます。 現在、ドラッグ＆ドロップ操作は、Spark DataGrid コントロールではサポートされていません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      このアイテムレンダラーに関連付けられている Grid です。通常は、単に column.grid の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      このアイテムレンダラーに関連付けられている Grid です。通常は、単に <codeph>column.grid</codeph> の値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      アイテムレンダラーがマウスの下にあり、Grid の selectionMode が GridSelectionMode.SINGLE_CELL または GridSelectionMode.MULTIPLE_CELLS の場合、またはアイテムレンダラーが属する行内にマウスがあり、Grid の selectionMode が GridSelectionMode.SINGLE_ROW または GridSelectionMode.MULTIPLE_ROWS の場合は true になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      アイテムレンダラーがマウスの下にあり、Grid の selectionMode が <codeph>GridSelectionMode.SINGLE_CELL</codeph> または <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph> の場合、またはアイテムレンダラーが属する行内にマウスがあり、Grid の selectionMode が <codeph>GridSelectionMode.SINGLE_ROW</codeph> または <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph> の場合は <codeph>true</codeph> になります。
+     
+      <p>List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、レンダラーまたはその行がマウスの下にあることを表示する排他的な役割はありません。Grid 自体は、マウスポインターが置かれた行またはセルに対して、hoverIndicator スキンパーツを自動的に表示します。Grid アイテムレンダラーは、そのプロパティを変更して、マウスポインターが置かれていることを強調することもできます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:label:get"><apiName>label</apiName><shortdesc>
+      アイテムレンダラーで表示するストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      アイテムレンダラーで表示するストリングです。  
+     
+      <p>GridItemRenderer クラスは、<codeph>labelDisplay</codeph> エレメントが指定されている場合、そのエレメントの <codeph>text</codeph> プロパティに、このプロパティの値を自動的にコピーします。Grid は、<codeph>label</codeph> を列の <codeph>itemToLabel()</codeph> メソッドから返される値に設定します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      レンダリングされているセルの行の 0 で始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      レンダリングされているセルの行の 0 で始まるインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      アイテムレンダラーのセルが現在の選択範囲に含まれている場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      アイテムレンダラーのセルが現在の選択範囲に含まれている場合は <codeph>true</codeph> が含まれます。 
+     
+      <p> List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、自分が選択範囲の一部であることを表示する排他的な役割はありません。Grid 自体は、選択された行またはセルに対して、selectionIndicator スキンパーツを自動的に表示します。また、アイテムレンダラーは、選択範囲の一部であることを強調するためにビジュアルプロパティを変更できます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      アイテムレンダラーのセルがキャレットで示される場合は true が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      アイテムレンダラーのセルがキャレットで示される場合は <codeph>true</codeph> が含まれます。
+     
+      <p> List アイテムレンダラーとは異なり、Grid アイテムレンダラーには、自分のセルまたは行にキャレットがあることを表示する排他的な役割はありません。Grid 自体は、キャレット行またはキャレットセルに対して、caretIndicator スキンパーツを自動的に表示します。また、アイテムレンダラーは、キャレットがあることを強調するためにビジュアルプロパティを変更できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>ComboBoxGridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロールで使用できるアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.binding:IBindingClient</apiBaseInterface><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>ComboBoxGridItemEditor クラスは、DataGrid や Grid などの Spark グリッドコントロールで使用できるアイテムレンダラーを定義します。ComboBoxGridItemEditor は、セル値のドロップダウンリストを表示します。 セルの新しい値として設定する値を選択します。
+      
+      <p>次の例は、ComboBoxGridItemEditor をアイテムエディターとして使用している GridColumn を示しています。</p>
+      
+      <pre>
+        &lt;s:GridColumn dataField="quant" 
+            headerText="Qty">
+                &lt;s:itemEditor>
+                    &lt;fx:Component>
+                        &lt;s:ComboBoxGridItemEditor>
+                            &lt;s:dataProvider>
+                                &lt;s:ArrayList>
+                                    &lt;fx:int>0&lt;/fx:int>
+                                    &lt;fx:int>1&lt;/fx:int>
+                                    &lt;fx:int>2&lt;/fx:int>
+                                    &lt;fx:int>3&lt;/fx:int>
+                                &lt;/s:ArrayList>
+                            &lt;/s:dataProvider>
+                        &lt;/s:ComboBoxGridItemEditor>
+                    &lt;/fx:Component>
+                &lt;/s:itemEditor>
+        &lt;/s:GridColumn>
+      </pre>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:ComboBoxGridItemEditor:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>コンストラクターです。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>コンストラクターです。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:comboBox"><apiName>comboBox</apiName><shortdesc>アイテムエディターの ComboBox コントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:ComboBox</apiValueClassifier></apiValueDef><apiDesc>アイテムエディターの ComboBox コントロールです。 
+        
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+              アイテムエディターの combox ボックスのデータプロバイダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="comboBoxGridItemEditorDataProviderChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:IList"/></apiValueDef><apiDesc>
+              アイテムエディターの combox ボックスのデータプロバイダーです。
+                           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.printing"><apiName>mx.printing</apiName><apiDetail/><apiClassifier id="mx.printing:FlexPrintJobScaleType"><apiName>FlexPrintJobScaleType</apiName><shortdesc>
+  FlexPrintJob.addObject() メソッドパラメーターの scaleType プロパティの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexPrintJob.addObject() メソッドパラメーターの <codeph>scaleType</codeph> プロパティの値です。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.printing.xml#FlexPrintJob/addObject()"><linktext>FlexPrintJob.addObject()</linktext></link></related-links><apiValue id="mx.printing:FlexPrintJobScaleType:FILL_PAGE"><apiName>FILL_PAGE</apiName><shortdesc>
+	  少なくとも 1 ページに完全に収まるようにオブジェクトを拡大および縮小します。つまり、MATCH_WIDTH または MATCH_HEIGHT のいずれか大きい方のタイプが選択されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fillPage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  少なくとも 1 ページに完全に収まるようにオブジェクトを拡大および縮小します。つまり、MATCH_WIDTH または MATCH_HEIGHT のいずれか大きい方のタイプが選択されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_HEIGHT"><apiName>MATCH_HEIGHT</apiName><shortdesc>
+	  使用可能なページの高さ領域に合わせてオブジェクトを拡大および縮小します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  使用可能なページの高さ領域に合わせてオブジェクトを拡大および縮小します。 結果としてオブジェクトの幅がページの幅を上回る場合は、複数のページに出力されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_WIDTH"><apiName>MATCH_WIDTH</apiName><shortdesc>
+	  使用可能なページの幅に合わせてオブジェクトを拡大および縮小します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  使用可能なページの幅に合わせてオブジェクトを拡大および縮小します。 結果としてオブジェクトの高さがページの高さを上回る場合は、複数のページに出力されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:NONE"><apiName>NONE</apiName><shortdesc>
+	  出力は拡大および縮小されません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  出力は拡大および縮小されません。 プリントされるページは、画面上のオブジェクトと同じサイズになります。 オブジェクトの高さ、幅、または両方のサイズが、ページの幅または高さを上回ると、複数のページで出力されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:SHOW_ALL"><apiName>SHOW_ALL</apiName><shortdesc>
+	  1 ページに収まるように、1 つのサイズに合わせてオブジェクトを拡大および縮小します。つまり、MATCH_WIDTH または MATCH_HEIGHT のいずれか大きい方のタイプが選択されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>showAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  1 ページに収まるように、1 つのサイズに合わせてオブジェクトを拡大および縮小します。つまり、MATCH_WIDTH または MATCH_HEIGHT のいずれか大きい方のタイプが選択されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.printing:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+  FlexPrintJob クラスは、flash.printing.PrintJob クラスのラッパーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexPrintJob クラスは、flash.printing.PrintJob クラスのラッパーです。 複数ページに出力する場合の自動的なスライスとページ配置、およびプリンターのページサイズに合わせたグリッドコンテンツの伸縮をサポートします。
+ 
+  </apiDesc><example conref="FormPrintHeader.mxml"/><example conref="FormPrintFooter.mxml"/><example conref="FormPrintView.mxml"/><example conref="PrintDataGridExample.mxml"><swfblock conref="examples/PrintDataGridExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.printing:FlexPrintJob:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.printing:FlexPrintJob:addObject"><apiName>addObject</apiName><shortdesc>
+      印刷するオブジェクトのリストに UIComponent オブジェクトを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>印刷するオブジェクト。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleType</apiItemName><apiType value="String"/><apiData>matchWidth</apiData><apiDesc>プリントページにオブジェクトを収める方法を制御するために使用する伸縮手法です。 FlexPrintJobScaleType クラスで定義された定数値のいずれかになります。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      印刷するオブジェクトのリストに UIComponent オブジェクトを追加します。 <codeph>start()</codeph> メソッドが返された後にこのメソッドを呼び出します。 このメソッドが呼び出されるたびに、新しいページが開始されます。そのため、オブジェクトをページサイズのまとまりにフォーマット設定する必要があります。 PrintDataGrid クラスを使用すると、複数のページにまたがったデータグリッドを設定することができます。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.printing.PrintDataGrid.xml"><linktext>PrintDataGrid</linktext></link><link href="mx.printing.xml#FlexPrintJobScaleType"><linktext>FlexPrintJobScaleType</linktext></link></related-links></apiOperation><apiOperation id="mx.printing:FlexPrintJob:send"><apiName>send</apiName><shortdesc>
+      印刷を開始するために、追加されたオブジェクトをプリンターに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      印刷を開始するために、追加されたオブジェクトをプリンターに送信します。 <codeph>addObject()</codeph> メソッドを使用してプリントページを追加した後に、このメソッドを呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.printing:FlexPrintJob:start"><apiName>start</apiName><shortdesc>
+      PrintJob オブジェクトを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>印刷ダイアログボックスでユーザーが「OK」をクリックした場合は <codeph>true</codeph>、ユーザーが「キャンセル」をクリックした場合、またはエラーが発生した場合は <codeph>false</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      PrintJob オブジェクトを初期化します。 オペレーティングシステムのプリンターダイアログボックスをユーザーに表示します。 Flex は、この呼び出しが返された後に <codeph>pageWidth</codeph> および <codeph>pageHeight</codeph> プロパティを設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.printing:FlexPrintJob:pageHeight:get"><apiName>pageHeight</apiName><shortdesc>
+      プリンターページの印刷可能領域の高さ。ユーザーが設定した余白は含まれません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      プリンターページの印刷可能領域の高さ。ユーザーが設定した余白は含まれません。 このプロパティは、start() メソッドが結果を返した後に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:pageWidth:get"><apiName>pageWidth</apiName><shortdesc>
+      プリンターページの印刷可能領域の幅。ユーザーが設定した余白は含まれません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      プリンターページの印刷可能領域の幅。ユーザーが設定した余白は含まれません。 このプロパティは、<codeph>start()</codeph> メソッドが結果を返した後に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:printAsBitmap:get"><apiName>printAsBitmap</apiName><shortdesc>
+      ジョブコンテンツをビットマップとして印刷するか（true）、ベクター形式で印刷するか（false）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ジョブコンテンツをビットマップとして印刷するか（<codeph>true</codeph>）、ベクター形式で印刷するか（<codeph>false</codeph>）を指定します。 ビットマップとして印刷すると、アルファ透明度またはカラーエフェクトを使用したビットマップイメージを出力に含めることができます。 コンテンツにアルファ透明度またはカラーエフェクトを使用したビットマップイメージが含まれない場合は、<codeph>printAsBitmap</codeph> プロパティを <codeph>false</codeph> に設定すると、より高品質のベクター形式で印刷できます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

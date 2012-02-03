@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.mxml"><apiName>mx.rpc.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.mxml:IMXMLSupport"><apiName>IMXMLSupport</apiName><shortdesc>
+  Реализация этого интерфейса предполагает возможность использования службы RPC в документе MXML посредством тегов MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Реализация этого интерфейса предполагает возможность использования службы RPC в документе MXML посредством тегов MXML.
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+      Установка параллельной обработки операции RPC или HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Установка параллельной обработки операции RPC или HTTPService. Один из вариантов: multiple, last или single.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      Указывает, должны ли операция RPC или HTTPService отображать курсор в состоянии занятости во время выполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, должны ли операция RPC или HTTPService отображать курсор в состоянии занятости во время выполнения.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.mxml:Concurrency"><apiName>Concurrency</apiName><shortdesc>
+ Параллельная обработка устанавливается через доступ на основе MXML к службам RPC для определения способа обработки нескольких вызовов одной службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Параллельная обработка устанавливается через доступ на основе MXML к службам RPC для определения способа обработки нескольких вызовов одной службы. Значением параллельной обработки по умолчанию является <codeph>multiple</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:Concurrency:LAST"><apiName>LAST</apiName><shortdesc>
+     При создании запроса клиент игнорирует результат или ошибку для любого текущего запроса в очереди.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     При создании запроса клиент игнорирует результат или ошибку для любого текущего запроса в очереди. В систему клиента передаются только результат или ошибка для последнего запроса. Это позволяет упростить обработку событий в клиентском приложении, однако необходимо использовать такой режим только при возможности безопасного игнорирования результатов и ошибок для запросов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:MULTIPLE"><apiName>MULTIPLE</apiName><shortdesc>
+     Существующие запросы не отменяются, и разработчик несет ответственность за обеспечение непротиворечивости возвращаемых данных путем тщательного управления потоком событий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiple</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Существующие запросы не отменяются, и разработчик несет ответственность за обеспечение непротиворечивости возвращаемых данных путем тщательного управления потоком событий.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:SINGLE"><apiName>SINGLE</apiName><shortdesc>
+     Для этого метода разрешено создание только одного запроса в определенный момент; для дополнительных запросов, создаваемых в процессе ожидания обработки первого запроса, в системе клиента незамедлительно генерируется ошибка, и они не передаются на сервер.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>single</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Для этого метода разрешено создание только одного запроса в определенный момент; для дополнительных запросов, создаваемых в процессе ожидания обработки первого запроса, в системе клиента незамедлительно генерируется ошибка, и они не передаются на сервер.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

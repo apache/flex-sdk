@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.globalization.supportClasses"><apiName>spark.globalization.supportClasses</apiName><apiDetail/><apiClassifier id="spark.globalization.supportClasses:CollatorBase"><apiName>CollatorBase</apiName><shortdesc>
+     CollatorBase 是 SortingCollator 和 MatchingCollator 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+     <codeph>CollatorBase</codeph> 是 SortingCollator 和 MatchingCollator 类的基类。
+          <p>此类是包装 <codeph>flash.globalization.Collator</codeph> 类的包装器类。因此，特定于区域设置的字符串比较是由 <codeph>flash.globalization.Collator</codeph> 类提供的。但是，将此类作为基类来使用，就可以在 MXML 声明中使用 <codeph>SortingCollator</codeph> 和 <codeph>MatchingCollator</codeph> 类。在这些类中，为请求的区域设置 ID 名称使用区域设置<codeph/>样式，并具有可绑定的方法与属性。
+     </p>
+          <p>flash.globalization.Collator 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类。在这些操作系统中，由包装器类为字符串比较提供回退功能。</p>
+          </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization.supportClasses:CollatorBase:CollatorBase"><apiName>CollatorBase</apiName><shortdesc>
+          构造新的 CollatorBase 对象，以根据指定的区域设置的约定提供字符串比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>initialMode</apiItemName><apiType value="String"/><apiDesc>为两种用例（排序和匹配）设置初始排序规则选项。
+                   </apiDesc></apiParam></apiConstructorDef><apiDesc>
+          构造新的 CollatorBase 对象，以根据指定的区域设置的约定提供字符串比较。
+                   <p><codeph>initialMode</codeph> 参数为两种用例（排序和匹配）设置初始排序规则选项。它可以设置为下列两个值之一：</p>
+                   <ul>
+           <li><codeph>CollatorMode.SORTING</codeph>：设置用于常规语言排序（例如对显示给最终用户的文本字符串列表进行排序）的排序规则选项。在此模式下，进行字符串比较时考虑大写和小写字母、重音符号及其它特定于区域设置的区别。</li>
+           <li><codeph>CollatorMode.MATCHING</codeph>：设置供使用（例如确定两个字符串是否相等）的排序规则选项。在此模式下，进行字符串比较时忽略大写和小写字母、重音符号等区别。</li>
+          </ul>
+                   <p>有关这两种模式的用法的详细信息和示例，请参阅有关 <codeph>flash.globalization.Collator</codeph> 类的文档。</p>
+                   <p>此类的区域设置由区域设置<codeph/>样式提供。可以使用下列方法来设置区域设置<codeph/>样式：</p>
+                   <ul>
+              <li>调用 UIComponent 的 <codeph>addStyleClient</codeph> 方法并将此对象的实例用作参数，从 <codeph>UIComponent</codeph> 继承样式。</li>
+              <li>在 MXML 声明中使用该类，并从包含该声明的文档中继承区域设置<codeph/>样式。
+          <pre>
+          &lt;fx:Declarations>
+                 &lt;s:SortingCollator id="collator" />
+          &lt;/fx:Declarations>
+          </pre>
+          </li>
+              <li>使用 MXML 声明并在赋<codeph/>值列表中指定区域设置值。
+          <pre>
+          &lt;fx:Declarations>
+              &lt;s:SortingCollator id="collator_german" locale="de-DE" />
+          &lt;/fx:Declarations>
+          </pre>
+          </li>
+              <li>调用 setStyle 方法，如 <codeph>collator.setStyle("locale", "de-DE")</codeph>。</li>
+          </ul>
+                   <p>如果未按照以上方法之一来设置 <codeph>locale</codeph> 样式，则基于 <codeph>locale</codeph> 的此类的方法会将 lastOperationStatus 属性设置为 <codeph>spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR</codeph>。</p>
+                   </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.globalization.supportClasses:CollatorBase:compare"><apiName>compare</apiName><shortdesc>
+          比较两个字符串并返回一个整数值，表示第一个字符串是小于、等于还是大于第二个字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个整数值，表示第一个字符串是小于、等于或大于第二个字符串。
+                 <ul>
+                     <li>如果返回值是负数，则 <codeph>string1</codeph> 小于 <codeph>string2</codeph> 或 <codeph>string2</codeph> 是 <codeph>null</codeph>。</li>
+                     <li>如果返回值是零，则表示 <codeph>string1</codeph> 等于 <codeph>string2</codeph>。</li>
+                     <li>如果返回值是正数，则 <codeph>string1</codeph> 大于 <codeph>string2</codeph> 或 <codeph>string1</codeph> 是 <codeph>null</codeph>。</li>
+                 </ul>
+                   </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>string1</apiItemName><apiType value="String"/><apiDesc>第一个比较字符串。
+          </apiDesc></apiParam><apiParam><apiItemName>string2</apiItemName><apiType value="String"/><apiDesc>第二个比较字符串。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          比较两个字符串并返回一个整数值，表示第一个字符串是小于、等于还是大于第二个字符串。针对在调用比较方法时生效的区域设置<codeph/>样式，比较将使用该排序顺序规则。
+                   </apiDesc></apiOperationDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization.supportClasses:CollatorBase:equals"><apiName>equals</apiName><shortdesc>
+          比较两个字符串并返回表示字符串是否相等的布尔值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个布尔值，表示字符串相等 (<codeph>true</codeph>) 还是不相等 (<codeph>false</codeph>)。
+                   </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>string1</apiItemName><apiType value="String"/><apiDesc>第一个比较字符串。
+          </apiDesc></apiParam><apiParam><apiItemName>string2</apiItemName><apiType value="String"/><apiDesc>第二个比较字符串。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          比较两个字符串并返回表示字符串是否相等的布尔值。针对在 <codeph>CollatorBase()</codeph> 构造函数中指定的区域设置 ID，比较将使用该排序顺序规则。
+                   </apiDesc></apiOperationDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/compare"><linktext>compare</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization.supportClasses:CollatorBase:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+          列出此类支持的所有区域设置 ID 名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个字符串矢量，其中包含此类和操作系统所支持的所有区域设置 ID 名称。
+                   </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+          列出此类支持的所有区域设置 ID 名称。
+                   </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.globalization.supportClasses:CollatorBase:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+          
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+          
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.Collator.actualLocaleIDName.xml"><linktext>flash.globalization.Collator.actualLocaleIDName</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreCase:get"><apiName>ignoreCase</apiName><shortdesc>
+          当此属性设置为 true 时，完全相同的字符串和仅字母大小写不同的字符串比较结果为相等。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          当此属性设置为 true 时，完全相同的字符串和仅字母大小写不同的字符串比较结果为相等。
+                   <p>当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.MATCHING</codeph> 时，默认值为 <codeph>true</codeph>。当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.SORTING</codeph> 时，则为 <codeph>false</codeph>。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreCharacterWidth:get"><apiName>ignoreCharacterWidth</apiName><shortdesc>
+          当此属性为 true 时，某些全角和半角形式的中文和日文字符比较结果为相等。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          当此属性为 true 时，某些全角和半角形式的中文和日文字符比较结果为相等。
+                   <p>为与中文和日文字符集的现有标准兼容，Unicode 为某些全角和半角形式的字符提供字符代码。例如，当 <codeph>ignoreCharacterWidth</codeph> 属性设置为 <codeph>true</codeph> 时，<codeph>compare("Ａｱ", "Aア")</codeph> 返回 <codeph>true</codeph>。</p>
+                   <p>如果将 <codeph>ignoreCharacterWidth</codeph> 属性设置为 <codeph>false</codeph>，则全角和半角形式的字符不相等。</p>
+                   <p>当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.MATCHING</codeph> 时，默认值为 <codeph>true</codeph>。当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.SORTING</codeph> 时，则为 <codeph>false</codeph>。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreDiacritics:get"><apiName>ignoreDiacritics</apiName><shortdesc>
+          当此属性设置为 true 时，使用相同基本字符，但重音符号或其它音调符号不同的字符串，比较结果为相等。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          当此属性设置为 true 时，使用相同基本字符，但重音符号或其它音调符号不同的字符串，比较结果为相等。例如，当 <codeph>ignoreDiacritics</codeph> 属性设置为 <codeph>true</codeph> 时，<codeph>compare("coté", "côte")</codeph> 返回 <codeph>true</codeph>。
+                   <p>当 <codeph>ignoreDiacritics</codeph> 设置为 <codeph>false</codeph> 时，带有音调符号或重音符号的基本字符被视为不相等。</p>
+                            <p>当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.MATCHING</codeph> 时，默认值为 <codeph>true</codeph>。当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.SORTING</codeph> 时，则为 <codeph>false</codeph>。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreKanaType:get"><apiName>ignoreKanaType</apiName><shortdesc>
+          当此属性设置为 true 时，正在使用的仅 kana 字符类型不同的字符串被视为相等。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          当此属性设置为 true 时，会将区别仅在于使用了不同的 kana 字符类型的字符串视为相等。例如，当 <codeph>ignoreKanaType</codeph> 属性设置为 <codeph>true</codeph> 时，<codeph>compare("カナ", "かな")</codeph> 返回 <codeph>true</codeph>。
+                   <p>如果将 <codeph>ignoreKanaType</codeph> 设置为 <codeph>false</codeph>，则引用相同音节的平假名和片假名字符不相等。</p>
+                   <p>当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.MATCHING</codeph> 时，默认值为 <codeph>true</codeph>。当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.SORTING</codeph> 时，则为 <codeph>false</codeph>。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreSymbols:get"><apiName>ignoreSymbols</apiName><shortdesc>
+          当此属性设置为 true 时，排序或匹配时将忽略空格、货币符号、数学符号和其它类型符号等符号字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          当此属性设置为 true 时，排序或匹配时将忽略空格、货币符号、数学符号和其它类型符号等符号字符。例如，当 <codeph>ignoreSymbols</codeph> 属性设置为 <codeph>true</codeph> 时，“OBrian”、“O'Brian”和“O Brian”字符串都被视为相等。
+                   <p>当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.MATCHING</codeph> 时，默认值为 <codeph>true</codeph>。当 <codeph>CollatorBase()</codeph> 构造函数的 <codeph>initialMode</codeph> 参数设置为 <codeph>Collator.SORTING</codeph> 时，则为 <codeph>false</codeph>。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+          
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+          
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:numericComparison:get"><apiName>numericComparison</apiName><shortdesc>
+          控制如何在进行字符串比较期间处理嵌入到字符串的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>&lt;code>false&lt;/code>
+                   </apiDefaultValue></apiValueDef><apiDesc>
+          控制如何在进行字符串比较期间处理嵌入到字符串的数值。
+                   <p>当 <codeph>numericComparison</codeph> 属性设置为 <codeph>true</codeph> 时，比较方法将出现在字符串中的数字转换为数值以供比较。</p>
+                   <p>当此属性设置为 <codeph>false</codeph> 时，比较时会将数字视为字符代码，并根据指定区域设置中对字符排序所用的规则对它们进行排序。<codeph/></p>
+                   <p>例如，对于区域设置 ID“en-US”，当此属性为 true 时，字符串“version1”、“version10”和“version2”按以下顺序排序：version1 &lt; version2 &lt; version10。</p>
+                   <p>对于“en-US”，当此属性为 false 时，上述同样的字符串按以下顺序排序：version1 &lt; version10 &lt; version2。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.globalization.supportClasses:GlobalizationBase"><apiName>GlobalizationBase</apiName><shortdesc>
+  这是包装器类的基类，这些包装器类使用 flash.globalization 类来进行语言和区域特定的日期、时间、数字和货币金额格式设置、字符串比较以及大小写转换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.globalization.supportClasses:GlobalizationBase" playerVersion="Flash10.1" type="String">
+<description>
+  区域设置标识符，用于指定语言、区域、脚本，还可以指定其它相关的标签和键。此标识符的语法必须遵守 Unicode 技术标准 #35 定义的语法(如 en-US、de-DE、zh-Hans-CN）。
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  这是包装器类的基类，这些包装器类使用 flash.globalization 类来进行语言和区域特定的日期、时间、数字和货币金额格式设置、字符串比较以及大小写转换。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#DateTimeFormatter"><linktext>spark.formatters.DateTimeFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link><link href="spark.globalization.xml#MatchingCollator"><linktext>spark.globalization.MatchingCollator</linktext></link><link href="spark.globalization.xml#SortingCollator"><linktext>spark.globalization.SortingCollator</linktext></link><link href="spark.globalization.xml#StringTools"><linktext>spark.globalization.StringTools</linktext></link></related-links><adobeApiEvent id="spark.globalization.supportClasses:GlobalizationBase_flash.events.Event.CHANGE_change"><apiName>change</apiName><shortdesc>
+  当区域设置样式发生改变，或设置了其它属性，导致改变数字的格式或更新到此类中所允许的其它值时，将生成更改事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>locale</codeph> 样式发生改变，或设置了其它属性，导致改变数字的格式或更新到此类中所允许的其它值时，将生成更改事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.globalization.supportClasses:GlobalizationBase:GlobalizationBase"><apiName>GlobalizationBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.globalization.supportClasses:GlobalizationBase:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.globalization.supportClasses:GlobalizationBase:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.globalization.supportClasses:GlobalizationBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.xml"><linktext>flash.globalization.LastOperationStatus</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters.supportClasses"><apiName>spark.formatters.supportClasses</apiName><apiDetail/><apiClassifier id="spark.formatters.supportClasses:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+  NumberFormatterBase クラスは NumberFormatter および CurrencyFormatter クラスの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatterBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatterBase 
+    <strong>Properties</strong>
+    decimalSeparator="<i>locale and OS dependent</i>"
+    digitsType="<i>locale and OS dependent</i>"
+    errorText="null"
+    fractionalDigits="<i>locale and OS dependent</i>"
+    groupingPattern="<i>locale and OS dependent</i>"
+    groupingSeparator="<i>locale and OS dependent</i>"
+    leadingZero="<i>locale and OS dependent</i>"
+    negativeSymbol="<i>locale and OS dependent</i>"
+    trailingZeros="<i>locale and OS dependent</i>"
+    useGrouping="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatterBase クラスは NumberFormatter および CurrencyFormatter クラスの基本クラスです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters.supportClasses:NumberFormatterBase:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      小数部を持つ数字のフォーマットまたは解析に使用される小数点記号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      小数部を持つ数字のフォーマットまたは解析に使用される小数点記号。
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      数字をフォーマットするときに使用される数字のセットを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      数字をフォーマットするときに使用される数字のセットを定義します。
+     
+      <p>さまざまな言語と地域で使用されるさまざまな文字セットを、0～9 の数字で表します。 このプロパティは、使用される数字のセットを定義します。</p>
+     
+      <p>このプロパティの値は、10 進数字セットのゼロ桁の Unicode 値を表しています。このプロパティの有効な値は <codeph>NationalDigitsType</codeph> クラスで定義されています。</p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:errorText:get"><apiName>errorText</apiName><shortdesc>
+      エラーが発生したときに format() メソッドによって返される置換文字列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      エラーが発生したときに <codeph>format()</codeph> メソッドによって返される置換文字列。
+     
+      <p><codeph>errorText</codeph> が null でなく、数値または通貨額のフォーマット中にエラーが発生した場合、format メソッドはこのプロパティに割り当てられた文字列を返します。</p>
+     
+      次に実際の使用例を示します。
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale", "en-US");
+      nf.errorText = "###"
+      trace(nf.format("abc"));  // ###
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      小数点記号の後に表示できる最大桁数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      小数点記号の後に表示できる最大桁数。
+     
+      <p>数字はこのプロパティによって指定された桁数に丸められます。丸めのスキームは、アプリケーションユーザーのオペレーティングシステムによって異なります。</p>
+     
+      <p><codeph>trailingZeros</codeph> プロパティが <codeph>true</codeph> に設定されると、数字の小数部分（小数区切り記号の後）にこの <codeph>fractionalDigits</codeph> プロパティの値に一致する長さまで、0 が置かれます。</p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingPattern:get"><apiName>groupingPattern</apiName><shortdesc>
+      フォーマットされた文字列内のグループ化区切り文字の配置を記述します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      フォーマットされた文字列内のグループ化区切り文字の配置を記述します。
+     
+      <p><codeph>useGrouping</codeph> プロパティが true に設定されると、<codeph>groupingPattern</codeph> プロパティを使用して、グループ化区切り文字に使用される配置とパターンが定義されます。</p>
+     
+      <p>グループ化パターンはセミコロンで区切られ、場合によっては最後にアスタリスクが付く数字を含む文字列として定義されます。例： <codeph>"3;2;*"</codeph>文字列内のそれぞれの数字は、グループ内の桁数を表しています。グループセパレーターは、各数字グループの前に置かれます。ストリングの最後のアスタリスクは、その桁数を持つグループが、フォーマットされた残りのストリングで繰り返されることを示しています。アスタリスクがない場合、フォーマットされた残りのストリングに追加のグループやセパレーターはありません。 </p>
+     
+      <p>文字列内の最初の数字は、小数点の左側の数字の最初のグループに対応しています。その後に続く数字は、左側の後続のグループの桁数を定義します。 このため、文字列<codeph>「3;2;*」</codeph>はグループ化区切り文字が最初の 3 桁のグループの後に置かれ、その後に 2 桁のグループが続くことを示しています。 例： <codeph>98,76,54,321</codeph></p>
+     
+      <p>次の表は、さまざまなグループ化パターンによる数字 123456789.12 のフォーマットの例を示しています。グループ化の区切り文字はカンマで、小数点はピリオドです。
+      </p>
+        <adobetable class="innertable">
+              
+              
+              
+              
+        <tgroup cols="2"><tbody><row>
+                    <entry>グループ化パターン</entry>
+                    <entry>サンプルフォーマット</entry>
+              </row><row>
+                    <entry><codeph>3;*</codeph></entry>
+                    <entry>123,456,789.12</entry>
+              </row><row>
+                    <entry><codeph>3;2;*</codeph></entry>
+                    <entry>12,34,56,789.12</entry>
+              </row><row>
+                    <entry><codeph>3</codeph></entry>
+                    <entry>123456,789.12</entry>
+              </row></tbody></tgroup></adobetable>
+     
+      <p>限定された数のグループ化サイズのみ定義できます。一部のオペレーティングシステムは、グループ化パターンに 2 つの数字とアスタリスクのみ含むことができます。 その他のオペレーティングシステムは、4 つまでの数字とアスタリスクを含むことができます。アスタリスクがないパターンの場合、一部のオペレーティングシステムは 1 つの数字のみサポートし、その他のオペレーティングシステムは 3 つまでの数字をサポートします。グループ化パターンエレメントの最大数を超える場合、追加エレメントは無視され、<codeph>lastOperationStatus</codeph> プロパティは代替値が使用されることを示すように設定されます。
+      </p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      グループ化区切りに使用される文字または文字列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      グループ化区切りに使用される文字または文字列。
+     
+      <p><codeph>useGrouping</codeph> プロパティが <codeph>true</codeph> に設定されている数字をフォーマットするときに、このプロパティの値がグループ化区切り文字として使用されます。 このプロパティは最初、formatter オブジェクトを構築するときに選択したロケールに基づいて設定されます。</p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。コンストラクターまたはこのクラスのメソッドが呼び出されたり、プロパティが設定されたりすると、必ず <codeph>lastOperationStatus</codeph> が設定されます。有効な値については、各メソッドの説明を参照してください。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:leadingZero:get"><apiName>leadingZero</apiName><shortdesc>
+      小数点区切り文字の左側に整数がない場合に、フォーマットされた数値に先頭の 0 を含めるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      小数点区切り文字の左側に整数がない場合に、フォーマットされた数値に先頭の 0 を含めるかどうかを指定します。
+     
+      <p>このプロパティが <codeph>true</codeph> に設定されている場合、-1.0 ～ 1.0 の数値をフォーマットするときに、小数点記号の左側に先頭の 0 が含まれます。このプロパティが <codeph>false</codeph> に設定されている場合、0 は含まれません。</p>
+     
+      <p>例えば、数値が 0.321 でこのプロパティが <codeph>true</codeph> に設定されている場合、フォーマットされた文字列に先頭の 0 が含まれます。 プロパティが <codeph>false</codeph> に設定されている場合、先頭の 0 は含まれません。その場合、文字列には、<codeph>.321</codeph> のように小数点記号とその後に続く 10 進数の数字が含まれます。</p>
+     
+      <p>次の表は、このプロパティと <codeph>fractionalDigits</codeph> および <codeph>trailingZeros</codeph> の関連プロパティの値に基づいて数値をフォーマットする方法の例を示しています。
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry>trailingZeros</entry>
+                 <entry><b>leadingZero</b></entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      負の値をフォーマットするときに使用されるマイナス記号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      負の値をフォーマットするときに使用されるマイナス記号。
+     
+      <p>この記号は、0 よりも小さい数値をフォーマットするときに、負の数値のフォーマットと組み合わせて使用されます。負の記号を含まない負の数値のフォーマットでは使用されません（例えば、負の数値が括弧で囲まれている場合）。 </p>
+     
+      <p>このプロパティは、このフォーマッターを構築するときに選択した実際のロケールのデフォルト値に設定されます。値を設定して、デフォルト設定を無効にすることができます。</p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:trailingZeros:get"><apiName>trailingZeros</apiName><shortdesc>
+      末尾の 0 をフォーマットされた数値に含めるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      末尾の 0 をフォーマットされた数値に含めるかどうかを指定します。
+     
+      <p>このプロパティが <codeph>true</codeph> に設定されている場合、末尾の 0 が <codeph>fractionalDigits</codeph> プロパティで指定された限界までフォーマットされた数値の小数部分に含まれます。このプロパティが <codeph>false</codeph> に設定されている場合、末尾の 0 は表示されません。</p>
+     
+      <p>例えば、数値が 123.4 で、このプロパティが true に設定されている場合、<codeph>fractionalDigits</codeph> プロパティは 3 に設定され、フォーマットされた文字列には <codeph>123.400</codeph> のように末尾の 0 が表示されます。 このプロパティが <codeph>false</codeph> の場合、末尾の 0 は含まれず、文字列には <codeph>123.4</codeph> のように小数点記号とその後に続くゼロ以外の 10 進数の数字が表示されます。</p>
+     
+      <p>次の表は、このプロパティと <codeph>fractionalDigits</codeph> および <codeph>leadingZero</codeph> の関連プロパティの値に基づいて数値をフォーマットする方法の例を示しています。
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry><b>trailingZeros</b></entry>
+                 <entry>leadingZero</entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/leadingZero"><linktext>leadingZero</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:useGrouping:get"><apiName>useGrouping</apiName><shortdesc>
+      数字をフォーマットするときに、グループ化区切りを使用できるようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      数字をフォーマットするときに、グループ化区切りを使用できるようにします。
+     
+      <p><codeph>useGrouping</codeph> プロパティが <codeph>true</codeph> に設定されている場合、数字はグループ化され、グループセパレーター文字で区切られます。例：<codeph>123,456,789.22</codeph></p>
+     
+      <p><codeph>useGrouping</codeph> プロパティが <codeph>false</codeph> に設定されている場合、数字はグループ化されず、区切られません。例：<codeph>123456789.22</codeph></p>
+
+      <p>グループ化区切りとして使用される記号は <codeph>groupingSeparator</codeph> プロパティによって定義されます。グループ化区切り間の桁数は、<codeph>groupingPattern</codeph> プロパティによって定義されます。</p>
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

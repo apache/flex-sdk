@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.codec"><apiName>mx.graphics.codec</apiName><apiDetail/><apiClassifier id="mx.graphics.codec:IImageEncoder"><apiName>IImageEncoder</apiName><shortdesc>
+  Интерфейс IImageEncoder определяет интерфейс, реализуемый кодировщиками изображений для приема объектов BitmapData или объектов ByteArray, содержащих необработанные пиксели в формате ARGB, в качестве входных данных и их преобразования в популярные графические форматы, например PNG или JPEG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IImageEncoder определяет интерфейс, реализуемый кодировщиками изображений для приема объектов BitmapData или объектов ByteArray, содержащих необработанные пиксели в формате ARGB, в качестве входных данных и их преобразования в популярные графические форматы, например PNG или JPEG.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.codec.xml#PNGEncoder"><linktext>PNGEncoder</linktext></link><link href="mx.graphics.codec.xml#JPEGEncoder"><linktext>JPEGEncoder</linktext></link></related-links><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Обеспечивает кодирование объекта ByteArray, содержащего необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий каналы), в новый объект ByteArray, содержащий кодированную графическую информацию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий кодированную графическую информацию.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Входной объект ByteArray, содержащий необработанные пиксели. Этот объект ByteArray должен содержать байты <codeph>4 width height</codeph>. Каждый пиксель представляется 4 байтами в порядке ARGB. Первые четыре байта представляет верхний левый пиксель изображения. Следующие четыре байта представляют пиксель, находящийся справа от первого и т. д. Каждый ряд следует за предыдущим без каких-либо дополнений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Ширина входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Высота входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Если значением является <codeph>false</codeph>, информация альфа-канала игнорируется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает кодирование объекта ByteArray, содержащего необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий каналы), в новый объект ByteArray, содержащий кодированную графическую информацию. Первоначальный объект ByteArray остается без изменений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Обеспечивает кодирование объектов BitmapData в объекты ByteArray.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий кодированную графическую информацию. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Входной объект BitmapData.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает кодирование объектов BitmapData в объекты ByteArray.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Тип MIME для формата изображения, производимого данным кодировщиком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Тип MIME для формата изображения, производимого данным кодировщиком.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+  Класс JPEGEncoder обеспечивает преобразование необработанных растровых изображений в кодированные изображения с использованием механизма компрессии JPEG (Joint Photographic Experts Group, объединенная группа экспертов в области фотографии).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс JPEGEncoder обеспечивает преобразование необработанных растровых изображений в кодированные изображения с использованием механизма компрессии JPEG (Joint Photographic Experts Group, объединенная группа экспертов в области фотографии). Для получения информации об алгоритме JPEG см. документ http://www.opennet.ru/docs/formats/jpeg.txt, созданный Кристианом Кутурицу.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:JPEGEncoder:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>quality</apiItemName><apiType value="Number"/><apiData>50.0</apiData><apiDesc>Значение в диапазоне от 0,0 до 100,0. Чем меньше значение <codeph>quality</codeph>, тем меньше размер файла итогового изображения. Это значение не отказывает влияния на скорость кодирования. Следует отметить, что даже в том случае, если этим значением является число в диапазоне от 0,0 до 100,0, оно не представляет собой процентное значение. Значением по умолчанию является 50,0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:JPEGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Обеспечивает преобразование объекта ByteArray, содержащего необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий канал) в новый объект ByteArray в формате JPEG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий графическую информацию в формате JPEG. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Входной объект ByteArray, содержащий необработанные пиксели. Этот объект ByteArray должен содержать байты <codeph>4 width height</codeph>. Каждый пиксель представляется 4 байтами в порядке ARGB. Первые четыре байта представляет верхний левый пиксель изображения. Следующие четыре байта представляют пиксель, находящийся справа от первого и т. д. Каждый ряд следует за предыдущим без каких-либо дополнений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Ширина входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Высота входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Если значением является <codeph>false</codeph>, информация альфа-канала игнорируется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает преобразование объекта ByteArray, содержащего необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий канал) в новый объект ByteArray в формате JPEG. Первоначальный объект ByteArray остается без изменений. Прозрачность при этом не поддерживается, однако, каждый символ по-прежнему должен быть представлен в виде четырех байтов в формате ARGB.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:JPEGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Обеспечивает преобразование пикселей объекта BitmapData в объект ByteArray в формате JPEG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий графическую информацию в формате JPEG.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Входной объект BitmapData.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает преобразование пикселей объекта BitmapData в объект ByteArray в формате JPEG.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:JPEGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Тип MIME для изображения в формате JPEG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Тип MIME для изображения в формате JPEG. Значением является <codeph>image/jpeg</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+  Класс PNGEncoder обеспечивает преобразование необработанных растровых изображений в кодированные изображения с использованием механизма PNG (Portable Network Graphics, переносимая сетевая графика) без потерь данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PNGEncoder обеспечивает преобразование необработанных растровых изображений в кодированные изображения с использованием механизма PNG (Portable Network Graphics, переносимая сетевая графика) без потерь данных.
+ 
+  <p>Спецификацию PNG см. по адресу http://www.w3.org/TR/PNG/</p>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:PNGEncoder:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:PNGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Преобразовывает объект ByteArray, содержащий необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий каналы), в новый объект ByteArray в формате PNG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий графическую информацию в формате PNG. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Входной объект ByteArray, содержащий необработанные пиксели. Этот объект ByteArray должен содержать байты <codeph>4 width height</codeph>. Каждый пиксель представляется 4 байтами в порядке ARGB. Первые четыре байта представляет верхний левый пиксель изображения. Следующие четыре байта представляют пиксель, находящийся справа от первого и т. д. Каждый ряд следует за предыдущим без каких-либо дополнений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Ширина входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Высота входного изображения в пикселях.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Если значением является <codeph>false</codeph>, информация альфа-канала игнорируется, однако, каждый пиксель по-прежнему должен быть представлен четырьмя байтами в формате ARGB.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразовывает объект ByteArray, содержащий необработанные пиксели в 32-разрядном формате ARGB (альфа-канал, красный, зеленый, синий каналы), в новый объект ByteArray в формате PNG. Первоначальный объект ByteArray остается без изменений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:PNGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Обеспечивает преобразование пикселей объекта BitmapData в объект ByteArray в формате PNG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ByteArray, содержащий графическую информацию в формате PNG.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Входной объект BitmapData.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает преобразование пикселей объекта BitmapData в объект ByteArray в формате PNG.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:PNGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Тип MIME для изображений в формате PNG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Тип MIME для изображений в формате PNG. Значением является <codeph>image/png</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

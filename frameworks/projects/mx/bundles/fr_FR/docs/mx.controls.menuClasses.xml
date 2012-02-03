@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.menuClasses"><apiName>mx.controls.menuClasses</apiName><apiDetail/><apiClassifier id="mx.controls.menuClasses:IMenuBarItemRenderer"><apiName>IMenuBarItemRenderer</apiName><shortdesc>
+  L’interface IMenuBarItemRenderer définit l’interface qu’un rendu d’élément de la barre de menus de niveau supérieur d’un contrôle MenuBar doit implémenter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IMenuBarItemRenderer définit l’interface qu’un rendu d’élément de la barre de menus de niveau supérieur d’un contrôle MenuBar doit implémenter. Le rendu d’élément définit l’aspect de chaque bouton de la barre de menus de niveau supérieur. Pour implémenter cette interface, vous devez définir une méthode setter et getter qui implémente les propriétés <codeph>menuBar</codeph>, <codeph>menuBarItemIndex</codeph> et <codeph>menuBarItemState</codeph>. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.menuClasses.xml#MenuBarItem"><linktext>mx.controls.menuClasses.MenuBarItem</linktext></link></related-links><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc>
+      Contient l’index de ce rendu d’élément par rapport à d’autres rendus d’élément du contrôle MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Contient l’index de ce rendu d’élément par rapport à d’autres rendus d’élément du contrôle MenuBar. L’index du premier rendu d’élément, celui qui se trouve le plus à gauche, est de 0 et augmente par incréments de 1 au fur et à mesure que vous vous déplacez vers la droite dans le contrôle MenuBar. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc>
+      Contient l’état actif de ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Contient l’état actif de ce rendu d’élément. Les valeurs possibles sont <codeph>"itemUpSkin"</codeph>, <codeph>"itemDownSkin"</codeph> et <codeph>"itemOverSkin"</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBar:get"><apiName>menuBar</apiName><shortdesc>
+      Contient une référence au contrôle MenuBar du rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc>
+      Contient une référence au contrôle MenuBar du rendu d’élément. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+  La classe MenuBarItem définit le rendu d’élément par défaut de la barre de menus de niveau supérieur d’un contrôle MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Décalage de la première ligne de texte par rapport au côté gauche du conteneur (en pixels).
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="Class">
+<description>
+  Classe implémentant l’occurrence IUITextField qui permet à ce composant de rendre le texte.
+ 
+  <p>Elle peut être définie sur la classe mx.core.UITextField (pour utiliser la classe TextField classique intégrée à Flash Player) ou la classe mx.core.UIFTETextField (pour utiliser Text Layout Framework, qui permet d’améliorer le rendu du texte et d’obtenir notamment une mise en forme bidirectionnelle).</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Détermine si le texte est souligné. Les valeurs possibles sont <codeph>"none"</codeph> et <codeph>"underline"</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Alignement du texte au sein d’un conteneur. Les valeurs possibles sont <codeph>"left"</codeph>, <codeph>"right"</codeph> ou <codeph>"center"</codeph>.
+ 
+  <p>La valeur par défaut de la plupart des composants est <codeph>"left"</codeph>. Pour le composant FormItem, la valeur par défaut est <codeph>"right"</codeph>. Pour les composants Button, LinkButton et AccordionHeader, la valeur par défaut est <codeph>"center"</codeph>. Cette propriété n’est reconnue que lorsque la propriété <codeph>labelPlacement</codeph> est définie sur <codeph>"left"</codeph> ou <codeph>"right"</codeph>. Si la propriété <codeph>labelPlacement</codeph> est définie sur <codeph>"top"</codeph> ou <codeph>"bottom"</codeph>, le texte et les icônes sont centrés.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  Paramètres régionaux du texte affiché par ce composant. 
+ 
+  <p>FTE et TLF utilisent ces paramètres régionaux pour mapper des caractères Unicode à des glyphes de police et rechercher des polices de rechange. </p>
+ 
+  <p>Remarque : ce style s’applique uniquement lorsqu’un composant MX spécifie UIFTETextField comme classe <codeph>textFieldClass</codeph>.</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Nombre de pixels supplémentaires devant apparaître entre chaque caractère. Une valeur positive augmente l’espacement des caractères par rapport à l’espacement normal, alors qu’une valeur négative le réduit.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Boolean">
+<description>
+  Valeur booléenne indiquant si le crénage est activé (<codeph>true</codeph>) ou désactivé (<codeph>false</codeph>). Le crénage ajuste le pas entre certaines paires de caractères pour améliorer la lisibilité et ne doit être employé que si nécessaire, dans les titres en grande police, par exemple. Le crénage est supporté uniquement pour les polices incorporées. Certaines polices, telles que Verdana, et les polices à espacement fixe, telles que Courier New, ne prennent pas en charge le crénage.
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Détermine si le texte doit être en gras. Les valeurs reconnues sont <codeph>normal</codeph> et <codeph>bold</codeph>. La valeur par défaut du contrôle Button est <codeph>bold</codeph>. La valeur par défaut de tous les autres contrôles est <codeph>normal</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Définit la propriété <codeph>thickness</codeph> des sous-contrôles TextField internes qui représentent le texte des contrôles Flex. Cette propriété spécifie l’épaisseur du contour des glyphes. Les nombres possibles vont de -200 à 200. 
+  
+  <p>Cette propriété s’applique uniquement lorsque vous utilisez une police imbriquée et lorsque la propriété <codeph>fontAntiAliasType</codeph> est définie sur <codeph>"advanced"</codeph>.</p>
+  
+  <p>Ce style n’a aucun effet sur les polices système.</p>
+ 
+  <p>Ce style s’applique à l’ensemble du texte d’un sous-contrôle TextField. Vous ne pouvez pas l’appliquer uniquement à certains caractères et pas à d’autres.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Détermine si le texte doit être en italique. Les valeurs reconnues sont <codeph>"normal"</codeph> et <codeph>"italic"</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Hauteur du texte, en pixels. Dans le thème Halo, la valeur par défaut est 10 pour tous les contrôles sauf ColorPicker. Pour le contrôle ColorPicker avec thème Halo, la valeur par défaut est 11. Dans le thème Spark, la valeur par défaut est 12 pour tous les contrôles sauf ColorPicker. Pour le contrôle ColorPicker avec thème Spark, la valeur par défaut est 11.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Définit la propriété <codeph>sharpness</codeph> des objets TextField internes représentant le texte dans les contrôles Flex. Cette propriété spécifie la netteté du contour des glyphes. Les nombres possibles vont de -400 à 400. 
+  
+  <p>Cette propriété s’applique uniquement lorsque vous utilisez une police imbriquée et lorsque la propriété <codeph>fontAntiAliasType</codeph> est définie sur <codeph>"advanced"</codeph>.</p>
+  
+  <p>Ce style n’a aucun effet pour les polices système.</p>
+ 
+  <p>Ce style s’applique à l’ensemble du texte d’un sous-contrôle TextField. Vous ne pouvez pas l’appliquer uniquement à certains caractères et pas à d’autres.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Définit la propriété <codeph>gridFitType</codeph> des objets TextField internes représentant le texte dans les contrôles Flex. Les valeurs possibles sont <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>), <codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) et <codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>). 
+  
+  <p>Cette propriété s’applique uniquement lorsque vous utilisez une police imbriquée et lorsque la propriété <codeph>fontAntiAliasType</codeph> est définie sur <codeph>"advanced"</codeph>.</p>
+  
+  <p>Ce style n’a aucun effet pour les polices système.</p>
+ 
+  <p>Ce style s’applique à l’ensemble du texte d’un sous-contrôle TextField. Vous ne pouvez pas l’appliquer uniquement à certains caractères et pas à d’autres.</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Nom de la police à utiliser. A la différence d’une implémentation CSS complète, les listes de valeurs séparées par des virgules ne sont pas prises en charge. Vous pouvez utiliser n’importe quel nom de famille de polices. Si vous spécifiez un nom de police générique, il est converti dans la police de périphérique appropriée. La police par défaut du thème Halo est <codeph>"Verdana"</codeph>. La police par défaut du thème Spark est <codeph>"Arial"</codeph>. 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Définit la propriété <codeph>antiAliasType</codeph> des objets TextField internes. Les valeurs possibles sont <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) et <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>). 
+  
+  <p>La valeur par défaut est <codeph>"advanced"</codeph>, ce qui active l’anti-aliasing avancé de la police. Définissez la propriété sur <codeph>"normal"</codeph> pour désactiver l’anti-aliasing avancé.</p>
+  
+  <p>Ce style n’a aucun effet pour les polices système.</p>
+  
+  <p>Ce style s’applique à l’intégralité du texte d’un sous-contrôle TextField : vous ne pouvez pas l’appliquer à certains caractères seulement et non à d’autres.</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de texte dans le composant s’il est désactivé.
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  Direction du texte affiché par le composant. 
+ 
+  <p>Les valeurs autorisées sont <codeph>"ltr"</codeph> pour les textes rédigés de gauche à droite, comme dans les scripts de style latin et <codeph>"rtl"</codeph> pour les textes rédigés de droite à gauche, comme l’arabe ou l’hébreu. </p>
+ 
+  <p>FTE et TLF utilisent cette valeur dans leur algorithme de mise en forme de texte bidirectionnel, lequel mappe l’ordre des caractères Unicode sur ordre des glyphes. </p>
+ 
+  <p>Remarque : ce style s’applique uniquement lorsqu’un composant MX composant spécifie UIFTETextField comme classe <codeph>textFieldClass</codeph>.</p>
+ 
+  <p>La <codeph>direction</codeph> a également une incidence sur l’alignement du texte dans les limites du TLFTextField. Elle n’a pas, cependant, d’incidence sur le positionnement de TLFTextField au sein du composant. </p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de texte dans le composant, y compris l’étiquette du composant. La valeur par défaut du thème Halo est <codeph>0x0B333C</codeph>. La valeur par défaut du thème Spark est <codeph>0x000000</codeph>. 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Espace vertical supplémentaire entre les lignes de texte.
+ 
+  <p>La valeur par défaut est 2.</p>
+  <p>La valeur par défaut du contrôle ComboBox est 0.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.menuClasses:IMenuBarItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MenuBarItem définit le rendu d’élément par défaut de la barre de menus de niveau supérieur d’un contrôle MenuBar. Par défaut, le rendu d’élément trace le texte associé à chaque élément de la barre de menus de niveau supérieur, ainsi qu’une icône facultative. 
+ 
+  <p>Une occurrence MenuBarItem transmet les interactions de la souris et du clavier au contrôle MenuBar afin qu’il puisse afficher et masquer correctement les menus. </p>
+ 
+  <p>Vous pouvez remplacer le rendu d’élément MenuBar par défaut en créant un rendu d’élément personnalisé qui implémente l’interface IMenuBarItemRenderer.</p>
+ 
+  <p>Vous pouvez également définir un rendu d’élément pour les sous-menus contextuels du contrôle MenuBar. Comme chaque sous-menu contextuel est une occurrence du contrôle Menu, utilisez la classe MenuItemRenderer pour définir un rendu d’élément pour les sous-menus contextuels.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer</linktext></link><link href="mx.controls.menuClasses.xml#MenuItemRenderer"><linktext>mx.controls.menuClasses.MenuItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuBarItem:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:icon"><apiName>icon</apiName><shortdesc>
+      Objet IFlexDisplayObject qui affiche l’icône dans ce contrôle MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Objet IFlexDisplayObject qui affiche l’icône dans ce contrôle MenuBarItem.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:label"><apiName>label</apiName><shortdesc>
+      Objet UITextField qui affiche le texte dans ce contrôle MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Objet UITextField qui affiche le texte dans ce contrôle MenuBarItem.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+	  Objet qui fournit les données du contrôle Menu qui apparaît lorsque ce contrôle MenuBarItem est sélectionné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"undefined"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet qui fournit les données du contrôle Menu qui apparaît lorsque ce contrôle MenuBarItem est sélectionné.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:data:get"><apiName>data</apiName><shortdesc>
+      Implémentation de la propriété data, telle que définie par l’interface IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>data</codeph>, telle que définie par l’interface IDataRenderer. Tous les rendus d’élément doivent implémenter l’interface IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      Implémentation de la propriété menuBarItemIndex, telle que définie par l’interface IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      Implémentation de la propriété <codeph>menuBarItemIndex</codeph>, telle que définie par l’interface IMenuBarItemRenderer.  
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemIndex"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      Implémentation de la propriété menuBarItemState, telle que définie par l’interface IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      Implémentation de la propriété <codeph>menuBarItemState</codeph>, telle que définie par l’interface IMenuBarItemRenderer.  
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemState"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemState</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBar:get"><apiName>menuBar</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      Implémentation de la propriété menuBar, telle que définie par l’interface IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      Implémentation de la propriété <codeph>menuBar</codeph>, telle que définie par l’interface IMenuBarItemRenderer. 
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBar"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBar</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+  La classe MenuItemRenderer définit le rendu d’élément par défaut des éléments de menu d’un contrôle Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de l’élément de menu s’il est désactivé.
+  
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de texte de l’étiquette d’un élément de menu. La valeur par défaut du thème Halo est <codeph>0x0B333C</codeph>. La valeur par défaut du thème Spark est <codeph>0x000000</codeph>. 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MenuItemRenderer définit le rendu d’élément par défaut des éléments de menu d’un contrôle Menu. Par défaut, le rendu d’élément trace le texte associé à chaque élément de menu, les caractères de séparation et les icônes.
+ 
+  <p>Vous pouvez remplacer le rendu d’élément par défaut en créant un rendu d’élément personnalisé.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.menuClasses:MenuItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Distribué lorsque la propriété data change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>data</codeph> change.
+ 
+  <p>Lorsque vous utilisez un composant comme rendu d’élément, la propriété <codeph>data</codeph> contient les données à afficher. Vous pouvez écouter cet événement et mettre à jour le composant lorsque la propriété <codeph>data</codeph> change.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.menuClasses:MenuItemRenderer:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:branchIcon"><apiName>branchIcon</apiName><shortdesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de branche dans ce rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de branche dans ce rendu.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+	  Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:separatorIcon"><apiName>separatorIcon</apiName><shortdesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de séparation dans ce rendu
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de séparation dans ce rendu
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:typeIcon"><apiName>typeIcon</apiName><shortdesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de type dans ce rendu pour les cases d’option et les cases à cocher.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône de type dans ce rendu pour les cases d’option et les cases à cocher.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Implémentation de la propriété data, telle que définie par l’interface IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Implémentation de la propriété <codeph>data</codeph>, telle que définie par l’interface IDataRenderer.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:icon:get"><apiName>icon</apiName><shortdesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Objet IFlexDisplayObject interne qui affiche l’icône dans cette fonctionnalité de rendu.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+	  Implémentation de la propriété listData, telle que définie par l’interface IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+	  Implémentation de la propriété <codeph>listData</codeph>, telle que définie par l’interface IDropInListItemRenderer.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      Largeur de l’icône de branche
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône de branche
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      Largeur de l’icône
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      Largeur de l’icône de type (radio/case à cocher)
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône de type (radio/case à cocher)
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+	  Contient une référence au contrôle Menu associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Contient une référence au contrôle Menu associé.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:IMenuItemRenderer"><apiName>IMenuItemRenderer</apiName><shortdesc>
+  L’interface IMenuItemRenderer définit l’interface qu’un rendu d’élément de menu d’un contrôle Menu doit implémenter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IMenuItemRenderer définit l’interface qu’un rendu d’élément de menu d’un contrôle Menu doit implémenter.
+ 
+  <p>Les rendus d’élément de menu sont souvent recyclés. Une fois créés, ils peuvent être réutilisés simplement en leur affectant de nouvelles données. Par conséquent, dans les implémentations individuelles, les développeurs de composants doivent s’assurer que les propriétés des composants ne sont pas censées contenir des valeurs d’origine spécifiques ou leurs valeurs par défaut.</p>
+ 
+  <p>Pour implémenter cette interface, un développeur de composants doit définir une méthode setter et getter qui implémente la propriété <codeph>menu</codeph>. En général, la méthode setter inscrit la valeur de la propriété data sur une variable interne et la méthode getter renvoie la valeur actuelle de la variable interne, comme l’illustre l’exemple suivant :</p>
+  <pre>
+     // Internal variable for the property value.
+     private var _menu:Menu;
+ 
+     // Define the getter method.
+     public function get menu():Menu
+     {
+         return _menu;
+     }
+ 
+     // Define the setter method.
+     public function set menu(value:Menu):void
+     {
+         _menu = value;
+     }
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      Largeur de l’icône de branche.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône de branche.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      Largeur de l’icône.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      Largeur de l’icône de type (radio/case à cocher).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de l’icône de type (radio/case à cocher).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+      Référence au contrôle Menu de ce rendu d’élément de menu, s’il en contient un.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier></apiValueDef><apiDesc>
+      Référence au contrôle Menu de ce rendu d’élément de menu, s’il en contient un. Cela indique que ce rendu d’élément de menu est un nœud de branche, capable de faire apparaître un sous-menu.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+  La classe MenuListData définit le type de données de la propriété listData implémentée par les rendus d’élément ou les éditeurs d’élément supplémentaires du contrôle Menu et MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MenuListData définit le type de données de la propriété <codeph>listData</codeph> implémentée par les rendus d’élément ou les éditeurs d’élément supplémentaires du contrôle Menu et MenuBar. Tous les rendus d’élément et éditeurs d’élément supplémentaires doivent implémenter l’interface IDropInListItemRenderer, qui définit la propriété <codeph>listData</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuListData:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Représentation textuelle des données d’un élément.
+	 
+	 	</apiDesc></apiParam><apiParam><apiItemName>icon</apiItemName><apiType value="Class"/><apiDesc>Objet Class ou String représentant l’icône de l’élément dans le contrôle List.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiDesc>Nom du champ dans le fournisseur de données qui contient les données d’étiquette du composant List.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Identifiant unique de l’élément.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Référence au contrôle Menu.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Index de l’élément dans le fournisseur de données du contrôle Menu.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Index de la colonne dans les colonnes actuellement visibles du contrôle.
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredBranchIconWidth"><apiName>maxMeasuredBranchIconWidth</apiName><shortdesc>
+	  Largeur maximale de l’icône de branche de tous les rendus MenuItemListRenderer
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Largeur maximale de l’icône de branche de tous les rendus MenuItemListRenderer
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredIconWidth"><apiName>maxMeasuredIconWidth</apiName><shortdesc>
+	  Largeur maximale de l’icône de tous les rendus MenuItemListRenderer
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Largeur maximale de l’icône de tous les rendus MenuItemListRenderer
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredTypeIconWidth"><apiName>maxMeasuredTypeIconWidth</apiName><shortdesc>
+	  Largeur maximale de l’icône de type de tous les rendus MenuItemListRenderer
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Largeur maximale de l’icône de type de tous les rendus MenuItemListRenderer
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:useTwoColumns"><apiName>useTwoColumns</apiName><shortdesc>
+	  Indique si les icônes de gauche doivent être disposées en deux colonnes distinctes (une pour les icônes et une pour les icônes de type, comme les boutons radio et les cases à cocher)
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Indique si les icônes de gauche doivent être disposées en deux colonnes distinctes (une pour les icônes et une pour les icônes de type, comme les boutons radio et les cases à cocher)
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

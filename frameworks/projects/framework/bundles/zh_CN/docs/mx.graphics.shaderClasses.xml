@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.shaderClasses"><apiName>mx.graphics.shaderClasses</apiName><apiDetail/><apiClassifier id="mx.graphics.shaderClasses:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“发光度”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“发光度”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“发光度”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="LuminosityShaderExample.mxml"><swfblock conref="examples/LuminosityShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:LuminosityShader:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“柔光”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“柔光”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“柔光”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="SoftLightShaderExample.mxml"><swfblock conref="examples/SoftLightShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SoftLightShader:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:HueShader"><apiName>HueShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“色相”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“色相”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“色相”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="HueShaderExample.mxml"><swfblock conref="examples/HueShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:HueShader:HueShader"><apiName>HueShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+  ColorShader 类创建了一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorShader 类创建了一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。可以对 Flex 组和图形元素设置“颜色”混合模式，且诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。  
+ 
+  </apiDesc><example conref="ColorShaderExample.mxml"><swfblock conref="examples/ColorShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorShader:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“排除”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“排除”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“排除”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="ExclusionShaderExample.mxml"><swfblock conref="examples/ExclusionShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ExclusionShader:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色减淡”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色减淡”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“颜色减淡”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>
+ 
+  </apiDesc><example conref="ColorDodgeShaderExample.mxml"><swfblock conref="examples/ColorDodgeShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorDodgeShader:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色加深”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“颜色加深”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“颜色加深”混合模式，且诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="ColorBurnShaderExample.mxml"><swfblock conref="examples/ColorBurnShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorBurnShader:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+  创建了一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的发光度蒙版选项（也称为柔化蒙版）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建了一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的发光度遮罩选项（也称为柔化遮罩）。此遮罩类型不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置发光度遮罩类型。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>
+  
+  </apiDesc><example conref="LuminosityMaskShaderExample.mxml"><swfblock conref="examples/LuminosityMaskShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>spark.primitives.supportClasses.GraphicElement.maskType</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/maskType"><linktext>spark.components.supportClasses.GroupBase.maskType</linktext></link></related-links><apiConstructor id="mx.graphics.shaderClasses:LuminosityMaskShader:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics.shaderClasses:LuminosityMaskShader:mode:get"><apiName>mode</apiName><shortdesc>
+      一个方便使用的字段，用于考虑是打开还是关闭 luminosityClip 和/或 luminosityInvert。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      一个方便使用的字段，用于考虑是打开还是关闭 luminosityClip 和/或 luminosityInvert。 
+     
+      <ul>
+       <li>模式 0 = 关闭 luminosityClip，关闭 luminosityInvert</li>
+       <li>模式 1 = 关闭 luminosityClip，打开 luminosityInvert</li>
+       <li>模式 2 = 打开 luminosityClip，关闭 luminosityInvert</li>
+       <li>模式 3 = 打开 luminosityClip，打开 luminosityInvert </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityClip"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityClip</linktext></link><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityInvert"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityInvert</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityClip"><linktext>spark.components.supportClasses.GroupBase.luminosityClip</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityInvert"><linktext>spark.components.supportClasses.GroupBase.luminosityInvert</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“饱和度”混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  创建一个混合着色器，此着色器等效于 Adobe Creative Suite 工具中提供的 RGB 预乘颜色的“饱和度”混合模式。此混合模式不是 Flash 的特有功能，在 Adobe Illustrator 和 Adobe Photoshop 等工具中都提供。 
+ 
+  <p>可以对 Flex 组和图形元素设置“饱和度”混合模式。诸如 Adobe Illustrator 和 Adobe Photoshop 等工具中的可视外观将通过此混合着色器进行模仿。</p>  
+ 
+  </apiDesc><example conref="SaturationShaderExample.mxml"><swfblock conref="examples/SaturationShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SaturationShader:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

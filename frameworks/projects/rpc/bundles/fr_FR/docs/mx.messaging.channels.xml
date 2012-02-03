@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.channels"><apiName>mx.messaging.channels</apiName><apiDetail/><apiClassifier id="mx.messaging.channels:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+  La classe HTTPChannel fournit le support HTTP pour l’échange de messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe HTTPChannel fournit le support HTTP pour l’échange de messages. Vous pouvez configurez ce canal pour qu’il interroge le serveur à un intervalle proche de celui utilisé pour l’envoi de données par le serveur. Vous pouvez aussi utiliser ce canal avec l’interrogation désactivée pour envoyer des messages RPC à des destinations distantes afin d’invoquer leurs méthodes.
+ 
+  <p>
+  La classe HTTPChannel fait appel à des services de réseau natifs de Flash Player et AIR et exposés à la classe ActionScript par la classe URLLoader. Ce canal utilise la classe URLLoader exclusivement et crée une nouvelle classe URLLoader par demande.
+  </p>
+ 
+  <p>
+  Les canaux préconfigurés sont obtenus au sein de la structure à l’aide de la méthode <codeph>ServerConfig.getChannel()</codeph>. Les canaux peuvent être construits directement et assignés à une classe ChannelSet si nécessaire.
+  </p>
+ 
+  <p>
+  Les canaux représentent une connexion physique à une extrémité distante. Par défaut, les canaux sont partagés à travers les destinations. Cela signifie qu’un client ciblant différentes destinations peut utiliser le même canal pour communiquer avec ces destinations.
+  </p>
+ 
+  <p>
+  Lorsqu’utilisé en mode interrogation, ce canal interroge le serveur pour les nouveaux messages en fonction de la propriété <codeph>polling-interval-seconds</codeph> dans le fichier de configuration ; cela peut être changé en définissant la propriété <codeph>pollingInterval</codeph>. La valeur par défaut est de 3 secondes. Pour que l’interrogation soit activée, le canal doit être connecté et la propriété <codeph>polling-enabled</codeph> dans le fichier de configuration doit être définie sur <codeph>true</codeph>, ou la propriété <codeph>pollingEnabled</codeph> du canal doit être définie sur <codeph>true</codeph>.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:HTTPChannel:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:HTTPChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      Indique si ce canal transporte les demandes d’interrogation avec les messages sortants standard lorsqu’une interrogation en attente n’est pas en cours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal transporte les demandes d’interrogation avec les messages sortants standard lorsqu’une interrogation en attente n’est pas en cours. Cela permet au serveur de transporter des données pour le client avec sa réponse au message du client.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      Indique si ce canal est activé pour procéder à l’interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal est activé pour procéder à l’interrogation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      Fournit un accès à l’intervalle d’interrogation de ce canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>Si l’intervalle d’interrogation reçoit une valeur égale à 0 ou moins.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Fournit un accès à l’intervalle d’interrogation de ce canal. La valeur est en millisecondes. Cette valeur détermine la fréquence à laquelle ce canal demande des messages du serveur, pour s’approcher de l’envoi de données par le serveur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      Signale si le canal procède activement à une interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Signale si le canal procède activement à une interrogation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (http).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (http).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+  Classe d’aide utilisée par les canaux de flux pour ouvrir une connexion HTTP interne au serveur maintenue ouverte afin que le serveur puisse transmettre des données au client sans surcharge d’interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe d’aide utilisée par les canaux de flux pour ouvrir une connexion HTTP interne au serveur maintenue ouverte afin que le serveur puisse transmettre des données au client sans surcharge d’interrogation.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.channels:StreamingConnectionHandler_flash.events.StatusEvent_status"><apiName>status</apiName><shortdesc>
+  Distribué lorsque la classe StreamingConnectionHandler reçoit une commande status du serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.StatusEvent</apiEventType><adobeApiEventClassifier>flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la classe StreamingConnectionHandler reçoit une commande status du serveur.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.channels:StreamingConnectionHandler:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Canal utilisant cette classe.
+	  </apiDesc></apiParam><apiParam><apiItemName>log</apiItemName><apiType value="mx.logging:ILogger"/><apiDesc>Référence à l’enregistreur du canal associé.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:closeStreamingConnection"><apiName>closeStreamingConnection</apiName><shortdesc>
+      Utilisé par les classes de flux pour mettre fin à la connexion de flux.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Utilisé par les classes de flux pour mettre fin à la connexion de flux.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:openStreamingConnection"><apiName>openStreamingConnection</apiName><shortdesc>
+      Utilisé par les classes de flux pour établir la connexion de flux, si nécessaire, et envoyer la demande d’ouverture au serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>appendToURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chaîne à ajouter, telle que l’ID de session, à l’URL d’extrémité pendant la demande de connexion de flux.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Utilisé par les classes de flux pour établir la connexion de flux, si nécessaire, et envoyer la demande d’ouverture au serveur.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:protected:readMessage"><apiName>readMessage</apiName><shortdesc>
+      Utilisé par le gestionnaire streamProgressHandler pour lire un message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie le message ayant été lu.
+	 
+	  </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Utilisé par le gestionnaire streamProgressHandler pour lire un message. L’implémentation par défaut renvoie null et les sous-classes doivent remplacer cette méthode.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:StreamingConnectionHandler:DISCONNECT_CODE"><apiName>DISCONNECT_CODE</apiName><shortdesc>
+      Code de l’événement StatusEvent distribué par ce gestionnaire lorsqu’une commande disconnect est reçue du serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>disconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Code de l’événement StatusEvent distribué par ce gestionnaire lorsqu’une commande disconnect est reçue du serveur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:channel"><apiName>channel</apiName><shortdesc>
+     Canal utilisant cette classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+     Canal utilisant cette classe.
+  	 
+  	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:chunkBuffer"><apiName>chunkBuffer</apiName><shortdesc>
+      Tampon d’octet utilisé pour stocker le segment actuel de l’extrémité distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      Tampon d’octet utilisé pour stocker le segment actuel de l’extrémité distante. Une fois un segment entier mis en mémoire tampon, une occurrence de message codée au format AMF binaire peut être lue du segment et distribuée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataBytesToRead"><apiName>dataBytesToRead</apiName><shortdesc>
+      Compteur conservant la trace du nombre d’octets de données qu’il reste à lire pour le segment actuel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Compteur conservant la trace du nombre d’octets de données qu’il reste à lire pour le segment actuel. Une valeur de sentinelle de -1 indique un état initial (en attente du premier segment ou venant juste de terminer d’analyser le segment précédent).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataOffset"><apiName>dataOffset</apiName><shortdesc>
+      Index dans le tampon de segment pointant sur le premier octet de données de segment.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Index dans le tampon de segment pointant sur le premier octet de données de segment.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+  La classe SecureStreamingHTTPChannel est identique à la classe StreamingHTTPChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingHTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SecureStreamingHTTPChannel est identique à la classe StreamingHTTPChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité HTTP.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingHTTPChannel:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+  La classe StreamingHTTPChannel fournit un support pour l’échange de messages et offre un modèle d’envoi différent de la classe HTTPChannel de base.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe StreamingHTTPChannel fournit un support pour l’échange de messages et offre un modèle d’envoi différent de la classe HTTPChannel de base. Au lieu d’interroger des données du serveur, le canal de flux ouvre une connexion HTTP interne au serveur maintenue ouverte afin que le serveur puisse transmettre des données au client sans surcharge d’interrogation.
+   <p>
+  Les messages envoyés par ce canal au serveur sont envoyés à l’aide d’une classe URLLoader qui utilise une connexion HTTP de manière interne pendant la durée de l’opération. Une fois que le message est envoyé et qu’un accusé ou une erreur est renvoyée, la connexion HTTP utilisée par la classe URLLoader est interrompue par le canal. Ces messages client vers serveur ne sont pas envoyés via la connexion HTTP de flux que le canal maintient ouverte pour recevoir les données envoyées par le serveur.
+  </p>
+   <p>
+  Bien que cette classe développe la classe HTTPChannel de base pour hériter de la gestion HTTP standard, elle ne prend pas en charge l’interrogation.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingHTTPChannel:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingHTTPChannel:poll"><apiName>poll</apiName><shortdesc>
+      Ce canal ne prend pas en charge l’interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ce canal ne prend pas en charge l’interrogation.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+  La classe SecureStreamingAMFChannel est identique à la classe StreamingAMFChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité AMF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingAMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SecureStreamingAMFChannel est identique à la classe StreamingAMFChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité AMF.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingAMFChannel:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+  La classe PollingChannel fournit le comportement d’interrogation que tous les canaux interrogateurs dans le système d’échange de messages nécessitent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Channel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PollingChannel fournit le comportement d’interrogation que tous les canaux interrogateurs dans le système d’échange de messages nécessitent.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:PollingChannel:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+      Crée une nouvelle occurrence PollingChannel avec l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence PollingChannel avec l’ID spécifié. Une fois qu’une classe PollingChannel est connectée et commence à interroger, elle envoie une demande d’interrogation toutes les trois secondes par défaut. 
+     
+      <p><b>Remarque</b> : le type PollingChannel ne doit pas être construit directement. A la place, créez des occurrences de sous-classes spécifiques à des protocoles, telles que HTTPChannel ou AMFChannel, qui le développent.</p>
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:PollingChannel:disablePolling"><apiName>disablePolling</apiName><shortdesc>
+      Désactive l’interrogation en fonction du nombre de fois que les méthodes enablePolling() et disablePolling() ont été invoquées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Désactive l’interrogation en fonction du nombre de fois que les méthodes <codeph>enablePolling()</codeph> et <codeph>disablePolling()</codeph> ont été invoquées. Si le résultat net est de désactiver l’interrogation, le canal arrête l’interrogation.
+      <p>Invoqué automatiquement en fonction de l’abonnement ou du désabonnement depuis une destination distante via une classe PollingChannel.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:enablePolling"><apiName>enablePolling</apiName><shortdesc>
+      Active l’interrogation en fonction du nombre de fois que les méthodes enablePolling() et disablePolling() ont été invoquées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Active l’interrogation en fonction du nombre de fois que les méthodes <codeph>enablePolling()</codeph> et <codeph>disablePolling()</codeph> ont été invoquées. Si le résultat net est d’activer l’interrogation, le canal interroge le serveur de la part des classes MessageAgent connectées.
+      <p>Invoqué automatiquement en fonction de l’abonnement ou du désabonnement depuis une destination distante via une classe PollingChannel.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:poll"><apiName>poll</apiName><shortdesc>
+      Lance une opération d’interrogation si des classes Consumer sont décrites dans ce canal et que l’interrogation est activée pour ce canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Lance une opération d’interrogation si des classes Consumer sont décrites dans ce canal et que l’interrogation est activée pour ce canal. Cette méthode ne démarre pas de nouvelle interrogation si une interrogation est en cours.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:send"><apiName>send</apiName><shortdesc>
+	  Envoie le message spécifié à sa destination cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiException><apiDesc>Si ni la classe MessageAgent ni le message ne spécifient une destination.
+	  
+	  </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent envoyant le message.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Envoie le message spécifié à sa destination cible. Les sous-classes doivent remplacer la méthode <codeph>internalSend()</codeph> pour effectuer l’envoi effectif. La classe <codeph>PollingChannel</codeph> enveloppe les messages sortants dans les demandes d’interrogation s’il n’y a actuellement pas d’interrogation en attente.
+     
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:PollingChannel:protected:LOGIN_AFTER_DISCONNECT"><apiName>LOGIN_AFTER_DISCONNECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>login-after-disconnect</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:PIGGYBACKING_ENABLED"><apiName>PIGGYBACKING_ENABLED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>piggybacking-enabled</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_LEGACY"><apiName>POLLING_INTERVAL_LEGACY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_MILLIS"><apiName>POLLING_INTERVAL_MILLIS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-millis</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+  La classe SecureAMFChannel est identique à la classe AMFChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité AMF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SecureAMFChannel est identique à la classe AMFChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité AMF.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureAMFChannel:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+  La classe StreamingAMFChannel fournit un support pour l’échange de messages et offre un modèle d’envoi différent de la classe AMFChannel de base.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe StreamingAMFChannel fournit un support pour l’échange de messages et offre un modèle d’envoi différent de la classe AMFChannel de base. Au lieu d’interroger des données du serveur, le canal de flux ouvre une connexion HTTP interne au serveur maintenue ouverte afin que le serveur puisse transmettre des données au client sans surcharge d’interrogation.
+   <p>
+  Les messages envoyés par ce canal au serveur sont envoyés à l’aide d’une classe NetConnection qui utilise une connexion HTTP de manière interne pendant la durée de l’opération. Une fois que le message est envoyé et qu’un accusé ou une erreur est renvoyée, la connexion HTTP utilisée par la classe NetConnection est interrompue par le canal. Ces messages client vers serveur ne sont pas envoyés via la connexion HTTP de flux que le canal maintient ouverte pour recevoir les données envoyées par le serveur.
+  </p>
+   <p>
+  Bien que cette classe développe la classe AMFChannel de base pour hériter de la gestion AMF standard, elle ne prend pas en charge l’interrogation.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingAMFChannel:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingAMFChannel:poll"><apiName>poll</apiName><shortdesc>
+      Ce canal ne prend pas en charge l’interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ce canal ne prend pas en charge l’interrogation.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+  La classe SecureHTTPChannel est identique à la classe HTTPChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SecureHTTPChannel est identique à la classe HTTPChannel, excepté qu’elle utilise un protocole sécurisé, HTTPS, pour envoyer des messages à une extrémité HTTP.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureHTTPChannel:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (https).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (https).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+  La classe NetConnectionChannel fournit le support NetConnection de base pour l’échange de messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe NetConnectionChannel fournit le support NetConnection de base pour l’échange de messages. Les classes AMFChannel et RTMPChannel développent chacune cette classe.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:NetConnectionChannel:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+      Crée une nouvelle occurrence NetConnectionChannel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle occurrence NetConnectionChannel.
+      <p>
+      La propriété <codeph>objectEncoding</codeph> de la classe NetConnection sous-jacente est définie sur <codeph>ObjectEncoding.AMF3</codeph> par défaut. Vous pouvez la changer manuellement en accédant à la propriété <codeph>netConnection</codeph> du canal. Le paramètre <codeph>NetConnection.defaultObjectEncoding</codeph> global n’est pas honoré par ce canal.
+      </p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:NetConnectionChannel:netConnection:get"><apiName>netConnection</apiName><shortdesc>
+      Fournit un accès à la classe NetConnection associée de ce canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.net:NetConnection"/></apiValueDef><apiDesc>
+      Fournit un accès à la classe NetConnection associée de ce canal.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+  La classe AMFChannel fournit le support AMF pour l’échange de messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:NetConnectionChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AMFChannel fournit le support AMF pour l’échange de messages. Vous pouvez configurez ce canal pour qu’il interroge le serveur à un intervalle proche de celui utilisé pour l’envoi de données par le serveur. Vous pouvez aussi utiliser ce canal avec l’interrogation désactivée pour envoyer des messages RPC à des destinations distantes afin d’invoquer leurs méthodes.
+ 
+  <p>
+  La classe AMFChannel fait appel à des services de réseau natifs de Flash Player et AIR et exposés à la classe ActionScript par la classe NetConnection. Ce canal utilise la classe NetConnection exclusivement et crée une nouvelle classe NetConnection par occurrence.
+  </p>
+ 
+  <p>
+  Les canaux préconfigurés sont obtenus au sein de la structure à l’aide de la méthode <codeph>ServerConfig.getChannel()</codeph>. Les canaux peuvent être construits directement et assignés à une classe ChannelSet si nécessaire.
+  </p>
+ 
+  <p>
+  Les canaux représentent une connexion physique à une extrémité distante. Par défaut, les canaux sont partagés à travers les destinations. Cela signifie qu’un client ciblant différentes destinations peut utiliser le même canal pour communiquer avec ces destinations.
+  </p>
+ 
+  <p>
+  Lorsqu’utilisé en mode interrogation, ce canal interroge le serveur pour les nouveaux messages en fonction de la propriété <codeph>polling-interval-seconds</codeph> dans le fichier de configuration ; cela peut être changé en définissant la propriété <codeph>pollingInterval</codeph>. La valeur par défaut est de 3 secondes. Pour que l’interrogation soit activée, le canal doit être connecté et la propriété <codeph>polling-enabled</codeph> dans le fichier de configuration doit être définie sur <codeph>true</codeph>, ou la propriété <codeph>pollingEnabled</codeph> du canal doit être définie sur <codeph>true</codeph>.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:AMFChannel:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI de ce canal.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:AMFChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      Indique si ce canal transporte les demandes d’interrogation avec les messages sortants standard lorsqu’une interrogation en attente n’est pas en cours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal transporte les demandes d’interrogation avec les messages sortants standard lorsqu’une interrogation en attente n’est pas en cours. Cela permet au serveur de transporter des données pour le client avec sa réponse au message du client.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      Indique si ce canal est activé pour procéder à l’interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal est activé pour procéder à l’interrogation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      Fournit un accès à l’intervalle d’interrogation de ce canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>Si l’intervalle d’interrogation reçoit une valeur égale à 0 ou moins.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Fournit un accès à l’intervalle d’interrogation de ce canal. La valeur est en millisecondes. Cette valeur détermine la fréquence à laquelle ce canal demande des messages du serveur, pour s’approcher de l’envoi de données par le serveur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      Signale si le canal procède activement à une interrogation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Signale si le canal procède activement à une interrogation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Renvoie le protocole de ce canal (http).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Renvoie le protocole de ce canal (http).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

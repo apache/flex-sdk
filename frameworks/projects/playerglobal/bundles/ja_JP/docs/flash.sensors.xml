@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sensors" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sensors</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sensors:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+ 	Accelerometer クラスは、デバイスのモーションセンサーによって検出されたアクティビティに基づいてイベントを送出します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Accelerometer クラス
+	
+	</apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Accelerometer クラスは、デバイスのモーションセンサーによって検出されたアクティビティに基づいてイベントを送出します。このデータは、デバイスの位置または 3D 軸に沿った移動を表します。デバイスが移動したとき、センサーはこの移動を検出し、アクセラレーションデータを返します。Accelerometer クラスは、加速度センサーがサポートされているかどうかを照会するメソッドを提供します。また、加速度センサーイベントが送出される頻度を設定するメソッドも提供します。
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b><codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> プロパティを使用して、この機能を使用できるかどうかランタイム環境をテストします。Accelerometer クラスとそのメンバーは各 API エントリにリストされたランタイムバージョンにアクセスできますが、ランタイム用の現在の環境によって、この機能が使用できるかどうかが決まります。例えば、Flash Player 10.1 の Accelerometer クラスのプロパティを使用してコードをコンパイルすることはできますが、<codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> プロパティを使用して、Accelerometer 機能が現在の Flash Player ランタイムのデプロイ環境で使用できるかどうかをテストする必要があります。<codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> がランタイムで <codeph class="+ topic/ph pr-d/codeph ">true</codeph> の場合、Accelerometer は現在サポートされています。</p>
+	
+	<p class="- topic/p ">AIR プロファイルのサポート：<i class="+ topic/ph hi-d/i "/>この機能はモバイルデバイスでのみサポートされます。デスクトップまたはテレビ用 AIR デバイスではサポートされません。複数のプロファイル間での API サポートについて詳しくは、<xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR プロファイルのサポート</xref>を参照してください。   
+    </p>
+	
+ 	</apiDesc><example conref="examples\AccelerometerExample.as" class="- topic/example "> 次の例では、加速度センサーの <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントに基づいて、スプライトを移動します。加速度センサーの <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントは、デバイスが移動したことを示します。    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
+    import flash.events.Event;
+    import flash.events.AccelerometerEvent;
+    import flash.sensors.Accelerometer;
+
+    public class AccelerometerTest extends Sprite
+    {
+        private var ball:Sprite;
+        private var accelerometer:Accelerometer;        
+        private var xSpeed:Number = 0;
+        private var ySpeed:Number = 0;
+        private const RADIUS = 20;
+        
+        public final function AccelerometerTest()
+        {
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.align = StageAlign.TOP_LEFT;
+            
+            createBall();
+                                    
+            if (Accelerometer.isSupported)
+            {
+                accelerometer = new Accelerometer();
+                accelerometer.addEventListener(AccelerometerEvent.UPDATE, accUpdateHandler);
+                stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+        }
+        
+        private final function createBall():void
+        {
+             ball = new Sprite();
+             ball.graphics.beginFill(0xFF0000);
+             ball.graphics.drawCircle(0, 0, RADIUS);
+             ball.cacheAsBitmap = true;
+             ball.x = stage.stageWidth / 2;
+             ball.y = stage.stageHeight / 2;
+             addChild(ball);
+        }
+
+        private final function enterFrameHandler(event:Event):void
+        {
+            event.stopPropagation();
+            moveBall();
+        }
+        private final function moveBall():void
+        {
+            var newX:Number = ball.x + xSpeed;
+            var newY:Number = ball.y + ySpeed;
+            if (newX &lt; 20)
+            {
+                ball.x = RADIUS;
+                xSpeed = 0;
+            }
+            else if (newX > stage.stageWidth - RADIUS)
+            {
+                ball.x = stage.stageWidth - RADIUS;
+                xSpeed = 0;
+            }
+            else
+            {
+                ball.x += xSpeed;
+            }
+            
+            if (newY &lt; RADIUS)
+            {
+                ball.y = RADIUS;
+                ySpeed = 0;
+            }
+            else if (newY > stage.stageHeight - RADIUS)
+            {
+                ball.y = stage.stageHeight - RADIUS;
+                ySpeed = 0;
+            }
+            else
+            {
+                ball.y += ySpeed;
+            }
+        }
+
+        private final function accUpdateHandler(event:AccelerometerEvent):void
+        {
+            xSpeed -= event.accelerationX * 2;
+            ySpeed += event.accelerationY * 2;
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/isSupported" class="- topic/link "><linktext class="- topic/linktext ">isSupported</linktext></link><link href="flash.events.xml#AccelerometerEvent" class="- topic/link "><linktext class="- topic/linktext ">flash.events.AccelerometerEvent</linktext></link><link href="http://www.riagora.com/2010/04/air-and-the-accelerometer/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize：AIR and the Accelerometer</linktext></link><link href="http://www.riagora.com/2010/05/become-an-air-pilot/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize：Become an AIR Pilot</linktext></link></related-links><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+	加速度センサーがステータスを変更した際に送出されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	加速度センサーがステータスを変更した際に送出されます。 
+	
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>一部のデバイスでは、加速度センサーは常に利用できます。このようなデバイスでは、Accelerometer オブジェクトが <codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントを送出することはありません。</p>
+	
+	</apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.AccelerometerEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	update イベントは、加速度センサーからの更新に応答して送出されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.AccelerometerEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.AccelerometerEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	<codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントは、加速度センサーからの更新に応答して送出されます。このイベントは、次のような場合に送出されます。
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">新しいリスナー関数が <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> を使用して割り当てられたとき。加速度センサーの現在の値を提供するために、登録済みのすべてのリスナーに、このイベントが一度配信されます。</li><li class="- topic/li ">デバイスで指定された間隔で、加速度センサーの更新がプラットフォームから取得されたとき。</li><li class="- topic/li ">アプリケーションが加速度センサーの変更を捕捉できなかったとき（例えば、アイドル状態の後、ランタイムが再開したとき）。</li></ul></p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Accelerometer:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+		新しい Accelerometer インスタンスを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		新しい Accelerometer インスタンスを作成します。 
+		
+		</apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Accelerometer:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 setRequestedUpdateInterval メソッドは、更新の時間間隔を設定する場合に使用されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定された <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> が 0 未満の場合 
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要求された更新間隔です。<codeph class="+ topic/ph pr-d/codeph ">interval</codeph> が 0 に設定されている場合、サポートされる更新間隔の最小値が使用されます。
+ 		 
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph> メソッドは、更新の時間間隔を設定する場合に使用されます。時間間隔の測定単位はミリ秒です。更新間隔は、電源を節約するための目安としてのみ使用されます。加速度を更新する実際の間隔は、この値より大きかったり小さかったりする可能性があります。更新間隔が変更された場合、登録されたリスナーすべてに影響します。Accelerometer クラスは、<codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval()</codeph> メソッドを呼び出さずに使用することもできます。この場合、アプリケーションはデバイスのデフォルトの間隔に基づいて更新を受け取ります。  
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Accelerometer:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+	デバイスで加速度センサーを利用できる場合、isSupported プロパティは true に設定されます。利用できない場合は、false に設定されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	デバイスで加速度センサーを利用できる場合、<codeph class="+ topic/ph pr-d/codeph ">isSupported</codeph> プロパティは <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定されます。利用できない場合は、<codeph class="+ topic/ph pr-d/codeph ">false</codeph> に設定されます。 
+	
+ 	</apiDesc><example conref="examples\Accelerometer_isSupported.as" class="- topic/example "> 次の例は、<codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> プロパティを使用して、ランタイムでの加速度センサーのサポートをテストします。現在の環境で加速度センサー機能がサポートされている場合は、Accelerometer オブジェクトにイベントリスナーが追加されます。また、関連するハンドラーによって、テキストフィールドにタイムスタンプと加速度の値が設定されます。この機能がサポートされていない場合は、テキストフィールドに、現在の環境ではこの機能がサポートされていないことが表示されます。
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+var myTextField:TextField = new TextField();
+myTextField.width = 200;
+addChild(myTextField);
+var acc1:Accelerometer = new Accelerometer();
+var isSupported:Boolean = Accelerometer.isSupported;
+checksupport();
+
+function checksupport():void {
+    if (isSupported) {
+        myTextField.text = "Accelerometer feature supported";
+        acc1.addEventListener(AccelerometerEvent.UPDATE, updateHandler);
+    } else {
+        myTextField.text = "Accelerometer feature not supported";
+    }
+}
+
+function updateHandler(evt:AccelerometerEvent):void {
+    myTextField.text = String("at: " + evt.timestamp + "\n" + "acceleration X: " + evt.accelerationX + "\n" + "acceleration Y: " + evt.accelerationY + "\n" + "acceleration Z: " + evt.accelerationZ);
+
+}
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.sensors:Accelerometer:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 加速度センサーへのアクセスがユーザーによって拒否されているか（true）、または許可されているか（false）を指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accelerometer, Accelerometer.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 加速度センサーへのアクセスがユーザーによって拒否されているか（<codeph class="+ topic/ph pr-d/codeph ">true</codeph>）、または許可されているか（<codeph class="+ topic/ph pr-d/codeph ">false</codeph>）を指定します。この値が変わると、<codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントが送出されます。
+		 
+		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.sensors:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+ 	Geolocation クラスは、デバイスのロケーションセンサーに応答してイベントを送出します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Geolocation クラスは、デバイスのロケーションセンサーに応答してイベントを送出します。 
+	
+	<p class="- topic/p ">デバイスでジオロケーションがサポートされている場合、このクラスを使用して、デバイスの最新の位置情報を取得できます。位置情報は、緯度と経度の座標形式（WGS-84座標系）でデバイスに表示されます。デバイスの位置が移動したときに、その移動（変更）に関する更新を受信できます。デバイスでこの機能がサポートされている場合、位置に関する最新の変更について、高度、精度、ヘッダー、速度およびタイムスタンプの情報を取得できます。</p>
+ 	
+	<p class="- topic/p ">AIR プロファイルのサポート：<i class="+ topic/ph hi-d/i "/>この機能はモバイルデバイスでのみサポートされます。デスクトップまたはテレビ用 AIR デバイスではサポートされません。<codeph class="+ topic/ph pr-d/codeph ">Geolocation.isSupported</codeph> プロパティを使用して、サポートされているかどうかを実行時にテストすることができます。複数のプロファイル間での API サポートについて詳しくは、<xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR プロファイルのサポート</xref>を参照してください。  
+    </p>	
+	
+ 	</apiDesc><example conref="examples\GeolocationExample.as" class="- topic/example "> 次の例では、緯度、経度、水平精度に関するジオロケーションの <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントを受信したときに、受信したそれらのイベントをアプリケーションに表示します。    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+   import flash.display.Sprite;
+   import flash.display.StageAlign;
+   import flash.display.StageScaleMode;
+   import flash.events.GeolocationEvent;
+   import flash.sensors.Geolocation;
+   import flash.text.TextField;
+   import flash.text.TextFormat;
+
+   public class GeolocationTest extends Sprite
+   {
+      private var geo:Geolocation;
+      private var log:TextField;
+      
+      public function GeolocationTest()
+      {
+         stage.scaleMode = StageScaleMode.NO_SCALE;
+         stage.align = StageAlign.TOP_LEFT;
+         setUpTextField();
+                                    
+         if (Geolocation.isSupported)
+         {
+            geo = new Geolocation();
+            geo.setRequestedUpdateInterval(100);
+            geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+         }
+         else
+         {
+            log.text =  "No geolocation support.";
+         }
+      }
+      
+      private function geolocationUpdateHandler(event:GeolocationEvent):void
+      {
+         log.text = "latitude:" + event.latitude.toString() + "°\n";
+         log.appendText("longitude:" + event.longitude.toString() + "°\n");
+         log.appendText("horizontal accuracy:" + event.horizontalAccuracy.toString() + " m");
+      }
+      private function setUpTextField():void
+      {
+         log = new TextField();
+         var format:TextFormat = new TextFormat("_sans", 24);
+         log.defaultTextFormat = format;
+         log.border = true;
+         log.wordWrap = true;
+         log.multiline = true;
+         log.x = 10;
+         log.y = 10;
+         log.height = stage.stageHeight - 20;
+         log.width = stage.stageWidth - 20;
+         addChild(log);
+      }
+   }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="http://coenraets.org/blog/2010/08/multi-user-google-map-collaboration-on-android/" class="- topic/link "><linktext class="- topic/linktext ">Cristophe Coenraets：Mulit-user Google Maps Collaboration</linktext></link></related-links><adobeApiEvent id="flash.sensors:Geolocation_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+  	Geolocation オブジェクトは、ロケーションセンサーへのアクセスがユーザーによって変更されたときに status イベントを送出します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+  	Geolocation オブジェクトは、ロケーションセンサーへのアクセスがユーザーによって変更されたときに <codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントを送出します。例えば、デバイスのプロンプトに応答して、アプリケーションによるロケーションデータへのアクセスをユーザーが禁止した場合、Geolcation オブジェクトによって <codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントが送出されます。ロケーションセンサーを使用できない状態にステータスが変更されると、Geolocation の <codeph class="+ topic/ph pr-d/codeph ">muted</codeph> プロパティは <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定されます。
+	
+ 	</apiDesc></adobeApiEventDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/muted" class="- topic/link "><linktext class="- topic/linktext ">muted</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="flash.sensors:Geolocation_flash.events.GeolocationEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	update イベントは、ロケーションセンサーからの更新に応答して送出されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.GeolocationEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.GeolocationEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	<codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントは、ロケーションセンサーからの更新に応答して送出されます。このイベントは、次のような場合に送出されます。
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">新しいリスナー関数が <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> を使用して割り当てられたとき。ロケーションセンサーの現在の値を提供するために、登録済みのすべてのリスナーに、このイベントが一度配信されます。</li><li class="- topic/li ">デバイスで指定された間隔で、位置の更新がプラットフォームから取得されたとき。</li><li class="- topic/li ">アプリケーションが位置の変更を捕捉できなかったとき（例えば、スリープ状態の後、アプリケーションのスリープが解除されたとき）。</li></ul></p>
+ 	
+ 	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>GPS ユニットが含まれていない第 1 世代の iPhone では、<codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントはごくまれにしか送出されません。このデバイスでは、Geolocation オブジェクトが最初に 1 つまたは 2 つの <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントを送出します。その後、情報が大幅に変更されたときに <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントを送出します。</p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Geolocation:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+		 新しい Geolocation インスタンスを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 新しい Geolocation インスタンスを作成します。 
+ 		 
+ 		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Geolocation:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 更新の時間間隔をミリ秒単位で設定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定された <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> が 0 未満の場合 
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要求された更新間隔。<codeph class="+ topic/ph pr-d/codeph ">interval</codeph> &lt;= 0 の場合、このメソッドを呼び出しても、効果はありません。
+ 		 
+ 		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 更新の時間間隔をミリ秒単位で設定します。更新間隔は、電源を節約するための目安としてのみ使用されます。ロケーションを更新する実際の間隔は、この値より大きかったり小さかったりすることがあります。このメソッドを使用して更新間隔を変更すると、その変更は登録済みのすべての <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントリスナーに影響します。Geolocation クラスは、<codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph> メソッドを呼び出さずに使用することもできます。この場合、プラットフォームはデフォルトの間隔に基づいて更新を返します。  
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>GPS ユニットが含まれていない第 1 世代の iPhone では、<codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントはごくまれにしか送出されません。このデバイスでは、Geolocation オブジェクトが最初に 1 つまたは 2 つの <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントを送出します。その後、情報が大幅に変更されたときに <codeph class="+ topic/ph pr-d/codeph ">update</codeph> イベントを送出します。</p>
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Geolocation:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+ 		 デバイスでロケーションセンサーを利用できる場合は true、利用できない場合は false。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 		 デバイスでロケーションセンサーを利用できる場合は <codeph class="+ topic/ph pr-d/codeph ">true</codeph>、利用できない場合は <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+ 		 
+ 		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sensors:Geolocation:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 ジオロケーションへのアクセスがユーザーによって拒否されているか（true）、または許可されているか（false）を指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Geolocation, Geolocation.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 ジオロケーションへのアクセスがユーザーによって拒否されているか（<codeph class="+ topic/ph pr-d/codeph ">true</codeph>）、または許可されているか（<codeph class="+ topic/ph pr-d/codeph ">false</codeph>）を指定します。この値が変わると、<codeph class="+ topic/ph pr-d/codeph ">status</codeph> イベントが送出されます。
+		 
+ 		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.targets"><apiName>mx.logging.targets</apiName><apiDetail/><apiClassifier id="mx.logging.targets:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+  Предоставляет адресата средства регистрации, который использует глобальный метод trace() для вывода сообщений журнала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging.targets:LineFormattedTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Предоставляет адресата средства регистрации, который использует глобальный метод <codeph>trace()</codeph> для вывода сообщений журнала.
+  
+  <p>Для просмотра вывода метода <codeph>trace()</codeph> необходимо запустить отладочную версию Flash Player или AIR Debug Launcher.</p>
+  
+  <p>Отладочная версия Flash Player и AIR Debug Launcher передает вывод из метода <codeph>trace()</codeph> в файл flashlog.txt. По умолчанию этот файл находится в том же каталоге, что и файл mm.cfg. Для определения местоположения этого файла используется свойство <codeph>TraceOutputFileName</codeph> в файле mm.cfg. В файле mm.cfg необходимо также установить значение 1 для <codeph>TraceOutputFileEnable</codeph>.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:TraceTarget:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      <p>Создает экземпляр цели средства регистрации для передачи данных журнала глобальному методу <codeph>trace()</codeph>. Вся выводимая информация по умолчанию передается в файл flashlog.txt.</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.logging.targets:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+  Этот класс должны расширить все реализации цели средства регистрации с выводом стиля отформатированной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging:AbstractTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс должны расширить все реализации цели средства регистрации с выводом стиля отформатированной строки. Обеспечивает поведение по умолчанию для включения в вывод даты, времени, категории и уровня.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:LineFormattedTarget:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      <p>Создает экземпляр цели средства регистрации, который форматирует данные сообщений в виде одной строки.</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.targets:LineFormattedTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      Этот метод обрабатывает LogEvent из связанного средства регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc><codeph>LogEvent</codeph>, обрабатываемый этим методом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод обрабатывает <codeph>LogEvent</codeph> из связанного средства регистрации. Этот метод используется целью для преобразования события в соответствующий формат для передачи, хранения или отображения. Этот метод вызывается только в том случае, если уровень события соответствует уровню адресата.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging.targets:LineFormattedTarget:fieldSeparator"><apiName>fieldSeparator</apiName><shortdesc>
+      Строка разделителя для использования между полями (по умолчанию – « »)
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData> </apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Строка разделителя для использования между полями (по умолчанию – « »)
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeCategory"><apiName>includeCategory</apiName><shortdesc>
+      Указывает, требуется ли добавить к отслеживанию категорию для этой цели.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, требуется ли добавить к отслеживанию категорию для этой цели.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeDate"><apiName>includeDate</apiName><shortdesc>
+      Указывает, требуется ли добавить к отслеживанию дату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, требуется ли добавить к отслеживанию дату.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeLevel"><apiName>includeLevel</apiName><shortdesc>
+      Указывает, требуется ли добавить к отслеживанию уровень для события.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, требуется ли добавить к отслеживанию уровень для события.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeTime"><apiName>includeTime</apiName><shortdesc>
+      Указывает, требуется ли добавить к отслеживанию время.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, требуется ли добавить к отслеживанию время.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

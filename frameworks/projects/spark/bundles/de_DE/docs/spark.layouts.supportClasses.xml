@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts.supportClasses"><apiName>spark.layouts.supportClasses</apiName><apiDetail/><apiClassifier id="spark.layouts.supportClasses:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+  Die LayoutBase-Klasse definiert die Basisklasse für alle Spark-Layouts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:LayoutBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:LayoutBase 
+    <strong>Properties</strong>
+    clipAndEnableScrolling="false"
+    dropIndicator="<i>defined by the skin class</i>"
+    horizontalScrollPosition="0"
+    target="null"
+    typicalLayoutElement="null"
+    useVirtualLayout="false"
+    verticalScrollPosition="0"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die LayoutBase-Klasse definiert die Basisklasse für alle Spark-Layouts. Zum Erstellen eines benutzerdefinierten Layouts, das mit Spark-Containern verwendet werden kann, müssen Sie <codeph>LayoutBase</codeph> oder eine der zugehörigen Unterklassen erweitern.
+   <p>Die Unterklassen müssen mindestens die <codeph>updateDisplayList()</codeph>-Methode, die die Elemente der <codeph>target</codeph>-GroupBase platziert und deren Größe ändert, und die <codeph>measure()</codeph>-Methode implementieren, die die Standardgröße des <codeph>target</codeph> berechnet.</p>
+   <p>Unterklassen können Methoden wie <codeph>getElementBoundsAboveScrollRect()</codeph> und <codeph>getElementBoundsBelowScrollRect()</codeph> überschreiben, um das Verhalten des Ziels anzupassen, wenn es mit Bildlaufleisten verbunden ist.</p>
+ 
+  <p>Unterklassen, die die Virtualisierung unterstützen, müssen die <codeph>useVirtualLayout</codeph>-Eigenschaft respektieren und sollten nur Layoutelemente im scrollRect (der Wert von <codeph>getScrollRect()</codeph>) mithilfe von <codeph>getVirtualElementAt()</codeph> aus der <codeph>updateDisplayList()</codeph>-Methode abrufen.</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts.supportClasses:LayoutBase:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDragScrollDelta"><apiName>calculateDragScrollDelta</apiName><shortdesc>
+      Berechnet die Länge des erforderlichen Bildlaufs für die angegebene dropLocation während eines Drag &amp; Drop-Vorgangs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Wie weit beim Bildlaufvorgang gezogen werden muss oder null, wenn kein Ziehbildlauf erforderlich ist.
+           </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Ein gültiges DropLocation-Objekt, das bereits vorher durch Aufrufen der <codeph>calculateDropLocation()</codeph>-Methode erhalten wurde.
+           </apiDesc></apiParam><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="Number"/><apiDesc>Die Dauer (in Millisekunden) ab Beginn des Ziehbildlaufvorgangs.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Berechnet die Länge des erforderlichen Bildlaufs für die angegebene <codeph>dropLocation</codeph> während eines Drag &amp; Drop-Vorgangs. Von der <codeph>showDropIndicator()</codeph>-Methode aufgerufen, um den Bildlauf während des Ziehbildlaufs zu berechnen.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>calculateDropIndicatorBounds()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      Gibt die Indexposition zurück, an der ein neues Objekt einzufügen ist, wenn der Benutzer die Maus an den angegebenen Koordinaten loslässt, während er einen Drag &amp; Drop-Vorgang ausführt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Ablageindexposition oder -1, wenn der Ablagevorgang an den angegebenen Koordinaten nicht verfügbar ist.
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die x-Koordinate des Drag &amp; Drop-Vorgangs, in lokalen Koordinaten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die y-Koordinate des Drag &amp; Drop-Vorgangs, in den lokalen Koordinaten des Ablageziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Indexposition zurück, an der ein neues Objekt einzufügen ist, wenn der Benutzer die Maus an den angegebenen Koordinaten loslässt, während er einen Drag &amp; Drop-Vorgang ausführt. Von der <codeph>calculatedDropLocation()</codeph>-Methode aufgerufen.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>calculateDropLocation()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      Berechnet die Grenzen des Dropindikators, der dem Benutzer anzeigt, wo die Objekte am Ende eines Drag &amp; Drop-Vorgangs eingefügt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen für den Dropindikator oder null.
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Ein gültiges DropLocation-Objekt, das bereits vorher von der <codeph>calculateDropLocation()</codeph>-Methode zurückgegeben wurde.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Berechnet die Grenzen des Dropindikators, der dem Benutzer anzeigt, wo die Objekte am Ende eines Drag &amp; Drop-Vorgangs eingefügt werden. Von der <codeph>showDropIndicator()</codeph>-Methode aufgerufen.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDragScrollDelta()"><linktext>calculateDragScrollDelta()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:calculateDropLocation"><apiName>calculateDropLocation</apiName><shortdesc>
+      Berechnet die Ablageposition im Datenprovider des Ablageziels für den angegebenen dragEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt die Ablageposition für dieses Ereignis zurück oder null, wenn der Ablagevorgang nicht verfügbar ist.
+     
+      </apiDesc><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier></apiReturn><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>Das vom DragManager ausgelöste Ziehereignis.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Berechnet die Ablageposition im Datenprovider des Ablageziels für den angegebenen <codeph>dragEvent</codeph>.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:clearVirtualLayoutCache"><apiName>clearVirtualLayoutCache</apiName><shortdesc>
+      Ist useVirtualLayout „true“, kann diese Methode vom Layoutziel verwendet werden, um zwischengespeicherte Layoutinformationen zu löschen, wenn sich das Ziel ändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ist <codeph>useVirtualLayout</codeph> <codeph>true</codeph>, kann diese Methode vom Layoutziel verwendet werden, um zwischengespeicherte Layoutinformationen zu löschen, wenn sich das Ziel ändert.   
+     
+      <p>Wenn sich beispielsweise die <codeph>dataProvider</codeph>- oder <codeph>itemRenderer</codeph>-Eigenschaft einer DataGroup ändert, wird die Größe der zwischengespeicherten Elemente ungültig. </p>
+     
+      <p>Wenn sich die <codeph>useVirtualLayout</codeph>-Eigenschaft in <codeph>false</codeph> ändert, wird diese Methode automatisch aufgerufen.</p>
+     
+      <p>Unterklassen, die <codeph>useVirtualLayout</codeph> = <codeph>true</codeph> unterstützen, müssen diese Methode überschreiben. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementAdded"><apiName>elementAdded</apiName><shortdesc>
+      Wird vom Ziel aufgerufen, nachdem ein Layoutelement hinzugefügt wurde und bevor die Größe und Anzeigeliste des Ziels überprüft wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die Indexposition des Elements, das hinzugefügt wurde.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird vom Ziel aufgerufen, nachdem ein Layoutelement hinzugefügt wurde und bevor die Größe und Anzeigeliste des Ziels überprüft wurden. Layouts (z. B. virtuelle Layouts), die nach Elementstatus zwischenspeichern, können diese Methode überschreiben, um ihren Cache zu aktualisieren.
+     
+      <p>Wenn das Ziel diese Methode aufruft, garantiert es nur, dass zur <codeph>updateDisplayList()</codeph>-Zeit an der angegebenen Indexposition ein Layoutelement verfügbar ist. So wird diese Methode beispielsweise von einer DataGroup mit einem virtuellen Layout aufgerufen, wenn dem <codeph>dataProvider</codeph> des Ziels ein Objekt hinzugefügt wird.</p>
+     
+      <p>Der Aufruf dieser Methode hat standardmäßig keine Auswirkungen.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementRemoved"><linktext>elementRemoved</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementRemoved"><apiName>elementRemoved</apiName><shortdesc>
+      Diese Methode muss vom Ziel aufgerufen werden, nachdem ein Layoutelement entfernt wurde und bevor die Größe und Anzeigeliste des Ziels validiert werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die Indexposition des Elements, das hinzugefügt wurde.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Diese Methode muss vom Ziel aufgerufen werden, nachdem ein Layoutelement entfernt wurde und bevor die Größe und Anzeigeliste des Ziels validiert werden. Layouts (z. B. virtuelle Layouts), die nach Elementstatus zwischenspeichern, können diese Methode überschreiben, um ihren Cache zu aktualisieren.
+     
+      <p>Wenn das Ziel diese Methode aufruft, garantiert es nur, dass zur <codeph>updateDisplayList()</codeph>-Zeit an der angegebenen Indexposition kein Layoutelement mehr verfügbar ist. Beispiel: Eine DataGroup mit einem virtuellen Layout ruft diese Methode auf, wenn der <codeph>dataProvider</codeph>-Eigenschaft ein Objekt hinzugefügt wird.</p>
+     
+      <p>Der Aufruf dieser Methode hat standardmäßig keine Auswirkungen.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementAdded"><linktext>elementAdded</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsAboveScrollRect"><apiName>getElementBoundsAboveScrollRect</apiName><shortdesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die obere Kante des scrollRect erstreckt oder sich darüber befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen des ersten Elements, das sich entweder über die obere Kante des scrollRect erstreckt oder sich darüber befindet.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Das scrollRect des Ziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die obere Kante des scrollRect erstreckt oder sich darüber befindet.
+     
+      <p>Dies ist eine Bedarfsmethode, die von der Standardimplementierung der <codeph>getVerticalScrollPositionDelta()</codeph>-Methode verwendet wird. Unterklassen, die die Standardimplementierung von <codeph>getVerticalScrollPositionDelta()</codeph> verwenden, sollten diese Methode überschreiben, um ein genaues Begrenzungsrechteck mit gültigen <codeph>top</codeph>- und <codeph>bottom</codeph>-Eigenschaften anzugeben.</p>
+     
+      <p>Standardmäßig gibt diese Methode ein Rechteck mit „width“ = 0 und „height“ = 1, wobei die Oberkante um eins weniger als die Oberkante von <codeph>scrollRect</codeph> ist, und „left“ = 0 zurück.</p>
+     
+      <p>Unterklassen sollten diese Methode überschreiben, um ein genaues Begrenzungsrechteck mit gültigen <codeph>top</codeph>- und <codeph>bottom</codeph>-Eigenschaften anzugeben.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsBelowScrollRect"><apiName>getElementBoundsBelowScrollRect</apiName><shortdesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die untere Kante des scrollRect erstreckt oder sich darunter befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen des ersten Elements, das sich entweder über die untere Kante des scrollRect erstreckt oder sich darunter befindet.
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Das scrollRect des Ziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die untere Kante des scrollRect erstreckt oder sich darunter befindet.
+           <p>Dies ist eine Bedarfsmethode, die von der Standardimplementierung der <codeph>getVerticalScrollPositionDelta()</codeph>-Methode verwendet wird. Unterklassen, die die Standardimplementierung von <codeph>getVerticalScrollPositionDelta()</codeph> verwenden, sollten diese Methode überschreiben, um ein genaues Begrenzungsrechteck mit gültigen <codeph>top</codeph>- und <codeph>bottom</codeph>-Eigenschaften anzugeben.</p>
+           <p>Standardmäßig gibt diese Methode ein Rechteck mit „width“ = 0 und „height“ = 1 zurück, wobei die Unterkante um eins höher als die Unterkante von <codeph>scrollRect</codeph> ist, und „left“ = 0.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsLeftOfScrollRect"><apiName>getElementBoundsLeftOfScrollRect</apiName><shortdesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die linke Kante des scrollRect erstreckt oder sich links davon befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen des ersten Elements, das sich entweder über die linke Kante des scrollRect erstreckt oder sich links davon befindet.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Das scrollRect des Ziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die linke Kante des scrollRect erstreckt oder sich links davon befindet.
+     
+      <p>Dies ist eine Bedarfsmethode, die von der Standardimplementierung der <codeph>getHorizontalScrollPositionDelta()</codeph>-Methode verwendet wird. Unterklassen, die die Standardimplementierung von <codeph>getHorizontalScrollPositionDelta()</codeph> verwenden, sollten diese Methode überschreiben, um ein genaues Begrenzungsrechteck mit gültigen <codeph>left</codeph>- und <codeph>right</codeph>-Eigenschaften anzugeben.</p>
+     
+      <p>Standardmäßig gibt diese Methode ein Rechteck mit „width“ = 1 und „height“ = 0 zurück, wobei die linke Kante um eins weniger als die linke Kante von <codeph>scrollRect</codeph> ist, und „top“ = 0.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsRightOfScrollRect"><apiName>getElementBoundsRightOfScrollRect</apiName><shortdesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die rechte Kante des scrollRect erstreckt oder sich rechts davon befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen des ersten Elements, das sich entweder über die rechte Kante des scrollRect erstreckt oder sich rechts davon befindet.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Das scrollRect des Ziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Grenzen des ersten Layoutelements zurück, das sich entweder über die rechte Kante des scrollRect erstreckt oder sich rechts davon befindet.
+     
+      <p>Dies ist eine Bedarfsmethode, die von der Standardimplementierung der <codeph>getHorizontalScrollPositionDelta()</codeph>-Methode verwendet wird. Unterklassen, die die Standardimplementierung von <codeph>getHorizontalScrollPositionDelta()</codeph> verwenden, sollten diese Methode überschreiben, um ein genaues Begrenzungsrechteck mit gültigen <codeph>left</codeph>- und <codeph>right</codeph>-Eigenschaften anzugeben.</p>
+     
+      <p>Standardmäßig gibt diese Methode ein Rechteck mit „width“ = 1 und „height“ = 0 zurück, wobei die rechte Kante um eins weniger als die rechte Kante von <codeph>scrollRect</codeph> ist, und „top“ = 0.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getElementBounds"><apiName>getElementBounds</apiName><shortdesc>
+      Gibt die Layoutgrenzen des angegebenen Elements als Rechteck zurück oder null, wenn die Indexposition ungültig, das entsprechende Element null, includeInLayout=false oder die Zieleigenschaft des Layouts null ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Layoutgrenzen des angegebenen Elements.
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Indexposition des Layoutelements.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Layoutgrenzen des angegebenen Elements als Rechteck zurück oder null, wenn die Indexposition ungültig, das entsprechende Element null, <codeph>includeInLayout=false</codeph> oder die <codeph>target</codeph>-Eigenschaft des Layouts null ist.
+       
+      <p>Layoutunterklassen, die <codeph>useVirtualLayout=true</codeph> unterstützen, müssen diese Methode überschreiben, um einen möglichen Näherungswert für Elemente zu berechnen, die sich nicht in der Ansicht befinden.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsX()"><linktext>mx.core.ILayoutElement.getLayoutBoundsX()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsY()"><linktext>mx.core.ILayoutElement.getLayoutBoundsY()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsWidth()"><linktext>mx.core.ILayoutElement.getLayoutBoundsWidth()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsHeight()"><linktext>mx.core.ILayoutElement.getLayoutBoundsHeight()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getHorizontalScrollPositionDelta"><apiName>getHorizontalScrollPositionDelta</apiName><shortdesc>
+      Gibt die Änderung der horizontalen Bildlaufposition zurück, um verschiedene Bildlaufoptionen zu verarbeiten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Änderung an der horizontalen Bildlaufposition.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Nimmt folgende Werte an: 
+      <ul>
+      <li> 
+      <codeph>END</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect rechtsbündig am Inhaltsbereich ausrichtet.
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect linksbündig am Inhaltsbereich ausrichtet.
+      </li>
+     
+      <li> 
+      <codeph>LEFT</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element linksbündig ausrichtet, das sich entweder über die linke Kante des scrollRect erstreckt oder sich links davon befindet.
+      </li>
+     
+      <li>
+      <codeph>PAGE_LEFT</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element rechtsbündig ausrichtet, das sich entweder über die linke Kante des scrollRect erstreckt oder sich links davon befindet.
+      </li>
+     
+      <li> 
+      <codeph>PAGE_RIGHT</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element linksbündig ausrichtet, das sich entweder über die rechte Kante des scrollRect erstreckt oder sich rechts davon befindet.
+      </li>
+     
+      <li> 
+      <codeph>RIGHT</codeph> – Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element rechtsbündig ausrichtet, das sich entweder über die rechte Kante des scrollRect erstreckt oder sich rechts davon befindet.
+      </li>
+           </ul>
+     
+      <p>Die Implementierung ruft <codeph>getElementBoundsLeftOfScrollRect()</codeph> und <codeph>getElementBoundsRightOfScrollRect()</codeph> auf, um die Grenzen der Elemente zu bestimmen. Layoutklassen überschreiben diese Methoden normalerweise anstelle der <codeph>getHorizontalScrollPositionDelta()</codeph>-Methode.</p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Änderung der horizontalen Bildlaufposition zurück, um verschiedene Bildlaufoptionen zu verarbeiten. Diese Optionen sind durch die NavigationUnit-Klasse definiert: <codeph>END</codeph>, <codeph>HOME</codeph>, <codeph>LEFT</codeph>, <codeph>PAGE_LEFT</codeph>, <codeph>PAGE_RIGHT</codeph> und <codeph>RIGHT</codeph>. 
+          
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getNavigationDestinationIndex"><apiName>getNavigationDestinationIndex</apiName><shortdesc>
+      Delegationsmethode, die auf Grundlage des aktuellen Elements im Fokus und der Benutzereingabe hinsichtlich der NavigationUnit bestimmt, zu welchem Element zu navigieren ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Indexposition des nächsten Elements, zu dem gesprungen wird. Gibt „-1“ zurück, wenn das Layout die navigationUnit nicht erkennt.  
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>currentIndex</apiItemName><apiType value="int"/><apiDesc>Die aktuelle Indexposition des Elements im Fokus.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Die NavigationUnit-Konstante, die bestimmt, zu welchem Element als nächstes navigiert wird.  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>arrowKeysWrapFocus</apiItemName><apiType value="Boolean"/><apiDesc>Beim Wert <codeph>true</codeph> ist durch die Pfeiltasten ein Navigieren innerhalb der Komponentenumbrüche möglich, wenn eines der Enden erreicht ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Delegationsmethode, die auf Grundlage des aktuellen Elements im Fokus und der Benutzereingabe hinsichtlich der NavigationUnit bestimmt, zu welchem Element zu navigieren ist. Diese Methode wird von Unterklassen von ListBase verwendet, um die Tastaturnavigation zu verarbeiten. ListBase ordnet Benutzereingaben zu NavigationUnit-Konstanten zu.
+     
+      <p>Unterklassen können diese Methode überschreiben, um andere Werte zu berechnen, die auf der aktuellen Indexposition und dem festgestellten Tastenanschlag basieren. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getScrollPositionDeltaToElement"><apiName>getScrollPositionDeltaToElement</apiName><shortdesc>
+     Berechnet das verticalScrollPosition- und das horizontalScrollPosition-Delta, die benötigt werden, um einen Bildlauf des Elements an der angegebenen Indexposition in die Ansicht durchzuführen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Punkt, der Offsets zu horizontalScrollPosition und verticalScrollPosition enthält, durch die ein Bildlauf des angegebenen Elements in die Ansicht durchgeführt wird, oder null, wenn keine Änderung erforderlich ist. Ist das angegebene Element nur zum Teil sichtbar und größer als das Bildlaufrechteck, d. h. es ist bereits das einzig sichtbare Element, wird null zurückgegeben. Wenn die angegebene Indexposition ungültig oder das Ziel null ist, wird null zurückgegeben. Wenn das Element an der angegebenen Indexposition null oder includeInLayout auf „false“ eingestellt ist, wird null zurückgegeben.
+    
+     </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die Indexposition des Elements, für das ein Bildlauf in die Ansicht durchgeführt werden soll.
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Berechnet das <codeph>verticalScrollPosition</codeph>- und das <codeph>horizontalScrollPosition</codeph>-Delta, die benötigt werden, um einen Bildlauf des Elements an der angegebenen Indexposition in die Ansicht durchzuführen.
+    
+     <p>Diese Methode versucht, die Änderung in <codeph>verticalScrollPosition</codeph> und <codeph>horizontalScrollPosition</codeph> zu minimieren.</p>
+    
+     <p>Wenn <codeph>clipAndEnableScrolling</codeph> auf <codeph>true</codeph> eingestellt und das Element an der angegebenen Indexposition relativ zum scrollRect des Ziels nicht vollkommen sichtbar ist, wird das Delta zurückgegeben, das zu <codeph>horizontalScrollPosition</codeph> und <codeph>verticalScrollPosition</codeph> hinzuzufügen ist, wodurch ein Bildlauf durchgeführt wird, durch den das Element vollständig in den Grenzen des scrollRect sichtbar ist.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/clipAndEnableScrolling"><linktext>clipAndEnableScrolling</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/udpdateScrollRect()"><linktext>udpdateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getScrollRect"><apiName>getScrollRect</apiName><shortdesc>
+      Gibt die Grenzen des Bildlaufrechtecks des Ziels in Layoutkoordinaten zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Grenzen des scrollRect des Ziels in Layoutkoordinaten, null, wenn das Ziel oder clipAndEnableScrolling auf „false“ eingestellt ist. 
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt die Grenzen des Bildlaufrechtecks des Ziels in Layoutkoordinaten zurück. Layoutmethoden sollten das Bildlaufrechteck des Ziels nicht direkt abrufen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getVerticalScrollPositionDelta"><apiName>getVerticalScrollPositionDelta</apiName><shortdesc>
+      Gibt die Änderung der vertikalen Bildlaufposition zurück, um verschiedene Bildlaufoptionen zu verarbeiten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Änderung an der vertikalen Bildlaufposition.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>Nimmt folgende Werte an: 
+      <ul>
+      <li> 
+      <codeph>DOWN</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element unten bündig ausrichtet, das sich entweder über die Unterkante des scrollRect erstreckt oder sich unterhalb davon befindet.
+      </li>
+     
+      <li> 
+      <codeph>END</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect unten bündig am Inhaltsbereich ausrichtet.
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect oben bündig am Inhaltsbereich ausrichtet.
+      </li>
+     
+      <li> 
+      <codeph>PAGE_DOWN</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element oben bündig ausrichtet, das sich entweder über die Unterkante des scrollRect erstreckt oder sich unterhalb davon befindet.
+      </li>
+     
+      <codeph>PAGE_UP</codeph>
+      <li>
+      Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element unten bündig ausrichtet, das sich entweder über die Oberkante des scrollRect erstreckt oder sich oberhalb davon befindet.
+      </li>
+           <li> 
+      <codeph>UP</codeph> Gibt das Bildlaufdelta zurück, das das scrollRect am ersten Element oben bündig ausrichtet, das sich entweder über die Oberkante des scrollRect erstreckt oder sich oberhalb davon befindet.
+      </li>
+           </ul>
+     
+      <p>Die Implementierung ruft <codeph>getElementBoundsAboveScrollRect()</codeph> und <codeph>getElementBoundsBelowScrollRect()</codeph> auf, um die Grenzen der Elemente zu bestimmen. Layoutklassen überschreiben diese Methoden normalerweise anstelle der <codeph>getVerticalScrollPositionDelta()</codeph>-Methode. </p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Änderung der vertikalen Bildlaufposition zurück, um verschiedene Bildlaufoptionen zu verarbeiten. Diese Optionen sind durch die NavigationUnit-Klasse definiert: <codeph>DOWN</codeph>, <codeph>END</codeph>, <codeph>HOME</codeph>, <codeph>PAGE_DOWN</codeph>, <codeph>PAGE_UP</codeph> und <codeph>UP</codeph>. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:hideDropIndicator"><apiName>hideDropIndicator</apiName><shortdesc>
+      Blendet den zuvor angezeigten Dropindikator, der durch die showDropIndicator()-Methode erstellt wurde, aus und entfernt ihn aus der Anzeigeliste. Beendet außerdem den Ziehbildlauf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Blendet den zuvor angezeigten Dropindikator, der durch die <codeph>showDropIndicator()</codeph>-Methode erstellt wurde, aus und entfernt ihn aus der Anzeigeliste. Beendet außerdem den Ziehbildlauf.
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:measure"><apiName>measure</apiName><shortdesc>
+      Misst die Standardgröße des Ziels auf Grundlage des Inhalts und misst optional die standardmäßige minimale Größe des Ziels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Misst die Standardgröße des Ziels auf Grundlage des Inhalts und misst optional die standardmäßige minimale Größe des Ziels.
+           <p>Dies ist eine der Methoden, die Sie beim Erstellen einer Unterklasse von LayoutBase überschreiben müssen. Die andere Methode lautet <codeph>updateDisplayList()</codeph>. Sie rufen diese Methoden nicht direkt auf. Flex ruft diese Methode im Zuge einer Layoutübergabe auf. Eine Layoutübergabe umfasst drei Phasen.</p>
+           <p>Wenn die Eigenschaften des Ziels ungültig sind, ruft LayoutManager zunächst die <codeph>commitProperties</codeph>-Methode des Ziels auf.</p>
+           <p>Wenn die Größe des Ziels ungültig ist, ruft LayoutManager danach die <codeph>validateSize()</codeph>-Methode des Ziels auf. Daraufhin ruft die <codeph>validateSize()</codeph>-Methode des Ziels wiederum die <codeph>measure()</codeph>-Methode des Layouts auf, um die Standardgröße des Ziels zu berechnen, wenn diese nicht explizit durch die Eigenschaften <codeph>explicitWidth</codeph> und <codeph>explicitHeight</codeph> des Ziels angegeben ist. Wenn sich die Standardgröße ändert, macht Flex die Anzeigeliste des Ziels ungültig.</p>
+           <p>Wenn die Anzeigeliste des Ziels ungültig ist, ruft LayoutManager schließlich die <codeph>validateDisplayList</codeph>-Methode des Ziels auf. Die <codeph>validateDisplayList</codeph>-Methode des Ziels ruft wiederum die <codeph>updateDisplayList</codeph>-Methode des Ziels auf, um die Elemente des Ziels zu platzieren und deren Größe zu ändern.</p>
+           <p>Beim Implementieren dieser Methode müssen Sie die Eigenschaften <codeph>measuredWidth</codeph> und <codeph>measuredHeight</codeph> des Ziels festlegen, um die Standardgröße des Ziels zu definieren. Optional können Sie die Eigenschaften <codeph>measuredMinWidth</codeph> und <codeph>measuredMinHeight</codeph> festlegen, um die Standardmindestgröße zu definieren. Eine typische Implementierung durchläuft die Elemente des Ziels und verwendet die von <codeph>ILayoutElement</codeph> definierten Methoden, um die bevorzugten und/oder minimalen Größen der Elemente zusammenzutragen, und legt anschließend die Eigenschaften <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredMinWidth</codeph> und <codeph>measuredMinHeight</codeph> fest.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:scrollPositionChanged"><apiName>scrollPositionChanged</apiName><shortdesc>
+      Wird aufgerufen, wenn sich die verticalScrollPosition- oder horizontalScrollPosition-Eigenschaft ändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird aufgerufen, wenn sich die <codeph>verticalScrollPosition</codeph>- oder <codeph>horizontalScrollPosition</codeph>-Eigenschaft ändert.
+           <p>Die Standardimplementierung aktualisiert die <codeph>scrollRect</codeph>-Eigenschaft des Ziels durch Aufrufen der <codeph>updateScrollRect()</codeph>-Methode. Unterklassen können diese Methode überschreiben, um andere Werte zu berechnen, die auf der aktuellen <codeph>scrollPosition</codeph> oder dem aktuellen <codeph>scrollRect</codeph> basieren.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateScrollRect()"><linktext>updateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:showDropIndicator"><apiName>showDropIndicator</apiName><shortdesc>
+      Platziert den Dropindikator und verändert dessen Größe anhand der angegebenen Ablageposition und ist sein übergeordnetes Element.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Legt die Position fest, an der der Dropindikator einzublenden ist. Die Ablageposition wird über die <codeph>computeDropLocation()</codeph>-Methode bezogen.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Platziert den Dropindikator und verändert dessen Größe anhand der angegebenen Ablageposition und ist sein übergeordnetes Element. Verwenden Sie die <codeph>calculateDropLocation()</codeph>-Methode, um das DropLocation-Objekt zu erhalten.
+           <p>Startet und beendet Ziehbildlaufvorgänge, wenn die erforderlichen Bedingungen erfüllt sind.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Platziert die Elemente des Ziels und ändert deren Größe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Gibt die Breite des Ziels in Pixeln in den Koordinaten des Ziels an.
+           </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Gibt die Höhe der Komponente in Pixeln in den Koordinaten des Ziels an.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Platziert die Elemente des Ziels und ändert deren Größe.
+           <p>Dies ist eine der Methoden, die Sie beim Erstellen einer Unterklasse von LayoutBase überschreiben müssen. Die andere Methode lautet <codeph>measure()</codeph>. Sie rufen diese Methoden nicht direkt auf. Flex ruft diese Methode im Zuge einer Layoutübergabe auf. Eine Layoutübergabe umfasst drei Phasen.</p>
+           <p>Wenn die Eigenschaften des Ziels ungültig sind, ruft LayoutManager zunächst die <codeph>commitProperties</codeph>-Methode des Ziels auf.</p>
+           <p>Wenn die Größe des Ziels ungültig ist, ruft LayoutManager danach die <codeph>validateSize()</codeph>-Methode des Ziels auf. Daraufhin ruft die <codeph>validateSize()</codeph>-Methode des Ziels wiederum die <codeph>measure()</codeph>-Methode des Layouts auf, um die Standardgröße des Ziels zu berechnen, wenn diese nicht explizit durch die Eigenschaften <codeph>explicitWidth</codeph> und <codeph>explicitHeight</codeph> des Ziels angegeben ist. Wenn sich die Standardgröße ändert, macht Flex die Anzeigeliste des Ziels ungültig.</p>
+           <p>Wenn die Anzeigeliste des Ziels ungültig ist, ruft LayoutManager schließlich die <codeph>validateDisplayList</codeph>-Methode des Ziels auf. Die <codeph>validateDisplayList</codeph>-Methode des Ziels ruft wiederum die <codeph>updateDisplayList</codeph>-Methode des Ziels auf, um die Elemente des Ziels zu platzieren und deren Größe zu ändern.</p>
+           <p>Eine typische Implementierung durchläuft die Elemente des Ziels und verwendet die Methoden, die von <codeph>ILayoutElement</codeph> definiert sind, um die Elemente zu platzieren und deren Größe zu ändern. Anschließend muss das Layout auch die Eigenschaften <codeph>contentWidth</codeph> und <codeph>contentHeight</codeph> des Ziels berechnen und festlegen, um den Bildlaufbereich des Ziels zu definieren.</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateScrollRect"><apiName>updateScrollRect</apiName><shortdesc>
+      Wird vom Ziel am Ende der updateDisplayList()-Methode aufgerufen, damit das Layout das scrollRect aktualisiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>Die Breite des Ziels.
+           </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>Die Höhe des Ziels.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird vom Ziel am Ende der <codeph>updateDisplayList()</codeph>-Methode aufgerufen, damit das Layout das scrollRect aktualisiert.
+     
+      <p>Wenn <codeph>clipAndEnableScrolling</codeph> den Wert <codeph>true</codeph> hat, stellt die Standardimplementierung den Ursprung des <codeph>scrollRect</codeph> des Ziels auf <codeph>verticalScrollPosition</codeph>, <codeph>horizontalScrollPosition</codeph> ein. Es legt seine Größe auf die <codeph>width</codeph>- und <codeph>height</codeph>-Parameter (nicht skalierte Breite und Höhe des Ziels) fest.</p>
+     
+      <p>Wenn <codeph>clipAndEnableScrolling</codeph> den Wert <codeph>false</codeph> hat, legt die Standardimplementierung für das <codeph>scrollRect</codeph> den Wert null fest.</p>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/target"><linktext>target</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scrollRect"><linktext>flash.display.DisplayObject.scrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList()"><linktext>updateDisplayList()</linktext></link></related-links></apiOperation><apiValue id="spark.layouts.supportClasses:LayoutBase:clipAndEnableScrolling:get"><apiName>clipAndEnableScrolling</apiName><shortdesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:dropIndicator:get"><apiName>dropIndicator</apiName><shortdesc>
+      Das von diesem Layout für den Dropindikator bei Drag &amp; Drop-Vorgängen verwendete DisplayObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      Das von diesem Layout für den Dropindikator bei Drag &amp; Drop-Vorgängen verwendete <codeph>DisplayObject</codeph>. Normalerweise legen Sie diese Eigenschaft nicht direkt fest, sondern definieren stattdessen einen <codeph>dropIndicator</codeph>-Skinteil in der Skinklasse des Ablageziels.
+     
+      <p>Das List-Steuerelement legt diese Eigenschaft als Reaktion auf ein <codeph>DragEvent.DRAG_ENTER</codeph>-Ereignis fest. Die List initialisiert diese Eigenschaft mit einer Instanz ihres <codeph>dropIndicator</codeph>-Skinteils. Die List löscht diese Eigenschaft als Reaktion auf ein <codeph>DragEvent.DRAG_EXIT</codeph>-Ereignis.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:target:get"><apiName>target</apiName><shortdesc>
+      Der GroupBase-Container, dessen Elemente von diesem Layout gemessen und platziert werden und deren Größe geändert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:GroupBase</apiValueClassifier><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der GroupBase-Container, dessen Elemente von diesem Layout gemessen und platziert werden und deren Größe geändert wird.
+     
+      <p>Unterklassen können diesen Set-Zugriff überschreiben, um zielspezifische Aktionen auszuführen. So kann beispielsweise ein 3D-Layout die <codeph>maintainProjectionCenter</codeph>-Eigenschaft des Ziels hier einstellen.</p> 
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:typicalLayoutElement:get"><apiName>typicalLayoutElement</apiName><shortdesc>
+      In Layouts verwendet, wenn feste Zeilen- bzw. Spaltengrößen angefordert sind, jedoch keine bestimmte Größe angegeben ist. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:ILayoutElement"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      In Layouts verwendet, wenn feste Zeilen- bzw. Spaltengrößen angefordert sind, jedoch keine bestimmte Größe angegeben ist. Wird von virtuellen Layouts verwendet, um die Größe von Layoutelementen zu schätzen, für die kein Bildlauf in die Ansicht durchgeführt wurde.
+           <p>Diese Eigenschaft referenziert eine von Flex zur Definition der Höhe aller untergeordneten Container verwendete Komponente, siehe folgendes Beispiel:</p>
+     
+      <pre>
+      &lt;s:Group>
+        &lt;s:layout>
+          &lt;s:VerticalLayout variableRowHeight="false"
+              typicalLayoutElement="{b3}"/> 
+        &lt;/s:layout>
+        &lt;s:Button id="b1" label="Button 1"/>
+        &lt;s:Button id="b2" label="Button 2"/>
+        &lt;s:Button id="b3" label="Button 3" fontSize="36"/>
+        &lt;s:Button id="b4" label="Button 4" fontSize="24"/>
+      &lt;/s:Group></pre>
+     
+      <p>Wenn diese Eigenschaft nicht eingestellt wurde und das Ziel ungleich null ist, wird das erste Layoutelement des Ziels zwischengespeichert und zurückgegeben.</p>
+     
+      <p>Der Standardwert ist das erste Layoutelement des Ziels.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.supportClasses.target.xml"><linktext>target</linktext></link><link href="spark.layouts.xml#VerticalLayout/variableRowHeight"><linktext>spark.layouts.VerticalLayout.variableRowHeight</linktext></link><link href="spark.layouts.xml#HorizontalLayout/variableColumnWidth"><linktext>spark.layouts.HorizontalLayout.variableColumnWidth</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:useVirtualLayout:get"><apiName>useVirtualLayout</apiName><shortdesc>
+      Ein Container kann eine beliebige Anzahl an untergeordneten Objekten definieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Container kann eine beliebige Anzahl an untergeordneten Objekten definieren. Für jedes untergeordnete Objekt ist jedoch eine Instanz eines Elementrenderers erforderlich. Hat der Container viele untergeordnete Objekte, können beim Hinzufügen weiterer untergeordneter Objekte zum Container Leistungseinbußen auftreten. 
+           <p>Statt für jedes untergeordnete Objekt einen Elementrenderer zu erstellen, können Sie den Container so konfigurieren, dass er ein virtuelles Layout verwendet. Bei einem virtuellen Layout werden Elementrenderer vom Container wiederverwendet, d. h. dass der Container nur für seine aktuell sichtbaren untergeordneten Objekte Elementrenderer erstellt. Wenn ein untergeordnetes Objekt aus dem Bildschirm verschwindet, z. B. durch einen Bildlauf des Containers, kann ein neu in den Bildschirm gescrolltes untergeordnetes Objekt seinen Elementrenderer wiederverwenden. </p>
+      
+      <p>Um einen Container auf virtuelles Layout zu konfigurieren, legen Sie für die <codeph>useVirtualLayout</codeph>-Eigenschaft den Wert <codeph>true</codeph> für das mit dem Container verknüpfte Layout fest. Nur DataGroup oder SkinnableDataContainer mit Layout auf VerticalLayout, HorizontalLayout oder TileLayout gesetzt, unterstützt virtuelles Layout. Layoutunterklassen, die keine Virtualisierung unterstützen, müssen ein Ändern dieser Eigenschaft verhindern. </p>
+           <p><b>Hinweis:</b> Die BasicLayout-Klasse gibt einen Laufzeitfehler aus, wenn Sie <codeph>useVirtualLayout</codeph> auf <codeph>true</codeph> setzen.</p>
+     
+      <p>Bei <codeph>true</codeph> müssen Layouts, die Virtualisierung unterstützen, die <codeph>target.getVirtualElementAt()</codeph>- anstatt der <codeph>getElementAt()</codeph>-Methode verwenden und dürfen nur Elemente abrufen, deren Sichtbarkeit erwartet wird, wenn der Wert von <codeph>getScrollRect()</codeph> verwendet wird.</p>
+     
+      <p>Bei <codeph>true</codeph> muss die Layoutklasse die Indexpositionen der Layoutelemente, die das <codeph>scrollRect</codeph> überlappen, in der zugehörigen <codeph>updateDisplayList()</codeph>-Methode berechnen. Dabei werden ausschließlich zwischengespeicherte Informationen verwendet und nicht Layoutelemente abgerufen und deren Grenzen geprüft.</p>
+     
+      <p>Normalerweise aktualisieren virtuelle Layouts die zugehörigen zwischengespeicherten Informationen in der <codeph>updateDisplayList()</codeph>-Methode. Dabei werden die Größen und Positionen verwendet, die für die Elemente in der Ansicht berechnet wurden.</p>
+     
+      <p>Entsprechend sollten zur <codeph>measure()</codeph>-Zeit die virtuellen Layouts die Eigenschaften für die gemessene Größe des Ziels aktualisieren, indem sie das <codeph>typicalLayoutElement</codeph> und sonstige zwischengespeicherte Layoutinformationen, nicht jedoch Messungen der Elemente heranziehen.</p>
+     
+      <p>Container kooperieren mit Layouts, deren Wert für <codeph>useVirtualLayout</codeph> = <codeph>true</codeph> ist, indem sie Elementrenderer wiederverwenden, die früher erstellt, jedoch nicht mehr benutzt wurden. Ein Objekt wird als nicht mehr verwendet betrachtet, wenn die zugehörige Indexposition nicht im Bereich der <codeph>getVirtualElementAt()</codeph>-Indexpositionen liegt, die während des letzten <codeph>updateDisplayList()</codeph>-Aufrufs des Containers angefordert wurden.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getScrollRect"><linktext>getScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/typicalLayoutElement"><linktext>typicalLayoutElement</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#verticalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#verticalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts.supportClasses:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+  Die DropLocation-Klasse enthält Informationen, die die Ablageposition für die gezogenen Daten bei einem Drag &amp; Drop-Vorgang beschreiben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DropLocation-Klasse enthält Informationen, die die Ablageposition für die gezogenen Daten bei einem Drag &amp; Drop-Vorgang beschreiben. 
+ 
+  <p>Die <codeph>DropLocation</codeph> wird von der <codeph>LayoutBase</codeph>-Klasse erstellt, wenn die <codeph>List</codeph> die <codeph>calculateDropLocation()</codeph>-Methode des Layouts als Reaktion auf ein <codeph>dragOver</codeph> aufruft.</p>
+ 
+  <p>Die DropLocation-Klasse wird vom Layout für Vorgänge wie die Berechnung der Grenzen des Dropindikators sowie der Deltas für Drag &amp; Drop-Vorgänge verwendet.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropLocation()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropIndicatorBounds()</linktext></link></related-links><apiConstructor id="spark.layouts.supportClasses:DropLocation:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts.supportClasses:DropLocation:dragEvent"><apiName>dragEvent</apiName><shortdesc>
+      Das mit dieser Position verknüpfte DragEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="mx.events:DragEvent"/></apiValueDef><apiDesc>
+      Das mit dieser Position verknüpfte <codeph>DragEvent</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropIndex"><apiName>dropIndex</apiName><shortdesc>
+      Die Ablageindexposition, die dem Ereignis entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Die Ablageindexposition, die dem Ereignis entspricht.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropPoint"><apiName>dropPoint</apiName><shortdesc>
+      Der Ereignispunkt in lokalen Koordinaten des Layoutziels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      Der Ereignispunkt in lokalen Koordinaten des Layoutziels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects"><apiName>mx.effects</apiName><apiDetail/><apiClassifier id="mx.effects:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>Класс DefaultListEffect определяет эффект по умолчанию, применяемый к средствам визуализации элементов элемента управления List при изменении данных в поставщике данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="dissolve1"/><Exclude kind="property" name="wipeUp1"/><Exclude kind="property" name="shrink"/><Exclude kind="property" name="grow"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The &lt;mx:DefaultListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+  <pre>
+  &lt;DefaultListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="300"
+    fadeOutDuration="300"
+    growDuration="300"
+    removedElementOffset="100"
+    shrinkDuration="300"
+  /&gt;
+  </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>Класс DefaultListEffect определяет эффект по умолчанию, применяемый к средствам визуализации элементов элемента управления List при изменении данных в поставщике данных. При удалении элемента в элементе управления List этот эффект сначала удаляет элемент, а затем уменьшает размер слота для элемента до 0. При добавлении элемента к элементу управления List, сначала этот эффект расширяет слот для элемента, а затем постепенно появляется новый элемент. 
+  
+ <p>Свойство стиля <codeph>itemsChangeEffect</codeph> используется для применения данного эффекта к элементу управления List. Значением по умолчанию для свойства стиля <codeph>itemsChangeEffect</codeph> является значение <codeph>undefined</codeph>, указывающее на отсутствие какого-либо эффекта.</p>
+  
+ <p>Поскольку при воспроизведении эффекта DefaultListEffect средства визуализации элементов расширяют и сжимают элементы, следует установить для свойства <codeph>List.variableRowHeight</codeph> значение <codeph>true</codeph>, позволяющее динамически изменять высоту строк в элементе управления List.</p>
+ 
+  </apiDesc><example conref="DefaultListEffectExample.mxml"><swfblock conref="examples/DefaultListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#List"><linktext>mx.controls.List</linktext></link></related-links><apiConstructor id="mx.effects:DefaultListEffect:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>Конструктор.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Конструктор.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          Шестнадцатеричное значение, представляющее цвет, используемое при изменении яркости добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+          
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          Шестнадцатеричное значение, представляющее цвет, используемое при изменении яркости добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          Продолжительность (в миллисекундах), используемая в средствах визуализации для постепенного появления добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность (в миллисекундах), используемая в средствах визуализации для постепенного появления добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          Продолжительность (в миллисекундах), используемая в средствах визуализации для постепенного исчезновения добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность (в миллисекундах), используемая в средствах визуализации для постепенного исчезновения добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:growDuration:get"><apiName>growDuration</apiName><shortdesc>
+          Продолжительность (в миллисекундах), применяемая в средствах визуализации для добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность (в миллисекундах), применяемая в средствах визуализации для добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:removedElementOffset:get"><apiName>removedElementOffset</apiName><shortdesc>
+          Смещение (в миллисекундах) между эффектами, применяемыми в средствах визуализации, представляющих одновременное удаление нескольких элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Смещение (в миллисекундах) между эффектами, применяемыми в средствах визуализации, представляющих одновременное удаление нескольких элементов. Если значение равно 0, сжатие и исчезновение происходит одновременно для всех средств визуализации.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:shrinkDuration:get"><apiName>shrinkDuration</apiName><shortdesc>
+          Продолжительность (в миллисекундах), применяемая в средствах визуализации для добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность (в миллисекундах), применяемая в средствах визуализации для добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>Класс DefaultTileListEffect определяет эффект по умолчанию, применяемый в средствах визуализации элементов элемента управления TileList при изменении данных в поставщике данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="move1"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+ <p>The &lt;mx:DefaultTileListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+ <pre>
+  &lt;DefaultTileListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="350"
+    fadeOutDuration="350"
+    moveDuration="300"
+  /&gt;
+ </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>Класс DefaultTileListEffect определяет эффект по умолчанию, применяемый в средствах визуализации элементов элемента управления TileList при изменении данных в поставщике данных. При удалении элемента в элементе управления TileList сначала этот эффект удаляет элемент, а затем перемещает оставшиеся элементы на новые позиции. При добавлении элемента к элементу управления TileList сначала этот эффект перемещает существующие элементы на новые позиции, а затем постепенно появляется новый элемент. 
+  
+ <p>Свойство стиля <codeph>itemsChangeEffect</codeph> используется для применения данного эффекта к элементу управления TileList. Значением по умолчанию для свойства стиля <codeph>itemsChangeEffect</codeph> является значение <codeph>undefined</codeph>, указывающее на отсутствие какого-либо эффекта.</p>
+  
+ <p>Как правило, свойство <codeph>TileList.offscreenExtraRowsOrColumns</codeph> устанавливается при применении эффекта данных Как правило, для элемента управления TileList в качестве значения для <codeph>TileList.offscreenExtraRowsOrColumns</codeph> устанавливается небольшое четное число, например 2. </p>
+  
+  </apiDesc><example conref="DefaultTileListEffectExample.mxml"><swfblock conref="examples/DefaultTileListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#TileList"><linktext>mx.controls.TileList</linktext></link></related-links><apiConstructor id="mx.effects:DefaultTileListEffect:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>Конструктор.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Конструктор.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultTileListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          Шестнадцатеричное значение, представляющее цвет, используемое при изменении яркости добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+         
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          Шестнадцатеричное значение, представляющее цвет, используемое при изменении яркости добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          Продолжительность в миллисекундах, используемая в средствах визуализации для постепенного появления добавляемых и удаляемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность в миллисекундах, используемая в средствах визуализации для постепенного появления добавляемых и удаляемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          Продолжительность в миллисекундах, используемая в средствах визуализации для постепенного исчезновения удаляемых и заменяемых элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность в миллисекундах, используемая в средствах визуализации для постепенного исчезновения удаляемых и заменяемых элементов.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:moveDuration:get"><apiName>moveDuration</apiName><shortdesc>
+          Продолжительность в миллисекундах, применяемая в средствах визуализации для элементов, перемещение которых в элементе управления является частью эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Продолжительность в миллисекундах, применяемая в средствах визуализации для элементов, перемещение которых в элементе управления является частью эффекта.
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+  Класс AddItemAction определяет эффект действия, устанавливающий момент появления средства визуализации элемента в элементе управления, для элемента, добавляемого к элементу управления на основе списка, такого как List или TileList, или для элемента, заменяющего существующий элемент в элементе управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AddItemAction определяет эффект действия, устанавливающий момент появления средства визуализации элемента в элементе управления, для элемента, добавляемого к элементу управления на основе списка, такого как List или TileList, или для элемента, заменяющего существующий элемент в элементе управления. Этот класс можно использовать как часть определения пользовательского эффекта данных для классов на основе списка.
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddItemActionInstance"><linktext>mx.effects.effectClasses.AddItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:AddItemAction:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+  Класс RemoveChildAction определяет эффект действия, соответствующий свойству RemoveChild определения состояния представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:RemoveChildAction" replacement="spark.effects.RemoveAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+
+  <pre>
+  &lt;mx:RemoveChildAction
+    <b>Properties</b>
+    id="ID"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RemoveChildAction определяет эффект действия, соответствующий свойству RemoveChild определения состояния представления. Эффект RemoveChildAction используется в определении перехода для управления во время перехода моментом изменения состояния представления, указанного в свойстве RemoveChild.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveChildActionInstance"><linktext>mx.effects.effectClasses.RemoveChildActionInstance</linktext></link><link href="" invalidHref="mx.states.RemoveChild.xml"><linktext>mx.states.RemoveChild</linktext></link></related-links><apiConstructor id="mx.effects:RemoveChildAction:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+  Класс SetPropertyAction определяет эффект действия, соответствующий свойству SetProperty определения состояния представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:SetPropertyAction" replacement="spark.effects.SetAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetPropertyAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SetPropertyAction
+    <b>Properties</b>
+    id="ID"
+    name=""
+    value=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SetPropertyAction определяет эффект действия, соответствующий свойству <codeph>SetProperty</codeph> определения состояния представления. Эффект SetPropertyAction используется в определении перехода для управления во время перехода моментом изменения состояния представления, указанного в свойстве <codeph>SetProperty</codeph>.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#SetPropertyActionInstance"><linktext>mx.effects.effectClasses.SetPropertyActionInstance</linktext></link><link href="" invalidHref="mx.states.SetProperty.xml"><linktext>mx.states.SetProperty</linktext></link></related-links><apiConstructor id="mx.effects:SetPropertyAction:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:SetPropertyAction:name"><apiName>name</apiName><shortdesc> 
+	  Имя изменяемого свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Имя изменяемого свойства. По умолчанию Flex определяет это значение по свойству <codeph>SetProperty</codeph> в определении состояния представления.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:SetPropertyAction:value"><apiName>value</apiName><shortdesc> 
+	  Новое значение свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc> 
+	  Новое значение свойства. По умолчанию Flex определяет это значение по свойству <codeph>SetProperty</codeph> в определении состояния представления.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+  Класс RemoveItemAction определяет эффект действия, устанавливающий момент исчезновения средства визуализации элемента из элемента управления, для средства визуализации элемента, удаляемого из элемента управления на основе списка, такого как List или TileList, или для элемента, заменяемого новым элементом, добавленным к элементу управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RemoveItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RemoveItemAction определяет эффект действия, устанавливающий момент исчезновения средства визуализации элемента из элемента управления, для средства визуализации элемента, удаляемого из элемента управления на основе списка, такого как List или TileList, или для элемента, заменяемого новым элементом, добавленным к элементу управления. Этот класс можно использовать как часть определения пользовательского эффекта данных для классов на основе списка.
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveItemActionInstance"><linktext>mx.effects.effectClasses.RemoveItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:RemoveItemAction:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:Glow"><apiName>Glow</apiName><shortdesc>
+  Эффект Glow позволяет применить к компоненту визуальный эффект свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Glow" replacement="spark.effects.AnimateFilter" since="4.0">
+<description>
+  В Flex 4 эффект AnimateFilter следует использовать с растровым фильтром Glow.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Glow&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:Glow
+    id="ID"
+    alphaFrom="val"
+    alphaTo="val"
+    blurXFrom="val"
+    blurXTo="val"
+    blurYFrom="val"
+    blurYTo="val"
+    color="<i>themeColor of the application</i>"
+    inner="false|true"
+    knockout="false|true"
+    strength="2"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эффект Glow позволяет применить к компоненту визуальный эффект свечения. 
+ 
+  <p>Эффект Glow использует класс Flash GlowFilter как часть реализации. Для получения дополнительной информации см. описание класса flash.filters.GlowFilter. Если к компоненту применяется эффект Glow, применить к компоненту эффект GlowFilter или второй эффект Glow невозможно.</p>
+ 
+  </apiDesc><example conref="GlowEffectExample.mxml"><swfblock conref="examples/GlowEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="mx.effects.effectClasses.xml#GlowInstance"><linktext>mx.effects.effectClasses.GlowInstance</linktext></link></related-links><apiConstructor id="mx.effects:Glow:Glow"><apiName>Glow</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Glow:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="Number"/><apiDefaultValue>1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  Начальная степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Начальная степень размытия по горизонтали. Действительны значения от 0.0 до 255.0.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  Конечная степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Конечная степень размытия по горизонтали. Действительны значения от 0.0 до 255.0.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  Начальная степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Начальная степень размытия по вертикали. Действительны значения от 0.0 до 255.0. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  Конечная степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Конечная степень размытия по вертикали. Действительны значения от 0.0 до 255.0. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:color"><apiName>color</apiName><shortdesc> 
+	  Цвет свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>StyleManager.NOT_A_COLOR
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Цвет свечения. Значением по умолчанию является значение свойства стиля <codeph>themeColor</codeph> приложения. Значением по умолчанию для этого свойства является <codeph>StyleManager.NOT_A_COLOR</codeph>. Если при вызове в эффекте метода <codeph>play()</codeph> для свойства color установлено значение по умолчанию, для значения color в экземпляре эффекта устанавливается значение текущего стиля <codeph>themeColor</codeph> приложения.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:inner"><apiName>inner</apiName><shortdesc> 
+	  Определяет, является ли свечение внутренним свечением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Определяет, является ли свечение внутренним свечением. Значение <codeph>true</codeph> определяет свечение внутри внешнего контура объекта. Значением по умолчанию является значение <codeph>false</codeph>, которое определяет внешнее свечение вокруг внешнего контура объекта. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:knockout"><apiName>knockout</apiName><shortdesc> 
+	  Определяет, применяется ли к объекту эффект выбивки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Определяет, применяется ли к объекту эффект выбивки. Значение <codeph>true</codeph> делает заливку объекта прозрачной для проявления цвета фона основного объекта. Значение по умолчанию <codeph>false</codeph> указывает отсутствие эффекта выбивки 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:strength"><apiName>strength</apiName><shortdesc> 
+	  Степень вдавливания или нанесения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="Number"/><apiDefaultValue>2 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между свечением и фоном. Допустимые значения: от <codeph>0</codeph> до <codeph>255</codeph>. 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:Resize"><apiName>Resize</apiName><shortdesc>
+  Эффект Resize изменяет ширину, высоту или оба размера компонента в указанный интервал времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Resize" replacement="spark.effects.Resize" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Resize&gt;</code> tag
+  inherits all of the tag attributes of its superclass, 
+  and adds the following tab attributes:</p>
+  
+  <pre>
+  &lt;mx:Resize
+    id="ID"
+    widthFrom="val"
+    heightFrom="val"
+    widthTo="val"
+    heightTo="val"
+    widthBy="val"
+    heightBy="val"
+    hideChildrenTargets=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эффект Resize изменяет ширину, высоту или оба размера компонента в указанный интервал времени. 
+  
+  <p>Если указаны только два из трех значений свойств <codeph>widthFrom</codeph>, <codeph>widthTo</codeph> и <codeph>widthBy</codeph>, то Flex вычисляет третье. Если указаны все три значения, то Flex игнорирует значение <codeph>widthBy</codeph>. Если указаны только значения <codeph>widthBy</codeph> или <codeph>widthTo</codeph>, то свойство <codeph>widthFrom</codeph> устанавливается в качестве текущей ширины объекта. Аналогично для значений свойств <codeph>heightFrom</codeph>, <codeph>heightTo</codeph> и <codeph>heightBy</codeph>.</p>
+  
+  <p>Если для триггера resize указан эффект Resize, и если шесть значений для свойств From, To и By не указаны, эти значения устанавливает Flex с целью создания плавного перехода между старыми и новыми размерами объекта.</p>
+  
+  </apiDesc><example conref="ResizeEffectExample.mxml"><swfblock conref="examples/ResizeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#ResizeInstance"><linktext>mx.effects.effectClasses.ResizeInstance</linktext></link><link href="" invalidHref="mx.effects.Tween.xml"><linktext>mx.effects.Tween</linktext></link></related-links><apiConstructor id="mx.effects:Resize:Resize"><apiName>Resize</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Resize:heightBy"><apiName>heightBy</apiName><shortdesc> 
+	  Число пикселей, на которое должна быть изменена высота компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Число пикселей, на которое должна быть изменена высота компонента. Значения могут быть отрицательными.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  Начальная высота в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальная высота в пикселях. Если значение опущено, Flex использует текущую высоту.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightTo"><apiName>heightTo</apiName><shortdesc> 
+	  Конечная высота (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечная высота (в пикселях).
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  Массив контейнеров Panel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Массив контейнеров Panel. Нижестоящие элементы контейнеров Panel во время воспроизведения эффекта скрыты.
+	 
+	  <p>Для установки этого свойства в MXML используется синтаксис привязки данных, демонстрируемый в следующем примере, где panelOne и panelTwo – имена двух контейнеров Panel в приложении:</p>
+	 
+	  <pre>&lt;mx:Resize id="e" heightFrom="100" heightTo="400"
+	 hideChildrenTargets="{[panelOne, panelTwo]}" /></pre>		
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthBy"><apiName>widthBy</apiName><shortdesc> 
+	  Число пикселей для изменения ширины компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Число пикселей для изменения ширины компонента. Значения могут быть отрицательными.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  Начальная ширина в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальная ширина в пикселях. Если значение опущено, то Flex использует текущую высоту.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthTo"><apiName>widthTo</apiName><shortdesc> 
+	  Конечная ширина (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечная ширина (в пикселях).
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+  Класс AddChildAction определяет эффект действия, соответствующий свойству AddChild в определении состояния представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:AddChildAction" replacement="spark.effects.AddAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddChildAction
+    <b>Properties</b>
+    id="ID"
+    index="-1"
+    relativeTo=""
+    position="index"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AddChildAction определяет эффект действия, соответствующий свойству <codeph>AddChild</codeph> в определении состояния представления. Эффект действия AddChildAction используется в определении перехода для управления во время перехода моментом изменения состояния представления, указанного в свойстве AddChild.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddChildActionInstance"><linktext>mx.effects.effectClasses.AddChildActionInstance</linktext></link><link href="" invalidHref="mx.states.AddChild.xml"><linktext>mx.states.AddChild</linktext></link></related-links><apiConstructor id="mx.effects:AddChildAction:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:AddChildAction:index"><apiName>index</apiName><shortdesc> 
+	  Индекс нижестоящего элемента в рамках вышестоящего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/><apiDefaultValue>-1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Индекс нижестоящего элемента в рамках вышестоящего элемента. Значение -1 означает добавление нижестоящего элемента в качестве последнего нижестоящего элемента данного вышестоящего элемента.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:position"><apiName>position</apiName><shortdesc> 
+	  Позиция нижестоящего элемента в списке отображения относительно объекта, указанного свойством relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>index</apiData><apiType value="String"/><apiDefaultValue>"index"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Позиция нижестоящего элемента в списке отображения относительно объекта, указанного свойством <codeph>relativeTo</codeph>. Допустимыми значениями являются <codeph>before</codeph>, <codeph>after</codeph>, <codeph>firstChild</codeph>, <codeph>lastChild</codeph> и <codeph>index</codeph>, где <codeph>index</codeph> указывает на необходимость использования свойства <codeph>index</codeph> при определении позиции нижестоящего элемента.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  Местоположение, в котором добавляется нижестоящий компонент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  Местоположение, в котором добавляется нижестоящий компонент. По умолчанию Flex определяет это значение в процессе определения состояния из определения свойства <codeph>AddChild</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+  Класс WipeUp определяет эффект стирания вверх.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeUp" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Специфичные для направления эффекты Wipe в Flex 3 заменены более общим эффектом Wipe, принимающим обобщенное направление. Для получения требуемого варианта поведения нового эффекта необходимо соответствующим образом установить параметр <codeph>direction</codeph>.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeUp&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeUp
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс WipeUp определяет эффект стирания вверх. Начальное и конечное состояние компонента должно быть невидимым. 
+ 
+  <p>Этот эффект, как правило, используется с триггерами <codeph>showEffect</codeph> и <codeph>hideEffect</codeph>. Триггер <codeph>showEffect</codeph> срабатывает, когда компонент становится видимым при изменении значения свойства <codeph>visible</codeph> с <codeph>false</codeph> на <codeph>true</codeph>. Триггер <codeph>hideEffect</codeph> срабатывает, когда компонент становится невидимым при изменении значения свойства <codeph>visible</codeph> с <codeph>true</codeph> на <codeph>false</codeph>.</p>
+ 
+  <p>Этот эффект наследует свойство <codeph>MaskEffect.show</codeph>. Если установлено значение <codeph>true</codeph>, компонент появляется. Если установлено значение <codeph>false</codeph>, компонент исчезает. По умолчанию используется значение <codeph>true</codeph>.</p>
+  
+  <p>Если данный эффект указывается для триггера <codeph>showEffect</codeph> или <codeph>hideEffect</codeph>, Flex присваивает свойству <codeph>show</codeph> или значение <codeph>true</codeph>, если компонент становится невидимым, или значение <codeph>false</codeph>, если компонент становится видимым.</p> 
+  
+  </apiDesc><example conref="WipeUpExample.mxml"><swfblock conref="examples/WipeUpExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeUpInstance"><linktext>mx.effects.effectClasses.WipeUpInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeUp:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+  Класс WipeLeft определяет эффект стирания влево.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeLeft" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Специфичные для направления эффекты Wipe в Flex 3 заменены более общим эффектом Wipe, принимающим обобщенное направление. Для получения требуемого варианта поведения нового эффекта необходимо соответствующим образом установить параметр <codeph>direction</codeph>.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeLeft&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeLeft
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс WipeLeft определяет эффект стирания влево. Начальное и конечное состояние компонента должно быть невидимым. 
+ 
+  <p>Этот эффект, как правило, используется с триггерами <codeph>showEffect</codeph> и <codeph>hideEffect</codeph>. Триггер <codeph>showEffect</codeph> срабатывает, когда компонент становится видимым при изменении значения свойства <codeph>visible</codeph> с <codeph>false</codeph> на <codeph>true</codeph>. Триггер <codeph>hideEffect</codeph> срабатывает, когда компонент становится невидимым при изменении значения свойства <codeph>visible</codeph> с <codeph>true</codeph> на <codeph>false</codeph>.</p>
+ 
+  <p>Этот эффект наследует свойство <codeph>MaskEffect.show</codeph>. Если установлено значение <codeph>true</codeph>, компонент появляется. Если установлено значение <codeph>false</codeph>, компонент исчезает. По умолчанию используется значение <codeph>true</codeph>.</p>
+ 
+  <p>Если данный эффект указывается для триггера <codeph>showEffect</codeph> или <codeph>hideEffect</codeph>, Flex присваивает свойству <codeph>show</codeph> или значение <codeph>true</codeph>, если компонент становится невидимым, или значение <codeph>false</codeph>, если компонент становится видимым.</p> 
+ 
+  </apiDesc><example conref="WipeLeftExample.mxml"><swfblock conref="examples/WipeLeftExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeLeftInstance"><linktext>mx.effects.effectClasses.WipeLeftInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeLeft:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+  Класс WipeRight определяет эффект стирания вправо.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeRight" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Специфичные для направления эффекты Wipe в Flex 3 заменены более общим эффектом Wipe, принимающим обобщенное направление. Для получения требуемого варианта поведения нового эффекта необходимо соответствующим образом установить параметр <codeph>direction</codeph>.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeRight&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeRight
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс WipeRight определяет эффект стирания вправо. Начальное и конечное состояние компонента должно быть невидимым. 
+ 
+  <p>Этот эффект, как правило, используется с триггерами <codeph>showEffect</codeph> и <codeph>hideEffect</codeph>. Триггер <codeph>showEffect</codeph> срабатывает, когда компонент становится видимым при изменении значения свойства <codeph>visible</codeph> с <codeph>false</codeph> на <codeph>true</codeph>. Триггер <codeph>hideEffect</codeph> срабатывает, когда компонент становится невидимым при изменении значения свойства <codeph>visible</codeph> с <codeph>true</codeph> на <codeph>false</codeph>.</p>
+ 
+  <p>Этот эффект наследует свойство <codeph>MaskEffect.show</codeph>. Если установлено значение <codeph>true</codeph>, компонент появляется. Если установлено значение <codeph>false</codeph>, компонент исчезает. По умолчанию используется значение <codeph>true</codeph>.</p>
+ 
+  <p>Если данный эффект указывается для триггера <codeph>showEffect</codeph> или <codeph>hideEffect</codeph>, Flex присваивает свойству <codeph>show</codeph> или значение <codeph>true</codeph>, если компонент становится невидимым, или значение <codeph>false</codeph>, если компонент становится видимым. </p>
+  
+  </apiDesc><example conref="WipeRightExample.mxml"><swfblock conref="examples/WipeRightExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeRightInstance"><linktext>mx.effects.effectClasses.WipeRightInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeRight:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+  Класс WipeDown определяет эффект стирания вниз.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeDown" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Специфичные для направления эффекты Wipe в Flex 3 заменены более общим эффектом Wipe, принимающим обобщенное направление. Для получения требуемого варианта поведения нового эффекта необходимо соответствующим образом установить параметр <codeph>direction</codeph>.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeDown&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeDown
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс WipeDown определяет эффект стирания вниз. Начальное и конечное состояние компонента должно быть невидимым. 
+ 
+  <p>Этот эффект, как правило, используется с триггерами <codeph>showEffect</codeph> и <codeph>hideEffect</codeph>. Триггер <codeph>showEffect</codeph> срабатывает, когда компонент становится видимым при изменении значения свойства <codeph>visible</codeph> с <codeph>false</codeph> на <codeph>true</codeph>. Триггер <codeph>hideEffect</codeph> срабатывает, когда компонент становится невидимым при изменении значения свойства <codeph>visible</codeph> с <codeph>true</codeph> на <codeph>false</codeph>.</p>
+ 
+  <p>Этот эффект наследует свойство <codeph>MaskEffect.show</codeph>. Если установлено значение <codeph>true</codeph>, компонент появляется. Если установлено значение <codeph>false</codeph>, компонент исчезает. По умолчанию используется значение <codeph>true</codeph>.</p>
+ 
+  <p>Если данный эффект указывается для триггера <codeph>showEffect</codeph> или <codeph>hideEffect</codeph>, Flex присваивает свойству <codeph>show</codeph> или значение <codeph>true</codeph>, если компонент становится невидимым, или значение <codeph>false</codeph>, если компонент становится видимым.</p> 
+  
+  </apiDesc><example conref="WipeDownExample.mxml"><swfblock conref="examples/WipeDownExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeDownInstance"><linktext>mx.effects.effectClasses.WipeDownInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeDown:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+  Класс UnconstrainItemAction определяет эффект операции, используемый в определении эффекта данных, для временного запрета размещения средств визуализации элементов алгоритмом макета вышестоящего элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:UnconstrainItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:UnconstrainItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс UnconstrainItemAction определяет эффект операции, используемый в определении эффекта данных, для временного запрета размещения средств визуализации элементов алгоритмом макета вышестоящего элемента управления. Этот эффект можно использовать для разрешения средствам визуализации элементов в элементе управления TileList свободно перемещаться, а не быть ограниченными при размещении в стандартной сетке, определенной элементом управления. Заданный по умолчанию класс эффекта данных для элемента управления TileList, DefaultTileListEffect, использует этот эффект.
+ 
+  <p>Как правило, этот эффект добавляется, когда пользовательский эффект данных перемещает средства визуализации элементов.</p>
+   
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#UnconstrainItemActionInstance"><linktext>mx.effects.effectClasses.UnconstrainItemActionInstance</linktext></link><link href="mx.effects.xml#DefaultTileListEffect"><linktext>mx.effects.DefaultTileListEffect</linktext></link></related-links><apiConstructor id="mx.effects:UnconstrainItemAction:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

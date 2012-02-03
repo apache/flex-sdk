@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.scrollClasses"><apiName>mx.controls.scrollClasses</apiName><apiDetail/><apiClassifier id="mx.controls.scrollClasses:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+  ScrollThumb 类定义 ScrollBar 控件的滑块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollThumb 类定义 ScrollBar 控件的滑块。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollThumb:ScrollThumb"><apiName>ScrollThumb</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+  ScrollBar 类是 HScrollBar 控件和 VScrollBar 控件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="style" name="errorColor"/><Exclude kind="property" name="doubleClickEnabled"/><styles><style inherit="no" name="upArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的向上箭头按钮的外观。 
+  
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+    
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当鼠标指针在滚动条的向上箭头按钮上方时该按钮的外观。
+  
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当单击滚动条的向上箭头按钮时该按钮的外观。 
+ 
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当禁用了滚动条时滚动条的向上箭头按钮的外观。 
+ 
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="upArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的向上箭头按钮的默认外观。 
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条轨道的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当鼠标指针悬停在滚动条上方时滚动条轨道的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当单击轨道时滚动条轨道的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作禁用滚动条后滚动条轨道的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条轨道的默认外观。 
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollTrackSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarTrackSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  轨道的颜色（由两种颜色组成的数组）。您可以使用同一种颜色两次，以实现纯色轨道。
+ 
+  </description>
+<default>[0x94999b, 0xe7e7e7]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的滑块的外观。
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollThumbSkin</codeph>。在 Spark 注意下，默认外观类为 <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当鼠标指针在滚动条的缩略图上方时该缩略图的外观。 
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollThumbSkin</codeph>。在 Spark 注意下，默认外观类为 <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOffset" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Number">
+<description>
+  滚动滑块偏移滚动条中心的像素数目。 
+ 
+  </description>
+<default>0 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbIcon" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的缩略图的图标。 
+  
+  </description>
+<default>"undefined"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当单击滚动条的缩略图时该缩略图的外观。 
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollThumbSkin</codeph>。在 Spark 注意下，默认外观类为 <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的向下箭头按钮的默认外观。 
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollThumbSkin</codeph>。在 Spark 注意下，默认外观类为 <codeph>mx.skins.spark.ScrollBarThumbSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的任何元件的颜色。示例包括 CheckBox 的复选标记或 ScrollBar 按钮的箭头。
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowUpSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的向下箭头按钮的外观。 
+  
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowOverSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当鼠标指针在滚动条的向下箭头按钮上方时该按钮的外观。 
+ 
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDownSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当单击滚动条的向下箭头按钮时该按钮的外观。 
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+  
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowDisabledSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作当禁用了滚动条时滚动条的向下箭头按钮的外观。 
+ 
+  <p>无论是以图形化方式还是以编程方式更改外观，您都应当确保新外观与轨道具有相同的高度（对于水平滚动条）或宽度（对于垂直滚动条）。</p>
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="downArrowSkin" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" type="Class">
+<description>
+  类的名称，该类用作滚动条的向下箭头按钮的默认外观。
+ 
+  <p>默认外观类基于主题。例如，在 Halo 主题下，默认外观类为 <codeph>mx.skins.halo.ScrollArrowSkin</codeph>。在 Spark 主题下，默认外观类为 <codeph>mx.skins.spark.ScrollBarDownButtonSkin</codeph>。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="highlightAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Alpha 透明度，用于加亮填充控件。第一个值指定加亮部分顶部的透明度，第二个值指定加亮部分底部的透明度。加亮部分覆盖了外观的上半部分。
+  
+  </description>
+<default>[ 0.3, 0.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  为控件背景着色所使用的颜色。对具有均匀外观控件的两个值传递相同的颜色。
+  
+  </description>
+<default>[ 0xFFFFFF, 0xCCCCCC ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  用于填充控件背景的 Alpha。使用 [1, 1] 可使控件背景不透明。
+  
+  </description>
+<default>[ 0.6, 0.4 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  组件角的半径。下列组件支持此样式：Alert、Button、ComboBox、LinkButton、MenuBar、NumericStepper、Panel、ScrollBar、Tab、TitleWindow 以及任何支持设置为 <codeph>"solid"</codeph> 的 <codeph>borderStyle</codeph> 属性的组件。默认值取决于组件类；如果没有覆盖该类的默认值，则 Halo 主题的默认值为 <codeph>0</codeph>，Spark 主题的默认值为 <codeph>2</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.scrollClasses:ScrollBar" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  边框颜色。下列控件支持此样式：Button、CheckBox、ComboBox、MenuBar、NumericStepper、ProgressBar、RadioButton、ScrollBar、Slider 以及任何支持 <codeph>borderStyle</codeph> 样式的组件。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 <codeph>0xB7BABC</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ScrollBar&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:ScrollBar
+    <strong>Properties</strong>
+    direction="vertical|horizontal"
+    lineScrollSize="1"
+    maxScrollPosition="0"
+    minScrollPosition="0"
+    pageScrollSize="<i>Reset to the pageSize parameter of setScrollProperties</i>"
+    pageSize="0"
+    scrollPosition="0"
+ 
+    <strong>Styles</strong>
+    borderColor="0xB7BABC" 
+    cornerRadius="0" 
+    disabledIconColor="0x999999"
+    downArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    downArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+    fillAlphas="[0.6, 0.4]" 
+    fillColors="[0xFFFFFF, 0xCCCCCC]" 
+    highlightAlphas="[0.3, 0.0]" 
+    iconColor="0x111111"
+    thumbDownSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbIcon="undefined"
+    thumbOffset="0"
+    thumbOverSkin="mx.skins.halo.ScrollThumbSkin"
+    thumbUpSkin="mx.skins.halo.ScrollThumbSkin"
+    trackColors="[0x94999b, 0xe7e7e7]"
+    trackSkin="mx.skins.halo.ScrollTrackSkin"
+    upArrowDisabledSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowDownSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowOverSkin="mx.skins.halo.ScrollArrowSkin"
+    upArrowUpSkin="mx.skins.halo.ScrollArrowSkin"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBar 类是 HScrollBar 控件和 VScrollBar 控件的基类。ScrollBar 由两个箭头按钮、两者之间的轨道和大小可变的滚动滑块组成。单击其中一个箭头按钮，沿轨道拖动滚动滑块或单击轨道，可移动滚动滑块。 
+ 
+  <p>滚动条的宽度等于其子组件（向上箭头、向下箭头、滑块和轨道）的最大宽度。每个子组件均位于滚动条的中心位置。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link><link href="mx.controls.xml#Button"><linktext>mx.controls.Button</linktext></link><link href="mx.controls.scrollClasses.xml#ScrollThumb"><linktext>mx.controls.scrollClasses.ScrollThumb</linktext></link></related-links><apiConstructor id="mx.controls.scrollClasses:ScrollBar:ScrollBar"><apiName>ScrollBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.scrollClasses:ScrollBar:setScrollProperties"><apiName>setScrollProperties</apiName><shortdesc>
+      设置 ScrollBar 控件的范围和视口大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pageSize</apiItemName><apiType value="Number"/><apiDesc>表示页面大小的数值。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>minScrollPosition</apiItemName><apiType value="Number"/><apiDesc>表示滚动范围下限的数值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>maxScrollPosition</apiItemName><apiType value="Number"/><apiDesc>表示滚动范围上限的数值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pageScrollSize</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>表示按下滚动轨道时移动的增量的数值。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置 ScrollBar 控件的范围和视口大小。ScrollBar 控件会相应地更新箭头按钮的状态和滚动滑块的大小。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.scrollClasses:ScrollBar:THICKNESS"><apiName>THICKNESS</apiName><shortdesc>
+      垂直 scrollBar 的宽度或水平 scrollBar 的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>16</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      垂直 scrollBar 的宽度或水平 scrollBar 的高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:direction:get"><apiName>direction</apiName><shortdesc>
+      指定 ScrollBar 是用于水平滚动还是垂直滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollBarDirection.VERTICAL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 ScrollBar 是用于水平滚动还是垂直滚动。MXML 中的有效值包括 <codeph>"vertical"</codeph> 和 <codeph>"horizontal"</codeph>。
+     
+      <p>在 ActionScript 中，可以使用下列常量设置此属性：<codeph>ScrollBarDirection.VERTICAL</codeph> 和 <codeph>ScrollBarDirection.HORIZONTAL</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBarDirection"><linktext>mx.controls.scrollClasses.ScrollBarDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:downArrowStyleFilters:get"><apiName>downArrowStyleFilters</apiName><shortdesc>
+      从 ScrollBar 传递到向下箭头的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 ScrollBar 传递到向下箭头的样式集。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:lineScrollSize:get"><apiName>lineScrollSize</apiName><shortdesc>
+      按下箭头按钮时的滚动量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下箭头按钮时的滚动量（以像素为单位）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:maxScrollPosition:get"><apiName>maxScrollPosition</apiName><shortdesc>
+      表示最大滚动位置的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示最大滚动位置的数值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:minScrollPosition:get"><apiName>minScrollPosition</apiName><shortdesc>
+      表示最小滚动位置的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示最小滚动位置的数值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageScrollSize:get"><apiName>pageScrollSize</apiName><shortdesc>
+      按下滚动条轨道时滚动滑块的移动量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下滚动条轨道时滚动滑块的移动量（以像素为单位）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:pageSize:get"><apiName>pageSize</apiName><shortdesc>
+      等效于一页的行数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      等效于一页的行数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:scrollPosition:get"><apiName>scrollPosition</apiName><shortdesc>
+      表示当前滚动位置的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示当前滚动位置的数值。值介于 <codeph>minScrollPosition</codeph> 和 <codeph>maxScrollPosition</codeph> 之间（包括两者）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      从 ScrollBar 传递到滑块的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 ScrollBar 传递到滑块的样式集。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBar:protected:upArrowStyleFilters:get"><apiName>upArrowStyleFilters</apiName><shortdesc>
+      从 ScrollBar 传递到向上箭头的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 ScrollBar 传递到向上箭头的样式集。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.scrollClasses:ScrollBarDirection"><apiName>ScrollBarDirection</apiName><shortdesc>
+  ScrollBarDirection 类定义 ScrollBar 控件的 direction 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBarDirection 类定义 ScrollBar 控件的 <codeph>direction</codeph> 属性值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.scrollClasses.xml#ScrollBar"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link><link href="mx.controls.xml#HScrollBar"><linktext>mx.controls.HScrollBar</linktext></link><link href="mx.controls.xml#VScrollBar"><linktext>mx.controls.VScrollBar</linktext></link></related-links><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  指定 ScrollBar 控件用于水平滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定 ScrollBar 控件用于水平滚动。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.scrollClasses:ScrollBarDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  指定 ScrollBar 控件用于垂直滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定 ScrollBar 控件用于垂直滚动。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

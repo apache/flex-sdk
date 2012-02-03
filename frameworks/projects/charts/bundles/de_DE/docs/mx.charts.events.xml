@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.events"><apiName>mx.charts.events</apiName><apiDetail/><apiClassifier id="mx.charts.events:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+   Die LegendMouseEvent-Klasse stellt Ereignisobjekte dar, die speziell für die Diagrammlegendenkomponenten gelten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+   Die LegendMouseEvent-Klasse stellt Ereignisobjekte dar, die speziell für die Diagrammlegendenkomponenten gelten. Beispielsweise beim Klicken auf ein Legendenelement.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:LegendMouseEvent:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Typ des Mausereignisses. Wenn ein Mausereignistyp vorhanden ist, würde es in einen LegendMouseEvent-Typ konvertiert.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>Das Mausereignis (MouseEvent), durch das LegentMouseEvent ausgelöst wurde.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.charts:LegendItem</apiOperationClassifier><apiData>null</apiData><apiDesc>Das Element in der Legende, auf dem dieses Ereignis ausgelöst wurde.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste über einem Legendenelement geklickt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste über einem Legendenelement geklickt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste über einem Legendenelement geklickt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste über einem Legendenelement geklickt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OUT"><apiName>ITEM_MOUSE_OUT</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger von einem Legendenelement wegbewegt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger von einem Legendenelement wegbewegt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OVER"><apiName>ITEM_MOUSE_OVER</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger über ein Legendenelement bewegt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger über ein Legendenelement bewegt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste auf einem Legendenelement losgelassen hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste auf einem Legendenelement losgelassen hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:item"><apiName>item</apiName><shortdesc>
+	  Das Element in der Legende, auf dem dieses Ereignis ausgelöst wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts:LegendItem</apiValueClassifier></apiValueDef><apiDesc>
+	  Das Element in der Legende, auf dem dieses Ereignis ausgelöst wurde.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+ Die ChartItemEvent-Klasse stellt Ereignisse dar, die speziell für die Diagrammkomponenten gelten, beispielsweise wenn auf ein Diagrammelement geklickt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Die ChartItemEvent-Klasse stellt Ereignisse dar, die speziell für die Diagrammkomponenten gelten, beispielsweise wenn auf ein Diagrammelement geklickt wurde.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:ChartItemEvent:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+	 Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hitSet</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Ein Array von HitData-Strukturen, die die Diagrammelemente (ChartItems) beschreiben, die das Ereignis ausgelöst haben.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>Das Mausereignis (MouseEvent), durch das dieses ChartItemEvent ausgelöst wurde.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>Das Diagramm, auf dem das Ereignis ausgelöst wurde.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	 Konstruktor.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartItemEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass die Auswahl im Diagramm geändert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass die Auswahl im Diagramm geändert wurde.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste auf ein Diagrammelement geklickt hat, das Daten im Diagramm darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste auf ein Diagrammelement geklickt hat, das Daten im Diagramm darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_DOUBLE_CLICK"><apiName>ITEM_DOUBLE_CLICK</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste auf ein Diagrammelement doppelgeklickt hat, das Daten im Diagramm darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer mit der Maustaste auf ein Diagrammelement doppelgeklickt hat, das Daten im Diagramm darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste über einem Diagrammelement gedrückt hat, das Daten im Diagramm darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste über einem Diagrammelement gedrückt hat, das Daten im Diagramm darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_MOVE"><apiName>ITEM_MOUSE_MOVE</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger verschoben hat, während sich dieser über einem Diagrammelement befand, das Daten im Diagramm darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger verschoben hat, während sich dieser über einem Diagrammelement befand, das Daten im Diagramm darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste über einem Diagrammelement losgelassen hat, das Daten im Diagramm darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer die Maustaste über einem Diagrammelement losgelassen hat, das Daten im Diagramm darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OUT"><apiName>ITEM_ROLL_OUT</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger von einem Diagrammelement, das Daten im Diagramm darstellt, wegbewegt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger von einem Diagrammelement, das Daten im Diagramm darstellt, wegbewegt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OVER"><apiName>ITEM_ROLL_OVER</apiName><shortdesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger über ein Diagrammelement, das Daten im Diagramm darstellt, bewegt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Ereignistypkonstante. Gibt an, dass der Benutzer den Mauszeiger über ein Diagrammelement, das Daten im Diagramm darstellt, bewegt hat.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitSet"><apiName>hitSet</apiName><shortdesc>
+	  Ein Satz von HitData-Strukturen, die Diagrammelemente beschreiben, durch die das Ereignis ausgelöst wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Ein Satz von HitData-Strukturen, die Diagrammelemente beschreiben, durch die das Ereignis ausgelöst wurde. Dieses Array ist in einer hierarchischen Reihenfolge angeordnet. Das erste Element im Array ist das oberste Element und das letzte Element ist das tiefste Element.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitData:get"><apiName>hitData</apiName><shortdesc> 
+	  Das erste Element im hitSet-Array.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.charts:HitData</apiValueClassifier></apiValueDef><apiDesc> 
+	  Das erste Element im hitSet-Array. Diese Funktion hilft Entwicklern, für die Ereignisse von mehreren Elementen nicht wichtig sind.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+ Die ChartEvent-Klasse stellt Ereignisse dar, die speziell für das Diagrammsteuerelement gelten, beispielsweise wenn auf ein Diagramm geklickt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Die ChartEvent-Klasse stellt Ereignisse dar, die speziell für das Diagrammsteuerelement gelten, beispielsweise wenn auf ein Diagramm geklickt wurde. Dieses Ereignis wird nur ausgelöst, wenn keine ChartItem-Objekte unter der Maus vorhanden sind.
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.events.xml#ChartItemEvent"><linktext>mx.charts.events.ChartItemEvent</linktext></link></related-links><apiConstructor id="mx.charts.events:ChartEvent:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>Das Mausereignis (MouseEvent), durch das dieses ChartEvent ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>Das Diagramm, auf dem das Ereignis ausgelöst wurde.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartEvent:CHART_CLICK"><apiName>CHART_CLICK</apiName><shortdesc>
+      Gibt an, dass der Benutzer über einem Diagrammsteuerelement, jedoch nicht auf ein Diagrammelement mit der Maustaste geklickt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass der Benutzer über einem Diagrammsteuerelement, jedoch nicht auf ein Diagrammelement mit der Maustaste geklickt hat.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartEvent:CHART_DOUBLE_CLICK"><apiName>CHART_DOUBLE_CLICK</apiName><shortdesc>
+      Gibt an, dass der Benutzer über einem Diagrammsteuerelement, jedoch nicht auf ein Diagrammelement mit der Maustaste doppelgeklickt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass der Benutzer über einem Diagrammsteuerelement, jedoch nicht auf ein Diagrammelement mit der Maustaste doppelgeklickt hat.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

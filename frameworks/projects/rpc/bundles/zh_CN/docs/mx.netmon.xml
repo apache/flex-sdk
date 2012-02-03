@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.netmon"><apiName>mx.netmon</apiName><apiDetail/><apiClassifier id="mx.netmon:NetworkMonitor"><apiName>NetworkMonitor</apiName><shortdesc>
+  NetworkMonitor 是框架和企业服务类用于向 Flash Builder Network Monitor 功能发送信息的存根。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NetworkMonitor 是框架和企业服务类用于向 Flash Builder Network Monitor 功能发送信息的存根。NetworkMonitor 声明了一些将由 Flash Builder 提供的 mix-in 类填充的 Impl 函数。如果不指定这些函数，存根将不做任何事情，或者会根据情况返回 false 或 null。我们目前不使用单体或实例对象来简化调用监视器的代码。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.netmon:NetworkMonitor:adjustNetConnectionURL"><apiName>adjustNetConnectionURL</apiName><shortdesc>
+      调整 NetConnectionChannel 和 HTTPChannel 请求的 URL，以使其通过监视器的检查。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>rootUrl</apiItemName><apiType value="String"/><apiDesc>用于调整。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      调整 NetConnectionChannel 和 HTTPChannel 请求的 URL，以使其通过监视器的检查。返回修改过的 URL。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:adjustURLRequest"><apiName>adjustURLRequest</apiName><shortdesc>
+      调整 URLRequest，以使其通过监视器的检查。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>urlRequest</apiItemName><apiType value="flash.net:URLRequest"/><apiDesc>要调整的 URLRequest。（支持相对 URL。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiDesc>从相对 URL 计算绝对 URL。如有必要，将 SWF 文件的 URL 作为此值传递。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>correlationID</apiItemName><apiType value="String"/><apiDesc>可用于关联事件的 correlationID。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调整 URLRequest，以使其通过监视器的检查。发送到监视器的 URLRequest 将有两个头：
+      <ul>
+        <li><codeph>actualHostPort</codeph>:URL 的实际 <codeph>host:port</codeph>。</li>
+        <li><codeph>correlationID</codeph>：当请求来自消息传递时请求的 correlationID（Image/Loader 请求需要创建它们自己的 correlationID）</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:isMonitoring"><apiName>isMonitoring</apiName><shortdesc>
+      如果监视器已链接并正在进行监视，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      如果监视器已链接并正在进行监视，则返回 true。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorEvent"><apiName>monitorEvent</apiName><shortdesc>
+      通知监视器有事件发生。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>将要发生（或已发生）的事件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>correlationID</apiItemName><apiType value="String"/><apiDesc>要与其它事件或请求关联的 correlationID。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知监视器有事件发生。此方法可以由 Loader 使用来监视安全性和 IO 错误。它不应该用于 Loader 的 <codeph>complete</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorFault"><apiName>monitorFault</apiName><shortdesc>
+      通知监视器有故障发生。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>faultMessage</apiItemName><apiType value="Object"/><apiDesc>返回的指示结果的消息。如果是由于调用失败导致的，则为 null。（它在此处为无类型的，以避免牵涉到相关性。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>actualFault</apiItemName><apiType value="Object"/><apiDesc>发生的故障。（它在此处为无类型的，以避免牵涉到相关性。）
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知监视器有故障发生。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorInvocation"><apiName>monitorInvocation</apiName><shortdesc>
+      通知监视器正在发生调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>导致发生调用的标记（如果可以确定）的标识。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>invocationMessage</apiItemName><apiType value="Object"/><apiDesc>将通过网络发送的消息。（它在此处为无类型的，以避免牵涉到相关性。）
+      
+      </apiDesc></apiParam><apiParam><apiItemName>messageAgent</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      通知监视器正在发生调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorResult"><apiName>monitorResult</apiName><shortdesc>
+      通知监视器有结果返回。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resultMessage</apiItemName><apiType value="Object"/><apiDesc>返回的指示结果的消息。（它在此处为无类型的，以避免牵涉到相关性。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>actualResult</apiItemName><apiType value="Object"/><apiDesc>解码结果
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知监视器有结果返回。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.netmon:NetworkMonitor:adjustNetConnectionURLImpl"><apiName>adjustNetConnectionURLImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:adjustURLRequestImpl"><apiName>adjustURLRequestImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:isMonitoringImpl"><apiName>isMonitoringImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorEventImpl"><apiName>monitorEventImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorFaultImpl"><apiName>monitorFaultImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorInvocationImpl"><apiName>monitorInvocationImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorResultImpl"><apiName>monitorResultImpl</apiName><shortdesc>
+      将由 mix-in 指定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      将由 mix-in 指定。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.supportClasses"><apiName>spark.components.supportClasses</apiName><apiDetail/><apiClassifier id="spark.components.supportClasses:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+  StyleableTextField クラスは、ActionScript スキンおよびアイテムレンダラーで使用されるテキストプリミティブです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  テキストの 1 行目のコンテナ左端からのオフセット（ピクセル単位）です。モバイルテーマで使用するときは、このプロパティを負の数にできません。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  テキストに下線を表示するかどうかを指定します。 可能な値は、<codeph>"none"</codeph> および <codeph>"underline"</codeph> です。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  コンテナ内のテキストの整列。 可能な値は <codeph>"left"</codeph>、<codeph>"right"</codeph>、または <codeph>"center"</codeph> です。
+ 
+  <p>ほとんどのコンポーネントのデフォルト値は <codeph>"left"</codeph> です。 FormItem コンポーネントの場合、デフォルト値は <codeph>"right"</codeph> です。 Button、LinkButton および AccordionHeader コンポーネントでは、デフォルト値は <codeph>"center"</codeph> です。このプロパティは <codeph>labelPlacement</codeph> プロパティが <codeph>"left"</codeph> または <codeph>"right"</codeph> に設定されている場合のみ認識されます。 <codeph>labelPlacement</codeph> が <codeph>"top"</codeph> または <codeph>"bottom"</codeph> に設定されている場合は、テキストおよびアイコンが中央に配置されます。</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  各文字間に表示される追加のピクセル数。 正の値を指定すると文字間隔が通常より広くなり、負の値を指定すると文字間隔が通常より狭くなります。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  追加の行間を表します。
+   <p>デフォルト値は 0 です。</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  テキストをボールド体にするかどうかを指定します。 有効な値は <codeph>normal</codeph> と <codeph>bold</codeph> です。 Button コントロールのデフォルト値は <codeph>bold</codeph> です。 他のすべてのコントロールのデフォルト値は <codeph>normal</codeph> です。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  テキストをイタリック体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"italic"</codeph> です。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  テキストの高さ（ピクセル単位）です。 Halo テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 10 です。Halo テーマ別 ColorPicker コントロールのデフォルトは 11 です。Spark テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 12 です。Spark テーマ別 ColorPicker コントロールのデフォルトは 11 です。Mobile テーマのデフォルト値は 24 です。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  使用するフォントの名前です。 完全な CSS 実装と異なり、カンマ区切りリストはサポートされません。 任意のフォントファミリ名を使用できます。 汎用フォント名を指定した場合、適切なデバイスフォントに置換されます。Halo テーマのデフォルトフォントは <codeph>"Verdana"</codeph> です。Spark テーマのデフォルトフォントは <codeph>"Arial"</codeph> です。Mobile テーマのデフォルトフォントは <codeph>"_sans"</codeph> です。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="uint">
+<description>
+  コンポーネントのラベルを含めたコンポーネント内のテキストの色です。Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。Mobile テーマのデフォルト値は <codeph>0xFFFFFF</codeph> です。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier>mx.core:FlexTextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleableTextField クラスは、ActionScript スキンおよびアイテムレンダラーで使用されるテキストプリミティブです。このクラスは MXML マークアップでは使用できず、エフェクトと互換性がありません。
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:StyleableTextField:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableTextField:appendText"><apiName>appendText</apiName><shortdesc>
+      ユーザーが末尾をクリックして入力したかのように、指定したテキストをテキストコンポーネントの末尾に追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>追加するテキストです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ユーザーが末尾をクリックして入力したかのように、指定したテキストをテキストコンポーネントの末尾に追加します。
+           <p>続いて挿入ポイントが新しいテキストの後に設定されます。挿入ポイントが表示されるように、必要に応じてテキストがスクロールされます。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:commitStyles"><apiName>commitStyles</apiName><shortdesc>
+      TextField にスタイルにコミットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      TextField にスタイルにコミットします。テキストが表示される前、およびスタイルが変更されたときは常に、このメソッドを呼び出す必要があります。 スタイルが既にコミットされている場合、このメソッドは何も行いません。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:insertText"><apiName>insertText</apiName><shortdesc>
+      ユーザーが入力したかのように、指定したテキストをテキストコンポーネントに挿入します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>
+     
+      </apiDesc><apiItemName>Error</apiItemName><apiOperationClassifier>Error</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>挿入するテキストです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ユーザーが入力したかのように、指定したテキストをテキストコンポーネントに挿入します。
+           <p>範囲を選択した場合は、選択したテキストが新しいテキストに置き換えられます。挿入ポイントがある場合は、その位置に新しいテキストが挿入されます。</p>
+           <p>続いて挿入ポイントが新しいテキストの後に設定されます。挿入ポイントが表示されるように、必要に応じてテキストがスクロールされます。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:scrollToRange"><apiName>scrollToRange</apiName><shortdesc>
+      指定した範囲が表示されるようにスクロールします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorPosition</apiItemName><apiType value="int"/><apiDesc>選択範囲のアンカー位置です。
+      </apiDesc></apiParam><apiParam><apiItemName>activePosition</apiItemName><apiType value="int"/><apiDesc>選択範囲のアクティブな位置です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した範囲が表示されるようにスクロールします。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectAll"><apiName>selectAll</apiName><shortdesc>
+      すべてのテキストを選択します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      すべてのテキストを選択します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectRange"><apiName>selectRange</apiName><shortdesc>
+      指定した文字範囲を選択します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>選択範囲が拡張されるときに固定して動かない選択範囲の端を指定する文字位置です。
+           </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>選択範囲が拡張されるときに移動する選択範囲の端を指定する文字位置です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した文字範囲を選択します。
+           <p>どちらかの位置が負の場合、テキスト範囲の選択が解除されます。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setFocus"><apiName>setFocus</apiName><shortdesc>
+      このテキストフィールドにフォーカスを合わせます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このテキストフィールドにフォーカスを合わせます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+           </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>スタイルの新しい値です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.core.UIComponent#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>変更されたスタイルプロパティ。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:truncateToFit"><apiName>truncateToFit</apiName><shortdesc>
+      コントロールに定義された領域に水平方向に収まるようテキストを切り詰めて、省略記号つまり 3 つのピリオド（...）をテキストに付加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>テキストの切り詰めが必要になった場合は <codeph>true</codeph> になります。
+           </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>truncationIndicator</apiItemName><apiType value="String"/><apiData>...</apiData><apiDesc>切り詰めの後に追加されるテキストです。 <codeph>null</codeph> を渡すと、<codeph>"..."</codeph> のようなローカライズ可能なストリングが使用されます。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コントロールに定義された領域に水平方向に収まるようテキストを切り詰めて、省略記号つまり 3 つのピリオド（...）をテキストに付加します。この機能は 1 行のテキストに対してのみ動作します。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:StyleableTextField:minHeight"><apiName>minHeight</apiName><shortdesc conref="mx.core.UIComponent#minHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:minWidth"><apiName>minWidth</apiName><shortdesc conref="mx.core.UIComponent#minWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:editable:get"><apiName>editable</apiName><shortdesc>
+      テキストが編集可能（true）か、編集不可（false）かを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true if type is TextFieldType.INPUT, otherwise false.
+           </apiDefaultValue></apiValueDef><apiDesc>
+      テキストが編集可能（<codeph>true</codeph>）か、編集不可（<codeph>false</codeph>）かを指定します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:enabled:get"><apiName>enabled</apiName><shortdesc>
+      コンポーネントがユーザーの操作を受け入れることができるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンポーネントがユーザーの操作を受け入れることができるかどうかを指定します。 <codeph>enabled</codeph> プロパティを <codeph>false</codeph> に設定しても、一部のコンポーネントは <codeph>mouseOver</codeph> などのマウス操作に引き続き応答します。 そのため、コンポーネントを完全に無効にするには、<codeph>mouseEnabled</codeph> プロパティの値も <codeph>false</codeph> に設定する必要があります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      コンポーネントが、タブで選択されたときにフォーカスを受け付けることができるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      コンポーネントが、タブで選択されたときにフォーカスを受け付けることができるかどうかを示します。 コンポーネントを他のコンポーネントのサブコンポーネントとして使用する場合には、外側のコンポーネントをフォーカス可能なエンティティにするために、<codeph>focusEnabled</codeph> を <codeph>false</codeph> に設定できます。 このプロパティが <codeph>false</codeph> の場合、フォーカスは、<codeph>focusEnable</codeph> が <codeph>true</codeph> に設定された最初の親に転送されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      テキストの水平スクロール位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      テキストの水平スクロール位置です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:isTruncated:get"><apiName>isTruncated</apiName><shortdesc>
+      テキストが切り詰められている（true）か、そうでない（false）かを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      テキストが切り詰められている（<codeph>true</codeph>）か、そうでない（<codeph>false</codeph>）かを示します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:lineBreak:get"><apiName>lineBreak</apiName><shortdesc>
+      テキスト内のテキスト折り返しを制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      テキスト内のテキスト折り返しを制御します。このプロパティは <codeph>lineBreak</codeph> スタイルに対応します。
+           <p>テキストは、コンテナの幅に収まるよう設定（<codeph>LineBreak.TO_FIT</codeph>）するか、明示的な復帰またはラインフィード文字の箇所でのみ改行するよう設定（<codeph>LineBreak.EXPLICIT</codeph>）できます。</p>
+           <p>有効な値は、<codeph>flashx.textLayout.formats.LineBreak.EXPLICIT</codeph>、<codeph>flashx.textLayout.formats.LineBreak.TO_FIT</codeph>、および <codeph>flashx.textLayout.formats.FormatValue.INHERIT</codeph> です。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      選択範囲のアクティブな位置、つまり最後にクリックした位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      選択範囲のアクティブな位置、つまり最後にクリックした位置です。実装で選択アンカーがサポートされていない場合、これは選択範囲の最後の文字です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      選択範囲のアンカー、つまり最初にクリックした位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      選択範囲のアンカー、つまり最初にクリックした位置です。実装で選択アンカーがサポートされていない場合、これは選択範囲の最初の文字です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。 この CSSStyleDeclaration は、継承スタイルを設定するためにこのコンポーネントで初めて <codeph>setStyle()</codeph> メソッドが呼び出されたときに作成されます。 開発者は通常このプロパティに直接アクセスする必要はありません。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleName:get"><apiName>styleName</apiName><shortdesc>
+      このコンポーネントで使用するクラススタイル。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントで使用するクラススタイル。 IStyleClient にする必要があります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:text:get"><apiName>text</apiName><shortdesc>
+      このテキストコンポーネントによって表示されるテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+           </apiDefaultValue></apiValueDef><apiDesc>
+      このテキストコンポーネントによって表示されるテキストです。
+           <p>このテキストの書式設定は、CSS スタイルで制御されます。サポートされるスタイルはサブクラスに依存します。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      テキストの垂直スクロール位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      テキストの垂直スクロール位置です。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+  ViewReturnObject クラスは、ナビゲーションスタックからビューをポップするときにその戻り値をカプセル化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewReturnObject クラスは、ナビゲーションスタックからビューをポップするときにその戻り値をカプセル化します。ViewReturnObject オブジェクトには、返されたオブジェクトへの参照、およびポップされたビューが作成されたコンテキストが含まれます。 コンテキストは、<codeph>ViewNavigator.pushView()</codeph> メソッドに渡される任意のオブジェクトです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewReturnObject:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>返されたオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>オーナーが作成されたコンテキストです。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:ViewReturnObject:context"><apiName>context</apiName><shortdesc>
+      ポップされたビューがナビゲーションスタックにプッシュされたときに、そのビューに渡されたコンテキスト識別子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      ポップされたビューがナビゲーションスタックにプッシュされたときに、そのビューに渡されたコンテキスト識別子です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewReturnObject:object"><apiName>object</apiName><shortdesc>
+      削除中のビューによって生成される戻りオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      削除中のビューによって生成される戻りオブジェクトです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+  ViewNavigatorApplicationBase クラスは、すべてのビューベースのアプリケーションタイプに使用される基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="style" name="backgroundAlpha"/><Exclude kind="property" name="preloaderChromeColor"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="viewMenu" owner="spark.components.supportClasses:ViewNavigatorApplicationBase" required="false" var_type="mx.core:IFactory">
+<description>
+      メニューボタンを押したときにビューメニューを表示するために使用される ViewMenu を定義した動的スキンパーツです。 デフォルトのスキンは、ViewMenu インスタンスを生成するファクトリを使用します。 
+     </description>
+	<shortdesc>
+      Dynamic skin part that defines the ViewMenu used to display the
+      view menu when the menu button is pressed.</shortdesc></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorApplicationBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorApplicationBase
+    <strong>Properties</strong>
+    persistNavigatorState="false"
+    viewMenuOpen="false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorApplicationBase クラスは、すべてのビューベースのアプリケーションタイプに使用される基本クラスです。このクラスは、デバイスアプリケーションメニュー、ハードウェアキー、方向ステータス、およびアプリケーションセッションのパーシスタンスに対してアクセスを実現する基本インフラストラクチャーとなります。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link><link href="spark.components.xml#TabbedViewNavigatorApplication"><linktext>spark.components.TabbedViewNavigatorApplication</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_SAVING_navigatorStateSaving"><apiName>navigatorStateSaving</apiName><shortdesc>
+  中断中または終了中のアプリケーションがその状態を維持しようとするまでに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_SAVING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  中断中または終了中のアプリケーションがその状態を維持しようとするまでに送出されます。このイベントに対して <codeph>preventDefault</codeph> を呼び出すと、アプリケーションの状態が保存されなくなります。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_LOADING_navigatorStateLoading"><apiName>navigatorStateLoading</apiName><shortdesc>
+  起動中のアプリケーションが保存済みの状態を復元しようとするまでに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_LOADING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  起動中のアプリケーションが保存済みの状態を復元しようとするまでに送出されます。このイベントに対して <codeph>preventDefault</codeph> を呼び出すと、アプリケーションの状態が復元されなくなります。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:ViewNavigatorApplicationBase:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+      コンストラクター
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクター
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:backKeyUpHandler"><apiName>backKeyUpHandler</apiName><shortdesc>
+      ユーザーがアプリケーションのハードウェア戻りキーを押したときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>キーを押すことにより生成されたイベントオブジェクトです。
+       
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ユーザーがアプリケーションのハードウェア戻りキーを押したときに呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:createPersistenceManager"><apiName>createPersistenceManager</apiName><shortdesc>
+      アプリケーションのパーシスタンスマネージャーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>IPersistenceManager マネージャーオブジェクトです。
+      
+      </apiDesc><apiOperationClassifier>spark.managers:IPersistenceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      アプリケーションのパーシスタンスマネージャーを作成します。このメソッドは、パーシスタンスマネージャーに初めてアクセスする場合、またはアプリケーションで <codeph>persistNavigatorState</codeph> プロパティが <codeph>true</codeph> に設定されている場合、自動的に呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:deactivateHandler"><apiName>deactivateHandler</apiName><shortdesc>
+      アプリケーションが終了中、またはオペレーティングシステムによってバックグラウンドに転送中に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>NAVIGATOR_STATE_SAVING イベントのイベントオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アプリケーションが終了中、またはオペレーティングシステムによってバックグラウンドに転送中に呼び出されます。<codeph>persistNavigatorState</codeph> が <codeph>true</codeph> の場合は、アプリケーションが状態保存処理を開始します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:invokeHandler"><apiName>invokeHandler</apiName><shortdesc>
+      このメソッドは、InvokeEvent.INVOKEevent イベントに応答して、アプリケーションがオペレーティングシステムによって起動されるときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:InvokeEvent"/><apiDesc>InvokeEvent オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、<codeph>InvokeEvent.INVOKEevent</codeph> イベントに応答して、アプリケーションがオペレーティングシステムによって起動されるときに呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:loadNavigatorState"><apiName>loadNavigatorState</apiName><shortdesc>
+      persistNavigatorState プロパティが true に設定されている場合、アプリケーションの状態を復元します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>persistNavigatorState</codeph> プロパティが <codeph>true</codeph> に設定されている場合、アプリケーションの状態を復元します。
+     
+      <p>このメソッドは、<codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph> イベントがキャンセルされない場合にのみ呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:menuKeyUpHandler"><apiName>menuKeyUpHandler</apiName><shortdesc>
+      メニューキーを押したときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>押されているメニューキーに関連付けられている KeyboardEvent オブジェクトです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      メニューキーを押したときに呼び出されます。デフォルトでは、このメソッドによって ViewMenu オブジェクトが開閉されます。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#ViewMenu"><linktext>spark.components.ViewMenu</linktext></link></related-links></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:saveNavigatorState"><apiName>saveNavigatorState</apiName><shortdesc>
+      アプリケーションの状態をパーシスタンスマネージャーに残します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アプリケーションの状態をパーシスタンスマネージャーに残します。このメソッドは、<codeph>persistNavigatorState</codeph> が <codeph>true</codeph> に設定されている場合、自動的に呼び出されます。 デフォルトでは、このメソッドは、PersistenceManager オブジェクトの <codeph>versionNumber</codeph> キーにアプリケーションのバージョンを保存します。
+     
+      <p>このメソッドは、<codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph> イベントがキャンセルされない場合にのみ呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistNavigatorState:get"><apiName>persistNavigatorState</apiName><shortdesc>
+      アプリケーションのアプリケーションセッションキャッシュ機能を切り替えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アプリケーションのアプリケーションセッションキャッシュ機能を切り替えます。有効にすると、アプリケーションは現在のビューナビゲーターのビュースタックとナビゲーション履歴をパーシスタンスマネージャーに自動的に保存します。 アプリケーションが再起動されると、このデータはパーシスタンスストアから自動的に読み取られ、アプリケーションのナビゲーターに適用されます。
+     
+      <p>有効な場合は、アプリケーションのバージョンがパーシスタンスオブジェクトに追加されます。パーシスタンスマネージャーの <codeph>getProperty()</codeph> メソッドを使用して、<codeph>versionNumber</codeph> キーを要求することにより、この情報にアクセスできます。</p>
+     
+      <p>パーシスタンスオブジェクトの作成中に、プロセスが開始すると、アプリケーションはキャンセルできる <codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph> イベントを送出します。 <codeph>NAVIGATOR_STATE_SAVING</codeph> イベントをキャンセルすると、パーシスタンスオブジェクトは作成されません。 同様に、この情報がアプリケーションに復元されるときにも、キャンセルできる <codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph> イベントが送出されます。 <codeph>NAVIGATOR_STATE_LOADING</codeph> イベントをキャンセルすると、ナビゲーションデータは復元されません。</p>
+     
+      <p>ナビゲーターの状態が自動的に復元されるようにするには、アプリケーションの自己初期化前に、<codeph>persistNavigatorState</codeph> フラグを true に設定する必要があります。<codeph/></p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistenceManager:get"><apiName>persistenceManager</apiName><shortdesc>
+      アプリケーションの PersistenceManager オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.managers:IPersistenceManager</apiValueClassifier></apiValueDef><apiDesc>
+      アプリケーションの PersistenceManager オブジェクトです。パーシスタンスマネージャーは、初回アクセス時に必要に応じて自動的に作成されます。 <codeph>createPersistenceManager()</codeph> メソッドをオーバーライドして、作成されるパーシスタンスマネージャーのタイプを変更します。
+     
+      <p><codeph>persistNavigatorState</codeph> フラグが <codeph>true</codeph> に設定されている場合、パーシスタンスマネージャーは現在のビューナビゲーターのビュースタックを自動的に保存および復元します。 パーシスタンスマネージャーに格納されているデータは、アプリケーションを中断または終了するときに、ディスクに自動的にフラッシュされます。</p>
+      
+      <p>パーシスタンスマネージャーのデフォルトの実装では、共有オブジェクトが補助データストアとして使用されます。 このオブジェクトに保存されているすべての情報は、オブジェクトエンコーディング用のフラッシュ AMF ルールに準拠している必要があります。 つまり、<codeph>flash.net.registerClassAlias</codeph> を使用してカスタムクラスを登録する必要があります。</p>
+     
+      <p>デフォルト値は spark.core.managers.PersistenceManager のインスタンスです。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:viewMenuOpen:get"><apiName>viewMenuOpen</apiName><shortdesc>
+      true に設定されている場合はビューメニューを開き、false に設定されている場合はビューメニューを閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> に設定されている場合はビューメニューを開き、<codeph>false</codeph> に設定されている場合はビューメニューを閉じます。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+  TextInputOperation クラスは、テキスト入力操作を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flashx.textLayout.operations:FlowOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextInputOperation クラスは、テキスト入力操作を表します。このクラスは、CHANGING イベントの送信時に StyleableTextField でのみ使用されます。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:TextInputOperation:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:TextInputOperation:text"><apiName>text</apiName><shortdesc>
+      入力されたテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      入力されたテキストです。CHANGING イベントがキャンセルされない場合、このテキストは TextFeld に追加されます。 このイベントがキャンセルされた場合、テキストは追加されません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+  StyleableStageText クラスは、ユーザーにネイティブテキスト入力フィールドを表示する ActionScript のスキンで使用するテキストプリミティブです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion><Exclude kind="property" name="verticalScrollPosition"/><Exclude kind="property" name="selectable"/><Exclude kind="property" name="lineBreak"/><Exclude kind="property" name="isTruncated"/><Exclude kind="property" name="horizontalScrollPosition"/><Exclude kind="property" name="alpha"/><styles><style enumeration="start,end,left,right,center" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  コンテナ内のテキストの整列。 有効な値は、<codeph>"start"</codeph>、<codeph>"end"</codeph>、<codeph>"left"</codeph>、<codeph>"right"</codeph> または <codeph>"center"</codeph> です。
+ 
+  </description>
+<default>"start"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description conref="spark.components.supportClasses.SkinnableTextBase#style:locale">
+  </description>
+
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  テキストをボールド体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"bold"</codeph> です。 
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  テキストをイタリック体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"italic"</codeph> です。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="Number">
+<description>
+  テキストの高さ（ピクセル単位）です。 
+ 
+  </description>
+<default>24
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  使用するフォントの名前です。 完全な CSS 実装と異なり、カンマ区切りリストはサポートされません。 任意のフォントファミリ名を使用できます。 汎用フォント名を指定した場合、適切なデバイスフォントに置換されます。
+ 
+  </description>
+<default>"_sans"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="uint">
+<description>
+  コンポーネントのラベルを含めたコンポーネント内のテキストの色です。
+   </description>
+<default>0x000000
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>spark.core:ISoftKeyboardHintClient</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleableStageText クラスは、ユーザーにネイティブテキスト入力フィールドを表示する ActionScript のスキンで使用するテキストプリミティブです。これは、MXML マークアップでは使用できず、エフェクトとの互換性はなく、回転、拡大 / 縮小および傾斜などの変形との互換性もありません。
+ 
+  <p>StageText では、ネイティブテキストフィールドを使用するので、モバイルデバイスでのテキストの入力および操作がしやすくなります。ネイティブフィールドでは、正しいビジュアルオブジェクト、テキスト間隔と再フロー、選択動作およびテキスト入力支援が提供されます。このクラスはデスクトッププラットフォーム上でも使用できます。その場合は TextField の周りのラッパーとして動作します。
+  </p>
+ 
+  ネイティブテキストコントロールの周りのパディングは、TextField コントロールの周りのパディングとは異なる場合があります。
+ 
+  <p>他のネイティブアプリケーションと同様に、ネイティブテキストフィールドの外側をタップすると、テキストフィールドはフォーカスを失い、ソフトキーボードも表示されなくなります。 これは、TextField の外側をタップしても、TextField にフォーカスが残り、ソフトキーボードが表示されたままになるのとは異なります。</p>
+ 
+  <p><b>StageText ベースのコントロールの制限</b>
+  <ul>
+  <li>ネイティブテキストフィールドは他の Flex コンテンツでクリッピングされずに、Stage の上のレイヤーにレンダリングされます。この制限のために、<b>StageText ベースのスキンクラスを使用するコンポーネントは、常に他の Flex コンポーネントの上に表示されます</b>。 Flex のポップアップおよびドロップダウンも、表示されているネイティブテキストフィールドの下に隠れてしまいます。 最後に、ネイティブテキストフィールドの相対的な z 順序はアプリケーションで制御できません。</li>
+ 
+  <li>ネイティブコントロールでは、埋め込みフォントはサポートされていません。</li>
+ 
+  <li>リンクおよび html マークアップはサポートされていません。</li>
+ 
+  <li><codeph>text</codeph> は常に選択可能です。</li>
+ 
+  <li>分数のアルファ値はサポートされていません。</li>
+ 
+  <li>キーボードイベントは、ほとんどのキーから送出されません。つまり、Tab キーから keyDown または keyUp イベントが送出されないので、Tab キーを使用して StageText ベースのコントロールからフォーカスをなくすことはできません。</li>
+ 
+  <li>StageText には、現在テキスト測定機能がありません。</li>
+ 
+  <li>現在、StageText では、スクロール位置をプログラムで制御できません。 </li>
+ 
+  <li>現在、StageText では、ネイティブテキストフィールドを含むフォームでタッチベースのスクロールを可能にするために必要なイベントモデルがサポートされていません。</li>
+  </ul>
+  </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.text.StageText.xml"><linktext>flash.text.StageText</linktext></link><link href="spark.components.supportClasses.xml#StyleableTextField"><linktext>spark.components.supportClasses.StyleableTextField</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE_softKeyboardDeactivate"><apiName>softKeyboardDeactivate</apiName><shortdesc>
+  ソフトキーボードが下位または非表示になると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ソフトキーボードが下位または非表示になると送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING_softKeyboardActivating"><apiName>softKeyboardActivating</apiName><shortdesc>
+  ソフトキーボードが表示される直前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ソフトキーボードが表示される直前に送出されます。<codeph>preventDefault</codeph> を呼び出してキャンセルした場合は、ソフトキーボードは開かれません。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE_softKeyboardActivate"><apiName>softKeyboardActivate</apiName><shortdesc>
+  ソフトキーボードが表示されるときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ソフトキーボードが表示されるときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_OUT_focusOut"><apiName>focusOut</apiName><shortdesc>
+  ネイティブテキストコントロールがフォーカスを失った後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_OUT</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ネイティブテキストコントロールがフォーカスを失った後に送出されます。これが発生するのは、ポインティングデバイス、キーボードナビゲーションまたはタッチジェスチャーでテキストフィールド以外のオブジェクトをユーザーがハイライトした場合です。
+ 
+  <p>注意：<codeph>flash.text.StageText</codeph> は <codeph>InteractiveObject</codeph> ではないので、<codeph>Stage.focus</codeph> プロパティを使用して、ネイティブテキストフィールドにフォーカスがあるかどうかを特定することはできません。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_IN_focusIn"><apiName>focusIn</apiName><shortdesc>
+  ネイティブテキストコントロールがフォーカスを取得した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_IN</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ネイティブテキストコントロールがフォーカスを取得した後に送出されます。これが発生するのは、ポインティングデバイス、キーボードナビゲーションまたはタッチジェスチャーでテキストフィールドをユーザーがハイライトした場合です。
+ 
+  <p>注意：<codeph>flash.text.StageText</codeph> は <codeph>InteractiveObject</codeph> ではないので、<codeph>Stage.focus</codeph> プロパティを使用して、ネイティブテキストフィールドにフォーカスがあるかどうかを特定することはできません。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_mx.events.FlexEvent.ENTER_enter"><apiName>enter</apiName><shortdesc>
+  StageText が複数行ではなく、ユーザーが Enter キーを押した場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  StageText が複数行ではなく、ユーザーが Enter キーを押した場合に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.Event.CHANGE_change"><apiName>change</apiName><shortdesc>
+  ユーザーによる編集操作が完了した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーによる編集操作が完了した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:StyleableStageText:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiDefaultValue>false
+     
+      </apiDefaultValue><apiParam><apiItemName>multiline</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> に設定すると、複数行のテキストを入力可能になります。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      <p><codeph>multiline</codeph> は、Enter キーを押したときの動作を決定します。<codeph>true</codeph> の場合、Enter キーを押すと新しい行が始まります。<codeph>false</codeph> の場合、<codeph>FlexEvent.ENTER</codeph> イベントが送出されます。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableStageText:appendText"><apiName>appendText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:insertText"><apiName>insertText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectAll"><apiName>selectAll</apiName><shortdesc>
+      すべてのテキストを選択します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      すべてのテキストを選択します。
+     
+      <p>iOS では、複数行でない StyleableStageText オブジェクトに対して、この関数はサポートされておらず、何も実行されません。</p>
+     
+      <p>一部のデバイスまたはオペレーティングシステムでは、StageText オブジェクトにフォーカスがある場合にのみ選択範囲が表示されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectRange"><apiName>selectRange</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.components.supportClasses:StyleableStageText:autoCapitalize:get"><apiName>autoCapitalize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"none"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.AutoCapitalize.xml"><linktext>flash.text.AutoCapitalize</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:autoCorrect:get"><apiName>autoCorrect</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:displayAsPassword:get"><apiName>displayAsPassword</apiName><shortdesc>
+      テキストフィールドがパスワードテキストフィールドであるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      テキストフィールドがパスワードテキストフィールドであるかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:editable:get"><apiName>editable</apiName><shortdesc>
+      フィールド内のテキストが編集可能であるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フィールド内のテキストが編集可能であるかどうかを示すフラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:maxChars:get"><apiName>maxChars</apiName><shortdesc conref="flash.text.StageText#maxChars">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#maxChars">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:multiline:get"><apiName>multiline</apiName><shortdesc conref="flash.text.StageText#multiline">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.StageText#multiline">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:restrict:get"><apiName>restrict</apiName><shortdesc conref="flash.text.StageText#restrict">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#restrict">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:returnKeyLabel:get"><apiName>returnKeyLabel</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.ReturnKeyLabel.xml"><linktext>flash.text.ReturnKeyLabel</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      選択範囲のアクティブな位置、つまり最後にクリックした位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      選択範囲のアクティブな位置、つまり最後にクリックした位置です。実装で選択アンカーがサポートされていない場合、これは選択範囲の最後の文字です。
+     
+      <p>この値は、データバインディングのソースとして使用できません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      選択範囲のアンカー、つまり最初にクリックした位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      選択範囲のアンカー、つまり最初にクリックした位置です。実装で選択アンカーがサポートされていない場合、これは選択範囲の最初の文字です。
+      
+      <p>この値は、データバインディングのソースとして使用できません。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:softKeyboardType:get"><apiName>softKeyboardType</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.SoftKeyboardType.xml"><linktext>flash.text.SoftKeyboardType</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:text:get"><apiName>text</apiName><shortdesc>
+      テキストフィールド内の現在のテキストであるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      テキストフィールド内の現在のテキストであるストリングです。行は復帰文字（'¥r'、ASCII 13）で区切られます。このプロパティは、フォーマットタグが付いていない、テキストフィールド内のフォーマットされていないテキストを示します。
+           <p>以前の選択範囲がある場合は、それが維持されます。 古いテキストの長さが新しいテキストの長さより短かった場合は、<codeph>selectionAnchorPosition</codeph> または <codeph>selectionActivePosition</codeph> のどちらも新しいテキストの長さより長くならないように選択範囲が調整されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+  ViewNavigatorBase クラスは、ビューナビゲーターによって使用される基本クラスロジックおよびインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContentFactory"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorBase
+    <strong>Properties</strong>
+    icon="null"
+    label="null"
+    transitionsEnabled="true"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorBase クラスは、ビューナビゲーターによって使用される基本クラスロジックおよびインターフェイスを定義します。このクラスには、ビューの管理に関連するメソッドとプロパティのほか、ViewNavigatorApplicationBase アプリケーションクラスとの統合ポイントが含まれます。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigator"><linktext>spark.components.ViewNavigator</linktext></link><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewNavigatorBase:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:loadViewData"><apiName>loadViewData</apiName><shortdesc>
+      value 引数からナビゲーターのビューの状態を復元します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>ナビゲーターの状態を復元するために使用されるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>value</codeph> 引数からナビゲーターのビューの状態を復元します。<codeph>value</codeph> 引数として渡されたオブジェクトは、<codeph>saveViewData()</codeph> メソッドを呼び出すと作成されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:saveViewData"><apiName>saveViewData</apiName><shortdesc>
+      ナビゲーターの子に関連するすべてのデータを、パーシスタンスマネージャーで保存できるオブジェクトにシリアル化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ナビゲーターの状態を表すオブジェクトです。
+     
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      ナビゲーターの子に関連するすべてのデータを、パーシスタンスマネージャーで保存できるオブジェクトにシリアル化します。ナビゲーターが再びインスタンス化されると、この返されたオブジェクトが <codeph>restoreViewData()</codeph> メソッドに渡されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:updateControlsForView"><apiName>updateControlsForView</apiName><shortdesc>
+      新しいビューが追加され、アクティブにされると、ナビゲーターの各種プロパティを更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>view</apiItemName><apiOperationClassifier>spark.components:View</apiOperationClassifier><apiDesc>追加されたビューです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      新しいビューが追加され、アクティブにされると、ナビゲーターの各種プロパティを更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorBase:activeView:get"><apiName>activeView</apiName><shortdesc>
+      ナビゲーターの現在アクティブになっているビューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ナビゲーターの現在アクティブになっているビューです。一度にアクティブにできるビューは 1 つだけです。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:icon:get"><apiName>icon</apiName><shortdesc>
+      このナビゲーターがビジュアルコンポーネントによって表される際に使用されるアイコンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このナビゲーターがビジュアルコンポーネントによって表される際に使用されるアイコンです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:isActive:get"><apiName>isActive</apiName><shortdesc>
+      このナビゲーターがアクティブのときに true に設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このナビゲーターがアクティブのときに <codeph>true</codeph> に設定されます。親ナビゲーターは、状態の変化に応じて、このフラグを自動的に設定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:label:get"><apiName>label</apiName><shortdesc>
+      このナビゲーターがビジュアルコンポーネントによって表される際に使用されるラベルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このナビゲーターがビジュアルコンポーネントによって表される際に使用されるラベルです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:parentNavigator:get"><apiName>parentNavigator</apiName><shortdesc>
+      このナビゲーターの親ナビゲーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components.supportClasses:ViewNavigatorBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このナビゲーターの親ナビゲーターです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:transitionsEnabled:get"><apiName>transitionsEnabled</apiName><shortdesc>
+      true に設定すると、ビューの変更時または ActionBar コントロールや TabBar コントロールの可視性変更時にビュートランジションが有効になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> に設定すると、ビューの変更時または ActionBar コントロールや TabBar コントロールの可視性変更時にビュートランジションが有効になります。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorAction"><apiName>ViewNavigatorAction</apiName><shortdesc>
+      ViewNavigatorAction クラスは、ViewNavigatorEvent クラスのアクションプロパティの定数値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      ViewNavigatorAction クラスは、ViewNavigatorEvent クラスの <codeph>action</codeph> プロパティの定数値を定義します。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.events.xml#ViewNavigatorEvent"><linktext>spark.events.ViewNavigatorEvent</linktext></link></related-links><apiValue id="spark.components.supportClasses:ViewNavigatorAction:NONE"><apiName>NONE</apiName><shortdesc>
+          ナビゲーターによってアクションが実行されなかったことを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          ナビゲーターによってアクションが実行されなかったことを示す定数です。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_ALL"><apiName>POP_ALL</apiName><shortdesc>
+          ナビゲーターからすべてのビューを削除したナビゲーションアクションを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          ナビゲーターからすべてのビューを削除したナビゲーションアクションを示す定数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_TO_FIRST"><apiName>POP_TO_FIRST</apiName><shortdesc> 
+          ナビゲーターから最初のビューを除くすべてのビューを削除するナビゲーションアクションを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popToFirst</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+          ナビゲーターから最初のビューを除くすべてのビューを削除するナビゲーションアクションを示す定数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP"><apiName>POP</apiName><shortdesc>
+          ナビゲーターから最上位のビューを削除するナビゲーションアクションを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          ナビゲーターから最上位のビューを削除するナビゲーションアクションを示す定数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:PUSH"><apiName>PUSH</apiName><shortdesc>
+          ナビゲーターに新しいビューを追加するナビゲーションアクションを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          ナビゲーターに新しいビューを追加するナビゲーションアクションを示す定数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:REPLACE"><apiName>REPLACE</apiName><shortdesc>
+          アクティブなビューを別のビューと置き換えるナビゲーションアクションを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replace</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          アクティブなビューを別のビューと置き換えるナビゲーションアクションを示す定数です。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.effects.effectClasses"><apiName>mx.charts.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.charts.effects.effectClasses:SeriesEffectInstance"><apiName>SeriesEffectInstance</apiName><shortdesc>
+  Die SeriesEffectInstance-Klasse implementiert die Basisinstanzenklasse für die Diagrammserieneffekte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SeriesEffectInstance-Klasse implementiert die Basisinstanzenklasse für die Diagrammserieneffekte.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesEffect"><linktext>mx.charts.effects.SeriesEffect</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesEffectInstance:SeriesEffectInstance"><apiName>SeriesEffectInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Ziel des Effekts.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:beginTween"><apiName>beginTween</apiName><shortdesc>
+	  Initialisiert die Tweeningberechnungen und richtet das interpolationValues-Array für die Anzahl der Elemente ein, die der elementCount-Eigenschaft entsprechen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>elementCount</apiItemName><apiType value="int"/><apiDesc>Die Anzahl der Elemente, für die Interpolationswerte generiert werden sollen.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Initialisiert die Tweeningberechnungen und richtet das <codeph>interpolationValues</codeph>-Array für die Anzahl der Elemente ein, die der <codeph>elementCount</codeph>-Eigenschaft entsprechen. Abgeleitete Klassen sollten diese Funktion in der zugehörigen Methode <codeph>play()</codeph> aufrufen.
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:elementOffset"><apiName>elementOffset</apiName><shortdesc>
+	  Gibt die Zeit (in Millisekunden) an, die Flex den Beginn des Effekts auf jedem Element in der Serie verzögert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>20</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Gibt die Zeit (in Millisekunden) an, die Flex den Beginn des Effekts auf jedem Element in der Serie verzögert.
+	 
+	  <p>Setzen Sie <codeph>elementOffset</codeph> auf <codeph>0</codeph>, damit dies eine gleichzeitige Auswirkung auf alle Elemente der Serie hat. Der Effekt wird gleichzeitig gestartet und gleichzeitig beendet.</p>
+	 
+	  <p>Setzen Sie <codeph>elementOffset</codeph> auf eine positive Ganzzahl (wie <codeph>30</codeph>), um den Effekt auf jedem Element um diesen Zeitraum versetzt auszuführen. Bei einem Verschiebungseffekt wird beispielsweise das erste Element unmittelbar eingeschoben, das nächste Element beginnt 30 Millisekunden später usw. Der Zeitraum für die Ausführung des Effekts ist für jedes Element gleich, die Gesamtdauer des Effekts ist jedoch länger.</p>
+	 
+	  <p>Setzen Sie <codeph>elementOffset</codeph> auf einen negativen Wert, damit der Effekt beim letzten Element beginnt und rückwärts durch die Liste fortgesetzt wird.</p>
+	 
+	  <p>Der Standardwert ist <codeph>20</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:interpolationValues"><apiName>interpolationValues</apiName><shortdesc>
+	  Die aktuelle Position jedes Diagrammelements, das von diesem Effekt verwaltet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Die aktuelle Position jedes Diagrammelements, das von diesem Effekt verwaltet wird. Es handelt sich um ein Array von Werten zwischen 0 und 1, das angibt, wie weit jedes Element in der Serie zwischen dem Start- und Endwert durch den Effekt gerendert werden soll. Diese Werte werden anhand von Dauer, Elementanzahl, ElementOffset, Mindestelementdauer und Beschleunigungsfunktion berechnet.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:minimumElementDuration"><apiName>minimumElementDuration</apiName><shortdesc>
+	  Gibt die Zeitdauer (in Millisekunden) an, die ein einzelnes Element für die Durchführung des Effekts benötigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Gibt die Zeitdauer (in Millisekunden) an, die ein einzelnes Element für die Durchführung des Effekts benötigt.
+	 
+	  <p>Diagramme mit einer variablen Anzahl von Datenpunkten in der Serie können nur mit der Eigenschaft <codeph>duration</codeph> keine glatten Effekte zuverlässig erstellen. Ein Effekt mit einer Dauer (<codeph>duration</codeph>) von <codeph>1000</codeph> und einem <codeph>elementOffset</codeph> von <codeph>100</codeph> benötigt beispielsweise 900 Millisekunden pro Element zum Durchführen eines Effekts, wenn zwei Elemente in der Serie vorhanden sind. Der Grund dafür ist, dass der Beginn für jeden Effekt um 100 versetzt wird und jeder Effekt in 1000 Millisekunden beendet wird.</p>
+	 
+	  <p>Wenn vier Elemente in einer Serie vorhanden sind, benötigt jedes Element 700 Millisekunden für die Durchführung (der letzte Effekt beginnt 300 Millisekunden nach dem ersten Effekt und muss innerhalb von 1000 Millisekunden abgeschlossen sein). Bei 10 Elementen verfügt jedes Element nur über 100 Millisekunden</p>
+	  für die Durchführung des Effekts.
+	 
+	  <p>Der Wert <codeph>minimumElementDuration</codeph> legt eine Mindestdauer für jedes Element fest. Kein Element der Serie benötigt weniger als diesen Zeitraum (in Millisekunden) für die Durchführung des Effekts, unabhängig von der Anzahl der Elemente in der Serie und dem Wert der Eigenschaft <codeph>duration</codeph>. Daher kann ein Effekt länger als die angegebene Dauer (<codeph>duration</codeph>) dauern, wenn mindestens zwei der folgenden drei Eigenschaften angegeben sind: <codeph>duration</codeph>, <codeph>offset</codeph> und <codeph>minimumElementDuration</codeph>.</p>
+	  
+	  <p>Der Standardwert ist <codeph>0</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:offset"><apiName>offset</apiName><shortdesc>
+	  Gibt den Zeitraum (in Millisekunden) an, um den Flex den Effekt verzögert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Gibt den Zeitraum (in Millisekunden) an, um den Flex den Effekt verzögert.
+	 
+	  <p>Verwenden Sie diese Eigenschaft, um Effekte auf mehreren Serien versetzt auszuführen.</p>
+	 
+	  <p>Der Standardwert ist <codeph>0</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:targetSeries"><apiName>targetSeries</apiName><shortdesc>
+	  Die Serie, die das Ziel für diese Instanz ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.charts.chartClasses:Series</apiValueClassifier></apiValueDef><apiDesc>
+	  Die Serie, die das Ziel für diese Instanz ist.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:type"><apiName>type</apiName><shortdesc>
+	  Der Typ des Übergangs, für den dieser Effekt verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>show</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Der Typ des Übergangs, für den dieser Effekt verwendet wird. Einige Serieneffekte definieren unterschiedliches Verhalten, je nachdem, ob sie während der Einblend- oder Ausblendphase des Diagrammübergangs verwendet werden. Der SeriesSlide-Effekt verschiebt die Elemente beispielsweise von ihrer Position vom Bildschirm, wenn für den Typ <codeph>hide</codeph> festgelegt wurde, und auf den Bildschirm, wenn für den Typ <codeph>show</codeph> festgelegt wurde. Diese Eigenschaft wird automatisch vom Diagramm festgelegt, je nachdem, ob der Effekt dem Stil ShowDataEffect oder HideDataEffect zugewiesen ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesZoomInstance"><apiName>SeriesZoomInstance</apiName><shortdesc>
+  Die SeriesZoomInstance-Klasse implementiert die Instanzenklasse für den SeriesZoom-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SeriesZoomInstance-Klasse implementiert die Instanzenklasse für den SeriesZoom-Effekt. Flex erstellt eine Instanz dieser Klasse, wenn ein SeriesZoom-Effekt wiedergegeben wird. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesZoom"><linktext>mx.charts.effects.SeriesZoom</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesZoomInstance:SeriesZoomInstance"><apiName>SeriesZoomInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Ziel des Effekts.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:horizontalFocus"><apiName>horizontalFocus</apiName><shortdesc>
+      Definiert die Position des Fokuspunkts des Zooms.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Definiert die Position des Fokuspunkts des Zooms.
+     
+      <p>Gültige Werte von <codeph>horizontalFocus</codeph> sind <codeph>"left"</codeph>, <codeph>"center"</codeph>, <codeph>"right"</codeph> und <codeph>null</codeph>.</p>
+      Der Standardwert ist <codeph>center</codeph>.
+     
+      <p>Sie kombinieren die Eigenschaften <codeph>horizontalFocus</codeph> und <codeph>verticalFocus</codeph>, um festzulegen, an welchen Stellen die Datenserie eine Vergrößerung und Verkleinerung durchführt. Setzen Sie beispielsweise <codeph>horizontalFocus</codeph> auf <codeph>"left"</codeph> und <codeph>verticalFocus</codeph> auf <codeph>"top"</codeph>, um die Seriendaten von der linken oberen Ecke des Elements oder Diagramms aus (je nach Einstellung der Eigenschaft <codeph>relativeTo</codeph>) zu vergrößern oder zu verkleinern.</p>
+     
+      <p>Wenn Sie nur eine dieser zwei Eigenschaften angeben, liegt der Fokus auf einer horizontalen oder vertikalen Linie und nicht auf einem Punkt. Wenn Sie beispielsweise <codeph>horizontalFocus</codeph> auf <codeph>"left"</codeph>, aber <codeph>verticalFocus</codeph> auf <codeph>null</codeph> setzen, wird das Element an einer vertikalen Linie entlang der linken Ecke des Begrenzungsrahmens vergrößert bzw. verkleinert. Setzen Sie <codeph>verticalFocus</codeph> auf <codeph>"center"</codeph>, um Diagrammelemente an einer horizontalen Linie entlang der Mitte des Begrenzungsrahmens des Diagramms zu zoomen.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      Steuert den Begrenzungsrahmen, den Flex zur Berechnung des Fokuspunkts der Vergrößerungen bzw. Verkleinerungen verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>series</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Steuert den Begrenzungsrahmen, den Flex zur Berechnung des Fokuspunkts der Vergrößerungen bzw. Verkleinerungen verwendet.
+     
+      <p>Gültige Werte für <codeph>relativeTo</codeph> sind <codeph>"series"</codeph> und <codeph>"chart"</codeph>. Der Standardwert ist <codeph>"series"</codeph>.</p>
+     
+      <p>Verwenden Sie <codeph>"series"</codeph>, um jedes Element relativ zu sich selbst zu vergrößern bzw. zu verkleinern. Beispielsweise kann jede Säule eines Säulendiagramms ausgehend von der linken oberen Ecke der Säule, der Säulenmitte usw. vergrößert oder verkleinert werden.</p>
+     
+      <p>Verwenden Sie <codeph>"chart"</codeph>, um jedes Element relativ zum Diagrammbereich zu zoomen. Beispielsweise kann jede Säule ausgehend von links oben der Achsen, der Achsenmitte usw. vergrößert oder verkleinert werden.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:verticalFocus"><apiName>verticalFocus</apiName><shortdesc>
+      Definiert die Position des Fokuspunkts des Zooms.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Definiert die Position des Fokuspunkts des Zooms.
+     
+      <p>Gültige Werte von <codeph>verticalFocus</codeph> sind <codeph>"top"</codeph>, <codeph>"center"</codeph>, <codeph>"bottom"</codeph> und <codeph>null</codeph>. Der Standardwert ist <codeph>center</codeph>.</p>
+     
+      <p>Weitere Informationen finden Sie in der Beschreibung der Eigenschaft <codeph>horizontalFocus</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesSlideInstance"><apiName>SeriesSlideInstance</apiName><shortdesc>
+  Die SeriesSlideInstance-Klasse implementiert die Instanzenklasse für den SeriesSlide-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SeriesSlideInstance-Klasse implementiert die Instanzenklasse für den SeriesSlide-Effekt. Flex erstellt eine Instanz dieser Klasse, wenn ein SeriesSlide-Effekt wiedergegeben wird. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesSlide"><linktext>mx.charts.effects.SeriesSlide</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesSlideInstance:SeriesSlideInstance"><apiName>SeriesSlideInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Ziel des Effekts.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects.effectClasses:SeriesSlideInstance:direction"><apiName>direction</apiName><shortdesc>
+      Definiert die Position, von der die Serie verschoben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Definiert die Position, von der die Serie verschoben wird. Gültige Werte sind <codeph>"left"</codeph>, <codeph>"right"</codeph>, <codeph>"up"</codeph> und <codeph>"down"</codeph>. Der Standardwert ist <codeph>"left"</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesInterpolateInstance"><apiName>SeriesInterpolateInstance</apiName><shortdesc>
+  Die SeriesInterpolateInstance-Klasse implementiert die Instanzenklasse für den SeriesInterpolate-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SeriesInterpolateInstance-Klasse implementiert die Instanzenklasse für den SeriesInterpolate-Effekt. Flex erstellt eine Instanz dieser Klasse, wenn ein SeriesInterpolate-Effekt wiedergegeben wird. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesInterpolate"><linktext>mx.charts.effects.SeriesInterpolate</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesInterpolateInstance:SeriesInterpolateInstance"><apiName>SeriesInterpolateInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Ziel des Effekts.  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

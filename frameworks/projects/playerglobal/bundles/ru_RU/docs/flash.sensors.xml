@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sensors" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sensors</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sensors:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+ 	Класс Accelerometer отправляет события на основании активности, обнаруживаемой датчиком движения устройства.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Класс Accelerometer
+	
+	</apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Класс Accelerometer отправляет события на основании активности, обнаруживаемой датчиком движения устройства. Эти данные представляют местоположение устройства или движение вдоль трехмерной оси. Когда устройство перемещается, датчик распознает движение и возвращает данные об ускорении. Класс Accelerometer предоставляет методы, позволяющие сделать запрос, поддерживается ли акселерометр, а также установить частоту отправки событий ускорения.
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> Проверьте свойство <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>, чтобы узнать, поддерживает ли текущая платформа среды выполнения использование этой функции. Хотя класс Accelerometer и его элементы доступны для версий среды выполнения, перечисленных для каждой записи API, доступность данной функции определяется текущей платформой среды выполнения. Например, можно скомпилировать код с использованием свойств класса Accelerometer для Flash Player 10.1, но необходимо проверить свойство <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>, чтобы проверить доступность класса Accelerometer на текущей платформе, в которой развернута среда выполнения Flash Player. Если свойство <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> возвращает значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph> во время выполнения, то текущая платформа поддерживает класс Accelerometer.</p>
+	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">Поддержка в профилях AIR:</i> эта функция поддерживается только на мобильных устройствах. Она не поддерживается на компьютерах или в среде AIR для телевизионных устройств. Дополнительные сведения о поддержке API-интерфейса в разных профилях см. в разделе «<xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">Поддержка в профилях AIR</xref>».   
+    </p>
+	
+ 	</apiDesc><example conref="examples\AccelerometerExample.as" class="- topic/example "> В следующем примере приложение перемещает объект Sprite в зависимости от событий <codeph class="+ topic/ph pr-d/codeph ">update</codeph> акселерометра. События <codeph class="+ topic/ph pr-d/codeph ">update</codeph> акселерометра указывают на перемещение устройства.    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
+    import flash.events.Event;
+    import flash.events.AccelerometerEvent;
+    import flash.sensors.Accelerometer;
+
+    public class AccelerometerTest extends Sprite
+    {
+        private var ball:Sprite;
+        private var accelerometer:Accelerometer;        
+        private var xSpeed:Number = 0;
+        private var ySpeed:Number = 0;
+        private const RADIUS = 20;
+        
+        public final function AccelerometerTest()
+        {
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.align = StageAlign.TOP_LEFT;
+            
+            createBall();
+                                    
+            if (Accelerometer.isSupported)
+            {
+                accelerometer = new Accelerometer();
+                accelerometer.addEventListener(AccelerometerEvent.UPDATE, accUpdateHandler);
+                stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+        }
+        
+        private final function createBall():void
+        {
+             ball = new Sprite();
+             ball.graphics.beginFill(0xFF0000);
+             ball.graphics.drawCircle(0, 0, RADIUS);
+             ball.cacheAsBitmap = true;
+             ball.x = stage.stageWidth / 2;
+             ball.y = stage.stageHeight / 2;
+             addChild(ball);
+        }
+
+        private final function enterFrameHandler(event:Event):void
+        {
+            event.stopPropagation();
+            moveBall();
+        }
+        private final function moveBall():void
+        {
+            var newX:Number = ball.x + xSpeed;
+            var newY:Number = ball.y + ySpeed;
+            if (newX &lt; 20)
+            {
+                ball.x = RADIUS;
+                xSpeed = 0;
+            }
+            else if (newX > stage.stageWidth - RADIUS)
+            {
+                ball.x = stage.stageWidth - RADIUS;
+                xSpeed = 0;
+            }
+            else
+            {
+                ball.x += xSpeed;
+            }
+            
+            if (newY &lt; RADIUS)
+            {
+                ball.y = RADIUS;
+                ySpeed = 0;
+            }
+            else if (newY > stage.stageHeight - RADIUS)
+            {
+                ball.y = stage.stageHeight - RADIUS;
+                ySpeed = 0;
+            }
+            else
+            {
+                ball.y += ySpeed;
+            }
+        }
+
+        private final function accUpdateHandler(event:AccelerometerEvent):void
+        {
+            xSpeed -= event.accelerationX * 2;
+            ySpeed += event.accelerationY * 2;
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/isSupported" class="- topic/link "><linktext class="- topic/linktext ">isSupported</linktext></link><link href="flash.events.xml#AccelerometerEvent" class="- topic/link "><linktext class="- topic/linktext ">flash.events.AccelerometerEvent</linktext></link><link href="http://www.riagora.com/2010/04/air-and-the-accelerometer/" class="- topic/link "><linktext class="- topic/linktext ">Микаэль Шез (Michael Chaize): AIR и акселерометр</linktext></link><link href="http://www.riagora.com/2010/05/become-an-air-pilot/" class="- topic/link "><linktext class="- topic/linktext ">Микаэль Шез (Michael Chaize): Управление средой AIR </linktext></link></related-links><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+	Отправляется, когда акселерометр изменяет свое состояние.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Отправляется, когда акселерометр изменяет свое состояние. 
+	
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание.</b> На некоторых устройствах акселерометр всегда доступен. На таких устройствах объект Accelerometer никогда не отправляет событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph>.</p>
+	
+	</apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.AccelerometerEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	Событие update отправляется в ответ на получение обновлений от датчика акселерометра.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.AccelerometerEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.AccelerometerEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Событие <codeph class="+ topic/ph pr-d/codeph ">update</codeph> отправляется в ответ на получение обновлений от датчика акселерометра. Это событие отправляется при следующих обстоятельствах:
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">когда добавляется новая функция прослушивателя с помощью метода <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph>, это событие отправляется один раз всем зарегистрированным прослушивателям для того, чтобы передать текущее значение акселерометра;</li><li class="- topic/li ">каждый раз при получении обновлений акселерометра от платформы через установленные устройством интервалы;</li><li class="- topic/li ">каждый раз, когда приложение пропускает изменение показаний акселерометра (например, когда среда выполнения восстанавливается после режима ожидания).</li></ul></p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Accelerometer:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+		Создает новый экземпляр Accelerometer.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Создает новый экземпляр Accelerometer. 
+		
+		</apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Accelerometer:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 Для установки требуемых интервалов обновления служит метод setRequestedUpdateInterval.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Значение свойства <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> меньше нуля.
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Требуемый интервал обновления. Если для <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> установлено значение 0, используется минимальный поддерживаемый интервал обновления.
+ 		 
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Для установки требуемых интервалов обновления служит метод <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph>. Интервал времени измеряется в миллисекундах. Интервал обновления предназначен только в качестве ориентира для экономии заряда аккумулятора. Фактическое время между обновлениями акселерометра может быть больше или меньше этого значения. Любое изменение в интервале обновления затрагивает все зарегистрированные прослушиватели. Класс Accelerometer можно использовать, не вызывая метод <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval()</codeph>. В этом случае, приложение получает обновления с интервалом, используемым устройством по умолчанию.  
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Accelerometer:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+	Свойство isSupported имеет значение true, если датчик акселерометра доступен на устройстве, в противном случае оно имеет значение false.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Свойство <codeph class="+ topic/ph pr-d/codeph ">isSupported</codeph> имеет значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, если датчик акселерометра доступен на устройстве, в противном случае оно имеет значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. 
+	
+ 	</apiDesc><example conref="examples\Accelerometer_isSupported.as" class="- topic/example "> В следующем примере используется свойство <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>, чтобы проверить наличие поддержки класса Accelerometer во время выполнения. Если текущая платформа поддерживает возможности класса Accelerometer, то для объекта Accelerometer добавляется прослушиватель событий, и связанный с ним обработчик вводит в текстовое поле метку времени и значения ускорения. В противном случае в текстовом поле появляется сообщение о том, что текущая среда не поддерживает данную функцию.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+var myTextField:TextField = new TextField();
+myTextField.width = 200;
+addChild(myTextField);
+var acc1:Accelerometer = new Accelerometer();
+var isSupported:Boolean = Accelerometer.isSupported;
+checksupport();
+
+function checksupport():void {
+    if (isSupported) {
+        myTextField.text = "Accelerometer feature supported";
+        acc1.addEventListener(AccelerometerEvent.UPDATE, updateHandler);
+    } else {
+        myTextField.text = "Accelerometer feature not supported";
+    }
+}
+
+function updateHandler(evt:AccelerometerEvent):void {
+    myTextField.text = String("at: " + evt.timestamp + "\n" + "acceleration X: " + evt.accelerationX + "\n" + "acceleration Y: " + evt.accelerationY + "\n" + "acceleration Z: " + evt.accelerationZ);
+
+}
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.sensors:Accelerometer:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 Указывает, запретил ли пользователь доступ к акселерометру: нет доступа (true), или доступ разрешен (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accelerometer, Accelerometer.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 Указывает, запретил ли пользователь доступ к акселерометру: нет доступа (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>), или доступ разрешен (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). При изменении этого значения отправляется событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph>. 
+		 
+		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.sensors:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+ 	Класс Geolocation отправляет события в ответ на датчик местоположения устройства.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Класс Geolocation отправляет события в ответ на датчик местоположения устройства. 
+	
+	<p class="- topic/p ">Если устройство поддерживает определение географического положения, этот класс можно использовать для получения данных о местоположении устройства. Географическое местоположение отображается на устройстве в виде координат широты и долготы (в стандартном формате WGS-84). Когда местоположение устройства меняется, отправляются обновления. Если устройство поддерживает такую функцию, можно получать сведения о высотной отметке, точности, направлении, скорости и метке времени последнего изменения местоположения.</p>
+ 	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">Поддержка в профилях AIR:</i> эта функция поддерживается только на мобильных устройствах. Она не поддерживается на компьютерах или в среде AIR для телевизионных устройств. Используйте свойство <codeph class="+ topic/ph pr-d/codeph ">Geolocation.isSupported</codeph>, чтобы проверить наличие поддержки в cреде выполнения. Дополнительные сведения о поддержке API-интерфейса в разных профилях см. в разделе «<xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">Поддержка в профилях AIR</xref>».  
+    </p>	
+	
+ 	</apiDesc><example conref="examples\GeolocationExample.as" class="- topic/example "> В следующем примере приложение отображает широту, долготу и горизонтальную погрешность событий <codeph class="+ topic/ph pr-d/codeph ">update</codeph> класса GeoLocation по мере их поступления.    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+   import flash.display.Sprite;
+   import flash.display.StageAlign;
+   import flash.display.StageScaleMode;
+   import flash.events.GeolocationEvent;
+   import flash.sensors.Geolocation;
+   import flash.text.TextField;
+   import flash.text.TextFormat;
+
+   public class GeolocationTest extends Sprite
+   {
+      private var geo:Geolocation;
+      private var log:TextField;
+      
+      public function GeolocationTest()
+      {
+         stage.scaleMode = StageScaleMode.NO_SCALE;
+         stage.align = StageAlign.TOP_LEFT;
+         setUpTextField();
+                                    
+         if (Geolocation.isSupported)
+         {
+            geo = new Geolocation();
+            geo.setRequestedUpdateInterval(100);
+            geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+         }
+         else
+         {
+            log.text =  "No geolocation support.";
+         }
+      }
+      
+      private function geolocationUpdateHandler(event:GeolocationEvent):void
+      {
+         log.text = "latitude:" + event.latitude.toString() + "°\n";
+         log.appendText("longitude:" + event.longitude.toString() + "°\n");
+         log.appendText("horizontal accuracy:" + event.horizontalAccuracy.toString() + " m");
+      }
+      private function setUpTextField():void
+      {
+         log = new TextField();
+         var format:TextFormat = new TextFormat("_sans", 24);
+         log.defaultTextFormat = format;
+         log.border = true;
+         log.wordWrap = true;
+         log.multiline = true;
+         log.x = 10;
+         log.y = 10;
+         log.height = stage.stageHeight - 20;
+         log.width = stage.stageWidth - 20;
+         addChild(log);
+      }
+   }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="http://coenraets.org/blog/2010/08/multi-user-google-map-collaboration-on-android/" class="- topic/link "><linktext class="- topic/linktext ">Кристоф Конрац (Cristophe Coenraets): Совместная работа с Картами Google в многопользовательской среде</linktext></link></related-links><adobeApiEvent id="flash.sensors:Geolocation_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+  	Объект Geolocation отправляет события status, когда пользователь изменяет доступ к датчику местоположения.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+  	Объект Geolocation отправляет события <codeph class="+ topic/ph pr-d/codeph ">status</codeph>, когда пользователь изменяет доступ к датчику местоположения. Например, если в ответ на запрос устройства пользователь запрещает приложению обращаться к данным о местоположении, объект Geolocation отправляет событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph>. Когда состояние изменяется таким образом, что датчик местоположения становится недоступным, свойство <codeph class="+ topic/ph pr-d/codeph ">muted</codeph> экземпляра Geolocation имеет значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>.
+	
+ 	</apiDesc></adobeApiEventDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/muted" class="- topic/link "><linktext class="- topic/linktext ">muted</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="flash.sensors:Geolocation_flash.events.GeolocationEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	Событие update отправляется в ответ на получение обновлений от датчика местоположения.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.GeolocationEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.GeolocationEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Событие <codeph class="+ topic/ph pr-d/codeph ">update</codeph> отправляется в ответ на получение обновлений от датчика местоположения. Это событие отправляется при следующих обстоятельствах:
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">когда добавляется новая функция прослушивателя с помощью метода <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph>, это событие отправляется один раз всем зарегистрированным прослушивателям для того, чтобы передать текущее значение датчика местоположения;</li><li class="- topic/li ">каждый раз при получении обновлений датчика местоположения от платформы через установленные устройством интервалы;</li><li class="- topic/li ">каждый раз, когда приложение пропускает изменение местоположения (например, когда приложение восстанавливается после спящего режима).</li></ul></p>
+ 	
+ 	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">Примечание.</i> Устройства iPhone первого поколения, которые не оснащены модулем GPS, отправляют события <codeph class="+ topic/ph pr-d/codeph ">update</codeph> только в редких случаях. На этих устройствах объект Geolocation сначала отправляет одно или два события <codeph class="+ topic/ph pr-d/codeph ">update</codeph>. После этого он отправляет события <codeph class="+ topic/ph pr-d/codeph ">update</codeph> в случае заметного изменения информации.</p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Geolocation:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+		 Создает новый экземпляр Geolocation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Создает новый экземпляр Geolocation. 
+ 		 
+ 		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Geolocation:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 Служит для указания интервала обновлений в миллисекундах.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Значение свойства <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> меньше нуля.
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">запрошенный интервал обновления. Если <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> &lt;= 0, вызов этого метода игнорируется.
+ 		 
+ 		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Служит для указания интервала обновлений в миллисекундах. Интервал обновления предназначен только в качестве ориентира для экономии заряда аккумулятора. Фактическое время между обновлениями датчика местоположения может быть больше или меньше этого значения. Любое изменение интервала обновления с помощью этого метода затрагивает все зарегистрированные прослушиватели события <codeph class="+ topic/ph pr-d/codeph ">update</codeph>. Класс Geolocation можно использовать, не вызывая метод <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval()</codeph>. В этом случае платформа будет передавать обновления с учетом собственного интервала по умолчанию.  
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">Примечание.</i> Устройства iPhone первого поколения, которые не оснащены модулем GPS, отправляют события <codeph class="+ topic/ph pr-d/codeph ">update</codeph> только в редких случаях. На этих устройствах объект Geolocation сначала отправляет одно или два события <codeph class="+ topic/ph pr-d/codeph ">update</codeph>. После этого он отправляет события <codeph class="+ topic/ph pr-d/codeph ">update</codeph> в случае заметного изменения информации.</p>
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Geolocation:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+ 		 Указывает, доступен ли датчик местоположения на устройстве (true); в противном случае имеет значение false.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 		 Указывает, доступен ли датчик местоположения на устройстве (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>); в противном случае имеет значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+ 		 
+ 		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sensors:Geolocation:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 Указывает, запретил ли пользователь доступ к датчику местоположения: нет доступа (true), или доступ разрешен (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Geolocation, Geolocation.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 Указывает, запретил ли пользователь доступ к датчику местоположения: нет доступа (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>), или доступ разрешен (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). При изменении этого значения отправляется событие <codeph class="+ topic/ph pr-d/codeph ">status</codeph>. 
+		 
+ 		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

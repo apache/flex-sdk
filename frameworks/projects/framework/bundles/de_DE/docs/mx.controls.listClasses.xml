@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:IDropInListItemRenderer"><apiName>IDropInListItemRenderer</apiName><shortdesc>
+  Die Schnittstelle für Renderer, in denen Elemente abgelegt werden können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die Schnittstelle für Renderer, in denen Elemente abgelegt werden können. In den meisten IListItemRenderer-Objekten können keine Elemente abgelegt werden. Diese Objekte erwarten, dass ein bestimmtes Feld des Datenproviderelements verwendet wird. Sie können beispielsweise die „lastName“-Eigenschaft des Elements einer <codeph>text</codeph>-Eigenschaft einer Beschriftung zuweisen. Dies lässt sich mit Datenbindungsfunktionen leicht programmieren, hat aber die negative Folge, dass der Renderer nicht in einer anderen Spalte einer DataGrid- oder List-Klasse mit anderen Feldern verwendet werden kann. Mit der IDropInListItemRenderer-Schnittstelle kann ein anderer Renderer wiederverwendet werden. Die Listenklassen übergeben mehr Informationen an den Renderer, damit er bestimmen kann, welches Feld zur Laufzeit verwendet werden soll.
+ 
+  <p>Komponenten, die als Renderer oder Editoren verwendet werden sollen, in denen Elemente abgelegt werden können, müssen die IDropInListItemRenderer-Schnittstelle implementieren. Viele Flex-Komponenten implementieren diese Schnittstelle und können daher in einer Spalte oder Liste als Renderer oder Editoren verwendet werden, in denen Elemente abgelegt werden können.</p>
+ 
+  <p>Renderer oder Editoren, in denen Elemente abgelegt werden können, müssen auch die IDataRenderer-Schnittstelle implementieren, um die <codeph>data</codeph>-Eigenschaft zu definieren.</p> 
+ 
+  <p>Wenn eine Komponente als Renderer oder Editor verwendet wird, in dem Elemente abgelegt werden können, initialisiert Flex die <codeph>listData</codeph>-Eigenschaft der Komponente mit den geeigneten Daten aus dem List-Steuerelement. Die Komponente kann die <codeph>listData</codeph>-Eigenschaft verwenden, um die <codeph>data</codeph>-Eigenschaft des Renderers oder Editors, in dem Elemente abgelegt werden können, zu initialisieren.</p>
+ 
+  <p>Die <codeph>listData</codeph>-Eigenschaft ist vom Typ BaseListData, wobei die BaseListData-Klasse vier Unterklassen hat: DataGridListData, ListData, TreeListData und MenuListData. Welchen Datentyp der Wert der <codeph>listData</codeph>-Eigenschaft letztlich hat, hängt von dem Steuerelement ab, das den Renderer oder Editor, in dem Elemente abgelegt werden können, verwendet. Bei einem DataGrid-Steuerelement hat der Wert den Datentyp DataGridListData, bei einem List-Steuerelement den Datentyp ListData, bei einem Tree-Steuerelement den Datentyp TreeListData und bei einem Menu-Steuerelement den Datentyp MenuListData.</p>
+ 
+  <p>Das folgende Beispiel zeigt die Set-Methode für die <codeph>data</codeph>-Eigenschaft beim NumericStepper-Steuerelement, das die <codeph>value</codeph>-Eigenschaft des NumericStepper-Steuerelements basierend auf dem Wert der <codeph>listData</codeph>-Eigenschaft initialisiert:</p>
+ 
+  <pre>
+    public function set data(value:Object):void
+    {
+      _data = value;
+    
+      this.value = _listData ? parseFloat(_listData.label) : Number(_data);
+    
+      dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+  </pre>
+ 
+  <p>Im obigen Beispiel ignoriert das NumericStepper-Steuerelement die <codeph>data</codeph>-Eigenschaft beim Einstellen der <codeph>value</codeph>-Eigenschaft des NumericStepper-Steuerelements und verwendet stattdessen die <codeph>listData</codeph>-Eigenschaft.</p>
+ 
+  <p>Um die IDropInListItemRenderer-Schnittstelle zu implementieren, definieren Sie eine Set- und Get-Methode zur Implementierung der <codeph>listData</codeph>-Eigenschaft. Die Set-Methode schreibt normalerweise den Wert der <codeph>listData</codeph>-Eigenschaft in eine interne Variable. Die Listenklasse weist diese Eigenschaft immer zu und legt dann das Datenproviderelement in der <codeph>data</codeph>-Eigenschaft fest.</p>
+ 
+  <p>Beachten Sie, dass die Set-Methode für die <codeph>listData</codeph>-Eigenschaft kein Ereignis auslöst. Dies ist deshalb der Fall, weil die Listenklassen immer erst <codeph>listData</codeph> und dann die <codeph>data</codeph>-Eigenschaft festlegen. Das Festlegen der <codeph>data</codeph>-Eigenschaft löst auch das <codeph>dataChange</codeph>-Ereignis aus. Sie legen <codeph>listData</codeph> nie für sich selbst fest, weshalb diese Eigenschaft auch kein eigenes Ereignis auslösen muss. </p>
+ 
+  <p>Die <codeph>data</codeph>-Set-Methode kann die <codeph>invalidateProperties()</codeph>-Methode aufrufen, wenn sie etwas auslöst, das eine Selbstaktualisierung des Steuerelements erforderlich macht. Der Entwickler der Komponente muss nun dafür sorgen, dass eine <codeph>commitProperties()</codeph>-Methode programmiert wird, um zu ermitteln, ob <codeph>listData</codeph> verändert wurde, und die entsprechenden Folgeschritte auszulösen. </p>
+ 
+  <p>Die Get-Methode gibt den aktuellen Wert der internen Variablen zurück, wie dem folgenden Beispiel entnommen werden kann:</p>
+  
+  <pre>
+    // Internal variable for the property value.
+    private var _listData:BaseListData;
+    
+    // Make the listData property bindable.
+    [Bindable("dataChange")]
+    
+    // Define the getter method.
+    public function get listData():BaseListData
+    {
+      return _listData;
+    }
+    
+    // Define the setter method,
+    public function set listData(value:BaseListData):void
+    {
+      _listData = value;
+    }
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#BaseListData"><linktext>mx.controls.listClasses.BaseListData</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links><apiValue id="mx.controls.listClasses:IDropInListItemRenderer:mx.controls.listClasses:IDropInListItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Implementiert die listData-Eigenschaft unter Verwendung von Get- und Set-Methoden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      Implementiert die <codeph>listData</codeph>-Eigenschaft unter Verwendung von Get- und Set-Methoden. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+  Die BaseListData-Klasse definiert den Datentyp der listData-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, implementiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die BaseListData-Klasse definiert den Datentyp der <codeph>listData</codeph>-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, implementiert wird. Alle Renderer oder Editoren, in denen Elemente abgelegt werden können, müssen die IDropInListItemRenderer-Schnittstelle, mit der die <codeph>listData</codeph>-Eigenschaft definiert wird, implementieren.
+ 
+  <p>Die <codeph>listData</codeph>-Eigenschaft ist vom Typ BaseListData, wobei die BaseListData-Klasse drei Unterklassen hat: DataGridListData, ListData und TreeListData. Welchen Datentyp der Wert der <codeph>listData</codeph>-Eigenschaft letztlich hat, hängt von dem Steuerelement ab, das den Renderer oder Editor, in dem Elemente abgelegt werden können, verwendet. Bei einem DataGrid-Steuerelement hat der Wert den Typ DataGridListData, bei einem List-Steuerelement den Typ ListData und bei einem Tree-Steuerelement den Typ TreeListData.</p>
+ 
+  <p>Wenn die Klasse als Renderer oder Editor verwendet wird, in dem Elemente abgelegt werden können, legt Flex die <codeph>listData</codeph>-Eigenschaft auf eine von BaseListData abgeleitete Klasse fest, die die berechneten Informationen über das Element in dem Datenprovider mit den Daten für das Element enthält.</p>
+ 
+  <p>Obwohl die Eigenschaften dieser Klasse änderbar sind, sollten Sie sie unverändert beibehalten. Sie werden durch die List-Klasse initialisiert und von einem Renderer oder Editor für Elemente gelesen. Eine Veränderung dieser Werte kann zu unerwarteten Ergebnissen führen.</p>
+ 
+  <p>Die Eigenschaften sind als bindbar gekennzeichnet, sie führen jedoch keine Change-Erkennung durch und senden auch keine Change-Ereignisse. Die Eigenschaften werden insgesamt geändert, indem ein neuer Wert für die <codeph>listData</codeph>-Eigenschaft festgelegt wird. Das <codeph>change</codeph>-Ereignis für die Änderung der <codeph>listData</codeph>-Eigenschaft aktualisiert alle Bindungen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.listClasses:BaseListData:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>Die Textdarstellung der Elementdaten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Ein eindeutiger Bezeichner.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Ein Verweis auf das Listensteuerelement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Indexposition der Zeile in den aktuell sichtbaren Zeilen des Steuerelements.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Indexposition der Spalte in den aktuell sichtbaren Spalten des Steuerelements.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.listClasses:BaseListData:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      Die Indexposition der Spalte im List-basierten Steuerelement relativ zu den aktuell sichtbaren Spalten des Steuerelements, wobei die erste Spalte die Indexposition 1 hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition der Spalte im List-basierten Steuerelement relativ zu den aktuell sichtbaren Spalten des Steuerelements, wobei die erste Spalte die Indexposition 1 hat. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:label"><apiName>label</apiName><shortdesc>
+      Die Textdarstellung der Elementdaten, basierend auf der itemToLabel()-Methode der Listenklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Die Textdarstellung der Elementdaten, basierend auf der <codeph>itemToLabel()</codeph>-Methode der List-Klasse.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:owner"><apiName>owner</apiName><shortdesc>
+      Ein Verweis auf das Listenobjekt, das Eigentümer dieses Elements ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IUIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ein Verweis auf das Listenobjekt, das Eigentümer dieses Elements ist. Dies muss eine aus ListBase abgeleitete Klasse sein. Diese Eigenschaft ist als IUIComponent-Typ festgelegt, damit ablegbare Elemente wie Label und TextInput keine Abhängigkeiten zu List und allen ihren Abhängigkeiten haben müssen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      Die Indexposition der Zeile des DataGrid-, List- oder Tree-Steuerelements in Bezug auf die aktuell sichtbaren Zeilen des Steuerelements, wobei die erste Zeile die Indexposition 1 hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition der Zeile des DataGrid-, List- oder Tree-Steuerelements in Bezug auf die aktuell sichtbaren Zeilen des Steuerelements, wobei die erste Zeile die Indexposition 1 hat. Beispiel: Sie können auf ein Element im Steuerelement klicken und <codeph>rowIndex</codeph> wird auf 3 eingestellt. Danach führen Sie einen Bildlauf durch das Steuerelement durch, um die Position der Zeile in den sichtbaren Zeilen des Steuerelements zu ändern, und klicken auf dieselbe Zeile wie vorher. Der <codeph>rowIndex</codeph> enthält jetzt einen anderen Wert, der der neuen Indexposition der Zeile in den aktuelle sichtbaren Zeilen entspricht.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:uid:get"><apiName>uid</apiName><shortdesc>
+      Der eindeutige Bezeichner für dieses Element.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der eindeutige Bezeichner für dieses Element.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:IListItemRenderer"><apiName>IListItemRenderer</apiName><shortdesc>
+  Elementrenderer und Elementeditoren für Listenkomponenten müssen die IListItemRenderer-Schnittstelle implementieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Elementrenderer und Elementeditoren für Listenkomponenten müssen die IListItemRenderer-Schnittstelle implementieren. Die IListItemRenderer-Schnittstelle ist eine Gruppe einer Reihe anderer Schnittstellen. Sie definiert keine neuen Klassenmethoden oder Eigenschaften. 
+ 
+  <p>Die Schnittstellengruppe umfasst: IDataRenderer, IFlexDisplayObject, ILayoutManagerClient, ISimpleStyleClient, IUIComponent. Die UIComponent-Klasse implementiert alle diese Schnittstellen,. mit Ausnahme der IDataRenderer-Schnittstelle. Daher gilt: Wenn Sie einen benutzerdefinierten Elementrenderer oder Elementeditor als Unterklasse derUIComponent-Klasse erstellen, brauchen Sie nur die IDataRenderer-Schnittstelle zu implementieren und können dann der Klassendefinition hinzufügen, dass die Klasse IDataRenderer und IListItemRenderer implementiert.</p>
+ 
+ <p>IListItemRenderer sind im Allgemeinen für die Anzeige eines bestimmten Felds aus dem Datenproviderelement vorgesehen und können nicht in anderen DataGrid-Spalten oder in anderen Listen mit anderen Feldern wiederverwendet werden. Wenn Sie einen Renderer erstellen möchten, der wiederverwendet werden kann, können sie auch IDropInListItemRenderer implementieren. Dann übergibt die Liste mehr Daten an den Renderer, sodass der Renderer mit verschiedenen Datenfeldern wiederverwendet werden kann.</p>
+ 
+  <p>Elementrenderer und Elementeditoren erhalten Daten aus dem Datenprovider einer Listenklasse über die IDataRenderer-Schnittstelle. Renderer und Editoren, die die IDropInListItemRenderer-Schnittstelle implementieren, erhalten andere Iinformationen aus der Listenklasse. Der Elementrenderer oder Elementeditor verwendet eine Information oder beide Informationen, um die Daten anzuzeigen.</p>
+ 
+  <p>Die Renderer und Editoren werden oft wiederverwendet. Nachdem sie erstellt wurden, können sie einfach wiederverwendet werden, indem sie neue Daten und optional eine <codeph>listData</codeph>-Eigenschaft erhalten. Daher müssen Sie in Ihrer Implementierung darauf achten, dass Komponenteneigenschaften nicht unbedingt ihre Anfangs- oder Standardwerte enthalten.</p>
+  
+  </apiDesc></apiClassifierDetail></apiClassifier></apiPackage>

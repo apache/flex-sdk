@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core"><apiName>mx.core</apiName><apiDetail/><apiClassifier id="mx.core:FTETextField"><apiName>FTETextField</apiName><shortdesc>
+      FTETextField 是一个 Sprite，可使用新 Flash 文本引擎实现旧的 TextField API。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+      FTETextField 是一个 Sprite，可使用新 Flash 文本引擎实现旧的 TextField API。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links><apiConstructor id="mx.core:FTETextField:FTETextField"><apiName>FTETextField</apiName><shortdesc>
+          构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          构造函数。
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:FTETextField:appendText"><apiName>appendText</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newText</apiItemName><apiType value="String"/><apiDesc>无
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/appendText()"><linktext>flash.text.TextField.appendText()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getCharBoundaries"><apiName>getCharBoundaries</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>charIndex</apiItemName><apiType value="int"/><apiDesc>无
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+          
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getCharBoundaries()"><linktext>flash.text.TextField.getCharBoundaries()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getCharIndexAtPoint"><apiName>getCharIndexAtPoint</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>无
+          </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getCharIndexAtPoint()"><linktext>flash.text.TextField.getCharIndexAtPoint()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getFirstCharInParagraph"><apiName>getFirstCharInParagraph</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>charIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getFirstCharInParagraph()"><linktext>flash.text.TextField.getFirstCharInParagraph()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getImageReference"><apiName>getImageReference</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getImageReference()"><linktext>flash.text.TextField.getImageReference()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getLineIndexAtPoint"><apiName>getLineIndexAtPoint</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getLineIndexAtPoint()"><linktext>flash.text.TextField.getLineIndexAtPoint()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getLineIndexOfChar"><apiName>getLineIndexOfChar</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>charIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getLineIndexOfChar()"><linktext>flash.text.TextField.getLineIndexOfChar()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getLineLength"><apiName>getLineLength</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>lineIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getLineLength()"><linktext>flash.text.TextField.getLineLength()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getLineMetrics"><apiName>getLineMetrics</apiName><shortdesc conref="flash.text.TextField#getLineMetrics()">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.text:TextLineMetrics"/></apiReturn><apiParam><apiItemName>lineIndex</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc conref="flash.text.TextField#getLineMetrics()">
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FTETextField:getLineOffset"><apiName>getLineOffset</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>lineIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getLineOffset()"><linktext>flash.text.TextField.getLineOffset()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getLineText"><apiName>getLineText</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>lineIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getLineText()"><linktext>flash.text.TextField.getLineText()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getParagraphLength"><apiName>getParagraphLength</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>charIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getParagraphLength()"><linktext>flash.text.TextField.getParagraphLength()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:getTextFormat"><apiName>getTextFormat</apiName><shortdesc>
+          该方法已在 FTETextField 中实现且仅返回 defaultTextFormat 的副本，因为 FTETextField 不支持设置一个范围的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>无
+         
+          </apiDesc><apiType value="flash.text:TextFormat"/></apiReturn><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法已在 FTETextField 中实现且仅返回 <codeph>defaultTextFormat</codeph> 的副本，因为 FTETextField 不支持设置一个范围的格式。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/getTextFormat()"><linktext>flash.text.TextField.getTextFormat()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:replaceSelectedText"><apiName>replaceSelectedText</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/replaceSelectedText()"><linktext>flash.text.TextField.replaceSelectedText()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:replaceText"><apiName>replaceText</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>newText</apiItemName><apiType value="String"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为在 TextField 中几乎没有组件会使用它。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/replaceText()"><linktext>flash.text.TextField.replaceText()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:setSelection"><apiName>setSelection</apiName><shortdesc>
+          该方法尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          该方法尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。如果调用，则会引发运行时错误。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/setSelection()"><linktext>flash.text.TextField.setSelection()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:FTETextField:setTextFormat"><apiName>setTextFormat</apiName><shortdesc>
+          如果 beginIndex 或 endIndex 不等于 -1，则此方法对于 FTETextField 无效，因为 FTETextField 不支持对范围设置格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>format</apiItemName><apiType value="flash.text:TextFormat"/><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>无
+         
+          </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>无
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          如果 <codeph>beginIndex</codeph> 或 <codeph>endIndex</codeph> 不等于 -1，则此方法对于 FTETextField 无效，因为 FTETextField 不支持对范围设置格式。
+         
+          </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/setTextFormat()"><linktext>flash.text.TextField.setTextFormat()</linktext></link></related-links></apiOperation><apiValue id="mx.core:FTETextField:alwaysShowSelection:get"><apiName>alwaysShowSelection</apiName><shortdesc>
+          该属性没有在 FTETextField 中被实现，因为 FTETextField 不支持选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          该属性没有在 FTETextField 中被实现，因为 FTETextField 不支持选择。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/alwaysShowSelection"><linktext>flash.text.TextField.alwaysShowSelection</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:antiAliasType:get"><apiName>antiAliasType</apiName><shortdesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。获取该属性将始终返回 <codeph>null</codeph>，设置该属性将不执行任何操作。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/antiAliasType"><linktext>flash.text.TextField.antiAliasType</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:autoSize:get"><apiName>autoSize</apiName><shortdesc conref="flash.text.TextField#autoSize">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="flash.text.TextField#autoSize">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc conref="flash.text.TextField#backgroundColor">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="flash.text.TextField#backgroundColor">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:background:get"><apiName>background</apiName><shortdesc conref="flash.text.TextField#background">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#background">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:borderColor:get"><apiName>borderColor</apiName><shortdesc conref="flash.text.TextField#borderColor">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="flash.text.TextField#borderColor">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:border:get"><apiName>border</apiName><shortdesc conref="flash.text.TextField#border">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#border">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:bottomScrollV:get"><apiName>bottomScrollV</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/bottomScrollV"><linktext>flash.text.TextField.bottomScrollV</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:caretIndex:get"><apiName>caretIndex</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/caretIndex"><linktext>flash.text.TextField.caretIndex</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:condenseWhite:get"><apiName>condenseWhite</apiName><shortdesc conref="flash.text.TextField#condenseWhite">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#condenseWhite">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:defaultTextFormat:get"><apiName>defaultTextFormat</apiName><shortdesc conref="flash.text.TextField#defaultTextFormat">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc conref="flash.text.TextField#defaultTextFormat">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:direction:get"><apiName>direction</apiName><shortdesc>
+          FTETextField 显示的文本的方向性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"ltr"
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          FTETextField 显示的文本的方向性。
+         
+          <p>允许的值为<codeph>“ltr”</codeph>（适用于从左到右文本，就像在拉丁样式脚本中一样）和<codeph>“rtl”</codeph>（适用于从右到左文本，就像在阿拉伯语和希伯来语中一样）。</p>
+         
+          <p><b>注意：</b>此属性在 flash.text.TextField API 中不存在。</p>
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:displayAsPassword:get"><apiName>displayAsPassword</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/displayAsPassword"><linktext>flash.text.TextField.displayAsPassword</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:embedFonts:get"><apiName>embedFonts</apiName><shortdesc conref="flash.text.TextField#embedFonts">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#embedFonts">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+          FTETextField 用于创建 TextLine 对象的 IFlexModuleFactory 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/><apiDefaultValue>null
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          FTETextField 用于创建 TextLine 对象的 IFlexModuleFactory 实例。这通常是（但并不总是）ISWFContext。
+         
+          <p>如果您需要在包含 TLF 代码的 SWF 上下文之外的其他 SWF 上下文中创建行，则设置此方法。</p>
+         
+          <p><b>注意：</b>此属性在 flash.text.TextField API 中不存在。</p>
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:gridFitType:get"><apiName>gridFitType</apiName><shortdesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。获取该属性将始终返回 <codeph>null</codeph>，设置该属性将不执行任何操作。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/gridFitType"><linktext>flash.text.TextField.gridFitType</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:htmlText:get"><apiName>htmlText</apiName><shortdesc conref="flash.text.TextField#htmlText">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="flash.text.TextField#htmlText">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:length:get"><apiName>length</apiName><shortdesc conref="flash.text.TextField#length">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.text.TextField#length">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:locale:get"><apiName>locale</apiName><shortdesc>
+          FTETextField 显示的文本的区域设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+          FTETextField 显示的文本的区域设置。
+         
+          <p>FTE 和 TLF 使用此区域设置将 Unicode 字符映射到字体字型并查找后备字体。</p>
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:maxChars:get"><apiName>maxChars</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持编辑。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/maxChars"><linktext>flash.text.TextField.maxChars</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:maxScrollH:get"><apiName>maxScrollH</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/maxScrollH"><linktext>flash.text.TextField.maxScrollH</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:maxScrollV:get"><apiName>maxScrollV</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/maxScrollV"><linktext>flash.text.TextField.maxScrollV</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:mouseWheelEnabled:get"><apiName>mouseWheelEnabled</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。获取该属性将始终返回 <codeph>false</codeph>，设置该属性将不执行任何操作。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/mouseWheelEnabled"><linktext>flash.text.TextField.mouseWheelEnabled</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:multiline:get"><apiName>multiline</apiName><shortdesc>
+          该属性在 FTETextField 中无效，因为 FTETextField 不支持编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          该属性在 FTETextField 中无效，因为 FTETextField 不支持编辑。不过，您可以获取和设置该属性。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/multiline"><linktext>flash.text.TextField.multiline</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:numLines:get"><apiName>numLines</apiName><shortdesc conref="flash.text.TextField#numLines">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.text.TextField#numLines">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:restrict:get"><apiName>restrict</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/restrict"><linktext>flash.text.TextField.restrict</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:scrollH:get"><apiName>scrollH</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/scrollH"><linktext>flash.text.TextField.scrollH</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:scrollV:get"><apiName>scrollV</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持滚动。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/scrollV"><linktext>flash.text.TextField.scrollV</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:selectable:get"><apiName>selectable</apiName><shortdesc>
+          设置该属性在 FTETextField 中不起作用，因为 FTETextField 不支持选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          设置该属性在 FTETextField 中不起作用，因为 FTETextField 不支持选择。如果获取该属性，则始终返回 <codeph>false</codeph>。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/selectable"><linktext>flash.text.TextField.selectable</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:selectionBeginIndex:get"><apiName>selectionBeginIndex</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/selectionBeginIndex"><linktext>flash.text.TextField.selectionBeginIndex</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:selectionEndIndex:get"><apiName>selectionEndIndex</apiName><shortdesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+          该属性尚未在 FTETextField 中实现，因为 FTETextField 不支持选择。如果访问，则会引发运行时错误。
+         
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/selectionEndIndex"><linktext>flash.text.TextField.selectionEndIndex</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:sharpness:get"><apiName>sharpness</apiName><shortdesc>
+          此属性在 FTETextField 中无效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          此属性在 FTETextField 中无效。因为 FTE 使用一种比 TextField 更新的字体呈示器。获取该属性将始终返回 <codeph>NaN</codeph>，设置该属性将不执行任何操作。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/sharpness"><linktext>flash.text.TextField.sharpness</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:styleSheet:get"><apiName>styleSheet</apiName><shortdesc conref="flash.text.TextField#styleSheet">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.text:StyleSheet"/></apiValueDef><apiDesc conref="flash.text.TextField#styleSheet">
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.StyleSheet.xml"><linktext>flash.text.StyleSheet</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:textColor:get"><apiName>textColor</apiName><shortdesc conref="flash.text.TextField#textColor">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="flash.text.TextField#textColor">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:textHeight:get"><apiName>textHeight</apiName><shortdesc conref="flash.text.TextField#textHeight">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.text.TextField#textHeight">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:textWidth:get"><apiName>textWidth</apiName><shortdesc conref="flash.text.TextField#textWidth">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.text.TextField#textWidth">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:text:get"><apiName>text</apiName><shortdesc conref="flash.text.TextField#text">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="flash.text.TextField#text">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:thickness:get"><apiName>thickness</apiName><shortdesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          此属性对于 FTETextField 无效，因为 FTE 使用的字体呈示器比 TextField 更新。获取该属性将始终返回 <codeph>NaN</codeph>，设置该属性将不执行任何操作。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/thickness"><linktext>flash.text.TextField.thickness</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:type:get"><apiName>type</apiName><shortdesc conref="flash.text.TextField#type">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="flash.text.TextField#type">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FTETextField:useRichTextClipboard:get"><apiName>useRichTextClipboard</apiName><shortdesc>
+          该属性没有在 FTETextField 中被实现，因为 FTETextField 不支持选择或剪贴板操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          该属性没有在 FTETextField 中被实现，因为 FTETextField 不支持选择或剪贴板操作。如果访问，则会引发运行时错误。
+          
+          </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.xml#TextField/useRichTextClipboard"><linktext>flash.text.TextField.useRichTextClipboard</linktext></link></related-links></apiValue><apiValue id="mx.core:FTETextField:wordWrap:get"><apiName>wordWrap</apiName><shortdesc conref="flash.text.TextField#wordWrap">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#wordWrap">
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:UIFTETextField"><apiName>UIFTETextField</apiName><shortdesc>
+  UIFTETextField 类可替代 UITextField 类，用于显示 MX 组件中的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.managers:IToolTipManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IUITextField</apiBaseInterface><apiBaseClassifier>mx.core:FTETextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIFTETextField 类可替代 UITextField 类，用于显示 MX 组件中的文本。
+   <p>UIFTETextField 扩展 FTETextField 的方式与 UITextField 扩展 TextField 的方式相同。通过扩展 FTETextField，MX 组件即可使用 Flash 文本引擎。使用 FTE 优于 TextField 的好处包括更高质量的版式、双向文本和可旋转文本。</p>
+   <p>MX 组件在使用 FTE 时，可以与 Spark 组件使用相同的嵌入字体，通常使用的是 FTE。否则，必须使用 <codeph>embedAsCFF="false"</codeph> 嵌入一种字体，供基于 TextField 的组件使用；并且必须使用 <codeph>embedAsCFF="true"</codeph> 嵌入一种字体，供基于 FTE 的组件使用。</p>
+   <p>显示文本的 MX 组件使用 <codeph>textFieldClass</codeph> 样式确定是创建 UITextField 还是 UIFTETextField 的实例。这些组件能够使用其中一个类，因为这两个类都可以实现 IUITextField 接口。</p>
+ 
+  <p>警告：如果 UIFTETextField 继承 <codeph>layoutDirection="rtl"</codeph>，它将修改其自己的 <codeph>transform.matrix</codeph> 以在本地复原默认坐标系。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.UITextField.xml"><linktext>mx.core.UITextField</linktext></link><link href="mx.core.xml#FTETextField"><linktext>mx.core.FTETextField</linktext></link></related-links><apiConstructor id="mx.core:UIFTETextField:UIFTETextField"><apiName>UIFTETextField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:UIFTETextField:getExplicitOrMeasuredHeight"><apiName>getExplicitOrMeasuredHeight</apiName><shortdesc conref="mx.core.UIComponent#getExplicitOrMeasuredHeight()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#getExplicitOrMeasuredHeight()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:getExplicitOrMeasuredWidth"><apiName>getExplicitOrMeasuredWidth</apiName><shortdesc conref="mx.core.UIComponent#getExplicitOrMeasuredWidth()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#getExplicitOrMeasuredWidth()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:getTextStyles"><apiName>getTextStyles</apiName><shortdesc>
+      返回给出此 UITextField 对象的字符格式设置信息的 TextFormat 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>TextFormat 对象。 
+           </apiDesc><apiType value="flash.text:TextFormat"/></apiReturn></apiOperationDef><apiDesc>
+      返回给出此 UITextField 对象的字符格式设置信息的 TextFormat 对象。
+           </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.text.TextFormat.xml"><linktext>flash.text.TextFormat</linktext></link></related-links></apiOperation><apiOperation id="mx.core:UIFTETextField:getUITextFormat"><apiName>getUITextFormat</apiName><shortdesc>
+      返回包含此组件的格式设置信息的 UITextFormat 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含此组件格式设置信息的对象。
+           </apiDesc><apiType value="mx.core:UITextFormat"/></apiReturn></apiOperationDef><apiDesc>
+      返回包含此组件的格式设置信息的 UITextFormat 对象。此方法与 flash.text.TextField 类的 <codeph>getTextFormat()</codeph> 方法类似，但它返回 UITextFormat 对象而不是 TextFormat 对象。
+           <p>UITextFormat 类扩展 TextFormat 类以添加文本测量方法 <codeph>measureText()</codeph> 和 <codeph>measureHTMLText()</codeph>。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.UITextFormat.xml"><linktext>mx.core.UITextFormat</linktext></link><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></apiOperation><apiOperation id="mx.core:UIFTETextField:initialize"><apiName>initialize</apiName><shortdesc>
+      初始化此组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      初始化此组件。
+           <p>IUIComponent 接口要求使用此方法，但实际上，它不会对 UITextField 执行任何操作。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc conref="mx.core.UIComponent#invalidateDisplayList()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateDisplayList()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc conref="mx.core.UIComponent#invalidateProperties()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateProperties()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:invalidateSize"><apiName>invalidateSize</apiName><shortdesc conref="mx.core.UIComponent#invalidateSize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateSize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:move"><apiName>move</apiName><shortdesc conref="mx.core.UIComponent#move()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#move()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:owns"><apiName>owns</apiName><shortdesc>
+      如果该子项是此对象的子项或者属于该对象，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果该子项是 UITextField 对象的子项或者属于该对象，则返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>子 DisplayObject。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果该子项是此对象的子项或者属于该对象，则返回 <codeph>true</codeph>。
+           </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#UIFTETextField/owner"><linktext>所有者</linktext></link></related-links></apiOperation><apiOperation id="mx.core:UIFTETextField:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      为 UITextField 对象分配父项时调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>p</apiItemName><apiType value="flash.display:DisplayObjectContainer"/><apiDesc>此 UITextField 对象的父项。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为 UITextField 对象分配父项时调用此函数。您通常无需调用此方法。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:UIFTETextField:setActualSize"><apiName>setActualSize</apiName><shortdesc conref="mx.core.UIComponent#setActualSize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setActualSize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:setColor"><apiName>setColor</apiName><shortdesc>
+      设置文本的字体颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>新的字体颜色。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置文本的字体颜色。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:setFocus"><apiName>setFocus</apiName><shortdesc conref="mx.core.UIComponent#setFocus()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#setFocus()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:setStyle"><apiName>setStyle</apiName><shortdesc>
+      不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>无
+           </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>无
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      不执行任何操作。UITextField 不能包含嵌入式样式。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:setVisible"><apiName>setVisible</apiName><shortdesc>
+      设置此 UITextField 对象的 visible 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>visible</apiItemName><apiType value="Boolean"/><apiDesc>将其设置为 <codeph>true</codeph> 可使此 UITextField 可见；将其设置为 <codeph>false</codeph> 可使它不可见。
+           </apiDesc></apiParam><apiParam><apiItemName>noEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>将其设置为 <codeph>true</codeph> 可禁止当您更改可见性时生成事件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置 UITextField 对象的 <codeph>visible</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.core.UIComponent#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:truncateToFit"><apiName>truncateToFit</apiName><shortdesc>
+      截断文本使其在水平方向适合为控件定义的区域，并向文本追加省略号 (...)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果此文本需要截断，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>truncationIndicator</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>截断后追加的文本。如果传递 <codeph>null</codeph>，将使用可本地化的字符串，如 <codeph>"..."</codeph>。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      截断文本使其在水平方向适合为控件定义的区域，并向文本追加省略号 (...)。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:UIFTETextField:validateNow"><apiName>validateNow</apiName><shortdesc conref="mx.core.UIComponent#validateNow()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#validateNow()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:UIFTETextField:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      正在处理相关自动化功能的委托对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      正在处理相关自动化功能的委托对象。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:automationName:get"><apiName>automationName</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+      首行文本基线的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      首行文本基线的 y 坐标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:className:get"><apiName>className</apiName><shortdesc>
+      此实例的类的名称，如“DataGridItemRenderer”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此实例的类的名称，如 <codeph>"DataGridItemRenderer"</codeph>。
+           <p>此字符串不包括包名称。如果您还需要包名称，请调用 flash.utils 包中的 <codeph>getQualifiedClassName()</codeph> 方法。将返回一个字符串，如 <codeph>"mx.controls.dataGridClasses::DataGridItemRenderer"</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:document:get"><apiName>document</apiName><shortdesc>
+      对与此 UITextField 对象关联的文档对象的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      对与此 UITextField 对象关联的文档对象的引用。文档对象是位于应用程序、MXML 组件或 ActionScript 组件层次结构顶层的 Object。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:enabled:get"><apiName>enabled</apiName><shortdesc>
+      一个指示是否启用组件的布尔值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个指示是否启用组件的布尔值。此属性只影响文本的颜色，而不影响 UITextField 的可编辑性。要控制可编辑性，请使用 <codeph>flash.text.TextField.type</codeph> 属性。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></apiValue><apiValue id="mx.core:UIFTETextField:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc conref="mx.core.UIComponent#explicitHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#explicitHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      采用组件坐标指定组件最大高度（以像素为单位）的数字（如果设置了 maxHeight 属性）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      采用组件坐标指定组件最大高度（以像素为单位）的数字（如果设置了 maxHeight 属性）。由于 maxHeight 为只读，因此此方法返回 NaN。必须覆盖此方法并添加 setter 才能使用此属性。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxHeight"><linktext>mx.core.UIComponent.explicitMaxHeight</linktext></link></related-links></apiValue><apiValue id="mx.core:UIFTETextField:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      采用组件坐标指定组件最大宽度（以像素为单位）的数字（如果设置了 maxWidth 属性）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      采用组件坐标指定组件最大宽度（以像素为单位）的数字（如果设置了 <codeph>maxWidth</codeph> 属性）。由于 <codeph>maxWidth</codeph> 属性为只读，因此该方法返回 <codeph>NaN</codeph>。必须覆盖此方法并添加 setter 才能使用此属性。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxWidth"><linktext>mx.core.UIComponent.explicitMaxWidth</linktext></link></related-links></apiValue><apiValue id="mx.core:UIFTETextField:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc conref="mx.core.UIComponent#explicitMinHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#explicitMinHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc conref="mx.core.UIComponent#explicitMinWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#explicitMinWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc conref="mx.core.UIComponent#explicitWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#explicitWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:focusPane:get"><apiName>focusPane</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:UIFTETextField:ignorePadding:get"><apiName>ignorePadding</apiName><shortdesc>
+      如果为 true，paddingLeft 和 paddingRight 样式不会在组件文本周围添加空间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，<codeph>paddingLeft</codeph> 和 <codeph>paddingRight</codeph> 样式不会在组件文本周围添加空间。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      指定 IME（输入法编辑器）模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 IME（输入法编辑器）模式。IME 使用户能够用中文、日文和韩文输入文本。当控件获得焦点时，Flex 设置指定的 IME 模式；当该控件失去焦点时，则将其设置回为先前的值。
+          <p>flash.system.IMEConversionMode 类定义此属性的有效值的常量。您还可以指定 <codeph>null</codeph> 不指定任何 IME 模式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.core:UIFTETextField:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc conref="mx.core.UIComponent#includeInLayout">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#includeInLayout">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      此 UITextField 继承样式链的起始位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此 UITextField 继承样式链的起始位置。<codeph>getStyle()</codeph> 方法访问 <codeph>inheritingStyles[<i>styleName</i>]</codeph> 以搜索整个原型链接的链。此对象由 <codeph>initProtoChain()</codeph> 方法设置。通常情况下，您不需要直接访问此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:initialized:get"><apiName>initialized</apiName><shortdesc>
+      一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:isPopUp:get"><apiName>isPopUp</apiName><shortdesc conref="mx.core.UIComponent#isPopUp">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#isPopUp">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:maxHeight:get"><apiName>maxHeight</apiName><shortdesc conref="mx.core.UIComponent#maxHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#maxHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:maxWidth:get"><apiName>maxWidth</apiName><shortdesc conref="mx.core.UIComponent#maxWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#maxWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc conref="mx.core.UIComponent#measuredHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:measuredMinHeight:get"><apiName>measuredMinHeight</apiName><shortdesc conref="mx.core.UIComponent#measuredMinHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredMinHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:measuredMinWidth:get"><apiName>measuredMinWidth</apiName><shortdesc conref="mx.core.UIComponent#measuredMinWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredMinWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc conref="mx.core.UIComponent#measuredWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:minHeight:get"><apiName>minHeight</apiName><shortdesc conref="mx.core.UIComponent#minHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:minWidth:get"><apiName>minWidth</apiName><shortdesc conref="mx.core.UIComponent#minWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      用于在正确的 SWF 上下文中创建 TextFields 的 moduleFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      用于在正确的 SWF 上下文中创建 TextFields 的 moduleFactory。这是嵌入字体起作用而必需的项目。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      此 UITextField 非继承样式链的起始位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此 UITextField 非继承样式链的起始位置。<codeph>getStyle()</codeph> 方法访问 <codeph>nonInheritingStyles[styleName]</codeph> 方法以搜索整个原型链接的链。此对象由 <codeph>initProtoChain()</codeph> 方法设置。通常情况下，您不需要直接访问此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:nonZeroTextHeight:get"><apiName>nonZeroTextHeight</apiName><shortdesc>
+      文本的高度，以像素为单位。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      文本的高度，以像素为单位。与 <codeph>textHeight</codeph> 属性不同，<codeph>nonZeroTextHeight</codeph> 属性返回文本框高度的非零值，即使文本框为空时也是如此。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:owner:get"><apiName>owner</apiName><shortdesc>
+      默认情况下，设置为此对象的父容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      默认情况下，设置为此对象的父容器。但是，如果此对象是由其父项弹出的子组件（如 ComboBox 控件的下拉列表），则所有者是弹出该对象的组件。 
+           <p>此属性并非由 Flex 管理，而由各个组件管理。因此，如果使用 <codeph>PopUpManger.createPopUp()</codeph> 或 <codeph>PopUpManger.addPopUp()</codeph> 方法弹出一个子组件，则应该将该子组件的 <codeph>owner</codeph> 属性设置为弹出它的组件。</p>
+     
+      <p>默认值为 <codeph>parent</codeph> 属性的值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:parent:get"><apiName>parent</apiName><shortdesc>
+      此组件的父容器或组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      此组件的父容器或组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:percentHeight:get"><apiName>percentHeight</apiName><shortdesc conref="mx.core.UIComponent#percentHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#percentHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:percentWidth:get"><apiName>percentWidth</apiName><shortdesc conref="mx.core.UIComponent#percentWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#percentWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc>
+      createChildren() 方法创建任意内部组件子项后设置为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>createChildren()</codeph> 方法创建任意内部组件子项后设置为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:styleName:get"><apiName>styleName</apiName><shortdesc conref="mx.core.UIComponent#styleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.core.UIComponent#styleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:systemManager:get"><apiName>systemManager</apiName><shortdesc conref="mx.core.UIComponent#systemManager">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.managers:ISystemManager"/></apiValueDef><apiDesc conref="mx.core.UIComponent#systemManager">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:toolTip:get"><apiName>toolTip</apiName><shortdesc conref="mx.core.UIComponent#toolTip">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.core.UIComponent#toolTip">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:tweeningProperties:get"><apiName>tweeningProperties</apiName><shortdesc conref="mx.core.UIComponent#tweeningProperties">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.core.UIComponent#tweeningProperties">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:UIFTETextField:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+      一个标志，确定对象是否已通过三个阶段的布局验证（假定需要完成所有阶段）。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，确定对象是否已通过三个阶段的布局验证（假定需要完成所有阶段）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

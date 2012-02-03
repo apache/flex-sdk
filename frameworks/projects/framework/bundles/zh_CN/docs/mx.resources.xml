@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.resources"><apiName>mx.resources</apiName><apiDetail/><apiClassifier id="mx.resources:Locale"><apiName>Locale</apiName><shortdesc>
+  Locale 类可用于将语言环境 String（如“en_US_MAC”）分解成其三个组成部分：语言代码、国家/地区代码和变量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Locale 类可用于将语言环境 String（如 <codeph>"en_US_MAC"</codeph>）分解成其三个组成部分：语言代码、国家/地区代码和变量。
+ 
+  <p>IResourceManager 和 IResourceBundle 接口中的本地化 API 使用语言环境 String 而不使用 Locale 实例，所以该类很少在应用程序中使用。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:Locale:Locale"><apiName>Locale</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>localeString</apiItemName><apiType value="String"/><apiDesc>由 1 到 3 个部分组成的语言环境 String，如 <codeph>"en"</codeph>、<codeph>"en_US"</codeph> 或 <codeph>"en_US_MAC"</codeph>。各个部分由下划线字符分隔。第一部分是由 ISO-639 定义的两个字母的小写字母语言代码，如用 <codeph>"en"</codeph> 表示英语。第二部分是由 ISO-3166 定义的两个字母的大写字母国家/地区代码，如用 <codeph>"US"</codeph> 表示美国。第三部分是可变 String，用来区分同一语言和国家/地区的多种语言环境（可选）。有时使用该部分来指示与此语言环境一起使用的操作系统，如 <codeph>"MAC"</codeph>、<codeph>"WIN"</codeph> 或 <codeph>"UNIX"</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:Locale:toString"><apiName>toString</apiName><shortdesc>
+      返回用于构造此 Locale 实例的语言环境 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回用于构造此 Locale 实例的语言环境 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回用于构造此 Locale 实例的语言环境 String。例如：
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.toString()); // outputs "en_US_MAC"
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:Locale:country:get"><apiName>country</apiName><shortdesc>
+      此 Locale 实例的国家/地区代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此 Locale 实例的国家/地区代码。[只读]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.country); // outputs "US"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:language:get"><apiName>language</apiName><shortdesc>
+      此 Locale 实例的语言代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此 Locale 实例的语言代码。[只读]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.language); // outputs "en"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:variant:get"><apiName>variant</apiName><shortdesc>
+      此 Locale 实例的变量部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此 Locale 实例的变量部分。[只读]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.variant); // outputs "MAC"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+  IResourceManager 接口的 API 提供 Flex 应用程序的本地化支持。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IResourceManager 接口的 API 提供 Flex 应用程序的本地化支持。
+ 
+  <p>本地化涉及三个主要概念：语言环境、资源和资源包。</p>
+ 
+  <p>语言环境指定将应用程序本地化到的语言和国家/地区。例如，语言环境 <codeph>"en_US"</codeph> 指定美国英语。（有关详细信息，请参阅 mx.resources.Locale 类。）</p>
+ 
+  <p>资源是与语言环境相关的具名值。例如，应用程序可能具有名为 <codeph>"OPEN"</codeph> 的资源，在英语语言环境中该资源的值为 <codeph>"Open"</codeph>，在法语语言环境中该资源的值为 <codeph>"Ouvrir"</codeph>。</p>
+ 
+  <p>资源包是一个具名资源组，其值已针对特定语言环境本地化。资源包由其 <codeph>bundleName</codeph> 和 <codeph>locale</codeph> 的组合来标识，并且具有包含该束资源的名称/值对的 <codeph>content</codeph> 对象。有关从属性文件创建资源包的典型方式的信息，请参阅 mx.resources.IResourceBundle 文档。</p>
+ 
+  <p>实现 IResourceManager 接口的单个 ResourceManager 对象可管理多个资源包（可能对应于多个语言环境），并提供对这些资源包所包含资源的访问。例如，通过调用 <codeph>resourceManager.getString(bundleName, resourceName)</codeph>，可将特定的资源作为 String 来进行检索。</p>
+ 
+  <p>所有扩展 UIComponent、Formatter 或 Validator 的类都具有 <codeph>resourceManager</codeph> 属性，通过该属性提供对实现此接口的对象的引用。其它类可以调用 <codeph>ResourceManager.getInstance()</codeph> 来获取该对象。</p>
+ 
+  <p>资源检索方法（如 <codeph>getString()</codeph>）在 <codeph>localeChain</codeph> 属性指定的语言环境中搜索资源。通过更改该属性，可以使应用程序瞬间使用另一种资源，如使用日语资源而不是英语资源。</p>
+ 
+  <p>应用程序启动时，ResourceManager 会自动使用编译到应用程序中的资源包进行填充。如果创建代码模块，则默认情况下会将模块的类所需的资源编译到模块中。模块加载到应用程序中时，应用程序尚不具有的任何束都将添加到 ResourceManager。</p>
+ 
+  <p>可以编译其中仅具有资源的“资源模块”，然后使用 IResourceManager 的<codeph>loadResourceModule()</codeph> 方法加载这些模块。使用资源模块，可以在运行时加载所需资源而不是将资源编译到应用程序中，从而可以支持多个语言环境。</p>
+ 
+  <p>虽然 ResourceManager 通常是用编译到应用程序中的资源包或从模块中加载的资源包填充的，但也可以通过编程方式创建资源包并使用 <codeph>addResourceBundle()</codeph> 方法将其添加到 ResourceManager。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:addResourceBundle"><apiName>addResourceBundle</apiName><shortdesc>
+      将指定的 ResourceBundle 添加到 ResourceManager，以便可通过 ResourceManager 方法（如 getString()）访问其资源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resourceBundle</apiItemName><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier><apiDesc>要添加的资源包。
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定 ResourceManager 是否保留对资源包的弱引用。如果 <codeph>useWeakReference</codeph> 为 <codeph>true</codeph>，则 ResourceManager 提供对资源包的弱引用。当调用者选择使用弱引用时，调用者有责任保留对资源包的强引用，使它不会被过早当作垃圾回收。如果 <codeph>useWeakReference</codeph> 为 <codeph>false</codeph>，则 ResourceManager 保留对资源包的强引用，使它不会被当做垃圾回收。
+      
+      <p>当 Flex 子应用程序或模块将其已编译的资源包自动添加到 ResourceManager 时，将调用 <codeph>addResourceBundle()</codeph>，同时将 <codeph>useWeakReference</codeph> 设置为 <codeph>true</codeph>，以避免在内存中被锁定。如果在运行时在子应用程序或模块中创建资源包，应执行同样的操作。然后，需要保持对这些资源包的强引用以避免它们被当做垃圾回收。</p>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的 ResourceBundle 添加到 ResourceManager，以便可通过 ResourceManager 方法（如 <codeph>getString()</codeph>）访问其资源。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:findResourceBundleWithResource"><apiName>findResourceBundleWithResource</apiName><shortdesc>
+      搜索 localeChain 中的语言环境以查找指定的资源，并返回所找到的第一个资源包。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>localeChain</codeph> 中包含指定资源的第一个 ResourceBundle，或者返回 <codeph>null</codeph>。
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>束名称，如 <codeph>"MyResources"</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      搜索 <codeph>localeChain</codeph> 中的语言环境以查找指定的资源，并返回所找到的第一个资源包。如果未找到该资源，则此方法将返回 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBoolean"><apiName>getBoolean</apiName><shortdesc>
+      获取指定资源的值作为 Boolean。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 Boolean 的资源值，或者 <codeph>false</codeph>（如果未找到该值）。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 Boolean。
+     
+      <p>此方法首先调用 <codeph>getString()</codeph>并将结果转换为小写字符。然后，如果结果为 <codeph>"true"</codeph>，则返回 <codeph>true</codeph>；否则返回 <codeph>false</codeph>。</p>
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>false</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBundleNamesForLocale"><apiName>getBundleNamesForLocale</apiName><shortdesc>
+      返回一个字符串数组，指定所有位于 ResourceManager 中并且属于指定语言环境的 ResourceBundle 对象的束名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>束名称数组。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>语言环境字符串，如 <codeph>"en_US"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回一个字符串数组，指定所有位于 ResourceManager 中并且属于指定语言环境的 ResourceBundle 对象的束名称。
+     
+      <p>未指定该数组中的束名称顺序。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getClass"><apiName>getClass</apiName><shortdesc>
+      获取指定资源的值作为 Class。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 <codeph>Class</codeph> 的资源值，或者 <codeph>null</codeph>（如果未找到该值）。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 Class。
+     
+      <p>此方法调用 <codeph>getObject()</codeph> 并使用 <codeph>as</codeph> 运算符将其强制为 Class 类型。如果资源值不是类引用，则结果将为 <codeph>null</codeph>。如果已在属性文件中编写如下行：</p>
+     
+      <pre>
+      IMAGE=Embed("image.jpg")
+      BUTTON_SKIN=ClassReference("skins.ButtonSkin_en_US")
+      </pre>
+     
+      <p>并且想要获得 <codeph>Embed()</codeph> 或 <codeph>ClassReference()</codeph> 指令生成的类，则该方法很有用。</p> 
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>null</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getInt"><apiName>getInt</apiName><shortdesc>
+      获取指定资源的值作为 int。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 int 的资源值，或者 0（如果未找到该值）。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 int。
+     
+      <p>此方法调用 <codeph>getObject()</codeph>并将结果转换为 int。如果已在属性文件中编写如下行：</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>并且想要获取值 5 而不是 <codeph>"5"</codeph>，则该方法很有用。</p> 
+     
+      <p>如果未找到指定的资源，则此方法将返回 0。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getLocales"><apiName>getLocales</apiName><shortdesc>
+      返回一个字符串数组，指定 ResourceBundle 对象位于 ResourceManager 中的所有语言环境。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>语言环境字符串数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回一个字符串数组，指定 ResourceBundle 对象位于 ResourceManager 中的所有语言环境。
+     
+      <p>未指定该数组中的语言环境顺序。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getNumber"><apiName>getNumber</apiName><shortdesc>
+      获取指定资源的值作为 Number。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 Number 的资源值，或者 <codeph>NaN</codeph>（如果未找到该值）。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 Number。
+     
+      <p>此方法调用 <codeph>getObject()</codeph>并将结果转换为数字。如果已在属性文件中编写如下行：</p>
+     
+      <pre>
+      LONGITUDE=170.3
+      </pre>
+     
+      <p>并且想要获取值 170.3 而不是 <codeph>"170.3"</codeph>，则该方法很有用。</p> 
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>NaN</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getObject"><apiName>getObject</apiName><shortdesc>
+      获取指定资源的值作为 Object。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与在 <codeph>content</codeph> 对象中存储的值完全相同的资源值，或者 <codeph>undefined</codeph>（如果未找到资源）。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 Object。
+     
+      <p>返回与 ResourceBundle 的 <codeph>content</codeph> 对象中存储的值完全相同的值，不经过任何转换。如果资源是从属性文件中编译的，则 <codeph>content</codeph> 对象中的资源值始终为字符串，除非使用 <codeph>Embed()</codeph> 或 <codeph>ClassReference()</codeph> 指令（在这种情况下资源值为类）。可使用 <codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph> 和 <codeph>getClass()</codeph> 方法将该值转换为更多特定类型。</p>
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>undefined</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getPreferredLocaleChain"><apiName>getPreferredLocaleChain</apiName><shortdesc>
+      返回 String 的一个 Array，它指定在 ResourceManager 中存在 ResourceBundle 对象的所有语言环境，使用由 Capabilities.language 或 Capabilities.languages 报告的用户首选项进行排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>语言环境字符串数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回 String 的一个 Array，它指定在 ResourceManager 中存在 ResourceBundle 对象的所有语言环境，使用由 <codeph>Capabilities.language</codeph> 或 <codeph>Capabilities.languages</codeph> 报告的用户首选项进行排序。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getResourceBundle"><apiName>getResourceBundle</apiName><shortdesc>
+      返回之前使用 addResourceBundle() 添加到 ResourceManager 的具有指定语言环境和束名称的 ResourceBundle。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有指定 <codeph>locale</codeph> 和 <codeph>bundleName</codeph> 的 ResourceBundle，如果不存在则返回 <codeph>null</codeph>。
+     
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>语言环境字符串，如 <codeph>"en_US"</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>束名称，如 <codeph>"MyResources"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回之前使用 <codeph>addResourceBundle()</codeph> 添加到 ResourceManager 的具有指定 <codeph>locale</codeph> 和 <codeph>bundleName</codeph> 的 ResourceBundle。如果不存在这样的 ResourceBundle，则此方法返回 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getStringArray"><apiName>getStringArray</apiName><shortdesc>
+      获取指定资源的值作为 String 数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 String 数组的资源值，或者 <codeph>null</codeph>（如果未找到该值）。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 String 数组。
+     
+      <p>此方法假定资源值是包含用逗号分隔的项目列表的字符串。它将调用 <codeph>getString()</codeph> 方法，按逗号位置将字符串拆分成多项，并去掉每项前后的空格。如果已在属性文件中编写如下行：</p>
+     
+      <pre>
+      COUNTRIES=India, China, Japan
+      </pre>
+     
+      <p>并且想要获取值 <codeph>[ "India", "China", "Japan" ]</codeph> 而不是值 <codeph>"India, China, Japan"</codeph>，则该方法很有用。</p> 
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>null</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getString"><apiName>getString</apiName><shortdesc>
+      使用指定的值替换占位符之后，获取指定资源的值作为 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 String 的资源值，或者 <codeph>null</codeph>（如果未找到该值）。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>parameters</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>替换占位符的参数的数组。在替换每个参数之前都会使用 <codeph>toString()</codeph> 方法将其转换为字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的值替换占位符之后，获取指定资源的值作为 String。
+     
+      <p>此方法调用 <codeph>getObject()</codeph>并将结果转换为字符串。</p>
+     
+      <p>如果将 <codeph>parameters</codeph> 数组传递给此方法，则数组中包含的参数会转换成字符串，然后在返回前在字符串中按顺序替代占位符 <codeph>"{0}"</codeph>、<codeph>"{1}"</codeph> 等。</p>
+     
+      <p>如果未找到指定的资源，则此方法将返回 <codeph>null</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getUint"><apiName>getUint</apiName><shortdesc>
+      获取指定资源的值作为 uint。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>作为 uint 的资源值，或者 0（如果未找到该值）。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>资源包的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>资源包中资源的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要用于查找的特定语言环境，或者使用 <codeph>null</codeph> 来搜索 <codeph>localeChain</codeph> 中的所有语言环境。该参数是可选的，默认值为 <codeph>null</codeph>；应该很少需要指定该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定资源的值作为 uint。
+     
+      <p>此方法调用 <codeph>getObject()</codeph> 方法并将结果转换为 uint。如果已在属性文件中编写如下行：</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>并且想要获取值 5 而不是 <codeph>"5"</codeph>，则该方法很有用。</p> 
+     
+      <p>如果未找到指定的资源，则此方法将返回 0。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:initializeLocaleChain"><apiName>initializeLocaleChain</apiName><shortdesc>
+     初始化 ResourceManager 的 localeChain 属性</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>compiledLocales</apiItemName><apiType value="Array"/><apiDesc>一个字符串数组，用于指定针对其编译了 SWF 的区域设置。
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     初始化 ResourceManager 的 <codeph>localeChain</codeph> 属性（使用将操作系统的用户首选区域设置列表与 SWF 中可用的区域设置列表进行比较的算法）。
+    
+     <p>例如，如果用户已指示其操作系统的首选语言是法语，而 SWF 针对 en_US、fr_FR 和 de_DE 区域设置进行编译的，则 <codeph>localeChain</codeph> 将设置为其首选区域设置为 fr_FR。</p>
+    
+     <p>此方法仅由实现 IFlexModuleFactory 接口的类的使用。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:installCompiledResourceBundles"><apiName>installCompiledResourceBundles</apiName><shortdesc>
+     创建编辑到 SWF 的所有 ResourceBundle 子类的实例，并将它们添加到 ResourceManager 中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>创建并添加到 ResourceManager 中的 ResourceBundle 实例的数组。
+      
+     </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiDesc> 用于根据名称查找资源包类的 ApplicationDomain。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>locales</apiItemName><apiType value="Array"/><apiDesc>一个字符串数组，用于指定针对其编译了 SWF 的区域设置。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>bundleNames</apiItemName><apiType value="Array"/><apiDesc>一个字符串数组，用于指定编译到 SWF 中的资源包的名称。
+    
+     </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>一个标志，用于指定是否使用弱引用将资源包安装到 ResourceManager。
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     创建编辑到 SWF 的所有 ResourceBundle 子类的实例，并将它们添加到 ResourceManager 中。
+    
+     <p>例如，如果 <codeph>locales</codeph> 参数为 [ "en_US", "ja_JP" ]，<codeph>bundleNames</codeph> 参数为 [ "core", "controls" ]，将安装四个资源包。</p>
+    
+     <p>此方法仅由实现 IFlexModuleFactory 接口的类的使用。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:loadResourceModule"><apiName>loadResourceModule</apiName><shortdesc>
+      开始加载包含资源包的资源模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与该特定加载操作相关联的对象，用于分派 <codeph>ResourceEvent.PROGRESS</codeph>、<codeph>ResourceEvent.COMPLETE</codeph> 和 <codeph>ResourceEvent.ERROR</codeph>。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>用来加载资源模块的 URL。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>完成模块加载时是否调用 <codeph>update()</codeph> 方法。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>传递给加载资源模块的 IModuleInfo 类的 <codeph>load()</codeph> 方法的 ApplicationDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>传递给加载资源模块的 IModuleInfo 类的 <codeph>load()</codeph> 方法的 SecurityDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      开始加载包含资源包的资源模块。
+     
+      <p>每次调用此方法都会返回一个新的 event-dispatching 对象，可使用该对象了解加载的进度以及加载是成功完成还是产生了错误。该对象分派 <codeph>ResourceEvent.PROGRESS</codeph>、<codeph>ResourceEvent.COMPLETE</codeph> 和 <codeph>ResourceEvent.ERROR</codeph> 事件。</p>
+     
+      <p>加载模块之后，资源包将添加到 ResourceManager，但 <codeph>localeChain</codeph> 保持不变。如果 <codeph>update</codeph> 参数为 <codeph>true</codeph>，将调用 <codeph>update()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ResourceEvent"><linktext>mx.events.ResourceEvent</linktext></link><link href="mx.resources.xml#IResourceManager/update()"><linktext>mx.resources.IResourceManager.update()</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundle"><apiName>removeResourceBundle</apiName><shortdesc>
+      从 ResourceManager 删除指定的 ResourceBundle，以便不再能通过 ResourceManager 方法（如 getString()）访问其资源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>语言环境字符串，如 <codeph>"en_US"</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>束名称，如 <codeph>"MyResources"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从 ResourceManager 删除指定的 ResourceBundle，以便不再能通过 ResourceManager 方法（如 <codeph>getString()</codeph>）访问其资源。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundlesForLocale"><apiName>removeResourceBundlesForLocale</apiName><shortdesc>
+      从 ResourceManager 删除指定的语言环境所对应的全部 ResourceBundle，以便不再能通过 ResourceManager 方法（如 getString()）访问其资源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>语言环境字符串，如 <codeph>"en_US"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从 ResourceManager 删除指定的语言环境所对应的全部 ResourceBundle，以便不再能通过 ResourceManager 方法（如 <codeph>getString()</codeph>）访问其资源。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:unloadResourceModule"><apiName>unloadResourceModule</apiName><shortdesc>
+      开始卸载已加载的资源模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>已用于加载资源模块的 URL。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>完成模块卸载时是否调用 <codeph>update()</codeph> 方法。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      开始卸载已加载的资源模块。
+     
+      <p>卸载模块后，其资源包会从 ResourceManager 中删除，但是 <codeph>localeChain</codeph> 会保持不变。如果 <codeph>update</codeph> 参数为 <codeph>true</codeph>，将调用 <codeph>update()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:update"><apiName>update</apiName><shortdesc>
+      从 ResourceManager 分派 change 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从 ResourceManager 分派 <codeph>change</codeph> 事件。
+     
+      <p>如果涉及 ResourceManager 方法 <codeph>getObject()</codeph>、<codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph> 或 <codeph>getClass()</codeph>，则会导致重新计算绑定的表达式。</p>
+     
+      <p>该操作还会引起执行 UIComponent、Formatter 或 Validator 的 <codeph>resourcesChanged()</codeph> 方法。很多组件通过实现此方法来根据最新资源更新其状态。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:IResourceManager:mx.resources:IResourceManager:localeChain:get"><apiName>localeChain</apiName><shortdesc>
+      （抽样开始）语言环境字符串（如 [ "en_US" ]） Array，指定要搜索资源的一个或多个语言环境。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      语言环境字符串（如 <codeph>[ "en_US" ]</codeph>）数组，指定要搜索资源的一个或多个语言环境。
+      
+      <p>通过调用 ResourceManager 方法 <codeph>getObject()</codeph>、<codeph>getString()</codeph>、<codeph>getStringArray()</codeph>、<codeph>getNumber()</codeph>、<codeph>getInt()</codeph>、<codeph>getUint()</codeph>、<codeph>getBoolean()</codeph> 或 <codeph>getClass()</codeph> 来获取资源值时，指定的是束名称和资源名称，而不是语言环境。ResourceManager 从 <codeph>localeChain</codeph> 中的第一个语言环境开始查找，查找该语言环境中具有指定束名称的 ResourceBundle。如果存在这样的 ResourceBundle 并且其中存在指定的资源，则会返回该资源的值。否则，ResourceManager 将继续查找 <codeph>localeChain</codeph> 中的其他语言环境。</p>
+     
+      <p>通过此方案，可以使用不必包含完整一套本地化资源的语言环境。例如，如果要将应用程序本地化以便用于印第安英语而不是美国英语，只需要提供拼写或用法与美国英语不同的印第安英语的 <codeph>en_IN</codeph> 语言环境资源，然后将 <codeph>localeChain</codeph> 属性设置为 <codeph>[ "en_IN", "en_US" ]</codeph> 即可。</p>
+     
+      <p>很多框架类都假定它们始终可从某些语言环境获取所需资源；如果无法获取，这些框架类将引发错误。因此，必须确保 <codeph>localeChain</codeph> 始终包含完整的一套资源。除非已完成所有框架资源和自己的应用程序资源的全部本地化，否则可以将 <codeph>"en_US"</codeph> 语言环境保留在 <codeph>localeChain</codeph> 的末尾来确保此要求得到满足。</p>
+     
+      <p>设置此属性将导致 ResourceManager 分派 <codeph>"change"</codeph> 事件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:ResourceManager"><apiName>ResourceManager</apiName><shortdesc>
+  该类用于获取 IResourceManager 实现的单一实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类用于获取 IResourceManager 实现的单一实例。IResourceManager 和 IResourceBundle 接口共同为 Flex 应用程序提供国际化支持。
+ 
+  <p>IResourceManager 实现的单个实例管理 Flex 应用程序的所有本地化资源。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:ResourceManager:getInstance"><apiName>getInstance</apiName><shortdesc>
+      获取 ResourceManager 类的单个实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>实现 IResourceManager 的对象。
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      获取 ResourceManager 类的单个实例。该对象管理 Flex 应用程序的所有本地化资源。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.resources:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+  提供 IResourceBundle 接口的实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.resources:IResourceBundle</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供 IResourceBundle 接口的实现。IResourceManager 和 IResourceBundle 接口共同为 Flex 应用程序提供国际化支持。
+ 
+  <p>Flex 应用程序通常具有此类的多个实例，所有实例都由 ResourceManager 类的单个实例管理。多个语言环境可以具有多个一一对应的 ResourceBundle 实例。多个 ResourceBundle 实例可以使用不同的束名称。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:ResourceBundle:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>语言环境字符串，如 <codeph>"en_US"</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>标识此资源包的名称，如 <codeph>"MyResources"</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:ResourceBundle:protected:getContent"><apiName>getContent</apiName><shortdesc>
+      将属性文件编译到资源包中时，MXML 编译器会自动生成 ResourceBundle 的子类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>包含资源包资源键/值对的 Object。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      将属性文件编译到资源包中时，MXML 编译器会自动生成 ResourceBundle 的子类。子类会覆盖此方法，从而返回包含资源包资源键/值对的 Object。
+     
+      <p>在创建自己的 ResourceBundle 实例时，可以设置该 <codeph>content</codeph> 对象的键/值对。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:ResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc conref="mx.resources.IResourceBundle#bundleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#bundleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:content:get"><apiName>content</apiName><shortdesc conref="mx.resources.IResourceBundle#content">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#content">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:locale:get"><apiName>locale</apiName><shortdesc conref="mx.resources.IResourceBundle#locale">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#locale">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceBundle"><apiName>IResourceBundle</apiName><shortdesc>
+  IResourceBundle 和 IResourceManager 接口共同为 Flex 应用程序提供本地化支持。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IResourceBundle 和 IResourceManager 接口共同为 Flex 应用程序提供本地化支持。
+ 
+  <p>本地化涉及三个主要概念：语言环境、资源和资源包。</p>
+ 
+  <p>语言环境指定将应用程序本地化到的语言和国家/地区。例如，语言环境 <codeph>"en_US"</codeph> 指定美国英语。（有关详细信息，请参阅 mx.resources.Locale 类。）</p>
+ 
+  <p>资源是与语言环境相关的具名值。例如，应用程序可能具有名为 <codeph>"OPEN"</codeph> 的资源，在英语语言环境中该资源的值为 <codeph>"Open"</codeph>，在法语语言环境中该资源的值为 <codeph>"Ouvrir"</codeph>。</p>
+ 
+  <p>资源包是一个具名资源组，其值已针对特定语言环境本地化。资源包由其 <codeph>bundleName</codeph> 和 <codeph>locale</codeph> 的组合来标识，并且具有包含该资源包资源的名称/值对的 <codeph>content</codeph> 对象。</p>
+ 
+  <p>IResourceBundle 接口表示特定的资源包。大多数应用程序只需要使用 IResourceManager。实现此接口的单个 ResourceManager 对象可管理多个资源包（可能对应于多个语言环境），并提供对这些资源包所包含资源的访问。例如，通过调用 <codeph>resourceManager.getString(bundleName, resourceName)</codeph>，可将特定的资源作为 String 来进行检索。通过更改 ResourceManager 的 <codeph>localeChain</codeph> 属性，可以更改要搜索其资源值的资源包。</p>
+ 
+  <p>一般无需自行创建资源包；资源包通常是从 ~~.properties 文件编译的。名为 MyResources.properties 的属性文件可生成 <codeph>bundleName</codeph> 为 <codeph>"MyResources"</codeph> 的资源包。通常会为每个属性文件生成多个版本，适用于应用程序支持的每个语言环境。</p>
+ 
+  <p>Flex 属性文件与 Java 属性文件相似，不同的是 Flex 属性文件还支持 MXML 的<codeph>Embed()</codeph> 和 <codeph>ClassReference()</codeph> 指令。这些指令在属性文件中的工作方式和在 CSS 文件中是相同的，都会生成类引用。而且，Flex 属性文件的编码始终假定为 UTF-8。</p>
+ 
+  <p>Flex 框架的资源已针对美国英语（<codeph>"en_US"</codeph> 语言环境）和日语（<codeph>"ja_JP"</codeph> 语言环境）进行本地化。框架资源按与框架包相对应的多个束进行组织；如“formatters”束由 mx.formatters 包中的类使用。（还有一个针对多个包使用的资源的“SharedResources”束。）</p>
+ 
+  <p>可以在 Flex SDK 的 frameworks/projects/framework/bundles/{locale}/src 目录中找到框架资源的属性文件（如 formatters.properties）。应用程序通常会根据 Flex 框架链接为预编译的库 framework.swc（位于 frameworks/libs 目录中）。该库中没有资源。相反，框架资源已编译到单独的资源包库中，如 framework_rb.swc。这些库位于 frameworks/locales/{locale} 目录中，应用程序也必须在一个或多个这些库中进行链接。</p>
+ 
+  <p>可以将应用程序自己的资源自由组织到方便使用的束中。如果针对 <codeph>"en_US"</codeph> 和 <codeph>"ja_JP"</codeph> 之外的语言环境对应用程序进行本地化，应同时本地化这些语言环境所对应的框架属性文件，并且为其编译其它资源包库。</p>
+ 
+  <p>应用程序启动时，ResourceManager 会自动使用编译到应用程序中的资源包进行填充。如果创建代码模块，则默认情况下会将模块的类所需的资源编译到模块中。模块加载到应用程序中时，应用程序尚不具有的任何束都将添加到 ResourceManager。</p>
+ 
+  <p>可以编译其中只有资源的“资源模块”，然后使用 ResourceManager 的 <codeph>loadResourceModule()</codeph> 方法加载这些模块。使用资源模块，可以在运行时加载所需资源而不是将资源编译到应用程序中，从而可以支持多个语言环境。</p>
+ 
+  <p>虽然 ResourceManager 通常是用编译到应用程序中的资源包或从模块中加载的资源包填充的，但也可以通过编程方式创建资源包并使用 <codeph>addResourceBundle()</codeph> 方法将其添加到 ResourceManager。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link></related-links><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc>
+      标识此资源包的名称，如“MyResources”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      标识此资源包的名称，如 <codeph>"MyResources"</codeph>。
+     
+      <p>该只读属性在构造资源包时设置。</p>
+     
+      <p>从编译的属性文件自动创建的资源包的束名称根据这些文件的名称而创建。例如，名为 MyResources.properties 的属性文件会生成 <codeph>bundleName</codeph> 为 <codeph>"MyResources"</codeph> 的资源包。</p>
+     
+      <p>ResourceManager 可以管理具有相同 <codeph>bundleName</codeph> 的多个束（只要这些束的 <codeph>locale</codeph> 属性的值不同）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:content:get"><apiName>content</apiName><shortdesc>
+      包含该资源包中资源的键/值对的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含该资源包中资源的键/值对的对象。
+     
+      <p>通常，应该通过使用 IResourceManager 方法（如 <codeph>getString()</codeph>）来访问资源，而不应直接在资源包中访问资源。但是，如果以编程方式创建自己的资源包，则可以在初始化时指定资源，如下所示：</p>
+     
+      <pre>
+      var rb:IResourceBundle = new ResourceBundle("fr_FR", "MyResources");
+      rb.content["LANGUAGE"] = "Francais";
+      rb.content["GREETING"] = "Bonjour";
+      </pre>
+     
+      <p>通过编译属性文件生成资源包时，资源包的资源值类型为 String 或 Class。例如，如果属性文件包含</p>
+     
+      <pre>
+      LANGUAGE=English
+      MINIMUM_AGE=18
+      ENABLED=true
+      LOGO=Embed("logo.png")
+      </pre>
+     
+      <p>则 <codeph>LANGUAGE</codeph> 资源的值为 String <codeph>"English"</codeph>，<codeph>MINIMUM_AGE</codeph> 资源的值为 String <codeph>"18"</codeph>，<codeph>ENABLED</codeph> 资源的值为 String <codeph>"true"</codeph>，<codeph>LOGO</codeph> 资源的值是表示嵌入 PNG 文件的 Class。</p>
+     
+      <p>可以使用 IResourceManager 方法（如 <codeph>getInt()</codeph> 和 <codeph>getBoolean()</codeph>）将资源字符串（如 <codeph>"18"</codeph> 和 <codeph>"true"</codeph>）转换成代码所需的类型。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:locale:get"><apiName>locale</apiName><shortdesc>
+      该束的资源已本地化的语言环境。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      该束的资源已本地化的语言环境。这是一个 String，如用 <codeph>"en_US"</codeph> 表示美国英语。
+     
+      <p>该只读属性在构造资源包时设置。</p>
+     
+      <p>从编译的属性文件自动创建的资源包的语言环境根据 mxmlc 或 compc 编译器的 <codeph>-compiler.locale</codeph> 选项创建。例如，假设使用选项 <codeph>-compiler.locale=en_US,ja_JP</codeph> 编译应用程序，并且已经指定 <codeph>-compiler.source-path=resources/{locale}</codeph> 以便在 resources/en_US/MyResources.properties 和 resources/ja_JP/MyResources.properties 中查找应用程序的资源。则应用程序将创建两个资源包，资源包的 <codeph>bundleName</codeph> 为 <codeph>"MyResources"</codeph>，一个 <codeph>locale</codeph> 为 <codeph>"en_US"</codeph>，另一个 <codeph>locale</codeph> 为 <codeph>"ja_JP"</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

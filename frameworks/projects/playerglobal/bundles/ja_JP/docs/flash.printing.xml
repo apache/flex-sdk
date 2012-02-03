@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.printing" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.printing</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.printing:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+ PrintUIOptions クラスは、ユーザーに表示される印刷ダイアログのオプションを指定する場合に使用されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ PrintUIOptions クラスは、ユーザーに表示される印刷ダイアログのオプションを指定する場合に使用されます。PrintUIOptions インスタンスを作成してそのプロパティを設定し、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> メソッドの <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> パラメーターとして渡します。
+ 
+ <p class="- topic/p ">例えば、次のコードでは PrintUIOptions インスタンスを使用して、ページ設定ダイアログが表示されたときに最小ページ番号と最大ページ番号を指定します。</p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import flash.printing.PrintJob;
+ 
+ var myPrintJob:PrintJob = new PrintJob();
+ if (myPrintJob.supportsPageSetupDialog)
+ {
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     myPrintJob.showPageSetupDialog(uiOpt);
+ }</codeblock>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links><apiConstructor id="flash.printing:PrintUIOptions:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 新しい PrintUIOptions オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 新しい PrintUIOptions オブジェクトを作成します。このオブジェクトを <codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> メソッドまたは <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> メソッドの <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> パラメーターに渡します。
+	 
+	 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintUIOptions:disablePageRange" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">disablePageRange</apiName><shortdesc class="- topic/shortdesc ">
+	 印刷ダイアログのページ範囲が無効（true）であるか、ユーザーがページ範囲を編集できるか（false）を指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiDefaultValue>false
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 印刷ダイアログのページ範囲が無効（<codeph class="+ topic/ph pr-d/codeph ">true</codeph>）であるか、ユーザーがページ範囲を編集できるか（<codeph class="+ topic/ph pr-d/codeph ">false</codeph>）を指定します。デフォルト値は <codeph class="+ topic/ph pr-d/codeph ">false</codeph> で、ページ範囲の編集が制限されていないことを示します。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:maxPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPage</apiName><shortdesc class="- topic/shortdesc ">
+	 印刷ダイアログにユーザーが入力できる最大ページ番号。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 印刷ダイアログにユーザーが入力できる最大ページ番号。デフォルト値は 0 で、最大ページ番号の上限が設定されていないことを示します。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:minPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">minPage</apiName><shortdesc class="- topic/shortdesc ">
+	 印刷ダイアログにユーザーが入力できる最小ページ番号。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 印刷ダイアログにユーザーが入力できる最小ページ番号。デフォルト値は 0 で、最小ページ番号の下限が設定されていないことを示します。
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintMethod" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintMethod</apiName><shortdesc class="- topic/shortdesc ">
+このクラスは、ページの印刷方法を指定する PrintJobOptions.printMethod プロパティで使用される値を提供します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+このクラスは、ページの印刷方法を指定する <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> プロパティで使用される値を提供します。
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links><apiValue id="flash.printing:PrintMethod:AUTO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">AUTO</apiName><shortdesc class="- topic/shortdesc ">
+	最適な印刷方法が自動的に選択されます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.auto, auto
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">auto</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	最適な印刷方法が自動的に選択されます。この値は、印刷するコンテンツに基づいて、ベクター形式またはビットマップ形式での印刷方法を自動的に選択することを示します。ベクター形式の印刷方法でコンテンツが忠実に再現できる場合は、ベクター形式での印刷が使用されます。透明効果などの効果が含まれている場合は、ベクター形式ではなく、ビットマップ形式での印刷が使用されます。
+	
+	<p class="- topic/p ">この定数は <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> プロパティと一緒に使用します。シンタックス <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph> を使用します。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:BITMAP" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">BITMAP</apiName><shortdesc class="- topic/shortdesc ">
+	ビットマップ形式での印刷方法です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.bitmap, bitmap
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">bitmap</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	ビットマップ形式での印刷方法です。 
+	
+	<p class="- topic/p ">この定数は <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> プロパティと一緒に使用します。シンタックス <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph> を使用します。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:VECTOR" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VECTOR</apiName><shortdesc class="- topic/shortdesc ">
+	ベクター形式での印刷方法です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.vector, vector
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">vector</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	ベクター形式での印刷方法です。 
+	
+	<p class="- topic/p ">この定数は <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> プロパティと一緒に使用します。シンタックス <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph> を使用します。</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 PrintJobOptions クラスには PrintJob.addPage() メソッドの options パラメーターと一緒に使用するプロパティが含まれています。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 PrintJobOptions クラスには <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> メソッドの <codeph class="+ topic/ph pr-d/codeph ">options</codeph> パラメーターと一緒に使用するプロパティが含まれています。<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> の詳細については、PrintJob クラスを参照してください。
+	 </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links><apiConstructor id="flash.printing:PrintJobOptions:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+		 新しい PrintJobOptions オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printAsBitmap</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">true</codeph> の場合、このオブジェクトはビットマップとして印刷されます。<codeph class="+ topic/ph pr-d/codeph ">false</codeph> の場合、このオブジェクトはベクターとして印刷されます。 
+		 
+		 <p class="- topic/p ">印刷するコンテンツにビットマップイメージが含まれる場合は、アルファ透明効果とカラー効果を含めるために <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> プロパティを <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定します。コンテンツにビットマップイメージが含まれない場合は、このパラメーターを省略して、より品質の高いベクター形式で印刷します（デフォルトオプション）。</p>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>Adobe AIR では、Mac OS のベクター形式印刷はサポートされていません。</p>
+		 
+		 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 新しい PrintJobOptions オブジェクトを作成します。このオブジェクトを <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> メソッドの <codeph class="+ topic/ph pr-d/codeph ">options</codeph> パラメーターに渡します。
+		 
+		 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintJobOptions:pixelsPerInch" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+		 ビットマップに使用する解像度を ppi（ピクセル/インチ）で指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">NaN</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 ビットマップに使用する解像度を ppi（ピクセル/インチ）で指定します。デフォルト値は <codeph class="+ topic/ph pr-d/codeph ">Number.NaN</codeph> で、ネイティブのプリンター解像度が使用されることを示します。
+		 
+		 <p class="- topic/p ">この解像度設定は、ビットマップ形式での印刷とベクター形式での印刷の両方で使用されます。ビットマップ形式で印刷する場合、解像度によって、ページ全体のラスタライズが制御されます。ベクター形式で印刷する場合、解像度によって、ビットマップやグラデーションなどの特定のコンテンツのラスタライズが制御されます。</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJobOptions:printAsBitmap" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printAsBitmap</apiName><shortdesc class="- topic/shortdesc ">
+		 印刷ジョブのコンテンツがビットマップとベクター形式のどちらで印刷されるかを指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 印刷ジョブのコンテンツがビットマップとベクター形式のどちらで印刷されるかを指定します。デフォルト値は <codeph class="+ topic/ph pr-d/codeph ">false</codeph> で、ベクター形式で印刷されることを示します。
+		 
+		 <p class="- topic/p ">印刷するコンテンツにビットマップイメージが含まれる場合は、アルファ透明効果とカラー効果を含めるために <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> を <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定します。コンテンツにビットマップイメージが含まれない場合は、より品質の高いベクター形式で印刷します（デフォルトのオプション）。</p>
+		 <p class="- topic/p ">例えば、コンテンツをビットマップとして印刷するには、次のシンタックスを使用します。</p> 
+		 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+		 var options:PrintJobOptions = new PrintJobOptions();
+		 options.printAsBitmap = true;
+		 myPrintJob.addPage(mySprite, null, options);
+		 </codeblock>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>Adobe AIR では、Mac OS のベクター形式印刷はサポートされていません。</p>
+		 
+		 </apiDesc><example conref="examples\printAsBitmapExample.as" class="- topic/example "> 次の例は、画像をロードして矩形のフレームに配置した後、画像をビットマップとして印刷します。  
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">コンストラクターによって画像（<codeph class="+ topic/ph pr-d/codeph ">image.jpg</codeph>）がロードされます。このとき、<codeph class="+ topic/ph pr-d/codeph ">Loader</codeph> オブジェクトと <codeph class="+ topic/ph pr-d/codeph ">URLRequest</codeph> オブジェクトが使用されます。また、ロード中にエラーが発生したかどうかが調べられます。ここでは、ファイルが SWF ファイルと同じディレクトリにあることを想定しています。SWF ファイルは、「ローカルでの再生に関するセキュリティ」を「ローカルファイルにのみアクセスする」に設定してコンパイルする必要があります。</li><li class="- topic/li ">画像がロード（イベントが完了）すると、<codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> メソッドが呼び出されます。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> メソッドによって <codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> オブジェクトが作成され、そのオブジェクトに画像（ビットマップ）がロードされます。<codeph class="+ topic/ph pr-d/codeph ">Sprite</codeph> オブジェクト（<codeph class="+ topic/ph pr-d/codeph ">フレーム</codeph>）に矩形が描画され、<codeph class="+ topic/ph pr-d/codeph ">beginBitmapFill()</codeph> メソッドを使用して矩形に画像（<codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> オブジェクト）が表示されます。<codeph class="+ topic/ph pr-d/codeph ">Matrix</codeph> オブジェクトも使用され、矩形に合うようにイメージが拡大 / 縮小されます。これによってイメージが歪む場合があります。この例では、矩形に合うことを確認するために使用されています。イメージが表示されたら、<codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> メソッドが呼び出されます。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> メソッドによって、印刷ジョブの新しいインスタンスが作成され、印刷処理が開始されます。この処理でユーザーに対して印刷ダイアログボックスが表示され、印刷ジョブのプロパティの値が設定されます。<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> メソッドには、印刷ジョブに関する詳細な設定項目があります。ここでは、画像があるフレーム（Sprite オブジェクト）をベクター形式ではなくビットマップ形式として印刷するように設定されます。<codeph class="+ topic/ph pr-d/codeph ">options</codeph> は <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions</codeph> クラスのインスタンスです。その <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> プロパティは、ビットマップとして印刷するために <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定されています（デフォルトの設定は false）。</li></ol>
+ <p class="- topic/p ">注意：この例には、ごくわずかのエラー処理だけが定義されています。</p>
+ 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.display.Loader;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;    
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOptions;
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.net.URLRequest;
+    import flash.geom.Matrix;
+
+    public class printAsBitmapExample extends Sprite {
+
+        private var frame:Sprite = new Sprite();
+        private var url:String = "image.jpg";
+        private var loader:Loader = new Loader();
+
+        public function printAsBitmapExample() {
+
+           var request:URLRequest = new URLRequest(url);
+  
+           loader.load(request);
+           loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
+           loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+        }
+
+        private function completeHandler(event:Event):void {
+        
+            var picture:Bitmap = Bitmap(loader.content);
+            var bitmap:BitmapData = picture.bitmapData;
+
+            var matrix:Matrix = new Matrix();
+
+            matrix.scale((200 / bitmap.width), (200 / bitmap.height));
+            
+            frame.graphics.lineStyle(10);
+            frame.graphics.beginBitmapFill(bitmap, matrix, true);
+            frame.graphics.drawRect(0, 0, 200, 200);
+            frame.graphics.endFill();
+
+            addChild(frame);
+             
+            printPage();    
+        }
+
+        private function ioErrorHandler(event:IOErrorEvent):void {
+            trace("Unable to load the image: " + url);
+        }
+
+        private function printPage ():void {
+            var myPrintJob:PrintJob = new PrintJob();
+            var options:PrintJobOptions = new PrintJobOptions();
+            options.printAsBitmap = true;
+            
+            myPrintJob.start();
+  
+            try {
+                myPrintJob.addPage(frame, null, options);
+            }
+            catch(e:Error) {
+                trace ("Had problem adding the page to print job: " + e);
+            }
+ 
+            try {
+            myPrintJob.send();
+            }
+            catch (e:Error) {
+                trace ("Had problem printing: " + e);    
+            }
+        }
+    }
+}
+
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOptions:printMethod:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printMethod</apiName><shortdesc class="- topic/shortdesc ">
+		 最適な印刷方法が Flash ランタイムによって選択されるように指定するか、またはベクター形式あるいはビットマップ形式での印刷を作成者が明示的に選択するように指定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定された <codeph class="+ topic/ph pr-d/codeph ">printMethod</codeph> は、<codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> クラスで定義された値の 1 つではありません。
+     	 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 最適な印刷方法が Flash ランタイムによって選択されるように指定するか、またはベクター形式あるいはビットマップ形式での印刷を作成者が明示的に選択するように指定します。
+		 
+		 <p class="- topic/p ">このプロパティに、<codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> クラスで定義された次のいずれかの値を設定します。</p>
+		 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph>：印刷するコンテンツに基づいて、ベクター形式での印刷またはビットマップ形式での印刷が自動的に選択されるように指定します。ベクター形式の印刷方法でコンテンツが忠実に再現できる場合は、ベクター形式での印刷が使用されます。透明効果などの効果が含まれている場合は、ベクター形式ではなく、ビットマップ形式での印刷が使用されます。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph>：ベクター形式での印刷を指定します。この設定は、<codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> を <codeph class="+ topic/ph pr-d/codeph ">false</codeph> に設定することと同じです。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph>：ビットマップ形式での印刷を指定します。<codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> を<codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定することと同じです。</li></ul>
+		 
+		 <p class="- topic/p ">printMethod に、サポートされているこれらの値のいずれかが設定されると、printAsBitmap は無視されます。</p>
+		 
+		 <p class="- topic/p ">デフォルト値は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> で、printAsBitmap プロパティが使用されます。</p>
+		 
+     	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printAsBitmap" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printAsBitmap</linktext></link><link href="flash.printing.xml#PrintMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintMethod クラス</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ PrintJob クラスを使用すると、コンテンツを作成して 1 ページまたは複数のページに印刷できます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, print
+ </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ PrintJob クラスを使用すると、コンテンツを作成して 1 ページまたは複数のページに印刷できます。このクラスを使用すると、可視コンテンツをダイナミックにレンダリングまたは画面外でレンダリングし、1 つの印刷ダイアログボックスを使用して、コンテンツの縦横比を保持しつつ拡大縮小せずにドキュメントを印刷できます。この機能は、データベースコンテンツやダイナミックテキストなどのダイナミックコンテンツをレンダリングおよび印刷するときに特に便利です。
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">モバイルブラウザーのサポート：</b>このクラスはモバイルブラウザーではサポートされません。</p>
+ 
+ <p class="- topic/p ">AIR プロファイルのサポート：<i class="+ topic/ph hi-d/i "/>この機能はすべてのデスクトップオペレーティングシステムでサポートされますが、モバイルデバイスまたはテレビ用 AIR デバイスではサポートされません。<codeph class="+ topic/ph pr-d/codeph ">PrintJob.isSupported</codeph> プロパティを使用して、サポートされているかどうかを実行時にテストすることができます。複数のプロファイル間での API サポートについて詳しくは、<xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR プロファイルのサポート</xref>を参照してください。</p>
+ 
+ <p class="- topic/p ">印刷ジョブを作成するには、<codeph class="+ topic/ph pr-d/codeph ">PrintJob()</codeph> コンストラクターを使用します。</p>
+ 
+ <p class="- topic/p ">さらに、PrintJob クラスのプロパティを使用すると、ユーザーのプリンター設定（用紙の高さ、幅、イメージの向きなど）にアクセスすることができ、プリンターの設定に合わせて Flash のコンテンツを動的にフォーマットするようにドキュメントを設定することができます。</p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>ActionScript 3.0 では、ActionScript の以前のバージョンと同様に、PrintJob オブジェクトが単一フレームに制限されません。ただし、印刷ダイアログボックスで「OK」ボタンをクリックすると印刷ステータス情報が表示されるため、ページをスプーラに送信したら直ちに <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> および <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> を呼び出す必要があります。<codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> 呼び出しの格納されたフレームに遅延が到達すると、印刷処理が遅延します。</p>
+ <p class="- topic/p ">また、次の間隔には、15 秒のスクリプトのタイムアウト制限が適用されます。</p>
+ <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> および 1 つ目の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> および 2 つ目の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">最後の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> および <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+ 
+ <p class="- topic/p ">上記の間隔のいずれかが 15 秒以上である場合、次に PrintJob インスタンスの <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> を呼び出したときに <codeph class="+ topic/ph pr-d/codeph ">false</codeph> が返されます。また、次に PrintJob インスタンスの <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> を呼び出したときに、Flash Player または Adobe AIR からランタイム例外がスローされます。</p>
+ 
+ </apiDesc><example conref="examples\PrintJobExample_Simple.as" class="- topic/example "> 次の例では、印刷の基本を示します。新しい PrintJob が作成され、正常に開始された後は、<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> メソッドによってスプライトが単一のページとして追加されます。<codeph class="+ topic/ph pr-d/codeph ">send()</codeph> メソッドによって、プリンターにページがスプールされます。
+
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{ 
+    import flash.printing.PrintJob; 
+    import flash.display.Sprite; 
+ 
+    public class BasicPrintExample extends Sprite 
+    { 
+        var myPrintJob:PrintJob = new PrintJob(); 
+        var mySprite:Sprite = new Sprite();
+        mySprite.graphics.beginFill(0x336699);
+    mySprite.graphics.drawCircle(100, 100, 50);
+ 
+        public function BasicPrintExample() 
+        { 
+            if (myPrintJob.start()) {
+            try {
+                myPrintJob.addPage(mySprite);
+            }
+            catch(e:Error) {
+                // handle error 
+            }
+            myPrintJob.send();
+        } 
+    } 
+}
+</codeblock></example><example conref="examples\PrintJobExample.as" class="- topic/example "> 次の例では、クラス <codeph class="+ topic/ph pr-d/codeph ">PrintJobExample</codeph> を使用して小さな文書を作成し、その文書をプリンターに送ります。ここでは以下の手順を実行します。
+ <ol class="- topic/ol "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> および <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> という名前の Sprite 型の 2 つの変数を宣言します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">init()</codeph> を呼び出します。これは、新しい Sprite インスタンスを <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> と <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> に割り当てた後、別の引数を使用して <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> を呼び出します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> は、以下の処理を行います。
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">渡された Sprite オブジェクトを使用して矩形を描画します。これは、明るい灰色の背景に 1 ピクセルの黒い境界線を使用し、x = 0、y = 0 の位置に幅 100 ピクセル、高さ 200 ピクセルで描画されます。</li><li class="- topic/li ">新しい TextField オブジェクトが作成されます。この名前は <codeph class="+ topic/ph pr-d/codeph ">txt</codeph> であり、Sprite と同じサイズです。wordWrap プロパティは <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定され、テキストプロパティは <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> への引数として渡される String に設定されます。</li><li class="- topic/li ">渡された Object 引数が null ではない場合、新しい Sprite インスタンスを作成します。このインスタンスの名前は <codeph class="+ topic/ph pr-d/codeph ">img</codeph> であり、渡されたオブジェクトの座標およびサイズのプロパティを使用して、白い矩形を描画するときに使用されます。<codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph> を使用して、白い四角形を Sprite オブジェクトの表示リストに追加します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph> を使用して、<codeph class="+ topic/ph pr-d/codeph ">txt</codeph> TextField を Sprite オブジェクトの表示リストに追加します。</li></ol></li><li class="- topic/li ">コンストラクターに戻ると、有効な(コメントアウトされていない）印刷メソッドが呼び出されます。これらのメソッドは非常に似ているため、<codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> については後で説明します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> は、以下の処理を行います。
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">新しい PrintJob オブジェクトを宣言します。オブジェクトには uint 型として <codeph class="+ topic/ph pr-d/codeph ">pj</codeph> と <codeph class="+ topic/ph pr-d/codeph ">pagesToPrint</codeph> という名前を付けます。</li><li class="- topic/li ">オペレーティングシステムのネイティブの印刷ダイアログボックスを開き、ユーザーが <codeph class="+ topic/ph pr-d/codeph ">OK</codeph> をクリックするまで待機します。</li><li class="- topic/li ">原点を確認し、「横」が選択されている場合は、エラーをスローして終了します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> と <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> にページの高さと幅を設定します。</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> および <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> を印刷スプーラに送ります（<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> を使用）。</li><li class="- topic/li ">印刷するページ数が 1 ページ以上ある場合は、スプールされたページをすべて印刷します。</li></ol></li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">draw()</codeph> メソッドが呼び出されます。このメソッドによりステージに合わせて 2 つの Sprite プロパティのサイズが変更され、<codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> が <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> の右側になるように再配置されます。</li></ol>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">メモ：</b>コンストラクターは、必要に応じて、ページあたり 1 シート、ページあたり 2 シート、またはページの上半分に印刷の 3 つの印刷メソッドのいずれかを選択できるように設定されます。コードコメントを使用して印刷メソッドのうちちょうど 2 つが無効にされている場合に限り、この例は適切に動作します。この例は、<codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> が呼び出されるように設定されています。</p>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOrientation;
+    import flash.display.Stage;
+    import flash.display.Sprite;
+    import flash.text.TextField;
+    import flash.geom.Rectangle;
+       
+    public class PrintJobExample extends Sprite {
+        private var sheet1:Sprite;
+        private var sheet2:Sprite;
+           
+        public function PrintJobExample() {
+            init();
+            printOnePerPage();
+//            printTwoPerPage();
+//            printTopHalf();
+            draw();
+        }
+        
+        private function init():void {
+            sheet1 = new Sprite();
+            createSheet(sheet1, "Once upon a time...", {x:10, y:50, width:80, height:130});
+
+            sheet2 = new Sprite();
+            createSheet(sheet2, "There was a great story to tell, and it ended quickly.\n\nThe end.", null);
+        }
+        
+        private function createSheet(sheet:Sprite, str:String, imgValue:Object):void {
+            sheet.graphics.beginFill(0xEEEEEE);
+            sheet.graphics.lineStyle(1, 0x000000);
+            sheet.graphics.drawRect(0, 0, 100, 200);
+            sheet.graphics.endFill();
+            
+            var txt:TextField = new TextField();
+            txt.height = 200;
+            txt.width = 100;
+            txt.wordWrap = true;
+            txt.text = str;
+            
+            if(imgValue != null) {
+                var img:Sprite = new Sprite();
+                img.graphics.beginFill(0xFFFFFF);
+                img.graphics.drawRect(imgValue.x, imgValue.y, imgValue.width, imgValue.height);
+                img.graphics.endFill();
+                sheet.addChild(img);
+            }
+            sheet.addChild(txt);
+        }
+        
+        private function printOnePerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.LANDSCAPE) {    
+                    throw new Error("Without embedding fonts you must print one sheet per page with an orientation of portrait.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth;
+
+                try {
+                    pj.addPage(sheet1);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                try {
+                    pj.addPage(sheet2);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+        
+        private function printTwoPerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print two sheets per page with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+
+        private function printTopHalf():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print the top half with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets, new Rectangle(0, 0, sheets.width, sheets.height/2));
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint > 0) {
+                    pj.send();
+                }
+            }
+        }
+
+
+        private function draw():void {
+            var sheetWidth:Number = this.stage.stageWidth/2;
+            var sheetHeight:Number = this.stage.stageHeight;
+            
+            addChild(sheet1);
+            sheet1.width = sheetWidth;
+            sheet1.height = sheetHeight;
+            
+            addChild(sheet2);
+            sheet2.width = sheetWidth;
+            sheet2.height = sheetHeight;
+            sheet2.x = sheet1.width;
+        }        
+    }
+}
+</codeblock></example><example conref="examples\PrintJobExample.2.as" class="- topic/example "> 次の例では、印刷の追加機能について説明します。この例では、PrintJob 設定の印刷部数、用紙サイズ（Legal）およびページの向き（横）を初期化します。最初にページ設定ダイアログを表示してから、印刷ダイアログを表示して印刷ジョブを開始します。
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock "> 
+package 
+ { 
+     import flash.display.Sprite; 
+     import flash.display.Stage; 
+     import flash.geom.Rectangle; 
+     import flash.printing.PaperSize; 
+     import flash.printing.PrintJob; 
+    import flash.printing.PrintJobOrientation; 
+    import flash.printing.PrintUIOptions; 
+    import flash.text.TextField; 
+      
+     public class PrintJobExample extends Sprite 
+     { 
+         private var bg:Sprite; 
+         private var txt:TextField; 
+        private var pj:PrintJob; 
+        private var uiOpt:PrintUIOptions; 
+  
+         public function PrintJobExample():void 
+         { 
+            var pj = new PrintJob(); 
+            uiOpt = new PrintUIOptions(); 
+            initPrintJob(); 
+             initContent(); 
+             draw(); 
+             printPage(); 
+         } 
+          
+         private function printPage():void 
+         { 
+            if (pj.supportsPageSetupDialog) 
+            { 
+                pj.showPageSetupDialog(); 
+            }
+            
+             if (pj.start2(uiOpt, true)) 
+             { 
+                   try 
+                 { 
+                     pj.addPage(this, new Rectangle(0, 0, 100, 100)); 
+                 } 
+                 catch (error:Error) 
+                 { 
+                     // Do nothing. 
+                 } 
+                 pj.send(); 
+             } 
+             else 
+             { 
+                 txt.text = "Print job terminated"; 
+                pj.terminate(); 
+             } 
+         } 
+         
+         private function initContent():void 
+         { 
+             bg = new Sprite(); 
+             bg.graphics.beginFill(0x00FF00); 
+             bg.graphics.drawRect(0, 0, 100, 200); 
+             bg.graphics.endFill(); 
+              
+             txt = new TextField(); 
+             txt.border = true; 
+             txt.text = "Hello World"; 
+         } 
+          
+        private function initPrintJob():void 
+        { 
+            pj.setPaperSize(PaperSize.LEGAL); 
+            pj.orientation = PrintJobOrientation.LANDSCAPE; 
+            pj.copies = 2; 
+            pj.jobName = "Flash test print";
+        } 
+         
+         private function draw():void 
+         { 
+             addChild(bg); 
+             addChild(txt); 
+             txt.x = 50; 
+             txt.y = 50; 
+         } 
+     } 
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.printing:PrintJob:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ ページを印刷できる PrintJob オブジェクトを作成します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>See <code>PrintJob.addPage()</code>.
+ 
+ </maelexample></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "> Flash Player および AIR 2 より前のバージョンの AIR では、別の PrintJob オブジェクトがまだアクティブな場合に例外がスローされます。
+ 
+ </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ ページを印刷できる PrintJob オブジェクトを作成します。PrintJob オブジェクトを作成したら、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> の順にメソッドを使用して、プリンターに印刷ジョブを送信します。
+ 
+ <p class="- topic/p ">例えば、次のコードに示すように、<codeph class="+ topic/ph pr-d/codeph ">myPrintJob.addPage()</codeph> メソッド呼び出しの <codeph class="+ topic/ph pr-d/codeph ">[params]</codeph> プレースホルダーテキストをカスタムパラメーターに置き換えることができます。</p>
+ 
+ <pre xml:space="preserve" class="- topic/pre ">
+ // create PrintJob object
+ var myPrintJob:PrintJob = new PrintJob();
+  
+ // display Print dialog box, but only initiate the print job
+ // if start returns successfully.
+ if (myPrintJob.start()) {
+  
+    // add specified page to print job
+    // repeat once for each page to be printed
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+ 
+    // send pages from the spooler to the printer, but only if one or more
+    // calls to addPage() was successful. You should always check for successful 
+    // calls to start() and addPage() before calling send().
+    myPrintJob.send();
+ }
+ </pre>
+ 
+ <p class="- topic/p ">AIR 2 以降では、複数の PrintJob インスタンスを作成して使用できます。PrintJob インスタンスに設定されたプロパティは、印刷の完了後も保持されます。これにより、アプリケーション内の別のコンテンツに対して異なる印刷環境設定を適用する一方で、PrintJob インスタンスを再利用し、ユーザーによって選択された印刷環境設定を保持することができます。Flash Player および AIR 2 より前のバージョンの AIR では、最初の PrintJob オブジェクトがまだアクティブなときには、2 つ目の PrintJob オブジェクトを作成できません。1 つ目の PrintJob オブジェクトがアクティブであるときに <codeph class="+ topic/ph pr-d/codeph ">new PrintJob()</codeph> を呼び出して 2 つ目の PrintJob オブジェクトを作成しようとしても、2 つ目の PrintJob オブジェクトは生成されません。そのため、2 つ目の PrintJob を作成する前に <codeph class="+ topic/ph pr-d/codeph ">myPrintJob</codeph> 値を確認できます。</p>
+ 
+ </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link></related-links></apiConstructor><apiOperation id="flash.printing:PrintJob:addPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">addPage</apiName><shortdesc class="- topic/shortdesc ">
+     指定の Sprite オブジェクトを 1 ページとして印刷スプーラに送ります。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.addpage, addpage
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">start()</codeph> を呼び出さなかった場合、またはユーザーが印刷ジョブをキャンセルした場合、例外がスローされます。
+	 
+	 
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">sprite</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.display:Sprite</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷するコンテンツが含まれている Sprite。 
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printArea</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.geom:Rectangle</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 印刷する領域を指定する Rectangle オブジェクトです。	 
+	 
+	 <p class="- topic/p ">矩形の幅と高さはピクセル値です。プリンターでは、印刷用の測定単位としてポイントを使用します。ポイントは物理的な固定サイズ（1/72 インチ）ですが、画面用のピクセル深度のサイズは画面の解像度によって異なります。そのためピクセルとポイントの間の変換レートは、プリンターの設定、および Sprite が伸縮されているかどうかによって決まります。72 ピクセル幅の伸縮されていない Sprite は、用紙上では 1 インチ幅で印刷されます。1 ポイントは 1 ピクセルに相当し、画面の解像度とは無関係です。</p>
+	 
+	 <p class="- topic/p ">インチおよびセンチメートルと、ポイントおよび twip（1/20 ポイント）との間には、次の等式が成り立ちます。</p>
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">1 ポイント = 1/72 インチ = 20 twip</li><li class="- topic/li ">1 インチ = 72 ポイント = 1440 twip</li><li class="- topic/li ">1 cm = 567 twips</li></ul>
+	 
+	 <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> パラメーターを省略するか、このパラメーターの指定が正しくない場合は、<codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 全体がプリントされます。</p>
+	 
+	 <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> の値を指定せずに、<codeph class="+ topic/ph pr-d/codeph ">options</codeph> または <codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph> の値を指定するには、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> に <codeph class="+ topic/ph pr-d/codeph ">null</codeph> を指定します。</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">options</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintJobOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">ベクターとビットマップのどちらで印刷するかを指定する、オプションのパラメーター。デフォルト値は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> で、これはベクター形式を示します。<codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> をビットマップとして印刷するには、PrintJobOptions オブジェクトの <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> プロパティを <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定します。<codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> を <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定するかどうかを決めるときには、次の項目に留意してください。
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">印刷するコンテンツにビットマップイメージが含まれる場合は、アルファ透明効果とカラー効果を含めるために <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> を <codeph class="+ topic/ph pr-d/codeph ">true</codeph> に設定します。</li><li class="- topic/li ">コンテンツにビットマップイメージが含まれない場合は、このパラメーターを省略して、より品質の高いベクター形式で印刷します。</li></ul>
+	 
+	 <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">options</codeph> を省略した場合、または間違った値を渡した場合は、ベクター形式が使用されます。<codeph class="+ topic/ph pr-d/codeph ">options</codeph> の値を指定せずに、<codeph class="+ topic/ph pr-d/codeph ">frameNumber</codeph> の値を指定するには、<codeph class="+ topic/ph pr-d/codeph ">options</codeph> に <codeph class="+ topic/ph pr-d/codeph ">null</codeph> を指定します。</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">frameNum</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷する MovieClip オブジェクトのフレームを指定する数値。これはオプションです。<codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph> を渡しても、そのフレーム上の ActionScript は呼び出されません。このパラメーターを省略し、かつ <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> パラメーターが MovieClip オブジェクトである場合は、<codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> 内の現在のフレームが印刷されます。	 
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     指定の Sprite オブジェクトを 1 ページとして印刷スプーラに送ります。このメソッドを使用する前に、PrintJob オブジェクトを作成し、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> を使用する必要があります。次に、印刷ジョブに対して <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> を 1 回または複数回呼び出した後、<codeph class="+ topic/ph pr-d/codeph ">send()</codeph> を使用して、スプールしたページをプリンターに送信します。つまり、PrintJob オブジェクトを作成したら、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">start2()()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">send()</codeph> の順にメソッドを使用して、プリンターに印刷ジョブを送信します。<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> を 1 回呼び出した後、<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> を複数回呼び出して、1 回の印刷ジョブで複数のページを印刷できます。
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> によって Flash Player が例外をスローした場合（<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> を呼び出していなかった場合や、ユーザーが印刷ジョブをキャンセルした場合など）は、それ以降の <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> の呼び出しはすべて失敗します。ただし、それ以前の <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> の呼び出しが成功していれば、最後に <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> コマンドを実行することで、スプールされていたすべてのページがプリンターに送られます。</p>
+	 
+     <p class="- topic/p ">印刷ジョブで <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 操作の完了に 15 秒以上かかる場合、Flash Player は、次回 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> が呼び出されたときに例外をスローします。</p>
+	 
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> パラメーターの値を渡すと、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 矩形の <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">x</i></codeph> 座標と <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">y</i></codeph> 座標が、ページの印刷可能領域の左上隅（0, 0 座標）にマップされます。読み取り専用プロパティ <codeph class="+ topic/ph pr-d/codeph ">pageHeight</codeph> と <codeph class="+ topic/ph pr-d/codeph ">pageWidth</codeph> は、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> によって設定された印刷可能領域を示します。印刷結果はページ上の印刷可能領域の左上隅を基準に整列されるので、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> で定義した領域が用紙上の印刷可能領域よりも大きい場合は、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> で定義した領域の右側または下側の部分（またはその両方）は切り取られることがあります。Flash Professional では、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> の値を指定しない場合にステージが印刷可能領域よりも大きいと、同様の切り取りが発生します。Flex または Flash Builder では、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> の値を指定しない場合にスクリーンが印刷可能領域よりも大きいと、同様の切り取りが発生します。</p>
+	 
+	 <p class="- topic/p ">印刷前に Sprite オブジェクトを拡大/縮小するには、このメソッドを呼び出す前に拡大 / 縮小のプロパティ（<codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleX</codeph> および <codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleY</codeph> を参照）を設定します。印刷後、これらのプロパティを元の値に戻します。Sprite オブジェクトの拡大 / 縮小は、<codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> とは無関係です。つまり、サイズが 50 × 50 ピクセルの領域を印刷するよう指定した場合、2500 ピクセルが印刷されます。Sprite オブジェクトを拡大 / 縮小している場合、その設定を反映してプリント結果は伸縮しますが、プリントの対象となる 2500 個のピクセルは変わりません。</p>
+	 
+	 <p class="- topic/p ">Flash Player の印刷機能は、PostScript プリンターと非 PostScript プリンターをサポートしています。非 PostScript プリンターでは、ベクターはビットマップに変換されます。</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.display.xml#DisplayObject" class="- topic/link "><linktext class="- topic/linktext ">DisplayObject クラス</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:selectPaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">selectPaperSize</apiName><shortdesc class="- topic/shortdesc ">
+     用紙サイズを設定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.selectPaperSize, selectPaperSize
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> パラメーターが、PaperSize クラスで定義された指定可能な値の 1 つではない場合。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">paperSize</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷ジョブのそれ以降のページに対して使用される用紙サイズ。
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     用紙サイズを設定します。<codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> パラメーターとして指定できる値は、PaperSize クラスの定数です。このメソッドを呼び出すと、ページ設定ダイアログまたは印刷ダイアログでユーザーが用紙サイズを選択した場合と同じように、印刷設定に影響します。
+     
+     <p class="- topic/p ">このメソッドは、いつでも呼び出すことができます。このメソッドは、ページ設定ダイアログと印刷ダイアログでデフォルトの用紙サイズを設定するジョブを開始する前に呼び出します。このメソッドは、印刷ジョブの進行中に呼び出して、ジョブ内のページ範囲に対する用紙サイズを設定します。</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PaperSize;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     myPrintJob.selectPaperSize(PaperSize.ENV_10);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PaperSize" class="- topic/link "><linktext class="- topic/linktext ">PaperSize</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:send" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">send</apiName><shortdesc class="- topic/shortdesc ">
+      start() または start2() メソッドおよび addPage() メソッドの呼び出しに成功した後、スプールされたページをプリンターに送信します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.send, send
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+      <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドおよび <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> メソッドの呼び出しに成功した後、スプールされたページをプリンターに送信します。
+	 
+	 <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドへの呼び出しが失敗した場合、または <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> メソッドへの呼び出しが例外をスローした場合、このメソッドは成功しません。エラーを回避するには、このメソッドを呼び出す前に、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> を返し、<codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 例外がある場合はそれをキャッチしていることを確認します。次の例では、このメソッドを呼び出す前にエラーを適切に確認する方法について説明します。</p>
+	 
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+     if (myPrintJob.start()) {
+       try {
+         myPrintJob.addPage([params]);
+       }
+       catch(e:Error) {
+          // handle error 
+       }
+     
+       myPrintJob.send();
+     }
+     </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:showPageSetupDialog" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">showPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     現在の環境でサポートされている場合、オペレーティングシステムのページ設定ダイアログを表示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.showPageSetupDialog, showPageSetupDialog
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">システムでページ設定がサポートされない場合。ページ設定がサポートされているかどうかを確認するには、<codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> プロパティを使用します。
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">任意の印刷ジョブ（実行中のジョブも含む）がアクティブである場合。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">ページ設定ダイアログで「OK」を選択した場合には、<codeph class="+ topic/ph pr-d/codeph ">true</codeph>。これは、一部の PrintJob プロパティが変更された可能性があることを示します。ユーザーがページ設定ダイアログで「キャンセル」をクリックした場合は、<codeph class="+ topic/ph pr-d/codeph ">false</codeph> を返します。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     現在の環境でサポートされている場合、オペレーティングシステムのページ設定ダイアログを表示します。ページ設定がサポートされているかどうかを確認するには、<codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> プロパティを使用します。
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 if (myPrintJob.supportsPageSetupDialog)
+	 {
+	     myPrintJob.showPageSetupDialog();
+	 }
+	 </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/supportsPageSetupDialog" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.supportsPageSetupDialog</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start2" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start2</apiName><shortdesc class="- topic/shortdesc ">
+     必要に応じて、オペレーティングシステムの印刷ダイアログボックスを表示してスプールを開始し、PrintJob の読み取り専用プロパティ値を編集することもできます。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start2, start2
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">ページ設定ダイアログが表示されている場合、または別の印刷ジョブが現在アクティブである場合。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷ダイアログボックスでユーザーが「OK」をクリックした場合、または印刷ダイアログが表示されておらず、エラーがない場合は <codeph class="+ topic/ph pr-d/codeph ">true</codeph> を返し、ユーザーが「キャンセル」をクリックした場合、またはエラーが発生した場合は <codeph class="+ topic/ph pr-d/codeph ">false</codeph> を返します。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">uiOptions</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintUIOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">ユーザーに表示される印刷ダイアログに表示するオプションを指定するオブジェクト。<codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> パラメーターが <codeph class="+ topic/ph pr-d/codeph ">false</codeph> の場合、この値は無視されます。
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">showPrintDialog</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">true</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷ジョブを開始する前に、印刷ダイアログをユーザーに表示するかどうかを指定します。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     必要に応じて、オペレーティングシステムの印刷ダイアログボックスを表示してスプールを開始し、PrintJob の読み取り専用プロパティ値を編集することもできます。
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> パラメーターを使用すると、印刷ダイアログに表示するオプションを呼び出し側で制御できます。詳しくは、<codeph class="+ topic/ph pr-d/codeph ">PrintUIOptions</codeph> クラスを参照してください。このパラメーターは、<codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> が false の場合は無視されます。</p>
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> が <codeph class="+ topic/ph pr-d/codeph ">true</codeph> であっても、このメソッドの動作が <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> メソッドの動作と異なることがあります。一部のオペレーティングシステムでは、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> によって、まずページ設定ダイアログが表示され、続いて印刷ダイアログが表示されます。一方、<codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> では、ページ設定ダイアログは表示されません。</p>
+	 
+	 <p class="- topic/p ">次の例では、印刷ダイアログがユーザーに表示される前に、印刷ダイアログの最小ページおよび最大ページ設定が設定されます。</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PrintUIOptions;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     var accepted:Boolean = myPrintJob.start2(uiOpt);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     オペレーティングシステムの印刷ダイアログボックスを表示し、スプールを開始します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start, print
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">AIR 以降で、別の PrintJob が現在アクティブになっている場合。
+	 
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">印刷ダイアログボックスでユーザーが「OK」をクリックした場合は <codeph class="+ topic/ph pr-d/codeph ">true</codeph>、ユーザーが「キャンセル」をクリックした場合、またはエラーが発生した場合は <codeph class="+ topic/ph pr-d/codeph ">false</codeph> を返します。
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     オペレーティングシステムの印刷ダイアログボックスを表示し、スプールを開始します。ユーザーは印刷ダイアログボックスで印刷設定を変更できます。<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> メソッドが正常に返された場合、つまりユーザーが印刷ダイアログボックスで「OK」をクリックした場合、ユーザーが選択した印刷設定を表す値が次のプロパティに設定されます。
+      
+     <adobetable class="innertable"><tgroup cols="4" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">プロパティ</entry><entry class="- topic/entry ">型</entry><entry class="- topic/entry ">単位</entry><entry class="- topic/entry ">メモ</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">ポイント</entry><entry class="- topic/entry ">用紙の高さ</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">ポイント</entry><entry class="- topic/entry ">用紙全体の幅</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">ポイント</entry><entry class="- topic/entry ">用紙上の実際の印刷可能領域の高さ。ユーザーが設定した余白は含みません。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">ポイント</entry><entry class="- topic/entry ">用紙上の実際の印刷可能領域の幅。ユーザーが設定した余白は含みません。</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph></entry><entry class="- topic/entry ">String</entry><entry class="- topic/entry "/><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">"portrait"</codeph>（<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.PORTRAIT</codeph>）または <codeph class="+ topic/ph pr-d/codeph ">"landscape"</codeph>（<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.LANDSCAPE</codeph>）。</entry></row></tbody></tgroup></adobetable>
+     	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>ユーザーが印刷ダイアログボックスでキャンセルすると、プロパティは設定されません。</p>
+     <p class="- topic/p ">ユーザーが印刷ダイアログボックスで「OK」をクリックすると、オペレーティングシステムへの印刷ジョブのスプールが開始されます。オペレーティングシステムで印刷の進行状況について情報が表示されるため、ページをスプーラに送信したら直ちに <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> および <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> を呼び出す必要があります。このメソッドによって値が設定された読み取り専用の高さ、幅、方向のプロパティを使用して、印刷結果をフォーマットできます。</p>
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> や <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> を呼び出す前に、このメソッドが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> を返すこと（ユーザーがオペレーティングシステムの印刷ダイアログボックスで「OK」をクリックした場合）を確認するために、テストを行います。</p>
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+        if(myPrintJob.start()) {
+          // addPage() and send() statements here
+        }
+     </codeblock>
+     <p class="- topic/p ">特定の印刷ジョブインスタンスでは、次の間隔のいずれかが 15 秒を超えると、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> の次の呼び出しによって <codeph class="+ topic/ph pr-d/codeph ">false</codeph> が返されます。</p>
+     <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> および 1 つ目の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">1 つの <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> と次の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">最後の <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> および <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:terminate" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">terminate</apiName><shortdesc class="- topic/shortdesc ">
+     印刷ジョブが送信されずに終了することを通知します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.terminate, terminate
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     印刷ジョブが送信されずに終了することを通知します。このメソッドは、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> を呼び出すことによって印刷ジョブが既に開始されているが、ページをプリンターに送信することが適切ではない場合に使用します。通常、<codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> は、エラーから回復するためにのみ使用されます。
+     
+     <p class="- topic/p ">このメソッドを呼び出した後、PrintJob インスタンスは再利用できます。可能な場合は常に、ジョブの印刷設定は、次回以降に使用できるように保持されます。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.printing:PrintJob:active:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">active</apiName><shortdesc class="- topic/shortdesc ">
+     印刷ジョブが現在アクティブであるかどうかを示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     印刷ジョブが現在アクティブであるかどうかを示します。次の 2 つの状況のいずれかで、印刷ジョブがアクティブ（プロパティ値が <codeph class="+ topic/ph pr-d/codeph ">true</codeph>）です。
+	 
+     <ul class="- topic/ul "><li class="- topic/li ">ページ設定ダイアログまたは印刷ダイアログが表示されている。</li><li class="- topic/li ">戻り値 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> によって、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドが呼び出し済みであり、かつ <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> メソッドが呼び出されていない場合。</li></ul>
+	 
+	 <p class="- topic/p ">このプロパティが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> の場合に、<codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph>、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph>、または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドを呼び出すと、ランタイムによって例外がスローされます。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/terminate()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.terminate()</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:copies:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">copies</apiName><shortdesc class="- topic/shortdesc ">
+     それ以降に印刷ジョブに追加されたページについて、印刷システムが印刷する部数。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     それ以降に印刷ジョブに追加されたページについて、印刷システムが印刷する部数。この値は、オペレーティングシステムの印刷ダイアログに入力された印刷部数です。印刷部数が印刷ダイアログに表示されなかった場合、または印刷ダイアログがユーザーに表示されなかった場合、この値は 1 です（アプリケーションコードによって変更された場合を除く）。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:firstPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">firstPage</apiName><shortdesc class="- topic/shortdesc ">
+     オペレーティングシステムの印刷ダイアログに入力された、印刷範囲の最初のページを示すページ番号です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     オペレーティングシステムの印刷ダイアログに入力された、印刷範囲の最初のページを示すページ番号です。すべてのページを印刷するように要求された場合、ページ範囲が印刷ダイアログに表示されなかった場合、または印刷ダイアログがユーザーに表示されていない場合は、このプロパティは 0 です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isColor:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isColor</apiName><shortdesc class="- topic/shortdesc ">
+     現在の印刷設定で選択されているプリンターで、カラー（true）とグレースケール（false）のどちらを使用して印刷するかを示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     現在の印刷設定で選択されているプリンターで、カラー（<codeph class="+ topic/ph pr-d/codeph ">true</codeph>）とグレースケール（<codeph class="+ topic/ph pr-d/codeph ">false</codeph>）のどちらを使用して印刷するかを示します。
+	 
+	 <p class="- topic/p ">カラーとグレースケールのどちらを使用するのか値を特定できない場合は、値は <codeph class="+ topic/ph pr-d/codeph ">true</codeph> です。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+    PrintJob クラスが現在のプラットフォームでサポートされているか（true）、サポートされていないか（false）を示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    PrintJob クラスが現在のプラットフォームでサポートされているか（<codeph class="+ topic/ph pr-d/codeph ">true</codeph>）、サポートされていないか（<codeph class="+ topic/ph pr-d/codeph ">false</codeph>）を示します。 
+    
+    </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:jobName:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">jobName</apiName><shortdesc class="- topic/shortdesc ">
+     印刷ジョブの名前またはタイトルです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">active</codeph> プロパティが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> の場合に、コードがプロパティを設定しようと試みた場合。
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>null&lt;/code>
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     印刷ジョブの名前またはタイトルです。ジョブ名は、通常は印刷キュー内にあるジョブのタイトルとして、またはファイルに出力されるジョブのデフォルト名として、オペレーティングシステムによって使用されます。
+     
+     <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> を呼び出さず、プロパティの値も設定していなかった場合、このプロパティの値は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> になります。</p>
+     
+     <p class="- topic/p ">PrintJob インスタンスで実行する各印刷ジョブに対して、<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドを呼び出す前にこのプロパティを設定します。</p>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:lastPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastPage</apiName><shortdesc class="- topic/shortdesc ">
+     オペレーティングシステムの印刷ダイアログに入力された、印刷範囲の最後のページを示すページ番号です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     オペレーティングシステムの印刷ダイアログに入力された、印刷範囲の最後のページを示すページ番号です。すべてのページを印刷するように要求された場合、ページ範囲が印刷ダイアログに表示されなかった場合、または印刷ダイアログがユーザーに表示されていない場合は、このプロパティは 0 です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:maxPixelsPerInch:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+     選択したプリンターの ppi（ピクセル/インチ）単位での実際の解像度。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     選択したプリンターの ppi（ピクセル/インチ）単位での実際の解像度。値は、オペレーティングシステムによってレポートされる現在の印刷設定に応じて計算されます。
+     
+     <p class="- topic/p ">解像度を特定できない場合、値は標準のデフォルト値になります。デフォルト値は Linux では 600 ppi で、Mac OS では 360 ppi です。Windows では、プリンターの解像度は常に取得できるので、デフォルト値は必要ありません。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:orientation:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">orientation</apiName><shortdesc class="- topic/shortdesc ">
+    印刷するイメージの向きです。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="read only" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read only" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read-write" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.orientation, orientation 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    印刷するイメージの向きです。指定可能な値は、PrintJobOrientation クラスの定数として定義されています。
+	
+    <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>ARI 2 以降では、印刷ジョブを開始する前にこのプロパティを設定し、ページ設定ダイアログと印刷ダイアログでのデフォルトの向きを設定します。<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> を呼び出した後、印刷ジョブの進行中にこのプロパ ィを設定し、ジョブ内のページ範囲の向きを設定します。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOrientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOrientation クラス</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageHeight</apiName><shortdesc class="- topic/shortdesc ">
+     ページ上で実際に印刷可能な領域の中央に配置できる最大領域の高さ（ポイント単位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageHeight, pageHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     ページ上で実際に印刷可能な領域の中央に配置できる最大領域の高さ（ポイント単位）。ユーザーが設定した余白は含みません。このプロパティは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> メソッドの呼び出し後にのみ使用可能になります。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>AIR 以降では、このプロパティの使用は避けてください。代わりに、<codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph> を使用してください。これは、印刷可能領域を少数（ポイント単位）で測定し、印刷可能領域からはみ出した部分について正確に記述します。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageWidth</apiName><shortdesc class="- topic/shortdesc ">
+     ページ上で実際に印刷可能な領域の中央に配置できる最大領域の幅（ポイント単位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageWidth, pageWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     ページ上で実際に印刷可能な領域の中央に配置できる最大領域の幅（ポイント単位）。ユーザーが設定した余白は含みません。このプロパティは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> メソッドの呼び出し後にのみ使用可能になります。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>AIR 以降では、このプロパティの使用は避けてください。代わりに、<codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph> を使用してください。これは、印刷可能領域を少数（ポイント単位）で測定し、印刷可能領域からはみ出した部分について正確に記述します。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperArea</apiName><shortdesc class="- topic/shortdesc ">
+     プリンターメディアの境界です（ポイント単位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     プリンターメディアの境界です（ポイント単位）。この値は、以降の <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 呼び出しで使用されるのと同じ座標系を使用します。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:paperHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperHeight</apiName><shortdesc class="- topic/shortdesc ">
+    用紙全体の高さ（ポイント単位）です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperHeight, paperHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    用紙全体の高さ（ポイント単位）です。このプロパティは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> メソッドの呼び出し後にのみ使用可能になります。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>AIR 以降では、このプロパティの使用は避けてください。代わりに、<codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph> を使用してください。これは、用紙サイズを少数（ポイント単位）に分割して測定します。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperWidth</apiName><shortdesc class="- topic/shortdesc ">
+    用紙全体の幅（ポイント単位）です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperWidth, paperWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    用紙全体の幅（ポイント単位）です。このプロパティは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> メソッドの呼び出し後にのみ使用可能になります。
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>AIR 以降では、このプロパティの使用は避けてください。代わりに、<codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph> を使用してください。これは、用紙サイズを少数（ポイント単位）に分割して測定します。</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:printableArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printableArea</apiName><shortdesc class="- topic/shortdesc ">
+     プリンターメディアの印刷可能範囲の境界です（ポイント単位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     プリンターメディアの印刷可能範囲の境界です（ポイント単位）。この値は、以降の <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 呼び出しで使用されるのと同じ座標系を使用します。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printer:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printer</apiName><shortdesc class="- topic/shortdesc ">
+     現在の印刷ジョブに使用されるプリンターを取得または設定します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     現在の印刷ジョブに使用されるプリンターを取得または設定します。setter に渡され、getter から返される String は、<codeph class="+ topic/ph pr-d/codeph ">printers()</codeph> メソッドから返された Array 内のいずれかのストリングに一致します。デフォルトプリンターを使用することを示すには、値を <codeph class="+ topic/ph pr-d/codeph ">null</codeph> に設定します。デフォルトプリンターを特定できないオペレーティングシステム上では、このプロパティ値は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> です。
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 myPrintJob.printer = "HP_LaserJet_1";
+	 myPrintJob.start();
+	 </codeblock>
+     
+     <p class="- topic/p ">このプロパティの値を設定すると、直ちにプリンターの選択が実行されます。プリンターの選択に失敗した場合、このプロパティの値は以前の値にリセットされます。このプリンター値の設定が成功したかどうかは、値の設定を試行した後に値を読み取り、設定した値と読み取った値が一致することを確認することにより、判別できます。</p>
+     
+     <p class="- topic/p ">アクティブな印刷ジョブの <codeph class="+ topic/ph pr-d/codeph ">printer</codeph> プロパティは変更できません。<codeph class="+ topic/ph pr-d/codeph ">start()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> メソッドの呼び出しに成功した後、<codeph class="+ topic/ph pr-d/codeph ">send()</codeph> または <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> の呼び出し前にこの値を変更しようとすると、失敗します。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printers:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printers</apiName><shortdesc class="- topic/shortdesc ">
+     使用可能なプリンターのリストを、String 名の値として提供します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiType value="Vector$String" name="type" class="- topic/state reference/state apiRef/apiType "/></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     使用可能なプリンターのリストを、String 名の値として提供します。リストは事前に計算済みのものではなく、この関数が呼び出されたときに作成されます。使用可能なプリンターがない場合、またはシステムが印刷をサポートしていない場合、値は <codeph class="+ topic/ph pr-d/codeph ">null</codeph> を返します。システムで印刷をサポートしているが、プリンターのリストを返せない場合は、戻り値は 1 個の要素を持つ Vector になります（<codeph class="+ topic/ph pr-d/codeph ">length</codeph> プロパティは 1 です）。この場合、この 1 個の要素は実際のプリンター名を表すか、プリンター名が特定できない場合はデフォルトのプリンター名を表します。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:supportsPageSetupDialog:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">supportsPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     Flash ランタイム環境で個別のページ設定ダイアログがサポートされるかどうかを示します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Flash ランタイム環境で個別のページ設定ダイアログがサポートされるかどうかを示します。このプロパティが <codeph class="+ topic/ph pr-d/codeph ">true</codeph> の場合、<codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph> メソッドを呼び出してオペレーティングシステムのページ設定ダイアログボックスを表示できます。
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOrientation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOrientation</apiName><shortdesc class="- topic/shortdesc ">
+このクラスは、PrintJob.orientation プロパティで使用する、印刷ページのイメージ位置の値を提供します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+このクラスは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> プロパティで使用する、印刷ページのイメージ位置の値を提供します。
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link></related-links><apiValue id="flash.printing:PrintJobOrientation:LANDSCAPE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LANDSCAPE</apiName><shortdesc class="- topic/shortdesc ">
+	印刷するイメージの向き（横方向または水平方向）です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.landscape, landscape
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">landscape</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	印刷するイメージの向き（横方向または水平方向）です。この定数は <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> プロパティと一緒に使用します。シンタックス <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.LANDSCAPE</codeph> を使用します。
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/PORTRAIT" class="- topic/link "><linktext class="- topic/linktext ">PORTRAIT</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOrientation:PORTRAIT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">PORTRAIT</apiName><shortdesc class="- topic/shortdesc ">
+	印刷するイメージの向き（縦方向または垂直方向）です。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.portrait, portrait
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">portrait</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	印刷するイメージの向き（縦方向または垂直方向）です。この定数は <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> プロパティと一緒に使用します。シンタックス <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.PORTRAIT</codeph> を使用します。
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/LANDSCAPE" class="- topic/link "><linktext class="- topic/linktext ">LANDSCAPE</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PaperSize</apiName><shortdesc class="- topic/shortdesc ">
+このクラスは、PrintJob.selectPaperSize() メソッドの paperSize パラメーターとして指定できる値を提供します。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+このクラスは、<codeph class="+ topic/ph pr-d/codeph ">PrintJob.selectPaperSize() </codeph>メソッドの <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> パラメーターとして指定できる値を提供します。各定数は、ページのプリントに使用される用紙サイズを表します。
+
+<p class="- topic/p ">次の表に、各用紙タイプのおおよそのサイズを示します。サイズがおおよその数値なのは、プリンタードライバーごとに多少の違いがあるためです。例えば、A4 用紙の幅はドライバーによって、595.0 pt、595.2 pt、595.22 pt または 595.28 pt のいずれかになります。</p>
+
+<adobetable class="innertable"><tgroup cols="2" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">値</entry><entry class="- topic/entry ">ポイント単位でのサイズ</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">A4</entry><entry class="- topic/entry ">595 x 842</entry></row><row class="- topic/row "><entry class="- topic/entry ">A5</entry><entry class="- topic/entry ">420 x 595</entry></row><row class="- topic/row "><entry class="- topic/entry ">A6</entry><entry class="- topic/entry ">297 x 420</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI3GOU</entry><entry class="- topic/entry ">340 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI4GOU</entry><entry class="- topic/entry ">298 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_10</entry><entry class="- topic/entry ">297 x 684</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_B5</entry><entry class="- topic/entry ">499 x 709</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_C5</entry><entry class="- topic/entry ">459 x 649</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_DL</entry><entry class="- topic/entry ">312 x 624</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_MONARCH</entry><entry class="- topic/entry ">279 x 540</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_PERSONAL</entry><entry class="- topic/entry ">261 x 468</entry></row><row class="- topic/row "><entry class="- topic/entry ">EXECUTIVE</entry><entry class="- topic/entry ">522 x 756</entry></row><row class="- topic/row "><entry class="- topic/entry ">FOLIO</entry><entry class="- topic/entry ">612 x 936</entry></row><row class="- topic/row "><entry class="- topic/entry ">JIS_B5</entry><entry class="- topic/entry ">516 x 729</entry></row><row class="- topic/row "><entry class="- topic/entry ">LEGAL</entry><entry class="- topic/entry ">612 x 1008</entry></row><row class="- topic/row "><entry class="- topic/entry ">LETTER</entry><entry class="- topic/entry ">612 x 792</entry></row><row class="- topic/row "><entry class="- topic/entry ">STATEMENT</entry><entry class="- topic/entry ">396 x 612</entry></row></tbody></tgroup></adobetable>
+
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/selectPaperSize()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.selectPaperSize()</linktext></link></related-links><apiValue id="flash.printing:PaperSize:A4" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A4</apiName><shortdesc class="- topic/shortdesc ">
+	 A4
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a4</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A4
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A5</apiName><shortdesc class="- topic/shortdesc ">
+	 A5
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A5
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A6" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A6</apiName><shortdesc class="- topic/shortdesc ">
+	 A6
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a6</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A6
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI3GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI3GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 長形 3 号（封筒）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei3gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 長形 3 号（封筒）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI4GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI4GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 長形 4 号（封筒）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei4gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 長形 4 号（封筒）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_10" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_10</apiName><shortdesc class="- topic/shortdesc ">
+	 リーガル封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_10</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 リーガル封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 B5 封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 B5 封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_C5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_C5</apiName><shortdesc class="- topic/shortdesc ">
+	 C5 封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_c5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 C5 封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_DL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_DL</apiName><shortdesc class="- topic/shortdesc ">
+	 DL 封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_dl</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 DL 封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_MONARCH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_MONARCH</apiName><shortdesc class="- topic/shortdesc ">
+	 モナーク封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_monarch</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 モナーク封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_PERSONAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_PERSONAL</apiName><shortdesc class="- topic/shortdesc ">
+	 個人用封筒
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_personal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 個人用封筒
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:EXECUTIVE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">EXECUTIVE</apiName><shortdesc class="- topic/shortdesc ">
+	 エクゼクティブサイズ
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">executive</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 エクゼクティブサイズ
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:FOLIO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">FOLIO</apiName><shortdesc class="- topic/shortdesc ">
+	 フォリオサイズ
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">folio</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 フォリオサイズ
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:JIS_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">JIS_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 B5（日本）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">jis_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 B5（日本）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LEGAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LEGAL</apiName><shortdesc class="- topic/shortdesc ">
+	 リーガルサイズ（トラディショナル）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">legal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 リーガルサイズ（トラディショナル）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LETTER" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LETTER</apiName><shortdesc class="- topic/shortdesc ">
+	 レターサイズ（トラディショナル）
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">letter</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 レターサイズ（トラディショナル）
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:STATEMENT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">STATEMENT</apiName><shortdesc class="- topic/shortdesc ">
+	 ステートメントサイズ
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">statement</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 ステートメントサイズ
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

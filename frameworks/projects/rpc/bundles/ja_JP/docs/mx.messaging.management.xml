@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.management"><apiName>mx.messaging.management</apiName><apiDetail/><apiClassifier id="mx.messaging.management:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+ サーバーサイドの管理コントロール用のオブジェクト名インスタンスのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ サーバーサイドの管理コントロール用のオブジェクト名インスタンスのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectInstance:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+      空の ObjectInstance の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の ObjectInstance の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectInstance:toString"><apiName>toString</apiName><shortdesc>
+      オブジェクト名インスタンスのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>オブジェクト名のインスタンスのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      オブジェクト名インスタンスのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectInstance:className"><apiName>className</apiName><shortdesc>
+     クラス名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     クラス名です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectInstance:objectName"><apiName>objectName</apiName><shortdesc>
+     オブジェクト名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.management:ObjectName</apiValueClassifier></apiValueDef><apiDesc>
+     オブジェクト名。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+ MBean コンストラクター用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean コンストラクター用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanConstructorInfo:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+      空の MBeanConstructorInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanConstructorInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanConstructorInfo:signature"><apiName>signature</apiName><shortdesc>
+	 コンストラクターシグネチャを構成するパラメーターのデータ型です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 コンストラクターシグネチャを構成するパラメーターのデータ型です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+ MBean 属性用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 属性用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanAttributeInfo:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+      空の MBeanAttributeInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanAttributeInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanAttributeInfo:isIs"><apiName>isIs</apiName><shortdesc>
+	 サーバーサイドの属性用 getter に 'is' 接頭辞が付いているかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 サーバーサイドの属性用 getter に 'is' 接頭辞が付いているかどうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:readable"><apiName>readable</apiName><shortdesc>
+	 属性が読み取り可能どうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 属性が読み取り可能どうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:type"><apiName>type</apiName><shortdesc>
+	 属性のデータ型です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 属性のデータ型です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:writable"><apiName>writable</apiName><shortdesc>
+	 属性が書き込み可能どうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 属性が書き込み可能どうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:Attribute"><apiName>Attribute</apiName><shortdesc>
+ MBean 属性のクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 属性のクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:Attribute:Attribute"><apiName>Attribute</apiName><shortdesc>
+      空の属性の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の属性の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:Attribute:toString"><apiName>toString</apiName><shortdesc>
+      属性のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>属性のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      属性のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:Attribute:name"><apiName>name</apiName><shortdesc>
+     属性の名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     属性の名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:Attribute:value"><apiName>value</apiName><shortdesc>
+     属性の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     属性の値です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+ MBean 操作パラメーター用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 操作パラメーター用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanParameterInfo:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+      空の MBeanParameterInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanParameterInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanParameterInfo:type"><apiName>type</apiName><shortdesc>
+	 操作パラメーターのデータ型です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 操作パラメーターのデータ型です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+ MBean 用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanInfo:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+      空の MBeanInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanInfo:toString"><apiName>toString</apiName><shortdesc>
+      MBean 情報のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>MBean 情報のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      MBean 情報のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanInfo:attributes"><apiName>attributes</apiName><shortdesc>
+	 MBean によって公開される属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean によって公開される属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:className"><apiName>className</apiName><shortdesc>
+	 MBean のクラス名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean のクラス名。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:constructors"><apiName>constructors</apiName><shortdesc>
+	 MBean によって公開されるコンストラクター。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean によって公開されるコンストラクター。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:description"><apiName>description</apiName><shortdesc>
+	 MBean の説明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean の説明。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:operations"><apiName>operations</apiName><shortdesc>
+	 MBean によって提供される操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean によって提供される操作。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+ MBean 機能用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 機能用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanFeatureInfo:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+      空の MBeanFeatureInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanFeatureInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanFeatureInfo:toString"><apiName>toString</apiName><shortdesc>
+      機能情報のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>機能情報のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      機能情報のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanFeatureInfo:description"><apiName>description</apiName><shortdesc>
+	 MBean 機能の説明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 機能の説明。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanFeatureInfo:name"><apiName>name</apiName><shortdesc>
+	 MBean 機能の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 機能の名前。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+ MBean 操作用メタデータのクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 操作用メタデータのクライアント表現です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanOperationInfo:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+      空の MBeanOperationInfo の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の MBeanOperationInfo の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION_INFO"><apiName>ACTION_INFO</apiName><shortdesc>
+	 操作は読み取りと書き込み両方と同様で、コントロールを更新して情報を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 操作は読み取りと書き込み両方と同様で、コントロールを更新して情報を返します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION"><apiName>ACTION</apiName><shortdesc>
+	 操作は書き込みと同様で、何らかの形でコントロールを更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 操作は書き込みと同様で、何らかの形でコントロールを更新します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:INFO"><apiName>INFO</apiName><shortdesc>
+	 操作は情報のみを目的としており、副次的な影響はありません。読み取り専用です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 操作は情報のみを目的としており、副次的な影響はありません。読み取り専用です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:UNKNOWN"><apiName>UNKNOWN</apiName><shortdesc>
+	 操作の副次的な影響は不明です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 操作の副次的な影響は不明です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:impact"><apiName>impact</apiName><shortdesc>
+	 操作のインパクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	 操作のインパクトです。このクラスの定数として定義されている、有効な 4 つの値のうちのいずれかになります。
+	 
+	 </apiDesc></apiValueDetail><related-links><link href="mx.messaging.management.xml#MBeanOperationInfo/INFO"><linktext>INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION"><linktext>ACTION</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION_INFO"><linktext>ACTION_INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/UNKNOWN"><linktext>UNKNOWN</linktext></link></related-links></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:returnType"><apiName>returnType</apiName><shortdesc>
+	 操作の戻りデータの型です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 操作の戻りデータの型です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:signature"><apiName>signature</apiName><shortdesc>
+	 操作シグネチャを構成するパラメーターのデータ型です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 操作シグネチャを構成するパラメーターのデータ型です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+ サーバーサイド管理コントロール名のクライアント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ サーバーサイド管理コントロール名のクライアント表現です。
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectName:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+      空の ObjectName の新しいインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      空の ObjectName の新しいインスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectName:getKeyProperty"><apiName>getKeyProperty</apiName><shortdesc>
+	 指定されたプロパティキーに関連付けられた値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiDesc>プロパティキー。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	 指定されたプロパティキーに関連付けられた値を返します。
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.management:ObjectName:toString"><apiName>toString</apiName><shortdesc>
+      このメソッドは、オブジェクト名のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>オブジェクト名のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドは、オブジェクト名のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectName:canonicalKeyPropertyListString"><apiName>canonicalKeyPropertyListString</apiName><shortdesc>
+	 キープロパティのストリング表現です。キープロパティがレキシカル順にソートされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 キープロパティのストリング表現です。キープロパティがレキシカル順にソートされます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:canonicalName"><apiName>canonicalName</apiName><shortdesc>
+	 名前の正準形。プロパティをレキシカル順にソートしたストリング表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 名前の正準形。プロパティをレキシカル順にソートしたストリング表現です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domainPattern"><apiName>domainPattern</apiName><shortdesc>
+	 オブジェクト名のドメイン部分がパターンかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 オブジェクト名のドメイン部分がパターンかどうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domain"><apiName>domain</apiName><shortdesc>
+	 ドメイン部。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 ドメイン部。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyListString"><apiName>keyPropertyListString</apiName><shortdesc>
+	 キープロパティのリストのストリング表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 キープロパティのリストのストリング表現です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyList"><apiName>keyPropertyList</apiName><shortdesc>
+	 Object としてのキープロパティ。プロパティ名をキーとします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	 Object としてのキープロパティ。プロパティ名をキーとします。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:pattern"><apiName>pattern</apiName><shortdesc>
+	 オブジェクト名がパターンかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 オブジェクト名がパターンかどうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:propertyPattern"><apiName>propertyPattern</apiName><shortdesc>
+	 オブジェクト名のキープロパティがパターンかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 オブジェクト名のキープロパティがパターンかどうかを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

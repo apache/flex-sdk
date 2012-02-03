@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:ColorUtil"><apiName>ColorUtil</apiName><shortdesc>
+  ColorUtil クラスは、Flex で RGB カラーを使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorUtil クラスは、Flex で RGB カラーを使用するためのメソッドを持つ完全に静的なクラスです。 ColorUtil のインスタンスを作成する必要はなく、<codeph>ColorUtil.adjustBrightness()</codeph> メソッドなどの静的メソッドを呼び出すだけです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ColorUtil:adjustBrightness2"><apiName>adjustBrightness2</apiName><shortdesc>
+	  RGB カラーの明度を率によって調整します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい RGB カラーです。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>元の RGB カラーです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>元のカラーを明るくしたり、暗くするパーセンテージです。正の値の場合は、元のカラーはこのパーセンテージの分だけ白く明るくなります。負の数の場合は、このパーセンテージの分だけ黒く暗くなります。このパラメーターの範囲は -100 から 100 で、-100 の場合は黒、100 の場合は白になります。 このパラメーターが 0 の場合、返される RGB カラーは元のカラーと同じになります。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  RGB カラーの明度を率によって調整します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:adjustBrightness"><apiName>adjustBrightness</apiName><shortdesc>
+	  RGB カラーの線の明度を調整します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい RGB カラーです。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>元の RGB カラーです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>各カラーチャネルに追加する明度です。このパラメーターの範囲は -255 から 255 で、-255 の場合は黒、255 の場合は白になります。 このパラメーターが 0 の場合、返される RGB カラーは元のカラーと同じになります。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  RGB カラーの線の明度を調整します。
+	 
+	  <p>RGB カラーの赤、緑、青の各チャネルに同じ明度が配分されます。それぞれのカラーチャネルの幅は、0 から 255 の範囲に制限されています。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:rgbMultiply"><apiName>rgbMultiply</apiName><shortdesc>
+	  2 色の RGB カラーの RGB 乗算を行います。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>2 色の RGB 乗算です。
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb1</apiItemName><apiType value="uint"/><apiDesc>最初の RGB カラーです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rgb2</apiItemName><apiType value="uint"/><apiDesc>2 番目の RGB カラーです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  2 色の RGB カラーの RGB 乗算を行います。
+	  
+	  <p>一方のカラーが白でない限り、結果は常にどちらか一方の元のカラーより低い数値になり、もう一方のカラーが返されます。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SecurityUtil"><apiName>SecurityUtil</apiName><shortdesc>
+  セキュリティに関する問題を処理するためのユーティリティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  セキュリティに関する問題を処理するためのユーティリティです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SecurityUtil:hasMutualTrustBetweenParentAndChild"><apiName>hasMutualTrustBetweenParentAndChild</apiName><shortdesc>
+	  特定のブリッジの親と子の間に、相互の信頼関係があるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>相互の信頼関係がある場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> になります。
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bp</apiItemName><apiOperationClassifier>mx.core:ISWFBridgeProvider</apiOperationClassifier><apiDesc>2 つのアプリケーションを接続するブリッジのプロバイダーです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  特定のブリッジの親と子の間に、相互の信頼関係があるかどうかをテストします。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:UIDUtil"><apiName>UIDUtil</apiName><shortdesc>
+  UIDUtil クラスは、Flex で UID（一意の識別子）を使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIDUtil クラスは、Flex で UID（一意の識別子）を使用するためのメソッドを持つ完全に静的なクラスです。 UIDUtil のインスタンスを作成する必要はありません。代わりに <codeph>UIDUtil.createUID()</codeph> メソッドなどの静的メソッドを呼び出すだけです。
+ 
+  <p><b>メモ</b>：オブジェクトに強制的に IUID インターフェイスを実装させる [Bindable] プロパティを持たない動的オブジェクトがある場合は、UID を含む <codeph>mx_internal_uid</codeph> プロパティがそのオブジェクトに追加されます。 動的オブジェクトにこのフィールドを持たせないようにするには、オブジェクトを [Bindable] にし、オブジェクトのクラスで IUID インターフェイスを実装するか、 <coded>uid</coded>  プロパティに値を設定します。</p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:UIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しく生成された UID です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。
+     
+      <p>UID の形式は <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph> で、X は 16 進数字（0 ～ 9、A ～ F）です。</p>
+     
+      <p>この UID は完全にグローバルに一意というわけではありませんが、Flash Player では UID 生成をサポートしていないため、これが最適な方法です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID のストリング表現です。無効な ByteArray が指定された場合は null です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>ByteArray の 16 バイト長は 128 ビットの UID を表します。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。形式は、createUID によって生成されたものに一致します。適切な ByteArray が指定されない場合は、null が返されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:getUID"><apiName>getUID</apiName><shortdesc>
+      指定されたオブジェクトの UID（一意の識別子）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>検出または生成された UID です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>UID を検索する必要があるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトの UID（一意の識別子）を返します。指定されたオブジェクトに UID がない場合は、メソッドによって UID が割り当てられます。マップが指定されている場合は、そのマップを使用して UID が作成されます。特殊なケースとして、渡されたアイテムが null の場合、このメソッドは null の UID を返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>値が UID として形式設定されている場合は、true を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>UID として形式設定されているかどうかをテストする値です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。UID 値は createUID() によって生成された形式で、0 ～ 9 以外に大文字の A ～ F だけが含まれることが想定されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     UID 形式のストリングを ByteArray に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID の 128 ビットを表す ByteArray の 16 バイト長です。uid が変換できない場合は null になります。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>128 ビット UID を表します
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     UID 形式のストリングを ByteArray に変換します。UID は createUID で生成された形式である必要があります。それ以外の場合は null が返されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:IXMLNotifiable"><apiName>IXMLNotifiable</apiName><shortdesc>
+  IXMLNotifiable インターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IXMLNotifiable インターフェイスです。
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.utils:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+     OnDemandEventDispatcher は、イベントは送出するが、リスナーを頻繁に必要としないクラスの基本クラスとして機能します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+     OnDemandEventDispatcher は、イベントは送出するが、リスナーを頻繁に必要としないクラスの基本クラスとして機能します。クラスが標準の EventDispatcher ではなく OnDemandEventDispatcher を拡張する場合は、すべての個別インスタンスで発生する小さなオーバーヘッドの影響を受けない代わりに、リスナーが実際に関連付けられているインスタンスのみで発生するやや大きいオーバーヘッドの影響を受けます。
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OnDemandEventDispatcher:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+         コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         コンストラクターです。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OnDemandEventDispatcher:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation></apiClassifier><apiClassifier id="mx.utils:LoaderUtil"><apiName>LoaderUtil</apiName><shortdesc>
+    LoaderUtil クラスは、Flex RSL で使用するユーティリティメソッドおよび汎用 Loader インスタンスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+    LoaderUtil クラスは、Flex RSL で使用するユーティリティメソッドおよび汎用 Loader インスタンスを定義します。
+    
+    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:LoaderUtil:normalizeURL"><apiName>normalizeURL</apiName><shortdesc>
+      クロスドメイン RSL のルート URL には、末尾に特別なテキストが付加されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>正規化された <codeph>LoaderInfo.url</codeph> プロパティです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>loaderInfo</apiItemName><apiType value="flash.display:LoaderInfo"/><apiDesc>LoaderInfo インスタンスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      クロスドメイン RSL のルート URL には、末尾に特別なテキストが付加されています。このメソッドは、指定された LoaderInfo インスタンスで指定されている URL を正規化し、末尾にテキストが付加されている場合はそのテキストを除去します。<codeph>LoaderInfo.url</codeph> にアクセスするクラスは、そのプロパティを使用する前に、このメソッドを呼び出して URL を正規化する必要があります。また、このメソッドは、それに対して encodeURI() メソッドを呼び出すことにより、URL をエンコードします。エンコードされていない URL が必要な場合は、結果に対して unencodeURI() を呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+  双方向連結リストのノードを表すクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  双方向連結リストのノードを表すクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedListNode:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+      コンストラクター
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>null</apiData><apiDesc>このノードに関連付けられる汎用値です。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクター
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.utils:LinkedListNode:next"><apiName>next</apiName><shortdesc>
+      隣接する 'next' ノードへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      隣接する 'next' ノードへの参照です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:prev"><apiName>prev</apiName><shortdesc>
+      隣接する 'prev' ノードへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      隣接する 'prev' ノードへの参照です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:value"><apiName>value</apiName><shortdesc>
+      このノードに関連付けられる汎用値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      このノードに関連付けられる汎用値です。
+         
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectUtil"><apiName>ObjectUtil</apiName><shortdesc>
+  ObjectUtil クラスは、Flex でオブジェクトを使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ObjectUtil クラスは、Flex でオブジェクトを使用するためのメソッドを持つ完全に静的なクラスです。 ObjectUtil のインスタンスを作成する必要はなく、<codeph>ObjectUtil.isSimple()</codeph> メソッドなどの静的メソッドを呼び出すだけです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ObjectUtil:clone"><apiName>clone</apiName><shortdesc>
+      指定されたオブジェクトのクローンを作成し、クローンへの参照を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定されたオブジェクトのクローンです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>クローンを作成するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトのクローンを作成し、クローンへの参照を返します。クローンの作成は、ネイティブ直列化方法を使用して行われます。つまりクローン作成中にカスタム直列化が順守されます。clone() は、各オブジェクトインスタンスの uid プロパティが維持される点が copy() と異なります。
+     
+      <p>このメソッドは、コレクションのエレメントなどのデータオブジェクトのクローンを作成することを目的としています。TextInput コントロールなどの UIComponent オブジェクトのクローン作成は目的としていません。特定の UIComponent オブジェクトのクローンを作成する場合は、コンポーネントのサブクラスを作成して、<codeph>clone()</codeph> メソッドを実装できます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:compare"><apiName>compare</apiName><shortdesc>
+      オブジェクトを比較し、最初のアイテムが 2 番目のアイテム未満またはそれ以上かどうかを示す整数値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>a および b が null、NaN、または等しい場合は 0 を返します。a が null または b より大きい場合は 1 を返し、b が null または a より大きい場合は -1 を返します。 
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Object"/><apiDesc>オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Object"/><apiDesc>オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>depth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>比較を実行するときに反復するレベル数を示します。各プロパティのプリミティブな表現のみの浅い比較をする場合は、この値を 0 に設定します。次に実際の使用例を示します。<pre>
+      var a:Object = {name:"Bob", info:[1,2,3]};
+      var b:Object = {name:"Alice", info:[5,6,7]};
+      var c:int = ObjectUtil.compare(a, b, 0);</pre>
+     
+      <p>上記の例では、<codeph>a</codeph> と <codeph>b</codeph> を組み合わせたプロパティは、比較時に <codeph>toString()</codeph> の呼び出しによって統合されます。この場合、<codeph>info</codeph> プロパティは比較を実行するときにストリングに変換されます。</p>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクトを比較し、最初のアイテムが 2 番目のアイテム未満またはそれ以上かどうかを示す整数値を返します。このメソッドはネストされたオブジェクトを再帰的に比較し、0 以外の結果を検出するとすぐに結果を返します。デフォルトでは、このメソッドはすべてのプロパティの最も深いネストレベルまで反復します。比較の深さを変更するには、<codeph>depth</codeph> パラメーターに負ではない値を指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:copy"><apiName>copy</apiName><shortdesc>
+      指定されたオブジェクトをコピーし、コピーへの参照を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定されたオブジェクトのコピーです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>コピーするオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトをコピーし、コピーへの参照を返します。コピーは、ネイティブ直列化方法を使用して行われます。つまり、コピー中にカスタム直列化が順守されます。
+     
+      <p>このメソッドは、コレクションのエレメントなどのデータオブジェクトをコピーすることを目的としています。TextInput コントロールなどの UIComponent オブジェクトのコピーは目的としていません。特定の UIComponent オブジェクトのコピーを作成するには、コンポーネントのサブクラスを作成し、<codeph>clone()</codeph> メソッド、またはコピーを行う他のメソッドを実装します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:dateCompare"><apiName>dateCompare</apiName><shortdesc>
+      2 つの Date オブジェクトを比較し、最初の Date オブジェクトが 2 番目のアイテムより前か、同じか、または後かどうかを示す整数値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>a</codeph> と <codeph>b</codeph> が等しい（または両方が <codeph>null</codeph>）の場合は 0 です。<codeph>a</codeph> が <codeph>b</codeph> より前（または <codeph>b</codeph> が <codeph>null</codeph>）の場合は -1 です。<codeph>a</codeph> が <codeph>b</codeph> より後（または <codeph>a</codeph> が <codeph>null</codeph>）の場合は 1 です。     
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Date"/><apiDesc>Date オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Date"/><apiDesc>Date オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      2 つの Date オブジェクトを比較し、最初の Date オブジェクトが 2 番目のアイテムより前か、同じか、または後かどうかを示す整数値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      指定されたオブジェクトに関して、クラス情報およびクラスプロパティを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>以下のプロパティを持つオブジェクトです。
+      <ul>
+        <li><codeph>name</codeph>：クラスの名前を含むストリングです。</li>
+        <li><codeph>properties</codeph>：特定のオブジェクトのプロパティ名のソートされたリスト、または指定されたオブジェクトが Dictionary の場合は元のキーへの参照です。個々の配列エレメントは QName インスタンスであり、プロパティのローカル名と URI の両方が含まれます。</li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>調べるオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>返される結果から除外する必要があるプロパティ名を指定するストリングの配列です。例えば、Event オブジェクトに <codeph>["currentTarget", "target"]</codeph> を指定することができます。これらのプロパティは、返される結果を大きくする場合があるためです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このメソッドによって返される情報を制御するプロパティを持つオブジェクト。このプロパティには次のようなものがあります。
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph>：<codeph>false</codeph> の場合、読み取り専用のオブジェクトプロパティが除外されます。 デフォルト値は <codeph>true</codeph> です。</li>
+      <li><codeph>includeTransient</codeph>：<codeph>false</codeph> の場合、<codeph>[Transient]</codeph> メタデータを含むオブジェクトプロパティおよび変数が除外されます。 デフォルト値は <codeph>true</codeph> です。</li>
+      <li><codeph>uris</codeph>：出力に含める必要があるすべての名前空間のストリングの配列です。 ワイルドカード "~~" は使用できます。 デフォルトでは null になっているため、名前空間は含められません。 例えば、<codeph>["mx_internal", "mx_object"]</codeph> または <codeph>["~~"]</codeph> を指定できます。</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトに関して、クラス情報およびクラスプロパティを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:hasMetadata"><apiName>hasMetadata</apiName><shortdesc>
+     getClassInfo を使用してメタデータ情報を調べ、特定オブジェクトのプロパティに指定されたメタデータがあるかどうかを判断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>プロパティに指定されたメタデータがある場合は true です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>プロパティを保持するオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>propName</apiItemName><apiType value="String"/><apiDesc>メタデータをチェックするプロパティです。
+     </apiDesc></apiParam><apiParam><apiItemName>metadataName</apiItemName><apiType value="String"/><apiDesc>プロパティでチェックするメタデータの名前です。
+     </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>クラス情報を生成するときに、除外する必要のあるプロパティがあるかどうかを示します。（オプション）
+     </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>クラス情報を生成するときに、変更するオプションフラグがあるかどうかを示します。（オプション）
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     <codeph>getClassInfo</codeph> を使用してメタデータ情報を調べ、特定オブジェクトのプロパティに指定されたメタデータがあるかどうかを判断します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isDynamicObject"><apiName>isDynamicObject</apiName><shortdesc>
+      オブジェクトが動的クラスのインスタンスである場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>オブジェクトが動的クラスのインスタンスである場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクトが動的クラスのインスタンスである場合は、<codeph>true</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isSimple"><apiName>isSimple</apiName><shortdesc>
+      オブジェクト参照が単純なデータ型で指定されている場合に true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定されたオブジェクトが上記のいずれかの型の場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>調べられたオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクト参照が単純なデータ型で指定されている場合に <codeph>true</codeph> を返します。単純なデータ型には次のようなものがあります。
+      <ul>
+        <li><codeph>String</codeph></li>
+        <li><codeph>Number</codeph></li>
+        <li><codeph>uint</codeph></li>
+        <li><codeph>int</codeph></li>
+        <li><codeph>Boolean</codeph></li>
+        <li><codeph>Date</codeph></li>
+        <li><codeph>Array</codeph></li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:numericCompare"><apiName>numericCompare</apiName><shortdesc>
+      2 つの数値を比較します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>両方の数値が NaN の場合は 0 です。<codeph>a</codeph> のみが NaN の場合は 1 です。<codeph>b</codeph> のみが NaN の場合は -1 です。 <codeph>a</codeph> が <codeph>b</codeph> より小さい場合は -1 です。 <codeph>a</codeph> が <codeph>b</codeph> より大きい場合は 1 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiDesc>最初の数値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>2 番目の数値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      2 つの数値を比較します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:stringCompare"><apiName>stringCompare</apiName><shortdesc>
+      2 つの String 値を比較します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>両方の String が null の場合は 0 です。<codeph>a</codeph> のみが null の場合は 1 です。<codeph>b</codeph> のみが null の場合は -1 です。 <codeph>a</codeph> が <codeph>b</codeph> に先行する場合は -1 です。 <codeph>b</codeph> が <codeph>a</codeph> に先行する場合は 1 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="String"/><apiDesc>最初の String 値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="String"/><apiDesc>2 番目の String 値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>大文字と小文字を区別しない比較を行う場合は <codeph>true</codeph>、行わない場合は <codeph>false</codeph> を指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      2 つの String 値を比較します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      指定されたオブジェクトをストリングにプリティプリントします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>フォーマット済みの指定されたオブジェクトを含むストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>プリティプリントするオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>出力に含める必要があるプロパティの名前空間 URI の配列です。デフォルトでは、パブリック名前空間のプロパティのみ出力に含められます。名前空間に関係なくすべてのプロパティを取得するには、単一エレメントの " で配列を渡します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>出力から除外する必要があるプロパティ名の配列です。これを使用してフォーマットしたストリングからデータを削除します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトをストリングにプリティプリントします。すべてのプロパティは、アルファベット順に配置されます。印刷中に、各オブジェクトには ID が割り当てられます。この値の先頭には "#" が追加され、オブジェクト型トークンの隣に表示されます。例えば、次のようになります。
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>この ID はいつ循環参照が発生するかを示します。<codeph>Class</codeph> 型のオブジェクトのプロパティのみが、割り当てられた型として表示されます。例えば、次のようなカスタム定義を例として示します。</p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p><codeph>clazz</codeph> プロパティが <codeph>Date</codeph> に割り当てられている場合は、次のように表示されます。</p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+     
+     // example 3 with Dictionary
+     var point:Point = new Point(100, 100);
+     var point2:Point = new Point(100, 100);
+     var obj:Dictionary = new Dictionary();
+     obj[point] = "point";
+     obj[point2] = "point2";
+     obj["1"] = { name: "one", num: 1};
+     obj["two"] = { name: "2", num: 2};
+     obj[3] = 3;
+     trace(ObjectUtil.toString(obj));
+     
+     // will output to flashlog.txt
+     (flash.utils::Dictionary)#0
+       {(flash.geom::Point)#1
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point2"
+       {(flash.geom::Point)#2
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point"
+       {1} = (Object)#3
+         name = "one"
+         num = 1
+       {3} = 3
+       {"two"} = (Object)#4
+         name = "2"
+         num = 2
+     
+     </pre>
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLUtil"><apiName>XMLUtil</apiName><shortdesc>
+  XMLUtil クラスは、Flex で XML を使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  XMLUtil クラスは、Flex で XML を使用するためのメソッドを持つ完全に静的なクラスです。 XMLUti のインスタンスを作成する必要はなく、<codeph>XMLUtil.qnamesEqual()</codeph> メソッドなどの静的メソッドを呼び出すだけです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:XMLUtil:createXMLDocument"><apiName>createXMLDocument</apiName><shortdesc>
+      指定されたストリングから XMLを作成します。空白は無視します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>空白を無視した新規 XML オブジェクトです。
+      
+      </apiDesc><apiType value="flash.xml:XMLDocument"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>XML ストリングです。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたストリングから XML を作成します。空白は無視します。このメソッドは、<codeph>&lt;mx:XML></codeph> タグで定義されるオブジェクトと WebService 要求を作成するために使用されます。作成されたオブジェクトは、この構造の <codeph>firstChild</codeph> を取得します。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:getAttributeByQName"><apiName>getAttributeByQName</apiName><shortdesc>
+    指定された QName と一致する属性の XML 値を返します。
+    
+    </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一致した属性の XMLList、または一致したものが見つからない場合は空のリストです。
+     
+     </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiDesc>調べられている XML オブジェクト
+    </apiDesc></apiParam><apiParam><apiItemName>attrQName</apiItemName><apiType value="QName"/><apiDesc>検索する属性の QName
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    指定された QName と一致する属性の XML 値を返します。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnameToString"><apiName>qnameToString</apiName><shortdesc>
+	  Qname オブジェクトの uri プロパティと localName プロパティをコロンで区切って連結して返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コロンで区切った Qname オブジェクトの <codeph>uri</codeph> プロパティおよび <codeph>localName</codeph> プロパティの連結です。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>QName オブジェクトです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Qname オブジェクトの <codeph>uri</codeph> プロパティと <codeph>localName</codeph> プロパティをコロンで区切って連結して返します。オブジェクトに <codeph>uri</codeph> プロパティがない場合、または <codeph>uri</codeph> の値が空ストリングの場合は、<codeph>localName</codeph> プロパティを返します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnamesEqual"><apiName>qnamesEqual</apiName><shortdesc>
+	  2 つの QName パラメーターの uri プロパティおよび localName プロパティが同じ場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> を返すのは、2 つの QName パラメーターの <codeph>uri</codeph> プロパティおよび <codeph>localName</codeph> プロパティが同じ場合です。
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>qname1</apiItemName><apiType value="QName"/><apiDesc>最初の QName オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>qname2</apiItemName><apiType value="QName"/><apiDesc>2 番目の QName オブジェクトです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>true</codeph> を返すのは、2 つの QName パラメーターの <codeph>uri</codeph> プロパティおよび <codeph>localName</codeph> プロパティが同じ場合です。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SHA256"><apiName>SHA256</apiName><shortdesc>
+     http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf にある『Federal Information Processing Standards Publication 180-2』で説明されている SHA-256 ハッシュアルゴリズムの実装です。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+     http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf にある『Federal Information Processing Standards Publication 180-2』で説明されている SHA-256 ハッシュアルゴリズムの実装です。
+      
+      </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SHA256:computeDigest"><apiName>computeDigest</apiName><shortdesc>
+        SHA-256 ハッシュアルゴリズムを使用してメッセージのダイジェストを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>- メッセージです。null は使用できません。ダイジェストのストリング - 64 文字の 16 進数表現を返します。
+        
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+        SHA-256 ハッシュアルゴリズムを使用してメッセージのダイジェストを計算します。
+        
+        </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:SHA256:TYPE_ID"><apiName>TYPE_ID</apiName><shortdesc>
+         このハッシュの種類が "SHA-256" であることを識別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SHA-256</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         このハッシュの種類が "SHA-256" であることを識別します。
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+  汎用の双方向連結リストの実装を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  汎用の双方向連結リストの実装を提供します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedList:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:LinkedList:find"><apiName>find</apiName><shortdesc>
+      すべてのノードで指定された値を検索します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ノードの場所です。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>検索する値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      すべてのノードで指定された値を検索します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertAfter"><apiName>insertAfter</apiName><shortdesc>
+      既存ノードの後に新しいノードを挿入します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新しいノードです。
+     
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>挿入する値です。値が LinkedListNode でない場合は作成されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prev</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>挿入位置の前にあるノードです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      既存ノードの後に新しいノードを挿入します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertBefore"><apiName>insertBefore</apiName><shortdesc>
+      既存ノードの前に新しいノードを挿入します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新しいノードです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>挿入する値です。値が LinkedListNode でない場合は作成されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>挿入位置の基準となるノードです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      既存ノードの前に新しいノードを挿入します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:pop"><apiName>pop</apiName><shortdesc>
+      リストの末尾のノードを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>削除されたノードです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      リストの末尾のノードを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:push"><apiName>push</apiName><shortdesc>
+      リストの末尾に新しいノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新しく追加されたノードです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>追加する値です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リストの末尾に新しいノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:remove"><apiName>remove</apiName><shortdesc>
+      すべてのノードで指定された値を検索し、見つかった場合はその値をリストから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>削除されたノード、または null です。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>検索して削除する値です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      すべてのノードで指定された値を検索し、見つかった場合はその値をリストから削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:shift"><apiName>shift</apiName><shortdesc>
+      リストの先頭のノードを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>削除されたノードです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      リストの先頭のノードを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:unshift"><apiName>unshift</apiName><shortdesc>
+      リストの先頭に新しいノードを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新しく追加されたノードです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>追加する値です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リストの先頭に新しいノードを追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:LinkedList:head:get"><apiName>head</apiName><shortdesc>
+      リストの先頭を表すノードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      リストの先頭を表すノードです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:length:get"><apiName>length</apiName><shortdesc>
+      リストの長さを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      リストの長さを返します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:tail:get"><apiName>tail</apiName><shortdesc>
+      リストの末尾を表すノードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      リストの末尾を表すノードです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+  OrderedObject は、プロパティの順序を追加されたとおりに保つために使用される Object のラッパーとして機能します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OrderedObject は、プロパティの順序を追加されたとおりに保つために使用される Object のラッパーとして機能します。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OrderedObject:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>名前と値のペアを持つオブジェクトです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OrderedObject:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>呼び出したメソッドの戻り値です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>呼び出されるメソッドの名前です。
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>呼び出されるメソッドの引数を指定する配列です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定されたプロパティを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティが削除されたかどうかを示すブール値です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定されたプロパティを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの値です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>パラメーターが存在する場合は <codeph>true</codeph>、それ以外は <codeph>false</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>存在するかどうかをテストするプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの名前です。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>オブジェクトのプロパティを示す、0 から始まるインデックス値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの値です。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>オブジェクトのプロパティを示す、0 から始まるインデックス値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定されたプロパティを更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトで更新するプロパティの名前を含むオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトに設定する値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定されたプロパティを更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:OrderedObject:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+  このクラスは、このプロキシによって管理されるアイテムの変更を追跡する機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.utils:IExternalizable</apiBaseInterface><apiBaseInterface>mx.core:IPropertyChangeNotifier</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このクラスは、このプロキシによって管理されるアイテムの変更を追跡する機能を提供します。 <codeph>addEventListener()</codeph> メソッドを使用することによって、任意の数のオブジェクトが、このオブジェクトでの変更を "リッスン" できます。
+ 
+  </apiDesc><example>
+  <pre>
+  import mx.events.PropertyChangeEvent;
+  import mx.utils.ObjectUtil;
+  import mx.utils.ObjectProxy;
+  import mx.utils.StringUtil;
+ 
+  var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+  var p:ObjectProxy = new ObjectProxy(a);
+  p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+  p.name = "Jacey";
+  p.age = 2;
+  delete p.ssnum;
+ 
+  // handler function
+  function updateHandler(event:ChangeEvent):void
+  {
+      trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                     event.kind,
+                                     event.property,
+                                     event.oldValue,
+                                     event.newValue,
+                                     event.target.object_proxy::UUID));
+  }
+ 
+  // The trace output appears as:
+  // updateHandler('opUpdate', name, Tyler, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opUpdate', age, 5, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opDelete', ssnum, 555-55-5555, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  </pre>
+  
+  </example></apiClassifierDetail><apiConstructor id="mx.utils:ObjectProxy:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+      指定したオブジェクト、ID、およびプロキシの深さでこのプロキシを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロキシするオブジェクトです。アイテムが指定されていない場合は、匿名オブジェクトが作成されて割り当てられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このオブジェクトインスタンスの一意の ID を含むストリングです。すべてのオブジェクトは固有の識別方法を提供しなければならないため、PropertyChangeNotifier に準拠するために必要です。値が指定されていない場合は、任意の ID が割り当てられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>proxyDepth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>複合オブジェクトグラフで、プロパティへのアクセス中にプロキシを作成する必要のあるレベル数を示す整数です。デフォルトは -1 で、"無限の深さまでのプロキシ" を意味します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定したオブジェクト、ID、およびプロキシの深さでこのプロキシを初期化します。
+     
+      </apiDesc><example>
+     
+      <pre>
+      import mx.events.PropertyChangeEvent;
+      import mx.utils.ObjectUtil;
+      import mx.utils.ObjectProxy;
+      import mx.utils.StringUtil;
+     
+      var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+      var p:ObjectProxy = new ObjectProxy(a);
+      p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+      p.name = "Jacey";
+      p.age = 2;
+      delete p.ssnum;
+     
+      // handler function
+      function updateHandler(event:PropertyChangeEvent):void
+      {
+          trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                         event.kind,
+                                         event.property,
+                                         event.oldValue,
+                                         event.newValue,
+                                         event.target.uid));
+      }
+     
+      // trace output
+      updateHandler('opUpdate', name, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opUpdate', age, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opDelete', ssnum, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:ObjectProxy:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+      リスナーがイベントの通知を受け取るように、イベントリスナーオブジェクトを登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>イベントを処理するリスナー関数です。この関数は、Event オブジェクトを唯一のパラメーターとして受け取り、何も返さないようにします。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>リスナーが、キャプチャ段階、またはターゲットおよびバブリング段階で動作するかどうかを判断します。<codeph>useCapture</codeph> を <codeph>true</codeph> に設定すると、リスナーはキャプチャ段階のみでイベントを処理し、ターゲット段階またはバブリング段階では処理しません。<codeph>useCapture</codeph> を <codeph>false</codeph> に設定すると、リスナーはターゲット段階またはバブリング段階のみでイベントを処理します。3 つの段階すべてでイベントを受け取るには、<codeph>addEventListener</codeph> を 2 回呼び出します。<codeph>useCapture</codeph> を <codeph>true</codeph> に設定して呼び出し、<codeph>useCapture</codeph> を <codeph>false</codeph> に設定してもう一度呼び出します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>イベントリスナーの優先度レベルです。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>リスナーへの参照が強参照と弱参照のいずれであるかを判断します。デフォルトである強参照の場合は、リスナーのガベージコレクションが回避されます。弱参照では回避されません。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リスナーがイベントの通知を受け取るように、イベントリスナーオブジェクトを登録します。パラメーターの説明を含む詳細については、flash.events.EventDispatcher クラスの <codeph>addEventListener()</codeph> を参照してください。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/addEventListener()"><linktext>flash.events.EventDispatcher.addEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>呼び出したメソッドの戻り値です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>呼び出されるメソッドの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>呼び出されるメソッドの引数を指定する配列です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      プロキシになるオブジェクトで指定されたプロパティを削除し、削除通知をハンドラーに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティが削除されたかどうかを示すブール値です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトで指定されたプロパティを削除し、削除通知をハンドラーに送信します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      イベントをイベントフローに送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>マトリックスが正常に反転された場合、<codeph>true</codeph> を返します。値が <codeph>false</codeph> の場合、イベントの送出に失敗したか、イベントで <codeph>preventDefault()</codeph> が呼び出されたことを示しています。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントフローに送出されるイベントオブジェクトです。イベントが再度送出されると、イベントのクローンが自動的に作成されます。イベントが送出された後にそのイベントの target プロパティは変更できないため、再送出処理のためにはイベントの新しいコピーを作成する必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      イベントをイベントフローに送出します。詳細については、flash.events.EventDispatcher クラスを参照してください。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/dispatchEvent()"><linktext>flash.events.EventDispatcher.dispatchEvent()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:object_proxy:getComplexProperty"><apiName>getComplexProperty</apiName><shortdesc>
+      イベントバブリングのプロキシまたはデイジーチェーンになる必要がある複雑なプロパティの管理方法をサブクラスがオーバーライドする場所を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="object_proxy"/><apiReturn><apiDesc><codeph>ObjectProxy</codeph> のプロパティ値またはインスタンスです。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>プロパティの値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      イベントバブリングのプロキシまたはデイジーチェーンになる必要がある複雑なプロパティの管理方法をサブクラスがオーバーライドする場所を提供します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの値です。インスタンスによっては、この値は <codeph>ObjectProxy</codeph> のインスタンスになる場合があります。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+      特定のタイプのイベントに対して登録されたイベントリスナーがあるかどうかをチェックします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定したタイプのリスナーが登録されている場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      特定のタイプのイベントに対して登録されたイベントリスナーがあるかどうかをチェックします。これにより、オブジェクトがイベントタイプの処理をイベントフロー階層のどこで変更したかを判断できます。詳細については、flash.events.EventDispatcher クラスを参照してください。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/hasEventListener()"><linktext>flash.events.EventDispatcher.hasEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:propertyChangeHandler"><apiName>propertyChangeHandler</apiName><shortdesc>
+      複合プロパティが更新されたときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:PropertyChangeEvent</apiOperationClassifier><apiDesc>変更されたイベント オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      複合プロパティが更新されたときに呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:readExternal"><apiName>readExternal</apiName><shortdesc>
+      Flex では ObjectProxy のみを使用して匿名オブジェクトをラップするため、サーバー flex.messaging.io.ObjectProxy インスタンスはそれ自体を Map として直列化し、その Map がプレーン ActionScript オブジェクトとして返されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>input</apiItemName><apiType value="flash.utils:IDataInput"/><apiDesc>ObjectProxy が非直列化されるソースオブジェクトです。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex では ObjectProxy のみを使用して匿名オブジェクトをラップするため、サーバー flex.messaging.io.ObjectProxy インスタンスはそれ自体を Map として直列化し、その Map がプレーン ActionScript オブジェクトとして返されます。この値に、object_proxy オブジェクトプロパティを設定できます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+      イベントリスナーを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>削除するリスナーオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>リスナーが、キャプチャ段階、またはターゲットおよびバブリング段階に対して登録されたかどうかを示します。リスナーがキャプチャ段階だけでなくターゲット段階とバブリング段階にも登録されている場合は、<codeph>removeEventListener()</codeph> を 2 回呼び出して両方のリスナーを削除する必要があります。1 回は <codeph>useCapture</codeph> を <codeph>true</codeph> に設定し、もう 1 回は <codeph>useCapture</codeph> を <codeph>false</codeph> に設定する必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      イベントリスナーを削除します。対応するリスナーが EventDispatcher オブジェクトに登録されていない場合は、このメソッドを呼び出しても効果はありません。詳細については、flash.events.EventDispatcher クラスを参照してください。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/removeEventListener()"><linktext>flash.events.EventDispatcher.removeEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      プロキシになるオブジェクトで指定されたプロパティを更新し、更新通知をハンドラーに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトで更新するプロパティの名前を含むオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトに設定する値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトで指定されたプロパティを更新し、更新通知をハンドラーに送信します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:protected:setupPropertyList"><apiName>setupPropertyList</apiName><shortdesc>
+      このメソッドは、プロキシになるオブジェクトのプロパティ名すべての配列を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドは、プロキシになるオブジェクトのプロパティ名すべての配列を作成します。このリストにプロパティを追加する場合は、下位要素でこのメソッドをオーバーライドする必要があります。必ず、<codeph>super.setupPropertyList</codeph> を呼び出してから <codeph>propertyList</codeph> プロパティを変更してください。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+      指定されたイベントタイプについて、このオブジェクトまたはその上位要素にイベントリスナーが登録されているかどうかをチェックします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定したタイプのリスナーがトリガーされた場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたイベントタイプについて、この オブジェクトまたはその上位要素にイベントリスナーが登録されているかどうかを確認します。指定されたタイプのイベントがこの オブジェクトまたはその下位要素に送出されたときに、イベントリスナーがイベントフローの任意の段階でトリガーされる場合、このメソッドは <codeph>true</codeph> を返します。 詳細については、flash.events.EventDispatcher クラスを参照してください。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/willTrigger()"><linktext>flash.events.EventDispatcher.willTrigger()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:writeExternal"><apiName>writeExternal</apiName><shortdesc>
+      Flex ではラップする内部 ActionScript オブジェクトのみを直列化するため、サーバー flex.messaging.io.ObjectProxy はこの匿名オブジェクトの内容で設定され、Map としてユーザーに表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>output</apiItemName><apiType value="flash.utils:IDataOutput"/><apiDesc>ObjectProxy が非直列化されるソースオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex ではラップする内部 ActionScript オブジェクトのみを直列化するため、サーバー flex.messaging.io.ObjectProxy はこの匿名オブジェクトの内容で設定され、Map としてユーザーに表示されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:ObjectProxy:protected:dispatcher"><apiName>dispatcher</apiName><shortdesc>
+      このプロキシの EventDispatcher への参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.events:EventDispatcher"/></apiValueDef><apiDesc>
+      このプロキシの EventDispatcher への参照です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:notifiers"><apiName>notifiers</apiName><shortdesc>
+      このプロキシが変更をリッスンしているプロパティ変更通知者のハッシュマップ。このマップのキーはプロパティ名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このプロキシが変更をリッスンしているプロパティ変更通知者のハッシュマップ。このマップのキーはプロパティ名です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:propertyList"><apiName>propertyList</apiName><shortdesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。 下位要素は、<codeph>setupPropertyList()</codeph> メソッドをオーバーライドして、このリストに入力する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:proxyClass"><apiName>proxyClass</apiName><shortdesc>
+      複合プロパティをプロキシする場合に作成するプロキシの種類を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      複合プロパティをプロキシする場合に作成するプロキシの種類を示します。この値はサブクラスにより適宜割り当てられる必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:object:get"><apiName>object</apiName><shortdesc>
+      プロキシされているオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      プロキシされているオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:type:get"><apiName>type</apiName><shortdesc>
+      このオブジェクトに関連付けられた修飾型名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+      このオブジェクトに関連付けられた修飾型名です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:uid:get"><apiName>uid</apiName><shortdesc>
+      このオブジェクトの一意の ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このオブジェクトの一意の ID です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:StringUtil"><apiName>StringUtil</apiName><shortdesc>
+  StringUtil ユーティリティクラスは、Flex 内で String オブジェクトを使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StringUtil ユーティリティクラスは、Flex 内で String オブジェクトを使用するためのメソッドを持つ完全に静的なクラスです。 StringUtil のインスタンスを作成する必要はありません。代わりに <codeph>StringUtil.substitute()</codeph> メソッドなどのメソッドを呼び出します。  
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:StringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>照会の対象となっているストリングです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合、<codeph>true</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:repeat"><apiName>repeat</apiName><shortdesc>
+      指定したストリングに、そのストリング自体を指定した回数だけ連結したストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>繰り返されたストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>繰り返すストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>n</apiItemName><apiType value="int"/><apiDesc>繰り返しの回数です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリングに、そのストリング自体を指定した回数だけ連結したストリングを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:restrict"><apiName>restrict</apiName><shortdesc>
+      「許可されていない」文字をストリングから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>制限ストリングによって許可されていない文字を差し引いた入力ストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>入力ストリングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>restrict</apiItemName><apiType value="String"/><apiDesc>制限ストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      「許可されていない」文字をストリングから削除します。<codeph>"A-Z0-9"</codeph> などの「制限ストリング」は、許可されている文字を指定するために使用されます。このメソッドでは、TextField の <codeph>restrict</codeph> プロパティと同じロジックが使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      指定したストリング内の "{n}" トークンを、渡された対応するパラメーターと置き換えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>すべての <codeph>{n}</codeph> トークンが、指定された対応するパラメーターと置換された新しいストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>置換を行うストリングです。このストリングには <codeph>{n}</codeph> 形式の特殊なトークンを含めることができます。ここで、<codeph>n</codeph> は 0 から始まるインデックスで、指定された場合、そのインデックスで検出された追加パラメーターに置換されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>それぞれの <codeph>str</codeph> パラメーター内の各 <codeph>{n}</codeph> 位置にある置換可能な追加パラメーターです。ここで <codeph>n</codeph> は、指定された値の配列の（0 から始まる）整数インデックス値です。 最初のパラメーターが配列の場合、この配列はパラメーターリストとして使用されます。 これにより、... rest シグネチャを使用する他のメソッドでこのルーチンを再使用できます。次に例を示します。 <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリング内の "{n}" トークンを、渡された対応するパラメーターと置き換えます。
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info '{0}' and {1}"; trace(StringUtil.substitute(str, 15.4, true)); // これは次のストリングを出力します。// "here is some info '15.4' and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      ストリングとして格納されている配列内の各エレメントの先頭と末尾から、すべての空白文字を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>各エレメントの先頭および最後の空白を削除して更新されたストリングです。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>空白を削除する必要のあるストリングです。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>ストリング内の各配列エレメントを区切るストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングとして格納されている配列内の各エレメントの先頭と末尾から、すべての空白文字を削除します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trim"><apiName>trim</apiName><shortdesc>
+      指定したストリングの先頭と末尾から、すべての空白文字を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>先頭および最後の空白を削除して更新されたストリングです。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>空白を削除する必要のあるストリングです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリングの先頭と末尾から、すべての空白文字を削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:NameUtil"><apiName>NameUtil</apiName><shortdesc>
+  NameUtil ユーティリティクラスは、Flex オブジェクト用の名前を作成するための静的なメソッドを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NameUtil ユーティリティクラスは、Flex オブジェクト用の名前を作成するための静的なメソッドを定義します。 NameUtil のインスタンスを作成する必要はなく、<codeph>NameUtil.createName()</codeph> メソッドなどのクラスの静的メソッドを呼び出します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:NameUtil:createUniqueName"><apiName>createUniqueName</apiName><shortdesc>
+      任意の Object インスタンスに対して一意な名前を作成します。作成されるのは、"Button12" のように、無修飾のクラス名をインクリメントカウンターと組み合わせた名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>固有の名前を含むストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>名前を必要とするオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      任意の Object インスタンスに対して一意な名前を作成します。作成されるのは、"Button12" のように、無修飾のクラス名をインクリメントカウンターと組み合わせた名前です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:displayObjectToString"><apiName>displayObjectToString</apiName><shortdesc>
+      アプリケーション内での DisplayObject オブジェクトの階層における、その DisplayObject オブジェクトの位置を示すストリング（"MyApplication0.addressForm.lastName.TextField17" など）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>アプリケーション内での DisplayObject オブジェクトの階層における <codeph>displayObject</codeph> の位置を含むストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>アプリケーション内での階層が必要な DisplayObject オブジェクトです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アプリケーション内での DisplayObject オブジェクトの階層における、その DisplayObject オブジェクトの位置を示すストリング（"MyApplication0.addressForm.lastName.TextField17" など）を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:getUnqualifiedClassName"><apiName>getUnqualifiedClassName</apiName><shortdesc>
+      指定したオブジェクトのクラスの名前（"Button" など）を返します。このストリングにはパッケージ名は含まれません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定したオブジェクトのクラスの名前です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したオブジェクトのクラスの名前（<codeph>"Button"</codeph> など）を返します。
+     
+      <p>このストリングにはパッケージ名は含まれません。 パッケージ名も必要な場合は、flash.utils パッケージの <codeph>getQualifiedClassName()</codeph> メソッドを呼び出してください。 <codeph>"mx.controls::Button"</codeph> のようなストリングが返されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+ Base64 エンコードストリングを ByteArray にデコードするユーティリティクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Base64 エンコードストリングを ByteArray にデコードするユーティリティクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Decoder:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Decoder:decode"><apiName>decode</apiName><shortdesc>
+     Base64 エンコードストリングをデコードし、その結果を内部バッファーに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>encoded</apiItemName><apiType value="String"/><apiDesc>デコードする Base64 エンコードストリングです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Base64 エンコードストリングをデコードし、その結果を内部バッファーに追加します。 ストリングは ASCII 形式にする必要があります。 
+     
+     <p>このメソッドに対する後続の呼び出しが内部バッファーに追加されます。 すべてのデータがエンコードされた後、<codeph>toByteArray()</codeph> を呼び出してデコードされた <codeph>flash.utils.ByteArray</codeph> を取得します。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:reset"><apiName>reset</apiName><shortdesc>
+     すべてのバッファーをクリアし、デコーダを初期状態にリセットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     すべてのバッファーをクリアし、デコーダを初期状態にリセットします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     現在のバッファーを、デコードされた flash.utils.ByteArray として返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>デコードされた <codeph>flash.utils.ByteArray</codeph> です。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn></apiOperationDef><apiDesc>
+     現在のバッファーを、デコードされた <codeph>flash.utils.ByteArray</codeph> として返します。 このメソッドを呼び出すと、バッファーがクリアされ、デコーダは初期状態にリセットされることに注意してください。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:DisplayUtil"><apiName>DisplayUtil</apiName><shortdesc>
+  DisplayUtil ユーティリティクラスは、DisplayObjects に関連するユーティリティメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DisplayUtil ユーティリティクラスは、DisplayObjects に関連するユーティリティメソッドを持つ完全に静的なクラスです。DisplayUtil クラスのインスタンスを作成する必要はありません。代わりに <codeph>DisplayUtil.walkDisplayObjects()</codeph> などの静的メソッドを呼び出します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:DisplayUtil:walkDisplayObjects"><apiName>walkDisplayObjects</apiName><shortdesc>
+	  指定した DisplayObject のツリー内の各ノードに対して、指定した関数を再帰的に呼び出し、その DisplayObject への参照を渡します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>ターゲットの DisplayObject です。
+	  </apiDesc></apiParam><apiParam><apiItemName>callbackFunction</apiItemName><apiType value="Function"/><apiDesc>指定した DisplayObject のツリー内の各ノードに対して呼び出すメソッドです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  指定した DisplayObject のツリー内の各ノードに対して、指定した関数を再帰的に呼び出し、その DisplayObject への参照を渡します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:ArrayUtil"><apiName>ArrayUtil</apiName><shortdesc>
+  ArrayUtil ユーティリティクラスは、Flex 内で配列を使用するためのメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ArrayUtil ユーティリティクラスは、Flex 内で配列を使用するためのメソッドを持つ完全に静的なクラスです。 ArrayUtil のインスタンスを作成する必要はありません。代わりに <codeph>ArrayUtil.toArray()</codeph> メソッドなどの静的メソッドを呼び出します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ArrayUtil:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      配列内におけるアイテムのインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>アイテムのインデックスで、アイテムがリスト内にない場合は -1 です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>配列内で検索するアイテムです。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Array"/><apiDesc>アイテムを検索する配列です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      配列内におけるアイテムのインデックスを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ArrayUtil:toArray"><apiName>toArray</apiName><shortdesc>
+      オブジェクトを配列として使用できるようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>配列です。元のオブジェクトが既に配列である場合は、元の配列が返されます。そうでない場合は、オブジェクトのみをエレメントとして持つ新しい配列か、オブジェクトが null の場合は空の配列が返されます。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>配列にするオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクトを配列として使用できるようにします。
+     
+      <p>オブジェクトが既に配列である場合、そのオブジェクトを返します。オブジェクトが配列ではない場合、そのオブジェクトのみをエレメントとする配列を返します。特殊なケースとして、オブジェクトが null の場合は空の配列を返します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+ このクラスには、HSB（色相、彩度、明度）空間で表されるカラーに関する情報が保持されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ このクラスには、HSB（色相、彩度、明度）空間で表されるカラーに関する情報が保持されます。このクラスの主な用途は、これらの値を単純に格納することですが、RGB カラー表現との間の変換に使用できるユーティリティ関数もいくつか用意されています。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:HSBColor:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+      オプションのパラメーターを指定して HSBColor を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>色相です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>彩度です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>明度です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      オプションのパラメーターを指定して HSBColor を作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:HSBColor:convertHSBtoRGB"><apiName>convertHSBtoRGB</apiName><shortdesc>
+      パラメーターで指定された HSB カラーを uint の RGB カラーに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>RGB カラーです。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiDesc>色相です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiDesc>彩度です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiDesc>明度です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      パラメーターで指定された HSB カラーを uint の RGB カラーに変換します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:HSBColor:convertRGBtoHSB"><apiName>convertRGBtoHSB</apiName><shortdesc>
+      RGB 形式のカラーを HSBColor に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>RGB カラーを表す HSBColor オブジェクトです。 
+      
+      </apiDesc><apiOperationClassifier>mx.utils:HSBColor</apiOperationClassifier></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>RGB カラーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      RGB 形式のカラーを HSBColor に変換します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:HSBColor:brightness:get"><apiName>brightness</apiName><shortdesc>
+     この HSB カラーの明度パラメーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     この HSB カラーの明度パラメーターです。これは 0（黒）から 1（最高明度）までの値であり、HSB 円錐の頂点からの距離を表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:hue:get"><apiName>hue</apiName><shortdesc>
+     HSB カラーの色相の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     HSB カラーの色相の値です。これは HSB 円錐を囲む角度を表します。指定した値は 360 を基準に調整されるので、格納される色相の値の範囲は 0 から 360 までになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:saturation:get"><apiName>saturation</apiName><shortdesc>
+     この HSB カラーの彩度パラメーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     この HSB カラーの彩度パラメーターです。これは、0（黒）から 1（最高彩度）までの値であり、HSB 円錐の中心からの距離を表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:GraphicsUtil"><apiName>GraphicsUtil</apiName><shortdesc>
+  Graphics クラスは、このクラスに関連するユーティリティメソッドを持つ完全に静的なクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Graphics クラスは、このクラスに関連するユーティリティメソッドを持つ完全に静的なクラスです。 GraphicsUtil のインスタンスを作成する必要はなく、<codeph>GraphicsUtil.drawRoundRectComplex()</codeph> メソッドなどのメソッドを呼び出すだけです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex2"><apiName>drawRoundRectComplex2</apiName><shortdesc>
+     個別の x および y 半径を使用して丸い角を作成し、角丸矩形を描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>角丸矩形を描画する Graphics オブジェクトです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>親表示オブジェクトの基準点からの相対的な水平座標（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>親表示オブジェクトの基準点からの相対的な垂直座標（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>角丸矩形の幅（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>角丸矩形の高さ（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusX</apiItemName><apiType value="Number"/><apiDesc>角の固有値を指定しないと、デフォルトの radiusX が使用されます。この値は指定する必要があります。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusY</apiItemName><apiType value="Number"/><apiDesc>角の固有値を指定しないと、デフォルトの radiusY が使用されます。0 の場合は、radiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>左上角の x 半径です（ピクセル単位）。NaN の場合は、radiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>左上角の y 半径です（ピクセル単位）。NaN の場合は、topLeftRadiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>右上角の x 半径です（ピクセル単位）。NaN の場合は、radiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>右上角の y 半径です（ピクセル単位）。NaN の場合は、topRightRadiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>左下角の x 半径です（ピクセル単位）。NaN の場合は、radiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>左下角の y 半径です（ピクセル単位）。NaN の場合は、bottomLeftRadiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>右下角の x 半径です（ピクセル単位）。NaN の場合は、radiusX の値が使用されます。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>右下角の y 半径です（ピクセル単位）。NaN の場合は、bottomRightRadiusX の値が使用されます。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     個別の x および y 半径を使用して丸い角を作成し、角丸矩形を描画します。<codeph>drawRoundRectComplex2()</codeph> メソッドを呼び出す前に、<codeph>linestyle()</codeph>、<codeph>lineGradientStyle()</codeph>、<codeph>beginFill()</codeph>、<codeph>beginGradientFill()</codeph>、<codeph>beginBitmapFill()</codeph> メソッドを呼び出して、Graphics オブジェクトに線のスタイルや塗りを設定する必要があります。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex"><apiName>drawRoundRectComplex</apiName><shortdesc>
+     丸角の描画に半径のサイズを使用して角丸矩形を描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>角丸矩形を描画する Graphics オブジェクトです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>親表示オブジェクトの基準点からの相対的な水平座標（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>親表示オブジェクトの基準点からの相対的な垂直座標（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>角丸矩形の幅（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>角丸矩形の高さ（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadius</apiItemName><apiType value="Number"/><apiDesc>左上角の半径（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadius</apiItemName><apiType value="Number"/><apiDesc>右上角の半径（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadius</apiItemName><apiType value="Number"/><apiDesc>左下角の半径（ピクセル単位）。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadius</apiItemName><apiType value="Number"/><apiDesc>右下角の半径（ピクセル単位）。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     丸角の描画に半径のサイズを使用して角丸矩形を描画します。 <codeph>drawRoundRectComplex()</codeph> メソッドを呼び出す前に、<codeph>linestyle()</codeph>、<codeph>lineGradientStyle()</codeph>、<codeph>beginFill()</codeph>、<codeph>beginGradientFill()</codeph>、<codeph>beginBitmapFill()</codeph> メソッドを呼び出して、線のスタイルや塗りを設定する必要があります。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+  XML および XMLList オブジェクトに対する変更を監視するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  XML および XMLList オブジェクトに対する変更を監視するために使用されます。これらのオブジェクトは EventDispatcher ではないため、複数エレメントで変更を監視する場合は、このメカニズムを使用する必要があります。<codeph>watchXML()</codeph> を呼び出して、XML.notification に渡すものと同じ通知関数で渡します。その通知を削除するには、<codeph>unwatchXML()</codeph> を使用します。
+  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:XMLNotifier:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="XMLNotifier.as$522:XMLNotifierSingleton"/></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。XMLNotifier はシングルトンクラスであるため、<codeph>new</codeph> 演算子は使用して複数のインスタンスを作成することはありません。代わりに、静的メソッド <codeph>XMLNotifider.getInstance()</codeph> を呼び出して、このクラスの唯一のインスタンスを取得します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:XMLNotifier:getInstance"><apiName>getInstance</apiName><shortdesc>
+      XMLNotifier のシングルトンインスタンスを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>XMLNotifier オブジェクトです。
+      
+      </apiDesc><apiOperationClassifier>mx.utils:XMLNotifier</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      XMLNotifier のシングルトンインスタンスを取得します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:unwatchXML"><apiName>unwatchXML</apiName><shortdesc>
+      XML または XMLList の場合は、指定した通知関数を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>監視を解除する XML または XMLList オブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>関数通知関数です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      XML または XMLList の場合は、指定した通知関数を削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:watchXML"><apiName>watchXML</apiName><shortdesc>
+      XML または XMLList の場合は、変更を監視する通知関数を追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>監視する XML または XMLList オブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>呼び出す必要がある関数です。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>オブジェクトの UID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      XML または XMLList の場合は、変更を監視する通知関数を追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+ String または ByteArray を Base64 エンコードストリングにエンコードする utility クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ String または ByteArray を Base64 エンコードストリングにエンコードする utility クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Encoder:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Encoder:encodeBytes"><apiName>encodeBytes</apiName><shortdesc>
+     ByteArray を Base64 にエンコードし、その結果を内部バッファーに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>エンコードする ByteArray です。
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>エンコードを開始するインデックスです。
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>オフセットからエンコードするバイト数です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ByteArray を Base64 にエンコードし、その結果を内部バッファーに追加します。 このメソッドに対する後続の呼び出しが内部バッファーに追加されます。 すべてのデータがエンコードされた後、<codeph>toString()</codeph> を呼び出して Base64 エンコードストリングを取得します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encodeUTFBytes"><apiName>encodeUTFBytes</apiName><shortdesc>
+     ストリングの UTF-8 バイトを Base64 にエンコードし、その結果を内部バッファーに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>エンコードするストリングです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ストリングの UTF-8 バイトを Base64 にエンコードし、その結果を内部バッファーに追加します。 UTF-8 情報には長さプレフィックスは含まれません。このメソッドに対する後続の呼び出しが内部バッファーに追加されます。 すべてのデータがエンコードされた後、<codeph>toString()</codeph> を呼び出して Base64 エンコードストリングを取得します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encode"><apiName>encode</apiName><shortdesc>
+     ストリングの文字を Base64 にエンコードし、その結果を内部バッファーに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>エンコードするストリングです。
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>エンコードを開始する文字の位置です。
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>オフセットからエンコードする文字数です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ストリングの文字を Base64 にエンコードし、その結果を内部バッファーに追加します。 ストリングは ASCII 形式にする必要があります。 
+     
+     <p>このメソッドに対する後続の呼び出しが内部バッファーに追加されます。 すべてのデータがエンコードされた後、<codeph>toString()</codeph> を呼び出して Base64 エンコードストリングを取得します。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:reset"><apiName>reset</apiName><shortdesc>
+     すべてのバッファーをクリアし、エンコーダーを初期状態にリセットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     すべてのバッファーをクリアし、エンコーダーを初期状態にリセットします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:toString"><apiName>toString</apiName><shortdesc>
+     現在のバッファーを Base64 エンコードストリングとして返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Base64 エンコードストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     現在のバッファーを Base64 エンコードストリングとして返します。 また、このメソッドを呼び出すと、バッファーがクリアされ、エンコーダーは初期状態にリセットされることに注意してください。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:Base64Encoder:CHARSET_UTF_8"><apiName>CHARSET_UTF_8</apiName><shortdesc>
+      「UTF-8」というストリングの定数定義です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UTF-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      「UTF-8」というストリングの定数定義です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:insertNewLines"><apiName>insertNewLines</apiName><shortdesc>
+     エンコードされた出力を折り返すために、Base64Encoder.newLine に指定された一連の文字を 76 文字ごとに挿入するかどうかを制御する Boolean フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+     エンコードされた出力を折り返すために、<codeph>Base64Encoder.newLine</codeph> に指定された一連の文字を 76 文字ごとに挿入するかどうかを制御する Boolean フラグです。 デフォルト値は true です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:newLine"><apiName>newLine</apiName><shortdesc>
+     insertNewLines が true の場合に、改行を表すためにエンコードされた出力に挿入される文字コードポイントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="int"/></apiValueDef><apiDesc>
+     <codeph>insertNewLines</codeph> が true の場合に、改行を表すためにエンコードされた出力に挿入される文字コードポイントです。 デフォルト値は <codeph>10</codeph> で、ラインフィード <codeph>¥n</codeph> を表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

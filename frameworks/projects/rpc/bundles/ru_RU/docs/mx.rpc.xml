@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc"><apiName>mx.rpc</apiName><apiDetail/><apiClassifier id="mx.rpc:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+ Класс AbstractService является базовым классом для классов HTTPMultiService, WebService и RemoteObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс AbstractService является базовым классом для классов HTTPMultiService, WebService и RemoteObject. Этот класс используется для создания операций, которые фактически выполняют удаленные вызовы процедур.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Событие ошибки передается при ошибке вызова службы и отсутствии обработки этого вызова операцией.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Событие ошибки передается при ошибке вызова службы и отсутствии обработки этого вызова операцией.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Событие результата передается при успешном возврате вызова службы и отсутствии обработки этого вызова операцией.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Событие результата передается при успешном возврате вызова службы и отсутствии обработки этого вызова операцией.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+ Событие вызова передается при вызове операции службы при отсутствии ошибки до попытки канала передать сообщение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Событие вызова передается при вызове операции службы при отсутствии ошибки до попытки канала передать сообщение.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractService:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Адрес назначения службы.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Разъединяет сетевое подключение службы и удаляет любые ответчики для запросов в очереди.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Разъединяет сетевое подключение службы и удаляет любые ответчики для запросов в очереди. Этот метод не ожидает завершения сетевых операций в очереди.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Возвращает операцию для данного имени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Операция, которая выполняется для этого имени.
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя операции.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает операцию для данного имени. Если операция не была создана предварительно, она создается подклассами в течение этого вызова. Как правило, доступ к операции можно получить путем простого указания ее имени после переменной службы (<codeph>myService.someOperation</codeph>), но если имя операции совпадает с определенным методом в службе (например, <codeph>setCredentials</codeph>), то для обращения к операции можно использовать этот метод.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:initialize"><apiName>initialize</apiName><shortdesc>
+      Вызов для инициализации службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызов для инициализации службы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:logout"><apiName>logout</apiName><shortdesc>
+     Регистрирует пользователя за пределами адреса назначения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Регистрирует пользователя за пределами адреса назначения. Выход из адреса назначения применяется для всех подключений, использующих одинаковый ChannelSet, указанный в конфигурации сервера. Например, если при подключении по каналу my-rtmp выполняется выход из системы посредством одного из компонентов RPC, выход будет выполнен для всех подключений по этому ChannelSet.
+     
+      <p><b>Примечание.</b> Adobe рекомендует вместо этого метода использовать метод mx.messaging.ChannelSet.logout(). </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AbstractService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+     Устанавливает учетные данные для адреса назначения, к которому обращалась служба при использовании Data Services на стороне сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Имя пользователя для адреса назначения.
+     </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Пароль для адреса назначения.
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Кодировка набора символов для использования при кодировании учетных данных. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1. Помимо этого поддерживается только набор символов UTF-8.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Устанавливает учетные данные для адреса назначения, к которому обращалась служба при использовании Data Services на стороне сервера. Учетные данные применяются ко всем службам, подключенным по одному ChannelSet. Учтите, что для служб, использующих прокси или внешний адаптер для удаленной конечной точки, вместо этого требуется setRemoteCredentials.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     Имя пользователя и пароль для аутентификации пользователя в случае обращения к удаленной внешней конечной точке, например к web-службе через прокси или к удаленному объекту через пользовательский адаптер при использовании Data Services на стороне сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>Имя пользователя для передачи в удаленную конечную точку
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>Пароль для передачи в удаленную конечную точку
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Кодировка набора символов для использования при кодировании учетных данных в удаленной службе. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1. Помимо этого поддерживается только набор символов UTF-8.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Имя пользователя и пароль для аутентификации пользователя в случае обращения к удаленной внешней конечной точке, например к web-службе через прокси или к удаленному объекту через пользовательский адаптер при использовании Data Services на стороне сервера.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      Предоставляет доступ к ChannelSet, используемому данной службой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к ChannelSet, используемому данной службой. ChannelSet может быть создан и присвоен вручную или динамически – для использования настроенных каналов со значением <codeph>destination</codeph> этой службы.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:destination:get"><apiName>destination</apiName><shortdesc>
+     Адрес назначения службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Адрес назначения службы. Это значение должно соответствовать значению адреса в файле services-config.xml.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:managers:get"><apiName>managers</apiName><shortdesc>
+     Свойство managers используется для хранения списка менеджеров данных, которые изменяют поведение этой службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Свойство managers используется для хранения списка менеджеров данных, которые изменяют поведение этой службы. Эта функция позволяет определить один или несколько компонентов менеджеров, связанных с этой службой. Для этого свойства устанавливается значение данной службы, если для менеджеров указано свойство service. При инициализации этой службы метод initialize также вызывается для любых компонентов менеджеров.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Предоставляет доступ к тайм-ауту запроса в секундах для переданных сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к тайм-ауту запроса в секундах для переданных сообщений. Если значение меньше или равно нулю, тайм-аут запроса не применяется.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:operations:set"><apiName>operations</apiName><shortdesc>
+     Массив операций обычно устанавливается только компилятором MXML при создании службы посредством тега MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Массив операций обычно устанавливается только компилятором MXML при создании службы посредством тега MXML.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AbstractInvoker"><apiName>AbstractInvoker</apiName><shortdesc>
+ Объект вызова фактически выполняет удаленный вызов процедуры (RPC).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Объект вызова фактически выполняет удаленный вызов процедуры (RPC). Например, объектами вызова являются RemoteObject, HTTPService и WebService.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:AbstractInvoker:cancel"><apiName>cancel</apiName><shortdesc>
+      Отменяет последний вызов службы или вызов с указанным идентификатором.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>AsyncToken, связанный с вызовом, который был отменен или является нулевым (если отмена вызовов не выполнялась).
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Значение messageId для вызова, который требуется отменить. Дополнительно. Если этот параметр не используется, последний вызов службы будет отменен.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отменяет последний вызов службы или вызов с указанным идентификатором. Даже в том случае, если возможность выполнения сетевой операции сохраняется, события результата или ошибки не передаются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:clearResult"><apiName>clearResult</apiName><shortdesc>
+      Устанавливает для свойства result объекта вызова значение null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Если требуется выполнить какую-либо привязку к результату для обновления, устанавливается значение <codeph>true</codeph>. В противном случае устанавливается значение <codeph>false</codeph>. Значением по умолчанию является <codeph>true</codeph>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает для свойства <codeph>result</codeph> объекта вызова значение <codeph>null</codeph>. Рекомендуется использовать в случае, если результат является крупным объектом, который больше не используется.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:setResult"><apiName>setResult</apiName><shortdesc>
+      Эта функция предоставляется для обновления свойства lastResult.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>Новое значение для свойства lastResult.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Эта функция предоставляется для обновления свойства lastResult. Поскольку, как правило, свойство lastResult обновляется службой автоматически, обычно вызов этого свойства не выполняется. Оно используется управляемыми службами для проверки того, что lastResult всегда указывает на управляемый экземпляр the для данного идентификатора даже в том случае, если служба возвращает новую копию того же объекта.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractInvoker:operationManager"><apiName>operationManager</apiName><shortdesc>
+     Это свойство обычно устанавливается кодом инфраструктуры, если требуется изменить поведение вызова службы без изменения способа внешнего вызова этой службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Это свойство обычно устанавливается кодом инфраструктуры, если требуется изменить поведение вызова службы без изменения способа внешнего вызова этой службы. Это позволяет добавить в вызов метода шаг filter, например для обеспечения того, что для одного идентификатора не будут возвращаться двойные экземпляры или для вставки параметров выполнения подкачки страниц по запросу. Если для этого свойства в вызове метода send установлено значение, отличное от null, вместо этого вызывается функция operationManager. При этом возвращается маркер, используемый вызывающим абонентом для получения результата. Обычно вызываемая функция в определенный момент временно сбрасывает значение этого свойства, а затем повторно вызывает операцию и передает ее на сервер.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultElementType"><apiName>resultElementType</apiName><shortdesc>
+     Аналогично resultType предназначается для определения класса ActionScript, используемого данной операцией, но применяется только в отношении операций, возвращающих результат с несколькими значениями (например,</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+     Аналогично resultType предназначается для определения класса ActionScript, используемого данной операцией, но применяется только в отношении операций, возвращающих результат с несколькими значениями (например, массив или ArrayCollection (IList)). Это свойство указывает класс ActionScript для элементов или коллекции массивов. Если установлено значение для resultElementType, значение resultType устанавливать не требуется. В этом случае операция возвращает массив, если для makeObjectsbindable установлено значение false. В противном случае – коллекцию массивов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultType"><apiName>resultType</apiName><shortdesc> 
+     Указывает дополнительный тип возврата для операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc> 
+     Указывает дополнительный тип возврата для операции. Используется в ситуациях, когда требуется принудительно передать информацию проводными средствами в определенный класс ActionScript или предоставить метаданные для других служб по типу возврата этой операции.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      Результат последнего вызова.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Результат последнего вызова.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Если значение равно true, возвращенные анонимные объекты принудительно передаются объектам со свойством bindable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Если значение равно true, возвращенные анонимные объекты принудительно передаются объектам со свойством bindable.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+ Этот класс предоставляет специфичную для RPC реализацию mx.rpc.IResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Этот класс предоставляет специфичную для RPC реализацию <codeph>mx.rpc.IResponder</codeph>. Это позволяет создателю связывать данные (маркер) и методы, которые требуется вызывать при выполнении запроса. Указанный метод результата должен иметь следующую подпись: <codeph><pre>
+     public function myResultFunction(result:Object, token:Object = null):void;
+  </pre></codeph> Указанный метод ошибки должен иметь следующую подпись: <codeph><pre>
+     public function myFaultFunction(error:Object, token:Object = null):void;
+  </pre></codeph> Использование любой другой подписи приведет к ошибке во время выполнения.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncResponder:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+      Создает экземпляр ответчика с указанными данными и обработчиками.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>Функция, которую требуется вызывать при успешном выполнении запроса. При этом требуется следующая подпись:
+              <pre>public function (result:Object, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>Функция, которую требуется вызывать при выполнении запроса с ошибками. При этом требуется следующая подпись:
+              <pre>public function (error:FaultEvent, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Дополнительная информация для связи с этим запросом.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр ответчика с указанными данными и обработчиками.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncResponder:fault"><apiName>fault</apiName><shortdesc>
+      Этот метод вызывается службой при получении ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий информацию об ошибке.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается службой при получении ошибки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncResponder:result"><apiName>result</apiName><shortdesc>
+      Этот метод вызывается службой при получении возвращаемого значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий информацию, возвращенную из запроса.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается службой при получении возвращаемого значения.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:IResponder"><apiName>IResponder</apiName><shortdesc>
+  Этот интерфейс предоставляет договор для любой службы, которая должна отвечать на удаленные или асинхронные вызовы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс предоставляет договор для любой службы, которая должна отвечать на удаленные или асинхронные вызовы.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:fault"><apiName>fault</apiName><shortdesc>
+	  Этот метод вызывается службой при получении ошибки.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Содержит информацию об ошибке.
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Этот метод вызывается службой при получении ошибки. Несмотря на то, что <codeph>info</codeph> имеет тип Object, он часто (но не всегда) может являться объектом mx.rpc.events.FaultEvent.
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:result"><apiName>result</apiName><shortdesc>
+	  Этот метод вызывается службой при получении возвращаемого значения.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Содержит информацию, возвращенную из запроса.
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Этот метод вызывается службой при получении возвращаемого значения. Несмотря на то, что <codeph>data</codeph> имеет тип Object, он часто (но не всегда) может являться объектом mx.rpc.events.ResultEvent.
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ Класс AbstractOperation представляет отдельный метод в службе.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс AbstractOperation представляет отдельный метод в службе. Операцию можно вызвать путем вызова функции с тем же именем в службе или путем получения доступа к операции в качестве свойства в службе и вызова метода <codeph>send()</codeph>.
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.xml#AbstractService"><linktext>mx.rpc.AbstractService</linktext></link><link href="mx.rpc.remoting.xml#RemoteObject"><linktext>mx.rpc.remoting.RemoteObject</linktext></link><link href="mx.rpc.soap.xml#WebService"><linktext>mx.rpc.soap.WebService</linktext></link></related-links><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Передается при ошибке вызова операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при ошибке вызова операции.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Передается при успешном возврате вызова операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при успешном возврате вызова операции.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+     Создает новую операцию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>Служба, в которой был выполнен вызов операции.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя новой операции.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Создает новую операцию. Это значение обычно устанавливается непосредственно компилятором MXML или автоматически службой при обращении к неизвестной операции. Разработчику не рекомендуется использовать этот конструктор напрямую.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractOperation:send"><apiName>send</apiName><shortdesc>
+     Выполняет соответствующий метод.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект AsyncToken. Этот объект доступен в событиях <codeph>result</codeph> и <codeph>fault</codeph> свойства <codeph>token</codeph>.
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные аргументы, переданные как часть вызова метода. При отсутствии передаваемых аргументов в качестве источника параметров используется объект аргументов.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Выполняет соответствующий метод. Любые аргументы, переданные как часть вызова метода. При отсутствии передаваемых аргументов в качестве источника параметров используется объект аргументов.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractOperation:arguments"><apiName>arguments</apiName><shortdesc>
+     Аргументы для передачи операции при ее вызове.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Аргументы для передачи операции при ее вызове. При вызове метода <codeph>send()</codeph> без параметров на основе этого объекта передается массив. При вызове метода <codeph>send()</codeph> с параметрами (или вызове функции непосредственно в службе) эти параметры используются вместо любых данных из этого свойства. Для операций RemoteObject порядок передачи аргументов определяется связанным массивом argumentNames.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:properties"><apiName>properties</apiName><shortdesc>
+     Эта функция предназначена, главным образом, для разработчиков инфраструктуры с целью регистрации дополнительных пользовательских свойств для операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Эта функция предназначена, главным образом, для разработчиков инфраструктуры с целью регистрации дополнительных пользовательских свойств для операции.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:name:get"><apiName>name</apiName><shortdesc>
+     Имя этой операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Имя этой операции. Оно определяет способ выхода операции из службы. Это значение можно установить только один раз.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:service:get"><apiName>service</apiName><shortdesc>
+     Предоставляет удобный доступ к службе, в которой вызывается операция.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AbstractService</apiValueClassifier></apiValueDef><apiDesc>
+     Предоставляет удобный доступ к службе, в которой вызывается операция. Учтите, что изменить службу после создания операции невозможно.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:Responder"><apiName>Responder</apiName><shortdesc>
+  Этот класс обеспечивает реализацию по умолчанию интерфейса mx.rpc.IResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс обеспечивает реализацию по умолчанию интерфейса mx.rpc.IResponder.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Responder:Responder"><apiName>Responder</apiName><shortdesc>
+      Создает экземпляр ответчика с указанными обработчиками.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>Функция, которую требуется вызывать при успешном выполнении запроса.
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>Функция, которую требуется вызывать при выполнении запроса с ошибками.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр ответчика с указанными обработчиками.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Responder:fault"><apiName>fault</apiName><shortdesc>
+      Этот метод вызывается службой при получении ошибки.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий информацию, возвращенную из запроса. Несмотря на то что <codeph>info</codeph> имеет тип Object, он часто (но не всегда) может являться mx.rpc.events.FaultEvent.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается службой при получении ошибки.
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:Responder:result"><apiName>result</apiName><shortdesc>
+      Этот метод вызывается удаленной службой при получении возвращаемого значения.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий информацию об ошибке. Несмотря на то что <codeph>data</codeph> имеет тип Object, он часто (но не всегда) может являться mx.rpc.events.ResultEvent.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается удаленной службой при получении возвращаемого значения.
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+  Класс AsyncRequest предоставляет абстрактное представление процесса передачи сообщений для вызова RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Producer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AsyncRequest предоставляет абстрактное представление процесса передачи сообщений для вызова RPC. AsyncRequest позволяет выполнять несколько запросов по удаленному адресу назначения и передает обратный вызов указанному в запросе получателю после выполнения удаленного запроса.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncRequest:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+	  Создает новый асинхронный запрос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Создает новый асинхронный запрос.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncRequest:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    Возвращает значение true при наличии запросов в очереди для переданного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Возвращает значение <codeph>true</codeph> при наличии запросов в очереди для переданного сообщения; в противном случае возвращает значение <codeph>false</codeph>.
+     
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, для которого проверяется наличие запросов в очереди.
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Возвращает значение <codeph>true</codeph> при наличии запросов в очереди для переданного сообщения.
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncRequest:invoke"><apiName>invoke</apiName><shortdesc>
+	  Посылает асинхронный запрос и сохраняет ответчик для выполнения вызова на более позднем этапе.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется передать асинхронно.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Ответчик, вызов которого требуется выполнить на более позднем этапе.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Посылает асинхронный запрос и сохраняет ответчик для выполнения вызова на более позднем этапе.
+         
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:Fault"><apiName>Fault</apiName><shortdesc>
+ Класс Fault представляет ошибку в вызове службы для удаленного вызова процедуры (RPC).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс Fault представляет ошибку в вызове службы для удаленного вызова процедуры (RPC).
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Fault:Fault"><apiName>Fault</apiName><shortdesc>
+     Создает новый объект Fault.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="String"/><apiDesc>Простой код с описанием ошибки.
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>Текстовое описание ошибки.
+     </apiDesc></apiParam><apiParam><apiItemName>faultDetail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Дополнительная подробная информация с описанием ошибки.
+     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Создает новый объект Fault.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Fault:toString"><apiName>toString</apiName><shortdesc>
+     Возвращает представление в виде строки для объекта Fault.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает представление в виде строки для объекта Fault.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает представление в виде строки для объекта Fault.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:Fault:content"><apiName>content</apiName><shortdesc>
+     Необработанное содержимое ошибки (если доступно), например текст ответа HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Необработанное содержимое ошибки (если доступно), например текст ответа HTTP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:rootCause"><apiName>rootCause</apiName><shortdesc>
+     Причина ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Причина ошибки. Если причина неизвестна или данная ошибка является корневой, значение будет равно null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+     Простой код с описанием ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Простой код с описанием ошибки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+     Любая дополнительная подробная информация об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Любая дополнительная подробная информация об ошибке.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultString:get"><apiName>faultString</apiName><shortdesc>
+     Текстовое описание ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Текстовое описание ошибки.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+  Этот класс предоставляет пространство для установки данных на уровне маркера для операций асинхронного RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс предоставляет пространство для установки данных на уровне маркера для операций асинхронного RPC. Кроме того, он позволяет присоединять IResponder для отдельного вызова. Доступ к AsyncToken можно получить в <codeph>ResultEvent</codeph> и <codeph>FaultEvent</codeph> из свойства <codeph>token</codeph>.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AsyncToken_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Передается при изменении свойства набора каналов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства набора каналов.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AsyncToken:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+     Создает экземпляр маркера с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Сообщение, с которым связан маркер.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Создает экземпляр маркера с указанным сообщением.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncToken:addResponder"><apiName>addResponder</apiName><shortdesc>
+      Добавляет ответчик к массиву ответчиков.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Обработчик, вызываемый по завершении асинхронного запроса.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет ответчик к массиву ответчиков. Объект, присвоенный параметру ответчика, должен реализовывать <codeph>mx.rpc.IResponder</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AsyncToken:hasResponder"><apiName>hasResponder</apiName><shortdesc>
+     Определяет, имеет ли маркер как минимум один зарегистрированный mx.rpc.IResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>значение равно true, если к маркеру добавлен как минимум один ответчик. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     Определяет, имеет ли маркер как минимум один зарегистрированный <codeph>mx.rpc.IResponder</codeph>.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AsyncToken:message:get"><apiName>message</apiName><shortdesc>
+      Предоставляет доступ к связанному сообщению.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к связанному сообщению.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:responders:get"><apiName>responders</apiName><shortdesc>
+     Массив обработчиков IResponder, вызываемый по завершении асинхронного запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Массив обработчиков IResponder, вызываемый по завершении асинхронного запроса. Для каждого присвоенного маркеру ответчика будет вызвана функция <codeph>result</codeph> или <codeph>fault</codeph> с передачей в соответствующее событие <i>до</i> непосредственной передачи события операцией или службой. Разработчик может отменить последующую передачу события службой путем вызова <codeph>event.preventDefault()</codeph>. Учтите, что это не отменит присвоение свойства <codeph>result</codeph> службы или операции.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:result:get"><apiName>result</apiName><shortdesc>
+     Результат, возвращенный связанным вызовом RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Результат, возвращенный связанным вызовом RPC. После присвоения свойства результата в маркере оно будет строго равно свойству результата в связанном ResultEvent.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:CallResponder"><apiName>CallResponder</apiName><shortdesc>
+  Этот компонент позволяет осуществлять управление результатами для асинхронных вызовов из служб на базе RPC, как правило, из компонентов MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот компонент позволяет осуществлять управление результатами для асинхронных вызовов из служб на базе RPC, как правило, из компонентов MXML. Поскольку каждая отдельная служба и операция передает события результата и ошибки, как правило, требуется использовать одну и ту же операцию в различных компонентах приложения. Использование одного прослушивателя событий или значения lastResult во всем приложении может вызвать определенные трудности. Вместо создания двух компонентов, которые относятся к одной службе, для управления прослушивателями событий и значением lastResult для специфичного вызова службы можно использовать простой упрощенный CallResponder.
+  <p>
+  Для свойства маркера этого компонента устанавливается значение AsyncToken, возвращенного службой. Далее к этому компоненту можно добавить прослушиватели событий вместо добавления их к каждому возвращенному AsyncToken. Этот компонент также поддерживает свойство lastResult, которое является копией значения, возвращенного последним успешным событием результата, которое было передано маркером, управляемым этой службой. Несмотря на то что можно выполнить привязку к <codeph>callResponder.token.result</codeph> или <codeph>callResponder.lastResult</codeph>, последнее значение сохраняется при выполнении второго вызова той же службы, а первое значение сбрасывается сразу же после инициирования нового вызова службы.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Передается при ошибке вызова операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при ошибке вызова операции.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Передается при успешном возврате вызова операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при успешном возврате вызова операции.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.rpc:CallResponder:fault"><apiName>fault</apiName><shortdesc>
+      Этот метод вызывается AsyncToken при необходимости доставить FaultEvent в CallResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>FaultEvent, поставляемый AsyncToken.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается AsyncToken при необходимости доставить <codeph>FaultEvent</codeph> в CallResponder. Этот метод не вызывается напрямую. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:CallResponder:result"><apiName>result</apiName><shortdesc>
+      Этот метод вызывается AsyncToken при необходимости доставить ResultEvent в CallResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>ResultEvent, поставляемый AsyncToken.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод вызывается AsyncToken при необходимости доставить <codeph>ResultEvent</codeph> в CallResponder. Этот метод не вызывается напрямую. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:CallResponder:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      Это свойство сохраняет свойство результата маркера при каждом получении успешного результата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+      Это свойство сохраняет свойство результата маркера при каждом получении успешного результата. Можно выполнить привязку или получить доступ к этому свойству вместо свойства token.result. Это позволит предотвратить получение вашим кодом данных о сбросе значения для второго и последующих вызовов метода определенной службы. Кроме того, в случае ошибки это значение будет по-прежнему установлено как последний успешный результат, возвращенный маркером, управляемым этим CallResponder.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:CallResponder:token:set"><apiName>token</apiName><shortdesc>
+      Каждый CallResponder передает события результата и ошибки, полученные из отдельного маркера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+      Каждый CallResponder передает события результата и ошибки, полученные из отдельного маркера. Значение данного свойства определяется маркером. Как правило, это свойство устанавливается для возвращенного службой объекта AsyncToken.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:ColorUtil"><apiName>ColorUtil</apiName><shortdesc>
+  La classe d’utilitaires ColorUtil est une classe entièrement statique avec des méthodes d’utilisation de couleurs RVB dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires ColorUtil est une classe entièrement statique avec des méthodes d’utilisation de couleurs RVB dans Flex. Il n’est pas possible d’en créer des occurrences ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>ColorUtil.adjustBrightness()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ColorUtil:adjustBrightness2"><apiName>adjustBrightness2</apiName><shortdesc>
+	  Effectue un réglage de la luminosité mise à l’échelle d’une couleur RVB. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nouvelle couleur RVB. 
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>Couleur RVB d’origine. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>Pourcentage d’éclaircissement ou d’assombrissement de la couleur d’origine. Si la valeur est positive, la couleur d’origine est éclaircie vers le blanc par ce pourcentage. Si la valeur est négative, elle est assombrie vers le noir par ce pourcentage. La plage de ce paramètre est comprise entre -100 et 100 ; -100 produit du noir, tandis que 100 produit du blanc. Si ce paramètre est 0, la couleur RVB renvoyée est la même que la couleur d’origine. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Effectue un réglage de la luminosité mise à l’échelle d’une couleur RVB. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:adjustBrightness"><apiName>adjustBrightness</apiName><shortdesc>
+	  Effectue un réglage de la luminosité linéaire d’une couleur RVB. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nouvelle couleur RVB. 
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>Couleur RVB d’origine. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>brite</apiItemName><apiType value="Number"/><apiDesc>Valeur à ajouter à chaque canal de couleur. La plage de ce paramètre s’étend de -255 à 255 : -255 produit du noir tandis que 255 produit du blanc. Si ce paramètre est 0, la couleur RVB renvoyée est la même que la couleur d’origine. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Effectue un réglage de la luminosité linéaire d’une couleur RVB. 
+	 
+	  <p>La même valeur est ajoutée aux canaux rouge, vert et bleu d’une couleur RVB. Chaque canal de couleur est limité à la plage allant de 0 à 255. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ColorUtil:rgbMultiply"><apiName>rgbMultiply</apiName><shortdesc>
+	  Effectue une multiplication RVB de deux couleurs RVB. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Multiplication RVB des deux couleurs. 
+	  
+	  </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>rgb1</apiItemName><apiType value="uint"/><apiDesc>Première couleur RVB. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rgb2</apiItemName><apiType value="uint"/><apiDesc>Deuxième couleur RVB. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Effectue une multiplication RVB de deux couleurs RVB. 
+	  
+	  <p>Cela donne toujours un nombre plus foncé que chacune des couleurs d’origine à moins que l’une d’entre elles soit blanche. Dans ce cas, l’autre couleur est renvoyée. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SecurityUtil"><apiName>SecurityUtil</apiName><shortdesc>
+  Utilitaires de gestion des problèmes de sécurité. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Utilitaires de gestion des problèmes de sécurité. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SecurityUtil:hasMutualTrustBetweenParentAndChild"><apiName>hasMutualTrustBetweenParentAndChild</apiName><shortdesc>
+	  Vérifie s’il existe un lien de confiance mutuelle entre le parent et l'enfant du pont spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> s’il existe un lien d’approbation, <codeph>false</codeph> dans le cas contraire.
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bp</apiItemName><apiOperationClassifier>mx.core:ISWFBridgeProvider</apiOperationClassifier><apiDesc>Fournisseur du pont qui relie les deux applications. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Vérifie s’il existe un lien de confiance mutuelle entre le parent et enfant du pont spécifié. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:UIDUtil"><apiName>UIDUtil</apiName><shortdesc>
+  La classe d’utilitaires UIDUtil est une classe entièrement statique avec des méthodes permettant d’utiliser des UID (identifiants uniques) dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires UIDUtil est une classe entièrement statique avec des méthodes permettant d’utiliser des UID (identifiants uniques) dans Flex. Il n’est pas possible d’en créer des occurrences ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>UIDUtil.createUID()</codeph>. 
+ 
+  <p><b>Remarque</b> : si vous disposez d’un objet dynamique ne possédant aucune propriété [Bindable] (qui force l’objet à implémenter l’interface), Flex ajoute une propriété <codeph>mx_internal_uid</codeph> qui contient un UID à l’objet. Pour éviter la présence de ce champ dans l’objet dynamique, affectez-lui l’attribut [Bindable], implémentez l’interface dans la classe d’objet ou définissez une propriété <coded>uid </coded> avec une valeur. </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:UIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      Génère un UID (identifiant unique) en fonction du générateur de nombres pseudo-aléatoire ActionScript et de l’heure actuelle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID généré. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Génère un UID (identifiant unique) en fonction du générateur de nombres pseudo-aléatoire ActionScript et de l’heure actuelle. 
+     
+      <p>L’UID est au format <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph> où X est un chiffre hexadécimal (0-9, A-F).</p>
+     
+      <p>Cet UID ne sera pas réellement globalement unique, mais c’est ce que nous pouvons faire de mieux sans prise en charge de lecteur en matière de génération d’UID. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     Convertit un UID 128 bits codé en tant qu’objet ByteArray en représentation sous forme de chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Représentation sous forme de chaîne de l’UID ou null si un objet ByteArray non valide est fourni. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Objet ByteArray de 16 octets de longueur représentant un UID 128 bits. 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Convertit un UID 128 bits codé sous la forme d’un objet ByteArray en représentation de chaîne. Le format correspond à celui généré par createUID. Si un objet ByteArray n’est pas fourni, la valeur null est renvoyée. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:getUID"><apiName>getUID</apiName><shortdesc>
+      Renvoie l’UID (identifiant unique) de l’objet spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID trouvé ou généré. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Objet dont nous avons besoin de trouver l’UID. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie l’UID (identifiant unique) de l’objet spécifié. Si l’objet spécifié ne dispose pas d’un UID, la méthode lui en affecte un. Si une carte est spécifiée, cette méthode l’utilise pour construire l’UID. Si l’élément transmis est null, cette méthode renvoie une valeur d’UID null. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     Méthode d’utilitaire pour vérifier si une valeur de chaîne représente une valeur UID correctement formatée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie true si la valeur est formatée en tant qu’UID. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Valeur à tester pour vérifier si elle est formatée en tant qu’UID. 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Méthode d’utilitaire pour vérifier si une valeur de chaîne représente une valeur UID correctement formatée. Les valeurs UID doivent être au format généré par createUID(), ce qui implique que sera créé que seuls A-F caractères en majuscule, ainsi que les chiffres 0 à 9 sont pris en charge. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:UIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     Convertit une chaîne au format UID en objet ByteArray. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet ByteArray de 16 octets de longueur représentant les 128 bits de l’UID ou null si la conversion de l’UID est impossible. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>représentant un UID 128 bits 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Convertit une chaîne au format UID en objet ByteArray. L’UID doit être au format généré par createUID. Dans le cas contraire, null est renvoyé. 
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:IXMLNotifiable"><apiName>IXMLNotifiable</apiName><shortdesc>
+  Interface IXMLNotifiable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Interface IXMLNotifiable.
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.utils:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+     OnDemandEventDispatcher fait office de classe de base pour les classes qui distribuent des événements, mais qui s’attendent à ce que les écouteurs ne soient pas fréquents. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      OnDemandEventDispatcher fait office de classe de base pour les classes qui distribuent des événements, mais qui s’attendent à ce que les écouteurs ne soient pas fréquents. Lorsqu’une classe étend OnDemandEventDispatcher au lieu de la classe standard EventDispatcher, elle échange un petite surcharge mémoire sur chaque occurrence contre une surcharge mémoire plus importante uniquement sur les occurrences associées à des écouteurs. 
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OnDemandEventDispatcher:OnDemandEventDispatcher"><apiName>OnDemandEventDispatcher</apiName><shortdesc>
+         Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         Constructeur.
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OnDemandEventDispatcher:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.utils:OnDemandEventDispatcher:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+          </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation></apiClassifier><apiClassifier id="mx.utils:LoaderUtil"><apiName>LoaderUtil</apiName><shortdesc>
+    La classe LoaderUtil définit des méthodes d’utilitaire à utiliser avec les RSL Flex et les occurrences Loader génériques.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+    La classe LoaderUtil définit des méthodes d’utilitaire à utiliser avec les RSL Flex et les occurrences Loader génériques.
+    
+    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:LoaderUtil:normalizeURL"><apiName>normalizeURL</apiName><shortdesc>
+      L’URL racine d’un fichier RSL interdomaine contient des éléments de texte spéciaux ajoutés à la fin de l’URL. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Propriété <codeph>LoaderInfo.url</codeph> normalisée.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>loaderInfo</apiItemName><apiType value="flash.display:LoaderInfo"/><apiDesc>Occurrence de LoaderInfo. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      L’URL racine d’un fichier RSL interdomaine contient des éléments de texte spéciaux ajoutés à la fin de l’URL. Cette méthode normalise l’URL spécifiée dans l’occurrence de LoaderInfo spécifiée pour supprimer le texte ajouté, le cas échéant. Les classes accédant à l’URL <codeph>LoaderInfo.url</codeph> doit appeler cette méthode pour normaliser l’URL avant de l’utiliser. Cette méthode code également l’url en appelant la méthode encodeURI() sur celle-ci. Si vous souhaitez l’url non codée, vous devez appeler la méthode unencodeURI() sur les résultats. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+  Classe représentant un nœud de liste doublement liée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe représentant un nœud de liste doublement liée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedListNode:LinkedListNode"><apiName>LinkedListNode</apiName><shortdesc>
+      Constructeur
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>null</apiData><apiDesc>Valeur générique associée à ce nœud. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.utils:LinkedListNode:next"><apiName>next</apiName><shortdesc>
+      Référence au nœud adjacent 'suivant'.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      Référence au nœud adjacent 'suivant'. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:prev"><apiName>prev</apiName><shortdesc>
+      Référence au nœud adjacent 'précédent'.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      Référence au nœud adjacent 'précédent'. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedListNode:value"><apiName>value</apiName><shortdesc>
+      Valeur générique associée à ce nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      Valeur générique associée à ce nœud.
+         
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectUtil"><apiName>ObjectUtil</apiName><shortdesc>
+  La classe d’utilitaires ObjectUtil est une classe entièrement statique avec des méthodes d’utilisation d’objets dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires ObjectUtil est une classe entièrement statique avec des méthodes d’utilisation d’objets dans Flex. Il n’est pas possible d’en créer des occurrences ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>ObjectUtil.isSimple()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ObjectUtil:clone"><apiName>clone</apiName><shortdesc>
+      Copie l’objet spécifié et renvoie une référence à la copie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Clone de l’objet spécifié.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet qui doit être copié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Copie l’objet spécifié et renvoie une référence à la copie. Cette copie est effectuée à l’aide d’une technique de sérialisation native. Cela signifie que la sérialisation personnalisée est respectée lors de la copie. clone() Diffère de copy() en ce que la propriété uid de chaque occurrence d’objet est conservée. 
+     
+      <p>Cette méthode est conçue pour copier des objets de données, tels que les éléments d’un ensemble. Elle n’est pas conçue pour copier un objet UIComponent, tel qu’un contrôle TextInput. Si vous souhaitez dupliquer des objets UIComponent, vous pouvez créer une sous-classe du composant et implémenter une méthode <codeph>clone()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:compare"><apiName>compare</apiName><shortdesc>
+      Compare les objets et renvoie une valeur entière indiquant si le premier élément est inférieur, supérieur ou égal au deuxième élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie 0 si a et b sont null, NaN, ou égaux. Renvoie 1 si a est null ou supérieur à b. Renvoie -1 si b est null ou supérieure à a.  
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Object"/><apiDesc>Objet.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Object"/><apiDesc>Object.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>depth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Indique le nombre de niveaux à récurser lors de la comparaison. Définissez cette valeur sur 0 pour une comparaison simple de la représentation primitive de chaque propriété uniquement. Par exemple :<pre>
+      var a:Object = {name:"Bob", info:[1,2,3]};
+      var b:Object = {name:"Alice", info:[5,6,7]};
+      var c:int = ObjectUtil.compare(a, b, 0);</pre>
+     
+      <p>Dans l’exemple ci-dessus, les propriétés complexes de <codeph>a</codeph> et <codeph>b</codeph> seront aplaties par un appel <codeph>toString()</codeph> lors de la comparaison. Dans ce cas, la propriété <codeph>info</codeph> est convertie lors de la comparaison. </p>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Compare les objets et renvoie une valeur entière indiquant si le premier élément est inférieur, supérieur ou égal au deuxième élément. Cette méthode compare, de manière récursive, les propriétés des objets imbriqués et effectue un renvoi dès qu’un résultat différent de zéro est trouvé. Par défaut, cette méthode est exécutée de manière récursive sur le niveau le plus profond des propriétés. Pour modifier la profondeur à des fins comparatives, spécifiez une valeur non négative pour le paramètre <codeph>depth</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:copy"><apiName>copy</apiName><shortdesc>
+      Copie l’objet spécifié et renvoie une référence à la copie. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Copie de l’objet spécifié. 
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet qui doit être copié. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Copie l’objet spécifié et renvoie une référence à la copie. Cette copie est effectuée à l’aide d’une technique de sérialisation native. Cela signifie que la sérialisation personnnalisée est respectée lors de la copie. 
+     
+      <p>Cette méthode est conçue pour copier des objets de données, tels que les éléments d’un ensemble. Elle n’est pas conçue pour copier un objet UIComponent, tel qu’un contrôle TextInput. Si vous souhaitez créer des copies de certains objets UIComponent, vous pouvez créer une sous-classe du composant et implémenter la méthode <codeph>clone()</codeph> ou une autre méthode pour effectuer la copie. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:dateCompare"><apiName>dateCompare</apiName><shortdesc>
+      Compare les deux objets Date et renvoie une valeur entière indiquant si le premier objet Date est antérieur, égal à ou postérieur au second élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>0 si <codeph>a</codeph> et <codeph>b</codeph> sont égaux (ou s’ils sont <codeph>null</codeph>) ; -1 si <codeph>a</codeph> est antérieur à <codeph>b</codeph> (ou <codeph>b</codeph> est <codeph>null</codeph>) ; 1 si <codeph>a</codeph> est postérieur à <codeph>b</codeph> (ou <codeph>a</codeph> est <codeph>null</codeph>).     
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Date"/><apiDesc>Objet Date.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Date"/><apiDesc>Objet Date.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Compare les deux objets Date et renvoie une valeur entière indiquant si le premier objet Date est antérieur, égal à ou postérieur au second élément. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      Renvoie des informations relatives à la classe et les propriétés de la classe, pour l’objet spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet contenant les propriétés suivantes : 
+      <ul>
+        <li><codeph>name</codeph> : chaîne contenant le nom de la classe. </li>
+        <li><codeph>properties</codeph> : liste triée des noms de propriétés de l’objet spécifié ou des références à la clé d’origine si l’objet indiqué est un dictionnaire. Les différents éléments de tableau sont des occurrences QName, qui contiennent le nom local de la propriété, ainsi que l’URI. </li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Objet à inspecter.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de chaînes spécifiant les noms de propriété devant être exclus du résultat obtenu. Par exemple, vous pouvez spécifier <codeph>["currentTarget","target"]</codeph> pour un objet Event, car ces propriétés peuvent renvoyer des résultats trop larges. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant une ou plusieurs propriétés qui contrôlent les informations renvoyées par cette méthode. Ces propriétés sont les suivantes : 
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph> : si la valeur est <codeph>false</codeph>, exclure les propriétés de l’objet qui sont en lecture seule. La valeur par défaut est <codeph>true</codeph>.</li>
+      <li><codeph>includeTransient</codeph> : si la valeur est <codeph>false</codeph>, exclure les propriétés et les variables de l’objet possédant les métadonnées <codeph>[Transient]</codeph>. La valeur par défaut est <codeph>true</codeph>.</li>
+      <li><codeph>uris</codeph> : tableau de chaînes de tous les espaces de noms qui doivent être inclus dans la sortie. Il ne permet pas d’utiliser le caractère générique « ~~ ». Par défaut, la valeur est null, ce qui signifie qu’aucun espace de noms ne doit être inclus. Par exemple, vous pouvez spécifier <codeph>["mx_internal", "mx_object"]</codeph> ou <codeph>["~~"]</codeph>.</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie des informations relatives à la classe et les propriétés de la classe, pour l’objet spécifié. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:hasMetadata"><apiName>hasMetadata</apiName><shortdesc>
+     Utilise la classe getClassInfo et examine les informations de métadonnées pour déterminer si une propriété d’un objet donné possède les métadonnées spécifiées. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si la propriété possède les métadonnées spécifiées. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Objet contenant la propriété. 
+     </apiDesc></apiParam><apiParam><apiItemName>propName</apiItemName><apiType value="String"/><apiDesc>Propriété dans laquelle rechercher les métadonnées. 
+     </apiDesc></apiParam><apiParam><apiItemName>metadataName</apiItemName><apiType value="String"/><apiDesc>Nom des métadonnées à rechercher dans la propriété. 
+     </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Indique si des propriétés doivent être exclues lors de la génération des informations de classe. (Facultatif)
+     </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Spécifie si des indicateurs d’options doivent être modifiés lors de la génération des informations de classe. (Facultatif)
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Utilise la classe <codeph>getClassInfo</codeph> et examine les informations de métadonnées pour déterminer si une propriété d’un objet donné possède les métadonnées spécifiées. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isDynamicObject"><apiName>isDynamicObject</apiName><shortdesc>
+      Renvoie la valeur true si l’objet est une occurrence d’une classe dynamique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si l’objet est l’instance d’une classe dynamique.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Objet.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur <codeph>true</codeph> si l’objet est l’instance d’une classe dynamique.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:isSimple"><apiName>isSimple</apiName><shortdesc>
+      Renvoie la valeur true si la référence d’objet spécifiée est un type de données simple. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si l’objet spécifié est de l’un des types ci-dessus, <codeph>false</codeph> dans le cas contraire. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet inspecté. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si la référence d’objet spécifiée est un type de données simple. Les types de données simples sont les suivants : 
+      <ul>
+        <li><codeph>String</codeph></li>
+        <li><codeph>Number</codeph></li>
+        <li><codeph>uint</codeph></li>
+        <li><codeph>int</codeph></li>
+        <li><codeph>Boolean</codeph></li>
+        <li><codeph>Date</codeph></li>
+        <li><codeph>Array</codeph></li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:numericCompare"><apiName>numericCompare</apiName><shortdesc>
+      Compare deux valeurs numériques. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>0 indique que les deux nombres sont NaN. 1 si seulement <codeph>a</codeph> est NaN. -1 si seulement <codeph>b</codeph> est NaN. -1 si <codeph>a</codeph> est inférieur à <codeph>b</codeph>. 1 si <codeph>a</codeph> est supérieur à <codeph>b</codeph>.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiDesc>Premier nombre. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Deuxième nombre. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Compare deux valeurs numériques. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:stringCompare"><apiName>stringCompare</apiName><shortdesc>
+      Compare deux valeurs de chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>0 indique que les deux chaînes sont null. 1 si seulement <codeph>a</codeph> est null. -1 si seulement <codeph>b</codeph> est null. -1 si <codeph>a</codeph> précède <codeph>b</codeph>. 1 si <codeph>b</codeph> précède <codeph>a</codeph>.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>a</apiItemName><apiType value="String"/><apiDesc>Première valeur de chaîne. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="String"/><apiDesc>Deuxième valeur de chaîne. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique d’effectuer une comparaison de la non-sensibilité à la casse, <codeph>true</codeph>, ou pas, <codeph>false</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Compare deux valeurs de chaîne. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      Effectue le formatage de l’objet spécifié en chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne contenant la version formatée de l’objet spécifié. 
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet à formater. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau d’URI d’espace de noms pour les propriétés qui doivent être incluses à la sortie. Par défaut, seules les propriétés de l’espace de noms public sont incluses à la sortie. Pour obtenir toutes les propriétés indépendamment de l’espace de noms, transmettez un tableau avec un seul élément ". 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau des noms de propriété qui doivent être exclus de la sortie. Utilisez-le pour supprimer les données de la chaîne formatée. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate l’objet spécifié en chaîne. Toutes les propriétés sont classées selon leur ordre alpha. Un ID sera affecté à chaque objet pendant l’impression ; cette valeur s’affiche en regard du jeton de type d’objet précédée d’un ’#’, par exemple : 
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>Cet ID est utilisé pour indiquer la modification d’une référence circulaire. Les propriétés d’un objet de type <codeph>Class</codeph> s’affichent uniquement en tant que type affecté. Par exemple, une définition personnalisée comme suit : </p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p>La propriété <codeph>clazz</codeph> affectée à <codeph>Date</codeph> s’affiche comme indiqué ci-dessous : </p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+     
+     // example 3 with Dictionary
+     var point:Point = new Point(100, 100);
+     var point2:Point = new Point(100, 100);
+     var obj:Dictionary = new Dictionary();
+     obj[point] = "point";
+     obj[point2] = "point2";
+     obj["1"] = { name: "one", num: 1};
+     obj["two"] = { name: "2", num: 2};
+     obj[3] = 3;
+     trace(ObjectUtil.toString(obj));
+     
+     // will output to flashlog.txt
+     (flash.utils::Dictionary)#0
+       {(flash.geom::Point)#1
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point2"
+       {(flash.geom::Point)#2
+         length = 141.4213562373095
+         x = 100
+         y = 100} = "point"
+       {1} = (Object)#3
+         name = "one"
+         num = 1
+       {3} = 3
+       {"two"} = (Object)#4
+         name = "2"
+         num = 2
+     
+     </pre>
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLUtil"><apiName>XMLUtil</apiName><shortdesc>
+  La classe d’utilitaires XMLUtil est une classe entièrement statique avec des méthodes d’utilisation du format XML dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires XMLUtil est une classe entièrement statique avec des méthodes d’utilisation du format XML dans Flex. Il n’est pas possible d’en créer des occurrences ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>XMLUtil.qnamesEqual()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:XMLUtil:createXMLDocument"><apiName>createXMLDocument</apiName><shortdesc>
+      Crée du code XML en dehors de la chaîne spécifiée, en ignorant les espaces blancs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nouvel objet XML ayant ignoré les espaces blancs. 
+      
+      </apiDesc><apiType value="flash.xml:XMLDocument"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne XML. 
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Crée du code XML en dehors de la chaîne spécifiée, en ignorant les espaces blancs. Cette méthode est utilisée pour créer des objets définis dans des balises <codeph>&lt;mx:XML></codeph> et des requêtes WebService, même si leurs, en retour, vous pouvez obtenir la propriété <codeph>firstChild</codeph> de la structure. 
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:getAttributeByQName"><apiName>getAttributeByQName</apiName><shortdesc>
+    Renvoie la valeur XML de l’attribut correspondant au nom QName donné
+    
+    </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Liste XMLList des attributs correspondants ou une liste vide s’il n’en existe aucun. 
+     
+     </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiDesc>Objet XML en cours d’inspection
+    </apiDesc></apiParam><apiParam><apiItemName>attrQName</apiItemName><apiType value="QName"/><apiDesc>Nom QName de l’attribut à rechercher 
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Renvoie la valeur XML de l’attribut correspondant au nom QName donné
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnameToString"><apiName>qnameToString</apiName><shortdesc>
+	  Renvoie la concaténation de l’URI de l’objet Qname localName et propriétés, séparés par un deux-points. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Concaténation de la propriété <codeph>uri</codeph> de l’objet QName et des propriétés <codeph>localName</codeph>, séparés par un deux-points. 
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Objet QName. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Renvoie la concaténation de la propriété <codeph>uri</codeph> de l’objet QName et des propriétés <codeph>localName</codeph>, séparés par un deux-points. Si l’objet n’a pas de propriété <codeph>uri</codeph>, ou si la valeur de <codeph>uri</codeph> est une chaîne vide, il renvoie la propriété <codeph>localName</codeph>. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLUtil:qnamesEqual"><apiName>qnamesEqual</apiName><shortdesc>
+	  Renvoie true si les deux paramètres QName possèdent des propriétés uri et localName identiques. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si les deux paramètres QName possèdent des propriétés <codeph>uri</codeph> et <codeph>localName</codeph> identiques. 
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>qname1</apiItemName><apiType value="QName"/><apiDesc>Premier objet QName. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>qname2</apiItemName><apiType value="QName"/><apiDesc>Deuxième objet QName. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Renvoie <codeph>true</codeph> si les deux paramètres QName possèdent des propriétés <codeph>uri</codeph> et <codeph>localName</codeph> identiques. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:SHA256"><apiName>SHA256</apiName><shortdesc>
+     Implémentation de l’algorithme de hashage SHA-256 comme décrit dans le document Federal Information Processing Standards Publication 180-2 à http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+     Implémentation de l’algorithme de hachage SHA-256 comme décrit dans le document Federal Information Processing Standards Publication 180-2 à http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf 
+      
+      </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:SHA256:computeDigest"><apiName>computeDigest</apiName><shortdesc>
+        Calcule le digest d’un message à l’aide de l’algorithme de hashage SHA-256. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>- Le message, peut ne pas être null. Chaîne renvoyée - 64 caractères au format hexadécimal représentant le digest. 
+        
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+        Calcule le digest d’un message à l’aide de l’algorithme de hachage SHA-256. 
+        
+        </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:SHA256:TYPE_ID"><apiName>TYPE_ID</apiName><shortdesc>
+         Identifie que ce hachage est de type « SHA-256 ». </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SHA-256</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Identifie que ce hashage est de type « SHA-256 ». 
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+  Fournit une implémentation générique de liste doublement liée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fournit une implémentation générique de liste doublement liée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:LinkedList:LinkedList"><apiName>LinkedList</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:LinkedList:find"><apiName>find</apiName><shortdesc>
+      Recherche la valeur donnée dans tous les nœuds.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Emplacement du nœud.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>La valeur à trouver.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Recherche la valeur donnée dans tous les nœuds.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertAfter"><apiName>insertAfter</apiName><shortdesc>
+      Insère un nouveau nœud après un nœud déjà existant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouveau nœud.
+     
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur à insérer. Si la valeur n'est pas un nœud LinkedListNode, elle doit être créée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prev</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>Le précédent nœud à insérer relatif à.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Insère un nouveau nœud après un nœud déjà existant. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:insertBefore"><apiName>insertBefore</apiName><shortdesc>
+      Insère un nouveau nœud avant un nœud existant précédemment.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouveau nœud.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur à insérer. Si la valeur n'est pas un nœud LinkedListNode, elle doit être créée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier><apiDesc>Le nœud à insérer relatif à.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Insère un nouveau nœud avant un nœud existant précédemment. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:pop"><apiName>pop</apiName><shortdesc>
+      Supprime le nœud en fin de liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le nœud supprimé.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Supprime le nœud en fin de liste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:push"><apiName>push</apiName><shortdesc>
+      Pousser un nouveau nœud vers la fin de la liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le nœud nouvellement ajouté.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>La valeur à ajouter.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Pousser un nouveau nœud vers la fin de la liste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:remove"><apiName>remove</apiName><shortdesc>
+      Recherche la valeur donnée dans tous les nœuds et la supprime de la liste une fois trouvée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le nœud supprimé, null dans tous les autres cas.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>La valeur à rechercher et à supprimer.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Recherche la valeur donnée dans tous les nœuds et la supprime de la liste une fois trouvée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:shift"><apiName>shift</apiName><shortdesc>
+      Supprime le nœud en début de liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le nœud supprimé.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Supprime le nœud en début de liste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:LinkedList:unshift"><apiName>unshift</apiName><shortdesc>
+      Pousser un nouveau nœud vers le début de la liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le nœud nouvellement ajouté.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:LinkedListNode</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>La valeur à ajouter.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Pousser un nouveau nœud vers le début de la liste.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:LinkedList:head:get"><apiName>head</apiName><shortdesc>
+      Nœud représentant le début de la liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      Nœud représentant le début de la liste.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:length:get"><apiName>length</apiName><shortdesc>
+      Renvoie la longueur de la liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Renvoie la longueur de la liste.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:LinkedList:tail:get"><apiName>tail</apiName><shortdesc>
+      Nœud représentant la fin de la liste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.utils:LinkedListNode</apiValueClassifier></apiValueDef><apiDesc>
+      Nœud représentant la fin de la liste.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+  OrderedObject agit comme une enveloppe pour l’objet afin de conserver l’ordre dans lequel les propriétés ont été ajoutées. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OrderedObject agit comme une enveloppe pour l’objet afin de conserver l’ordre dans lequel les propriétés ont été ajoutées.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:OrderedObject:OrderedObject"><apiName>OrderedObject</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant des paires nom/valeur.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:OrderedObject:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      Renvoie la valeur de la méthode de l’objet traité par proxy avec le nom spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur renvoyée par la méthode appelée.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Nom de la méthode invoquée.
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Tableau qui spécifie les arguments à la méthode appelée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur de la méthode de l’objet traité par proxy avec le nom spécifié. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      Supprime la propriété spécifiée de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur booléenne indiquant si la propriété a été supprimée. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Il s’agit généralement d’une chaîne contenant le nom de la propriété ou éventuellement d’une valeur QName dont le nom de la propriété peut-être retrouvé en examinant la propriété <codeph>localName</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime la propriété spécifiée de l’objet traité par proxy. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Renvoie la valeur de propriété spécifiée de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur de la propriété.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Il s’agit généralement d’une chaîne contenant le nom de la propriété ou éventuellement d’une valeur QName dont le nom de la propriété peut-être retrouvé en examinant la propriété <codeph>localName</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur de propriété spécifiée de l’objet traité par proxy. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la propriété existe, <codeph>false</codeph> dans le cas contraire.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Nom de la propriété dont l’existence doit être vérifiée. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Il s’agit d’une fonction interne qui doit être implémentées par une sous-classe de la classe flash.utils.Proxy. 
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Nom de la propriété.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Valeur de l’index de base zéro de la propriété de l’objet.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur de la propriété.
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Valeur de l’index de base zéro de la propriété de l’objet.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Il s’agit d’une fonction interne qui doit être implémentée par une sous-classe de la classe flash.utils.Proxy. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:OrderedObject:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Met à jour la propriété spécifiée de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Objet contenant le nom de la propriété à mettre à jour sur l’objet mis en proxy.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur à définir sur l’objet mis en proxy.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Met à jour la propriété spécifiée de l’objet traité par proxy. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:OrderedObject:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      Contient une liste de tous les noms de propriété de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Contient une liste de tous les noms de propriété de l’objet traité par proxy. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+  Cette classe permet de suivre les modifications apportées à un élément géré par ce proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.utils:IExternalizable</apiBaseInterface><apiBaseInterface>mx.core:IPropertyChangeNotifier</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette classe permet de suivre les modifications apportées à un élément géré par ce proxy. Un certain nombre d’objets peuvent écouter les modifications apportées à cet objet, à l’aide de la méthode <codeph>addEventListener()</codeph>. 
+ 
+  </apiDesc><example>
+  <pre>
+  import mx.events.PropertyChangeEvent;
+  import mx.utils.ObjectUtil;
+  import mx.utils.ObjectProxy;
+  import mx.utils.StringUtil;
+ 
+  var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+  var p:ObjectProxy = new ObjectProxy(a);
+  p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+  p.name = "Jacey";
+  p.age = 2;
+  delete p.ssnum;
+ 
+  // handler function
+  function updateHandler(event:ChangeEvent):void
+  {
+      trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                     event.kind,
+                                     event.property,
+                                     event.oldValue,
+                                     event.newValue,
+                                     event.target.object_proxy::UUID));
+  }
+ 
+  // The trace output appears as:
+  // updateHandler('opUpdate', name, Tyler, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opUpdate', age, 5, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  // updateHandler('opDelete', ssnum, 555-55-5555, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+  </pre>
+  
+  </example></apiClassifierDetail><apiConstructor id="mx.utils:ObjectProxy:ObjectProxy"><apiName>ObjectProxy</apiName><shortdesc>
+      Initialise ce proxy avec l’objet spécifié, l’id et la profondeur du proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet pour lequel définir un proxy. Si aucun élément n’est spécifié, un objet anonyme est créé et affecté.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chaîne contenant l’ID unique de cette occurrence d’objet. Ce paramètre est requis pour la conformité avec l’interface IPropertyChangeNotifier, car chaque objet doit fournir un moyen unique permettant de l’identifier. Si aucune valeur n’est spécifiée, un ID aléatoire est affecté.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>proxyDepth</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Nombre entier indiquant le nombre de niveaux d’un objet graphique complexe pour lesquels créer un proxy lors de l’accès à la propriété. La valeur par défaut est -1, ce qui signifie « proxy à une profondeur infinie ». 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Initialise ce proxy avec l’objet spécifié, l’id et profondeur du proxy. 
+     
+      </apiDesc><example>
+     
+      <pre>
+      import mx.events.PropertyChangeEvent;
+      import mx.utils.ObjectUtil;
+      import mx.utils.ObjectProxy;
+      import mx.utils.StringUtil;
+     
+      var a:Object = { name: "Tyler", age: 5, ssnum: "555-55-5555" };
+      var p:ObjectProxy = new ObjectProxy(a);
+      p.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, updateHandler);
+      p.name = "Jacey";
+      p.age = 2;
+      delete p.ssnum;
+     
+      // handler function
+      function updateHandler(event:PropertyChangeEvent):void
+      {
+          trace(StringUtil.substitute("updateHandler('{0}', {1}, {2}, {3}, '{4}')",
+                                         event.kind,
+                                         event.property,
+                                         event.oldValue,
+                                         event.newValue,
+                                         event.target.uid));
+      }
+     
+      // trace output
+      updateHandler('opUpdate', name, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opUpdate', age, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      updateHandler('opDelete', ssnum, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+      </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:ObjectProxy:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+      Enregistre un objet écouteur d’événement afin que l’écouteur soit averti d’un événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>Fonction d’auditeur qui traite l’événement. Cette fonction doit accepter un objet Event comme paramètre unique et ne rien renvoyer.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’écouteur est actif pendant la phase de capture ou pendant les phases cible et de propagation vers le haut. Si la propriété <codeph>useCapture</codeph> est définie sur <codeph>true</codeph>, l’écouteur traite l’événement uniquement pendant la phase de capture et non pendant les phases cible et de propagation. Si la propriété <codeph>useCapture</codeph> est définie sur <codeph>false</codeph>, l’écouteur traite l’événement uniquement pendant les phases cible et de propagation. Pour écouter l’événement dans les trois phases, appelez <codeph>addEventListener</codeph> à deux reprises, une première fois en définissant <codeph>useCapture</codeph> sur <codeph>true</codeph>, puis une nouvelle fois en définissant <codeph>useCapture</codeph> sur <codeph>false</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Niveau de priorité de l’écouteur d’événements. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si la référence à l’écouteur est forte ou faible. Une référence forte (valeur par défaut) empêche le nettoyage de votre écouteur, Cela n’est pas le cas avec une référence faible. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Enregistre un objet écouteur d’événement afin que l’écouteur soit averti d’un événement. Pour plus d’informations, notamment une description des paramètres, voir la méthode <codeph>addEventListener()</codeph> de la classe flash.events.EventDispatcher. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/addEventListener()"><linktext>flash.events.EventDispatcher.addEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      Renvoie la valeur de la méthode de l’objet traité par proxy avec le nom spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur renvoyée par la méthode appelée.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Nom de la méthode invoquée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Tableau qui spécifie les arguments à la méthode appelée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur de la méthode de l’objet traité par proxy avec le nom spécifié. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      Supprime la propriété spécifiée de l’objet traité par proxy et envoie une notification de la suppression au gestionnaire. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur booléenne indiquant si la propriété a été supprimée. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Il s’agit généralement d’une chaîne contenant le nom de la propriété ou éventuellement d’une valeur QName dont le nom de la propriété peut-être retrouvé en examinant la propriété <codeph>localName</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime la propriété spécifiée de l’objet traité par proxy et envoie une notification de la suppression au gestionnaire. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      Distribue un événement dans le flux d’événements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si l’événement a été distribué. La valeur <codeph>false</codeph> indique un échec ou que <codeph>preventDefault()</codeph> a été appelé sur l’événement.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Objet Event qui est distribué dans le flux d’événements. Si l’événement est redistribué, un clone est automatiquement créé. Après la distribution d’un événement, il est impossible de modifier sa propriété target. Pour que la redistribution fonctionne, vous devez donc créer une copie de l’événement.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Distribue un événement dans le flux d’événements. Pour plus d’informations, voir la classe flash.events.EventDispatcher.
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/dispatchEvent()"><linktext>flash.events.EventDispatcher.dispatchEvent()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:object_proxy:getComplexProperty"><apiName>getComplexProperty</apiName><shortdesc>
+      Fournit un endroit permettant aux sous-classes de modifier la manière dont une propriété complexe devant être traitée par proxy ou enchaînée à des fins de remontée d’événements est gérée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="object_proxy"/><apiReturn><apiDesc>Valeur de la propriété ou occurrence de la classe <codeph>ObjectProxy</codeph>.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Il s’agit généralement d’une chaîne contenant le nom de la propriété ou éventuellement d’une valeur QName dont le nom de la propriété peut-être retrouvé en examinant la propriété <codeph>localName</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur de la propriété.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fournit un endroit permettant aux sous-classes de modifier la manière dont une propriété complexe devant être traitée par proxy ou enchaînée à des fins de remontée d’événements est gérée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Renvoie la valeur de propriété spécifiée de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>Valeur de la propriété. Dans certains cas, cette valeur peut être une occurrence de <codeph>ObjectProxy</codeph>.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Il s’agit généralement d’une chaîne contenant le nom de la propriété ou éventuellement d’une valeur QName dont le nom de la propriété peut-être retrouvé en examinant la propriété <codeph>localName</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur de propriété spécifiée de l’objet traité par proxy. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+      Vérifie si des écouteurs d’événement sont enregistrés pour un type d’événement spécifique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si un écouteur du type spécifié est enregistré. La valeur <codeph>false</codeph> est renvoyée dans tous les autres cas.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si des écouteurs d’événement sont enregistrés pour un type d’événement spécifique. Vous pouvez ainsi déterminer précisément où un objet a modifié la gestion d’un type d’événement dans la hiérarchie du flux d’événements. Pour plus d’informations, voir la classe flash.events.EventDispatcher.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/hasEventListener()"><linktext>flash.events.EventDispatcher.hasEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:propertyChangeHandler"><apiName>propertyChangeHandler</apiName><shortdesc>
+      Appelé lorsqu’une propriété complexe est mise à jour. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:PropertyChangeEvent</apiOperationClassifier><apiDesc>Objet d’événement qui a été modifié. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé lorsqu’une propriété complexe est mise à jour. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:readExternal"><apiName>readExternal</apiName><shortdesc>
+      Etant donné que Flex utilise uniquement la classe ObjectProxy pour renvoyer des objets anonymes, l’occurrence de serveur flex.messaging.io.ObjectProxy se sérialise sous forme de carte qui est renvoyée en tant qu’objet ActionScript ordinaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>input</apiItemName><apiType value="flash.utils:IDataInput"/><apiDesc>Objet source à partir duquel la classe ObjectProxy est désérialisée.  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Etant donné que Flex utilise uniquement la classe ObjectProxy pour renvoyer des objets anonymes, l’occurrence de serveur flex.messaging.io.ObjectProxy se sérialise sous forme de carte qui est renvoyée en tant qu’objet ActionScript ordinaire. Vous pouvez ensuite définir les propriétés de l’objet object_proxy sur cette valeur. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+      Supprime un écouteur d’événement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/><apiDesc>Objet écouteur à supprimer.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’écouteur a été enregistré pendant la phase de capture ou pendant les phases cible et de propagation vers le haut. Si l’écouteur a été enregistré pendant la phase de capture et pendant les phases cible et de propagation vers le haut (bubbling), il est nécessaire d’appeler <codeph>removeEventListener()</codeph> à deux reprises pour le supprimer : une première fois en définissant <codeph>useCapture</codeph> sur <codeph>true</codeph>, puis une seconde fois avec<codeph>useCapture</codeph> défini sur <codeph>false</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime un écouteur d’événement. Si aucun écouteur correspondant n’est enregistré auprès de l’objet EventDispatcher, l’appel de cette méthode n’a aucun effet. Pour plus d’informations, voir la classe flash.events.EventDispatcher.
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/removeEventListener()"><linktext>flash.events.EventDispatcher.removeEventListener()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Met à jour la propriété spécifiée de l’objet traité par proxy et envoie une notification de la mise à jour au gestionnaire. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>Objet contenant le nom de la propriété à mettre à jour sur l’objet mis en proxy.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur à définir sur l’objet mis en proxy.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Met à jour la propriété spécifiée de l’objet traité par proxy et envoie une notification de la mise à jour au gestionnaire. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:protected:setupPropertyList"><apiName>setupPropertyList</apiName><shortdesc>
+      Cette méthode crée un tableau de tous les noms de propriété de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Cette méthode crée un tableau de tous les noms de propriété de l’objet traité par proxy. Les descendants doivent remplacer cette méthode s’ils souhaitent ajouter plusieurs propriétés à la liste. Veillez à appeler <codeph>super.setupPropertyList</codeph> avant de procéder à des modifications de la propriété <codeph>propertyList</codeph>. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ObjectProxy:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+      Vérifie si un écouteur d’événement est enregistré auprès de cet objet ou de ses ancêtres pour le type d’événement spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si un écouteur du type spécifié est déclenché. La valeur <codeph>false</codeph> est renvoyée dans tous les autres cas.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si un écouteur d’événement est enregistré auprès de cet objet ou de ses ancêtres pour le type d’événement spécifié. Cette méthode renvoie <codeph>true</codeph> si un écouteur d’événement est déclenché pendant toute phase du flux d’événements lorsqu’un événement du type spécifié est distribué à cet objet ou à l’un de ses descendants. Pour plus d’informations, voir la classe flash.events.EventDispatcher.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.events.xml#EventDispatcher/willTrigger()"><linktext>flash.events.EventDispatcher.willTrigger()</linktext></link></related-links></apiOperation><apiOperation id="mx.utils:ObjectProxy:writeExternal"><apiName>writeExternal</apiName><shortdesc>
+      Etant donné que Flex sérialise uniquement l’objet ActionScript intérieur qu’il enveloppe, le serveur flex.messaging.io.ObjectProxy se remplit avec le contenu de cet objet anonyme et s’affiche sous forme de carte. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>output</apiItemName><apiType value="flash.utils:IDataOutput"/><apiDesc>Objet source à partir duquel la classe ObjectProxy est désérialisée. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Etant donné que Flex sérialise uniquement l’objet ActionScript intérieur qu’il enveloppe, le serveur flex.messaging.io.ObjectProxy se remplit avec le contenu de cet objet anonyme et s’affiche sous forme de carte. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:ObjectProxy:protected:dispatcher"><apiName>dispatcher</apiName><shortdesc>
+      Référence à la classe EventDispatcher pour ce proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.events:EventDispatcher"/></apiValueDef><apiDesc>
+      Référence à la classe EventDispatcher pour ce proxy. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:notifiers"><apiName>notifiers</apiName><shortdesc>
+      Une table de hachage des notifications de modification de propriété que ce proxy écoute est modifiée. La clé de la carte est le nom de la propriété. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Une table de hachage des notifications de modification de propriété que ce proxy écoute est modifiée. La clé de la carte est le nom de la propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:propertyList"><apiName>propertyList</apiName><shortdesc>
+      Contient une liste de tous les noms de propriété de l’objet traité par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Contient une liste de tous les noms de propriété de l’objet traité par proxy. Descendants nécessaire pour remplir cette liste en remplaçant la méthode <codeph>setupPropertyList()</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:protected:proxyClass"><apiName>proxyClass</apiName><shortdesc>
+      Indique le type de proxy à créer lors du traitement par proxy de propriétés complexes. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      Indique le type de proxy à créer lors du traitement par proxy de propriétés complexes. Les sous-classes doivent affecter cette valeur correctement. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:object:get"><apiName>object</apiName><shortdesc>
+      Objet en cours de traitement par proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet en cours de traitement par proxy. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:object_proxy:type:get"><apiName>type</apiName><shortdesc>
+      Le nom de type qualifié associé à cet objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+      Le nom de type qualifié associé à cet objet. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:ObjectProxy:uid:get"><apiName>uid</apiName><shortdesc>
+      ID unique de cet objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ID unique de cet objet.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:StringUtil"><apiName>StringUtil</apiName><shortdesc>
+  La classe d’utilitaires StringUtil est une classe entièrement statique avec des méthodes d’utilisation de chaînes dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires StringUtil est une classe entièrement statique avec des méthodes d’utilisation de chaînes dans Flex. Il n’est pas possible d’en créer des occurrences ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>StringUtil.substitute()</codeph>.   
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:StringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      Renvoie la valeur true si la chaîne spécifiée est un espace, une tabulation, retour chariot, une nouvelle ligne ou caractère de saut de page unique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si la chaîne spécifiée est un espace, une tabulation, retour chariot, une nouvelle ligne ou caractère de saut de page unique. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>Chaîne en cours d’interrogation.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur <codeph>true</codeph> si la chaîne spécifiée est un espace, une tabulation, retour chariot, une nouvelle ligne ou caractère de saut de page unique. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:repeat"><apiName>repeat</apiName><shortdesc>
+      Renvoie une chaîne composée d’un chaîne spécifiée concaténée avec elle-même un nombre de fois spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne répétée.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne à répéter. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>n</apiItemName><apiType value="int"/><apiDesc>Nombre de répétitions. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une chaîne composée d’une chaîne spécifiée concaténée avec elle-même un nombre de fois donné. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:restrict"><apiName>restrict</apiName><shortdesc>
+      Supprime les caractères « unallowed » d’une chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne d’entrée, moins les caractères qui ne sont pas autorisés par la chaîne de restriction.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne saisie. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>restrict</apiItemName><apiType value="String"/><apiDesc>Chaîne de restriction. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime les caractères « unallowed » d’une chaîne. Une « chaîne de restriction », telle que <codeph>"A-Z0-9"</codeph> est utilisée pour spécifier les caractères qui sont autorisés. Cette méthode utilise la même logique que la propriété <codeph>restrict</codeph> du composant TextField. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      Remplace les jetons « {n} » dans la chaîne spécifiée par les arguments respectifs transmis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nouvelle chaîne dans laquelle tous les jetons <codeph>{n}</codeph> sont remplacées par les arguments respectifs spécifiés. 
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne dans laquelle sont effectués les remplacements. Cette chaîne peut contenir des jetons spéciaux sous la forme <codeph>{n}</codeph>, où <codeph>n</codeph> est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre <codeph>str</codeph> à chaque emplacement <codeph>{n}</codeph>, où <codeph>n</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié. Si le premier paramètre est un tableau, ce dernier sera utilisé comme liste des paramètres. Ceci permet de réutiliser cette routine dans d’autres méthodes qui souhaitent utiliser la signature ... rest. Par exemple : <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Remplace les jetons « {n} » dans la chaîne spécifiée par les arguments respectifs transmis.
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info ’{0}’ and {1}"; trace(StringUtil.substitute(str, 15.4, true)); // this will output the following string: // "here is some info ’15.4’ and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      Supprime tous les espaces blancs à partir du début et de la fin de chaque élément d’un tableau, ce dernier étant stocké sous forme de chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne mise à jour dans laquelle les espaces blancs ont été supprimés à partir du début et de la fin de chaque élément.  
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Chaîne dont les espaces blancs doivent être rognés.  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>Chaîne qui délimite chaque élément de tableau dans la chaîne. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime tous les espaces blancs à partir du début et de la fin de chaque élément d’un tableau, ce dernier étant stocké sous forme de chaîne.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:StringUtil:trim"><apiName>trim</apiName><shortdesc>
+      Supprime tous les espaces blancs à partir du début et de la fin de la chaîne spécifiée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne mise à jour dans laquelle les espaces blancs ont été supprimés à partir du début et de la fin.  
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne dont les espaces blancs doivent être rognés.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime tous les espaces blancs à partir du début et de la fin de la chaîne spécifiée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:NameUtil"><apiName>NameUtil</apiName><shortdesc>
+  La classe d’utilitaires NameUtil définit des méthodes statiques de création de noms pour les objets Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires NameUtil définit des méthodes statiques de création de noms pour les objets Flex. Il n’est pas possible d’en créer des occurrences ; appelez plutôt les méthodes statiques de la classe, telles que la méthode <codeph>NameUtil.createName()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:NameUtil:createUniqueName"><apiName>createUniqueName</apiName><shortdesc>
+      Crée un nom unique pour chaque occurrence d’objet, par exemple « Button12 », en combinant le nom de classe non qualifié avec un compteur à incrémentation. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne contenant le nom unique. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>Objet nécessitant un nom. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Crée un nom unique pour chaque occurrence d’objet, par exemple « Button12 », en combinant le nom de classe non qualifié avec un compteur à incrémentation. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:displayObjectToString"><apiName>displayObjectToString</apiName><shortdesc>
+      Renvoie une chaîne, telle que « MyApplication0.addressForm.lastName.TextField17 », pour un objet DisplayObject qui indique sa position dans la hiérarchie des objets DisplayObject d’une application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne contenant la position de <codeph>DisplayObject</codeph> dans la hiérarchie des objets DisplayObject d’une application. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Objet DisplayObject dont la hiérarchie dans l’application est requise.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une chaîne, telle que « MyApplication0.addressForm.lastName.TextField17 », pour un objet DisplayObject qui indique sa position dans la hiérarchie des objets DisplayObject d’une application.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:NameUtil:getUnqualifiedClassName"><apiName>getUnqualifiedClassName</apiName><shortdesc>
+      Renvoie le nom de la classe de l’objet spécifié, tel que « Button ». Cette chaîne n’inclut pas le nom du package. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nom de la classe de l’objet spécifiée.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>Objet.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le nom de la classe de l’objet spécifié, tel que <codeph>"button"</codeph>
+     
+      <p>Cette chaîne n’inclut pas le nom du package. Si vous avez besoin du nom du package, appelez la méthode <codeph>getQualifiedClassName()</codeph> du package flash.utils. Elle renvoie une chaîne telle que <codeph>"mx.controls::Button"</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+ Classe d’utilitaires permettant de décoder une chaîne codée au format Base64 très en objet ByteArray. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Classe d’utilitaires permettant de décoder une chaîne codée au format Base64 très en objet ByteArray. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Decoder:Base64Decoder"><apiName>Base64Decoder</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Decoder:decode"><apiName>decode</apiName><shortdesc>
+     Décode une chaîne codée au format Base64 et ajoute le résultat à une mémoire tampon interne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>encoded</apiItemName><apiType value="String"/><apiDesc>Chaîne codée au format Base64 à décoder. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Décode une chaîne codée au format Base64 et ajoute le résultat à une mémoire tampon interne. Les chaînes doivent être au format ASCII. 
+     
+     <p>Les prochains appels de cette méthode s’ajoutent à la mémoire tampon interne. Une fois toutes les données codées, appelez la méthode <codeph>toByteArray()</codeph> pour obtenir une classe <codeph>flash.utils.ByteArray</codeph> décodée.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:reset"><apiName>reset</apiName><shortdesc>
+     Efface tous les données en mémoire tampon et réinitialise le décodeur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Efface tous les données en mémoire tampon et réinitialise le décodeur. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Decoder:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     Renvoie les données en mémoire tampon sous la forme d’une classe flash.utils.ByteArray décodée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Classe <codeph>flash.utils.ByteArray</codeph> décodée.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie les données en mémoire tampon sous la forme d’une classe <codeph>flash.utils.ByteArray</codeph> décodée. Notez que l’appel à cette méthode efface également la mémoire tampon et réinitialise le décodeur. 
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:DisplayUtil"><apiName>DisplayUtil</apiName><shortdesc>
+  La classe d’utilitaires DisplayUtil est une classe entièrement statique avec des méthodes d’utilitaire lié à DisplayObjects. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires DisplayUtil est une classe entièrement statique avec des méthodes d’utilitaire lié à DisplayObjects. Vous ne pouvez pas créer d’occurrences de la classe ; appelez plutôt des méthodes statiques telles que <codeph>DisplayUtil.walkDisplayObjects()</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:DisplayUtil:walkDisplayObjects"><apiName>walkDisplayObjects</apiName><shortdesc>
+	  Appelle de manière récursive la fonction spécifiée sur chaque nœud de arborescence DisplayObject spécifiée, en lui transmettant une référence à cet objet DisplayObject. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Objet DisplayObject cible. 
+	  </apiDesc></apiParam><apiParam><apiItemName>callbackFunction</apiItemName><apiType value="Function"/><apiDesc>Méthode à appeler sur chaque nœud dans l’arborescence de l’objet DisplayObject spécifiée.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Appelle de manière récursive la fonction spécifiée sur chaque nœud de arborescence DisplayObject spécifiée, en lui transmettant une référence à cet objet DisplayObject. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:ArrayUtil"><apiName>ArrayUtil</apiName><shortdesc>
+  La classe d’utilitaires ArrayUtil est une classe entièrement statique avec des méthodes d’utilisation de tableaux dans Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe d’utilitaires ArrayUtil est une classe entièrement statique avec des méthodes d’utilisation de tableaux dans Flex. Il n’est pas possible d’en créer des occurrences ; appelez plutôt des méthodes statiques, telles que la méthode <codeph>ArrayUtil.toArray()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:ArrayUtil:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      Renvoie l’index de l’élément du tableau. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Index de l’élément et -1 s’il ne se trouve pas dans la liste.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Elément à trouver dans le tableau. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Array"/><apiDesc>Tableau dans lequel rechercher l’élément. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie l’index de l’élément du tableau. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:ArrayUtil:toArray"><apiName>toArray</apiName><shortdesc>
+      Garantit qu’un objet peut être utilisé comme tableau. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Tableau. Si l’objet d’origine est déjà un tableau, le tableau d’origine est renvoyé. Dans le cas contraire, un nouveau tableau dont le seul élément est l’objet est renvoyé ou un tableau vide si l’objet était null.  
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Objet dont vous voulez vous assurer qu’il s’agit d’un tableau. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Garantit qu’un objet peut être utilisé comme tableau. 
+     
+      <p>Si l’objet est déjà un tableau, il renvoie l’objet. Si l’objet n’est pas un tableau, il renvoie un tableau dans lequel le seul élément est l’objet. Si l’objet est null, il renvoie un tableau vide. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+ Cette classe contient des informations sur une couleur représentée dans l’espace TSL (teinte, saturation et luminosité). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cette classe contient des informations sur une couleur représentée dans l’espace TSL (teinte, saturation et luminosité). La principale utilisation de cette classe est simplement le stockage de ces valeurs, mais elle offre également des fonctions de l’utilitaire de conversion de et en RVB des représentations de couleurs. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:HSBColor:HSBColor"><apiName>HSBColor</apiName><shortdesc>
+      Construit un composant HSBColor avec des paramètres facultatifs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Teinte.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Saturation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Luminosité.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit un composant HSBColor avec des paramètres facultatifs.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:HSBColor:convertHSBtoRGB"><apiName>convertHSBtoRGB</apiName><shortdesc>
+      Convertit une couleur TSL spécifiée par les paramètres en couleurs RVB uint. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Couleur RVB.
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>hue</apiItemName><apiType value="Number"/><apiDesc>Teinte.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>saturation</apiItemName><apiType value="Number"/><apiDesc>Saturation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>brightness</apiItemName><apiType value="Number"/><apiDesc>Luminosité.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit une couleur TSL spécifiée par les paramètres en couleurs RVB uint. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:HSBColor:convertRGBtoHSB"><apiName>convertRGBtoHSB</apiName><shortdesc>
+      Convertit une couleur au format RVB en couleur HSBColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet HSBColor représentant la couleur RVB. 
+      
+      </apiDesc><apiOperationClassifier>mx.utils:HSBColor</apiOperationClassifier></apiReturn><apiParam><apiItemName>rgb</apiItemName><apiType value="uint"/><apiDesc>Couleur RVB.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit une couleur au format RVB en couleur HSBColor.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:HSBColor:brightness:get"><apiName>brightness</apiName><shortdesc>
+     Paramètre de luminosité pour cette couleur TSL. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Paramètre de luminosité pour cette couleur TSL. Cette valeur est comprise entre 0 (noir) et 1 (luminosité totale), ce qui représente la distance à partir du sommet du cône TSL. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:hue:get"><apiName>hue</apiName><shortdesc>
+     Valeur de la teinte de la couleur TSL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Valeur de la teinte de la couleur TSL. Elle représente un angle, exprimé en degrés, autour du cône TSL. La valeur fournie sera modulée par 360 afin que la valeur de teinte stockée soit comprise dans la plage (0,360). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:HSBColor:saturation:get"><apiName>saturation</apiName><shortdesc>
+     Paramètre de saturation de cette couleur TSL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Paramètre de saturation de cette couleur TSL. Cette valeur est comprise entre 0 (noir) et 1 (saturation totale), ce qui représente la distance à partir du centre du cône TSL. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:GraphicsUtil"><apiName>GraphicsUtil</apiName><shortdesc>
+  La classe Graphics est une classe entièrement statique à laquelle sont liées des méthodes d’utilitaire. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Graphics est une classe entièrement statique à laquelle sont liées des méthodes d’utilitaire. Il n’est pas possible de créer des occurrences de GraphicsUtil ; par contre, il vous suffit d’appeler des méthodes statiques telles que <codeph>GraphicsUtil.drawRoundRectComplex()</codeph>. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex2"><apiName>drawRoundRectComplex2</apiName><shortdesc>
+     Trace un rectangle arrondi à l’aide de la taille des différents rayons x et y pour dessiner les coins arrondis. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics qui dessine le rectangle arrondi. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Position horizontale par rapport au point d’alignement de l’objet d’affichage parent, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Position verticale par rapport au point d’alignement de l’objet d’affichage parent, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Largeur du rectangle arrondi, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Hauteur du rectangle arrondi, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusX</apiItemName><apiType value="Number"/><apiDesc>Valeur radiusX à utiliser par défaut, si les valeurs spécifiques à l’angle ne sont pas spécifiées. Cette valeur doit être spécifiée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>radiusY</apiItemName><apiType value="Number"/><apiDesc>Valeur radiusY à utiliser par défaut, si les valeurs spécifiques à l’angle ne sont pas spécifiées. Si la valeur est 0, la valeur de radiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>Rayon x de l’angle supérieur gauche, en pixels. Si la valeur est NaN, la valeur de radiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>Rayon y de l’angle supérieur gauche, en pixels. Si la valeur est NaN, la valeur de topLeftRadiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>Rayon x de l’angle supérieur droit, en pixels. Si la valeur est NaN, la valeur de radiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>Rayon y de l’angle supérieur droit, en pixels. Si la valeur est NaN, la valeur de topRightRadiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusX</apiItemName><apiType value="Number"/><apiDesc>Rayon x de l’angle inférieur gauche, en pixels. Si la valeur est NaN, la valeur de radiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadiusY</apiItemName><apiType value="Number"/><apiDesc>Rayon y de l’angle inférieur gauche, en pixels. Si la valeur est NaN, la valeur de bottomLeftRadiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusX</apiItemName><apiType value="Number"/><apiDesc>Rayon x de l’angle inférieur droit, en pixels. Si la valeur est NaN, la valeur de radiusX est utilisée. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadiusY</apiItemName><apiType value="Number"/><apiDesc>Rayon y de l’angle inférieur droit, en pixels. Si la valeur est NaN, la valeur de bottomRightRadiusX est utilisée. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Trace un rectangle arrondi à l’aide de la taille des différents rayons x et y pour dessiner les coins arrondis. Vous devez définir le remplissage et/ou le style de trait de l’objet Graphics avant d’appeler la méthode <codeph>drawRoundRectComplex()</codeph> à l’aide de la méthode <codeph>linestyle()</codeph>, <codeph>lineGradientStyle()</codeph>, <codeph>beginFill()</codeph>, <codeph>beginGradientFill()</codeph> ou <codeph>beginBitmapFill()</codeph>.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:GraphicsUtil:drawRoundRectComplex"><apiName>drawRoundRectComplex</apiName><shortdesc>
+     Dessine un rectangle arrondi à l’aide de la taille d’un rayon pour tracer les coins arrondis. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics qui dessine le rectangle arrondi. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Position horizontale par rapport au point d’alignement de l’objet d’affichage parent, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Position verticale par rapport au point d’alignement de l’objet d’affichage parent, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Largeur du rectangle arrondi, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Hauteur du rectangle arrondi, en pixels.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topLeftRadius</apiItemName><apiType value="Number"/><apiDesc>Rayon de l’angle supérieur gauche, en pixels. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>topRightRadius</apiItemName><apiType value="Number"/><apiDesc>Rayon de l’angle supérieur droit, en pixels. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomLeftRadius</apiItemName><apiType value="Number"/><apiDesc>Rayon de l’angle inférieur gauche, en pixels. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bottomRightRadius</apiItemName><apiType value="Number"/><apiDesc>Rayon de l’angle inférieur droit, en pixels. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Dessine un rectangle arrondi à l’aide de la taille d’un rayon pour tracer les coins arrondis. Vous devez définir le remplissage et/ou le style de trait de l’objet Graphics avant d’appeler la méthode <codeph>drawRoundRectComplex()</codeph> à l’aide de la méthode <codeph>linestyle()</codeph>, <codeph>lineGradientStyle()</codeph>, <codeph>beginFill()</codeph>, <codeph>beginGradientFill()</codeph> ou <codeph>beginBitmapFill()</codeph>.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+  Utilisé pour contrôler les modifications apportées aux objets XML et XMLList. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Utilisé pour contrôler les modifications apportées aux objets XML et XMLList. Il ne s’agit pas d’objets EventDispatchers. Ainsi, si plusieurs éléments souhaitent contrôler les modifications, ils doivent accéder à ce mécanisme. Appelez la méthode <codeph>watchXML()</codeph>, en transmettant la même fonction de notification qu’à la méthode XML.notification. Utilisez<codeph>unwatchXML()</codeph> pour supprimer cette notification. 
+  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:XMLNotifier:XMLNotifier"><apiName>XMLNotifier</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="XMLNotifier.as$522:XMLNotifierSingleton"/></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. XMLNotifier est une classe singleton. Vous ne pouvez donc pas utiliser l’opérateur <codeph>new</codeph> pour créer plusieurs occurrences de cette dernière. Appelez plutôt la méthode statique <codeph>XMLNotifider.getInstance()</codeph> pour obtenir l’occurrence unique de cette classe. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:XMLNotifier:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Obtenir l’occurrence Singleton de la classe XMLNotifier. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet XMLNotifier.
+      
+      </apiDesc><apiOperationClassifier>mx.utils:XMLNotifier</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Obtenir l’occurrence Singleton de la classe XMLNotifier. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:unwatchXML"><apiName>unwatchXML</apiName><shortdesc>
+      En fonction des objets XML ou XMLList, supprimez la fonction de notification spécifiée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>Objet XML/XMLList dont le contrôle doit être annulé. 
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>Fonction de notification de fonction. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      En fonction des objets XML ou XMLList, supprimez la fonction de notification spécifiée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:XMLNotifier:watchXML"><apiName>watchXML</apiName><shortdesc>
+      En fonction d’un objet XML ou XMLList, ajoutez la fonction de notification permettant de contrôler les modifications. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="Object"/><apiDesc>XML/objet XMLList à contrôler. 
+      </apiDesc></apiParam><apiParam><apiItemName>notifiable</apiItemName><apiOperationClassifier>mx.utils:IXMLNotifiable</apiOperationClassifier><apiDesc>Fonction qui doit être appelée. 
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>UID de l’object 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      En fonction d’un objet XML ou XMLList, ajoutez la fonction de notification permettant de contrôler les modifications. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+ Classe d’utilitaires permettant de coder une chaîne ou un objet ByteArray en tant que chaîne codée au format Base64. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Classe d’utilitaires permettant de coder une chaîne ou un objet ByteArray en tant que chaîne codée au format Base64. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.utils:Base64Encoder:Base64Encoder"><apiName>Base64Encoder</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.utils:Base64Encoder:encodeBytes"><apiName>encodeBytes</apiName><shortdesc>
+     Code une classe ByteArray au format Base64 et ajoute le résultat à une mémoire tampon interne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Classe ByteArray à coder. 
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Index à partir duquel commencer le codage. 
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Nombre d’octets à encoder à partir du décalage. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Code une classe ByteArray au format Base64 et ajoute le résultat à une mémoire tampon interne. Les prochains appels de cette méthode s’ajoutent à la mémoire tampon interne. Une fois toutes les données codées, appelez la méthode <codeph>toString()</codeph> pour obtenir une chaîne codée au format Base64. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encodeUTFBytes"><apiName>encodeUTFBytes</apiName><shortdesc>
+     Code les octets UTF-8 d’une chaîne au format Base-64 et ajoute le résultat à une mémoire tampon interne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>Chaîne à coder.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Code les octets UTF-8 d’une chaîne au format Base-64 et ajoute le résultat à une mémoire tampon interne. Les informations UTF-8 ne contiennent pas un préfixe de longueur. Les prochains appels de cette méthode s’ajoutent à la mémoire tampon interne. Une fois toutes les données codées, appelez la méthode <codeph>toString()</codeph> pour obtenir une chaîne codée au format Base64. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:encode"><apiName>encode</apiName><shortdesc>
+     Code les caractères d’une chaîne au format Base64 et ajoute le résultat à une mémoire tampon interne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>Chaîne à coder.
+     </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Position du caractère à partir duquel commencer le codage. 
+     </apiDesc></apiParam><apiParam><apiItemName>length</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Nombre de caractères à coder à partir du décalage. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Code les caractères d’une chaîne au format Base64 et ajoute le résultat à une mémoire tampon interne. Les chaînes doivent être au format ASCII. 
+     
+     <p>Les prochains appels de cette méthode s’ajoutent à la mémoire tampon interne. Une fois toutes les données codées, appelez la méthode <codeph>toString()</codeph> pour obtenir une chaîne codée au format Base64. </p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:reset"><apiName>reset</apiName><shortdesc>
+     Efface tous les données en mémoire tampon et réinitialise le décodeur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Efface tous les données en mémoire tampon et réinitialise le décodeur. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:Base64Encoder:toString"><apiName>toString</apiName><shortdesc>
+     Renvoie les données en mémoire tampon actuelles en tant que chaîne codée au format Base64. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Chaîne codée au format Base64. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie les données en mémoire tampon actuelles en tant que chaîne codée au format Base64. Notez que l’appel à cette méthode efface également les données en mémoire tampon et réinitialise le décodeur. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:Base64Encoder:CHARSET_UTF_8"><apiName>CHARSET_UTF_8</apiName><shortdesc>
+      Définition de constante de la chaîne UTF-8.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UTF-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Définition de constante de la chaîne UTF-8.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:insertNewLines"><apiName>insertNewLines</apiName><shortdesc>
+     Indicateur booléen permettant de contrôler si la séquence de caractères spécifiée pour la ligne Base64Encoder.newLine est insérée tous les 76 caractères afin de renvoyer la sortie codée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Indicateur booléen permettant de contrôler si la séquence de caractères spécifiée pour la ligne <codeph>Base64Encoder.newLine</codeph> est insérée tous les 76 caractères afin de renvoyer la sortie codée. La valeur par défaut est true.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:Base64Encoder:newLine"><apiName>newLine</apiName><shortdesc>
+     Point de code de caractère à insérer dans la sortie codée afin de mettre en évidence une nouvelle ligne si la valeur insertNewLines est true. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="int"/></apiValueDef><apiDesc>
+     Point de code de caractère à insérer dans la sortie codée afin de mettre en évidence une nouvelle ligne si la valeur <codeph>insertNewLines</codeph> est true. La valeur par défaut est <codeph>10</codeph> pour représenter le saut de ligne <codeph>\n</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

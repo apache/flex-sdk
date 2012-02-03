@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core"><apiName>mx.core</apiName><apiDetail/><apiClassifier id="mx.core:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+  FlexHTMLLoader 是 Player 的 HTMLLoader 类的子类，可供 Flex HTML 控件使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.managers:IFocusManagerComplexComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>flash.html:HTMLLoader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexHTMLLoader 是 Player 的 HTMLLoader 类的子类，可供 Flex HTML 控件使用。它将覆盖 <codeph>toString()</codeph> 方法以返回一个字符串，用于指示对象在应用程序的 DisplayObject 层次结构中所处的位置。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.core:FlexHTMLLoader:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>将 <codeph>name</codeph> 属性设置为 mx.utils.NameUtils 类的 <codeph>createUniqueName()</codeph> 方法返回的字符串。</p>
+     
+      <p>此字符串由对象的类名称和应用程序内的唯一整数连接而成，如 <codeph>"FlexLoader13"</codeph>。</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/createUniqueName()"><linktext>mx.utils.NameUtils.createUniqueName()</linktext></link></related-links></apiConstructor><apiOperation id="mx.core:FlexHTMLLoader:assignFocus"><apiName>assignFocus</apiName><shortdesc>
+      当组件获得焦点时，由 FocusManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>direction</apiItemName><apiType value="String"/><apiDesc>flash.display.FocusDirection 之一
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当组件获得焦点时，由 FocusManager 调用。同样，该组件可以将焦点设置给某个内部组件。当通过鼠标设置焦点时，将仍调用此组件的 <codeph>setFocus()</codeph> 方法，但当通过键盘更改焦点时，将使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:drawFocus"><apiName>drawFocus</apiName><shortdesc>
+      当组件获得焦点时，由 FocusManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>isFocused</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>true</codeph>，则绘制焦点指示符，否则隐藏它。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当组件获得焦点时，由 FocusManager 调用。组件应该绘制或隐藏表示组件具有焦点的图形。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:setFocus"><apiName>setFocus</apiName><shortdesc>
+      当组件获得焦点时，由 FocusManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      当组件获得焦点时，由 FocusManager 调用。同样，该组件可以将焦点设置给某个内部组件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:toString"><apiName>toString</apiName><shortdesc>
+      返回一个字符串，用于指示此对象在应用程序的 DisplayObject 层次结构中所处的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>指示此对象在应用程序的 DisplayObject 层次结构中所处的位置的 String。
+     
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回一个字符串，用于指示此对象在应用程序的 DisplayObject 层次结构中所处的位置。此字符串（如 <codeph>"MyApp0.HBox5.FlexLoader13"</codeph>）由 mx.utils.NameUtils 类的 <codeph>displayObjectToString()</codeph> 方法从对象及其后代的 <codeph>name</codeph> 属性中生成。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/displayObjectToString()"><linktext>mx.utils.NameUtils.displayObjectToString()</linktext></link></related-links></apiOperation><apiValue id="mx.core:FlexHTMLLoader:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      一个标志，用于指示组件处于选中状态时是否可以获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示组件处于选中状态时是否可以获得焦点。
+     
+      <p>如果组件中的子组件实现了 IFocusManagerComponent 接口，但是您从不希望它获得焦点，作为一种优化，您可以先将 <codeph>focusEnabled</codeph> 设置为 <codeph>false</codeph>，然后再在子组件上调用 <codeph>addChild()</codeph>。</p>
+     
+      <p>这将使 FocusManager 忽略此组件，并且使它不会对组件进行监视以查看 <codeph>tabFocusEnabled</codeph>、<codeph>tabChildren</codeph> 和 <codeph>mouseFocusEnabled</codeph> 属性是否发生更改。这也意味着 <codeph>addChild()</codeph> 之后，您无法更改此值，也不能指望 FocusManager 进行监视。</p>
+     
+      <p>注意：这并不意味着您无法在 <codeph>setFocus()</codeph> 方法中以编程方式使此对象获得焦点；它仅通知 FocusManager 在 Tab 和鼠标搜索中忽略此 IFocusManagerComponent 组件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:hasFocusableChildren:get"><apiName>hasFocusableChildren</apiName><shortdesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="hasFocusableChildrenChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      这只是用于支持接口的存根。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      这只是用于支持接口的存根。父级 mx.controls.HTML 包含并应用 conversionMode。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:mouseFocusEnabled:get"><apiName>mouseFocusEnabled</apiName><shortdesc>
+      单击组件时，组件是否可以获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单击组件时，组件是否可以获得焦点。如果值为 <codeph>false</codeph>，则焦点将转换到已将 <codeph>mouseFocusEnable</codeph> 设置为 <codeph>true</codeph> 的第一个父项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:tabFocusEnabled:get"><apiName>tabFocusEnabled</apiName><shortdesc>
+      一个标志，指示子对象是否能够获得焦点。这与 Flash Player 使用的 tabEnabled 属性类似。对于处理键盘输入的组件该标志通常为 true，但是控件栏中的一些组件将其设置为 false，因为它们不能像编辑器一样从另外的组件窃取焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="tabFocusEnabledChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示子对象是否能够获得焦点
+     
+      <p>这与 Flash Player 使用的 <codeph>tabEnabled</codeph> 属性类似。</p>
+     
+      <p>对于处理键盘输入的组件该标志通常为 <codeph>true</codeph>，但是控件栏中的一些组件将其设置为 <codeph>false</codeph>，因为它们不能像编辑器一样从另外的组件窃取焦点。
+      </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:Window"><apiName>Window</apiName><shortdesc>
+  Window 是 AIR 桌面应用程序中其它窗口的顶级容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:Window" replacement="spark.components.Window" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:Window">
+<description>
+  当组件未处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:Window">
+<description>
+  当组件处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:Window">
+<description>
+  当窗口处于关闭状态时播放。 
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  标题文本的样式名称。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:Window" playerVersion="AIR1.1" type="Array">
+<description>
+  用于绘制表头的两种颜色的数组。第一种颜色是顶层颜色。第二种颜色是底层颜色。默认值为 <codeph>undefined</codeph>，该值会使表头背景与面板背景相同。
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  最远标题栏按钮和标题栏的边之间的距离。
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  标题背景外观。
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  标题在标题栏中的位置。可能的值为 <codeph>"left"</codeph>、<codeph>"center"</codeph> 和 <codeph>"auto"</codeph>
+ 
+  <p>如果值为 <codeph>"left"</codeph>，则表示标题靠标题栏的左侧对齐。如果值为 <codeph>"center"</codeph>，则表示标题靠标题栏的中心对齐。如果值为 <codeph>"auto"</codeph>，则表示标题靠左侧对齐（在 Windows 上）或靠中心对齐（在 Mac OS X 上）。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  状态文本的样式声明。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  状态栏背景外观。
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:Window" playerVersion="AIR1.1" type="uint">
+<description>
+  用于绘制状态栏的颜色。
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:Window" playerVersion="AIR1.1" type="Boolean">
+<description>
+  确定窗口是自己绘制 Flex 镶边，还是依靠开发人员绘制镶边。如果打开窗口后立即更改样式，则不会产生任何效果。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，还原按钮的外观。在 Mac OS X 中将忽略此样式。
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，最小化按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，最大化按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  表头的显式高度。如果未设置此样式，则将根据文本高度、按钮高度和图标高度中的最大者计算表头高度。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  控制手柄外观的样式声明。
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  控制手柄周围的多余空间。手柄的整个区域以及各边周围的填充区域是可供进行手柄大小调整的点击域。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，关闭按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  定义 titleBar 按钮之间的距离。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  按钮在标题栏中的位置。可能值为 <codeph>"left"</codeph>、<codeph>"right"</codeph> 和 <codeph>"auto"</codeph>。
+ 
+  <p>如果值为 <codeph>"left"</codeph>，则表示按钮靠标题栏的左侧对齐。如果值为 <codeph>"right"</codeph>，则表示按钮靠标题栏的右侧对齐。如果值为 <codeph>"auto"</codeph>，则表示按钮靠标题栏的左侧对齐（在 Mac OS X 上）或靠右侧对齐（在 Windows 上）。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    height="100"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemChrome="standard"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window 是 AIR 桌面应用程序中其它窗口的顶级容器。
+ 
+  <p>Window 容器无法在其他布局容器中使用，在这个意义上来说，它是一种特殊容器。mx:Window 组件必须是其 MXML 文档中的顶级组件。</p>
+ 
+  <p>使用 Window 组件定义本机窗口的最简便方法是创建一个 MXML 文档，并在该文档中使用 <codeph>&lt;mx:Window></codeph> 标签作为顶级标签。您可以按照使用其他任何容器的方式来使用 Window 组件，包括指定布局类型、定义子控件等等。与其他所有自定义 MXML 组件类似，编译应用程序的同时也会将 MXML 文档编译到作为 Window 组件子类的自定义类中。</p>
+ 
+  <p>在应用程序代码中，要在屏幕上显示 Window 子类的实例，请首先在代码中创建类的实例（通过定义变量并调用 <codeph>new MyWindowClass()</codeph> 构造函数）。接下来，设置您希望为新窗口指定的所有属性。最后，调用 Window 组件的 <codeph>open()</codeph> 方法，从而在屏幕上打开该窗口。</p>
+ 
+  <p>请注意，Window 类的部分属性仅可以在<b>调用</b> <codeph>open()</codeph> 方法打开该窗口之前设置。创建基础 NativeWindow 后，可以读取这些初始化属性，但无法对其进行更改。此限制适用于下列属性：</p>
+ 
+  <ul>
+    <li><codeph>maximizable</codeph></li>
+    <li><codeph>minimizable</codeph></li>
+    <li><codeph>resizable</codeph></li>
+    <li><codeph>systemChrome</codeph></li>
+    <li><codeph>transparent</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  在调整基础 NativeWindow 的大小后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 的大小后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  在移动窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在移动窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  当 Window 完成其初始布局并打开基础 NativeWindow 时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 Window 完成其初始布局并打开基础 NativeWindow 时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  在调整基础 NativeWindow 的大小之前或拖动 Window 对象边界时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 的大小之前或拖动 Window 对象边界时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  当计算机连接到网络或与网络断开连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当计算机连接到网络或与网络断开连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  在移动窗口前和拖动窗口时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在移动窗口前和拖动窗口时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  在窗口关闭之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在窗口关闭之前分派。此事件是可取消的。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  在窗口关闭之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在窗口关闭之后分派。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  在取消激活窗口之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活窗口之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  在激活窗口之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活窗口之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  当取消激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当取消激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  当激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Window:Window"><apiName>Window</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Window:activate"><apiName>activate</apiName><shortdesc>
+      激活基础 NativeWindow（即使此 Window 的应用程序当前未处于活动状态）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      激活基础 NativeWindow（即使此 Window 的应用程序当前未处于活动状态）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:close"><apiName>close</apiName><shortdesc>
+      关闭窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭窗口。可取消此操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      返回将某个组件编为其子级的 Window。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>将某个组件编为其子级的 Window。
+      
+      </apiDesc><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>希望查找其 Window 的组件。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回将某个组件编为其子级的 Window。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      最小化窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最小化窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:open"><apiName>open</apiName><shortdesc>
+      创建基础 NativeWindow 并将其打开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定打开的 Window 是否已激活（即它是否具有焦点）。默认值为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建基础 NativeWindow 并将其打开。关闭后，Window 对象仍为一个有效的引用，但是不允许访问大多数的属性和方法。关闭的窗口无法重新打开。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的后方，则为 <codeph>true</codeph>；如果窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其后方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正后方。要将窗口排序到不实现 IWindow 的 NativeWindow 之后，请使用此窗口的 nativeWindow 的 <codeph>orderInBackOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其前方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正前方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之前，请使用此窗口的 nativeWindow 的 <codeph>orderInFrontOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      将窗口排序到同一应用程序中的其它所有窗口的后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其他所有窗口的后方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将窗口排序到同一应用程序中的其它所有窗口的后方。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      将窗口排序到同一应用程序中的其它所有窗口的前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其他所有窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将窗口排序到同一应用程序中的其它所有窗口的前方。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:restore"><apiName>restore</apiName><shortdesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:Window:controlBar"><apiName>controlBar</apiName><shortdesc>
+      此 Window 的 ApplicationControlBar。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此 Window 的 ApplicationControlBar。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.containers.ApplicationControlBar.xml"><linktext>mx.containers.ApplicationControlBar</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      确定基础 NativeWindow 是否始终显示在其他窗口的前方（包括其他应用程序的窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      确定基础 NativeWindow 是否始终显示在其他窗口的前方（包括其他应用程序的窗口）。设置此属性的同时也就设置了基础 NativeWindow 的 <codeph>alwaysInFront</codeph> 属性。有关此项设置如何影响窗口堆叠顺序的详细信息，请参阅 <codeph>NativeWindow.alwaysInFront</codeph> 属性说明。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      一个标志，用于指示窗口是否已关闭。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示窗口是否已关闭。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      指定窗口是否可最大化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最大化。此属性的值在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      指定窗口是否可最小化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最小化。此属性在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      此 Window 组件使用的基础 NativeWindow。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      此 Window 组件使用的基础 NativeWindow。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指定窗口是否可调整大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可调整大小。此属性在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      如果为 true，则控制手柄可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则控制手柄可见。
+     
+      <p>在 Mac OS X 上，其 <codeph>systemChrome</codeph> 设置为 <codeph>"standard"</codeph> 的窗口始终带有一个操作系统控制手柄，因此，此时将忽略此属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      如果为 true，则状态栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则状态栏可见。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      如果为 true，则窗口的标题栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则窗口的标题栏可见。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      创建可用作状态栏的实例的 IFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      创建可用作状态栏的实例的 IFactory。默认值为 StatusBar 的 IFactory。
+     
+      <p>如果编写一个自定义状态栏类，则它应该公开名为 <codeph>status</codeph> 的公用属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      从窗口传递到状态栏的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从窗口传递到状态栏的样式集。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      显示状态栏的 UIComponent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      显示状态栏的 UIComponent。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      指定窗口具有的系统镶边类型（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定窗口具有的系统镶边类型（如果有）。可能值集由 NativeWindowSystemChrome 类中的常量定义。
+     
+      <p>打开窗口后，此属性将立即变为只读模式。</p>
+     
+      <p>默认值为 <codeph>NativeWindowSystemChrome.STANDARD</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      创建可用作标题栏的实例的 IFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      创建可用作标题栏的实例的 IFactory。默认值为 TitleBar 的 IFactory。
+     
+      <p>如果编写一个自定义标题栏类，则它应该公开名为 <codeph>titleIcon</codeph> 和 <codeph>title</codeph> 的公用属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      从 Window 传递到 titleBar 的样式集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 Window 传递到 titleBar 的样式集。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      显示标题栏的 UIComponent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      显示标题栏的 UIComponent。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      用于绘制标题栏图标的 Class（通常是图像）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于绘制标题栏图标的 Class（通常是图像）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:title:get"><apiName>title</apiName><shortdesc>
+      窗口标题栏和任务栏中显示的标题文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      窗口标题栏和任务栏中显示的标题文本。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      指定窗口是否透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否透明。对于使用系统镶边的窗口，不支持将此属性设置为 <codeph>true</codeph>。
+     
+      <p>此属性在窗口打开后是只读的。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:type:get"><apiName>type</apiName><shortdesc>
+      指定此组件代表的 NativeWindow 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定此组件代表的 NativeWindow 类型。可能值集由 NativeWindowType 类中的常量定义。
+     
+      <p>打开窗口后，此属性将立即变为只读模式。</p>
+     
+      <p>默认值为 <codeph>NativeWindowType.NORMAL</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      此窗口的窗口菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      此窗口的窗口菜单。某些操作系统不支持窗口菜单，此时将忽略此属性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:IWindow"><apiName>IWindow</apiName><shortdesc>
+  IWindow 接口定义符合以下条件的组件的 API：在基于 Flex 的 AIR 应用程序中充当顶级容器（代表操作系统窗口的容器）的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IWindow 接口定义符合以下条件的组件的 API：在基于 Flex 的 AIR 应用程序中充当顶级容器（代表操作系统窗口的容器）的组件。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.core:IWindow:mx.core:IWindow:close"><apiName>close</apiName><shortdesc>
+      关闭窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:maximize"><apiName>maximize</apiName><shortdesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:minimize"><apiName>minimize</apiName><shortdesc>
+      最小化窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最小化窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:restore"><apiName>restore</apiName><shortdesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:IWindow:mx.core:IWindow:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      指定窗口是否可最大化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最大化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      指定窗口是否可最小化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最小化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Window 组件使用的基础 NativeWindow。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Window 组件使用的基础 NativeWindow。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指定窗口是否可调整大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可调整大小。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      指定窗口具有的系统镶边类型（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定窗口具有的系统镶边类型（如果有）。可能值集由 NativeWindowSystemChrome 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      用于绘制标题栏图标的 Class（通常是图像）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/></apiValueDef><apiDesc>
+      用于绘制标题栏图标的 Class（通常是图像）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:title:get"><apiName>title</apiName><shortdesc>
+      窗口标题栏和任务栏中显示的标题文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      窗口标题栏和任务栏中显示的标题文本。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:transparent:get"><apiName>transparent</apiName><shortdesc>
+      指定窗口是否透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否透明。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:type:get"><apiName>type</apiName><shortdesc>
+      指定此组件代表的 NativeWindow 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定此组件代表的 NativeWindow 类型。可能值集由 NativeWindowType 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:visible:get"><apiName>visible</apiName><shortdesc>
+      控制窗口的可见性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      控制窗口的可见性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  WindowedApplication 定义 Application 容器，用于为 AIR 应用程序创建 Flex 应用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="scriptTimeLimit"/><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:WindowedApplication" replacement="spark.components.WindowedApplication" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  当组件未处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  当组件处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:WindowedApplication">
+<description>
+  当窗口处于关闭状态时播放。
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  标题文本的样式名称。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Array">
+<description>
+  用于绘制表头的两种颜色的数组。第一种颜色是顶层颜色。第二种颜色是底层颜色。默认值为 <codeph>undefined</codeph>，该值会使表头背景与面板背景相同。
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  最远标题栏按钮和标题栏的边之间的距离。
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  标题背景外观。
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  标题在标题栏中的位置。可能的值为 <codeph>"left"</codeph>、<codeph>"center"</codeph> 和 <codeph>"auto"</codeph>
+ 
+  <p>如果值为 <codeph>"left"</codeph>，则表示标题靠标题栏的左侧对齐。如果值为 <codeph>"center"</codeph>，则表示标题靠标题栏的中心对齐。如果值为 <codeph>"auto"</codeph>，则表示标题靠左侧对齐（在 Windows 上）或靠中心对齐（在 Mac OS X 上）。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  状态文本的样式声明。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="uint">
+<description>
+  用于绘制状态栏的颜色。
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  状态栏背景外观。
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Boolean">
+<description>
+  确定窗口是自己绘制 Flex 镶边，还是依靠开发人员绘制镶边。如果打开窗口后立即更改样式，则不会产生任何效果。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，还原按钮的外观。在 Mac OS X 中将忽略此样式。
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，最小化按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，最大化按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  表头的显式高度。如果未设置此样式，则将根据文本高度、按钮高度和图标高度中的最大者计算表头高度。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  控制手柄外观的样式声明。
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  控制手柄周围的多余空间。手柄的整个区域以及各边周围的填充区域是可供进行手柄大小调整的点击域。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  使用 Flex 镶边时，关闭按钮的外观。
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  定义 titleBar 按钮之间的距离。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  按钮在标题栏中的位置。可能值为 <codeph>"left"</codeph>、<codeph>"right"</codeph> 和 <codeph>"auto"</codeph>。
+ 
+  <p>如果值为 <codeph>"left"</codeph>，则表示按钮靠标题栏的左侧对齐。如果值为 <codeph>"right"</codeph>，则表示按钮靠标题栏的右侧对齐。如果值为 <codeph>"auto"</codeph>，则表示按钮靠标题栏的左侧对齐（在 Mac OS X 上）或靠右侧对齐（在 Windows 上）。</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="-1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    useNativeDragManager="true"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication 定义 Application 容器，用于为 AIR 应用程序创建 Flex 应用程序。
+ 
+  <p>WindowedApplication 有两个作用。它可以替换 &lt;mx:Application> 标签，与基于 Flex 的 AIR 应用程序的入口点具有相同的作用。此外，作为容器，WindowedApplication 可定义 Flex AIR 应用程序初始窗口的布局，在 WindowedApplication 中定义的任何可见控件都将成为 AIR 应用程序加载的初始窗口中的内容。</p>
+ 
+  <p>WindowedApplication 是基于 Flex 的 AIR 应用程序的顶层应用程序。该应用程序没有设计为由其它 Flex 应用程序进行加载。如果 WindowedApplication 需要加载其它应用程序，请使用 Application 类作为这些应用程序的容器。如果需要其它窗口，请使用 Window 类作为这些窗口的容器。</p>
+  
+  <p>请注意，由于 WindowedApplication 只呈示单个窗口中的可见内容，而不是多窗口应用程序中的所有窗口，所以 WindowedApplication 实例只为自己的舞台和窗口分派与显示相关的事件（WindowedApplication 类从显示对象的 InteractiveObject 和 UIComponent 等基类继承的事件），而不为应用程序中其它窗口发生的事件分派这些事件。这与基于浏览器的应用程序不同。在后者中，Application 容器会为应用程序中的所有窗口分派这些事件（因为从技术角度而言，这些窗口都是在单个 Application 舞台上呈示的显示对象）。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  在调整基础 NativeWindow 对象的大小后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 对象的大小后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  在 WindowedApplication 对象移动后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 对象移动后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  在 WindowedApplication 完成其初始布局后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 完成其初始布局后分派。默认情况下，此时 WindowedApplication 将处于可见状态。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  在调整 WindowedApplication 对象大小之前分派，或在拖动 WindowedApplication 对象边界时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整 WindowedApplication 对象大小之前分派，或在拖动 WindowedApplication 对象边界时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  当计算机连接到网络或与网络断开连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当计算机连接到网络或与网络断开连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  在 WindowedApplication 对象移动前分派，或在拖动 WindowedApplication 对象时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 对象移动前分派，或在拖动 WindowedApplication 对象时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  在调用应用程序时调度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调用应用程序时调度。
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  在 WindowedApplication 窗口关闭前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 窗口关闭前分派。可取消。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  在关闭此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在关闭此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  在取消激活此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  在激活此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  在取消激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  在激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      激活基础 NativeWindow（即使此应用程序当前未处于活动状态）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      激活基础 NativeWindow（即使此应用程序当前未处于活动状态）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      关闭应用程序的 NativeWindow（应用程序打开的初始本机窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭应用程序的 NativeWindow（应用程序打开的初始本机窗口）。可取消此操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      关闭窗口并退出应用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭窗口并退出应用程序。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      最小化窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最小化窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的后方，则为 <codeph>true</codeph>；如果窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其后方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正后方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之后，请使用此窗口的 NativeWindow 的 <codeph>orderInBackOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其前方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正前方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之前，请使用此窗口的 NativeWindow 的 <codeph>orderInFrontOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       将窗口排序到同一应用程序中的其它所有窗口的后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其他所有窗口的后方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       将窗口排序到同一应用程序中的其它所有窗口的后方。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   将窗口排序到同一应用程序中的其它所有窗口的前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其他所有窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   将窗口排序到同一应用程序中的其它所有窗口的前方。
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:WindowedApplication:useNativeDragManager"><apiName>useNativeDragManager</apiName><shortdesc>
+      如果为 true，则 DragManager 应使用 NativeDragManagerImpl 实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则 DragManager 应使用 NativeDragManagerImpl 实现类。如果为 <codeph>false</codeph>，则将使用 DragManagerImpl 类。 
+       
+      <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。这意味着无法在运行时更改此属性的值。</p>
+     
+      <p>默认情况下，Flex 中内置的 AIR 应用程序的 DragManager 使用 NativeDragManagerImpl 类作为实现类。Flex 中内置的 Flash Player 应用程序使用 DragManagerImpl 类。 </p>
+     
+      <p>NativeDragManagerImpl 类是 AIR NativeDragManager API 和 Flex DragManager API 之间的桥梁。AIR NativeDragManager 类使用操作系统的拖放 API。该类支持在 AIR 窗口之间以及在操作系统和 AIR 之间进行拖动。由于操作系统控制拖放操作，因此在拖动过程中无法自定义光标，您也无法控制释放动画。该行为取决于操作系统，在不同平台间会存在某些不一致。</p>
+     
+      <p>DragManagerImpl 类不使用操作系统进行拖放操作，而是由自身控制整个拖放过程。该类支持自定义光标，并提供释放动画。但是，它不允许在 AIR 窗口之间以及在操作系统和 AIR 窗口之间进行拖动。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      确定基础 NativeWindow 是否始终位于其它窗口之前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定基础 NativeWindow 是否始终位于其它窗口之前。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      AIR 用于标识应用程序的标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      AIR 用于标识应用程序的标识符。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      指定当关闭最后一个窗口时，AIR 应用程序是退出，还是继续在背景中运行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当关闭最后一个窗口时，AIR 应用程序是退出，还是继续在背景中运行。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      指定当应用程序处于非活动状态时要使用的帧速率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当应用程序处于非活动状态时要使用的帧速率。设置为 -1 时，不会发生背景帧速率调节。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      如果已关闭基础窗口，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果已关闭基础窗口，则返回 true。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      停靠图标菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      停靠图标菜单。一些操作系统不支持停靠图标菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      指定窗口是否可最大化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最大化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      支持应用程序菜单的操作系统的应用程序菜单，或者支持窗口菜单的操作系统的应用程序初始窗口中的窗口菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      支持应用程序菜单的操作系统的应用程序菜单，或者支持窗口菜单的操作系统的应用程序初始窗口中的窗口菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      指定窗口是否可最小化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最小化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      代表 AIR 应用程序的 NativeApplication 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      代表 AIR 应用程序的 NativeApplication 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      此 WindowedApplication 组件使用的 NativeWindow（应用程序的初始本机窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      此 WindowedApplication 组件使用的 NativeWindow（应用程序的初始本机窗口）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指定窗口是否可调整大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可调整大小。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      如果为 true，则控制手柄可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则控制手柄可见。
+     
+      <p>在 Mac OS X 上，其 <codeph>systemChrome</codeph> 设置为 <codeph>"standard"</codeph> 的窗口始终带有一个操作系统控制手柄，因此，此时将忽略此属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      如果为 true，则状态栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则状态栏可见。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      如果为 true，则窗口的标题栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则窗口的标题栏可见。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      创建可用作状态栏的实例的 IFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      创建可用作状态栏的实例的 IFactory。默认值为 StatusBar 的 IFactory。
+     
+      <p>如果编写一个自定义状态栏类，则它应该公开名为 <codeph>status</codeph> 的公用属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      从 WindowedApplication 传递给状态栏的一组样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 WindowedApplication 传递给状态栏的一组样式。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      显示状态栏的 UIComponent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      显示状态栏的 UIComponent。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      指定窗口具有的系统镶边类型（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定窗口具有的系统镶边类型（如果有）。可能值集由 NativeWindowSystemChrome 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      系统任务栏图标菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      系统任务栏图标菜单。一些操作系统不支持系统任务栏图标菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      创建可用作标题栏的实例的 IFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      创建可用作标题栏的实例的 IFactory。默认值为 TitleBar 的 IFactory。
+     
+      <p>如果编写一个自定义标题栏类，则它应该公开名为 <codeph>titleIcon</codeph> 和 <codeph>title</codeph> 的公用属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      从 WindowedApplication 传递给标题栏的一组样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从 WindowedApplication 传递给标题栏的一组样式。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      显示标题栏的 UIComponent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      显示标题栏的 UIComponent。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      用于绘制标题栏图标的 Class（通常是图像）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于绘制标题栏图标的 Class（通常是图像）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      在窗口标题栏和任务栏中显示的标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在窗口标题栏和任务栏中显示的标题。如果您正在使用系统镶边，并将此属性设置为与 application.xml 中的 &lt;title> 不同的标签，则首先可能会看到 XML 文件的标题一闪而过。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      指定窗口是否透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否透明。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      指定此组件代表的 NativeWindow 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定此组件代表的 NativeWindow 类型。可能值集由 NativeWindowType 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

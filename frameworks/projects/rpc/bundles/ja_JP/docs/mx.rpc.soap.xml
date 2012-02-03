@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap"><apiName>mx.rpc.soap</apiName><apiDetail/><apiClassifier id="mx.rpc.soap:Operation"><apiName>Operation</apiName><shortdesc>
+ WebServices 専用の Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WebServices 専用の Operation です。 Operation は、サービスに対する個々のメソッドです。 Operation は、サービスに対して同じ名前の関数を呼び出すか、サービスのプロパティとして Operation にアクセスして <codeph>send()</codeph> メソッドを呼び出すことによって、呼び出すことができます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:Operation_mx.rpc.events.HeaderEvent.HEADER_header"><apiName>header</apiName><shortdesc>
+ Operation 呼び出しが応答で SOAP ヘッダーを返すときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.HeaderEvent.HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events.HeaderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Operation 呼び出しが応答で SOAP ヘッダーを返すときに送出されます。 HeaderEvent は、各 SOAP ヘッダーに対して送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     新しい Operation を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>この Operation が呼び出される Web サービスです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>この Operation の名前です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい Operation を作成します。これは通常、MXML コンパイラーによって直接作成されます。または、不明な Operation にアクセスした場合は、WebService によって自動的に作成されます。 開発者がこのコンストラクターを直接使用することはお勧めしません。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:Operation:addHeader"><apiName>addHeader</apiName><shortdesc>
+     この Operation だけに適用されるヘッダーを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>この Operation に追加する SOAP ヘッダーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この Operation だけに適用されるヘッダーを追加します。 ヘッダーは XML インスタンスのプリエンコード形式で提供できます。また、エンコードを内部 SOAP エンコーダーに任せる SOAPHeader インスタンスとして提供することもできます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     この Operation だけに適用されるヘッダーを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>ヘッダー QName のローカル名です。
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>ヘッダー QName の名前空間です。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>ヘッダーの名前です。
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>ヘッダーの値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この Operation だけに適用されるヘッダーを追加します。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>キャンセルされた呼び出しに関連付けられた AsyncToken、または呼び出しがキャンセルされなかった場合は null です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>キャンセルする呼び出しの messageId です。オプションです。省略した場合、最後のサービス呼び出しがキャンセルされます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。ネットワーク処理が続行する場合でも、result イベントや fault イベントは送出されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     この個別 Operation のヘッダーをクリアします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     この個別 Operation のヘッダーをクリアします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:getHeader"><apiName>getHeader</apiName><shortdesc>
+     QName の localName と URI に基づいた一致があった場合に、ヘッダーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>SOAPHeader を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader の QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>SOAPHeader コンテンツ内のヘッダーの名前（オプション）。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     QName の localName と URI に基づいた一致があった場合に、ヘッダーを返します。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     指定された QName を持つヘッダーをすべての操作から削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader の QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>SOAPHeader コンテンツ内のヘッダーの名前（オプション）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された QName を持つヘッダーをすべての操作から削除します。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:Operation:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     この Operation の WebService の場所。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この Operation の WebService の場所。 通常、サービスの場所は WSDL で指定されますが、このプロパティを設定して個別 Operation の場所をオーバーライドすることもできます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:forcePartArrays:get"><apiName>forcePartArrays</apiName><shortdesc>
+     配列として定義されている、出力メッセージパーツの単一または空の戻り値を、それぞれ 1 または 0 個の要素を含む配列として返す必要があるかどうかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     配列として定義されている、出力メッセージパーツの単一または空の戻り値を、それぞれ 1 または 0 個の要素を含む配列として返す必要があるかどうかを決定します。 これはドキュメントまたはリテラルの "ラップされた" Web サービスに適用できます。この場合、"ラッパー" シーケンスで個々のメッセージパーツを表す 1 つ以上の要素によって、1 より大きな値で maxOccurs 属性が設定されることがあります。 これは、応答にそのパーツの値が 0 または 1 個含まれている場合でも、対応するパーツは配列として扱われるというヒントです。 forcePartArrays を true に設定すると常に、返される値の数とは無関係に、この方法で定義されたパーツに対して配列が作成されます。 forcePartArrays を false のままにしておくと、2 つ以上の要素が返される場合にのみ配列が作成されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headerFormat:get"><apiName>headerFormat</apiName><shortdesc>
+     SOAP エンコードヘッダーのデコード方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     SOAP エンコードヘッダーのデコード方法を決定します。 値が <codeph>object</codeph> の場合は、各ヘッダー XML ノードが SOAPHeader オブジェクトにデコードされ、その <codeph>content</codeph> プロパティが、WSDL ドキュメントで指定されたオブジェクト構造になります。 値が <codeph>xml</codeph> の場合、XML は XMLNode のままになります。 値が <codeph>e4x</codeph> の場合、XML は XML（E4X）式用の ECMAScript によってアクセス可能になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headers:get"><apiName>headers</apiName><shortdesc>
+     操作を呼び出すたびに送信される SOAPHeader オブジェクトの配列へのアクセッサーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     操作を呼び出すたびに送信される SOAPHeader オブジェクトの配列へのアクセッサーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     SOAP エンドポイントに送信されるカスタム HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     SOAP エンドポイントに送信されるカスタム HTTP ヘッダーです。 複数のヘッダーを同じ名前で送信する必要がある場合は、値を配列として指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:ignoreWhitespace:get"><apiName>ignoreWhitespace</apiName><shortdesc>
+     SOAP エンコードされた要求または応答の XML を処理する際、空白を無視するかどうかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     SOAP エンコードされた要求または応答の XML を処理する際、空白を無視するかどうかを決定します。 デフォルトは <codeph>true</codeph> で、空白は維持されません。 XML スキーマタイプの定義で、<codeph>whiteSpace</codeph> 制限を <codeph>preserve</codeph> に設定する場合、最初に ignoreWhitespace を false に設定する必要があります。 逆に、タイプの <codeph>whiteSpace</codeph> 制限が <codeph>replace</codeph> または <codeph>collapse</codeph> に設定される場合、この設定は、ignoreWhitespace が false に設定されても使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:multiplePartsFormat:get"><apiName>multiplePartsFormat</apiName><shortdesc>
+     出力メッセージの複数のパーツを定義する Web サービスへの呼び出しのデフォルト結果オブジェクトのタイプを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     出力メッセージの複数のパーツを定義する Web サービスへの呼び出しのデフォルト結果オブジェクトのタイプを決定します。 値が "object" の場合、lastResult オブジェクトは、個々の出力パーツに対応する名前付きプロパティを持つ Object になります。 値が "array" の場合、lastResult はアレイになり、パーツ値は SOAP メッセージの本文に出現する順序でプッシュされます。 ドキュメントリテラル処理のデフォルト値は "object" です。 RPC 処理のデフォルトは "array" です。 multiplePartsFormat プロパティは resultFormat が "object" の場合にのみ適用でき、これ以外の場合は無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:request:get"><apiName>request</apiName><shortdesc>
+     Operation の要求は、オブジェクト構造または XML 構造です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Operation の要求は、オブジェクト構造または XML 構造です。 XML を指定すると、XML はそのまま送信されます。 オブジェクトを渡した場合、オブジェクトは SOAP XML 構造にエンコードされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+     Operation 結果のデコード方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Operation 結果のデコード方法を決定します。 値が <codeph>object</codeph> の場合、XML は WSDL ドキュメントでの指定に従ってオブジェクト構造にデコードされます。 値が <codeph>xml</codeph> の場合、XML は XMLNode のままになります。 値が <codeph>e4x</codeph> の場合、XML は XML（E4X）式用の ECMAScript によってアクセス可能になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultHeaders:get"><apiName>resultHeaders</apiName><shortdesc>
+     最後に実行されたこの操作の一環として返されたヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     最後に実行されたこの操作の一環として返されたヘッダーです。 このヘッダーは <codeph>lastResult</codeph> プロパティに対応し、HeaderEvents として個別に送出されるヘッダーの集合と同じです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      単純なコンテンツをエンコードする前に XML 特殊文字のエスケープに使用されるカスタム関数を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      単純なコンテンツをエンコードする前に XML 特殊文字のエスケープに使用されるカスタム関数を指定します。操作レベルで明確に上書きされない限り、Web サービスのすべての操作に対して有効です。 関数を指定しない場合は、IXMLEncoder の特定の実装によって設定されたものがデフォルトで使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+  AbstractWebService は、SOAP ベースの Web サービスに RPC アクセスを提供する実装の抽象基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractWebService は、SOAP ベースの Web サービスに RPC アクセスを提供する実装の抽象基本クラスです。 このクラスは、実行時に WSDL 記述をロードしません。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:AbstractWebService:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+     新しい WebService を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>宛先です。services-config.xml ファイル内の宛先名と一致する必要があります。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>相対 URL を計算するときに、WebService が使用する必要のある URL です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい WebService を作成します。 宛先を指定する場合、その宛先は services-config.xml 内のエントリと一致している必要があります。 宛先を指定しない場合、WebService では DefaultHTTP 宛先が使用されます。 相対 URL を使用してこの WebService の WSDL ドキュメントを検索することを前提としている場合は、<codeph>rootURL</codeph> が必要です。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:AbstractWebService:addHeader"><apiName>addHeader</apiName><shortdesc>
+     この Web サービスのすべての操作に適用されるヘッダーを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>すべての操作に追加する SOAP ヘッダーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この Web サービスのすべての操作に適用されるヘッダーを追加します。 ヘッダーは XML インスタンスのプリエンコード形式で提供できます。また、エンコードを内部 SOAP エンコーダーに任せる SOAPHeader インスタンスとして提供することもできます。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     この WebService のすべての操作に適用されるヘッダーを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>ヘッダー QName のローカル名です。
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>ヘッダー QName の名前空間です。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>ヘッダーの名前です。
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>ヘッダーの値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この WebService のすべての操作に適用されるヘッダーを追加します。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     すべての操作に適用されるヘッダーをクリアします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     すべての操作に適用されるヘッダーをクリアします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:getHeader"><apiName>getHeader</apiName><shortdesc>
+     QName の localName と URI に基づいた一致があった場合に、ヘッダーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>QName の localName と URI に基づいた一致があった場合に、ヘッダーを返します。
+     
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader の QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>(オプション) SOAPHeader コンテンツ内のヘッダーの名前。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     QName の localName と URI に基づいた一致があった場合に、ヘッダーを返します。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     指定された QName を持つヘッダーをすべての操作から削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader の QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>(オプション) SOAPHeader コンテンツ内のヘッダーの名前。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された QName を持つヘッダーをすべての操作から削除します。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     ユーザーが WebService にアクセスするときに、ユーザーを認証するためのユーザー名とパスワードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すユーザー名です。
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すパスワードです。
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>リモート資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ユーザーが WebService にアクセスするときに、ユーザーを認証するためのユーザー名とパスワードです。 これらは、HTTP 認証ヘッダーの一部としてプロキシからエンドポイントに渡されます。 useProxy が false の場合、このプロパティは無視されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+     プロキシを介して Web サービスを呼び出す場合の HTTPS 接続のデフォルトの宛先です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     プロキシを介して Web サービスを呼び出す場合の HTTPS 接続のデフォルトの宛先です。宛先の指定なしで <codeph>useProxy</codeph> プロパティを <codeph>true</codeph> に設定した場合は、デフォルトの宛先を使用して、要求が Web サービスのエンドポイントにルーティングされます。 
+     
+     <p>デフォルトの宛先を使用する場合は、クライアント上の WSDL と endpointURI を指定する必要があります。デフォルト以外のプロキシ宛先を使用する場合は、宛先構成の中に指定された WSDL と endpointURI を使用できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+     プロキシを介して Web サービスを呼び出す場合の HTTP 接続のデフォルトの宛先です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     プロキシを介して Web サービスを呼び出す場合の HTTP 接続のデフォルトの宛先です。宛先の指定なしで <codeph>useProxy</codeph> プロパティを <codeph>true</codeph> に設定した場合は、デフォルトの宛先を使用して、要求が Web サービスのエンドポイントにルーティングされます。 
+     
+     <p>デフォルトの宛先を使用する場合は、クライアント上の WSDL と endpointURI を指定する必要があります。デフォルト以外のプロキシ宛先を使用する場合は、宛先構成の中に指定された WSDL と endpointURI を使用できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     フレームワーク開発者には、各 WebService 操作起動で渡すパラメーターを指定して呼び出す関数をインストールする必要がある場合があります。そのような開発者を主な対象としたオプション関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     フレームワーク開発者には、各 WebService 操作起動で渡すパラメーターを指定して呼び出す関数をインストールする必要がある場合があります。そのような開発者を主な対象としたオプション関数です。関数はパラメーターの配列を取り、変更されている可能性のある配列を返します。関数の定義は <codeph>function myParametersFunction(parameters:Array):Array</codeph> のようになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     フレームワーク開発者には、操作の結果を処理するフックをインストールしてから結果ハンドラーを通知する必要がある場合があります。そのような開発者を主な対象としたオプション関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     フレームワーク開発者には、操作の結果を処理するフックをインストールしてから結果ハンドラーを通知する必要がある場合があります。そのような開発者を主な対象としたオプション関数です。関数の定義は <codeph> function myConvertResultsFunction(result: operation:AbstractOperation):</codeph> のようになります。これに結果が返されるのは、makeObjectsBindable 変換が行われた直後、結果イベントが作成される前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:description:get"><apiName>description</apiName><shortdesc>
+     現在アクティブなポートに対応するサービスの説明です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     現在アクティブなポートに対応するサービスの説明です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:destination:get"><apiName>destination</apiName><shortdesc>
+     
+     サービスの宛先です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     
+     サービスの宛先です。この値は、services-config.xml ファイル内の宛先エントリと一致している必要があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     WebService の場所です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     WebService の場所です。 通常、サービスの場所は WSDL ドキュメントで指定されますが、このプロパティを設定してその場所をオーバーライドすることもできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:headers:get"><apiName>headers</apiName><shortdesc>
+     WebService に対して登録された SOAPHeaders の配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     WebService に対して登録された SOAPHeaders の配列を返します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     SOAP エンドポイントに送信されるカスタム HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     SOAP エンドポイントに送信されるカスタム HTTP ヘッダーです。 複数のヘッダーを同じ名前で送信する必要がある場合は、値を配列として指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:port:get"><apiName>port</apiName><shortdesc>
+     この WebService が使用する必要のある WSDL ドキュメント内のポートを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この WebService が使用する必要のある WSDL ドキュメント内のポートを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:ready:get"><apiName>ready</apiName><shortdesc>
+     WebService が要求を行う準備ができたかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     WebService が要求を行う準備ができたかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     相対 URL を計算するときに、WebService が使用する必要のある URL です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     相対 URL を計算するときに、WebService が使用する必要のある URL です。 このプロパティは、プロキシを介するときにだけ使用されます。 <codeph>useProxy</codeph> プロパティが <codeph>to false</codeph> に設定されている場合、相対 URL はこのアプリケーションを実行する SWF の場所に基づいて自動的に計算されます。 明示的に設定されていない場合、<codeph>rootURL</codeph> は自動的に mx.messaging.config.LoaderConfig.url の URL に設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:service:get"><apiName>service</apiName><shortdesc>
+     この WebService が使用する必要のある WSDL ドキュメント内のサービスを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この WebService が使用する必要のある WSDL ドキュメント内のサービスを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+     Flex のプロキシサービスを利用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Flex のプロキシサービスを利用するかどうかを指定します。 デフォルト値は <codeph>false</codeph> です。<codeph>true</codeph> を Flex サーバーを介したプロキシ要求に設定しない場合は、Flash Player がターゲット URL に確実に到達できるようにする必要があります。 また、<codeph>useProxy</codeph> プロパティが <codeph>false</codeph> に設定されている場合、services-config.xml ファイルで定義された宛先を使用することはできません。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      単純なコンテンツをエンコードする前に XML 特殊文字のエスケープに使用されるカスタム関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      単純なコンテンツをエンコードする前に XML 特殊文字のエスケープに使用されるカスタム関数です。 操作レベルで明確に上書きされない限り、Web サービスのすべての操作に対して有効です。 何も指定しない場合、デフォルトの関数は IXMLEncoder の特定の実装によって設定されたものです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+ SOAP エンベロープの Fault エレメントから SOAP 固有の情報を提供する mx.rpc.Fault のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:Fault</apiBaseClassifier></apiClassifierDef><apiDesc>
+ SOAP エンベロープの Fault エレメントから SOAP 固有の情報を提供する mx.rpc.Fault のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPFault:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+     新しい SOAPFault を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="QName"/><apiDesc>ォルトコードの完全修飾名です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>障害の説明です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>detail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>障害の詳細な説明です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>element</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>SOAP 障害の生の XML です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultactor</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ISOAP 障害の原因に関する情報です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい SOAPFault を作成します。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:SOAPFault:toString"><apiName>toString</apiName><shortdesc>
+     "SOAPFault"に faultCode、faultString、および faultDetail を追加したストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>"SOAPFault"に faultCode、faultString、および faultDetail を追加したストリングを返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     "SOAPFault"に faultCode、faultString、および faultDetail を追加したストリングを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:SOAPFault:element"><apiName>element</apiName><shortdesc>
+     この SOAP Fault の生の XML です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     この SOAP Fault の生の XML です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultactor"><apiName>faultactor</apiName><shortdesc>
+     SOAP Fault は、faultactor プロパティを介して、失敗の原因についての情報を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     SOAP Fault は、faultactor プロパティを介して、失敗の原因についての情報を提供します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultcode"><apiName>faultcode</apiName><shortdesc>
+     faultcode プロパティは faultCode に似ていますが、SOAP Fault の faultcode エレメントの大文字と小文字を一致させるためと、コードの完全修飾名を提供するために存在します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     faultcode プロパティは faultCode に似ていますが、SOAP Fault の faultcode エレメントの大文字と小文字を一致させるためと、コードの完全修飾名を提供するために存在します。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:detail:get"><apiName>detail</apiName><shortdesc>
+     detail プロパティは faultDetail と同じですが、SOAP Fault の detail エレメントの大文字と小文字を一致させるために存在します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     detail プロパティは faultDetail と同じですが、SOAP Fault の detail エレメントの大文字と小文字を一致させるために存在します。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultstring:get"><apiName>faultstring</apiName><shortdesc>
+     faultstring プロパティは faultString と同じですが、SOAP エンベロープ Fault の faultstring エレメントの大文字と小文字を一致させるために存在します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     faultstring プロパティは faultString と同じですが、SOAP エンベロープ Fault の faultstring エレメントの大文字と小文字を一致させるために存在します。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultString"><linktext>mx.rpc.Fault.faultString</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:WebService"><apiName>WebService</apiName><shortdesc>
+ WebService クラスは、リモートサーバー上の SOAP ベースの Web サービスへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc.soap:AbstractWebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WebService クラスは、リモートサーバー上の SOAP ベースの Web サービスへのアクセスを提供します。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:WebService_mx.rpc.soap.LoadEvent.LOAD_load"><apiName>load</apiName><shortdesc>
+ LoadEvent.LOAD は、WSDL ドキュメントが正常にロードされると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap.LoadEvent.LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.soap.LoadEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ <codeph>LoadEvent.LOAD</codeph> は、WSDL ドキュメントが正常にロードされると送出されます。
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     新しい WebService を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService の宛先。services-config.xml ファイル内の宛先名と一致する必要があります。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService のルート URL です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい WebService を作成します。 宛先を指定する場合、その宛先は services-config.xml 内のエントリと一致している必要があります。 宛先を指定しない場合、WebService では DefaultHTTP 宛先が使用されます。 相対 URL を使用してこの WebService の WSDL ドキュメントを検索することを前提としている場合は、<codeph>rootURL</codeph> が必要です。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:WebService:canLoadWSDL"><apiName>canLoadWSDL</apiName><shortdesc>
+     WebService が WSDL をロードできる状態であるかどうか (有効な宛先または wsdl が指定されているかどうか) を示すブール値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>WebService が WSDL をロードできる状態にある場合は <codeph>true</codeph> を返します。それ以外の場合は <codeph>false</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     WebService が WSDL をロードできる状態であるかどうか (有効な宛先または wsdl が指定されているかどうか) を示すブール値を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     指定された名前の Operation を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この名前に対して実行される Operation です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Operation の名前です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された名前の Operation を返します。Operation が事前に作成されなかった場合、新しい <codeph>mx.rpc.soap.Operation</codeph> がこの呼び出し中に作成されます。 Operation は通常、その名前をサービス変数（<codeph>myService.someOperation</codeph>）の後に指定するだけでアクセスすることができますが、Operation 名がサービスに対して定義されているメソッドと一致している場合（例えば <codeph>setCredentials</codeph>）、代わりにこのメソッドを使って Operation を取得することができます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:protected:initializeOperation"><apiName>initializeOperation</apiName><shortdesc>
+    新しい Operation を初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.soap:Operation</apiOperationClassifier><apiDesc>初期化する Operation です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+    新しい Operation を初期化します。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:loadWSDL"><apiName>loadWSDL</apiName><shortdesc>
+     WebService に WSDL ドキュメントをダウンロードするように指示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>wsdl がまだ指定されていない場合は、ここに指定できます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     WebService に WSDL ドキュメントをダウンロードするように指示します。 WebService MXML タグに指定されている場合、WebService はこのメソッドを自動的に呼び出します。ただし、<codeph>destination</codeph> または <codeph>wsdl</codeph> プロパティの値を指定した後で、ActionScript に WebService オブジェクトを作成する場合は、手動で呼び出す必要があります。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:toString"><apiName>toString</apiName><shortdesc>
+     WebService のインスタンスを、宛先 ID や割り当てられたチャンネルのセットなどの重要なプロパティを記述するストリングとして表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>WebService のストリング表現を返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     WebService のインスタンスを、宛先 ID や割り当てられたチャンネルのセットなどの重要なプロパティを記述するストリングとして表します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:wsdl:get"><apiName>wsdl</apiName><shortdesc>
+     この WebService の WSDL ドキュメントの場所です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この WebService の WSDL ドキュメントの場所です。 相対 URL を使用する場合は、<codeph>rootURL</codeph> が指定されているか、MXML に WebService が作成されていることを確認します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+ このイベントは、WSDL XML ドキュメントのロードが正常に完了すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:WSDLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ このイベントは、WSDL XML ドキュメントのロードが正常に完了すると送出されます。   
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:LoadEvent:LOAD_load"><apiName>load</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap:LoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.soap:LoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:LoadEvent:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+     新しい WSDLLoadEvent を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントをトリガーしたアクションを示します。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>WSDL ドキュメントを含むオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WSDL ドキュメントの URL です。     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい WSDLLoadEvent を作成します。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:LoadEvent:clone"><apiName>clone</apiName><shortdesc>
+     この LoadEvent のコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この LoadEvent のコピーを返します。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+     この LoadEvent のコピーを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:LoadEvent:toString"><apiName>toString</apiName><shortdesc>
+     この LoadEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この LoadEvent のストリング表現を返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     この LoadEvent のストリング表現を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:LoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+    LOAD 定数により type プロパティ値が定義されます。これは load イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>load</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    <codeph>LOAD</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>load</codeph> イベントのイベントオブジェクトのプロパティ値です。
+    
+    <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>WSDL オブジェクト</entry></row><row><entry><codeph>location</codeph></entry><entry>WSDL ドキュメントの URI</entry></row></tbody></tgroup></adobetable>
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:LoadEvent:document:get"><apiName>document</apiName><shortdesc>
+     この getter は、flash.xml.XMLDocument のインスタンスとしてロードされたドキュメントに対して旧式のアクセスを提供するように維持されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.xml:XMLDocument"/><apiDeprecated replacement="xml"/></apiValueDef><apiDesc>
+     この getter は、flash.xml.XMLDocument のインスタンスとしてロードされたドキュメントに対して旧式のアクセスを提供するように維持されています。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+ SOAP ベースのリモートプロシージャコールの結果のコンテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ SOAP ベースのリモートプロシージャコールの結果のコンテキストです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPResult:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+     新しい SOAPResult を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     新しい SOAPResult を作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPResult:headers"><apiName>headers</apiName><shortdesc>
+     ヘッダーオブジェクトのコレクションです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     ヘッダーオブジェクトのコレクションです。SOAPDecoder を使用すると、デコーダの headerFormat 設定に基づいて、SOAPHeader、XML または XMLDocument タイプのエレメントをこの配列に設定できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:isFault"><apiName>isFault</apiName><shortdesc>
+     この結果オブジェクトが SOAP Fault メッセージを表しているかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この結果オブジェクトが SOAP Fault メッセージを表しているかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:result"><apiName>result</apiName><shortdesc>
+     SOAP 結果の本体です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+     SOAP 結果の本体です。SOAPDecoder を使用すると、デコーダの resultFormat 設定に基づいて、この値を設定できます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+ SOAPHeader を使用して、WebService 操作要求の SOAP エンベロープに追加する必要のあるヘッダーを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ SOAPHeader を使用して、WebService 操作要求の SOAP エンベロープに追加する必要のあるヘッダーを指定します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPHeader:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+     新しい SOAPHeader を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAP ヘッダーの修飾名です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>content</apiItemName><apiType value="Object"/><apiDesc>ヘッダー値のために送信するコンテンツです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい SOAPHeader を作成します。 SOAP ヘッダーの修飾名とコンテンツが必要です。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPHeader:content"><apiName>content</apiName><shortdesc>
+     ヘッダー値のために送信するコンテンツです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     ヘッダー値のために送信するコンテンツです。 ヘッダーに対して XML または flash.xml.XMLNode インスタンスを提供する場合は、それがプリエンコードされたコンテンツとしてそのまま使用され、soap:header エレメントの子として追加されます。 それ以外の場合は、String 型や Number 型などで値を提供できます。 この場合、内在する SOAP エンコーダーは、SOAPHeader 内で指定された QName に基づいて値を正確にエンコードしようとします（型定義が存在しない場合は、最終的な手段として xsd:anyType が使用されます）。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:mustUnderstand"><apiName>mustUnderstand</apiName><shortdesc>
+     ヘッダーがエンドポイントで理解される必要があるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     ヘッダーがエンドポイントで理解される必要があるかどうかを指定します。 ヘッダーは処理されたが、エンドポイントでヘッダーを理解する必要がある場合、エンドポイントは SOAP の失敗を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:qname"><apiName>qname</apiName><shortdesc>
+     SOAP ヘッダーの修飾名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     SOAP ヘッダーの修飾名です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:role"><apiName>role</apiName><shortdesc>
+     SOAP 要求を処理するエンドポイントの潜在的なチェーンで、このヘッダーが意図されているロールの URI を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     SOAP 要求を処理するエンドポイントの潜在的なチェーンで、このヘッダーが意図されているロールの URI を指定します。 定義されている場合、この値を使用して SOAP ヘッダーの <codeph>actor</codeph> が指定されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

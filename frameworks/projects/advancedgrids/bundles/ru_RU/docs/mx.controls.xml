@@ -1,0 +1,1633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:OLAPDataGrid"><apiName>OLAPDataGrid</apiName><shortdesc>
+  Элемент управления OLAPDataGrid расширяет функциональность элемента управления AdvancedDataGrid, что обеспечивает поддержку отображения результатов запросов OLAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="headerDragProxyStyleName"/><Exclude kind="style" name="sortFontWeight"/><Exclude kind="style" name="sortFontStyle"/><Exclude kind="style" name="sortFontSize"/><Exclude kind="style" name="sortFontFamily"/><Exclude kind="style" name="openEasingFunction"/><Exclude kind="style" name="openDuration"/><Exclude kind="style" name="headerStyleName"/><Exclude kind="style" name="headerSortSeparatorSkin"/><Exclude kind="style" name="folderOpenIcon"/><Exclude kind="style" name="folderClosedIcon"/><Exclude kind="style" name="depthColors"/><Exclude kind="style" name="defaultLeafIcon"/><Exclude kind="style" name="columnDropIndicatorSkin"/><Exclude kind="event" name="itemOpening"/><Exclude kind="event" name="itemOpen"/><Exclude kind="event" name="itemEditEnd"/><Exclude kind="event" name="itemEditBeginning"/><Exclude kind="event" name="itemEditBegin"/><Exclude kind="event" name="itemClose"/><Exclude kind="event" name="headerShift"/><Exclude kind="event" name="headerRelease"/><Exclude kind="event" name="headerDropOutside"/><Exclude kind="event" name="headerDragOutside"/><Exclude kind="event" name="dragOver"/><Exclude kind="event" name="dragExit"/><Exclude kind="event" name="dragEnter"/><Exclude kind="event" name="dragDrop"/><Exclude kind="event" name="dragComplete"/><Exclude kind="method" name="updateVisibleHeaders"/><Exclude kind="method" name="updateHeaderSearchList"/><Exclude kind="method" name="treeNavigationHandler"/><Exclude kind="method" name="removeSortField"/><Exclude kind="method" name="placeSortArrow"/><Exclude kind="method" name="headerReleaseHandler"/><Exclude kind="method" name="findSortField"/><Exclude kind="method" name="expandItemHandler"/><Exclude kind="method" name="dragStartHandler"/><Exclude kind="method" name="dragScroll"/><Exclude kind="method" name="dragOverHandler"/><Exclude kind="method" name="dragExitHandler"/><Exclude kind="method" name="dragEnterHandler"/><Exclude kind="method" name="dragDropHandler"/><Exclude kind="method" name="dragCompleteHandler"/><Exclude kind="method" name="addSortField"/><Exclude kind="method" name="addDragData"/><Exclude kind="method" name="stopDrag"/><Exclude kind="method" name="startDrag"/><Exclude kind="method" name="showDropFeedback"/><Exclude kind="method" name="hideDropFeedback"/><Exclude kind="method" name="getFieldSortInfo"/><Exclude kind="method" name="setItemIcon"/><Exclude kind="method" name="isItemOpen"/><Exclude kind="method" name="getParentItem"/><Exclude kind="method" name="expandItem"/><Exclude kind="method" name="expandChildrenOf"/><Exclude kind="method" name="expandAll"/><Exclude kind="method" name="destroyItemEditor"/><Exclude kind="method" name="createItemEditor"/><Exclude kind="method" name="collapseAll"/><Exclude kind="method" name="calculateDropIndex"/><Exclude kind="property" name="selectedHeaderInfo"/><Exclude kind="property" name="orderedHeadersList"/><Exclude kind="property" name="lastDropIndex"/><Exclude kind="property" name="headerInfoInitialized"/><Exclude kind="property" name="dragImageOffsets"/><Exclude kind="property" name="dragImage"/><Exclude kind="property" name="_columns"/><Exclude kind="property" name="sortItemRenderer"/><Exclude kind="property" name="sortExpertMode"/><Exclude kind="property" name="sortableColumns"/><Exclude kind="property" name="showRoot"/><Exclude kind="property" name="showHeaders"/><Exclude kind="property" name="rendererProviders"/><Exclude kind="property" name="openItems"/><Exclude kind="property" name="lookAheadDuration"/><Exclude kind="property" name="lockedColumnCount"/><Exclude kind="property" name="labelFunction"/><Exclude kind="property" name="itemIcons"/><Exclude kind="property" name="itemEditorInstance"/><Exclude kind="property" name="hierarchicalCollectionView"/><Exclude kind="property" name="hasRoot"/><Exclude kind="property" name="groupLabelFunction"/><Exclude kind="property" name="groupIconFunction"/><Exclude kind="property" name="groupedColumns"/><Exclude kind="property" name="editedItemRenderer"/><Exclude kind="property" name="editedItemPosition"/><Exclude kind="property" name="editable"/><Exclude kind="property" name="dropTarget"/><Exclude kind="property" name="dropEnabled"/><Exclude kind="property" name="dragMoveEnabled"/><Exclude kind="property" name="draggableColumns"/><Exclude kind="property" name="dragEnabled"/><Exclude kind="property" name="displayItemsExpanded"/><Exclude kind="property" name="displayDisclosureIcon"/><Exclude kind="property" name="columnWidth"/><Exclude kind="property" name="columns"/><Exclude kind="property" name="allowDragSelection"/><styles><style inherit="no" name="columnAxisHeaderStyleName" owner="mx.controls:OLAPDataGrid" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля CSS для управления свойствами внешнего вида заголовков осей столбцов. Значение по умолчанию равно <codeph>undefined</codeph>, которое указывает на использование значения стиля <codeph>headerStyleName</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="rowAxisHeaderStyleName" owner="mx.controls:OLAPDataGrid" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля CSS для управления свойствами внешнего вида заголовков осей столбцов. Значение по умолчанию равно <codeph>undefined</codeph>, которое указывает на использование значения стиля <codeph>headerStyleName</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The <code>&lt;mx:OLAPDataGrid&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:OLAPDataGrid 
+    <b>Properties</b>
+    defaultCellString="NaN"
+    headerRendererProviders="[]"
+    itemRendererProviders="[]"
+     
+    <b>Styles</b>
+    columnAxisHeaderStyleName="undefined"
+    rowAxisHeaderStyleName="undefined"
+  /&gt;
+   
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGrid</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Элемент управления OLAPDataGrid расширяет функциональность элемента управления AdvancedDataGrid, что обеспечивает поддержку отображения результатов запросов OLAP. Как и все элементы управления сетки данных Flex, элемент управления OLAPDataGrid предназначен для отображения данных в двумерном представлении строк и столбцов. 
+ 
+  <p>Способ передачи данных в элемент управления OLAPDataGrid обуславливает некоторые отличия от элемента управления AdvancedDataGrid:</p>
+  <ul>
+    <li>Перетаскивание столбцов в элементе управления OLAPDataGrid не разрешено.</li>
+    <li>В элементе управления OLAPDataGrid не разрешается редактирование ячеек, так как данные ячеек представляют собой результаты запросов и не соответствуют одному значению данных в кубе OLAP.</li>
+    <li>Сортировка столбцов с помощью щелчка по заголовку в элементе OLAPDataGrid невозможна. Сортировка поддерживается на уровне измерения, что позволяет изменять порядок участников этого измерения.</li>
+  </ul>
+ 
+  <p>Элемент управления OLAPDataGrid можно заполнить данными путем задания экземпляра класса OLAPResult в качестве поставщика данных, который содержит результаты запроса OLAP. </p>
+ 
+  </apiDesc><example conref="OLAPDataGridExample.mxml"><swfblock conref="examples/OLAPDataGridExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.olap.xml#OLAPQuery"><linktext>mx.olap. OLAPQuery</linktext></link><link href="mx.olap.xml#OLAPResult"><linktext>mx.olap. OLAPResult</linktext></link></related-links><apiConstructor id="mx.controls:OLAPDataGrid:OLAPDataGrid"><apiName>OLAPDataGrid</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:OLAPDataGrid:protected:getCellRendererInfo"><apiName>getCellRendererInfo</apiName><shortdesc>
+      Определите средство визуализации, используемое для определенной ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Средство визуализации элементов, используемое для ячейки на пересечении оси строк и столбцов.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider</apiOperationClassifier></apiReturn><apiParam><apiItemName>row</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>Положение ячейки в оси строк.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>Положение ячейки в оси столбцов.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Задайте средство визуализации, используемое для определенной ячейки. Ячейка располагается на пересечении оси строк и оси столбцов, поэтому она следует правилам, определенным в свойстве <codeph>itemRendererProviders</codeph> для обеих осей. Этот метод предоставляет оси строк приоритет и выполняет поиск правильного значения свойства <codeph>itemRendererProviders</codeph>, используемого для средства визуализации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:protected:getFormattedCellValue"><apiName>getFormattedCellValue</apiName><shortdesc>
+      Применяет к значению String форматирование, связанное с определенной ячейкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Отформатированное значение <codeph>label</codeph> или <codeph>label</codeph>, если ячейка не существует или к ячейке не применено средство форматирования.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>Форматируемое значение String.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>row</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>Положение ячейки на оси строк со связанным средством форматирования.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>col</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>Положение ячейки на оси столбцов со связанным средством форматирования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Применяет к значению String форматирование, связанное с определенной ячейкой. Ячейка располагается на пересечении оси строк и оси столбцов. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:protected:getIndent"><apiName>getIndent</apiName><shortdesc>
+      Возвращает отступ метки в средстве визуализации (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Отступ метки в средстве визуализации (в пикселях).
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>position</apiItemName><apiOperationClassifier>mx.olap:IOLAPAxisPosition</apiOperationClassifier><apiDesc>Положение средства визуализации на оси.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>m</apiItemName><apiOperationClassifier>mx.olap:IOLAPMember</apiOperationClassifier><apiDesc>Иерархия измерения, для которого требуется отступ.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mIndex</apiItemName><apiType value="int"/><apiDesc>Индекс <codeph>m</codeph> в элементе <codeph>position.members</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает отступ метки в средстве визуализации (в пикселях).
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:OLAPDataGrid:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.controls:OLAPDataGrid:COLUMN_AXIS"><apiName>COLUMN_AXIS</apiName><shortdesc>
+      Константа, соответствующая оси столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая оси столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_DIMENSION"><apiName>OLAP_DIMENSION</apiName><shortdesc>
+      Константа, соответствующая элементу оси.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>3</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая элементу оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_HIERARCHY"><apiName>OLAP_HIERARCHY</apiName><shortdesc>
+      Константа, соответствующая элементу оси.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая элементу оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_LEVEL"><apiName>OLAP_LEVEL</apiName><shortdesc>
+      Константа, соответствующая уровню оси.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая уровню оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:OLAP_MEMBER"><apiName>OLAP_MEMBER</apiName><shortdesc>
+      Константа, соответствующая элементу оси.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая элементу оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:ROW_AXIS"><apiName>ROW_AXIS</apiName><shortdesc>
+      Константа, соответствующая оси строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая оси строк.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:SLICER_AXIS"><apiName>SLICER_AXIS</apiName><shortdesc>
+      Константа, соответствующая оси двустороннего ограничителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Константа, соответствующая оси двустороннего ограничителя.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:defaultCellString"><apiName>defaultCellString</apiName><shortdesc>
+      Строка, отображаемая в ячейке, если данные ячейки, возвращенные экземпляром IOLAPResult равны null или NaN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="String"/><apiDefaultValue>"NaN"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, отображаемая в ячейке, если данные ячейки, возвращенные экземпляром IOLAPResult равны null или NaN. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:headerRendererProviders:get"><apiName>headerRendererProviders</apiName><shortdesc>
+      Массив элементов OLAPDataGridHeaderRendererProvider, которые указывают пользовательское средство визуализации заголовков для столбцов элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив элементов OLAPDataGridHeaderRendererProvider, которые указывают пользовательское средство визуализации заголовков для столбцов элемента управления. Для указания пользовательских средств визуализации заголовков для различных столбцов элемента управления можно использовать несколько поставщиков средств визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:itemRendererProviders:get"><apiName>itemRendererProviders</apiName><shortdesc>
+      Массив экземпляров OLAPDataGridItemRendererProvider, которые указывают пользовательское средство визуализации заголовков для ячеек элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров OLAPDataGridItemRendererProvider, которые указывают пользовательское средство визуализации заголовков для ячеек элемента управления. Для указания пользовательских средств визуализации заголовков для различных объектов элемента управления можно использовать несколько поставщиков средств визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:dataProvider:set"><apiName>dataProvider</apiName><shortdesc>
+      Объект OLAPDataGrid принимает в качестве поставщика dataProvider только элемент IOLAPResult. Другие поставщики dataProviders игнорируются.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Объект OLAPDataGrid принимает в качестве поставщика dataProvider только элемент IOLAPResult. Другие поставщики dataProviders игнорируются. Для сброса элемента управления можно установить элемент dataProvider равным null.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:OLAPDataGrid:styleFunction:set"><apiName>styleFunction</apiName><shortdesc>
+      Функция обратного вызова, выполняемая при визуализации каждой ячейки в области данных ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция обратного вызова, выполняемая при визуализации каждой ячейки в области данных ячейки. Функция обратного вызова имеет следующую подпись:
+     
+       <pre>function myStyleFunction(row:IOLAPAxisPosition, column:IOLAPAxisPosition, value:Number):Object</pre>
+     
+       <p>Где <codeph>row</codeph> представляет собой элемент IOLAPAxisPosition, связанный с данной ячейкой на оси строк, <codeph>column</codeph> представляет собой элемент IOLAPAxisPosition, связанный с данной ячейкой на оси столбцов, а <codeph>value</codeph> равно значению ячейки.</p>
+     
+      <p>Возвращаемым значением должен являться объект, включающий параметры стиля в качестве свойств. Например: <codeph>{ color:0xFF0000, fontWeight:"bold" }</codeph>.</p>
+      <p>Если значение ячейки равно NaN, то функция вызывается со значением NaN в качестве последнего аргумента</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
+ Элемент управления AdvancedDataGrid расширяет функциональные возможности стандартного элемента управления DataGrid для добавления функций визуализации данных к приложению Adobe Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ Плотность шрифта, используемая классом AdvancedDataGridSortItemRenderer для отображения значка сортировки в заголовке столбца.
+
+ </description>
+<default>normal
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="sortFontStyle" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ Стиль шрифта, используемый классом AdvancedDataGridSortItemRenderer для отображения значка сортировки в заголовке столбца.
+
+ </description>
+<default>normal
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="sortFontSize" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ Размер шрифта, используемый классом AdvancedDataGridSortItemRenderer для отображения значка сортировки в заголовке столбца.
+
+ </description>
+<default>10
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="yes" name="sortFontFamily" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+<description>
+ Семейство шрифтов, используемое классом AdvancedDataGridSortItemRenderer для отображения значка сортировки в заголовке столбца.
+
+ </description>
+<default>Verdana
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textSelectedColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ Цвет текста при выборе строки пользователем.
+
+ </description>
+<default>0x2B333C
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textRollOverColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ Цвет текста при наведении курсора пользователем на строку.
+
+ </description>
+<default>0x2B333C
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="selectionEasingFunction" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Function">
+<description>
+ Ссылка на функцию <codeph>easingFunction</codeph>, используемую для управления программируемым созданием промежуточных кадров.
+
+ <p>По умолчанию используется значение <codeph>undefined</codeph>.</p>
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionDisabledColor" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="uint">
+<description>
+ Отключенный цвет элемента списка.
+
+ </description>
+<default>0xDDDDDD
+
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="headerHorizontalSeparatorSkin" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Класс, используемый в качестве темы оформления внешнего вида разделителей между заголовками столбцов различной глубины в элементе управления AdvancedDataGrid.
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="headerSortSeparatorSkin" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Тема оформления, определяющая внешний вид разделителей между текстовой частью и значком заголовка в элементе управления AdvancedDataGrid.
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="openEasingFunction" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Function">
+<description>
+ Функция замедления для управления анимацией компонентов.
+
+ <p>По умолчанию используется значение <codeph>undefined</codeph>.</p>
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="openDuration" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ Длина открытого или закрытого перехода (в миллисекундах) для дерева навигации.
+
+ </description>
+<default>250
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style inherit="no" name="indentation" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+ Отступ (в пикселях) для каждого узла дерева навигации.
+
+ </description>
+<default>17
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="folderClosedIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Указывает значок закрытой папки для узла ветви дерева навигации. Значением по умолчанию является <codeph>TreeFolderClosed</codeph> в файле assets.swf.
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="folderOpenIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Указывает значок открытой папки для узла ветви дерева навигации. Значением по умолчанию является <codeph>TreeFolderOpen</codeph> в файле assets.swf.
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="disclosureClosedIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Значок, отображаемый рядом с закрытым узлом ветви дерева навигации. Значением по умолчанию является <codeph>TreeDisclosureClosed</codeph> в файле assets.swf.
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="disclosureOpenIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Значок, отображаемый рядом с открытым узлом ветви дерева навигации. Значением по умолчанию является <codeph>TreeDisclosureOpen</codeph> в файле assets.swf.
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="defaultLeafIcon" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Class">
+<description>
+ Значок по умолчанию для конечных узлов дерева навигации. Значением по умолчанию является <codeph>TreeNodeIcon</codeph> в файле assets.swf.
+ 
+ </description>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="depthColors" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Array">
+<description>
+ Массив цветов, используемых в элементе управления AdvancedDataGrid для строк каждого уровня дерева навигации в порядке убывания.
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="alternatingItemColors" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Array">
+<description>
+ Цвета строк в образце с чередованием цветов. Значением может быть массив из двух или более цветов. Для элементов управления AdvancedDataGrid все элементы в строке имеют одинаковый фоновый цвет, и фоновый цвет каждой строки определяется массивом цветов. Если свойство не указано, используется только свойство <codeph>backgroundColor</codeph>.
+
+ </description>
+<default>undefined
+ 
+ </default>
+
+<playerversion>AIR 1.1
+ </playerversion>
+	<prolog><asCustoms><langversion>3.0
+ </langversion><productversion>Flex 3
+</productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+  Количество пикселей между правой границей элемента управления и правым краем его области содержимого.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="Number">
+<description>
+  Количество пикселей между левой границей элемента управления и левым краем его области содержимого.
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The <code>&lt;mx:AdvancedDataGrid&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:AdvancedDataGrid
+    <b>Properties</b>
+    displayDisclosureIcon="true|false"
+    displayItemsExpanded="false|true"
+    groupedColumns="[]"
+    groupIconFunction="null"
+    groupItemRenderer="AdvancedDataGridGroupItemRenderer"
+    groupLabelFunction="null"
+    groupRowHeight="-1"
+    itemIcons="undefined"
+    lockedColumnCount="0"
+    lockedRowCount="0"
+    rendererProviders="[]"
+    selectedCells="null"
+    treeColumn="null"
+     
+    <b>Styles</b>
+    alternatingItemColors="undefined"
+    defaultLeafIcon="TreeNodeIcon"
+    depthColors="undefined"
+    disclosureClosedIcon="TreeDisclosureClosed"
+    disclosureOpenIcon="TreeDisclosureOpen"
+    folderClosedIcon="TreeFolderClosed"
+    folderOpenIcon="TreeFolderOpen"
+    headerHorizontalSeparatorSkin="undefined"
+    indentation="17"
+    openDuration="250"
+    openEasingFunction="undefined"
+    paddingLeft="2"
+    paddingRight="0"
+    selectionDisabledColor="#DDDDDD"
+    selectionEasingFunction="undefined"
+    sortFontFamily="Verdana"
+    sortFontSize="10"
+    sortFontStyle="normal"
+    sortFontWeight="normal"
+    textRollOverColor="#2B333C"
+    textSelectedColor="#2B333C"
+     
+    <b>Events</b>
+    headerDragOutside="<i>No default</i>"
+    headerDropOutside="<i>No default</i>"
+    itemClose="<i>No default</i>"
+    itemOpen="<i>No default</i>"
+    itemOpening="<i>No default</i>" 
+  /&gt;
+   
+  <b><i>The following AdvancedDataGrid code sample specifies the column order:</i></b>
+  &lt;mx:AdvancedDataGrid&gt;
+    &lt;mx:dataProvider&gt;
+        &lt;mx:Object Artist="Pavement" Price="11.99"
+          Album="Slanted and Enchanted"/&gt;
+        &lt;mx:Object Artist="Pavement"
+          Album="Brighten the Corners" Price="11.99"/&gt;
+    &lt;/mx:dataProvider&gt;
+    &lt;mx:columns&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Album"/&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Price"/&gt;
+    &lt;/mx:columns&gt;
+  &lt;/mx:AdvancedDataGrid&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Элемент управления AdvancedDataGrid расширяет функциональные возможности стандартного элемента управления DataGrid для добавления функций визуализации данных к приложению Adobe Flex. Эти функции предоставляют больше возможностей для управления отображением данных, агрегацией данных и форматированием данных. Элемент управления <codeph>AdvancedDataGrid</codeph> похож на элемент управления List, кроме того, он позволяет вывести на экран несколько столбцов данных для обеспечения отображения объектов с несколькими свойствами.
+  <p>
+  Элемент управления AdvancedDataGrid предоставляет следующие возможности.
+  <ul>
+  <li>Столбцы разной или идентичной фиксированной ширины.</li>
+  <li>Столбцы, размер которых пользователь может изменить во время выполнения. </li>
+  <li>Столбцы, которые пользователь может переупорядочить во время выполнения. </li>
+  <li>Необязательные настраиваемые заголовки столбцов.</li>
+  <li>Возможность использования пользовательского средства визуализации элементов любого столбца для отображения различных данных, за исключением текста.</li>
+  <li>Поддержка сортировки данных посредством выбора столбца.</li>
+  </ul>
+  </p>
+  Элемент управления AdvancedDataGrid предназначен для просмотра данных, а не для использования в качестве инструментальных средств макета, как, например, таблица HTML. Эти инструментальные средства макета предоставляет пакет mx.containers.
+  
+  </apiDesc><example conref="AdvancedDataGridExample.mxml"><swfblock conref="examples/AdvancedDataGridExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridItemRenderer"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridDragProxy"><linktext>mx.controls.advancedDataGridClasses. AdvancedDataGridDragProxy</linktext></link><link href="mx.events.xml#AdvancedDataGridEvent"><linktext>mx.events.AdvancedDataGridEvent</linktext></link><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.HEADER_DROP_OUTSIDE_headerDropOutside"><apiName>headerDropOutside</apiName><shortdesc>
+ Передается при перетаскивании столбца за пределы группы столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_DROP_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при перетаскивании столбца за пределы группы столбцов. Элемент управления AdvancedDataGrid не предоставляет обработчик по умолчанию для этого события.
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE_headerDragOutside"><apiName>headerDragOutside</apiName><shortdesc>
+ Передается при перемещении столбца за пределы группы столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при перемещении столбца за пределы группы столбцов. Элемент управления AdvancedDataGrid не предоставляет обработчик события по умолчанию для этого события.
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_OPENING_itemOpening"><apiName>itemOpening</apiName><shortdesc>
+ Передается при инициировании операции открытия или закрытия ветви древовидной структуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_OPENING</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается при инициировании операции открытия или закрытия ветви древовидной структуры.
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_OPEN_itemOpen"><apiName>itemOpen</apiName><shortdesc>
+ Передается, когда ветвь дерева навигации открыта или развернута.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_OPEN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается, когда ветвь дерева навигации открыта или развернута.
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGrid_mx.events.AdvancedDataGridEvent.ITEM_CLOSE_itemClose"><apiName>itemClose</apiName><shortdesc>
+ Передается, когда ветвь дерева навигации закрыта или свернута.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_CLOSE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Передается, когда ветвь дерева навигации закрыта или свернута.
+
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:AdvancedDataGrid:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:AdvancedDataGrid:protected:addCellSelectionData"><apiName>addCellSelectionData</apiName><shortdesc>
+      Добавляет в элемент управления информацию о выделенной ячейке, как если бы для выбора ячейки использовалась мышь.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор выбранной ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца выбранной ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>selectionData</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridBaseSelectionData</apiOperationClassifier><apiDesc>Экземпляр AdvancedDataGridBaseSelectionData, определяющий информацию о выбранной ячейке.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет в элемент управления информацию о выделенной ячейке, как если бы для выбора ячейки использовалась мышь.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridBaseSelectionData"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:applyCellSelectionEffect"><apiName>applyCellSelectionEffect</apiName><shortdesc>
+      Настраивает эффект для применения индикатора выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который содержит рисунки, представляющие выбор.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Идентификатор UID выбранного элемента, который может применяться для индексирования в таблице и для отслеживания нескольких эффектов выбора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца выбранной ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Средство визуализации элемента, который отображается в качестве выбранного.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Настраивает эффект для применения индикатора выбора. По умолчанию выполняется простая альфа-анимация.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:applyUserStylesForItemRenderer"><apiName>applyUserStylesForItemRenderer</apiName><shortdesc>
+      Применяет стили из элемента управления AdvancedDatagrid к средству визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>givenItemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Средство визуализации элементов.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Применяет стили из элемента управления AdvancedDatagrid к средству визуализации элементов. Средство визуализации элементов должно реализовывать интерфейсы IStyleClient и IDataRenderer и быть подклассом класса DisplayObject.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:atLeastOneProperty"><apiName>atLeastOneProperty</apiName><shortdesc>
+      Возвращает значение true, если объект имеет как минимум одно свойство. Это означает, что словарь имеет, по крайней мере, один ключ.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph>, если объект имеет, по крайней мере, одно свойство.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>o</apiItemName><apiType value="Object"/><apiDesc>Проверяемый Object.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если объект имеет как минимум одно свойство. Это означает, что словарь имеет, по крайней мере, один ключ.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearCellSelectionData"><apiName>clearCellSelectionData</apiName><shortdesc>
+      Удаляет информацию о выбранной ячейке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Удаляет информацию о выбранной ячейке.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearIndicators"><apiName>clearIndicators</apiName><shortdesc>
+      
+      Обеспечивает удаление всех индикаторов выбора, выделения и знака вставки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Обеспечивает удаление всех индикаторов выбора, выделения и знака вставки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:clearSelectedCells"><apiName>clearSelectedCells</apiName><shortdesc>
+      Сбрасывает свойство selectedCells.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Укажите <codeph>true</codeph> для анимации перехода.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Сбрасывает свойство <codeph>selectedCells</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:collapseAll"><apiName>collapseAll</apiName><shortdesc>
+      Сворачивает все узлы дерева навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Сворачивает все узлы дерева навигации.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:dragCompleteHandler"><apiName>dragCompleteHandler</apiName><shortdesc>
+      Обработчик события DragEvent.DRAG_COMPLETE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>Объект DragEvent.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обработчик события <codeph>DragEvent.DRAG_COMPLETE</codeph>. По умолчанию поддерживаются только операции перетаскивания <codeph>DragManager.MOVE</codeph>. Для поддержки операции перетаскивания <codeph>DragManager.COPY</codeph> следует записать обработчик события для события <codeph>DragEvent.DRAG_DROP</codeph>, реализующего копирование данных AdvancedDataGrid на основе их структуры.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:dragDropHandler"><apiName>dragDropHandler</apiName><shortdesc>
+      Обработчик события DragEvent.DRAG_DROP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>Объект DragEvent.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обработчик события <codeph>DragEvent.DRAG_DROP</codeph>. Этот метод скрывает обратную связь перетаскивания посредством вызова метода <codeph>hideDropFeedback()</codeph>. По умолчанию поддерживаются только операции перетаскивания <codeph>DragManager.MOVE</codeph>. Для поддержки операции перетаскивания <codeph>DragManager.COPY</codeph> следует записать обработчик события для события <codeph>DragEvent.DRAG_DROP</codeph>, реализующего копирование данных AdvancedDataGrid на основе их структуры.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:drawVerticalLine"><apiName>drawVerticalLine</apiName><shortdesc>
+      Обеспечивает отображение вертикальной линии между столбцами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, в котором находится DisplayObject, содержащий графику для этой строки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в наборе отображаемых столбцов. Крайний левый из видимых столбцов имеет индекс столбца, равный нулю.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Положение фонового изображения по оси x
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение вертикальной линии между столбцами. В этой реализации линия отображается непосредственно в заданном спрайте. Перед отображением линий спрайт очищается.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandAll"><apiName>expandAll</apiName><shortdesc>
+      Разворачивает все узлы дерева навигации в элементе управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Разворачивает все узлы дерева навигации в элементе управления.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandChildrenOf"><apiName>expandChildrenOf</apiName><shortdesc>
+      Открывает либо закрывает все узлы дерева навигации, расположенные ниже указанного элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел ветви. Этот объект содержит элемент поставщика данных для узла ветви. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>open</apiItemName><apiType value="Boolean"/><apiDesc>Укажите значение <codeph>true</codeph> для открытия элементов и <codeph>false</codeph> для их закрытия.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Открывает либо закрывает все узлы дерева навигации, расположенные ниже указанного элемента.
+     
+      <p>Если установить свойство <codeph>dataProvider</codeph> и затем немедленно выполнить вызов метода <codeph>expandChildrenOf()</codeph>, возможно некорректное выполнение. Необходимо либо дождаться завершения проверки компонента, либо перед выполнением вызова <codeph>expandChildrenOf()</codeph> выполнить вызов метода <codeph>validateNow()</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:expandItem"><apiName>expandItem</apiName><shortdesc>
+      Открывает либо закрывает узел ветви дерева навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел ветви. Этот объект содержит элемент поставщика данных для узла ветви. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>open</apiItemName><apiType value="Boolean"/><apiDesc>Укажите значение <codeph>true</codeph> для открытия узла ветви, либо <codeph>false</codeph> для его закрытия.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>animate</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Укажите <codeph>true</codeph> для анимации перехода. (Примечание. Если ветвь имеет более 20 нижестоящих элементов, анимация при первом открытии отключается для повышения производительности.)
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, передает ли элемент управления событие <codeph>open</codeph> после завершения открытия анимации (<codeph>true</codeph>) или нет (<codeph>false</codeph>).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cause</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>Событие (при наличии), инициировавшее операцию элемента.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Открывает либо закрывает узел ветви дерева навигации. При открытии элемента ветви он восстанавливает открытые и закрытые состояния ее нижестоящих ветвей, если они уже открыты.
+     
+      <p>Если установить свойство <codeph>dataProvider</codeph> и затем немедленно вызвать метод <codeph>expandItem()</codeph>, возможно некорректное выполнение. Следует дождаться завершения проверки компонента или вызвать метод <codeph>validateNow()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+     
+      Обеспечивает настройку выбранных элементов на основе свойств caretIndex и anchorIndex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     
+      Обеспечивает настройку выбранных элементов на основе свойств <codeph>caretIndex</codeph> и <codeph>anchorIndex</codeph>. Вызывается обработчиками выбора клавиатуры и методом <codeph>updateDisplayList()</codeph> в том случае, если обработчик выбора клавиатуры обнаружил ошибку страницы при прокрутке для получения дополнительных элементов.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      Возвращает вышестоящий элемент какого-либо нижестоящего элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Вышестоящий элемент этого элемента.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий нижестоящий элемент. Этот объект содержит элемент поставщика данных для нижестоящего элемента. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий элемент какого-либо нижестоящего элемента. Этот метод возвращает значение только в том случае, если элемент был или является в данный момент видимым. Элементы верхнего уровня имеют вышестоящие элементы со значением <codeph>null</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:initListData"><apiName>initListData</apiName><shortdesc>
+      Инициализирует объект AdvancedDataGridListData, используемый средством визуализации элементов AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Элемент для выполнения визуализации. Этот объект содержит элемент поставщика данных для элемента. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>adgListData</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridListData</apiOperationClassifier><apiDesc>AdvancedDataGridListDataItem для использования при визуализации элемента.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Инициализирует объект AdvancedDataGridListData, используемый средством визуализации элементов AdvancedDataGrid.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:isItemOpen"><apiName>isItemOpen</apiName><shortdesc>
+      Возвращает значение true, если указанная ветвь узла является открытой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если открыта, или <codeph>false</codeph>, если нет.
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Проверяемый узел ветви. Этот объект содержит элемент поставщика данных для узла ветви. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если указанная ветвь узла является открытой.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:moveIndicators"><apiName>moveIndicators</apiName><shortdesc>
+      Перемещает ячейку и индикаторы выбора строки вверх или вниз в соответствии с заданным смещением по мере прокручивания их элементом управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>UID строки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiDesc>смещение прокрутки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>absolute</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если <codeph>offset</codeph> содержит новое положение прокрутки, и <codeph>false</codeph>, если этот параметр содержит значение относительно текущего положения прокрутки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Перемещает ячейку и индикаторы выбора строки вверх или вниз в соответствии с заданным смещением по мере прокручивания их элементом управления. Предполагается, что все индикаторы выбора в этой строке имеют одинаковое положение по оси y.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:removeCellSelectionData"><apiName>removeCellSelectionData</apiName><shortdesc>
+      Удаляет из элемента управления информацию о выбранной ячейке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор выбранной ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца выбранной ячейки.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет из элемента управления информацию о выбранной ячейке.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:selectCellItem"><apiName>selectCellItem</apiName><shortdesc>
+      Обновляет список выбранных ячеек, если на указанном средстве визуализации элементов был выполнен щелчок мыши, а модифицирующие клавиши находятся в указанном состоянии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращает значение <codeph>true</codeph>, если операция завершена успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Средство визуализации элементов для ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если клавиша Shift нажата, либо <codeph>false</codeph>, если нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если клавиша Ctrl нажата, либо <codeph>false</codeph>, если нет.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Укажите <codeph>true</codeph> для анимации перехода.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обновляет список выбранных ячеек, если на указанном средстве визуализации элементов был выполнен щелчок мыши, а модифицирующие клавиши находятся в указанном состоянии. 
+     
+      <p>Этот метод также обновляет отображение средств визуализации в зависимости от их обновленного состояния выбора.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:selectItem"><apiName>selectItem</apiName><shortdesc>
+      Обновляет набор выбранных элементов, если на предоставленном средстве визуализации элементов был выполнен щелчок мыши, а модифицирующие клавиши находятся в указанном состоянии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, если изменен набор выбранных элементов. Щелчок по уже выбранному элементу не обязательно приведет к изменению набора выбранных элементов.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Произведен щелчок средства визуализации элементов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если при щелчке мышью удерживалась клавиша Shift.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если клавиша Shift удерживалась при щелчке мышью.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>true</codeph>, если состояние выбора должно постепенно появляться с использованием эффекта.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обновляет набор выбранных элементов, если на предоставленном средстве визуализации элементов был выполнен щелчок мыши, а модифицирующие клавиши находятся в указанном состоянии. Этот метод также обновляет отображение средств визуализации в зависимости от их обновленного состояния выбора.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:setItemIcon"><apiName>setItemIcon</apiName><shortdesc>
+      Устанавливает связанный значок для элемента в дереве навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий элемент дерева навигации. Этот объект содержит элемент поставщика данных для элемента. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iconID</apiItemName><apiType value="Class"/><apiDesc>Значок закрытого (или листового) элемента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iconID2</apiItemName><apiType value="Class"/><apiDesc>Значок открытого элемента.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает связанный значок для элемента в дереве навигации. Выполнение вызова этого метода отменяет свойства <codeph>iconField</codeph> и <codeph>iconFunction</codeph> для этого элемента, если этот элемент является элементом листа. Элементы ветви не используют свойства <codeph>iconField</codeph> и <codeph>iconFunction</codeph>. Они используют свойства <codeph>folderOpenIcon</codeph> и <codeph>folderClosedIcon</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGrid:protected:treeNavigationHandler"><apiName>treeNavigationHandler</apiName><shortdesc>
+      Обработчик для навигации по дереву навигации с помощью клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph> при корректной обработке навигации с помощью клавиатуры.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>Событие клавиатуры.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обработчик для навигации по дереву навигации с помощью клавиатуры.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:AdvancedDataGrid:HEADER_ICON_PART"><apiName>HEADER_ICON_PART</apiName><shortdesc>
+     Указывает, что курсор мыши наведен на титульную часть заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerIconPart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Указывает, что курсор мыши наведен на титульную часть заголовка. Используется в качестве возвращаемого значения метода <codeph>AdvancedDataGridHeaderRenderer.mouseEventToHeaderPart</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:HEADER_TEXT_PART"><apiName>HEADER_TEXT_PART</apiName><shortdesc>
+     Указывает, что курсор мыши наведен на текстовую часть заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerTextPart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Указывает, что курсор мыши наведен на текстовую часть заголовка. Используется в качестве возвращаемого значения mouseEventToHeaderPart.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:anchorColumnIndex"><apiName>anchorColumnIndex</apiName><shortdesc>
+      Индекс столбца выбранной привязки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс столбца выбранной привязки. Это свойство используется совместно со свойством <codeph>ListBase.anchorIndex</codeph> для определения индексов столбца и строки ячейки, в которой расположена привязка.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/anchorIndex"><linktext>mx.controls.listClasses.ListBase.anchorIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:caretColumnIndex"><apiName>caretColumnIndex</apiName><shortdesc>
+      Имя столбца элемента, находящегося под символом вставки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Имя столбца элемента, находящегося под символом вставки. Используется совместно со свойством <codeph>caretIndex</codeph> для определения индексов столбца/строки ячейки, в которой расположен символ вставки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:cellSelectionTweens"><apiName>cellSelectionTweens</apiName><shortdesc>
+      Таблица хэширования анимации выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      Таблица хэширования анимации выбора. Это позволяет компоненту найти и очистить все выполняющиеся анимации при очистке набора выбранных элементов. Таблица индексируется по идентификаторам UID для элементов и по номерам столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:highlightColumnIndex"><apiName>highlightColumnIndex</apiName><shortdesc>
+      Индекс столбца элемента, на который в данный момент наведен курсор мыши или который находится под символом вставки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс столбца элемента, на который в данный момент наведен курсор мыши или который находится под символом вставки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:itemIcons"><apiName>itemIcons</apiName><shortdesc>
+      Объект, указывающий значки для элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Объект, указывающий значки для элементов. Каждая запись в объекте имеет имя поля, являющееся UID элемента, и значение, являющееся объектом следующего формата:
+      <pre>
+      {iconID: <i>Class</i>, iconID2: <i>Class</i>}
+      </pre>
+      Значение поля <codeph>iconID</codeph> является классом значка для закрытого элемента или элемента листа и <codeph>iconID2</codeph> является классом значка для открытого элемента.
+     
+      <p>Это свойство предназначено для разрешения инициализации значков элементов. Изменения для этого массива после инициализации автоматически не обнаружены. Для динамического изменения элементов используется метод <codeph>setItemIcon()</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid/setItemIcon()"><linktext>setItemIcon()</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:selectedColumnIndex"><apiName>selectedColumnIndex</apiName><shortdesc>
+      Столбец выбранной ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Столбец выбранной ячейки. Используется совместно со свойством <codeph>selectedIndex</codeph> для определения индексов столбца и строки выбранной ячейки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:tween"><apiName>tween</apiName><shortdesc>
+      Объект tween, анимирующий строки. Пользователи могут добавлять в этот объект прослушиватели событий для получения уведомлений о запуске, обновлении и завершении tween.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Объект tween, анимирующий строки. Пользователи могут добавлять в этот объект прослушиватели событий для получения уведомлений о запуске, обновлении и завершении tween.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:visibleCellRenderers"><apiName>visibleCellRenderers</apiName><shortdesc>
+      Таблица хеширования средств визуализации элемента поставщика данных, в настоящий момент отображаемого в представлении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      Таблица хеширования средств визуализации элемента поставщика данных, в настоящий момент отображаемого в представлении. Таблица индексируется по идентификатору UID элемента поставщика данных и по номеру столбца и используется для получения средства визуализации определенного элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:displayDisclosureIcon:get"><apiName>displayDisclosureIcon</apiName><shortdesc>
+      Управляет созданием и отображением значков раскрытия в дереве навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Управляет созданием и отображением значков раскрытия в дереве навигации. Если <codeph>false</codeph>, то значки раскрытия не отображаются.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:displayItemsExpanded:get"><apiName>displayItemsExpanded</apiName><shortdesc>
+      Если true, то для отображения всех элементов необходимо развернуть дерево навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если <codeph>true</codeph>, то для отображения всех элементов необходимо развернуть дерево навигации. Новая ветвь при добавлении будет отображаться развернутой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:firstVisibleItem:get"><apiName>firstVisibleItem</apiName><shortdesc>
+      Элемент поставщика данных, соответствующий элементу, отображаемому в данный момент в верхней строке элемента управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="firstVisibleItemChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Элемент поставщика данных, соответствующий элементу, отображаемому в данный момент в верхней строке элемента управления AdvancedDataGrid. В зависимости от способа открытия, закрытия и выполнения прокрутки ветвей, верхняя строка может быть, например, девятым элементом третьего уровня корневого узла в списке отображаемых в данный момент элементов. Установка этого свойства аналогична установке <codeph>verticalScrollPosition</codeph> элемента управления List.
+     
+      <p>Если элемент в данный момент не отображается (например, если находится под неразворачиваемым элементом), то установка этого свойства какого-либо воздействия не имеет.</p>
+     
+      <p>Значением по умолчанию является первый элемент в элементе управления AdvancedDataGrid.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupIconFunction:get"><apiName>groupIconFunction</apiName><shortdesc>
+      Предоставленная пользователем функция обратного вызова, выполняемая для каждого элемента группы с целью определения значка его ветви в дереве навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="groupIconFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Предоставленная пользователем функция обратного вызова, выполняемая для каждого элемента группы с целью определения значка его ветви в дереве навигации. Значки можно указать с помощью свойства <codeph>itemIcons</codeph> или <codeph>setItemIcon</codeph> в том случае, если значки предварительно определены для элементов данных. Эта функция обратного вызова используется для динамического определения значка после проверки данных.
+      
+      <p><codeph>groupIconFunction</codeph> принимает элемент в поставщик данных на всю его глубину и возвращает класс, определяющий значок, либо свойство <codeph>null</codeph> для использования значка по умолчанию. Функция обратного вызова должна иметь следующую подпись:</p>
+     
+      <pre>
+        groupIconFunction(item:Object,depth:int):Class</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupItemRenderer:get"><apiName>groupItemRenderer</apiName><shortdesc>
+      Указывает средство визуализации элементов, используемое для отображения соответствующих группам узлов ветвей в дереве навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Указывает средство визуализации элементов, используемое для отображения соответствующих группам узлов ветвей в дереве навигации. По умолчанию это свойство является экземпляром класса AdvancedDataGridGroupItemRenderer. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupLabelFunction:get"><apiName>groupLabelFunction</apiName><shortdesc>
+      Функция обратного вызова, выполняемая для каждого элемента с целью определения его метки в дереве навигации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="groupLabelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Функция обратного вызова, выполняемая для каждого элемента с целью определения его метки в дереве навигации. По умолчанию элемент управления выполняет поиск свойства под названием <codeph>label</codeph> для каждого элемента поставщика данных, а затем отображает его. Однако некоторые наборы данных не имеют свойство <codeph>label</codeph> или другое свойство, которое может быть использовано для отображения. Например, набор данных, имеющий поля lastName и firstName, в то время как требуется отобразить полные имена.
+     
+      <p>Можно предоставить функцию <codeph>groupLabelFunction</codeph>, которая выполняет поиск соответствующих полей и возвращает отображаемую строку. <codeph>groupLabelFunction</codeph> можно также использовать для обработки форматирования и локализации. </p>
+     
+      <p>Подпись метода для классов AdvancedDataGrid и AdvancedDataGridColumn:</p>
+      <pre>
+      myGroupLabelFunction(item:Object, column:AdvancedDataGridColumn):String</pre>
+     
+      <p>где <codeph>item</codeph> содержит объект элемента AdvancedDataGrid, а значение <codeph>column</codeph> определяет столбец AdvancedDataGrid. Функция возвращает строку, содержащую метку. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupRowHeight:get"><apiName>groupRowHeight</apiName><shortdesc>
+      Высота сгруппированной строки в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота сгруппированной строки в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:groupedColumns:get"><apiName>groupedColumns</apiName><shortdesc>
+      Массив, определяющий иерархию экземпляров AdvancedDataGridColumn при группировке столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив, определяющий иерархию экземпляров AdvancedDataGridColumn при группировке столбцов. При одновременном указании свойств <codeph>columns</codeph> и <codeph>groupedColumns</codeph> элемент управления использует свойство <codeph>groupedColumns</codeph> и игнорирует свойство <codeph>columns</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      Индекс первой строки в элементе управления, обеспечивающем прокрутку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Индекс первой строки в элементе управления, обеспечивающем прокрутку. Строки, находящиеся над этой строкой, остаются фиксированными в пределах видимости.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:rendererProviders:get"><apiName>rendererProviders</apiName><shortdesc>
+      Массив экземпляров AdvancedDataGridRendererProvider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров AdvancedDataGridRendererProvider. Можно использовать несколько поставщиков средств визуализации для указания пользовательских средств визуализации элементов, используемых для определенных данных, на определенной глубине дерева навигации или с группой столбцов или строк.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:selectedCells:get"><apiName>selectedCells</apiName><shortdesc>
+      Содержит массив местоположений ячейки в виде индексов столбца и строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Содержит массив местоположений ячейки в виде индексов столбца и строки. Изменение значения свойства <codeph>selectionMode</codeph> устанавливает значение этого свойства как <codeph>null</codeph>.
+     
+      <p>Обратите внимание, что эти индексы строки и столбца являются абсолютными значениями и не зависят от отображения. Поясним это на примере типичного свойства <codeph>selectedCells</codeph>, настраиваемого следующим образом:</p>
+     
+      <pre>
+      selectedCells = [ { rowIndex : r1, columnIndex : c1 },
+                        { rowIndex : r2, columnIndex : c2 },
+                        ... ]</pre>
+     
+      <p>В таком случае dataProvider[r1], columns[c1], dataProvider[r2], columns[c2] и т. д. всегда будут действительными.</p>
+     
+      <p>Если требуется программно изменить набор выбранных ячеек, следует получить этот массив, внести изменения в ячейки и порядок ячеек в массиве, а затем присвоить новый массив свойству <codeph>selectedCells</codeph>. Это обусловлено тем, что элемент управления AdvancedDataGrid возвращает новую копию массива selectedCells и поэтому игнорирует изменения.</p>
+     
+      <p>Значение свойства <codeph>selectionMode</codeph> определяет данные в свойствах <codeph>rowIndex</codeph> и <codeph>columnIndex</codeph>, как описано в следующей таблице:</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry><codeph>selectionMode</codeph></entry><entry>Значение свойств <codeph>rowIndex</codeph> и <codeph>columnIndex</codeph></entry></row></thead><tbody><row>
+          <entry>не задано</entry>
+          <entry>Выбор в элементе управления запрещен, свойство <codeph>selectedCells</codeph> имеет значение null. </entry>
+        </row><row>
+          <entry><codeph>singleRow</codeph>  </entry>
+          <entry>Щелкните по любой ячейке в строке для выбора строки. Этот выбор означает, что <codeph>selectedCells</codeph> будет содержать отдельный объект:
+           <p>[{rowIndex:selectedRowIndex, columnIndex: -1}]</p></entry>
+        </row><row>
+          <entry><codeph>multipleRows</codeph></entry>
+          <entry>Щелкните по любой ячейке в строке для выбора строки. Для выбора рассредоточенных строк, удерживая клавишу Ctrl, щелчком мыши выберите любую ячейку в другой строке. Для выбора нескольких смежных строк, удерживая клавишу Shift, щелчком мыши выберите любую ячейку в другой строке. Этот выбор означает, что <codeph>selectedCells</codeph> будет содержать по одному объекту для каждой выбранной строки: 
+           <p>[ {rowIndex: selectedRowIndex1, columnIndex: -1}, {rowIndex: selectedRowIndex2, columnIndex: -1}, ... {rowIndex: selectedRowIndexN, columnIndex: -1} ] </p></entry>
+        </row><row>
+          <entry><codeph>singleCell</codeph></entry>
+          <entry>Для выбора ячейки щелкните в области ячейки. Этот выбор означает, что <codeph>selectedCells</codeph> будет содержать отдельный объект:
+           <p>[{rowIndex: selectedRowIndex, columnIndex:selectedColIndex}] </p></entry>
+        </row><row>
+          <entry><codeph>multipleCells</codeph></entry>
+          <entry>Для выбора ячейки щелкните в области ячейки. Для выбора нескольких рассредоточенных ячеек, удерживая клавишу Ctrl, щелчком мыши выберите любые ячейки. Для выбора нескольких смежных ячеек, удерживая клавишу Shift, щелчком мыши выберите любые ячейки. Этот выбор означает, что <codeph>selectedCells</codeph> будет содержать по одному объекту для каждой выбранной ячейки:
+           <p>[ {rowIndex: selectedRowIndex1, columnIndex: selectedColIndex1}, {rowIndex: selectedRowIndex2, columnIndex: selectedColIndex2}, ... {rowIndex: selectedRowIndexN, columnIndex: selectedColIndexN} ] </p></entry>
+        </row></tbody></tgroup></adobetable>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:protected:treeColumnIndex:get"><apiName>treeColumnIndex</apiName><shortdesc>
+      Номер столбца дерева.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Номер столбца дерева.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:treeColumn:get"><apiName>treeColumn</apiName><shortdesc>
+      Столбец, в котором отображается дерево.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Столбец, в котором отображается дерево. Установите для этого свойства значение свойства <codeph>id</codeph> экземпляра AdvancedDataGridColumn, как показано в следующем примере:
+     
+      <pre>
+        &lt;mx:AdvancedDataGrid 
+           width="100%" height="100%"
+           treeColumn="{rep}"> 
+           &lt;mx:dataProvider>
+              &lt;mx:HierarchicalData source="{dpHierarchy}" 
+                  childrenField="categories"/>
+           &lt;/mx:dataProvider>
+           &lt;mx:columns>
+              &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+              &lt;mx:AdvancedDataGridColumn id="rep" 
+                  dataField="Territory_Rep"
+                  headerText="Territory Rep"/>
+              &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+              &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+           &lt;/mx:columns>
+        &lt;/mx:AdvancedDataGrid></pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGrid:hierarchicalCollectionView:set"><apiName>hierarchicalCollectionView</apiName><shortdesc>
+      Экземпляр HierarchicalCollectionView, используемый этим элементом управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalCollectionView</apiValueClassifier></apiValueDef><apiDesc>
+      Экземпляр HierarchicalCollectionView, используемый этим элементом управления.
+     
+      <p>Значением по умолчанию является внутренний экземпляр класса HierarchicalCollectionView.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView"><linktext>mx.collections.IHierarchicalCollectionView</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGrid:lockedColumnCount:set"><apiName>lockedColumnCount</apiName><shortdesc>
+      Индекс первого столбца в элементе управления, обеспечивающем прокрутку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс первого столбца в элементе управления, обеспечивающем прокрутку. Столбцы слева от него остаются фиксированными в пределах видимости. 
+     
+      <p>При использовании группировки столбцов группа столбцов рассматривается как отдельный столбец. Например, если установить для этого свойства значение 2, а две крайние левые группы столбцов содержат два и три нижестоящих элемента соответственно, то первые пять столбцов элемента управления оказываются эффективно заблокированными.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGridBaseEx"><apiName>AdvancedDataGridBaseEx</apiName><shortdesc>
+ Класс AdvancedDataGridBaseEx является базовым классом элемента управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="cornerRadius"/><Exclude kind="property" name="showDataTips"/><Exclude kind="property" name="maxVerticalScrollPosition"/><Exclude kind="property" name="maxHorizontalScrollPosition"/><Exclude kind="property" name="offscreenExtraRowsOrColumnsChanged"/><Exclude kind="property" name="offscreenExtraColumnsRight"/><Exclude kind="property" name="offscreenExtraColumnsLeft"/><Exclude kind="property" name="offscreenExtraColumns"/><Exclude kind="property" name="offscreenExtraRowsBottom"/><Exclude kind="property" name="offscreenExtraRowsTop"/><Exclude kind="property" name="offscreenExtraRows"/><Exclude kind="property" name="offscreenExtraRowsOrColumns"/><Exclude kind="property" name="labelField"/><Exclude kind="property" name="columnCount"/><DefaultProperty name="dataProvider"/><styles><style inherit="no" name="headerDragProxyStyleName" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля CSS для управления свойствами внешнего вида столбца при его перетаскивании пользователем в другое местоположение.
+   </description>
+<default>"headerDragProxyStyle"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="columnDropIndicatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс для использования в качестве темы оформления, указывающий на то, что столбец может быть пропущен в текущем местоположении.
+   </description>
+<default>mx.skins.halo.DataGridColumnDropIndicator (for both Halo and Spark themes)
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="stretchCursor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления курсора, указывающего на то, что столбец может быть изменен.
+  </description>
+<default>mx.skins.halo.DataGridStretchCursor
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalLockedSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления разделителя между заблокированными и разблокированными столбцами в элементе управления AdvancedDataGrid. По умолчанию для отображения разделителей в элементе управления AdvancedDataGrid используются методы <codeph>drawHorizontalLine()</codeph> и <codeph>drawVerticalLine()</codeph>.
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления для разделителей между столбцами в элементе управления AdvancedDataGrid. По умолчанию для отображения разделителей в элементе управления AdvancedDataGrid используются методы <codeph>drawHorizontalLine()</codeph> и <codeph>drawVerticalLine()</codeph>.
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalLockedSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления, определяющий внешний вид разделителя между заблокированными и разблокированными строками в элементе управления AdvancedDataGrid. По умолчанию для отображения разделителей в элементе управления AdvancedDataGrid используются методы <codeph>drawHorizontalLine()</codeph> и <codeph>drawVerticalLine()</codeph>.
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления, определяющей внешний вид разделителя между строками в элементе управления AdvancedDataGrid. По умолчанию для отображения разделителей в элементе управления AdvancedDataGrid используются методы <codeph>drawHorizontalLine()</codeph> и <codeph>drawVerticalLine()</codeph>.
+   </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerHorizontalSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления, определяющей внешний вид разделителя между группой столбцов и ее нижестоящими столбцами или заголовками группы столбцов в элементе управления AdvancedDataGrid.
+  </description>
+<default>mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerSeparatorSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления, определяющей внешний вид разделителя между заголовками столбцов в элементе управления AdvancedDataGrid.
+  
+   <p>Класс темы оформления по умолчанию основывается на теме. Например, для темы Halo классом темы оформления по умолчанию является <codeph>mx.skins.halo.DataGridHeaderSeparator</codeph>. Для темы Spark классом темы оформления по умолчанию является <codeph>mx.skins.spark.DataGridHeaderSeparatorSkin</codeph>.</p>
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerBackgroundSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс, используемый в качестве темы оформления, определяющий внешний вид фона заголовков столбцов в элементе управления AdvancedDataGrid.
+ 
+  <p>Класс темы оформления по умолчанию основывается на теме. Например, для темы Halo классом темы оформления по умолчанию является <codeph>mx.skins.halo.DataGridHeaderBackgroundSkin</codeph>. Для темы Spark классом темы оформления по умолчанию является <codeph>mx.skins.spark.DataGridHeaderBackgroundSkin</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="columnResizeSkin" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Class">
+<description>
+  Класс для использования в качестве темы оформления столбца, размер которого изменяется в текущий момент времени.
+ 
+  </description>
+<default>mx.skins.halo.DataGridColumnResizeSkin (for both Halo and Spark themes)
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля CSS для управления другими свойствами внешнего вида заголовков столбцов.
+  </description>
+<default>"dataGridStyles"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет фона строки при выборе пользователем средства визуализации элементов в строке.
+  </description>
+<default>0xCDFFC1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="rollOverColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет фона строки при наведении на нее курсора мыши.
+  </description>
+<default>0xE3FFD6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="headerColors" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Array">
+<description>
+  Массив двух цветов, используемых для отображения фонового градиента заголовка. Первый цвет является верхним. Второй цвет является нижним.
+  </description>
+<default>[0xFFFFFF, 0xE6E6E6]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="horizontalGridLineColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет горизонтальных линий сетки.
+   
+   </description>
+
+<playerversion>AIR 1.1
+   </playerversion>
+	<prolog><asCustoms><langversion>3.0
+   </langversion><productversion>Flex 3
+  </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="verticalGridLineColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет вертикальных линий сетки.
+  </description>
+<default>0x666666
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalGridLines" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Boolean">
+<description>
+  Флаг, указывающий на необходимость отображения горизонтальных линий сетки между строками. При значении <codeph>true</codeph> горизонтальные линии сетки отображаются. При значении <codeph>false</codeph> горизонтальные линии сетки скрыты.
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalGridLines" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="Boolean">
+<description>
+  Флаг, указывающий на необходимость отображения вертикальных линий сетки между столбцами. При значении <codeph>true</codeph> вертикальные строки сетки отображаются. Если <codeph>false</codeph> горизонтальные линии сетки скрываются.
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="defaultDataGridItemRenderer" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash10" type="Class">
+<description>
+  Имя класса itemRenderer, используемого при отсутствии указания имени для столбца. Это способ установки itemRenderer для группы AdvancedDataGrid вместо установки каждого по отдельности. При установке свойства itemRenderer для AdvancedDataGrid оно заменяет это значение.
+  </description>
+<default>null
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="defaultDataGridItemEditor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash10" type="Class">
+<description>
+  Имя класса itemEditor, используемого при отсутствии указания имени для столбца. Это способ установки редактора элементов для группы AdvancedDataGrid вместо установки каждого по отдельности. При установке свойства itemEditor для AdvancedDataGridColumn оно заменяет это значение
+  </description>
+<default>null
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledIconColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет значка в деактивированной теме оформления. Например, этот стиль используется классом тем оформления CheckBoxIcon для отображения галочки в деактивированном элементе управления CheckBox, классом ComboBoxSkin для отображения стрелки вниз деактивированного элемента управления ComboBox и классом тем оформления DateChooserMonthArrowSkin для отображения стрелки месяца в деактивированном элементе управления DateChooser. Значение по умолчанию зависит от класса компонента; если оно не переопределяется классом, значением по умолчанию является <codeph>0x999999</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="iconColor" owner="mx.controls:AdvancedDataGridBaseEx" playerVersion="Flash9" type="uint">
+<description>
+  Цвет значка в теме оформления. Например, этот стиль используется классом тем оформления CheckBoxIcon для отображения галочки в элементе управления CheckBox, классом ComboBoxSkin для отображения стрелки вниз в элементе управления ComboBox и классом тем оформления DateChooserMonthArrowSkin для отображения стрелки месяца в элементе управления DateChooser. Значение по умолчанию зависит от класса компонента; если оно не переопределяется классом, значением по умолчанию является <codeph>0x111111</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[ <p>
+  The <code>&lt;mx:AdvancedDataGridBaseEx&gt;</code> tag inherits all of the tag attributes
+  of its superclass, except for <code>labelField</code>, <code>iconField</code>,
+  and <code>iconFunction</code>, and adds the following tag attributes:
+  </p>
+  <pre>
+  &lt;mx:AdvancedDataGridBaseEx
+    <b>Properties</b>
+    columns="<i>From dataProvider</i>"
+    draggableColumns="true|false"
+    editable="item group summary"
+    editedItemPosition="<code>null</code>"
+    horizontalScrollPosition="null"
+    imeMode="null"
+    itemEditorInstance="null"
+    lookAheadDuratio="400"
+    minColumnWidth="<code>NaN</code>"
+    resizableColumns="true|false"
+    sortableColumns="true|false"
+    sortExpertMode="false|true"
+     
+    <b>Styles</b>
+    columnDropIndicatorSkin="DataGridColumnDropIndicator"
+    columnResizeSkin="DataGridColumnResizeSkin"
+    disabledIconColor="0x999999"
+    headerBackgroundSkin="DataGridHeaderSeparator"
+    headerColors="[#FFFFFF, #E6E6E6]"
+    headerDragProxyStyleName="headerDragProxyStyle"
+    headerHorizontalSeparatorSkin="AdvancedDataGridHeaderHorizontalSeparator"
+    headerSeparatorSkin="DataGridHeaderSeparator"
+    headerStyleName="<i>No default</i>"
+    horizontalGridLineColor="<i>No default</i>"
+    horizontalGridLines="false|true"
+    horizontalLockedSeparatorSkin="undefined"
+    horizontalSeparatorSkin="undefined"
+    iconColor="0x111111"
+    rollOverColor="#E3FFD6"
+    selectionColor="#CDFFC1"
+    stretchCursor="DataGridStretchCursor"
+    verticalGridLineColor="#666666"
+    verticalGridLines="false|true"
+    verticalLockedSeparatorSkin="undefined"
+    verticalSeparatorSkin="undefined"
+     
+    <b>Events</b>
+    columnStretch="<i>No default</i>"
+    headerRelease="<i>No default</i>"
+    headerShift="<i>No default</i>"
+    itemEditBegin="<i>No default</i>"
+    itemEditBeginning="<i>No default</i>" 
+    itemEditEnd="<i>No default</i>"
+    itemFocusIn="<i>No default</i>"
+    itemFocusOut="<i>No default</i>"
+  /&gt;
+   
+  <i>The following AdvancedDataGrid code sample specifies the column order:</i>
+  &lt;mx:AdvancedDataGrid&gt;
+    &lt;mx:dataProvider&gt;
+        &lt;mx:Object Artist="Pavement" Price="11.99"
+          Album="Slanted and Enchanted"/&gt;
+        &lt;mx:Object Artist="Pavement"
+          Album="Brighten the Corners" Price="11.99"/&gt;
+    &lt;/mx:dataProvider&gt;
+    &lt;mx:columns&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Album"/&gt;
+        &lt;mx:AdvancedDataGridColumn dataField="Price"/&gt;
+    &lt;/mx:columns&gt;
+  &lt;/mx:AdvancedDataGrid&gt;
+  </pre>
+  </p>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс AdvancedDataGridBaseEx является базовым классом элемента управления AdvancedDataGrid. Этот класс содержит код, предоставляющий функциональные возможности, аналогичные элементу управления DataGrid.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.IndexChangedEvent.HEADER_SHIFT_headerShift"><apiName>headerShift</apiName><shortdesc>
+  Передается, когда пользователь отпускает кнопку мыши над заголовком столбца после перетаскивания столбца в новое местоположение, приводящее к смещению столбца к новому индексу
+   </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.IndexChangedEvent.HEADER_SHIFT</apiEventType><adobeApiEventClassifier>mx.events.IndexChangedEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда пользователь отпускает кнопку мыши над заголовком столбца после перетаскивания столбца в новое местоположение, приводящее к смещению столбца к новому индексу
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.SORT_sort"><apiName>sort</apiName><shortdesc>
+  Передается, когда сортировка должна выполняться в элементе управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.SORT</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда сортировка должна выполняться в элементе управления AdvancedDataGrid.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.HEADER_RELEASE_headerRelease"><apiName>headerRelease</apiName><shortdesc>
+  Передается, когда пользователь отпускает кнопку мыши над заголовком столбца для запроса сортировки содержимого сетки на основе содержимого столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.HEADER_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда пользователь отпускает кнопку мыши над заголовком столбца для запроса сортировки содержимого сетки на основе содержимого столбца. Передается только в том случае, если столбец доступен для сортировки и сортировка поддерживается поставщиком данных. В элементе управления AdvancedDataGrid существует обработчик этого события по умолчанию, реализующий сортировку одиночных столбцов. Сортировка нескольких столбцов может быть реализована путем вызова метода <codeph>preventDefault()</codeph> для предотвращения сортировки отдельного столбца и установки свойства <codeph>sort</codeph> поставщика данных.
+ <p>
+ <b>Примечание.</b> Стрелки сортировки определяются обработчиком события <codeph>headerRelease</codeph> по умолчанию. При вызове метода <codeph>preventDefault()</codeph> в обработчике события пользователя стрелки не отображаются.
+ </p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.COLUMN_STRETCH_columnStretch"><apiName>columnStretch</apiName><shortdesc>
+  Передается, когда пользователь изменяет ширину столбца, указывая на то, что объем данных, отображаемый в этом столбце, мог быть изменен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.COLUMN_STRETCH</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда пользователь изменяет ширину столбца, указывая на то, что объем данных, отображаемый в этом столбце, мог быть изменен. Если свойство <codeph>horizontalScrollPolicy</codeph> имеет значение <codeph>none</codeph>, другие столбцы сокращаются или расширяются для компенсации изменения размера столбца и также обеспечивают передачу этого события.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_FOCUS_OUT_itemFocusOut"><apiName>itemFocusOut</apiName><shortdesc>
+  Передается, когда в средстве визуализации элементов теряется фокусировка, что может произойти, если пользователь щелкнет другой элемент элемента управления AdvancedDataGrid, щелкнет вне области элемента управления или при использовании клавиатуры для перемещения к другому элементу в элементе управления AdvancedDataGrid или за пределы элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_FOCUS_OUT</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда в средстве визуализации элементов теряется фокусировка, что может произойти, если пользователь щелкнет другой элемент элемента управления AdvancedDataGrid, щелкнет вне области элемента управления или при использовании клавиатуры для перемещения к другому элементу в элементе управления AdvancedDataGrid или за пределы элемента управления. Передается только в том случае, если элемент доступен для редактирования.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_FOCUS_IN_itemFocusIn"><apiName>itemFocusIn</apiName><shortdesc>
+  Передается при получении фокусировки средством визуализации элементов, что может произойти, если пользователь щелкнет элемент в элементе управления AdvancedDataGrid или перейдет к элементу с использованием клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_FOCUS_IN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении фокусировки средством визуализации элементов, что может произойти, если пользователь щелкнет элемент в элементе управления AdvancedDataGrid или перейдет к элементу с использованием клавиатуры. Передается только в том случае, если элемент доступен для редактирования.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_END_itemEditEnd"><apiName>itemEditEnd</apiName><shortdesc>
+  Передается, когда по какой-либо причине завершается сеанс редактирования элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_END</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда по какой-либо причине завершается сеанс редактирования элемента.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGIN_itemEditBegin"><apiName>itemEditBegin</apiName><shortdesc>
+  Передается, когда установлено свойство editedItemPosition и элемент доступен для редактирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGIN</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда установлено свойство <codeph>editedItemPosition</codeph> и элемент доступен для редактирования.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:AdvancedDataGridBaseEx_mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGINNING_itemEditBeginning"><apiName>itemEditBeginning</apiName><shortdesc>
+  Передается, когда пользователь отпускает кнопку мыши при наведении на средство визуализации элементов, переходит к элементу управления AdvancedDataGrid или в рамках элемента управления AdvancedDataGrid или любым другим способом пытается редактировать элемент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AdvancedDataGridEvent.ITEM_EDIT_BEGINNING</apiEventType><adobeApiEventClassifier>mx.events.AdvancedDataGridEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается, когда пользователь отпускает кнопку мыши при наведении на средство визуализации элементов, переходит к элементу управления AdvancedDataGrid или в рамках элемента управления AdvancedDataGrid или любым другим способом пытается редактировать элемент.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:AdvancedDataGridBaseEx:AdvancedDataGridBaseEx"><apiName>AdvancedDataGridBaseEx</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToDisplayColumnIndex"><apiName>absoluteToDisplayColumnIndex</apiName><shortdesc>
+      Преобразует абсолютный индекс столбца в соответствующий индекс в отображаемых столбцах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Индекс столбца, отображаемый в текущий момент, или -1, если значение <codeph>columnIndex</codeph> не найдено.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Абсолютный индекс столбца.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует абсолютный индекс столбца в соответствующий индекс в отображаемых столбцах. Так как пользователи могут изменять порядок столбцов, абсолютный индекс столбца может отличаться от индекса отображаемого столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToVisibleColumnIndex"><apiName>absoluteToVisibleColumnIndex</apiName><shortdesc>
+      Преобразует абсолютный индекс столбца в соответствующий индекс в видимых столбцах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Индекс столбца, видимого в текущий момент, или -1, если <codeph>columnIndex</codeph> в текущий момент не является видимым.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Абсолютный индекс столбца.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует абсолютный индекс столбца в соответствующий индекс в видимых столбцах. Так как пользователи могут изменять порядок столбцов, абсолютный индекс столбца может отличаться от индекса видимого столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:absoluteToVisibleIndices"><apiName>absoluteToVisibleIndices</apiName><shortdesc>
+      Преобразуйте абсолютный индекс строки и индекс столбца в соответствующий индекс строки и индекс столбца элемента, отображаемого элементом управления в текущий момент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Object, содержащий два поля, <codeph>rowIndex</codeph> и <codeph>columnIndex</codeph>, которые включают индекс строки и индекс столбца элемента, отображаемого элементом управления в текущий момент.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>Абсолютный индекс строки.
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Абсолютный индекс столбца.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразуйте абсолютный индекс строки и индекс столбца в соответствующий индекс строки и индекс столбца элемента, отображаемого элементом управления в текущий момент.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:addSortField"><apiName>addSortField</apiName><shortdesc>
+      Добавляет поле данных в список полей сортировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiDesc>Имя столбца, соответствующего полю данных.
+           </apiDesc></apiParam><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в элементе управления AdvancedDataGrid.
+           </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Коллекция данных, содержащая поле данных.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет поле данных в список полей сортировки. Для указания поля данных определите местоположение его столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      Обеспечивает удаление разделителей заголовка столбца, которые обычно применяются для изменения размеров столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает удаление разделителей заголовка столбца, которые обычно применяются для изменения размеров столбцов.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:colNumToIndex"><apiName>colNumToIndex</apiName><shortdesc>
+      Возвращает индекс столбца, отображаемого в текущий момент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Индекс столбца, отображаемого в текущий момент, или -1, если значение <codeph>colNum</codeph> не найдено.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>Абсолютный индекс столбца.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает индекс столбца, отображаемого в текущий момент. Рекомендуется использовать этот метод, если все столбцы элемента управления в текущий момент невидимы.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:createHeaderSeparators"><apiName>createHeaderSeparators</apiName><shortdesc>
+      Создает разделители заголовка между заголовками столбца и заполняет массив separators создаваемыми разделителями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>n</apiItemName><apiType value="int"/><apiDesc>Количество создаваемых разделителей.
+           </apiDesc></apiParam><apiParam><apiItemName>seperators</apiItemName><apiType value="Array"/><apiDesc>Массив, заполняемый объектами заголовка.
+           </apiDesc></apiParam><apiParam><apiItemName>headerLines</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Вышестоящий компонент разделителей заголовка, к которым добавляются разделители. Таким образом, в программе Flex метод <codeph>headerLines.addChild()</codeph> вызывается на внутреннем уровне для добавления разделителей к отображению.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает разделители заголовка между заголовками столбца и заполняет массив <codeph>separators</codeph> создаваемыми разделителями.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:createItemEditor"><apiName>createItemEditor</apiName><shortdesc>
+      Создает редактор элемента для средства визуализации элементов по расположению editedItemPosition с использованием редактора, заданного свойством itemEditor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в поставщике данных элемента, подлежащего редактированию.
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>Индекс строки в поставщике данных элемента, подлежащего редактированию.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает редактор элемента для средства визуализации элементов по расположению <codeph>editedItemPosition</codeph> с использованием редактора, заданного свойством <codeph>itemEditor</codeph>.
+           <p>Этот метод задает в качестве экземпляра редактора свойство <codeph>itemEditorInstance</codeph>.</p>
+           <p>Этот метод можно вызывать только из прослушивателя событий для события <codeph>itemEditBegin</codeph>. Для создания редактора в другое время настройте свойство <codeph>editedItemPosition</codeph>, выбрав генерацию события <codeph>itemEditBegin</codeph>.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:destroyItemEditor"><apiName>destroyItemEditor</apiName><shortdesc>
+      Этот метод закрывает редактор элементов, открытый в средстве визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Этот метод закрывает редактор элементов, открытый в средстве визуализации элементов. Обычно этот метод вызывается только из прослушивателя события <codeph>itemEditEnd</codeph> после вызова метода <codeph>preventDefault()</codeph> для предотвращения запуска прослушивателя событий по умолчанию.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:displayToAbsoluteColumnIndex"><apiName>displayToAbsoluteColumnIndex</apiName><shortdesc>
+      Преобразует текущий индекс отображаемого столбца в соответствующий абсолютный индекс.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Абсолютный индекс столбца.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца, отображаемого элементом управления в текущий момент.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует текущий индекс отображаемого столбца в его соответствующий абсолютный индекс. Так как пользователи могут изменять порядок столбцов, абсолютный индекс столбца может отличаться от индекса отображаемого столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawColumnBackground"><apiName>drawColumnBackground</apiName><shortdesc>
+      Отображает фон столбца для столбца с предложенным цветом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который будет включать объект отображения, содержащий графическое изображение для этого столбца.
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в наборе отображаемых столбцов. Крайний левый видимый столбец имеет индекс столбца, равный нулю. Используется для отслеживания объектов, применяемых для вывода фоновых изображений, таким образом, что в определенном столбце один и тот же объект отображения может использоваться повторно, даже несмотря на то, что индекс AdvancedDataGridColumn для этого столбца изменился.
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>Столбец элемента управления AdvancedDataGrid, для которого отображается фон.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отображает фон столбца для столбца с предложенным цветом. Эта реализация обеспечивает создание объекта Shape в качестве нижестоящего элемента входящего спрайта и его заполнение соответствующим цветом.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      Обеспечивает отображение фона для заголовков в заданном объекте UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>UIComponent, который будет содержать фоновое изображение для заголовка.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение фона для заголовков в заданном объекте UIComponent. Отображаемое изображение может быть масштабировано по горизонтали при изменении ширины компонента или при вызове данного метода для повторного отображения с другим значением ширины и/или высоты
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawHorizontalLine"><apiName>drawHorizontalLine</apiName><shortdesc>
+      Обеспечивает отображение линии между строками.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который будет включать объект отображения, содержащий графическое изображение для этой строки.
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>Индекс строки в наборе отображаемых строк. Заголовок не учитывается; самая верхняя видимая строка имеет индекс строки, равный нулю. Используется для отслеживания объектов, применяемых для отображения фоновых изображений, поэтому в определенной строке один и тот же объект может использоваться повторно, даже несмотря на то, что индекс элемента, для которого отображалась строка, был изменен.
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение фонового изображения по оси y.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение линии между строками. В этой реализации линия отображается непосредственно в заданном спрайте. Перед отображением линий спрайт очищается.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawLinesAndColumnBackgrounds"><apiName>drawLinesAndColumnBackgrounds</apiName><shortdesc>
+      Обеспечивает отображение линий между столбцами и фоновыми изображениями столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает отображение линий между столбцами и фоновыми изображениями столбцов. Эта реализация обеспечивает вызов методов <codeph>drawHorizontalLine()</codeph>, <codeph>drawVerticalLine()</codeph> и <codeph>drawColumnBackground()</codeph> в случае необходимости. Она позволяет создавать спрайт, содержащий все эти изображения и добавлять их в качестве нижестоящего элемента объекта <codeph>listContent</codeph> в начале z-порядка.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawRowBackground"><apiName>drawRowBackground</apiName><shortdesc>
+      Обеспечивает вывод фонового изображения строки в указанном положении и с указанной высотой, с использованием определенного цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который будет включать объект отображения, содержащий графическое изображение для этой строки.
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>Индекс строки в наборе отображаемых строк. Заголовок не учитывается, самая верхняя из видимых строк имеет индекс строки, равный нулю. Используется для отслеживания объектов, применяемых для отображения фоновых изображений, поэтому в определенной строке один и тот же объект может использоваться повторно, даже несмотря на то, что индекс элемента, для которого отображалась строка, был изменен.
+           </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение фонового изображения по оси y.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая высота индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataIndex</apiItemName><apiType value="int"/><apiDesc>Индекс элемента для этой строки в поставщике данных. Он может использоваться, например, для установки другого цвета десятого элемента.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает вывод фонового изображения строки в указанном положении и с указанной высотой, с использованием определенного цвета. Эта реализация обеспечивает создания объекта Shape в качестве нижестоящего элемента входящего спрайта и его заполнение соответствующим цветом. Этот метод также использует параметр свойства стиля <codeph>backgroundAlpha</codeph> для определения прозрачности фонового цвета.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      Обеспечивает создание и отображение разделителей заголовков столбцов, которые обычно применяются пользователями для изменения размеров столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает создание и отображение разделителей заголовков столбцов, которые обычно применяются пользователями для изменения размеров столбцов. В этой реализации используется тот же спрайт, что и для строк и фоновых изображений столбцов, производится добавление экземпляров <codeph>headerSeparatorSkin</codeph> и присоединение к ним прослушивателей мыши для определения момента, при котором потребуется изменение размеров столбца.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:drawVerticalLine"><apiName>drawVerticalLine</apiName><shortdesc>
+      Обеспечивает отображение линий между столбцами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который будет включать объект отображения, содержащий графическое изображение для этой строки.
+           </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в наборе отображаемых столбцов. Крайний левый из видимых столбцов имеет индекс столбца, равный нулю.
+           </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение фонового изображения по оси x.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение линий между столбцами. В этой реализации линия отображается непосредственно в заданном спрайте. Перед отображением линий спрайт очищается.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:findSortField"><apiName>findSortField</apiName><shortdesc>
+      Возвращает индекс столбца, соответствующий имени поля, доступного для сортировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Индекс столбца, доступного для сортировки. 
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя поля поставщика данных, доступного для сортировки, определенного в экземпляре класса SortField.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает индекс столбца, соответствующий имени поля, доступного для сортировки.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:getFieldSortInfo"><apiName>getFieldSortInfo</apiName><shortdesc>
+      Возвращает экземпляр SortInfo, содержащий информацию сортировки для столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр SortInfo.
+     
+      </apiDesc><apiOperationClassifier>mx.controls.advancedDataGridClasses:SortInfo</apiOperationClassifier></apiReturn><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>Индекс столбца.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает экземпляр SortInfo, содержащий информацию сортировки для столбца.
+           </apiDesc></apiOperationDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#SortInfo"><linktext>mx.controls.advancedDataGridClasses.SortInfo</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:getSeparator"><apiName>getSeparator</apiName><shortdesc>
+      Возвращает разделители заголовков между заголовками столбца и заполняет массив разделителей возвращаемыми разделителями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Разделители заголовков между заголовками столбца.
+      
+      </apiDesc><apiType value="mx.core:UIComponent"/></apiReturn><apiParam><apiItemName>i</apiItemName><apiType value="int"/><apiDesc>Количество возвращаемых разделителей.
+           </apiDesc></apiParam><apiParam><apiItemName>seperators</apiItemName><apiType value="Array"/><apiDesc>Массив, заполняемый объектами заголовка.
+           </apiDesc></apiParam><apiParam><apiItemName>headerLines</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Вышестоящий компонент разделителей заголовков. Для возвращения разделителей в программе Flex на внутреннем уровне вызывается метод <codeph>headerLines.getChild()</codeph>.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает разделители заголовков между заголовками столбцов и обеспечивает заполнения массива <codeph>separators</codeph> возвращаемыми разделителями.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:indexToColNum"><apiName>indexToColNum</apiName><shortdesc>
+      Возвращает номер столбца, отображаемого в текущий момент, в том виде, в котором он отображается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Номер столбца, отображаемого в текущий момент в элементе управления, или -1, если значение <codeph>columnIndex</codeph> не найдено.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в том виде, в котором он отображается в текущий момент.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает номер столбца, отображаемого в текущий момент, в том виде, в котором он отображается. Рекомендуется использовать этот метод, если все столбцы элемента управления в текущий момент невидимы.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isColumnFullyVisible"><apiName>isColumnFullyVisible</apiName><shortdesc>
+      Возвращает значение true, если указанная строка в столбце является видимой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph>, если указанная строка в столбце является видимой.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца. 
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс строки в столбце. Если он опускается, в методе применяется текущее значение свойства <codeph>verticalScrollPosition</codeph>.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если указанная строка в столбце является видимой.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isDataEditable"><apiName>isDataEditable</apiName><shortdesc>
+      Обеспечивает проверку того, разрешено ли редактирование для группы или итоговой строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph>, если редактирование для группы или итоговой строки разрешено.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект поставщика данных для строки.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает проверку того, разрешено ли редактирование для группы или итоговой строки.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:isDraggingAllowed"><apiName>isDraggingAllowed</apiName><shortdesc>
+      Проверяет, допустимо ли перетаскивание для отдельного столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph>, если перетаскивание для столбца разрешено.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>draggedColumn</apiItemName><apiOperationClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiOperationClassifier><apiDesc>Перетаскиваемый столбец.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Проверяет, допустимо ли перетаскивание для отдельного столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:moveFocusToHeader"><apiName>moveFocusToHeader</apiName><shortdesc>
+      Перемещает фокус к указанному заголовку столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс столбца, который должен получить фокус. При указании недопустимого индекса столбца, метод будет возвращен без перемещения фокуса.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Перемещает фокус к указанному заголовку столбца. 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:removeSortField"><apiName>removeSortField</apiName><shortdesc>
+      Удаляет поле данных из списка полей сортировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiDesc>Имя столбца, соответствующего полю данных.
+           </apiDesc></apiParam><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>Индекс столбца в элементе управления AdvancedDataGrid.
+           </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Коллекция данных, содержащая поле данных.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет поле данных из списка полей сортировки. Для указания поля данных определите местоположение его столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:scrollToViewColumn"><apiName>scrollToViewColumn</apiName><shortdesc>
+      Изменяет значение свойства horizontalScrollPosition с целью отобразить указанный столбец.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newColumnIndex</apiItemName><apiType value="int"/><apiDesc>Требуемый индекс столбца в столбцах, отображаемых в текущий момент.
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца, который необходимо отобразить.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Изменяет значение свойства <codeph>horizontalScrollPosition</codeph> с целью отобразить указанный столбец. Рекомендуется использовать этот метод, если все столбцы элемента управления в текущий момент невидимы.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:selectColumnHeader"><apiName>selectColumnHeader</apiName><shortdesc>
+      Обеспечивает выбор указанного заголовка столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>Индекс столбца, который должен получить фокус. При указании недопустимого индекса столбца, метод будет возвращен без перемещения фокуса.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает выбор указанного заголовка столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:unselectColumnHeader"><apiName>unselectColumnHeader</apiName><shortdesc>
+      Обеспечивает отмену выбора указанного заголовка столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>columnNumber</apiItemName><apiType value="int"/><apiDesc>Индекс столбца. При указании недопустимого имени столбца какие-либо действия посредством этого метода не выполняются.
+           </apiDesc></apiParam><apiParam><apiItemName>completely</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Если установлено значение <codeph>true</codeph>, сбросьте свойство <codeph>caretIndex</codeph> и выберите первый заголовок столбца в элементе управления. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отмену выбора указанного заголовка столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:AdvancedDataGridBaseEx:protected:visibleToAbsoluteColumnIndex"><apiName>visibleToAbsoluteColumnIndex</apiName><shortdesc>
+      Преобразует индекс текущего отображаемого столбца в его соответствующий абсолютный индекс.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Абсолютный индекс столбца.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца, видимого в текущий момент, в элементе управления.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует индекс текущего отображаемого столбца в его соответствующий абсолютный индекс. Так как пользователи могут изменять порядок столбцов, абсолютный индекс столбца может отличаться от индекса видимого столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:headerInfoInitialized"><apiName>headerInfoInitialized</apiName><shortdesc>
+     Содержит значение true, если свойство headerInfos было инициализировано с экземплярами AdvancedDataGridHeaderInfo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Содержит значение <codeph>true</codeph>, если свойство <codeph>headerInfos</codeph> было инициализировано с экземплярами AdvancedDataGridHeaderInfo.
+          </apiDesc></apiValueDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridHeaderInfo"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridHeaderInfo</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:isKeyPressed"><apiName>isKeyPressed</apiName><shortdesc>
+      Содержит значение true, если осуществляется процесс нажатия клавиши.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если осуществляется процесс нажатия клавиши.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:itemEditorInstance"><apiName>itemEditorInstance</apiName><shortdesc>
+      Ссылка на активный в настоящий момент экземпляр редактора элементов, если таковой существует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      Ссылка на активный в настоящий момент экземпляр редактора элементов, если таковой существует.
+           <p>Для получения доступа к экземпляру редактора элементов и новому значению элемента во время редактирования воспользуйтесь свойством <codeph>itemEditorInstance</codeph>. Свойство <codeph>itemEditorInstance</codeph> учитывается только после выполнения прослушивателя событий для события <codeph>itemEditBegin</codeph>. Поэтому обычно доступ к свойству <codeph>itemEditorInstance</codeph> осуществляется только из прослушивателя событий для события <codeph>itemEditEnd</codeph>.</p>
+           <p>Свойство <codeph>AdvancedDataGridColumn.itemEditor</codeph> определяет класс редактора элементов, а, следовательно, и тип данных для экземпляра редактора элементов.</p>
+           <p>Это свойство не устанавливается в MXML.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:lookAheadDuration"><apiName>lookAheadDuration</apiName><shortdesc>
+      Продолжительность предварительного просмотра типа в миллисекундах для предварительного просмотра многозначного типа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>400</apiData><apiType value="Number"/><apiDefaultValue>400
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Продолжительность предварительного просмотра типа в миллисекундах для предварительного просмотра многозначного типа. Установка нуля в качестве значения этого свойства приведет к отключению поиска в многозначном типе.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:protected:orderedHeadersList"><apiName>orderedHeadersList</apiName><shortdesc>
+      Упорядоченный список экземпляров AdvancedDataGridHeaderInfo, соответствующих видимым заголовкам столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Упорядоченный список экземпляров AdvancedDataGridHeaderInfo, соответствующих видимым заголовкам столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:resizableColumns"><apiName>resizableColumns</apiName><shortdesc>
+      Флаг, указывающий, может ли пользователь изменять размер столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий, может ли пользователь изменять размер столбцов. Если установлено значение <codeph>true</codeph>, пользователь может растянуть или сузить столбцы элемента управления AdvancedDataGrid, перетащив линии сетки, которые расположены между ячейками заголовка. Если установлено значение<codeph>true</codeph>, для свойства <codeph>resizeable</codeph> отдельных столбцов также необходимо установить значение <codeph>false</codeph>, для предотвращения изменения размеров определенного столбца пользователем.  
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:sortableColumns"><apiName>sortableColumns</apiName><shortdesc>
+      Флаг, указывающий, что пользователь может сортировать элементы поставщика данных, щелкнув ячейку с заголовком столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий, что пользователь может сортировать элементы поставщика данных, щелкнув ячейку с заголовком столбца. Если установлено значение <codeph>true</codeph>, пользователь может сортировать элементы поставщика данных путем нажатия на ячейку заголовка столбца. В качестве поля сортировки используется свойство столбца <codeph>AdvancedDataGridColumn.dataField</codeph> или свойство столбца <codeph>AdvancedDataGridColumn.sortCompareFunction</codeph>. Если щелкнуть столбец несколько раз, порядок сортировки будет меняться с сортировки по возрастанию на сортировку по убыванию, и наоборот. При установке значения <codeph>true</codeph>, столбцы можно настроить для обеспечения отсутствия ответа на щелчок в области заголовка, установив для свойства <codeph>sortable</codeph> значение <codeph>false</codeph>.
+           <p>Когда пользователь отпускает кнопку мыши над ячейкой заголовка, элемент управления AdvancedDataGrid обеспечивает передачу события <codeph>headerRelease</codeph>, если и это свойство и доступное для сортировки свойство столбца имеют значение <codeph>true</codeph>. Если ни один обработчик не вызывает метод <codeph>preventDefault()</codeph> для события, в целях сортировки в элементе AdvancedDataGrid используются значения свойств <codeph>AdvancedDataGridColumn.dataField</codeph> или <codeph>AdvancedDataGridColumn.sortCompareFunction</codeph> для этого столбца.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn/dataField"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn.dataField</linktext></link><link href="mx.controls.advancedDataGridClasses.xml#AdvancedDataGridColumn/sortCompareFunction"><linktext>mx.controls.advancedDataGridClasses.AdvancedDataGridColumn.sortCompareFunction</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:columns:get"><apiName>columns</apiName><shortdesc>
+      Массив объектов AdvancedDataGridColumn, по одному на каждый столбец, доступных для отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив объектов AdvancedDataGridColumn, по одному на каждый столбец, доступных для отображения. Если это не указано явно, в элементе управления AdvancedDataGrid предпринимается попытка исследовать первый элемент поставщика данных для определения набора свойств и отображения этих свойств в алфавитном порядке.
+           <p>При необходимости изменить набор столбцов следует получить этот массив, внести изменения в столбцы и порядок столбцов массива, а затем присвоить новый массив свойству <codeph>columns</codeph>. Это обусловлено тем, что элемент управления AdvancedDataGrid возвращает копию массива столбцов, а не ссылку и поэтому не может обнаружить изменения в копии.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:draggableColumns:get"><apiName>draggableColumns</apiName><shortdesc>
+      Указывает на то, разрешено ли изменение порядка столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает на то, разрешено ли изменение порядка столбцов. Если установлено значение <codeph>true</codeph>, для изменения порядка столбцов элемента управления AdvancedDataGrid достаточно перетащить ячейки заголовка.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editable:get"><apiName>editable</apiName><shortdesc>
+      Определяет, может ли пользователь редактировать элементы, предоставляемые этим поставщиком данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, может ли пользователь редактировать элементы, предоставляемые этим поставщиком данных.
+           <p>Если установлено значение <codeph>item</codeph>, средства визуализации элементов в элементе управления доступны для редактирования. Для открытия редактора пользователь может нажать на средство визуализации элементов.</p>
+           <p>Если установлено значение <codeph>item group</codeph>, могут редактироваться средства визуализации элементов и заголовки группировки.</p>
+           <p>Если задано значение <codeph>item summary</codeph>, можно редактировать средства визуализации элементов и итоговые ячейки.</p>
+           <p>Эти значения можно объединять. Например, <codeph>editable = "item group summary"</codeph>. Следует отметить, что для включения редактирования группы или итогового редактирования должна быть активирована возможность редактирования элементов.</p>
+           <p>При указании пустой строки редактирование не разрешается.</p>
+           <p>Значения <codeph>true</codeph> и <codeph>false</codeph> соответствуют редактированию элемента и отсутствию редактирования.</p>
+           <p>Значение <codeph>all</codeph> означает возможность редактирования всех элементов.</p>
+           <p>Отключение возможности редактирования отдельных столбцов элемента управления AdvancedDataGrid осуществляется с помощью свойства <codeph>AdvancedDataGridColumn.editable</codeph> или путем обработки событий <codeph>itemEditBeginning</codeph> и <codeph>itemEditBegin</codeph>.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editedItemPosition:get"><apiName>editedItemPosition</apiName><shortdesc>
+      Индекс строки и столбца средства визуализации элементов для редактируемого в настоящий момент элемента поставщика данных (если таковой существует).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemFocusIn"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Индекс строки и столбца средства визуализации элементов для редактируемого в настоящий момент элемента поставщика данных (если таковой существует).
+           <p>Этот объект имеет два поля, <codeph>columnIndex</codeph> и <codeph>rowIndex</codeph>, индексы столбца и строки элемента, отсчитываемые от нуля. Например: {columnIndex:2, rowIndex:3}</p>
+           <p>Установка этого свойства приводит к прокрутке с переводом элемента в видимую область и передаче события <codeph>itemEditBegin</codeph>, открывающего редактор элементов в указанном средстве визуализации элементов.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:editedItemRenderer:get"><apiName>editedItemRenderer</apiName><shortdesc>
+      Ссылка на средство визуализации элементов в элементе управления AdvancedDataGrid, элемент которого редактируется в текущий момент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      Ссылка на средство визуализации элементов в элементе управления AdvancedDataGrid, элемент которого редактируется в текущий момент.
+           <p>Из прослушивателя событий для событий <codeph>itemEditBegin</codeph> и <codeph>itemEditEnd</codeph> можно вызвать текущее значение редактируемого элемента с помощью свойства <codeph>editedItemRenderer.data</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса. Если редактор включен, он соответственно активирует IME.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Указывает режим IME (редактор методов ввода).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает режим IME (редактор методов ввода). Режим IME позволяет пользователям вводить текст на китайском, японском и корейском языках. Режим IME устанавливается при перемещении фокуса на элемент управления и возвращается к предыдущему значению при потере фокуса этим элементом управления.
+          <p>Класс flash.system.IMEConversionMode определяет константы для допустимых значений этого свойства. Можно также указать значение <codeph>null</codeph> и не указывать IME.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:minColumnWidth:get"><apiName>minColumnWidth</apiName><shortdesc>
+      Минимальная ширина столбцов, в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальная ширина столбцов, в пикселях. Если значение отличается от NaN, элемент управления AdvancedDataGrid использует его в качестве минимальной ширины для всех столбцов. В противном случае, отдельные столбцы могут иметь собственные значения минимальной ширины.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:sortExpertMode:get"><apiName>sortExpertMode</apiName><shortdesc>
+      По умолчанию свойство sortExpertMode имеет значение false, т. е. для сортировки строк элемента управления AdvancedDataGrid для этого столбца необходимо щелкнуть в области заголовка столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      По умолчанию свойство <codeph>sortExpertMode</codeph> имеет значение <codeph>false</codeph>, т. е. для сортировки строк элемента управления AdvancedDataGrid для этого столбца необходимо щелкнуть в области заголовка столбца. После этого можно щелкнуть в области сортировки по нескольким столбцам заголовка для сортировки по дополнительным столбцам. Если в свойстве <codeph>sortExpertMode</codeph> установлено значение <codeph>true</codeph>, при выборе каждого столбца после первого для выполнения сортировки используется клавиша Ctrl.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:AdvancedDataGridBaseEx:horizontalScrollPosition:set"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      Смещение от левой границы внутрь содержимого.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение от левой границы внутрь содержимого. Это может быть смещением пикселей в некоторых подклассах или других показателях, таких как число столбцов в элементе управления AdvancedDataGrid. Элемент управления AdvancedDataGrid осуществляет прокрутку по столбцам, поэтому значение свойства <codeph>horizontalScrollPosition</codeph> всегда находится в диапазоне от 0 до индекса столбцов, обеспечивающих видимость последнего столбца. Этот подход отличается от элемента управления List, в котором прокрутка выполняется по пикселям. Элемент управления AdvancedDataGrid всегда обеспечивает выравнивание левого края столбца с левым краем элемента управления AdvancedDataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

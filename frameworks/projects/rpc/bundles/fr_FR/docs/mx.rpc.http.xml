@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.http"><apiName>mx.rpc.http</apiName><apiDetail/><apiClassifier id="mx.rpc.http:Operation"><apiName>Operation</apiName><shortdesc>
+ Opération utilisée spécifiquement par une classe HTTPMultiService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.http:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Opération utilisée spécifiquement par une classe HTTPMultiService. Une classe Operation est une opération individuelle sur un service correspondant généralement à une seule opération côté serveur. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send(param1, param2)</codeph>. Le service HTTP prend aussi en charge une méthode sendBody qui vous permet de spécifier directement le corps de la réponse HTTP. Si vous utilisez la méthode send(param1, param2), le corps est généralement formé en combinant la propriété argumentNames de l’opération avec les paramètres envoyés. Un objet est créé qui utilise argumentNames[i] comme clé et le paramètre correspondant comme valeur.
+ 
+ <p>La méthode exacte par laquelle les arguments d’opération HTTP sont placés dans le corps HTTP est déterminée par le filtre SerializationFilter utilisé.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc.http:HTTPMultiService</apiOperationClassifier><apiData>null</apiData><apiDesc>Objet HTTPMultiService définissant le service. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom du service. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle opération. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:Operation:send"><apiName>send</apiName><shortdesc>
+     Exécute l’opération HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Appel AsyncToken utilisant le modèle de jeton d’achèvement asynchrone. Le même objet est disponible dans les événements <codeph>result</codeph> et <codeph>fault</codeph> de la propriété <codeph>token</codeph>.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>Arguments facultatifs transmis dans le cadre de l’appel de méthode. Si aucun argument n’est transmis, l’objet d’argument est utilisé comme source de paramètres.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Exécute l’opération HTTP. Les arguments transmis le sont dans le cadre de l’appel d’opération. Si aucun argument n’est transmis, la propriété d’arguments de classe est utilisée comme source de paramètres. Les opérations HTTP utilisent généralement des paramètres nommés, et non pas des paramètres de position. Pour fournir les noms de ces paramètres, vous pouvez aussi définir la propriété argumentNames sur un tableau des noms de propriétés.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Valeur indiquant comment traiter plusieurs appels à la même opération de service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Valeur indiquant comment traiter plusieurs appels à la même opération de service. La valeur par défaut est <codeph>multiple</codeph>. Les valeurs suivantes sont autorisées :
+     <ul>
+     <li><codeph>multiple</codeph> Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+     <li><codeph>single</codeph> Une seule demande à la fois est autorisée sur l’opération ; les demandes multiples génèrent une erreur.</li>
+     <li><codeph>last</codeph> Effectuer une demande annule toute demande existante.</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      
+      Type de contenu des demandes de service.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Type de contenu des demandes de service. La valeur par défaut est <codeph>application/x-www-form-urlencoded</codeph>, qui envoie des demandes comme un envoi HTTP POST normal avec des paires nom-valeur. <codeph>application/xml</codeph> envoie les demandes en tant qu’XML.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:method:get"><apiName>method</apiName><shortdesc>
+      
+      Méthode HTTP d’envoi de la demande.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Méthode HTTP d’envoi de la demande. Les valeurs autorisées sont <codeph>GET</codeph>, <codeph>POST</codeph>, <codeph>HEAD</codeph>, <codeph>OPTIONS</codeph>, <codeph>PUT</codeph>, <codeph>TRACE</codeph> et <codeph>DELETE</codeph>. Les lettres minuscules sont converties en lettres majuscules. La valeur par défaut est <codeph>GET</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP. La valeur de cette propriété est basée sur les éléments suivants :
+      <ul>
+      <li>Si vous retournez ou non des données XML ou des paires nom-valeur.</li>
+      <li>La manière dont vous voulez accéder aux résultats ; vous pouvez accéder aux résultats en tant qu’objet, texte ou XML.</li>
+      </ul>
+     
+      <p>La valeur par défaut est <codeph>object</codeph>. Les valeurs suivantes sont autorisées :</p>
+      <ul>
+      <li><codeph>object</codeph> La valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript. Il s’agit de la valeur par défaut.</li>
+      <li><codeph>array</codeph> La valeur retournée est XML et est analysée en tant qu’arborescence d’objets ActionScript. Cependant, si l’objet de niveau supérieur n’est pas un tableau, un nouveau tableau est créé et le résultat est défini comme constituant le premier élément. Si makeObjectsBindable est true, le tableau est enveloppé dans une classe ArrayCollection.</li>
+      <li><codeph>xml</codeph> La valeur retournée est XML et est retournée en tant qu’XML littéral dans un objet ActionScript XMLnode.</li>
+      <li><codeph>flashvars</codeph> La valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.</li>
+      <li><codeph>text</codeph> La valeur retournée constitue du texte et est située dans une colonne gauche.</li>
+      <li><codeph>e4x</codeph> La valeur renvoyée constitue des données XML et est renvoyée en tant qu’XML littéral dans un objet XML ActionScript, accessible via des expressions ECMAScript pour XML (E4X).</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     L’URL rootURL est utilisée pour calculer l’URL d’une opération de service HTTP lorsqu’une URL relative est spécifiée pour l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     L’URL rootURL est utilisée pour calculer l’URL d’une opération de service HTTP lorsqu’une URL relative est spécifiée pour l’opération. Le nom de répertoire de l’URL rootURL est ajouté devant les URL relatives pour l’opération. Il est généralement plus pratique de définir l’URL baseURL car elle spécifie directement le nom du répertoire tandis que l’URL rootURL spécifie le nom d’un fichier dont le nom de répertoire est ajouté. Si ni l’URL rootURL ni l’URL baseURL ne sont définies explicitement, le nom de répertoire du fichier .swf est ajouté devant les chemins relatifs.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      
+    Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+    Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:Operation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      
+      Indique d’utiliser ou non le service proxy Flex.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      Indique d’utiliser ou non le service proxy Flex. La valeur par défaut est <codeph>false</codeph>. Si vous ne spécifiez pas <codeph>true</codeph> pour les requêtes proxy via le serveur Flex, assurez-vous que Flash Player peut accéder à l’URL cible. Vous ne pouvez pas non plus utiliser les destinations définies dans le fichier services-config.xml si la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+   Vous pouvez utiliser la classe HTTPService pour représenter un objet HTTPService dans le code ActionScript. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+   Vous pouvez utiliser la classe HTTPService pour représenter un objet HTTPService dans le code ActionScript. Lorsque vous appelez la méthode <codeph>send()</codeph> de l’objet HTTPService, elle effectue une demande HTTP auprès de l’URL spécifiée et une réponse HTTP est retournée. Si vous le souhaitez, vous pouvez transmettre des paramètres à l’URL spécifiée. Lorsque vous n’utilisez pas le service proxy de serveur, vous ne pouvez utiliser que les méthodes HTTP GET ou POST. Toutefois, lorsque vous définissez la propriété useProxy sur true et que vous utilisez le service proxy de serveur, vous pouvez aussi utiliser les méthodes HTTP HEAD, OPTIONS, TRACE et DELETE.
+  
+   <p><b>Remarque :</b> en raison d’une limitation logicielle, la classe HTTPService ne génère pas de messages d’erreur conviviaux lorsqu’elle utilise GET.</p>
+  
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.mxml.xml#HTTPService"><linktext>mx.rpc.http.mxml.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  L’événement invoke est déclenché lorsqu’un appel HTTPService est invoqué à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  L’événement invoke est déclenché lorsqu’un appel HTTPService est invoqué à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  Distribué lorsqu’un appel HTTPService échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un appel HTTPService échoue.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  Distribué lorsqu’un appel HTTPService réussit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un appel HTTPService réussit.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+      Crée une nouvelle classe HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Adresse URL que la classe HTTPService doit utiliser lorsqu’elle calcule des adresses URL relatives.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de destination HTTPService dans le fichier service-config.xml file.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle classe HTTPService. Si vous vous attendez à ce que le service effectue l’envoi à l’aide d’URL relatives, vous pouvez spécifier l’URL <codeph>rootURL</codeph> allant servir de base pour déterminer l’URL entière (par exemple, <codeph>Application.application.url</codeph>).
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:HTTPService:cancel"><apiName>cancel</apiName><shortdesc>
+      
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Classe AsyncToken associée à l’appel qui est annulé ou null si aucun appel n’a été annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID messageId de l’invocation à annuler. Facultatif. Si omis, la dernière invocation de service est annulée.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié. Même s’il se peut que l’opération de réseau se poursuive, aucun événement de résultat ou d’erreur n’est distribué.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:clearResult"><apiName>clearResult</apiName><shortdesc>
+      
+      Définit la propriété result de l’invocateur sur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Défini sur <codeph>true</codeph> si vous voulez que les éléments liés aux résultats soient mis à jour. Dans le cas contraire, défini sur <codeph>false</codeph>. La valeur par défaut est <codeph>true</codeph>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Définit la propriété <codeph>result</codeph> de l’invocateur sur <codeph>null</codeph>. Cela est utile lorsque le résultat est un objet de grande taille qui n’est plus utilisé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Interrompt la connexion réseau du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Interrompt la connexion réseau du service. Cette méthode n’attend pas que les opérations de réseau en attente se terminent. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:logout"><apiName>logout</apiName><shortdesc>
+      Déconnecte l’utilisateur de la destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte l’utilisateur de la destination. La déconnexion d’une destination s’applique à tous les éléments connectés à l’aide du même canal tel que spécifié dans la configuration de serveur. Par exemple, si vous êtes connecté via le canal my-rtmp et que vous vous déconnectez à l’aide de l’un de vos composants RPC, tous les éléments qui étaient connectés via my-rtmp sont déconnectés.
+     
+      <p><b>Remarque :</b> Adobe vous recommande d’utiliser la méthode mx.messaging.ChannelSet.logout() au lieu de cette méthode.  </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc.http:HTTPService:send"><apiName>send</apiName><shortdesc>
+      Exécute une demande HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet représentant le modèle de jeton d’achèvement asynchrone. Il s’agit du même objet disponible dans la propriété <codeph>token</codeph> de l’événement <codeph>result</codeph> ou <codeph>fault</codeph>.
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant des paires nom-valeur ou objet XML, selon le type de contenu des demandes de service.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Exécute une demande HTTPService. Les paramètres sont facultatifs, mais s’ils sont spécifiés, ils doivent être un objet contenant des paires nom-valeur ou un objet XML, selon la valeur <codeph>contentType</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Définit les informations d’identification pour la destination à laquelle le service accède.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur pour la destination.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Mot de passe pour la destination.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit les informations d’identification pour la destination à laquelle le service accède. Les informations d’identification sont appliquées à tous les services connectés via la même classe ChannelSet. Les services utilisant un proxy sur une destination distante devront appeler la méthode <codeph>setRemoteCredentials()</codeph> à la place.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:HTTPService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      Nom d’utilisateur et mot de passe utilisés pour authentifier un utilisateur lors de l’accès à l’URL HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur à transmettre à l’extrémité distante.
+      </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>Mot de passe à transmettre à l’extrémité distante.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification distantes. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Nom d’utilisateur et mot de passe utilisés pour authentifier un utilisateur lors de l’accès à l’URL HTTP. Ces données sont transmises dans le cadre de l’en-tête d’autorisation HTTP du proxy vers l’extrémité. Si la propriété <codeph>useProxy</codeph> est définie sur false, cette propriété est ignorée.
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      Indique que les données envoyées par le service HTTP sont codées au format application/x-www-form-urlencoded.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique que les données envoyées par le service HTTP sont codées au format application/x-www-form-urlencoded.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      Indique que les données envoyées par le service HTTP sont codées au format application/xml.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique que les données envoyées par le service HTTP sont codées au format application/xml.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+      Indique que l’objet HTTPService utilise la destination DefaultHTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique que l’objet HTTPService utilise la destination DefaultHTTP.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+      Indique que l’objet HTTPService utilise la destination DefaultHTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique que l’objet HTTPService utilise la destination DefaultHTTP.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_DECODING"><apiName>ERROR_DECODING</apiName><shortdesc>
+      Indique qu’un résultat formaté XML n’a pas pu être analysé en une occurrence XML ou décodé en un objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotDecode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique qu’un résultat formaté XML n’a pas pu être analysé en une occurrence XML ou décodé en un objet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_ENCODING"><apiName>ERROR_ENCODING</apiName><shortdesc>
+      Indique qu’un paramètre d’entrée n’a pas pu être codé en tant qu’XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.CouldNotEncode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique qu’un paramètre d’entrée n’a pas pu être codé en tant qu’XML.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:ERROR_URL_REQUIRED"><apiName>ERROR_URL_REQUIRED</apiName><shortdesc>
+      Indique que la propriété useProxy a été définie sur false mais qu’aucune URL n’a été fournie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.URLRequired</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Indique que la propriété useProxy a été définie sur false mais qu’aucune URL n’a été fournie.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_ARRAY"><apiName>RESULT_FORMAT_ARRAY</apiName><shortdesc>
+      Le format de résultat « array » est similaire à « object », mais la valeur retournée est toujours un tableau, de sorte que si le résultat retourné du format de résultat « object » n’est pas déjà un tableau, l’élément est ajouté à un nouveau tableau comme étant le premier élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>array</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « array » est similaire à « object », mais la valeur retournée est toujours un tableau, de sorte que si le résultat retourné du format de résultat « object » n’est pas déjà un tableau, l’élément est ajouté à un nouveau tableau comme étant le premier élément.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_E4X"><apiName>RESULT_FORMAT_E4X</apiName><shortdesc>
+      Le format de résultat « e4x » spécifie que la valeur retournée est une occurrence XML, qui est accessible à l’aide d’expressions ECMAScript pour XML (E4X).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>e4x</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « e4x » spécifie que la valeur retournée est une occurrence XML, qui est accessible à l’aide d’expressions ECMAScript pour XML (E4X).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_FLASHVARS"><apiName>RESULT_FORMAT_FLASHVARS</apiName><shortdesc>
+      Le format de résultat « flashvars » spécifie que la valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flashvars</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « flashvars » spécifie que la valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_OBJECT"><apiName>RESULT_FORMAT_OBJECT</apiName><shortdesc>
+      Le format de résultat « object » spécifie que la valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>object</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « object » spécifie que la valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript. Il s’agit de la valeur par défaut.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_TEXT"><apiName>RESULT_FORMAT_TEXT</apiName><shortdesc>
+      Le format de résultat « text » spécifie que le texte de résultat HTTPService doit être une chaîne non traitée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « text » spécifie que le texte de résultat HTTPService doit être une chaîne non traitée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:RESULT_FORMAT_XML"><apiName>RESULT_FORMAT_XML</apiName><shortdesc>
+      Le format de résultat « xml » spécifie que les résultats doivent être retournés en tant qu’occurrence flash.xml.XMLNode pointant vers le premier enfant du document flash.xml.XMLDocument parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le format de résultat « xml » spécifie que les résultats doivent être retournés en tant qu’occurrence flash.xml.XMLNode pointant vers le premier enfant du document flash.xml.XMLDocument parent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      Fournit un accès à la classe ChannelSet utilisée par le service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      Permet d’accéder à l’occurrence ChannelSet utilisée par le service. La classe ChannelSet peut être manuellement construite et assignée, ou elle sera dynamiquement créée afin d’utiliser les canaux configurés pour la <codeph>destination</codeph> de ce service.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Valeur indiquant comment traiter plusieurs appels au même service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Valeur indiquant comment traiter plusieurs appels au même service. La valeur par défaut est <codeph>multiple</codeph>. Les valeurs suivantes sont autorisées :
+     <ul>
+     <li><codeph>multiple</codeph> Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+     <li><codeph>single</codeph> Une seule demande à la fois est autorisée sur l’opération ; les demandes multiples génèrent une erreur.</li>
+     <li><codeph>last</codeph> Effectuer une demande annule toute demande existante.</li>
+     </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type de contenu des demandes de service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type de contenu des demandes de service. La valeur par défaut est <codeph>application/x-www-form-urlencoded</codeph>, qui envoie des demandes comme un envoi HTTP POST normal avec des paires nom-valeur. <codeph>application/xml</codeph> envoie les demandes en tant qu’XML.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:destination:get"><apiName>destination</apiName><shortdesc>
+      Nom de destination HTTPService dans le fichier services-config.xml.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de destination HTTPService dans le fichier services-config.xml. Si la destination n’est pas spécifiée, Flex utilise la destination <codeph>DefaultHTTP</codeph>. Si vous utilisez la propriété <codeph>url</codeph> mais voulez que les demandes atteignent le proxy via HTTPS, spécifiez <codeph>DefaultHTTPS</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:headers:get"><apiName>headers</apiName><shortdesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce. Si plusieurs en-têtes doivent être envoyés avec le même nom, la valeur doit être spécifiée en tant que tableau.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      Résultat de la dernière invocation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Résultat de la dernière invocation.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:method:get"><apiName>method</apiName><shortdesc>
+      Méthode HTTP d’envoi de la demande.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Méthode HTTP d’envoi de la demande. Les valeurs autorisées sont <codeph>GET</codeph>, <codeph>POST</codeph>, <codeph>HEAD</codeph>, <codeph>OPTIONS</codeph>, <codeph>PUT</codeph>, <codeph>TRACE</codeph> et <codeph>DELETE</codeph>. Les lettres minuscules sont converties en lettres majuscules. La valeur par défaut est <codeph>GET</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés. Une valeur égale ou inférieure à zéro empêche les délais d’attente de demande.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:request:get"><apiName>request</apiName><shortdesc>
+      Objet de paires nom-valeur utilisées en tant que paramètres de l’URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet de paires nom-valeur utilisées en tant que paramètres de l’URL. Si la propriété <codeph>contentType</codeph> est définie sur <codeph>application/xml</codeph>, elle doit être un document XML.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP. La valeur de cette propriété est basée sur les éléments suivants :
+      <ul>
+      <li>Si vous retournez ou non des données XML ou des paires nom-valeur.</li>
+      <li>La manière dont vous voulez accéder aux résultats ; vous pouvez accéder aux résultats en tant qu’objet, texte ou XML.</li>
+      </ul>
+     
+      <p>La valeur par défaut est <codeph>object</codeph>. Les valeurs suivantes sont autorisées :</p>
+      <ul>
+      <li><codeph>object</codeph> La valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript. Il s’agit de la valeur par défaut.</li>
+      <li><codeph>array</codeph> La valeur retournée est XML et est analysée en tant qu’arborescence d’objets ActionScript. Cependant, si l’objet de niveau supérieur n’est pas un tableau, un nouveau tableau est créé et le résultat est défini comme constituant le premier élément. Si makeObjectsBindable est true, le tableau est enveloppé dans une classe ArrayCollection.</li>
+      <li><codeph>xml</codeph> La valeur retournée est XML et est retournée en tant qu’XML littéral dans un objet ActionScript XMLnode.</li>
+      <li><codeph>flashvars</codeph> La valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.</li>
+      <li><codeph>text</codeph> La valeur retournée constitue du texte et est située dans une colonne gauche.</li>
+      <li><codeph>e4x</codeph> La valeur renvoyée constitue des données XML et est renvoyée en tant qu’XML littéral dans un objet XML ActionScript, accessible via des expressions ECMAScript pour XML (E4X).</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives. Cette propriété n’est utilisée que si elle traverse le proxy. Lorsque la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>, l’adresse URL relative est calculée automatiquement selon l’emplacement du SWF exécutant cette application. Si la propriété <codeph>rootURL</codeph> n’est pas définie explicitement, elle est automatiquement définie sur l’adresse URL de mx.messaging.config.LoaderConfig.url.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:serializationFilter:get"><apiName>serializationFilter</apiName><shortdesc>
+     Fournit un adaptateur qui contrôle le processus de conversion du corps de la réponse HTTP en objets ActionScript et/ou de conversion des paramètres ou du corps vers le type contentType, l’URL et le corps de publication de la demande HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     Fournit un adaptateur qui contrôle le processus de conversion du corps de la réponse HTTP en objets ActionScript et/ou de conversion des paramètres ou du corps vers le type contentType, l’URL et le corps de publication de la demande HTTP. Cela peut aussi être défini indirectement en définissant le format resultFormat en enregistrant un filtre SerializationFilter à l’aide de la méthode statique : SerializationFilter.registerFilterForResultFormat("formatName", filter)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:url:get"><apiName>url</apiName><shortdesc>
+      Emplacement du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Emplacement du service. Si vous spécifiez l’<codeph>url</codeph> et une destination non par défaut, votre destination dans le fichier services-config.xml doit autoriser l’URL spécifiée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Indique d’utiliser ou non le service proxy Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique d’utiliser ou non le service proxy Flex. La valeur par défaut est <codeph>false</codeph>. Si vous ne spécifiez pas <codeph>true</codeph> pour les requêtes proxy via le serveur Flex, assurez-vous que Flash Player peut accéder à l’URL cible. Vous ne pouvez pas non plus utiliser les destinations définies dans le fichier services-config.xml si la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlDecode:get"><apiName>xmlDecode</apiName><shortdesc>
+      Fonction ActionScript utilisée pour décoder un résultat de service de XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction ActionScript utilisée pour décoder un résultat de service de XML. Lorsque le format <codeph>resultFormat</codeph> est un objet et que la propriété <codeph>xmlDecode</codeph> est définie, Flex utilise les données XML que le service HTTPService retourne pour créer un objet. S’il n’est pas défini, le décodeur XMLDecoder par défaut est utilisé pour effectuer l’opération.
+      <p>La fonction référencée par la propriété <codeph>xmlDecode</codeph> doit prendre un objet flash.xml.XMLNode comme paramètre et retourner un objet. Elle peut retourner n’importe quel type d’objet, mais elle doit retourner quelque chose. Retourner <codeph>null</codeph> ou <codeph>undefined</codeph> provoque une erreur.</p>
+
+    L’exemple suivant présente une balise &lt;mx:HTTPService> qui spécifie une fonction xmlDecode :
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    L’exemple suivant présente une fonction xmlDecoder :
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPService:xmlEncode:get"><apiName>xmlEncode</apiName><shortdesc>
+      Fonction ActionScript utilisée pour coder une demande de service en tant que XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction ActionScript utilisée pour coder une demande de service en tant que XML. Lorsque le type <codeph>contentType</codeph> d’une demande est <codeph>application/xml</codeph> et que l’objet de demande transmis est un objet, Flex tente d’utiliser la fonction spécifiée par la propriété <codeph>xmlEncode</codeph> pour le convertir en un objet flash.xml.XMLNode. Si la propriété <codeph>xmlEncode</codeph> n’est pas définie, Flex utilise le codeur XMLEncoder par défaut pour convertir le graphique d’objet en un objet flash.xml.XMLNode.
+     
+      <p>La propriété <codeph>xmlEncode</codeph> prend un objet et doit retourner un objet flash.xml.XMLNode. Dans ce cas, l’objet XMLNode peut être un objet flash.xml.XML, qui est une sous-classe de XMLNode, ou le premier enfant de l’objet flash.xml.XML, qui est l’élément obtenu d’une balise <codeph>&lt;mx:XML></codeph>. Retourner le type d’objet incorrect provoque une erreur. L’exemple suivant présente une balise &lt;mx:HTTPService> qui spécifie une fonction xmlEncode :</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    L’exemple suivant présente une fonction xmlEncoder :
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ Opération utilisée spécifiquement par une classe HTTPService ou HTTPMultiService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Opération utilisée spécifiquement par une classe HTTPService ou HTTPMultiService. Une classe Operation est une opération individuelle sur un service correspondant généralement à une seule opération côté serveur. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send(param1, param2)</codeph>. Le service HTTP prend aussi en charge une méthode sendBody qui vous permet de spécifier directement le corps de la réponse HTTP. Si vous utilisez la méthode send(param1, param2), le corps est généralement formé en combinant la propriété argumentNames de l’opération avec les paramètres envoyés. Un objet est créé qui utilise argumentNames[i] comme clé et le paramètre correspondant comme valeur.
+ 
+ <p>La méthode exacte par laquelle les arguments d’opération HTTP sont placés dans le corps HTTP est déterminée par le filtre SerializationFilter utilisé.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.http:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+      Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="Creates a new Operation." name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>Objet qui définit le type de service, telles que HTTPMultiService, WebService ou RemoteObject. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom du service. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle opération. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http:AbstractOperation:protected:getHeaders"><apiName>getHeaders</apiName><shortdesc>
+      Renvoie les en-têtes de requête HTTP. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>En-têtes de requête HTTP. 
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie les en-têtes de requête HTTP. Les sous-classes peuvent remplacer cette méthode pour contrôler la récupération des en-têtes de requête HTTP.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:protected:getSerializationFilter"><apiName>getSerializationFilter</apiName><shortdesc> 
+      Renvoie le filtre de sérialisation. </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Filtre de sérialisation. 
+     </apiDesc><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc> 
+      Renvoie le filtre de sérialisation. Les sous-classes peuvent remplacer cette méthode pour contrôler la récupération des en-têtes de requête HTTP.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:AbstractOperation:sendBody"><apiName>sendBody</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>parameters</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.rpc.http:AbstractOperation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     Liste ordonnée des noms des arguments à transmettre à un appel de méthode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     Liste ordonnée des noms des arguments à transmettre à un appel de méthode. L’objet d’argument étant une table de hachage sans ordre garanti, ce tableau aide à rassembler tous les éléments correctement. Il sera automatiquement défini par le compilateur MXML, si nécessaire, lorsque l’opération est utilisée dans un format de balise.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:headers"><apiName>headers</apiName><shortdesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce. Si plusieurs en-têtes doivent être envoyés avec le même nom, la valeur doit être spécifiée en tant que tableau.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:request"><apiName>request</apiName><shortdesc>
+      Objet de paires nom-valeur utilisées en tant que paramètres de l’URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet de paires nom-valeur utilisées en tant que paramètres de l’URL. Si la propriété <codeph>contentType</codeph> est définie sur <codeph>application/xml</codeph>, elle doit être un document XML.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:serializationFilter"><apiName>serializationFilter</apiName><shortdesc>
+     Un filtre SerializationFilter peut contrôler la manière dont les arguments sont formatés pour former le contenu de la demande HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc>
+     Un filtre SerializationFilter peut contrôler la manière dont les arguments sont formatés pour former le contenu de la demande HTTP. Elle contrôle aussi la manière dont les résultats sont convertis en objets ActionScript. Elle peut être définie explicitement à l’aide de cette propriété ou indirectement à l’aide de la propriété resultFormat.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlDecode"><apiName>xmlDecode</apiName><shortdesc>
+      Fonction ActionScript utilisée pour décoder un résultat de service de XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction ActionScript utilisée pour décoder un résultat de service de XML. Lorsque le format <codeph>resultFormat</codeph> est un objet et que la propriété <codeph>xmlDecode</codeph> est définie, Flex utilise les données XML que le service HTTPService retourne pour créer un objet. S’il n’est pas défini, le décodeur XMLDecoder par défaut est utilisé pour effectuer l’opération.
+      <p>La fonction référencée par la propriété <codeph>xmlDecode</codeph> doit prendre un objet flash.xml.XMLNode comme paramètre et retourner un objet. Elle peut retourner n’importe quel type d’objet, mais elle doit retourner quelque chose. Retourner <codeph>null</codeph> ou <codeph>undefined</codeph> provoque une erreur.</p>
+
+    L’exemple suivant présente une balise &lt;mx:HTTPService> qui spécifie une fonction xmlDecode :
+
+<pre>
+   &lt;mx:HTTPService id="hs" xmlDecode="xmlDecoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+</pre>
+
+
+    L’exemple suivant présente une fonction xmlDecoder :
+<pre>
+function xmlDecoder (myXML)
+{
+ // Simplified decoding logic.
+ var myObj = {};
+ myObj.name = myXML.firstChild.nodeValue;
+ myObj.honorific = myXML.firstChild.attributes.honorific;
+ return myObj;
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:xmlEncode"><apiName>xmlEncode</apiName><shortdesc>
+      Fonction ActionScript utilisée pour coder une demande de service en tant que XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction ActionScript utilisée pour coder une demande de service en tant que XML. Lorsque le type <codeph>contentType</codeph> d’une demande est <codeph>application/xml</codeph> et que l’objet de demande transmis est un objet, Flex tente d’utiliser la fonction spécifiée par la propriété <codeph>xmlEncode</codeph> pour le convertir en un objet flash.xml.XMLNode. Si la propriété <codeph>xmlEncode</codeph> n’est pas définie, Flex utilise le codeur XMLEncoder par défaut pour convertir le graphique d’objet en un objet flash.xml.XMLNode.
+     
+      <p>La propriété <codeph>xmlEncode</codeph> prend un objet et doit retourner un objet flash.xml.XMLNode. Dans ce cas, l’objet XMLNode peut être un objet flash.xml.XML, qui est une sous-classe de XMLNode, ou le premier enfant de l’objet flash.xml.XML, qui est l’élément obtenu d’une balise <codeph>&lt;mx:XML></codeph>. Retourner le type d’objet incorrect provoque une erreur. L’exemple suivant présente une balise &lt;mx:HTTPService> qui spécifie une fonction xmlEncode :</p>
+
+    <pre>
+  &lt;mx:HTTPService id="hs" xmlEncode="xmlEncoder" url="myURL" resultFormat="object" contentType="application/xml">
+        &lt;mx:request>&lt;source/>
+            &lt;obj>{RequestObject}&lt;/obj>
+        &lt;/mx:request>
+   &lt;/mx:HTTPService>
+    </pre>
+
+
+    L’exemple suivant présente une fonction xmlEncoder :
+<pre>
+function xmlEncoder (myObj)
+{
+  return new XML("<userencoded><attrib0>MyObj.test</attrib0>
+  <attrib1>MyObj.anotherTest</attrib1></userencoded>");
+}
+</pre>
+
+      
+
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Valeur indiquant comment traiter plusieurs appels au même service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Valeur indiquant comment traiter plusieurs appels au même service. La valeur par défaut est <codeph>multiple</codeph>. Les valeurs suivantes sont autorisées :
+     <ul>
+     <li><codeph>multiple</codeph> Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+     <li><codeph>single</codeph> Une seule demande à la fois est autorisée sur l’opération ; les demandes multiples génèrent une erreur.</li>
+     <li><codeph>last</codeph> Effectuer une demande annule toute demande existante.</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type de contenu des demandes de service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type de contenu des demandes de service. La valeur par défaut est <codeph>application/x-www-form-urlencoded</codeph>, qui envoie des demandes comme un envoi HTTP POST normal avec des paires nom-valeur. <codeph>application/xml</codeph> envoie les demandes en tant qu’XML.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:method:get"><apiName>method</apiName><shortdesc>
+      Méthode HTTP d’envoi de la demande.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Méthode HTTP d’envoi de la demande. Les valeurs autorisées sont <codeph>GET</codeph>, <codeph>POST</codeph>, <codeph>HEAD</codeph>, <codeph>OPTIONS</codeph>, <codeph>PUT</codeph>, <codeph>TRACE</codeph> et <codeph>DELETE</codeph>. Les lettres minuscules sont converties en lettres majuscules. La valeur par défaut est <codeph>GET</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés. Si, avant expiration du délai, la destination distante ne reçoit pas d’accusé, de réponse ou d’erreur, le message génère une erreur sur le client. Une valeur égale ou inférieure à zéro empêche les délais d’attente de demande.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP. La valeur de cette propriété est basée sur les éléments suivants :
+      <ul>
+      <li>Si vous retournez ou non des données XML ou des paires nom-valeur.</li>
+      <li>La manière dont vous voulez accéder aux résultats ; vous pouvez accéder aux résultats en tant qu’objet, texte ou XML.</li>
+      </ul>
+     
+      <p>La valeur par défaut est <codeph>object</codeph>. Les valeurs suivantes sont autorisées :</p>
+      <ul>
+      <li><codeph>object</codeph> La valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript. Il s’agit de la valeur par défaut.</li>
+      <li><codeph>array</codeph> La valeur retournée est XML et est analysée en tant qu’arborescence d’objets ActionScript. Cependant, si l’objet de niveau supérieur n’est pas un tableau, un nouveau tableau est créé et le résultat est défini comme constituant le premier élément. Si makeObjectsBindable est true, le tableau est enveloppé dans une classe ArrayCollection.</li>
+      <li><codeph>xml</codeph> La valeur retournée est XML et est retournée en tant qu’XML littéral dans un objet ActionScript XMLnode.</li>
+      <li><codeph>flashvars</codeph> La valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.</li>
+      <li><codeph>text</codeph> La valeur retournée constitue du texte et est située dans une colonne gauche.</li>
+      <li><codeph>e4x</codeph> La valeur renvoyée constitue des données XML et est renvoyée en tant qu’XML littéral dans un objet XML ActionScript, accessible via des expressions ECMAScript pour XML (E4X).</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives. Cette propriété n’est utilisée que si elle traverse le proxy. Lorsque la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>, l’adresse URL relative est calculée automatiquement selon l’emplacement du SWF exécutant cette application. Si la propriété <codeph>rootURL</codeph> n’est pas définie explicitement, elle est automatiquement définie sur l’adresse URL de mx.messaging.config.LoaderConfig.url.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:url:get"><apiName>url</apiName><shortdesc>
+      Emplacement du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Emplacement du service. Si vous spécifiez l’<codeph>url</codeph> et une destination non par défaut, votre destination dans le fichier services-config.xml doit autoriser l’URL spécifiée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:AbstractOperation:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Indique d’utiliser ou non le service proxy Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique d’utiliser ou non le service proxy Flex. La valeur par défaut est <codeph>false</codeph>. Si vous ne spécifiez pas <codeph>true</codeph> pour les requêtes proxy via le serveur Flex, assurez-vous que Flash Player peut accéder à l’URL cible. Vous ne pouvez pas non plus utiliser les destinations définies dans le fichier services-config.xml si la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+  Utilisez la balise &amp;lt;mx:HTTPMultiService&amp;gt; pour représenter une collection d’opérations HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="operationList"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Utilisez la balise <codeph>&lt;mx:HTTPMultiService></codeph> pour représenter une collection d’opérations HTTP. Chacune comporte une URL, une méthode, des paramètres et un type de retour.   
+ 
+  <p>Vous pouvez définir des attributs tels que l’URL et la méthode dans la balise HTTPMultiService de manière à ce qu’ils se comportent comme valeurs par défaut pour les ensembles de valeurs définis pour chaque balise d’opération individuelle. L’URL de la classe HTTPMultiService sert d’URL de base (à savoir, le préfixe) pour toute URL relative définie sur les balises d’opération HTTP. Chaque opération HTTP comporte une méthode <codeph>send()</codeph>, qui effectue une demande HTTP auprès de l’URL spécifiée et une réponse HTTP est retournée.  </p>
+ 
+  <p>Vous pouvez transmettre à l’URL spécifiée des paramètres qui sont utilisés pour placer des données dans la demande HTTP. La propriété contentType spécifie un type mime qui est utilisé pour déterminer le format de données en ligne (à savoir, codage de format HTTP ou XML).  </p>
+ 
+  <p>Vous pouvez aussi utiliser un filtre de sérialisation pour implémenter un format resultFormat personnalisé tel que JSON. Lorsque vous n’utilisez pas le service proxy de serveur, vous ne pouvez utiliser que les méthodes HTTP GET ou POST. Toutefois, lorsque vous définissez la propriété useProxy sur <codeph>true</codeph> et que vous utilisez le service proxy de serveur, vous pouvez aussi utiliser les méthodes HTTP HEAD, OPTIONS, TRACE et DELETE.</p>
+ 
+  <p><b>Remarque :</b> contrairement à la classe HTTPService, la classe HTTPMultiService ne définit pas une propriété <codeph>requête</codeph>. </p>
+ 
+  <p><b>Remarque :</b> en raison d’une limitation logicielle, tout comme la classe HTTPService, la classe HTTPMultiService ne génère pas de messages d’erreur conviviaux lorsqu’elle utilise GET et n’utilise pas un proxy.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPService"><linktext>mx.rpc.http.HTTPService</linktext></link></related-links><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+  L’événement invoke est déclenché lorsqu’un appel HTTPMultiService est invoqué à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  L’événement invoke est déclenché lorsqu’un appel HTTPMultiService est invoqué à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  Distribué lorsqu’un appel HTTPMultiService échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un appel HTTPMultiService échoue.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc.http:HTTPMultiService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+  Distribué lorsqu’un appel HTTPMultiService réussit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un appel HTTPMultiService réussit.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.http:HTTPMultiService:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+      Crée une nouvelle classe HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>baseURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Adresse URL que la classe HTTPService doit utiliser lorsqu’elle calcule des adresses URL relatives.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle classe HTTPService. Si vous vous attendez à ce que le service effectue l’envoi à l’aide d’URL relatives, vous pouvez spécifier l’URL <codeph>baseURL</codeph> allant servir de base pour déterminer l’URL entière (par exemple, <codeph>Application.application.url</codeph>).
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.http:HTTPMultiService:baseURL"><apiName>baseURL</apiName><shortdesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Adresse URL que l’objet HTTPService doit utiliser lorsqu’il calcule les URL relatives. Cela contient un préfixe qui est ajouté devant n’importe quelle URL lorsqu’il est défini. Il reçoit la valeur null, auquel cas l’URL du SWF est utilisée pour calculer les URL relatives.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:contentType"><apiName>contentType</apiName><shortdesc>
+      Type de contenu des demandes de service.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Type de contenu des demandes de service. La valeur par défaut est <codeph>application/x-www-form-urlencoded</codeph>, qui envoie des demandes comme un envoi HTTP POST normal avec des paires nom-valeur. <codeph>application/xml</codeph> envoie les demandes en tant qu’XML.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:headers"><apiName>headers</apiName><shortdesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      En-têtes HTTP personnalisés à envoyer à l’extrémité tierce. Si plusieurs en-têtes doivent être envoyés avec le même nom, la valeur doit être spécifiée en tant que tableau. Ces en-têtes sont envoyés à toutes les opérations. Vous pouvez aussi définir des en-têtes au niveau de l’opération.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:makeObjectsBindable"><apiName>makeObjectsBindable</apiName><shortdesc>
+      Lorsque la valeur est true, les objets retournés prennent en charge la liaison de données aux contrôles d’interface utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Lorsque la valeur est <codeph>true</codeph>, les objets retournés prennent en charge la liaison de données aux contrôles d’interface utilisateur. Cela signifie qu’ils envoyent des événements PropertyChangeEvents lorsque les valeurs de leurs propriétés sont modifiées. Il s’agit de la valeur par défaut pour toute opération dont la propriété makeObjectsBindable n’est pas définie explicitement.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:method"><apiName>method</apiName><shortdesc>
+      Méthode HTTP d’envoi de la demande si aucune méthode n’est définie explicitement sur l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Méthode HTTP d’envoi de la demande si aucune méthode n’est définie explicitement sur l’opération. Les valeurs autorisées sont <codeph>GET</codeph>, <codeph>POST</codeph>, <codeph>HEAD</codeph>, <codeph>OPTIONS</codeph>, <codeph>PUT</codeph>, <codeph>TRACE</codeph> et <codeph>DELETE</codeph>. Les lettres minuscules sont converties en lettres majuscules. La valeur par défaut est <codeph>GET</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:serializationFilter"><apiName>serializationFilter</apiName><shortdesc> Filtre serializationFilter par défaut utilisé par toutes les opérations qui ne définissent aucun filtre explicitement. </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.rpc.http:SerializationFilter</apiValueClassifier></apiValueDef><apiDesc> Filtre serializationFilter par défaut utilisé par toutes les opérations qui ne définissent aucun filtre explicitement. </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Valeur indiquant comment traiter plusieurs appels à la même opération du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Valeur indiquant comment traiter plusieurs appels à la même opération du service. Le paramètre d’accès simultané défini ici est utilisé pour les opérations qui ne spécifient pas l’accès simultané. Certaines opérations, dont le paramètre d’accès simultané est défini directement, ignoreront la valeur définie ici. La valeur par défaut est <codeph>multiple</codeph>. Les valeurs suivantes sont autorisées :
+     <ul>
+     <li><codeph>multiple</codeph> Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+     <li><codeph>single</codeph> Une seule demande à la fois est autorisée sur l’opération ; les demandes multiples génèrent une erreur.</li>
+     <li><codeph>last</codeph> Effectuer une demande annule toute demande existante.</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:operationList:set"><apiName>operationList</apiName><shortdesc>
+     Cela sert de propriété par défaut pour cette occurrence, de sorte qu’il est possible de définir un ensemble d’opérations comme enfants directs de la balise HTTPMultiService dans MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Cela sert de propriété par défaut pour cette occurrence, de sorte qu’il est possible de définir un ensemble d’opérations comme enfants directs de la balise HTTPMultiService dans MXML.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Valeur indiquant comment vous voulez désérialiser le résultat retourné par l’appel HTTP. La valeur de cette propriété est basée sur les éléments suivants :
+      <ul>
+      <li>Si vous retournez ou non des données XML ou des paires nom-valeur.</li>
+      <li>La manière dont vous voulez accéder aux résultats ; vous pouvez accéder aux résultats en tant qu’objet, texte ou XML.</li>
+      </ul>
+     
+      <p>La valeur par défaut est <codeph>object</codeph>. Les valeurs suivantes sont autorisées :</p>
+      <ul>
+      <li><codeph>object</codeph> La valeur retournée est XML mais est analysée en tant qu’arborescence d’objets ActionScript. Il s’agit de la valeur par défaut.</li>
+      <li><codeph>array</codeph> La valeur retournée est XML et est analysée en tant qu’arborescence d’objets ActionScript. Cependant, si l’objet de niveau supérieur n’est pas un tableau, un nouveau tableau est créé et le résultat est défini comme constituant le premier élément. Si makeObjectsBindable est true, le tableau est enveloppé dans une classe ArrayCollection.</li>
+      <li><codeph>xml</codeph> La valeur retournée est XML et est retournée en tant qu’XML littéral dans un objet ActionScript XMLnode.</li>
+      <li><codeph>flashvars</codeph> La valeur retournée constitue du texte contenant des paires nom=valeur séparées par une esperluette, analysée en un objet ActionScript.</li>
+      <li><codeph>text</codeph> La valeur retournée constitue du texte et est située dans une colonne gauche.</li>
+      <li><codeph>e4x</codeph> La valeur renvoyée constitue des données XML et est renvoyée en tant qu’XML littéral dans un objet XML ActionScript, accessible via des expressions ECMAScript pour XML (E4X).</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.http:HTTPMultiService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+      Indique d’utiliser ou non le service proxy Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false    
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique d’utiliser ou non le service proxy Flex. La valeur par défaut est <codeph>false</codeph>. Si vous ne spécifiez pas <codeph>true</codeph> pour les requêtes proxy via le serveur Flex, assurez-vous que Flash Player peut accéder à l’URL cible. Vous ne pouvez pas non plus utiliser les destinations définies dans le fichier services-config.xml si la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.http:SerializationFilter"><apiName>SerializationFilter</apiName><shortdesc>
+ Cette classe est utile pour les développeurs de structures qui désirent se connecter ou modifier les services HTTP afin d’utiliser un nouveau format de sérialisation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cette classe est utile pour les développeurs de structures qui désirent se connecter ou modifier les services HTTP afin d’utiliser un nouveau format de sérialisation. Cela vous permet d’invoquer des méthodes sur l’objet de service et de contrôler la manière dont les paramètres sont mappés sur un format de sérialisation spécifique tel que XML, JSON, etc. Le mécanisme SerializationFilter vous permet aussi d’ajouter un nouveau format resultFormat.
+ 
+ <p> Une occurrence de cette classe peut gérer le formatage des demandes et des réponses HTTP et la conversion de leurs paramètres. Lorsque vous utilisez la classe HTTPService ou HTTPMultiService, vous dialoguez généralement à un serveur qui s’attend à ce que les données soient fournies dans un format spécifique - par exemple, des valeurs codées URL pour un formulaire HTML ou des valeurs XML ou autre format de sérialisation tel que JSON. Le filtre SerializationFilter vous permet de personnaliser la manière dont les classes HTTPService et HTTPMultiService convertissent les paramètres d’une opération dans le corps de la demande HTTP et la manière dont la réponse est convertie dans la valeur de retour de l’opération. Les développeurs de structures peuvent introduire un nouveau format de sérialisation dans le système en fournissant une nouvelle implémentation du filtre SerializationFilter et utiliser ces composants et toutes les structures et tous les outils construits sur ces composants sans avoir à connaître les détails du format lui-même. </p>
+ 
+ <p>La première chose à faire est de développer le filtre SerializationFilter et de remplacer une ou plusieurs des méthodes de conversion. Le filtre vous permet de convertir la liste ordonnée de paramètres en un corps de demande, de modifier le corps de demande, de modifier le type de contenu utilisé dans la demande, de modifier l’URL réelle utilisée dans la demande et de convertir les données de réponse dans l’objet de résultat retourné dans l’événement result du service.</p>
+ 
+ <p>Il existe deux méthodes pour spécifier le filtre SerializationFilter d’une classe HTTPService ou HTTPMultiService spécifique. Vous pouvez définir la propriété serializationFilter sur le service ou enregistrer statiquement un filtre SerializationFilter pour un nouveau format de résultat. Si vous utilisez cette approche, vous pouvez utiliser un filtre SerializationFilter préenregistré simplement en spécifiant le format resultFormat. Ainsi, par exemple, vous pouvez enregistrer un filtre SerializationFilter pour le type « json » et utiliser ce filtre en définissant resultFormat="json".</p>
+ 
+ <p>
+ La classe HTTPService ne fournit que des méthodes qui extraient directement le corps de la demande et donc n’utilise pas la méthode « serializeParameters ».
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.http:SerializationFilter:deserializeResult"><apiName>deserializeResult</apiName><shortdesc>
+     Cette méthode extrait le résultat de la demande HTTP dans un format brut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Résultat converti alors ensuite être fourni dans l’événement result pour le service.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>Classe AbstractOperation invoquée.  
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>Résultat brut tel que retourné du serveur.  
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette méthode extrait le résultat de la demande HTTP dans un format brut. Elle peut le convertir en un objet ActionScript plus typé si cela est souhaité. Pour rendre le filtre SerializationFilter plus général, vous pouvez utiliser les propriétés resultType ou resultElementType de la classe AbstractOperation fournie de sorte que votre code puisse dynamiquement mapper la demande entrante sur le type configuré dans ActionScript comme type de retour.
+     <p>
+     La classe AbstractOperation comporte une carte de propriétés qui vous permet de stocker d’autres propriétés dans le cadre de l’invocation de service dans ActionScript afin de gérer la désérialisation d’un type particulier.
+     </p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:getRequestContentType"><apiName>getRequestContentType</apiName><shortdesc>
+     Cette méthode est appelée par le service HTTP juste avant qu’un appel ne soit effectué.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Type de contenu à utiliser pour cette demande HTTP.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>Classe AbstractOperation invoquée.
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Corps de la demande HTTP en cours de sérialisation.
+     </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiDesc>Type contentType configuré pour l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette méthode est appelée par le service HTTP juste avant qu’un appel ne soit effectué. Son rôle est de choisir le type contentType utilisé pour cette demande. Il existe un type de contenu fixe unique pour de nombreux formats de sérialisation, ce qui vous permet de simplement retourner ce type de contenu ici. La classe HTTPService étant elle-même configurée avec un type de contenu, cette valeur est transmise ici et retournée par l’implémentation par défaut. Le corps de demande en cours de sérialisation est aussi fourni avec le paramètre obj au cas où le type de contenu dépend du type d’objet envoyé au serveur.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:registerFilterForResultFormat"><apiName>registerFilterForResultFormat</apiName><shortdesc>
+     Cette fonction statique est utilisée afin d’enregistrer un nouveau filtre SerializationFilter pour une valeur resultFormat spécifique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier></apiReturn><apiParam><apiItemName>resultFormat</apiItemName><apiType value="String"/><apiDesc>Nom resultFormat personnalisé à associer au filtre SerializationFilter fourni.  
+     </apiDesc></apiParam><apiParam><apiItemName>filter</apiItemName><apiOperationClassifier>mx.rpc.http:SerializationFilter</apiOperationClassifier><apiDesc>Filtre SerializationFilter à enregistrer.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette fonction statique est utilisée afin d’enregistrer un nouveau filtre SerializationFilter pour une valeur resultFormat spécifique. Si vous appelez cette méthode au démarrage, vous pouvez alors simplement simplifier la propriété resultFormat d’une classe HTTPService ou HTTPMultiService pour utiliser ce filtre de sérialisation afin que les développeurs puissent spécifier un format plus facilement.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeBody"><apiName>serializeBody</apiName><shortdesc>
+     Cette méthode est appelée pour toutes les invocations du service HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Corps potentiellement converti à utiliser dans la demande.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>Classe AbstractOperation invoquée.
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Corps initial de la demande HTTP, soit la valeur de retour des paramètres serializeParameter, soit le paramètre de la méthode sendBody ou send de la classe HTTPService.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette méthode est appelée pour toutes les invocations du service HTTP. Elle peut convertir l’objet fourni en une forme appropriée pour un placement direct dans le corps de la demande HTTP. L’implémentation par défaut retourne simplement l’objet transmis en tant que corps sans aucune conversion.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeParameters"><apiName>serializeParameters</apiName><shortdesc>
+     Cette méthode est appelée depuis la méthode « send » de l’invocation du service HTTP pour convertir les paramètres en un corps de demande.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Corps à utiliser dans la demande HTTP.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>Classe AbstractOperation invoquée.
+     </apiDesc></apiParam><apiParam><apiItemName>params</apiItemName><apiType value="Array"/><apiDesc>Liste des paramètres transmis à la méthode send.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette méthode est appelée depuis la méthode « send » de l’invocation du service HTTP pour convertir les paramètres en un corps de demande. Les paramètres de l’appel send d’origine sont placés dans le tableau de paramètres. Cette méthode convertit cet ensemble de paramètres en un objet unique utilisé en tant que données pour le corps de la demande HTTP. L’implémentation par défaut produit un objet où les clés sont les valeurs dans le tableau argumentNames de la classe Operation et les valeurs sont les valeurs des paramètres. Avec l’implémentation par défaut, vous devez définir des noms argumentName pour disposer du même nombre d’éléments que le tableau de paramètres.
+     
+     <p>Cette méthode n’est pas utilisée si vous invoquez l’opération HTTP à l’aide de la méthode sendBody qui n’extrait qu’un seul objet. Dans ce cas, cette étape est ignorée et seule la méthode serializeBody est appelée.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.http:SerializationFilter:serializeURL"><apiName>serializeURL</apiName><shortdesc>
+     Cette méthode est utilisée si vous devez extraire des données de l’objet de corps de demande et les coder dans la chaîne URL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>URL potentiellement modifiée à utiliser pour cette demande.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.http:AbstractOperation</apiOperationClassifier><apiDesc>Classe AbstractOperation invoquée.
+     </apiDesc></apiParam><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>URL définie sur le service ou l’opération.
+     </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+     Cette méthode est utilisée si vous devez extraire des données de l’objet de corps de demande et les coder dans la chaîne URL. Elle reçoit l’URL entrante tel que configuré sur l’opération ou le service. Cette implémentation retourne simplement l’URL entrante sans aucune conversion.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.preloaders"><apiName>mx.preloaders</apiName><apiDetail/><apiClassifier id="mx.preloaders:IPreloaderDisplay"><apiName>IPreloaderDisplay</apiName><shortdesc>
+  ダウンロードプログレスバーとして使用するためにクラスに実装する必要があるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ダウンロードプログレスバーとして使用するためにクラスに実装する必要があるインターフェイスを定義します。 IPreloaderDisplay は Preloader クラスからイベントを受け取り、その情報をユーザーに表示します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiOperation id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:Preloader"><apiName>Preloader</apiName><shortdesc>
+  Preloader クラスは、SystemManager が Flex アプリケーションのダウンロードと初期化のステータスを監視するために使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Preloader クラスは、SystemManager が Flex アプリケーションのダウンロードと初期化のステータスを監視するために使用します。 また、ランタイム共有ライブラリ（RSL）のダウンロードも行います。
+ 
+  <p>Preloader クラスは、ダウンロードプログレスバーをインスタンス化します。これによって IPreloaderDisplay インターフェイスを実装し、ダウンロードイベントと初期化イベントをダウンロードプログレスバーに渡す必要があります。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:Preloader:Preloader"><apiName>Preloader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:Preloader:initialize"><apiName>initialize</apiName><shortdesc>  
+      SystemManager が Preloader オブジェクトを初期化するために呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>showDisplay</apiItemName><apiType value="Boolean"/><apiDesc>表示クラスを表示するかどうかを決定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayClassName</apiItemName><apiType value="Class"/><apiDesc>プリローダーステータスを表示するために使用される IPreloaderDisplay クラスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundColor</apiItemName><apiType value="uint"/><apiDesc>アプリケーションの背景色です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundAlpha</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの背景の透明度です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundImage</apiItemName><apiType value="Object"/><apiDesc>アプリケーションの背景イメージです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundSize</apiItemName><apiType value="String"/><apiDesc>アプリケーションの背景のサイズです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayWidth</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの幅です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayHeight</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの高さです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>libs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>ランタイム共有ライブラリのストリング URL の配列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sizes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>libs パラメーター内の各 URL のバイトサイズが含まれる単位の値の配列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rslList</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>RSLItem 型および CdRSLItem 型のオブジェクトの配列です。 この配列は、ロードするすべての RSL を表します。 libs パラメーターと sizes パラメーターは無視され、null に設定されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceModuleURLs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>リソースモジュールをプリロードする URL を指定するストリングの配列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>コードが実行されているアプリケーションドメインです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>  
+      SystemManager が Preloader オブジェクトを初期化するために呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:Preloader:registerApplication"><apiName>registerApplication</apiName><shortdesc>
+      SystemManager がアプリケーションクラスのインスタンスをインスタンス化した後に、SystemManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>app</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>アプリケーションオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      SystemManager がアプリケーションクラスのインスタンスをインスタンス化した後に、SystemManager によって呼び出されます。 このメソッドは Flex が呼び出します。ユーザー自身で呼び出すことはありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.preloaders:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+  DownloadProgressBar クラスはダウンロードの進行状況を表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DownloadProgressBar クラスはダウンロードの進行状況を表示します。 アプリケーションでダウンロードおよびロードを実行しているとき、ユーザーにフィードバックを提供するために Preloader コントロールで使用されます。 
+ 
+  <p>ダウンロードプログレスバーには、アプリケーションの 2 つの段階（ダウンロード段階と初期化段階）に関する情報が表示されます。 </p>
+ 
+  <p>アプリケーションコンテナで、<codeph>preloader</codeph> プロパティを使用してサブクラスの名前を指定します。</p>
+ 
+  <p>DownloadProgressBar クラスのサブクラスを作成すると、カスタムダウンロードプログレスバーのコンポーネントを実装することができます。 MXML コンポーネントとして実装すると、ロードに著しく時間がかかります。ダウンロードプログレスバーを MXML コンポーネントとして実装することは避けてください。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:DownloadProgressBar:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:DownloadProgressBar:protected:center"><apiName>center</apiName><shortdesc>
+      渡されたサイズに基づいて、ダウンロードプログレスバーをセンタリングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>ダウンロードプログレスバーをセンタリングする領域の幅。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>ダウンロードプログレスバーをセンタリングする領域の高さ。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      渡されたサイズに基づいて、ダウンロードプログレスバーをセンタリングします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Event.COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>Event.COMPLETE</codeph> イベントのイベントリスナーです。 デフォルトの実装では、何も行われません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      表示のサブコンポーネントを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      表示のサブコンポーネントを作成します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:getPercentLoaded"><apiName>getPercentLoaded</apiName><shortdesc>
+      ロードされたアプリケーションのパーセント値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ロードされたアプリケーションのパーセント値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>loaded</apiItemName><apiType value="Number"/><apiDesc>ダウンロードされたアプリケーションの SWF ファイルのバイト数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの SWF ファイルのサイズ（バイト単位）です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ロードされたアプリケーションのパーセント値を返します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      FlexEvent.INIT_COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>FlexEvent.INIT_COMPLETE</codeph> イベントのイベントリスナーです。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      FlexEvent.INIT_PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>FlexEvent.INIT_PROGRESS</codeph> イベントのイベントリスナーです。 この実装により、イベントが送出されるたびにプログレスバーが更新され、ラベルのテキストが変更されます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      ダウンロードプログレスバーが Preloader の子として追加されると、Preloader によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ダウンロードプログレスバーが Preloader の子として追加されると、Preloader によって呼び出されます。 これが、ダウンロードプログレスバー設定の開始点となります。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      ProgressEvent.PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>ProgressEvent.PROGRESS</codeph> イベントのイベントリスナーです。 この実装により、ダウンロードされたバイトのパーセントでプログレスバーが更新されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      RSLEvent.RSL_COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_COMPLETE</codeph> イベントのイベントリスナーです。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      RSLEvent.RSL_ERROR イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_ERROR</codeph> イベントのイベントリスナーです。 このイベントリスナーは、RSL のダウンロード時に検出されたすべてのエラーを処理します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      RSLEvent.RSL_PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_PROGRESS</codeph> イベントのイベントリスナーです。 デフォルトの実装では、何も行われません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:setProgress"><apiName>setProgress</apiName><shortdesc>
+      ダウンロードプログレスバーの表示を現在のダウンロード情報で更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>ダウンロードされたアプリケーションの SWF ファイルのバイト数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの SWF ファイルのサイズ（バイト単位）です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ダウンロードプログレスバーの表示を現在のダウンロード情報で更新します。 一般的な実装では、ロードされた値が合計値で除算されて、パーセンテージが表示されます。 このメソッドを実装しなかった場合、何らかのアニメーションを表示するプログレスバーを作成し、ダウンロードが進行中であることをユーザーに通知する必要があります。
+     
+      <p><codeph>setProgress()</codeph> メソッドは、アプリケーションのダウンロード元がリモートサーバーで、アプリケーションがブラウザーのキャッシュに存在しない場合にのみ呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      ダウンロード中にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>戻り値が <codeph>true</codeph> の場合、ダウンロードプログレスバーが表示されます。 デフォルト動作では、700 ミリ秒の時間が経過した時点で、ダウンロードが完了したのが SWF ファイルのバイト数の半分以下の場合に、ダウンロードプログレスバーが表示されます。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>ダウンロード段階が開始してから経過した時間（ミリ秒）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc><codeph>bytesLoaded</codeph> プロパティおよび <codeph>bytesTotal</codeph> プロパティのある ProgressEvent オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ダウンロード中にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      ダウンロードプログレスバーが現在表示されていないことを前提として、初期化段階時にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph> の場合、ダウンロードプログレスバーが表示されます。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>ダウンロード段階が開始してから経過した時間（ミリ秒）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>アプリケーションからの <codeph>initProgress</codeph> イベントを受け取った回数です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ダウンロードプログレスバーが現在表示されていないことを前提として、初期化段階時にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:DownloadProgressBar:protected:DOWNLOAD_PERCENTAGE"><apiName>DOWNLOAD_PERCENTAGE</apiName><shortdesc>
+      SWF ファイルが完全にダウンロードされたときに、ダウンロード段階がプログレスバーを占めるパーセント。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>60</apiData><apiType value="uint"/><apiDefaultValue>60
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      SWF ファイルが完全にダウンロードされたときに、ダウンロード段階がプログレスバーを占めるパーセント。 プログレスバーの残りの部分は、初期化段階が占めます。 この値の範囲は 0 から 100 です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:MINIMUM_DISPLAY_TIME"><apiName>MINIMUM_DISPLAY_TIME</apiName><shortdesc>
+      表示を可視にするまでの最小ミリ秒数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="uint"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示を可視にするまでの最小ミリ秒数。 アプリケーションのダウンロードと初期化にかかる時間が最小ミリ秒数に指定された値より小さい場合、Flex はこの指定された時間が経過するまで一時停止してから、<codeph>complete</codeph> イベントを送出します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      初期化段階で取得すると予想される検証イベントの合計数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      初期化段階で取得すると予想される検証イベントの合計数です。この数は、4 以上の整数である必要があります（4 より大きい場合は、初期化コードの効率が低下する場合があります）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      backgroundImage プロパティで定義されている SWF ファイルまたはイメージのアルファレベル、または backgroundColor プロパティで定義されているカラーのアルファレベルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> プロパティで定義されている SWF ファイルまたはイメージのアルファレベル、または <codeph>backgroundColor</codeph> プロパティで定義されているカラーのアルファレベルです。 有効な値の範囲は 0 から 1.0 です。    
+     
+      <p><codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      ダウンロードプログレスバーの背景色です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      ダウンロードプログレスバーの背景色です。 <codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      プリローダーによって渡されるアプリケーションの背景イメージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      プリローダーによって渡されるアプリケーションの背景イメージです。 <codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。
+     
+      <p>値が null の場合、"未設定" であることを意味します。 このスタイルと <codeph>backgroundColor</codeph> スタイルの両方が undefined である場合、コンポーネントは透明な背景を持ちます。</p>
+     
+      <p>プリローダーは埋め込みイメージを表示しません。 実行時にロードされたイメージのみを使用できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      backgroundImage で指定されているイメージを、元のサイズとは異なるサイズに拡大または縮小します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> で指定されているイメージを、元のサイズとは異なるサイズに拡大および縮小します。 <codeph>"100%"</codeph> に設定すると、コンポーネント全体に収まるサイズにイメージを伸縮します。 パーセント値で指定する場合は、パーセント記号（%）付きで指定する必要があります。 <codeph>"auto"</codeph> の値で、イメージの元のサイズを維持します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barFrameRect:get"><apiName>barFrameRect</apiName><shortdesc>
+      プログレスバーの境界線のサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      プログレスバーの境界線のサイズです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barRect:get"><apiName>barRect</apiName><shortdesc>
+      プログレスバーのサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      プログレスバーのサイズです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:borderRect:get"><apiName>borderRect</apiName><shortdesc>
+      表示の境界線のサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      表示の境界線のサイズです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:downloadingLabel:get"><apiName>downloadingLabel</apiName><shortdesc>
+      ダウンロード段階でラベルとして表示するストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Loading"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ダウンロード段階でラベルとして表示するストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:initializingLabel:get"><apiName>initializingLabel</apiName><shortdesc>
+      初期化段階でラベルとして表示するストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Initializing"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      初期化段階でラベルとして表示するストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelFormat:get"><apiName>labelFormat</apiName><shortdesc>
+      ラベルの TextField コンポーネントの TextFormat オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      ラベルの TextField コンポーネントの TextFormat オブジェクトです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelRect:get"><apiName>labelRect</apiName><shortdesc>
+      ラベルの TextField コンポーネントのサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      ラベルの TextField コンポーネントのサイズです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:label:get"><apiName>label</apiName><shortdesc>
+      プログレスバーがアクティブなときに表示されるテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      プログレスバーがアクティブなときに表示されるテキストです。 Preloader クラスは、プログレスバーを表示する前にこの値を設定します。 サブクラスにこのプロパティを実装するのは、オプションです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentFormat:get"><apiName>percentFormat</apiName><shortdesc>
+      パーセントを表示するための TextField コンポーネントの TextFormat です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      パーセントを表示するための TextField コンポーネントの TextFormat です。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentRect:get"><apiName>percentRect</apiName><shortdesc>
+      パーセントを表示するための TextField コンポーネントのサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      パーセントを表示するための TextField コンポーネントのサイズです。 これは、読み取り専用のプロパティです。変更が必要な場合は、オーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showLabel:get"><apiName>showLabel</apiName><shortdesc>
+      ラベルを表示するか（true）、または表示しないか（false）を制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ラベルを表示するか（<codeph>true</codeph>）、または表示しないか（<codeph>false</codeph>）を制御します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showPercentage:get"><apiName>showPercentage</apiName><shortdesc>
+      パーセンテージを表示するか（true）、または表示しないか（false）を制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      パーセンテージを表示するか（<codeph>true</codeph>）、または表示しないか（<codeph>false</codeph>）を制御します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      ステージの高さ。Preloader クラスによって渡されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ステージの高さ。Preloader クラスによって渡されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      ステージの幅。Preloader クラスによって渡されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ステージの幅。Preloader クラスによって渡されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      ダウンンロードプログレスバーを表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ダウンンロードプログレスバーを表示するかどうかを指定します。
+     
+      <p>Preloader コントロールはプログレスバーを表示するように決定すると、この値を <codeph>true</codeph> に設定します。 Preloader コントロールはプログレスバーを非表示にするように決定すると、この値を <codeph>false</codeph> に設定します。</p>
+     
+      <p>DownloadProgressBar クラスのサブクラスでこのプロパティを変更しないでください。 その代わりに、setter メソッドをオーバーライドして、Preloader がこのプロパティをいつ変更したかを認識し、必要な措置を講じるようにすることができます。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Preloader クラスは、プリローダーからイベントをリッスンできるように、クラス自体への参照を表示クラスに渡します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Preloader クラスは、プリローダーからイベントをリッスンできるように、クラス自体への参照を表示クラスに渡します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+  SparkDownloadProgressBar クラスはダウンロードの進行状況を表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SparkDownloadProgressBar クラスはダウンロードの進行状況を表示します。アプリケーションでダウンロードおよびロードを実行しているとき、ユーザーにフィードバックを提供するために Preloader コントロールで使用されます。 
+ 
+  <p>ダウンロードプログレスバーには、アプリケーションの 2 つの段階（ダウンロード段階と初期化段階）に関する情報が表示されます。 </p>
+ 
+  <p>アプリケーションコンテナで、<codeph>preloader</codeph> プロパティを使用してサブクラスの名前を指定します。</p>
+ 
+  <p>SparkDownloadProgressBar クラスのサブクラスを作成すると、カスタムダウンロードプログレスバーのコンポーネントを実装することができます。MXML コンポーネントとして実装すると、ロードに著しく時間がかかります。ダウンロードプログレスバーを MXML コンポーネントとして実装することは避けてください。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:SparkDownloadProgressBar:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Event.COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>Event.COMPLETE</codeph> イベントのイベントリスナーです。 デフォルトの実装では、何も行われません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      表示のサブコンポーネントを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      表示のサブコンポーネントを作成します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      FlexEvent.INIT_COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>FlexEvent.INIT_COMPLETE</codeph> イベントのイベントリスナーです。この実装により、<codeph>Event.COMPLETE</codeph> イベントが送出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      FlexEvent.INIT_PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>FlexEvent.INIT_PROGRESS</codeph> イベントのイベントリスナーです。 この実装により、イベントが送出されるたびにプログレスバーが更新されます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      ダウンロードプログレスバーが Preloader の子として追加されると、Preloader によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ダウンロードプログレスバーが Preloader の子として追加されると、Preloader によって呼び出されます。 これが、ダウンロードプログレスバー設定の開始点となります。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      ProgressEvent.PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>ProgressEvent.PROGRESS</codeph> イベントのイベントリスナーです。 この実装により、ダウンロードされたバイトのパーセントでプログレスバーが更新されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      RSLEvent.RSL_COMPLETE イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_COMPLETE</codeph> イベントのイベントリスナーです。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      RSLEvent.RSL_ERROR イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_ERROR</codeph> イベントのイベントリスナーです。 このイベントリスナーは、RSL のダウンロード時に検出されたすべてのエラーを処理します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      RSLEvent.RSL_PROGRESS イベントのイベントリスナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>RSLEvent.RSL_PROGRESS</codeph> イベントのイベントリスナーです。 デフォルトの実装では、何も行われません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setDownloadProgress"><apiName>setDownloadProgress</apiName><shortdesc> 
+      ダウンロードプログレスバーの外側の部分を更新して、ダウンロードの進行状況を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>ダウンロードされたアプリケーションの SWF ファイルのバイト数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>アプリケーションの SWF ファイルのサイズ（バイト単位）です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      ダウンロードプログレスバーの外側の部分を更新して、ダウンロードの進行状況を示します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setInitProgress"><apiName>setInitProgress</apiName><shortdesc> 
+      ダウンロードプログレスバーの内側の部分を更新して、初期化の進行状況を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>完了した初期化ステップの数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>初期化ステップの合計数です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      ダウンロードプログレスバーの内側の部分を更新して、初期化の進行状況を示します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      ダウンロード中にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>戻り値が <codeph>true</codeph> の場合、ダウンロードプログレスバーが表示されます。 デフォルト動作では、700 ミリ秒の時間が経過した時点で、ダウンロードが完了したのが SWF ファイルのバイト数の半分以下の場合に、ダウンロードプログレスバーが表示されます。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>ダウンロード段階が開始してから経過した時間（ミリ秒）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc><codeph>bytesLoaded</codeph> プロパティおよび <codeph>bytesTotal</codeph> プロパティのある ProgressEvent オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ダウンロード中にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      ダウンロードプログレスバーが現在表示されていないことを前提として、初期化段階時にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph> の場合、ダウンロードプログレスバーが表示されます。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>ダウンロード段階が開始してから経過した時間（ミリ秒）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>アプリケーションからの <codeph>initProgress</codeph> イベントを受け取った回数です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ダウンロードプログレスバーが現在表示されていないことを前提として、初期化段階時にダウンロードプログレスバーを表示するかどうかを決めるアルゴリズムを定義します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      初期化段階で取得すると予想される検証イベントの合計数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      初期化段階で取得すると予想される検証イベントの合計数です。この数は、4 以上の整数である必要があります（4 より大きい場合は、初期化コードの効率が低下する場合があります）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      backgroundImage プロパティで定義されている SWF ファイルまたはイメージのアルファレベル、または backgroundColor プロパティで定義されているカラーのアルファレベルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> プロパティで定義されている SWF ファイルまたはイメージのアルファレベル、または <codeph>backgroundColor</codeph> プロパティで定義されているカラーのアルファレベルです。 有効な値の範囲は 0 から 1.0 です。カスタムクラスに独自の値を設定するには、このプロパティをオーバーライドします。
+     
+      <p><codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      ダウンロードプログレスバーの背景色です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      ダウンロードプログレスバーの背景色です。 カスタムクラスに独自の値を設定するには、このプロパティをオーバーライドします。
+     
+      <p><codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      プリローダーによって渡されるアプリケーションの背景イメージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      プリローダーによって渡されるアプリケーションの背景イメージです。 カスタムクラスに独自の値を設定するには、このプロパティをオーバーライドします。
+     
+      <p><codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれか一方を設定できますが、両方を設定することはできません。</p>
+     
+      <p>値が null の場合、"未設定" であることを意味します。 このスタイルと <codeph>backgroundColor</codeph> スタイルの両方が undefined である場合、コンポーネントは透明な背景を持ちます。</p>
+     
+      <p>プリローダーは埋め込みイメージを表示しません。 実行時にロードされたイメージのみを使用できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      backgroundImage で指定されているイメージを、元のサイズとは異なるサイズに拡大または縮小します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> で指定されているイメージを、元のサイズとは異なるサイズに拡大および縮小します。 <codeph>"100%"</codeph> に設定すると、コンポーネント全体に収まるサイズにイメージを伸縮します。 パーセント値で指定する場合は、パーセント記号（%）付きで指定する必要があります。 <codeph>"auto"</codeph> の値で、イメージの元のサイズを維持します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      ステージの高さ。Preloader クラスによって渡されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ステージの高さ。Preloader クラスによって渡されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      ステージの幅。Preloader クラスによって渡されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ステージの幅。Preloader クラスによって渡されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      ダウンンロードプログレスバーを表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ダウンンロードプログレスバーを表示するかどうかを指定します。
+     
+      <p>Preloader コントロールはプログレスバーを表示するように決定すると、この値を <codeph>true</codeph> に設定します。 Preloader コントロールはプログレスバーを非表示にするように決定すると、この値を <codeph>false</codeph> に設定します。</p>
+     
+      <p>SparkDownloadProgressBar クラスのサブクラスがこのプロパティを変更しないように注意してください。その代わりに、setter メソッドをオーバーライドして、Preloader がこのプロパティをいつ変更したかを認識し、必要な措置を講じるようにすることができます。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Preloader クラスは、プリローダーからイベントをリッスンできるように、クラス自体への参照を表示クラスに渡します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Preloader クラスは、プリローダーからイベントをリッスンできるように、クラス自体への参照を表示クラスに渡します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

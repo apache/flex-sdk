@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.styles"><apiName>mx.styles</apiName><apiDetail/><apiClassifier id="mx.styles:IStyleManager"><apiName>IStyleManager</apiName><shortdesc>
+  La classe IStyleManager gère les éléments suivants : les propriétés de style CSS dont la classe hérite ; les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial ; une liste de chaînes qui sont les alias des valeurs de couleur. Cette interface était utilisée par Flex 2.0.1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="2.0.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  La classe IStyleManager gère les éléments suivants : 
+  <ul>
+    <li>Les propriétés de style CSS dont la classe hérite </li>
+    <li>Les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial </li>
+    <li>Une liste de chaînes qui sont les alias des valeurs de couleur </li>
+  </ul>
+ 
+  Cette interface était utilisée par Flex 2.0.1 et a été remplacée dans Flex 3 par IStyleManager2. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      Efface l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS à effacer. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Pour plus d’informations sur cette méthode, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Efface l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le sélecteur spécifié est un sélecteur de classe (par exemple, « .bigMargins » ou « .myStyle »), vous devez vérifier que la propriété <codeph>selector</codeph> commence par un point (.).</p>
+     
+      <p>Si le sélecteur spécifié est un sélecteur de type (par exemple, « Button »), ne commencez pas la propriété <codeph>selector</codeph> par un point.</p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      Renvoie la valeur de couleur RVB numérique qui correspond à la chaîne de couleurs spécifiée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie une valeur uint qui représente la valeur de couleur ou <codeph>NOT_A_COLOR</codeph> si la valeur de la propriété <codeph>colorName</codeph> n’est pas un alias d’une couleur. 
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>Nom de la couleur. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur de couleur RVB numérique qui correspond à la chaîne de couleurs spécifiée. La chaîne de couleurs peut être un nom de couleur non sensible à la casse tel que <codeph>"red"</codeph>, <codeph>"Blue"</codeph> ou <codeph>"haloGreen"</codeph>, une valeur hexadécimale telle que 0xFF0000 ou une chaîne #-hexadécimale telle que <codeph>"#FF0000"</codeph>.
+     
+      <p>Cette méthode renvoie une valeur uint, telles que 4521830, qui représente une couleur. Vous pouvez convertir cette valeur uint en valeur hexadécimale en transmettant la base numérique (dans ce cas, 16), à la méthode <codeph>toString()</codeph> de la classe uint, comme l’illustre l’exemple suivant : </p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      Convertit le nom de couleur de chaque élément du tableau de couleurs en valeur colorimétrique RVB numérique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>Tableau de noms de couleur. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit le nom de couleur de chaque élément du tableau de couleurs en valeur colorimétrique RVB numérique. Chaque chaîne de couleurs peut être un nom de couleur non sensible à la casse tel que <codeph>"red"</codeph>, <codeph>"Blue"</codeph> ou <codeph>"haloGreen"</codeph>, une valeur hexadécimale telle que 0xFF0000 ou une chaîne #-hexadécimale telle que <codeph>"#FF0000"</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      Récupère la déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Déclaration de style dont le nom correspond à la propriété <codeph> selector</codeph>. 
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Récupère la déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le paramètre <codeph>selector</codeph> commence par un point (.), la déclaration CSSStyleDeclaration renvoyée est un sélecteur de classe qui s’applique uniquement aux occurrences dont la propriété <codeph>styleName</codeph> spécifie ce sélecteur (qui n’inclue pas de point). Par exemple, le sélecteur de classe <codeph>".bigMargins"</codeph> s’applique à tous les composants UIComponent dont le nom <codeph>styleName</codeph> is <codeph>"bigMargins"</codeph>.</p>
+     
+      <p>Si le paramètre <codeph>selector</codeph> ne commence pas par un point, la déclaration CSSStyleDeclaration renvoyée est un sélecteur de type qui s’applique à toutes les occurrences de ce type. Par exemple, le sélecteur de type <codeph>"button"</codeph> s’applique à toutes les occurrences de Button et ses sous-classes. </p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      Vérifie si la chaîne donnée est un alias de valeur de couleur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si <codeph>colorName</codeph> est un alias de couleur. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>Nom de la couleur à vérifier. Ce paramètre n’est pas sensible à la casse. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si la chaîne est un alias de valeur de couleur. Par exemple, par défaut, la chaîne « bleu » est un alias de 0x0000FF. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      Vérifie si un style hérite de valeurs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié hérite. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style dont il faut vérifier l’héritage. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si un style hérite. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      Vérifie si un style TextFormat hérite. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style TextFormat spécifié hérite. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style dont il faut vérifier héritage. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si un style TextFormat hérite de valeurs. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      Vérifie si ce style affecte le conteneur parent du composant de façon à exiger que le conteneur parent se redessine lorsque ce style change. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur l’aspect ou la présentation du composant du conteneur parent. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si ce style affecte le conteneur parent du composant de façon à exiger que le conteneur parent se redessine lorsque ce style est modifié. 
+     
+      <p>Lorsqu’un de ces styles est défini avec <codeph>setStyle()</codeph>, la méthode <codeph>invalidateDisplayList</codeph> est appelée sur le composant de conteneur parent pour qu’il effectue à nouveau le dessin et/ou la présentation ses enfants. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      Vérifie si le style modifie la taille du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur la taille mesurée du composant du conteneur parent. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si le style modifie la taille du conteneur parent du composant. 
+     
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le conteneur parent du composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      Vérifie si un style modifie la taille d’un composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur la taille mesurée du composant. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie si un style modifie la taille d’un composant. 
+     
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      Détermine si un paramètre spécifié est une propriété de style valide. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Si vous transmettez la valeur renvoyée par un appel de la méthode <codeph>getStyle()</codeph> à cette méthode, elle renvoie <codeph>true</codeph> si le style a été défini et <codeph>false</codeph> dans le cas contraire. 
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Propriété de style à vérifier. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si un paramètre spécifié est une propriété de style valide. Par exemple :
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>Cela peut être utile car certains styles peuvent être définis sur des valeurs telles que 0, <codeph>NaN</codeph>, la chaîne vide (<codeph>""</codeph>) ou <codeph>null</codeph>, qui peuvent entraîner l’échec du test <codeph>if (value)</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      Charge un fichier SWF de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Une implémentation IEventDispatcher qui prend en charge les événements StyleEvent.PROGRESS, StyleEvent.COMPLETE et StyleEvent.ERROR. 
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Emplacement du fichier SWF de style. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Ce paramètre est facultatif et est défini par défaut sur <codeph>true</codeph>. Pour plus d’informations sur ce paramètre, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Obsolète, n’est plus utilisé. Ce paramètre est facultatif et prend par défaut la valeur <codeph>false</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Classe ApplicationDomain transmise à la méthode <codeph>load()</codeph> de la classe IModuleInfo qui charge le fichier SWF de style. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>Classe SecurityDomain transmise à la méthode <codeph>load()</codeph> de la classe IModuleInfo qui charge le fichier SWF de style. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Charge un fichier SWF de style. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      Ajoute un nom de couleur à la liste des alias des couleurs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>Nom de la couleur à ajouter à la liste ; par exemple, « blue ». Si vous accéder ultérieurement à ce nom de couleur, la valeur n’est pas sensible à la casse. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>Valeur de la couleur, par exemple, 0x0000FF. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nom de couleur à la liste des alias des couleurs. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste de styles qui peuvent hériter des valeurs de leurs parents. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style ajouté à la liste des styles qui peuvent hériter des valeurs. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste de styles qui peuvent hériter des valeurs de leurs parents. 
+     
+      <p><b>Remarque :</b> veuillez éviter d’utiliser plusieurs fois les mêmes noms de style, car des conflits peuvent entraîner une baisse des performances si un style qui est déjà utilisé fait l’objet d’un héritage. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur l’aspect ou la présentation du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à enregistrer.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur l’aspect ou la présentation du conteneur parent du composant. Lorsqu’un de ces styles est défini avec <codeph>setStyle()</codeph>, la méthode <codeph>invalidateDisplayList</codeph> est appelée sur le composant de conteneur parent pour qu’il effectue à nouveau le dessin et/ou la présentation ses enfants. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à enregistrer.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du conteneur parent du composant. 
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le conteneur parent du composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style ajouté à la liste. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du composant. Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le composant afin de recalculer ultérieurement sa taille mesurée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      Définit l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS. 
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>Nouvelle déclaration de style. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer la mise à jour immédiate des styles ; en interne, Flex appelle la méthode <codeph>styleChanged()</codeph> du composant UIComponent. Définissez la valeur sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. 
+     
+      <p>Les styles sont mis à jour la prochaine fois où l’une des méthodes suivantes est appelée avec la propriété <codeph>update</codeph> définie sur <codeph>true</codeph>.
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>Généralement, si vous appelez l’une de ces méthodes plusieurs fois, définissez cette propriété sur <codeph>true</codeph> uniquement sur le dernier appel, de sorte que Flex n’appelle pas la méthode <codeph>styleChanged()</codeph> plusieurs fois. </p>
+     
+      <p>Si vous appelez la méthode <codeph>getStyle()</codeph>, Flex renvoie la valeur de style qui a été appliquée à la classe UIComponent par un appel à la méthode <codeph>styleChanged()</codeph>. L’aspect du composant peut ne pas refléter la valeur renvoyée par la méthode <codeph>getStyle()</codeph>. Cela se produit car une de ces méthodes de déclaration de style peut ne pas avoir encore été appelée avec propriété <codeph>update</codeph>définie sur <codeph>true</codeph>.</p>
+      
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le paramètre <codeph>selector</codeph> commence par un point (.), le sélecteur spécifié est un « sélecteur de classe » qui s’applique uniquement aux occurrences dont la propriété <codeph>styleName</codeph> spécifie ce sélecteur (qui n’inclue pas de point). Par exemple, le sélecteur de classe <codeph>".bigMargins"</codeph> s’applique à tous les composants UIComponent dont le nom <codeph>styleName</codeph> is <codeph>"bigMargins"</codeph>.</p>
+     
+      <p>Si le paramètre <codeph>selector</codeph> ne commence pas par un point, le sélecteur spécifié est un « sélecteur de type » qui s’applique à toutes les occurrences de ce type. Par exemple, le sélecteur de type <codeph>"button"</codeph> s’applique à toutes les occurrences de Button et ses sous-classes. </p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      Décharge un fichier SWF de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Emplacement du fichier SWF de style. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Pour plus d’informations sur cette méthode, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Décharge un fichier SWF de style. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+  Représente une condition d’un sélecteur CSSSelector utilisé pour faire correspondre un sous-ensemble de composants en fonction d’une propriété particulière. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente une condition d’un sélecteur CSSSelector utilisé pour faire correspondre un sous-ensemble de composants en fonction d’une propriété particulière. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links><apiConstructor id="mx.styles:CSSCondition:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>kind</apiItemName><apiType value="String"/><apiDesc>Type de condition. Pour les valeurs possibles, voir l’énumération CSSConditionKind. 
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur de la condition (sans syntaxe CSS). 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSCondition:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      Détermine si cette condition correspond au composant donné. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est true si le composant est une correspondance, false dans le cas contraire.  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>Composant auquel la condition peut s’appliquer. 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si cette condition correspond au composant donné. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSCondition:toString"><apiName>toString</apiName><shortdesc>
+     Renvoie une représentation de chaîne de cette condition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation sous forme de chaîne de cette condition, y compris la syntaxe CSS. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une représentation de chaîne de cette condition.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSCondition:kind:get"><apiName>kind</apiName><shortdesc>
+      Type de condition représentée par cette occurrence. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type de condition représentée par cette occurrence. Les options sont class, id et pseudo. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links></apiValue><apiValue id="mx.styles:CSSCondition:specificity:get"><apiName>specificity</apiName><shortdesc>
+      Calcule la spécificité d’un sélecteur conditionnel dans une chaîne de sélecteurs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Calcule la spécificité d’un sélecteur conditionnel dans une chaîne de sélecteurs. La spécificité totale est utilisée pour déterminer la priorité lors de l’application de plusieurs déclarations de style correspondantes. Les conditions d’ID contribuent pour 100 points, les conditions pseudo et class pour 10 points. Les sélecteurs d’une spécificité supérieure remplacent ceux d’une spécificité inférieure. Si des sélecteurs possèdent la même spécificité, l’ordre de déclaration définit la priorité (c’est-à-dire, le dernier est prioritaire). 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSCondition:value:get"><apiName>value</apiName><shortdesc>
+      Valeur de cette condition sans syntaxe CSS. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Valeur de cette condition sans syntaxe CSS. Pour obtenir une représentation sous forme de chaîne incluant une syntaxe CSS, appelez la méthode <codeph>toString()</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleModule"><apiName>IStyleModule</apiName><shortdesc>
+ Interface simple permettant de manipuler les modules de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Interface simple permettant de manipuler les modules de style. Vous pouvez associer un objet à un type IStyleModule afin d’éliminer toute dépendance au type StyleModule dans l’application de chargement. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:setStyleDeclarations"><apiName>setStyleDeclarations</apiName><shortdesc>
+      Crée et définit des déclarations de style à partir des modules de style dans le gestionnaire de style donné. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiDesc>Gestionnaire de style dans lequel les déclarations de style sont chargées. Les déclarations de style sont créées par rapport à ce gestionnaire de style. La fonction unload() décharge les styles à partir de ce gestionnaire de style. Si la valeur transmise est null, le gestionnaire de style de niveau supérieur est utilisé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Crée et définit des déclarations de style à partir des modules de style dans le gestionnaire de style donné. Cela doit être appelé après que le module de style a été créé. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:unload"><apiName>unload</apiName><shortdesc>
+      Décharge le module de style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Décharge le module de style.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+  Représente un nœud de sélecteur dans une chaîne de sélecteurs potentielle utilisée pour faire correspondre une déclaration de style aux composants. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente un nœud de sélecteur dans une chaîne de sélecteurs potentielle utilisée pour faire correspondre une déclaration de style à des composants. 
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.styles:CSSSelector:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>subject</apiItemName><apiType value="String"/><apiDesc>Représentation ordinaire de ce sélecteur sans conditions ou ancêtres. Il s’agit généralement d’un nom de classe qualifié, par exemple, « spark.components.Button ». Vous pouvez utiliser " pour faire correspondre tous les composants ou « global ». pour un sélecteur global. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>conditions</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc> Un tableau d’objets facultatif de type CSSCondition utilisé pour faire correspondre un sous-ensemble des occurrences de composant. Actuellement, une seule condition ou une paire est prise en charge. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ancestor</apiItemName><apiOperationClassifier>mx.styles:CSSSelector</apiOperationClassifier><apiData>null</apiData><apiDesc>Sélecteur facultatif permettant de faire correspondre un composant issu d’un ancêtre arbitraire.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSSelector:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      Détermine si ce sélecteur correspond au composant donné. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>la valeur est true si le composant est une correspondance ou false dans le cas contraire.  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>Composant auquel le sélecteur peut s’appliquer. 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si ce sélecteur correspond au composant donné. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSSelector:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une représentation de chaîne de ce sélecteur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation sous forme de chaîne de ce sélecteur y compris l’ensemble de sa syntaxe, de ses conditions et de ses ancêtres. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une représentation de chaîne de ce sélecteur.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSSelector:ancestor:get"><apiName>ancestor</apiName><shortdesc>
+      Si ce sélecteur fait partie d’un sélecteur descendant, il peut avoir une autre sélecteur défini en tant qu’ancêtre arbitraire. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      Si ce sélecteur fait partie d’un sélecteur descendant, il peut avoir un autre sélecteur défini en tant qu’ancêtre arbitraire. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:conditions:get"><apiName>conditions</apiName><shortdesc>
+      Ce sélecteur peut correspondre à un sous-ensemble de composants en spécifiant d’autres conditions (par exemple, un composant doit avoir un id, une propriété styleName (équivalente à une condition « class » dans CSS) ou un état (équivalent à une condition « pseudo » dans CSS) particulier)).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Ce sélecteur peut correspondre à un sous-ensemble de composants en spécifiant d’autres conditions (par exemple, un composant doit avoir un id, une propriété styleName (équivalente à une condition « class » dans CSS) ou un état (équivalent à une condition « pseudo » dans CSS) particulier)).
+      
+      <p>En l’absence de conditions, cette propriété est null. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:specificity:get"><apiName>specificity</apiName><shortdesc>
+      Calcule la spécificité d’une chaîne de sélecteur pour déterminer la priorité lors de l’application de plusieurs déclarations de style correspondantes. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Calcule la spécificité d’une chaîne de sélecteur pour déterminer la priorité lors de l’application de plusieurs déclarations de style correspondantes. Notez que les conditions d’ID contribuent pour 100 points, les conditions pseudo et classe pour 10 points, les types (y compris les descendants dans une chaîne des sélecteurs) pour 1 point. Sélecteurs universels (’’) qui ne contribuent à rien. Le résultat est la somme de ces contributions. Les sélecteurs d’une spécificité supérieure remplacent ceux d’une spécificité inférieure. Si des sélecteurs possèdent la même spécificité, l’ordre de déclaration définit la priorité (c’est-à-dire, le dernier est prioritaire). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:subject:get"><apiName>subject</apiName><shortdesc>
+      Sujet de ce nœud de sélecteur (uniquement). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Sujet de ce nœud de sélecteur (uniquement). Pour obtenir une représentation sous forme de chaîne de l’ensemble des conditions et des descendants de ce sélecteur, appelez la méthode <codeph>toString()</codeph>. 
+     
+      <p>Si ce sélecteur représente le nœud racine d’une chaîne de sélecteurs potentielle, le sujet représente également le sujet de l’ensemble de l’expression de sélecteur. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:ISimpleStyleClient"><apiName>ISimpleStyleClient</apiName><shortdesc>
+  Cette interface décrit les propriétés et les méthodes qu’un objet doit implémenter afin de participer au sous-système de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface décrit les propriétés et les méthodes qu’un objet doit implémenter afin de participer au sous-système de style. Cette interface est conçue pour être utilisée par les classes qui obtiennent leurs valeurs de style des d’autres objets plutôt que par le biais de valeurs et de sélecteurs de type localement définies. Cette interface est implémentée par la classe ProgrammaticSkin. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IStyleClient"><linktext>mx.styles.IStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      Appelé lorsque la valeur d’une propriété de style change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style qui a changé.    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé lorsque la valeur d’une propriété de style change. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      Source des valeurs de style de cet objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Source des valeurs de style de cet objet. La valeur de la propriété <codeph>styleName</codeph> peut être de l’un des trois types suivants : 
+     
+      <ul>
+        <li>Objet String, tel que « headerStyle ». L’objet String nomme un sélecteur de classe défini dans une feuille de style CSS. </li>
+     
+        <li>Objet CSSStyleDeclaration, tel que <codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>.</li>
+     
+        <li>UIComponent. L’objet qui implémente cette interface hérite de toutes les valeurs de style du composant UIComponent référencé. </li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IAdvancedStyleClient"><apiName>IAdvancedStyleClient</apiName><shortdesc>
+  Cette interface décrit les propriétés avancées que le composant doit implémenter pour participer pleinement au sous-système de style avancé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface décrit les propriétés avancées que le composant doit implémenter pour participer pleinement au sous-système de style avancé. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      Renvoie true si la valeur currentCSSState n’est pas nulle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur false.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           <p>Notez que les composants Spark utilisent leur état d’habillage comme pseudo état. Les composants Halo utilisent la propriété <codeph>currentState</codeph>. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      Renvoie la valeur true si cssState correspond à currentCSSState. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si <codeph>cssState</codeph> correspond à <codeph>currentCSSState</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur null.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc>Une valeur possible de <codeph>CSSCondition.value</codeph>. Elle représente l’état actuel de ce composant utilisé pour faire correspondre les pseudo-sélecteurs CSS.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si <codeph>cssState</codeph> correspond à <codeph>currentCSSState</codeph>. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           <p>Notez que les composants Spark utilisent leur état d’habillage comme pseudo état. Les composants Halo utilisent la propriété <codeph>currentState</codeph>. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      Détermine si l’occurrence est identique au, ou est une sous-classe du, type donné. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si <codeph>cssType</codeph> est dans la hiérarchie des sélecteurs de types qualifiés. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>Objet CSSSelector. 
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si l’occurrence est identique au, ou est une sous-classe du, type donné. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      Flex() appelle la méthode stylesInitialized() lorsque les styles d’un composant sont d’abord initialisés. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Flex appelle la méthode <codeph>stylesInitialized()</codeph> lorsque les styles d’un composant sont d’abord initialisés.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      Identité du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Identité du composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      Le parent de cette interface IAdvancedStyleClient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      Le parent de cette interface <codeph>IAdvancedStyleClient</codeph>. Vous ne devez généralement pas attribuer cette propriété directement. Elle est définie par les méthodes <codeph>addChild, addChildAt, removeChild et removeChildAt</codeph> de la classe <codeph>flash.display.DisplayObjectContainer</codeph> et les méthodes <codeph>mx.core.UIComponent.addStyleClient()</codeph> et <codeph>mx.core.UIComponent.removeStyleClient()</codeph>. Si elle se voit attribuer une valeur directement, sans appeler l’une des méthodes mentionnées ci-dessus, l’occurrence de la classe qui implémente cette interface n’héritera pas les styles à partir de l’objet UIComponent ou DisplayObject. De plus, si elle se voit attribuer une valeur directement sans supprimer auparavant l’objet du parent actuel avec les méthodes de suppression répertoriées ci-dessus, une fuite de mémoire peut se produire.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+  Renvoie un objet qui implémente l’interface IAdvancedStyleClient. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Enveloppe un objet qui implémente l’interface IAdvancedStyleClient. Cette interface prend en charge une propriété <codeph>filterMap</codeph> qui contient les paires style-source/style- destination. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link></related-links><apiConstructor id="mx.styles:StyleProxy:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiDesc>Objet qui implémente l’interface IStyleClient. 
+      </apiDesc></apiParam><apiParam><apiItemName>filterMap</apiItemName><apiType value="Object"/><apiDesc>Jeu de styles à transmettre de la source au sous-composant.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:StyleProxy:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.styles.IStyleClient#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/><apiDesc>Tableau d’objets CSSStyleDeclaration.
+      
+      </apiDesc></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.styles.IStyleClient#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/><apiDesc>Valeur du style.
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      Renvoie true si la valeur currentCSSState n’est pas nulle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur false.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           <p>Notez que les composants Spark utilisent leur état d’habillage comme pseudo état. Les composants Halo utilisent la propriété <codeph>currentState</codeph>. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc><codeph>true</codeph> si <codeph>cssState</codeph> correspond à <codeph>currentCSSState</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur null.
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc>Une valeur possible de <codeph>CSSCondition.value</codeph>. Elle représente l’état actuel de ce composant utilisé pour faire correspondre les pseudo-sélecteurs CSS.
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc><codeph>true</codeph> si <codeph>cssType</codeph> est dans la hiérarchie des sélecteurs de types qualifiés. 
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>Objet CSSSelector. 
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Indique si les changements de style doivent être propagés aux enfants des enfants. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Régénère les chaînes proto des enfants. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:registerEffects"><apiName>registerEffects</apiName><shortdesc conref="mx.styles.IStyleClient#registerEffects()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes de noms d’effets. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#registerEffects()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.styles.IStyleClient#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>Nouvelle valeur du style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style qui a changé.    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:StyleProxy:className:get"><apiName>className</apiName><shortdesc conref="mx.styles.IStyleClient#className">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#className">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:filterMap:get"><apiName>filterMap</apiName><shortdesc>
+      Jeu de paires de chaînes. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de paires de chaînes. Le premier élément de la paire de chaînes est le nom du style du composant source. Le deuxième élément de la paire de chaînes est le nom du style du sous-composant. Cet objet vous permet de mapper un style particulier du composant parent à un autre style du sous-composant. Cette fonction est utile si le composant parent et le sous-composant partagent le même style, mais que vous souhaitez contrôler leurs valeurs séparément. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:id:get"><apiName>id</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#id">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#id">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:source:get"><apiName>source</apiName><shortdesc>
+      Objet qui implémente l’interface IStyleClient. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      Objet qui implémente l’interface IStyleClient. Il s’agit de l’objet dont la mise en proxy est en cours. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleName:get"><apiName>styleName</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleParent:get"><apiName>styleParent</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleManager"><apiName>StyleManager</apiName><shortdesc>
+  La classe StyleManager gère les éléments suivants : les propriétés de style CSS dont la classe hérite ; les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial ; une liste de chaînes qui sont les alias des valeurs de couleur.
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe StyleManager gère les éléments suivants : 
+  <ul>
+    <li>Les propriétés de style CSS dont la classe hérite </li>
+    <li>Les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial </li>
+    <li>Une liste de chaînes qui sont les alias des valeurs de couleur </li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:StyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      Efface l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS à effacer. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Pour plus d’informations sur cette méthode, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.clearStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Efface l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le sélecteur spécifié est un sélecteur de classe (par exemple, « .bigMargins » ou « .myStyle »), vous devez vérifier que la propriété <codeph>selector</codeph> commence par un point (.).</p>
+     
+      <p>Si le sélecteur spécifié est un sélecteur de type (par exemple, « Button »), ne commencez pas la propriété <codeph>selector</codeph> par un point.</p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      Convertit le nom de couleur de chaque élément du tableau de couleurs en valeur colorimétrique RVB numérique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>Tableau de noms de couleur. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorNames on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Convertit le nom de couleur de chaque élément du tableau de couleurs en valeur colorimétrique RVB numérique. Chaque chaîne de couleurs peut être un nom de couleur non sensible à la casse tel que <codeph>"red"</codeph>, <codeph>"Blue"</codeph> ou <codeph>"haloGreen"</codeph>, une valeur hexadécimale telle que 0xFF0000 ou une chaîne #-hexadécimale telle que <codeph>"#FF0000"</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      Renvoie la valeur de couleur RVB numérique qui correspond à la chaîne de couleurs spécifiée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie une valeur uint qui représente la valeur de couleur ou <codeph>NOT_A_COLOR</codeph> si la valeur de la propriété <codeph>colorName</codeph> n’est pas un alias d’une couleur. 
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>Nom de la couleur. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Renvoie la valeur de couleur RVB numérique qui correspond à la chaîne de couleurs spécifiée. La chaîne de couleurs peut être un nom de couleur non sensible à la casse tel que <codeph>"red"</codeph>, <codeph>"Blue"</codeph> ou <codeph>"haloGreen"</codeph>, une valeur hexadécimale telle que 0xFF0000 ou une chaîne #-hexadécimale telle que <codeph>"#FF0000"</codeph>.
+     
+      <p>Cette méthode renvoie une valeur uint, telles que 4521830, qui représente une couleur. Vous pouvez convertir cette valeur uint en valeur hexadécimale en transmettant la base numérique (dans ce cas, 16), à la méthode <codeph>toString()</codeph> de la classe uint, comme l’illustre l’exemple suivant : </p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      Récupère la déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Déclaration de style dont le nom correspond à la propriété <codeph> selector</codeph>. 
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Récupère la déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le paramètre <codeph>selector</codeph> commence par un point (.), la déclaration CSSStyleDeclaration renvoyée est un sélecteur de classe qui s’applique uniquement aux occurrences dont la propriété <codeph>styleName</codeph> spécifie ce sélecteur (qui n’inclue pas de point). Par exemple, le sélecteur de classe <codeph>".bigMargins"</codeph> s’applique à tous les composants UIComponent dont le nom <codeph>styleName</codeph> is <codeph>"bigMargins"</codeph>.</p>
+     
+      <p>Si le paramètre <codeph>selector</codeph> ne commence pas par un point, la déclaration CSSStyleDeclaration renvoyée est un sélecteur de type qui s’applique à toutes les occurrences de ce type. Par exemple, le sélecteur de type <codeph>"button"</codeph> s’applique à toutes les occurrences de Button et ses sous-classes. </p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleManager"><apiName>getStyleManager</apiName><shortdesc>
+      Renvoie le gestionnaire de style d’un objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Gestionnaire de style de la fabrique de modules donnée. 
+      
+      </apiDesc><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier></apiReturn><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>Fabrique de modules d’un objet dont vous souhaitez le gestionnaire de style. Si la valeur est null, le gestionnaire de style de niveau supérieur est renvoyé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le gestionnaire de style d’un objet. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      Vérifie si la chaîne donnée est un alias de valeur de couleur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si <codeph>colorName</codeph> est un alias de couleur. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>Nom de la couleur à vérifier. Ce paramètre n’est pas sensible à la casse. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si la chaîne est un alias de valeur de couleur. Par exemple, par défaut, la chaîne « bleu » est un alias de 0x0000FF. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      Vérifie si un style hérite de valeurs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié hérite. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style dont il faut vérifier l’héritage. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si un style hérite. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      Vérifie si un style TextFormat hérite. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style TextFormat spécifié hérite. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style dont il faut vérifier héritage. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingTextFormatStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si un style TextFormat hérite de valeurs. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      Vérifie si ce style affecte le conteneur parent du composant de façon à exiger que le conteneur parent se redessine lorsque ce style change. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur l’aspect ou la présentation du composant du conteneur parent. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si ce style affecte le conteneur parent du composant de façon à exiger que le conteneur parent se redessine lorsque ce style est modifié. 
+     
+      <p>Lorsqu’un de ces styles est défini avec <codeph>setStyle()</codeph>, la méthode <codeph>invalidateDisplayList</codeph> est appelée sur le composant de conteneur parent pour qu’il effectue à nouveau le dessin et/ou la présentation ses enfants. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      Vérifie si le style modifie la taille du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur la taille mesurée du composant du conteneur parent. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si le style modifie la taille du conteneur parent du composant. 
+     
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le conteneur parent du composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      Vérifie si un style modifie la taille d’un composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie la valeur <codeph>true</codeph> si le style spécifié est celui qui peut avoir une incidence sur la taille mesurée du composant. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à vérifier.
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Vérifie si un style modifie la taille d’un composant. 
+     
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      Détermine si un paramètre spécifié est une propriété de style valide. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Si vous transmettez la valeur renvoyée par un appel de la méthode <codeph>getStyle()</codeph> à cette méthode, elle renvoie <codeph>true</codeph> si le style a été défini et <codeph>false</codeph> dans le cas contraire. 
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Propriété de style à vérifier. 
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isValidStyleValue on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Détermine si un paramètre spécifié est une propriété de style valide. Par exemple :
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>Cela peut être utile car certains styles peuvent être définis sur des valeurs telles que 0, <codeph>NaN</codeph>, la chaîne vide (<codeph>""</codeph>) ou <codeph>null</codeph>, qui peuvent entraîner l’échec du test <codeph>if (value)</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      Charge un fichier SWF de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Une implémentation IEventDispatcher qui prend en charge les événements StyleEvent.PROGRESS, StyleEvent.COMPLETE et StyleEvent.ERROR. 
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Emplacement du fichier SWF de style. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Ce paramètre est facultatif et est défini par défaut sur <codeph>true</codeph>. Pour plus d’informations sur ce paramètre, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Obsolète, n’est plus utilisé. Ce paramètre est facultatif et prend par défaut la valeur <codeph>false</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Classe ApplicationDomain transmise à la méthode <codeph>load()</codeph> de la classe IModuleInfo qui charge le fichier SWF de style. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>Classe SecurityDomain transmise à la méthode <codeph>load()</codeph> de la classe IModuleInfo qui charge le fichier SWF de style. Ce paramètre est facultatif et prend par défaut la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.loadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Charge un fichier SWF de style. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      Ajoute un nom de couleur à la liste des alias des couleurs. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>Nom de la couleur à ajouter à la liste ; par exemple, « blue ». Si vous accéder ultérieurement à ce nom de couleur, la valeur n’est pas sensible à la casse. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>Valeur de la couleur, par exemple, 0x0000FF. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Ajoute un nom de couleur à la liste des alias des couleurs. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste de styles qui peuvent hériter des valeurs de leurs parents. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style ajouté à la liste des styles qui peuvent hériter des valeurs. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste de styles qui peuvent hériter des valeurs de leurs parents. 
+     
+      <p><b>Remarque :</b> veuillez éviter d’utiliser plusieurs fois les mêmes noms de style, car des conflits peuvent entraîner une baisse des performances si un style qui est déjà utilisé fait l’objet d’un héritage. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur l’aspect ou la présentation du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à enregistrer.
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur l’aspect ou la présentation du conteneur parent du composant. Lorsqu’un de ces styles est défini avec <codeph>setStyle()</codeph>, la méthode <codeph>invalidateDisplayList</codeph> est appelée sur le composant de conteneur parent pour qu’il effectue à nouveau le dessin et/ou la présentation ses enfants. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du conteneur parent du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style à enregistrer.
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du conteneur parent du composant. 
+      <p>Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le conteneur parent du composant afin de recalculer ultérieurement sa taille mesurée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>Nom du style ajouté à la liste. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Effectue un ajout à la liste des styles, ce qui peut avoir une incidence sur la taille mesurée du composant. Lorsqu’un de ces styles est défini avec la méthode <codeph>setStyle()</codeph>, la méthode <codeph>invalidateSize()</codeph> est appelée automatiquement sur le composant afin de recalculer ultérieurement sa taille mesurée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      Définit l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS. 
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>Nouvelle déclaration de style. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer la mise à jour immédiate des styles ; en interne, Flex appelle la méthode <codeph>styleChanged()</codeph> du composant UIComponent. Définissez la valeur sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. 
+     
+      <p>Les styles sont mis à jour la prochaine fois où l’une des méthodes suivantes est appelée avec la propriété <codeph>update</codeph> définie sur <codeph>true</codeph>.
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>Généralement, si vous appelez l’une de ces méthodes plusieurs fois, définissez cette propriété sur <codeph>true</codeph> uniquement sur le dernier appel, de sorte que Flex n’appelle pas la méthode <codeph>styleChanged()</codeph> plusieurs fois. </p>
+     
+      <p>Si vous appelez la méthode <codeph>getStyle()</codeph>, Flex renvoie la valeur de style qui a été appliquée à la classe UIComponent par un appel à la méthode <codeph>styleChanged()</codeph>. L’aspect du composant peut ne pas refléter la valeur renvoyée par la méthode <codeph>getStyle()</codeph>. Cela se produit car une de ces méthodes de déclaration de style peut ne pas avoir encore été appelée avec propriété <codeph>update</codeph>définie sur <codeph>true</codeph>.</p>
+      
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.setStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Définit l’objet CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. 
+     
+      <p>Si le paramètre <codeph>selector</codeph> commence par un point (.), le sélecteur spécifié est un « sélecteur de classe » qui s’applique uniquement aux occurrences dont la propriété <codeph>styleName</codeph> spécifie ce sélecteur (qui n’inclue pas de point). Par exemple, le sélecteur de classe <codeph>".bigMargins"</codeph> s’applique à tous les composants UIComponent dont le nom <codeph>styleName</codeph> is <codeph>"bigMargins"</codeph>.</p>
+     
+      <p>Si le paramètre <codeph>selector</codeph> ne commence pas par un point, le sélecteur spécifié est un « sélecteur de type » qui s’applique à toutes les occurrences de ce type. Par exemple, le sélecteur de type <codeph>"button"</codeph> s’applique à toutes les occurrences de Button et ses sous-classes. </p>
+     
+      <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      Décharge un fichier SWF de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Emplacement du fichier SWF de style. 
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Définissez la valeur sur <codeph>true</codeph> pour forcer une mise à jour immédiate des styles. Définissez sur <codeph>false</codeph> pour empêcher toute mise à jour immédiate des styles de l’application. Pour plus d’informations sur cette méthode, voir la description dans la méthode <codeph>setStyleDeclaration()</codeph>. 
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.unloadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      Décharge un fichier SWF de style. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiValue id="mx.styles:StyleManager:NOT_A_COLOR"><apiName>NOT_A_COLOR</apiName><shortdesc>
+      La méthode getColorName() renvoie cette valeur si la chaîne n’est pas un nom de couleur légitime. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      La méthode <codeph>getColorName()</codeph> renvoie cette valeur si la chaîne n’est pas un nom de couleur légitime.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleManager:selectors:get"><apiName>selectors</apiName><shortdesc>
+      Renvoie un tableau de tous les sélecteurs CSS enregistrées via le gestionnaire StyleManager. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="Array"/><apiDeprecated replacement="IStyleManager2.selectors on a style manager instance" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Renvoie un tableau de tous les sélecteurs CSS enregistrées via le gestionnaire StyleManager. Vous pouvez transmettre des éléments de ce tableau à la méthode <codeph>getStyleDeclaration()</codeph> pour obtenir l’objet CSSStyleDeclaration correspondant. Les sélecteurs de classe sont ajoutés au début avec un point. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+  La classe CSSStyleDeclaration représente un jeu de règles de style CSS. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CSSStyleDeclaration représente un jeu de règles de style CSS. Le compilateur MXML génère automatiquement un objet CSSStyleDeclaration pour chaque sélecteur des fichiers CSS associés à une application Flex. 
+  
+  <p>Une règle CSS telle que 
+  <pre>
+      Button { color: #FF0000 }
+  </pre>
+  affecte toutes les occurrences de la classe Button ; un sélecteur comme <codeph>Button</codeph>, également dénommé sélecteur de type, ne doit pas commencer par un point. </p>
+   <p>Une règle CSS telle que 
+  <pre>
+      .redButton { color: #FF0000 }
+  </pre>
+  affecte uniquement les composants dont la propriété <codeph>styleName</codeph> est définie sur <codeph>"redButton"</codeph> ; un sélecteur comme <codeph>.redButton</codeph>, dénommé sélecteur de classe, doit commencer par un point.</p>
+   <p>Vous pouvez accéder aux objets CSSStyleDeclaration autogénérés à l’aide de la méthode <codeph>StyleManager.getStyleDeclaration()</codeph>, en transmettant un sélecteur de type
+  <pre>
+  var buttonDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration("Button");
+  </pre>
+  ou un sélecteur de classe 
+  <pre>
+  var redButtonStyleDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration(".redButton");
+  </pre>
+  </p>
+   <p>Vous pouvez utiliser la méthode <codeph>getStyle()</codeph>, <codeph>setStyle()</codeph> et <codeph>clearStyle</codeph> pour obtenir, définir et effacer les propriétés de style d’un objet CSSStyleDeclaration. </p>
+   <p>Vous pouvez également créer et installer un objet CSSStyleDeclaration lors de l’exécution à l’aide de la méthode <codeph>StyleManager.setStyleDeclaration()</codeph> : 
+  <pre>
+  var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(".bigMargins");
+  newStyleDeclaration.defaultFactory = function():void
+  {
+      leftMargin = 50;
+      rightMargin = 50;
+  }
+  StyleManager.setStyleDeclaration(".bigMargins", newStyleDeclaration, true);
+  </pre>
+  </p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#UIComponent"><linktext>mx.core.UIComponent</linktext></link><link href="mx.styles.xml#StyleManager"><linktext>mx.styles.StyleManager</linktext></link></related-links><apiConstructor id="mx.styles:CSSStyleDeclaration:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>selector</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>- Si le sélecteur est de type CSSSelector, les sélecteurs CSS avancés sont pris en charge. Si une chaîne est utilisée pour le sélecteur, seuls sélecteurs CSS simples sont pris en charge. Si la chaîne commence par un point, elle est interprétée comme un sélecteur de classe universel. Dans le cas contraire, elle doit représenter un sélecteur de type simple. Si la valeur n’est pas null, cet objet CSSStyleDeclaration sera enregistré avec le gestionnaire StyleManager.  
+      
+      </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiData>null</apiData><apiDesc>- Le gestionnaire de style dans lequel définir cette déclaration. Si styleManager est null, le gestionnaire de style de niveau supérieur sera utilisé. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>autoRegisterWithStyleManager</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>- Si la valeur est true, définissez le sélecteur dans styleManager. Le sélecteur est défini uniquement si <codeph>selector</codeph> et <codeph>styleManager</codeph> ne sont pas null.
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSStyleDeclaration:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      Supprime une propriété de style pour cet objet CSSStyleDeclaration. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime une propriété de style pour cet objet CSSStyleDeclaration. Cette opération est identique à la définition de la valeur du style sur <codeph>undefined</codeph>.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:getStyle"><apiName>getStyle</apiName><shortdesc>
+      Récupère la valeur d’une propriété de style spécifiée, telle que déterminée uniquement par cet objet CSSStyleDeclaration. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de la propriété de style si cette dernière est définie ou <codeph>undefined</codeph> dans le cas contraire. 
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Récupère la valeur d’une propriété de style spécifiée, telle que déterminée uniquement par cet objet CSSStyleDeclaration. 
+           <p>La valeur renvoyée peut être de n’importe quel type. </p>
+           <p>Les valeurs <codeph>null</codeph>, <codeph>""</codeph>, <codeph>false</codeph>, <codeph>NaN</codeph> et <codeph>0</codeph> sont toutes des valeurs de style valides, mais la valeur <codeph>undefined</codeph> ne l’est pas ; elle indique que le style spécifié n’est pas défini sur cette déclaration CSSStyleDeclaration. Vous pouvez utiliser la méthode <codeph>StyleManager.isValidStyleValue()</codeph> pour tester la valeur renvoyée. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      Détermine si cette déclaration de style s’applique au composant donné en fonction d’une correspondance de la chaîne de sélecteur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est true si cette déclaration de style s’applique au composant, false dans le cas contraire.  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>Composant devant correspondre à la déclaration de style.     
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si cette déclaration de style s’applique au composant donné en fonction d’une correspondance de la chaîne de sélecteur. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:setStyle"><apiName>setStyle</apiName><shortdesc>
+      Définit une propriété de style pour cet objet CSSStyleDeclaration. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+           </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>Valeur de la propriété de style. La valeur renvoyée peut être de n’importe quel type. Les valeurs <codeph>null</codeph>, <codeph>""</codeph>, <codeph>false</codeph>, <codeph>NaN</codeph> et <codeph>0</codeph> sont toutes des valeurs de style valides, ce qui n’est pas le cas de la valeur <codeph>undefined</codeph>. La définition d’une propriété de style sur la valeur <codeph>undefined</codeph> est identique à l’appel de la méthode <codeph>clearStyle()</codeph>.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit une propriété de style pour cet objet CSSStyleDeclaration. 
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSStyleDeclaration:selectorIndex"><apiName>selectorIndex</apiName><shortdesc>
+      L’ordre dans lequel cet objet CSSStyleDeclaration a été ajouté à son gestionnaire StyleManager.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      L’ordre dans lequel cet objet CSSStyleDeclaration a été ajouté à son gestionnaire StyleManager. MatchStyleDeclarations doit renvoyer les déclarations dans l’ordre dans lequel elles ont été effectuées.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:defaultFactory:get"><apiName>defaultFactory</apiName><shortdesc>
+      Cette fonction, si elle n’est pas null, est généralement générée automatiquement par le compilateur MXML. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Cette fonction, si elle n’est pas <codeph>null</codeph>, est généralement générée automatiquement par le compilateur MXML. Elle produit des copies d’un objet ordinaire, tel que <codeph>{ leftMargin: 10, rightMargin: 10 }</codeph>, contenant des paires nom/valeur pour les propriétés de style. L’objet est utilisé pour construire un nœud de la chaîne de prototype à des fins de recherche des propriétés de style.
+           <p>Si cette déclaration CSSStyleDeclaration est administrée par un composant UIComponent écrit en MXML, cette fonction code les attributs de style qui ont été spécifiés dans la balise racine de la définition du composant. </p>
+           <p>Si le composant UIComponent a été écrit en code ActionScript, cette propriété est <codeph>null</codeph>. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:factory:get"><apiName>factory</apiName><shortdesc>
+      Cette fonction, si elle n’est pas null, est généralement générée automatiquement par le compilateur MXML. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Cette fonction, si elle n’est pas <codeph>null</codeph>, est généralement générée automatiquement par le compilateur MXML. Elle produit des copies d’un objet ordinaire, tel que <codeph>{ leftMargin: 10, rightMargin: 10 }</codeph>, contenant des paires nom/valeur pour les propriétés de style. L’objet est utilisé pour construire un nœud de la chaîne de prototype à des fins de recherche des propriétés de style.
+           <p>Si cette déclaration CSSStyleDeclaration est administrée par un composant UIComponent, cette fonction code les attributs de style qui ont été spécifiés en MXML pour une occurrence de ce composant. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:overrides:get"><apiName>overrides</apiName><shortdesc>
+      Si la méthode setStyle() est appelée sur un composant UIComponent ou CSSStyleDeclaration lors de l’exécution, cet objet stocke les paires nom/valeur qui ont été définies ; elles remplacent les paires nom/valeur des objets produits par les méthodes spécifiées par les propriétés defaultFactory et factory. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Si la méthode <codeph>setStyle()</codeph> est appelée sur un composant UIComponent ou CSSStyleDeclaration lors de l’exécution, cet objet stocke les paires nom/valeur qui ont été définies ; elles remplacent les paires nom/valeur des objets produits par les méthodes spécifiées par les propriétés <codeph>defaultFactory</codeph> et <codeph>factory</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:selector:get"><apiName>selector</apiName><shortdesc>
+      Cette propriété correspond au sélecteur de base d’une chaîne potentielle de sélecteurs et de conditions utilisés pour faire correspondre une déclaration de style CSS à des composants. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      Cette propriété correspond au sélecteur de base d’une chaîne potentielle de sélecteurs et de conditions utilisés pour faire correspondre une déclaration de style CSS à des composants. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:specificity:get"><apiName>specificity</apiName><shortdesc>
+      Détermine l’ordre de priorité lors de l’application de plusieurs déclarations de style à un composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Détermine l’ordre de priorité lors de l’application de plusieurs déclarations de style à un composant. Si les déclarations de style ont une priorité identique, la dernière est prioritaire.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:subject:get"><apiName>subject</apiName><shortdesc>
+      Le sujet décrit le nom d’un composant pouvant être une correspondance potentielle pour cette déclaration de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Le sujet décrit le nom d’un composant pouvant être une correspondance potentielle pour cette déclaration de style. Le sujet est déterminé comme le sélecteur de type simple le plus à droite dans une chaîne de sélecteurs potentielle. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleClient"><apiName>IStyleClient</apiName><shortdesc>
+  Cette interface décrit les propriétés et les méthodes qu’un objet doit implémenter afin de participer entièrement au sous-système de style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface décrit les propriétés et les méthodes qu’un objet doit implémenter afin de participer entièrement au sous-système de style. Cette interface est implémentée par le composant UIComponent. 
+ 
+  <p>S’il n’a pas besoin de stocker les valeurs de style localement, l’objet peut implémenter l’interface <codeph>ISimpleStyleClient</codeph> à la place.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#ISimpleStyleClient"><linktext>mx.styles.ISimpleStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      Supprime une propriété de style de cette occurrence de composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime une propriété de style de cette occurrence de composant.
+     
+      <p>La méthode <codeph>getStyle()</codeph> ne renvoie pas nécessairement la valeur <codeph>undefined</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      Renvoie un tableau d’objets CSSStyleDeclaration pour le sélecteur de type qui s’applique à ce composant. Renvoie la valeur null si aucun n’existe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau d’objets CSSStyleDeclaration.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie un tableau d’objets CSSStyleDeclaration pour le sélecteur de type qui s’applique à ce composant. Renvoie la valeur <codeph>null</codeph> si aucun n’existe.
+     
+      <p>Par exemple, supposons que le composant MyButton étende le contrôle Button. Cette méthode recherche d’abord un sélecteur MyButton. Ensuite, elle recherche un sélecteur de type Button. Enfin, elle recherche un sélecteur de type UIComponent.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      Extrait une propriété de style ayant été définie n’importe où dans la chaîne de recherche de style de ce composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur du style.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Extrait une propriété de style ayant été définie n’importe où dans la chaîne de recherche de style de ce composant. 
+     
+      <p>Cette méthode est utilisée pour obtenir tout type de propriété de style et la valeur renvoyée peut être une valeur booléenne, String, Number, int, uint (pour une couleur RVB), classe (pour un habillage) ou tout type d’objet. Par conséquent, le type renvoyé est spécifié sous la forme ~~.</p>
+     
+      <p>Si vous obtenez une propriété de style particulière, vous connaitrez son type et souhaiterez souvent stocker le résultat dans une variable de ce type. Pour ce faire, vous pouvez utiliser l’opérateur <codeph>as</codeph> ou la coercition. Par exemple :</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>Si la propriété de style n’a pas été définie dans la chaîne de recherche de style, la valeur renvoyée par la méthode <codeph>getStyle()</codeph> est <codeph>undefined</codeph> Notez que <codeph>undefined</codeph> est une valeur spéciale qui ne correspond pas à <codeph>false</codeph>, l’objet String vide (<codeph>""</codeph>), <codeph>NaN</codeph>, 0 ou <codeph>null</codeph>. Aucune valeur de style valide n’est jamais <codeph>undefined</codeph>. Vous pouvez utiliser la méthode statique <codeph>StyleManager.isValidStyleValue()</codeph> pour vérifier si la valeur a été définie.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      Propage les changements de style aux enfants de ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Indique si les changements de style doivent être propagés aux enfants des enfants. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Propage les changements de style aux enfants de ce composant.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      Configure les valeurs de cache du style interne afin que la méthode getStyle() fonctionne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Régénère les chaînes proto des enfants. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Configure les valeurs de cache du style interne afin que la méthode <codeph>getStyle()</codeph> fonctionne. Si cet objet possède déjà des enfants, réinitialisez les caches de style des enfants.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      Enregistre le gestionnaire EffectManager comme l’un des écouteurs d’événement pour chaque événement d’effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes de noms d’effets. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Enregistre le gestionnaire EffectManager comme l’un des écouteurs d’événement pour chaque événement d’effet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      Définit une propriété de style pour cette occurrence de composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>Nouvelle valeur du style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit une propriété de style pour cette occurrence de composant.
+     
+      <p>Ce peut remplacer un style défini globalement.</p>
+     
+      <p>L’appel de la méthode <codeph>setStyle()</codeph> peut entraîner une baisse des performances. Utilisez-la uniquement lorsque cela est nécessaire.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      Nom de la classe du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de la classe du composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      Objet contenant les styles héritables pour ce composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet contenant les styles héritables pour ce composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      Objet contenant les styles non héritables pour ce composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet contenant les styles non héritables pour ce composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      Déclaration de style contenant les styles en ligne déclarés par cet objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      Déclaration de style contenant les styles en ligne déclarée par cet objet. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleManager2"><apiName>IStyleManager2</apiName><shortdesc>
+  La classe IStyleManager2 gère les éléments suivants : les propriétés de style CSS dont la classe hérite ; les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial ; une liste de chaînes qui sont les alias des valeurs de couleur.
+  
+   </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleManager</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  La classe IStyleManager2 gère les éléments suivants : 
+  <ul>
+    <li>Les propriétés de style CSS dont la classe hérite </li>
+    <li>Les propriétés de style qui sont des couleurs et doivent donc bénéficier d’un traitement spécial </li>
+    <li>Une liste de chaînes qui sont les alias des valeurs de couleur </li>
+  </ul>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:getMergedStyleDeclaration"><apiName>getMergedStyleDeclaration</apiName><shortdesc> 
+     Récupère une déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Déclaration de style dont le nom correspond à la propriété <codeph> selector</codeph>.  
+      
+     </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>Nom du sélecteur CSS.  
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc> 
+     Récupère une déclaration CSSStyleDeclaration qui stocke les règles du sélecteur CSS spécifié. L’objet CSSStyleDeclaration est créé en fusionnant les propriétés du sélecteur CSS spécifié dans ce gestionnaire de style avec les propriétés de tout gestionnaire de style parent. 
+     
+     <p>Si le paramètre <codeph>selector</codeph> commence par un point (.), la déclaration CSSStyleDeclaration renvoyée est un sélecteur de classe qui s’applique uniquement aux occurrences dont la propriété <codeph>styleName</codeph> spécifie ce sélecteur (qui n’inclue pas de point). Par exemple, le sélecteur de classe <codeph>".bigMargins"</codeph> s’applique à tous les composants UIComponent dont le nom <codeph>styleName</codeph> is <codeph>"bigMargins"</codeph>.</p> 
+     
+     <p>Si le paramètre <codeph>selector</codeph> ne commence pas par un point, la déclaration CSSStyleDeclaration renvoyée est un sélecteur de type qui s’applique à toutes les occurrences de ce type. Par exemple, le sélecteur de type <codeph>"button"</codeph> s’applique à toutes les occurrences de Button et ses sous-classes. </p> 
+     
+     <p>Le sélecteur <codeph>global</codeph>, similaire à un sélecteur de type, ne commence pas par un point. </p> 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:parent:get"><apiName>parent</apiName><shortdesc>
+      Gestionnaire de style qui est le parent de ce StyleManager. </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      Gestionnaire de style qui est le parent de ce StyleManager. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:selectors:get"><apiName>selectors</apiName><shortdesc>
+      Renvoie un tableau de tous les sélecteurs CSS enregistrées via le gestionnaire StyleManager. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Renvoie un tableau de tous les sélecteurs CSS enregistrées via le gestionnaire StyleManager. Vous pouvez transmettre des éléments de ce tableau à la méthode <codeph>getStyleDeclaration()</codeph> pour obtenir l’objet CSSStyleDeclaration correspondant. Les sélecteurs de classe sont ajoutés au début avec un point. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSConditionKind"><apiName>CSSConditionKind</apiName><shortdesc>
+  Enumération des types de conditions CSSCondition. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Enumération des types de conditions CSSCondition. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSCondition"><linktext>mx.styles.CSSCondition</linktext></link><link href="mx.styles.xml#CSSSelector"><linktext>mx.styles.CSSSelector</linktext></link></related-links><apiValue id="mx.styles:CSSConditionKind:CLASS"><apiName>CLASS</apiName><shortdesc>
+      Condition de sélecteur correspondant à un composant par nom styleName. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>class</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Condition de sélecteur correspondant à un composant par nom styleName. Exemples : Button.special { ... } .special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:ID"><apiName>ID</apiName><shortdesc>
+      Condition de sélecteur correspondant à un composant par ID. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>id</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Condition de sélecteur correspondant à un composant par ID. Exemples: Button#special { ... } #special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:PSEUDO"><apiName>PSEUDO</apiName><shortdesc>
+      Condition de sélecteur correspondant à un composant par état (qui peut être dynamique et évoluer progressivement). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pseudo</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Condition de sélecteur correspondant à un composant par état (qui peut être dynamique et évoluer progressivement). Exemples: Button:special { ... } :special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+  Classe de base qui peut être utilisée lors de l’implémentation d’un objet utilisant l’interface IAdvancedStyleClient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base qui peut être utilisée lors de l’implémentation d’un objet utilisant l’interface <codeph>IAdvancedStyleClient</codeph>. La classe de base fournit les implémentations des méthodes et des propriétés requises par un objet pour participer au sous-système de style.
+   <p>Outre l’interface <codeph>IAdvancedStyleClient</codeph>, cet objet implémente également les interfaces <codeph>IFlexModule</codeph> et <codeph>IMXMLObject</codeph>. L’interface <codeph>IMXMLObject</codeph> contient une méthode <codeph>initialized</codeph> qui est appelée lorsque la classe est instanciée à l’aide d’une déclaration MXML. L’implémentation de la méthode <codeph>initialized</codeph> fournie par cette classe de base ajoutera l’occurrence de la classe à l’objet de document qui contient la déclaration MXML. Pour plus de détails, voir la description de la méthode <codeph>initialized</codeph>.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link><link href="mx.styles.xml#AdvancedStyleClient/initialized"><linktext>initialized</linktext></link></related-links><apiConstructor id="mx.styles:AdvancedStyleClient:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:AdvancedStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      
+      Supprime une propriété de style de cette occurrence de composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Supprime une propriété de style de cette occurrence de composant.
+     
+      <p>La méthode <codeph>getStyle()</codeph> ne renvoie pas nécessairement la valeur <codeph>undefined</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      
+      Renvoie un tableau d’objets CSSStyleDeclaration pour le sélecteur de type qui s’applique à ce composant. Renvoie la valeur null si aucun n’existe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau d’objets CSSStyleDeclaration.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Renvoie un tableau d’objets CSSStyleDeclaration pour le sélecteur de type qui s’applique à ce composant. Renvoie la valeur <codeph>null</codeph> si aucun n’existe.
+     
+      <p>Par exemple, supposons que le composant MyButton étende le contrôle Button. Cette méthode recherche d’abord un sélecteur MyButton. Ensuite, elle recherche un sélecteur de type Button. Enfin, elle recherche un sélecteur de type UIComponent.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      
+      Extrait une propriété de style ayant été définie n’importe où dans la chaîne de recherche de style de ce composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur du style.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Extrait une propriété de style ayant été définie n’importe où dans la chaîne de recherche de style de ce composant. 
+     
+      <p>Cette méthode est utilisée pour obtenir tout type de propriété de style et la valeur renvoyée peut être une valeur booléenne, String, Number, int, uint (pour une couleur RVB), classe (pour un habillage) ou tout type d’objet. Par conséquent, le type renvoyé est spécifié sous la forme ~~.</p>
+     
+      <p>Si vous obtenez une propriété de style particulière, vous connaitrez son type et souhaiterez souvent stocker le résultat dans une variable de ce type. Pour ce faire, vous pouvez utiliser l’opérateur <codeph>as</codeph> ou la coercition. Par exemple :</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>Si la propriété de style n’a pas été définie dans la chaîne de recherche de style, la valeur renvoyée par la méthode <codeph>getStyle()</codeph> est <codeph>undefined</codeph> Notez que <codeph>undefined</codeph> est une valeur spéciale qui ne correspond pas à <codeph>false</codeph>, l’objet String vide (<codeph>""</codeph>), <codeph>NaN</codeph>, 0 ou <codeph>null</codeph>. Aucune valeur de style valide n’est jamais <codeph>undefined</codeph>. Vous pouvez utiliser la méthode statique <codeph>StyleManager.isValidStyleValue()</codeph> pour vérifier si la valeur a été définie.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      Renvoie true si la valeur currentCSSState n’est pas nulle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur false.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si la valeur <codeph>currentCSSState</codeph> n’est pas égale à <codeph>null</codeph>. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           <p>Notez que les composants Spark utilisent leur état d’habillage comme pseudo état. Les composants Halo utilisent la propriété <codeph>currentState</codeph>. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:initialized"><apiName>initialized</apiName><shortdesc>
+      La méthode initialized est appelée lorsque cette classe ou une classe qui étend cette classe est utilisée dans une déclaration MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML ayant créé cet objet.
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>L’identificateur utilisé par l’objet de document pour faire référence à cet objet.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode initialized est appelée lorsque cette classe ou une classe qui étend cette classe est utilisée dans une déclaration MXML. Elle est appelée une fois que l’objet d’implémentation a été créé et que toutes les propriétés de composants spécifiées sur la balise MXML ont été initialisées.
+      <p>
+      Si le document qui a créé cet objet est un composant <codeph>UIComponent</codeph>, (par ex., l’application, le module, etc.), la méthode <codeph>addStyleClient</codeph> de l’objet UIComponent sera appelée pour ajouter cet objet à la liste des clients de style non visuels de l’objet UIComponent. Cela permet à l’objet d’hériter les styles du document. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      
+      Renvoie la valeur true si cssState correspond à currentCSSState. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si <codeph>cssState</codeph> correspond à <codeph>currentCSSState</codeph>. Par défaut, <codeph>currentCSSState</codeph> est identique à <codeph>currentState</codeph>. En l’absence d’état, elle renvoie la valeur null.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc>Une valeur possible de <codeph>CSSCondition.value</codeph>. Elle représente l’état actuel de ce composant utilisé pour faire correspondre les pseudo-sélecteurs CSS.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si <codeph>cssState</codeph> correspond à <codeph>currentCSSState</codeph>. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           <p>Notez que les composants Spark utilisent leur état d’habillage comme pseudo état. Les composants Halo utilisent la propriété <codeph>currentState</codeph>. </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      
+      Détermine si l’occurrence est identique au, ou est une sous-classe du, type donné. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si <codeph>cssType</codeph> est dans la hiérarchie des sélecteurs de types qualifiés. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>Objet CSSSelector. 
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Détermine si l’occurrence est identique au, ou est une sous-classe du, type donné. Vous ne devez généralement pas appeler cette méthode directement. Elle est appelée par la méthode <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph>. 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      Propage les changements de style aux enfants de cette occurrence du client de style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+           </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Indique si les changements de style doivent être propagés aux enfants des enfants.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Propage les changements de style aux enfants de cette occurrence du client de style. Un client de style non visuel (c’est-à-dire un client de style qui n’est pas une classe DisplayObject) n’a pas d’enfants, par conséquent, cette méthode ne fait rien pour les clients de style non visuels.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      Configure les valeurs de cache du style interne afin que la méthode getStyle() fonctionne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Régénère les chaînes proto des enfants.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Configure les valeurs de cache du style interne afin que la méthode <codeph>getStyle()</codeph> fonctionne. 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      Enregistre le gestionnaire EffectManager comme l’un des écouteurs d’événement pour chaque événement d’effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>Tableau de chaînes de noms d’effets.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Enregistre le gestionnaire EffectManager comme l’un des écouteurs d’événement pour chaque événement d’effet.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      
+      Définit une propriété de style pour cette occurrence de composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom de la propriété de style.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>Nouvelle valeur du style.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Définit une propriété de style pour cette occurrence de composant.
+     
+      <p>Ce peut remplacer un style défini globalement.</p>
+     
+      <p>L’appel de la méthode <codeph>setStyle()</codeph> peut entraîner une baisse des performances. Utilisez-la uniquement lorsque cela est nécessaire.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      Détecte les modifications apportées aux propriétés de style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Le nom de la propriété de style, ou null si tous les styles de ce client de style ont changé.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détecte les modifications apportées aux propriétés de style. Lorsqu’une propriété de style est définie, Flex appelle la méthode <codeph>styleChanged()</codeph> et lui transmet le nom du style défini.
+           <p>Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet <codeph>AdvancedStyleClient</codeph>. Lorsque vous créez une classe personnalisée, vous pouvez remplacer la méthode <codeph>styleChanged()</codeph> pour vérifier le nom de style transmis et traiter la modification en conséquence. Vous pouvez ainsi remplacer le comportement par défaut d’un style existant ou ajouter vos propres propriétés de style personnalisées.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      
+      Flex() appelle la méthode stylesInitialized() lorsque les styles d’un composant sont d’abord initialisés. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Flex appelle la méthode <codeph>stylesInitialized()</codeph> lorsque les styles d’un composant sont d’abord initialisés.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:AdvancedStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      Nom de la classe du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de la classe du composant. 
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      
+      Identité du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Identité du composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      Objet contenant les styles héritables de cette occurrence de client de style non visuel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet contenant les styles héritables de cette occurrence de client de style non visuel.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      Une fabrique de modules est utilisée comme contexte pour la recherche du gestionnaire de style qui contrôle les styles de cette occurrence de client de style non visuel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      Une fabrique de modules est utilisée comme contexte pour la recherche du gestionnaire de style qui contrôle les styles de cette occurrence de client de style non visuel.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      Début de la chaîne de styles non hérités de ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Début de la chaîne de styles non hérités de ce composant. La méthode <codeph>getStyle()</codeph> accède simplement à <codeph>nonInheritingStyles[styleName]</codeph> pour parcourir la totalité de la chaîne liée au prototype. Cet objet est défini par la méthode <codeph>initProtoChain()</codeph>. En règle générale, les développeurs n’ont jamais besoin d’accéder à cette propriété directement.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      Déclaration de style contenant les styles en ligne déclarés par cet objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      Déclaration de style contenant les styles en ligne déclarée par cet objet. 
+           </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleManager:get"><apiName>styleManager</apiName><shortdesc>
+      Renvoie l’occurrence SystemManager utilisée par ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      Renvoie l’occurrence SystemManager utilisée par ce composant.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      
+      Source des valeurs de style de cet objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      Source des valeurs de style de cet objet. La valeur de la propriété <codeph>styleName</codeph> peut être de l’un des trois types suivants : 
+     
+      <ul>
+        <li>Objet String, tel que « headerStyle ». L’objet String nomme un sélecteur de classe défini dans une feuille de style CSS. </li>
+     
+        <li>Objet CSSStyleDeclaration, tel que <codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>.</li>
+     
+        <li>UIComponent. L’objet qui implémente cette interface hérite de toutes les valeurs de style du composant UIComponent référencé. </li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      Le parent d’un composant permet d’évaluer les sélecteurs descendants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      Le parent d’un composant permet d’évaluer les sélecteurs descendants. Un parent doit également être une interface IAdvancedStyleClient pour participer aux déclarations de style avancées.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

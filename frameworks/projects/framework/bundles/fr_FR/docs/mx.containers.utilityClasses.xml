@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.containers.utilityClasses"><apiName>mx.containers.utilityClasses</apiName><apiDetail/><apiClassifier id="mx.containers.utilityClasses:ConstraintRow"><apiName>ConstraintRow</apiName><shortdesc>
+  La classe ConstraintRow partitionne un conteneur placé de façon absolue sur le plan horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="container"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ConstraintRow partitionne un conteneur placé de façon absolue sur le plan horizontal. La taille des occurrences ConstraintRow peut être définie de trois manières : par taille fixe, par pourcentage de taille ou par le contenu. Ces options déterminent la position de la ligne de contrainte, l’espace occupé par la ligne de contrainte dans le conteneur, ainsi que la manière dont la ligne de contrainte réagit aux modifications de la taille du conteneur. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:ConstraintRow:ConstraintRow"><apiName>ConstraintRow</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:ConstraintRow:initialized"><apiName>initialized</apiName><shortdesc>
+       Appelée automatiquement par le compilateur MXML lorsque l’occurrence ConstraintRow est créée en utilisant une balise MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML contenant cette classe ConstraintRow.
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Ignoré.
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       Appelée automatiquement par le compilateur MXML lorsque l’occurrence ConstraintRow est créée en utilisant une balise MXML. Si vous créez la ligne de contrainte par le biais d’ActionScript, vous devez appeler cette méthode en transmettant le document MXML et la valeur <codeph>null</codeph> pour la propriété <codeph>id</codeph>.
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:ConstraintRow:setActualHeight"><apiName>setActualHeight</apiName><shortdesc>
+      Définit la taille de l’occurrence ConstraintRow
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>Hauteur de la ligne de contrainte, calculée lors du traitement du conteneur parent.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit la taille de l’occurrence ConstraintRow
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:ConstraintRow:baseline:get"><apiName>baseline</apiName><shortdesc>
+      Nombre qui indique la ligne de base de l'instance ConstraintRow, en pixels, en rapport avec le bord supérieur de la ligne ou avec la zone ascendante maximale des éléments contenus dans cette ligne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="baselineChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"maxAscent:0"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre qui indique la ligne de base de l'instance ConstraintRow, en pixels, en rapport avec le bord supérieur de la ligne ou avec la zone ascendante maximale des éléments contenus dans cette ligne.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      Nombre définissant la hauteur explicite de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="explicitHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur explicite de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:height:get"><apiName>height</apiName><shortdesc>
+      Nombre définissant la hauteur de l’occurrence ConstraintRow, en pixels, dans les coordonnées du parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="heightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur de l’occurrence ConstraintRow, en pixels, dans les coordonnées du parent.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:id:get"><apiName>id</apiName><shortdesc>
+      ID de l’occurrence ConstraintRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ID de l’occurrence ConstraintRow. Cette valeur devient le nom d’occurrence de la ligne de contrainte et ne doit pas contenir d’espace ni de caractère spécial. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      Nombre définissant la hauteur maximale de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur maximale de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      Nombre définissant la hauteur minimale de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur minimale de l’occurrence ConstraintRow, en pixels, dans les coordonnées de l’occurrence ConstraintRow.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      Nombre définissant la hauteur d’un composant sous forme de pourcentage de la taille de son parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="percentHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur d’un composant sous forme de pourcentage de la taille de son parent. Valeurs autorisées : 0 à 100. La valeur par défaut est NaN. La définition de la propriété <codeph>width</codeph> provoque la réinitialisation de cette propriété, qui prend alors la valeur NaN.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:ConstraintColumn"><apiName>ConstraintColumn</apiName><shortdesc>
+  La classe ConstraintColumn partitionne un conteneur placé de façon absolue sur le plan vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="container"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ConstraintColumn partitionne un conteneur dont la position est absolue sur le plan vertical. La taille des occurrences ConstraintColumn peut être définie de trois manières : par taille fixe, par pourcentage de taille ou par le contenu. Ces options déterminent la position de la colonne de contrainte, l’espace occupé par la colonne de contrainte dans le conteneur, ainsi que la manière dont la colonne de contrainte réagit aux modifications de la taille du conteneur. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:ConstraintColumn:ConstraintColumn"><apiName>ConstraintColumn</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:ConstraintColumn:initialized"><apiName>initialized</apiName><shortdesc>
+       Appelée automatiquement par le compilateur MXML lorsque l’occurrence ConstraintColumn est créée en utilisant une balise MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML contenant cette occurrence ConstraintColumn.
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Ignoré.
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       Appelée automatiquement par le compilateur MXML lorsque l’occurrence ConstraintColumn est créée en utilisant une balise MXML. Si vous créez l’occurrence ConstraintColumn par le biais d’ActionScript, vous devez appeler cette méthode en transmettant le document MXML et la valeur <codeph>null</codeph> pour la propriété <codeph>id</codeph>.
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:ConstraintColumn:setActualWidth"><apiName>setActualWidth</apiName><shortdesc>
+	  Définit la taille de la colonne de contrainte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>Largeur de la colonne de contrainte, calculée lors du traitement du conteneur parent.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Définit la taille de la colonne de contrainte.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:ConstraintColumn:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      Nombre définissant la largeur explicite de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="explicitWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur explicite de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:id:get"><apiName>id</apiName><shortdesc>
+      ID de l’occurrence ConstraintColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ID de l’occurrence ConstraintColumn. Cette valeur devient le nom d’occurrence de l’occurrence ConstraintColumn et ne doit pas contenir d’espace ni de caractère spécial. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      Nombre définissant la largeur maximale de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur maximale de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      Nombre définissant la largeur minimale de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur minimale de l’occurrence ConstraintColumn, en pixels, dans les coordonnées de l’occurrence ConstraintColumn.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      Nombre définissant la largeur d’un composant sous forme de pourcentage de la taille de son conteneur parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="percentWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur d’un composant sous forme de pourcentage de la taille de son conteneur parent. Valeurs autorisées : 0 à 100. La valeur par défaut est NaN. La définition de la propriété <codeph>width</codeph> provoque la réinitialisation de cette propriété, qui prend alors la valeur NaN.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:width:get"><apiName>width</apiName><shortdesc>
+      Nombre définissant la largeur de l’occurrence ConstraintColumn, en pixels, dans les coordonnées du conteneur parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur de l’occurrence ConstraintColumn, en pixels, dans les coordonnées du conteneur parent.
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:PostScaleAdapter"><apiName>PostScaleAdapter</apiName><shortdesc>
+  La classe PostScaleAdapter est utilisée comme une couche de compatibilité pour les classes Flex 3 qui reposent sur les propriétés width, height, min, max, explicit, measured et autres à déterminer après l’application de la mise à l’échelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.core:IConstraintClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PostScaleAdapter est utilisée comme une couche de compatibilité pour les classes Flex 3 qui reposent sur les propriétés width, height, min, max, explicit, measured et autres à déterminer après l’application de la mise à l’échelle. Cette classe est utile puisque dans Flex 4, les propriétés sont calculées avant que la mise à l’échelle ne soit appliquée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:PostScaleAdapter:PostScaleAdapter"><apiName>PostScaleAdapter</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:addEventListener"><apiName>addEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getBounds"><apiName>getBounds</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>targetCoordinateSpace</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getCompatibleIUIComponent"><apiName>getCompatibleIUIComponent</apiName><shortdesc>
+      Appelez la méthode getCompatibleIUIComponent lorsque vous souhaitez travailler avec une interface IUIComponent renvoyant des propriétés width, height, min, max, explicit, measured, etc.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      Appelez la méthode getCompatibleIUIComponent lorsque vous souhaitez travailler avec une interface IUIComponent renvoyant des propriétés width, height, min, max, explicit, measured, etc. dans des coordonnées postérieures à la mise à l’échelle.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getConstraintValue"><apiName>getConstraintValue</apiName><shortdesc>
+      
+      Renvoie la valeur de contrainte spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de contrainte ou null si elle n’est pas définie.
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/><apiDesc>Nom de la valeur de contrainte. Les paramètres de contrainte sont "<codeph>baseline</codeph>", "<codeph>bottom</codeph>", "<codeph>horizontalCenter</codeph>", "<codeph>left</codeph>", "<codeph>right</codeph>", "<codeph>top</codeph>" et "<codeph>verticalCenter</codeph>".
+     
+      <p>Pour plus d’informations sur ces paramètres, voir les conteneurs Canvas et Panel et les métadonnées de style AnchorStyles.</p>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie la valeur de contrainte spécifiée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getExplicitOrMeasuredHeight"><apiName>getExplicitOrMeasuredHeight</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getExplicitOrMeasuredWidth"><apiName>getExplicitOrMeasuredWidth</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getRect"><apiName>getRect</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>targetCoordinateSpace</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:globalToLocal"><apiName>globalToLocal</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hasEventListener"><apiName>hasEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hitTestObject"><apiName>hitTestObject</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hitTestPoint"><apiName>hitTestPoint</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>shapeFlag</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      Initialise l’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Initialise l’objet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode validateDisplayList() du composant avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode <codeph>validateDisplayList()</codeph> du composant avant le rendu de la liste d’affichage.
+	 
+	  <p>Pour les composants qui étendent l’interface UIComponent, cela provoque l’appel de la méthode <codeph>updateDisplayList()</codeph>.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode validateProperties() du composant avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode <codeph>validateProperties()</codeph> du composant avant le rendu de la liste d’affichage.
+	 
+	  <p>Pour les composants qui étendent l’interface UIComponent, cela provoque l’appel de la méthode <codeph>commitProperties</codeph>.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode validateSize() du composant avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  L’appel de cette méthode provoque l’appel de la méthode <codeph>validateSize()</codeph> du composant avant le rendu de la liste d’affichage.
+	 
+	  <p>Pour les composants qui étendent l’interface UIComponent, cela provoque l’appel de la méthode <codeph>measure()</codeph>, sauf si les propriétés <codeph>explicitWidth</codeph> et <codeph>explicitHeight</codeph> du composant sont toutes deux définies.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:localToGlobal"><apiName>localToGlobal</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:move"><apiName>move</apiName><shortdesc>
+      
+	  Déplace cet objet vers les coordonnées x et y spécifiées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Nouvelle position x de l’objet.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Nouvelle position y de l’objet.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Déplace cet objet vers les coordonnées x et y spécifiées.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:owns"><apiName>owns</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>p</apiItemName><apiType value="flash.display:DisplayObjectContainer"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:removeEventListener"><apiName>removeEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+      
+	  Définit la taille réelle de cet objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>Nouvelle largeur de l’objet.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>Nouvelle hauteur de l’objet.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Définit la taille réelle de cet objet.
+	 
+	  <p>Cette méthode est principalement utilisée dans le cadre de l’implémentation de la méthode <codeph>updateDisplayList()</codeph>, qui permet de calculer la taille réelle de l’objet, en fonction de sa taille explicite, de sa taille par rapport au parent (pourcentage) et de sa taille mesurée. Vous pouvez ensuite appliquer cette taille réelle à l’objet en appelant la méthode <codeph>setActualSize()</codeph>.</p>
+	 
+	  <p>Dans d’autres situations, il est préférable de définir les propriétés telles que <codeph>width</codeph>, <codeph>height</codeph>, <codeph>percentWidth</codeph> et <codeph>percentHeight</codeph> plutôt que d’appeler cette méthode.</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setConstraintValue"><apiName>setConstraintValue</apiName><shortdesc>
+      
+      Définit la valeur de contrainte spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/><apiDesc>Nom de la valeur de contrainte. Les paramètres de contrainte sont "<codeph>baseline</codeph>", "<codeph>bottom</codeph>", "<codeph>horizontalCenter</codeph>", "<codeph>left</codeph>", "<codeph>right</codeph>", "<codeph>top</codeph>" et "<codeph>verticalCenter</codeph>".
+     
+      <p>Pour plus d’informations sur ces paramètres, voir les conteneurs Canvas et Panel et les métadonnées de style AnchorStyles.</p>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Nouvelle valeur de la contrainte.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Définit la valeur de contrainte spécifiée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setVisible"><apiName>setVisible</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>noEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:validateNow"><apiName>validateNow</apiName><shortdesc>
+      
+      Valide et met à jour les propriétés et la mise en forme de cet objet en appelant immédiatement les méthodes validateProperties(), validateSize() et validateDisplayList() lorsque cela est nécessaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Valide et met à jour les propriétés et la mise en forme de cet objet en appelant immédiatement les méthodes <codeph>validateProperties()</codeph>, <codeph>validateSize()</codeph> et <codeph>validateDisplayList()</codeph> lorsque cela est nécessaire.
+     
+      <p>Lorsque des propriétés sont modifiées, les nouvelles valeurs ne prennent pas effet immédiatement sur le composant. Généralement, l’ensemble du code d’application devant être exécuté à ce moment est exécuté. La classe LayoutManager appelle ensuite les méthodes <codeph>validateProperties()</codeph>, <codeph>validateSize()</codeph> et <codeph>validateDisplayList()</codeph> sur les composants, en fonction de la nécessité ou non de les valider et de leur profondeur dans la hiérarchie des objets de la liste d’affichage.</p>
+	 
+      <p>Par exemple, la définition de la propriété <codeph>width</codeph> est retardée, car elle peut nécessiter un nouveau calcul des largeurs des enfants ou des parents de l’objet. Le fait de retarder le traitement l’empêche de se répéter lorsque le code de l’application définit la propriété <codeph>width</codeph> à plusieurs reprises. Cette méthode permet de remplacer manuellement ce comportement.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:willTrigger"><apiName>willTrigger</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:accessibilityProperties:get"><apiName>accessibilityProperties</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.accessibility:AccessibilityProperties"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+       
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+       
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:blendMode:get"><apiName>blendMode</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:cacheAsBitmap:get"><apiName>cacheAsBitmap</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:document:get"><apiName>document</apiName><shortdesc>
+      
+      Référence à l’objet de document associé à ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      Référence à l’objet de document associé à ce composant. Un objet de document est un objet qui se trouve au sommet de la hiérarchie d’une application Flex ou d’un composant MXML ou ActionScript.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:enabled:get"><apiName>enabled</apiName><shortdesc>
+      
+      Indique si le composant peut accepter une interaction de l’utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      Indique si le composant peut accepter une interaction de l’utilisateur. Même lorsque la propriété <codeph>enabled</codeph> est définie sur <codeph>false</codeph>, certains composants continuent à répondre aux interactions de souris telles que mouseOver. Par conséquent, pour désactiver entièrement des classes UIComponent, vous devez également définir la valeur de la propriété <codeph>mouseEnabled</codeph> sur <codeph>false</codeph>. Si vous définissez la propriété <codeph>enabled</codeph> sur <codeph>false</codeph> pour un conteneur, Flex estompe la couleur du conteneur et de ses enfants et empêche toute intervention de l’utilisateur sur le conteneur et ses enfants.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      
+      Hauteur du composant, en pixels, spécifiée explicitement en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Hauteur du composant, en pixels, spécifiée explicitement en tant que coordonnée du composant. Si aucune valeur de hauteur explicite n’est définie, la valeur est <codeph>NaN</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      
+      Nombre définissant la hauteur maximale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la hauteur maximale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      
+      Nombre définissant la largeur maximale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la largeur maximale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc>
+      
+      Nombre définissant la hauteur minimale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la hauteur minimale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc>
+      
+      Nombre définissant la largeur minimale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la largeur minimale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      
+      Largeur du composant, en pixels, spécifiée explicitement en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Largeur du composant, en pixels, spécifiée explicitement en tant que coordonnée du composant. Si aucune valeur de largeur explicite n’est définie, la valeur est <codeph>NaN</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:filters:get"><apiName>filters</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:focusPane:get"><apiName>focusPane</apiName><shortdesc>
+      
+      Objet Sprite unique partagé par différents composants et utilisé comme incrustation pour tracer l’indicateur de focus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      
+      Objet Sprite unique partagé par différents composants et utilisé comme incrustation pour tracer l’indicateur de focus. Les composants partagent cet objet si leur parent est un composant qui a le focus et non si le composant implémente l’interface IFocusManagerComponent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:height:get"><apiName>height</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:isPopUp:get"><apiName>isPopUp</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:loaderInfo:get"><apiName>loaderInfo</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mask:get"><apiName>mask</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      
+      Nombre définissant la hauteur maximale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la hauteur maximale du composant, en pixels, en tant que coordonnée du composant.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      
+      Nombre définissant la largeur maximale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la largeur maximale du composant, en pixels, en tant que coordonnée du composant.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+      
+	  Hauteur mesurée de l’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+	  Hauteur mesurée de l’objet.
+	 
+	  <p>Cette valeur est généralement codée en dur pour les habillages graphiques, car ce nombre correspond tout simplement au nombre de pixels du graphique. Pour les habillages de code, la valeur peut également être codée en dur si vous souhaitez que l’objet soit tracé à une taille bien définie. Si la taille peut changer en fonction de différentes propriétés, vous pouvez également utiliser une interface ILayoutManagerClient, de sorte qu’une méthode <codeph>measure()</codeph> soit appelée au moment opportun. Vous pouvez ainsi calculer la hauteur <codeph>measuredHeight</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredMinHeight:get"><apiName>measuredMinHeight</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredMinWidth:get"><apiName>measuredMinWidth</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+      
+	  Largeur mesurée de l’objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+	  Largeur mesurée de l’objet.
+	 
+	  <p>Cette valeur est généralement codée en dur pour les habillages graphiques, car ce nombre correspond tout simplement au nombre de pixels du graphique. Pour les habillages de code, la valeur peut également être codée en dur si vous souhaitez que l’objet soit tracé à une taille bien définie. Si la taille peut changer en fonction de différentes propriétés, vous pouvez également utiliser une interface ILayoutManagerClient, de sorte qu’une méthode <codeph>measure()</codeph> soit appelée au moment opportun. Vous pouvez ainsi calculer la hauteur <codeph>measuredHeight</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      
+      Nombre définissant la hauteur minimale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la hauteur minimale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      
+      Nombre définissant la largeur minimale du composant, en pixels, en tant que coordonnée du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la largeur minimale du composant, en pixels, en tant que coordonnée du composant. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mouseX:get"><apiName>mouseX</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mouseY:get"><apiName>mouseY</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:name:get"><apiName>name</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:opaqueBackground:get"><apiName>opaqueBackground</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:owner:get"><apiName>owner</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:parent:get"><apiName>parent</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      
+      Nombre définissant la hauteur d’un composant sous forme de pourcentage de la taille de son parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la hauteur d’un composant sous forme de pourcentage de la taille de son parent. Valeurs autorisées : 0 à 100.     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      
+      Nombre définissant la largeur d’un composant sous forme de pourcentage de la taille de son parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      Nombre définissant la largeur d’un composant sous forme de pourcentage de la taille de son parent. Valeurs autorisées : 0 à 100.     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:root:get"><apiName>root</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:rotation:get"><apiName>rotation</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scale9Grid:get"><apiName>scale9Grid</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scrollRect:get"><apiName>scrollRect</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:stage:get"><apiName>stage</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:Stage"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:systemManager:get"><apiName>systemManager</apiName><shortdesc>
+      
+      Référence à l’objet SystemManager de ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.managers:ISystemManager</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Référence à l’objet SystemManager de ce composant.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:transform:get"><apiName>transform</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Transform"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:tweeningProperties:get"><apiName>tweeningProperties</apiName><shortdesc>
+      
+      Utilisée par la classe EffectManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      
+      Utilisée par la classe EffectManager. Renvoie une valeur autre que null si un composant n’utilise pas la classe EffectManager pour réaliser une interpolation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:visible:get"><apiName>visible</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:width:get"><apiName>width</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:x:get"><apiName>x</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:y:get"><apiName>y</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:IConstraintLayout"><apiName>IConstraintLayout</apiName><shortdesc>
+  L’interface IConstraintLayout est une interface de marqueur qui indique qu’un conteneur prend en charge les classes ConstraintColumn et ConstraintRow dans sa mise en forme.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IConstraintLayout est une interface de marqueur qui indique qu’un conteneur prend en charge les classes ConstraintColumn et ConstraintRow dans sa mise en forme. Les conteneurs Application, Canvas et Panel prennent en charge les classes ConstraintRow et ConstraintColumn. Pour utiliser ce type de contrainte dans ces conteneurs, définissez la propriété <codeph>layout</codeph> sur <codeph>"absolute"</codeph> et créez des occurrences ConstraintColumn et ConstraintRow. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Canvas.xml"><linktext>mx.containers.Canvas</linktext></link><link href="" invalidHref="mx.containers.Panel.xml"><linktext>mx.containers.Panel</linktext></link><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.containers.utilityClasses.xml#ConstraintColumn"><linktext>mx.containers.utilityClasses.ConstraintColumn</linktext></link><link href="mx.containers.utilityClasses.xml#ConstraintRow"><linktext>mx.containers.utilityClasses.ConstraintRow</linktext></link><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links><apiValue id="mx.containers.utilityClasses:IConstraintLayout:mx.containers.utilityClasses:IConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      Tableau d’occurrences ConstraintColumn partitionnant ce conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau d’occurrences ConstraintColumn partitionnant ce conteneur. L’occurrence ConstraintColumn qui se trouve à l’index 0 correspond à la colonne le plus à gauche. L’index augmente de gauche à droite. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:IConstraintLayout:mx.containers.utilityClasses:IConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      Tableau d’occurrences ConstraintRow partitionnant ce conteneur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau d’occurrences ConstraintRow partitionnant ce conteneur. L’occurrence ConstraintRow qui se trouve à l’index 0 correspond à la colonne le plus en haut. L’index augmente de haut en bas.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

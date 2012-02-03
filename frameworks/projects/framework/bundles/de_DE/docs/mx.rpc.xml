@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc"><apiName>mx.rpc</apiName><apiDetail/><apiClassifier id="mx.rpc:IResponder"><apiName>IResponder</apiName><shortdesc>
+  Diese Schnittstelle stellt einen Vertrag für jeden Dienst bereit, der auf Remote- oder asynchrone Aufrufe antworten muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Diese Schnittstelle stellt einen Vertrag für jeden Dienst bereit, der auf Remote- oder asynchrone Aufrufe antworten muss.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:fault"><apiName>fault</apiName><shortdesc>
+	  Diese Methode wird von einem Dienst aufgerufen, wenn ein Fehler erhalten wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+	  Diese Methode wird von einem Dienst aufgerufen, wenn ein Fehler erhalten wurde. Während <codeph>info</codeph> als Objekt typisiert ist, handelt es sich oft (aber nicht immer) um ein mx.rpc.events.FaultEvent.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:result"><apiName>result</apiName><shortdesc>
+	  Diese Methode wird von einem Dienst aufgerufen, wenn der Rückgabewert empfangen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+	  Diese Methode wird von einem Dienst aufgerufen, wenn ein Rückgabewert erhalten wurde. Während <codeph>data</codeph> als Objekt typisiert ist, ist es oft (aber nicht immer) ein mx.rpc.events.ResultEvent.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

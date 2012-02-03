@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+  Die WipeDownInstance-Klasse implementiert die Instanzklasse für den WipeDown-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeDownInstance-Klasse implementiert die Instanzklasse für den WipeDown-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines WipeDown-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeDown"><linktext>mx.effects.WipeDown</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeDownInstance:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor. 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+  Die WipeLeftInstance-Klasse implementiert die Instanzklasse für den WipeLeft-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeLeftInstance-Klasse implementiert die Instanzklasse für den WipeLeft-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines WipeLeft-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeLeft"><linktext>mx.effects.WipeLeft</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeLeftInstance:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor. 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+  Die AddChildActionInstance-Klasse implementiert die Instanzklasse für den AddChildAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AddChildActionInstance-Klasse implementiert die Instanzklasse für den AddChildAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines AddChildAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddChildAction"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddChildActionInstance:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddChildActionInstance:index"><apiName>index</apiName><shortdesc> 
+	  Die Indexposition des untergeordneten Elements innerhalb des übergeordneten Elements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc> 
+	  Die Indexposition des untergeordneten Elements innerhalb des übergeordneten Elements.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:position"><apiName>position</apiName><shortdesc> 
+	  Die Position der untergeordneten Komponente, relativ zum relativeTo-Wert, an dem sie hinzugefügt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Die Position der untergeordneten Komponente, relativ zum relativeTo-Wert, an dem sie hinzugefügt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  Die Position, an der die untergeordnete Komponente hinzugefügt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  Die Position, an der die untergeordnete Komponente hinzugefügt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+  Die AddItemActionInstance-Klasse implementiert die Instanzklasse für den AddItemAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AddItemActionInstance-Klasse implementiert die Instanzklasse für den AddItemAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines AddItemAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddItemAction"><linktext>mx.effects.AddItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddItemActionInstance:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+  Die RemoveItemActionInstance-Klasse implementiert die Instanzklasse für den RemoveChildAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RemoveItemActionInstance-Klasse implementiert die Instanzklasse für den RemoveChildAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines RemoveItemAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveItemAction"><linktext>mx.effects.RemoveItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveItemActionInstance:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+  Die GlowInstance-Klasse implementiert die Instanzklasse für den Glühen-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die GlowInstance-Klasse implementiert die Instanzklasse für den Glühen-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Glühen-Effekts. Sie selbst erstellen sie nicht.
+ 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Glühen-Effekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit vier Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:uint Der Wert der <codeph>GlowFilter.color</codeph>-Eigenschaft des Ziels.</li> 
+  
+    <li>value[1]:Number Ein Wert zwischen den Werten der <codeph>Glow.alphaFrom</codeph>- und <codeph>Glow.alphaTo</codeph>-Eigenschaft.</li>
+  
+    <li>value[2]:Number Ein Wert zwischen den Werten der <codeph>Glow.blurXFrom</codeph>- und <codeph>Glow.blurXTo</codeph>-Eigenschaft.</li>
+  
+    <li>value[3]:Number Ein Wert zwischen den Werten der <codeph>Glow.blurYFrom</codeph>- und <codeph>Glow.blurYTo</codeph>-Eigenschaft.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Glow"><linktext>mx.effects.Glow</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:GlowInstance:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:GlowInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Transparenzstufe am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Transparenzstufe am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Transparenzstufe am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Transparenzstufe am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:color"><apiName>color</apiName><shortdesc> 
+	  Die Farbe des Glühen-Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  Die Farbe des Glühen-Effekts. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:inner"><apiName>inner</apiName><shortdesc> 
+	  Flag für inneres Glühen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  Flag für inneres Glühen.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:knockout"><apiName>knockout</apiName><shortdesc> 
+	  Flag für Aussparung beim Glühen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  Flag für Aussparung beim Glühen. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:strength"><apiName>strength</apiName><shortdesc> 
+	  Die Stärke des Glühens.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die Stärke des Glühens. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+  Die SetPropertyActionInstance-Klasse implementiert die Instanzklasse für den SetPropertyAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SetPropertyActionInstance-Klasse implementiert die Instanzklasse für den SetPropertyAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines SetPropertyAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetPropertyAction"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetPropertyActionInstance:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  Der Name der zu ändernden Eigenschaft.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Der Name der zu ändernden Eigenschaft. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  Der neue Wert der Eigenschaft. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  Der neue Wert der Eigenschaft. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+  Die WipeRightInstance-Klasse implementiert die Instanzklasse für den WipeRight-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeRightInstance-Klasse implementiert die Instanzklasse für den WipeRight-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines WipeRight-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeRight"><linktext>mx.effects.WipeRight</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeRightInstance:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+  Die RemoveChildActionInstance-Klasse implementiert die Instanzklasse für den RemoveChildAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RemoveChildActionInstance-Klasse implementiert die Instanzklasse für den RemoveChildAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines RemoveChildAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveChildAction"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveChildActionInstance:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+  Die UnconstrainItemActionInstance-Klasse implementiert die Instanzklasse für den UnconstrainItemAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die UnconstrainItemActionInstance-Klasse implementiert die Instanzklasse für den UnconstrainItemAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe des UnconstrainItemAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#UnconstrainItemAction"><linktext>mx.effects.UnconstrainItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:UnconstrainItemActionInstance:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:UnconstrainItemActionInstance:effectHost"><apiName>effectHost</apiName><shortdesc>
+      Die Effektehostkomponente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>mx.controls.listClasses:ListBase</apiValueClassifier></apiValueDef><apiDesc>
+      Die Effektehostkomponente.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+  Die WipeUpInstance-Klasse implementiert die Instanzklasse für den WipeUp-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeUpInstance-Klasse implementiert die Instanzklasse für den WipeUp-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines WipeUp-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeUp"><linktext>mx.effects.WipeUp</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeUpInstance:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+  Die ResizeInstance-Klasse implementiert die Instanzklasse für den Resize-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ResizeInstance-Klasse implementiert die Instanzklasse für den Größenänderungseffekt. Flex erstellt eine Instanz dieser Klasse, wenn ein Resize-Effekt wiedergegeben wird. Sie selbst erstellen sie nicht.
+  
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Größenänderungseffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit zwei Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:Number Ein Wert zwischen den Werten der <codeph>Resize.widthFrom</codeph>- und der <codeph>Resize.widthTo</codeph>-Eigenschaft.</li>
+  
+    <li>value[1]:Number Ein Wert zwischen den Werten der <codeph>Resize.heightFrom</codeph>- und <codeph>Resize.heightTo</codeph>-Eigenschaft.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Resize"><linktext>mx.effects.Resize</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ResizeInstance:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ResizeInstance:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  Anfängliche Höhe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anfängliche Höhe. Wird kein Wert angegeben, verwendet Flex die aktuelle Höhe.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  Ein Array von Bedienfeldern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Ein Array von Bedienfeldern. Die untergeordneten Bedienfelder dieses Bedienfeldcontainers sind während der Wiedergabe des Größenänderungseffekts ausgeblendet.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  Anfängliche Breite</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anfängliche Breite Wird kein Wert angegeben, verwendet Flex die aktuelle Höhe.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightBy:get"><apiName>heightBy</apiName><shortdesc> 
+	  Anzahl von Pixeln, um die die Höhe der Komponente zu ändern ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Ändern der Höhe der Komponente. Die Werte können negativ sein.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightTo:get"><apiName>heightTo</apiName><shortdesc> 
+	  Endhöhe in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Endhöhe in Pixeln.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthBy:get"><apiName>widthBy</apiName><shortdesc> 
+	  Anzahl der Pixel zum Ändern der Breite der Komponente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Ändern der Breite der Komponente. Die Werte können negativ sein.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthTo:get"><apiName>widthTo</apiName><shortdesc> 
+	  Endbreite in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Endbreite in Pixeln.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

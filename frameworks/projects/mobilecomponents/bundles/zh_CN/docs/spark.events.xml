@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+  ViewNavigatorEvent 类表示由 View 类分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorEvent 类表示由 View 类分派的事件对象。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link></related-links><adobeApiEvent id="spark.events:ViewNavigatorEvent:REMOVING_removing"><apiName>removing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:REMOVING</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE_activate"><apiName>activate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_ACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE_deactivate"><apiName>deactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ViewNavigatorEvent:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>由视图导航器提交的导致事件的导航操作。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ViewNavigatorEvent:REMOVING"><apiName>REMOVING</apiName><shortdesc>
+      ViewNavigatorEvent.REMOVING 常量为 removing 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.REMOVING</codeph> 常量为 <codeph>removing</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在一个屏幕即将被另一个屏幕通过导航器操作替换时分派此事件。如果对此事件调用 <codeph>preventDefault()</codeph>，则将取消视图删除操作。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>由视图导航器提交的导致事件的导航操作。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>ViewNavigatorEvent.SCREEN_REMOVING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE"><apiName>VIEW_ACTIVATE</apiName><shortdesc>
+      ViewNavigatorEvent.VIEW_ACTIVATE 常量为 viewActivate 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.VIEW_ACTIVATE</codeph> 常量为 <codeph>viewActivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在激活组件时分派此事件。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>由视图导航器提交的导致事件的导航操作。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>ViewNavigatorEvent.VIEW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE"><apiName>VIEW_DEACTIVATE</apiName><shortdesc>
+      ViewNavigatorEvent.VIEW_DEACTIVATE 常量为 viewDeactivate 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ViewNavigatorEvent.VIEW_DEACTIVATE</codeph> 常量为 <codeph>viewDeactivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在取消激活组件时分派此事件。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>由视图导航器提交的导致事件的导航操作。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>ViewNavigatorEvent.VIEW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:action"><apiName>action</apiName><shortdesc>
+      由视图导航器提交的导致事件的导航操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      由视图导航器提交的导致事件的导航操作。可能的操作包含视图被激活或被停用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

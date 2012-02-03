@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.transitions"><apiName>spark.transitions</apiName><apiDetail/><apiClassifier id="spark.transitions:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+  Die CrossFadeViewTransition-Klasse dient als einfacher Überblendungsübergang für Ansichten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die CrossFadeViewTransition-Klasse dient als einfacher Überblendungsübergang für Ansichten. Sie führt den Übergang durch Ausblenden der vorhandenen Ansicht und Anzeigen der neuen Ansicht aus. Bei der Überblendung wird der Übergang des Steuerleisten- und des Ansichtsinhalts in einem Vorgang durchgeführt.  
+   <p><b>Hinweis:</b> Erstellen und konfigurieren Sie Ansichtsübergänge in ActionScript. In MXML ist dies nicht möglich.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.transitions:CrossFadeViewTransition:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+  Die SlideViewTransition-Klasse führt einen einfachen Folienübergang für Ansichten aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SlideViewTransition-Klasse führt einen einfachen Folienübergang für Ansichten aus. Die vorhandene Ansicht gleitet nach außen, während die neue eingeschoben wird. Der Folienübergang unterstützt mehrere Modi („push“, „cover“ und „uncover“) sowie eine optionale Richtung („up“, „down“, „left“ oder „right“).
+   <p><b>Hinweis:</b> Erstellen und konfigurieren Sie Ansichtsübergänge in ActionScript. In MXML ist dies nicht möglich.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransitionMode"><linktext>SlideViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:SlideViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Gibt die Richtung des Folienübergangs an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Richtung des Folienübergangs an.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Gibt die Art des auszuführenden Folienübergangs an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SlideViewTransitionMode.PUSH
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Art des auszuführenden Folienübergangs an.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransitionMode"><apiName>SlideViewTransitionMode</apiName><shortdesc>
+  Die SlideViewTransitionMode-Klasse stellt die Konstanten bereit, die verwendet werden, um den Typ eines Folienübergangs anzugeben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SlideViewTransitionMode-Klasse stellt die Konstanten bereit, die verwendet werden, um den Typ eines Folienübergangs anzugeben.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransition"><linktext>SlideViewTransition</linktext></link></related-links><apiValue id="spark.transitions:SlideViewTransitionMode:COVER"><apiName>COVER</apiName><shortdesc>
+     Die neue Ansicht wird eingeschoben und überdeckt die vorherige Ansicht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Die neue Ansicht wird eingeschoben und überdeckt die vorherige Ansicht.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:PUSH"><apiName>PUSH</apiName><shortdesc>
+     Die vorherige Ansicht gleitet weg, während die neue eingeschoben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Die vorherige Ansicht gleitet weg, während die neue eingeschoben wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:UNCOVER"><apiName>UNCOVER</apiName><shortdesc>
+     Die vorherige Ansicht gleitet weg und die neue Ansicht wird angezeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>uncover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Die vorherige Ansicht gleitet weg und die neue Ansicht wird angezeigt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+  Die ZoomViewTransition-Klasse führt einen Zoomübergang (ein oder aus) für Ansichten aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ZoomViewTransition-Klasse führt einen Zoomübergang (ein oder aus) für Ansichten aus. Der Übergang wird durch Auszoomen aus der vorhandenen Ansicht und Aufdecken der neuen Ansicht oder durch Einzoomen in die neue Ansicht und Überdecken der vorhandenen Ansicht erstellt. 
+ 
+  <p>Die Standarddauer eines ZoomViewTransition ist 350 ms. Standardmäßig wird der Übergang der Inhalte von Steuerleiste und Ansicht gemeinsam ausgeführt, wenn <codeph>transitionControlsWithContent</codeph> auf <codeph>true</codeph> gesetzt ist. </p>
+   <p><b>Hinweis:</b> Erstellen und konfigurieren Sie Ansichtsübergänge in ActionScript. In MXML ist dies nicht möglich.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransitionMode"><linktext>ZoomViewTransitionMode</linktext></link></related-links><apiConstructor id="spark.transitions:ZoomViewTransition:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:ZoomViewTransition:minimumScale:get"><apiName>minimumScale</apiName><shortdesc>
+      Gibt die Mindestskalierung der gezoomten Ansicht an (wird angezeigt, wenn die Ansicht zuerst beim Einzoomen bzw. zuletzt beim Auszoomen sichtbar wird).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.25
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Mindestskalierung der gezoomten Ansicht an (wird angezeigt, wenn die Ansicht zuerst beim Einzoomen bzw. zuletzt beim Auszoomen sichtbar wird).
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Gibt die Art des auszuführenden Zoomübergangs an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZoomTransitionMode.OUT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Art des auszuführenden Zoomübergangs an.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionDirection"><apiName>ViewTransitionDirection</apiName><shortdesc>
+  Die ViewTransitionDirection-Klasse stellt die Konstanten bereit, die für die Hinweise auf die Richtung eines Ansichtsübergangs verwendet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ViewTransitionDirection-Klasse stellt die Konstanten bereit, die für die Hinweise auf die Richtung eines Ansichtsübergangs verwendet werden.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.transitions:ViewTransitionDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      Der Übergang wird nach unten animiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Übergang wird nach unten animiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Der Übergang wird nach links animiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Übergang wird nach links animiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      Der Übergang wird nach rechts animiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Übergang wird nach rechts animiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:UP"><apiName>UP</apiName><shortdesc>
+      Der Übergang wird nach oben animiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Übergang wird nach oben animiert.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+  Die FlipViewTransition-Klasse führt einen einfachen Spiegelübergang für Ansichten aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FlipViewTransition-Klasse führt einen einfachen Spiegelübergang für Ansichten aus. Der Folienübergang unterstützt zwei Modi („card“ und „cube“) sowie eine optionale Richtung („up“, „down“, „left“ oder „right“).
+ 
+  <p>Die Standarddauer eines FlipViewTransition ist 400 ms.</p>
+   <p><b>Hinweis:</b> Erstellen und konfigurieren Sie Ansichtsübergänge in ActionScript. In MXML ist dies nicht möglich.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:FlipViewTransition:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:FlipViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Gibt die Richtung des Spiegelübergangs an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Richtung des Spiegelübergangs an.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links></apiValue><apiValue id="spark.transitions:FlipViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Gibt die Art des auszuführenden Spiegelübergangs an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FlipViewTransitionMode.CARD
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die Art des auszuführenden Spiegelübergangs an.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransitionMode"><apiName>ZoomViewTransitionMode</apiName><shortdesc>
+  Die ZoomTransitionMode-Klasse definiert die Konstanten, die zum Festlegen des Stilmodus eines Zoomübergangs verwendet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ZoomTransitionMode-Klasse definiert die Konstanten, die zum Festlegen des Stilmodus eines Zoomübergangs verwendet werden.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransition"><linktext>ZoomViewTransition</linktext></link></related-links><apiValue id="spark.transitions:ZoomViewTransitionMode:IN"><apiName>IN</apiName><shortdesc>
+      Die neue Ansicht wird eingezoomt und überdeckt die vorherige Ansicht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die neue Ansicht wird eingezoomt und überdeckt die vorherige Ansicht.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransitionMode:OUT"><apiName>OUT</apiName><shortdesc>
+     Die vorherige Ansicht wird ausgezoomt und die neue Ansicht wird aufgedeckt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Die vorherige Ansicht wird ausgezoomt und die neue Ansicht wird aufgedeckt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+  Die ViewTransitionBase-Klasse ist die Basisklasse für alle Ansichtsübergänge.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ViewTransitionBase-Klasse ist die Basisklasse für alle Ansichtsübergänge. Sie sollte nicht als eigenständiger Übergang verwendet werden. Zusätzlich zur Benutzerfreundlichkeit und zur Bereitstellung von Helper-Methoden bei den Ansichtsübergängen bietet diese Klasse auch eine Standardübergangssequenz für die Aktionsleiste.
+ 
+  <p>Wenn ein Ansichtsübergang initialisiert wurde, legt der besitzende Ansichtsnavigator die <codeph>startView</codeph>- und <codeph>endView</codeph>-Eigenschaften für die Ansichten fest, die der Übergang animiert. Die <codeph>navigator</codeph>-Eigenschaft wird auf den Ansichtsnavigator gesetzt.</p>
+ 
+  <p>Der Zyklus eines Übergangs sieht folgendermaßen aus:</p>
+    <ul>
+      <li>Der Übergang beginnt mit der <codeph>captureStartValues()</codeph>-Methode. Wenn diese Methode aufgerufen wird, befindet sich der Navigator aktuell im Anfangsstatus. Zu diesem Zeitpunkt sollte der Übergang alle benötigten Startwerte und Bitmaps erfassen. </li>
+      <li>Ein Überprüfungsdurchlauf wird für die ausstehende Ansicht ausgeführt und die <codeph>captureEndValues()</codeph>-Methode wird aufgerufen. Zu diesem Zeitpunkt erfasst der Übergang alle Eigenschaften oder Bitmap-Darstellungen aus der anstehenden Ansicht.</li>
+      <li>Dann wird die <codeph>prepareForPlay()</codeph>-Methode aufgerufen, wodurch der Übergang alle weiteren Vorbereitungen (z. B. eine Spark-Effektreihenfolge vorbereiten oder vorübergehende Elemente in der Anzeigeliste platzieren) ausführen kann.</li>
+      <li>Nach einem letzten Überprüfungsdurchlauf (falls erforderlich) ruft der Navigator die <codeph>play()</codeph>-Methode auf, um den eigentlichen Übergang auszuführen.</li>
+      <li>Vor Beginn einer Animation wird jeweils das <codeph>start</codeph>-Ereignis ausgelöst.</li>
+      <li>Nach Abschluss eines Übergangs wird ein <codeph>end</codeph>-Ereignis ausgelöst.</li>
+    </ul>
+   <p><b>Hinweis:</b> Erstellen und konfigurieren Sie Ansichtsübergänge in ActionScript. In MXML ist dies nicht möglich.</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionEnd"><apiName>transitionEnd</apiName><shortdesc>
+  Wird ausgelöst, wenn der Übergang abgeschlossen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn der Übergang abgeschlossen ist.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionStart"><apiName>transitionStart</apiName><shortdesc>
+  Wird ausgelöst, wenn der Übergang beginnt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn der Übergang beginnt.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.transitions:ViewTransitionBase:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.transitions:ViewTransitionBase:protected:canTransitionControlBarContent"><apiName>canTransitionControlBarContent</apiName><shortdesc>
+      Bestimmt, ob Flex einen Übergang für den Inhalt der Aktions- oder Registerkartenleiste unabhängig von den Ansichten ausführen kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>false</codeph>, wenn Flex festlegt, dass die Steuerleisten zwischen den Ansichten inkompatibel sind.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Bestimmt, ob Flex einen Übergang für den Inhalt der Aktions- oder Registerkartenleiste unabhängig von den Ansichten ausführen kann.
+     
+      <p>Flex kann in den folgenden Fällen einen Übergang für die Steuerleisten nicht unabhängig durchführen:</p>
+      <ul>
+          <li>Wenn der Ansichtsnavigator ein TabbedViewNavigator ist und sich die Sichtbarkeit seiner Registerkartenleiste zwischen Ansichten ändern.</li>
+          <li>Wenn sich der Wert der <codeph>overlayControls</codeph>-Eigenschaft des Ansichtnavigators zwischen den Ansichten ändert.</li>
+          <li>Wenn sich die Größe oder Sichtbarkeit der Aktionsleiste zwischen den Ansichten ändert.</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureEndValues"><apiName>captureEndValues</apiName><shortdesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen. Sie wird aufgerufen, wenn die neue Ansicht vollständig realisiert und überprüft ist und der Inhalt der Aktionsleiste und der Registerkartenleiste dem Status der neuen Ansicht entspricht. An dieser Stelle kann der Übergang alle Werte der ausstehenden Ansicht erfassen, die erforderlich sind. Außerdem sollten alle Bitmaps erfasst werden, die den neuen Ansichts-, Registerkartenleisten- und Aktionsleistenstatus widerspiegeln, wenn sie für die Animation erforderlich sind.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen. Sie wird aufgerufen, wenn die neue Ansicht vollständig realisiert und überprüft ist und der Inhalt der Aktionsleiste und der Registerkartenleiste dem Status der neuen Ansicht entspricht. Der Übergang kann alle Werte der ausstehenden Ansicht erfassen, die erforderlich sind. Alle Bitmaps sollten erfasst werden, die den neuen Ansichts-, Registerkartenleisten- und Aktionsleistenstatus widerspiegeln, wenn sie für die Animation erforderlich sind.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:cleanUp"><apiName>cleanUp</apiName><shortdesc>
+      Wird aufgerufen, nachdem der Übergang abgeschlossen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird aufgerufen, nachdem der Übergang abgeschlossen ist. Diese Methode sorgt dafür, dass alle vom Übergang verwendeten Verweise und temporären Konstrukte freigegeben werden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createActionBarEffect"><apiName>createActionBarEffect</apiName><shortdesc>
+      Durch diese, von der Standardimplementierung „prepareForPlay()“ aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der Aktionsleiste wiedergegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Eine IEffect-Instanz, die als Aktionsleisteneffekt dient. Dieser Effekt wird von der Standardimplementierung der <codeph>play()</codeph>-Methode wiedergegeben.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Durch diese, von der Standardimplementierung <codeph>prepareForPlay()</codeph> aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der Aktionsleiste wiedergegeben wird. Diese Methode sollte von Unterklassen überschrieben werden, wenn ein benutzerdefinierter Aktionsleisteneffekt erforderlich ist. Diese Methode gibt standardmäßig einen einfachen Aktionsleisteneffekt zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createConsolidatedEffect"><apiName>createConsolidatedEffect</apiName><shortdesc>
+      Durch diese, von der Standardimplementierung „prepareForPlay()“ aufgerufene Methode wird der Spark-Effekt erzeugt, der abgespielt wird, um erforderlichenfalls den Übergang des kompletten Navigators (einschließlich des Inhalts der Steuerleiste) auszuführen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Eine IEffect-Instanz, die als Ansichtsübergang dient. Dieser Effekt wird von der Standardimplementierung der <codeph>play()</codeph>-Methode wiedergegeben.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Durch diese, von der Standardimplementierung <codeph>prepareForPlay()</codeph> aufgerufene Methode wird der Spark-Effekt erzeugt, der abgespielt wird, um erforderlichenfalls den Übergang des kompletten Navigators (einschließlich des Inhalts der Steuerleiste) auszuführen. Diese Methode sollte von Unterklassen überschrieben werden. Standardmäßig gibt diese Methode „null“ zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createTabBarEffect"><apiName>createTabBarEffect</apiName><shortdesc>
+      Durch diese, von der Standardimplementierung „prepareForPlay()“ aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der Registerkartenleiste wiedergegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Eine IEffect-Instanz, die als Übergang der Registerkartenleiste dient. Dieser Effekt wird von der Standardimplementierung der <codeph>play()</codeph>-Methode wiedergegeben.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Durch diese, von der Standardimplementierung <codeph>prepareForPlay()</codeph> aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der Registerkartenleiste wiedergegeben wird. Diese Methode sollte von Unterklassen überschrieben werden. Standardmäßig wird „null“ zurückgegeben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createViewEffect"><apiName>createViewEffect</apiName><shortdesc>
+      Durch diese, von der Standardimplementierung „prepareForPlay()“ aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der aktuellen und der nächsten Ansicht wiedergegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Eine IEffect-Instanz, die als Ansichtsübergang dient. Dieser Effekt wird von der Standardimplementierung der <codeph>play()</codeph>-Methode wiedergegeben.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Durch diese, von der Standardimplementierung <codeph>prepareForPlay()</codeph> aufgerufene Methode wird der Spark-Effekt erzeugt, der zu Beginn des Übergangs in der aktuellen und der nächsten Ansicht wiedergegeben wird. Diese Methode sollte von Unterklassen überschrieben werden. Standardmäßig gibt diese Methode „null“ zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      Wird verwendet, um Schnappschüsse von Bildschirmelementen in Vorbereitung auf den Übergang zu rendern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>BitmapImage-Objekt, das das Ziel darstellt.
+     
+      </apiDesc><apiType value="spark.primitives:BitmapImage"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Zu erfassendes Anzeigeobjekt.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>Auffüllung um das Objekt, die in das BitmapImage-Objekt eingeschlossen werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>globalPosition</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>Wenn nicht null, wird <codeph>globalPosition</codeph> mit dem Ursprung des BitmapImage in globalen Koordinaten aktualisiert. Beim Wechseln zu einem anderen Koordinatenraum wird dieser Wert zum Anpassen der Schnappschussposition verwendet. Die globale Bildschirmposition ändert sich nicht. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird verwendet, um Schnappschüsse von Bildschirmelementen in Vorbereitung auf den Übergang zu rendern. Die Bitmap wird in Form eines BitmapImage-Objekts zurückgegeben. 
+       
+      <p>Das BitmapImage ist im übergeordneten Koordinatenraum des Ziels. Es überlappt das Ziel genau, wenn es demselben übergeordneten Element übergeordnet ist. Vergewissern Sie sich, dass Sie beim Wechseln zu einem anderen übergeordneten Element die Transformation des BitmapImage anpassen, um die Änderung im Koordinatenraum korrekt zu berücksichtigen. Der aktualisierte Wert des <codeph>globalPosition</codeph>-Parameters kann dafür verwendet werden.</p> 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:play"><apiName>play</apiName><shortdesc>
+      Wird vom ViewNavigator aufgerufen, wenn der Übergang mit der Animation beginnen soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom ViewNavigator aufgerufen, wenn der Übergang mit der Animation beginnen soll. Zu diesem Zeitpunkt sollte der Übergang ein <codeph>start</codeph>-Ereignis auslösen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:prepareForPlay"><apiName>prepareForPlay</apiName><shortdesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom ViewNavigator während der Vorbereitungsphase eines Übergangs aufgerufen. Dadurch kann vom Übergang die zugrunde liegende IEffect-Instanz erstellt und konfiguriert werden oder vorübergehende Elemente können zur Anzeigeliste hinzugefügt werden. Beispiele für vorübergehende Elemente sind Bitmap-Platzhalter, während des Übergangs erforderliche temporäre Container und andere. Falls erforderlich, wird eine letzte Überprüfung vor dem Aufruf der <codeph>play()</codeph>-Methode durchgeführt.
+     
+      <p>Wenn festgelegt ist, dass ein Standardübergang eingeleitet werden kann (z. B. dass der Übergang der Steuerleisten getrennt von den Ansichten ausgeführt wird), erzeugt die Standardimplementierung dieser Methode einen einzelnen Paralleleffekt, der die Reihenfolgen der individuellen Effekte für den Ansichtsübergang, den Aktionsleistenübergang und den Registerkartenleistenübergang einschließt. Diese Methode nutzt die Methoden <codeph>createActionBarEffect()</codeph>, <codeph>createTabBarEffect()</codeph> und <codeph>createViewEffect()</codeph>.</p>
+     
+      <p>Wenn <codeph>transitionControlsWithContent</codeph> auf <codeph>true</codeph> gesetzt wurde oder bestimmt wurde, dass für die Steuerleisten kein unabhängiger Übergang ausgeführt werden kann, wird ein einzelner Effekt erstellt, mit dem der komplette Übergang des Navigators ausgeführt wird. In diesem Fall wird nur <codeph>createConsolidatedEffect()</codeph> aufgerufen.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      Wird vom Übergang aufgerufen, um anzugeben, dass der Übergang abgeschlossen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom Übergang aufgerufen, um anzugeben, dass der Übergang abgeschlossen wurde. Diese Methode löst das <codeph>end</codeph>-Ereignis aus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.transitions:ViewTransitionBase:duration:get"><apiName>duration</apiName><shortdesc>
+      Dauer des Übergangs in Millisekunden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Dauer des Übergangs in Millisekunden. Der Standardwert hängt vom jeweiligen Übergang ab, ist aber in ViewTransitionBase als 250 ms definiert.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:easer:get"><apiName>easer</apiName><shortdesc>
+      Das Beschleunigungsverhalten für diesen Übergang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>Sine(.5);
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Das Beschleunigungsverhalten für diesen Übergang. Im Allgemeinen wird das IEaser-Objekt an die IEffect-Instanz weitergegeben, die die eigentliche Übergangsanimation verwaltet.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.xml"><linktext>spark.effects.easing</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:endView:get"><apiName>endView</apiName><shortdesc>
+      Die Ansicht, für die der Navigator den Übergang ausführt, wie sie vom besitzenden ViewNavigator-Objekt festgelegt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Ansicht, für die der Navigator den Übergang ausführt, wie sie vom besitzenden ViewNavigator-Objekt festgelegt wird. Diese Eigenschaft kann den Wert „Null“ haben.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:navigator:get"><apiName>navigator</apiName><shortdesc>
+      Verweis auf die besitzende ViewNavigator-Instanz, die vom besitzenden ViewNavigator festgelegt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:ViewNavigator</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Verweis auf die besitzende ViewNavigator-Instanz, die vom besitzenden ViewNavigator festgelegt wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:startView:get"><apiName>startView</apiName><shortdesc>
+      Die aktuell aktive Ansicht des Ansichtsnavigators, wie sie vom besitzenden Ansichtsnavigators festgelegt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier></apiValueDef><apiDesc>
+      Die aktuell aktive Ansicht des Ansichtsnavigators, wie sie vom besitzenden Ansichtsnavigators festgelegt wird. Diese Eigenschaft kann den Wert „Null“ haben.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:suspendBackgroundProcessing:get"><apiName>suspendBackgroundProcessing</apiName><shortdesc>
+      Ist sie auf „true“ gesetzt, wird die UIComponent.suspendBackgroundProcessing()-Methode aufgerufen, bevor der Übergang abgespielt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Ist sie auf <codeph>true</codeph> gesetzt, wird die <codeph>UIComponent.suspendBackgroundProcessing()</codeph>-Methode aufgerufen, bevor der Übergang abgespielt wird. Damit wird der Layoutmanager von Flex deaktiviert und die Leistung verbessert. Nach Abschluss des Übergangs wird die Layoutmanagerfunktion wiederhergestellt, indem die <codeph>UIComponent.resumeBackgroundProcessing()</codeph>-Methode aufgerufen wird. 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/suspendBackgroundProcessing()"><linktext>mx.core.UIComponent.suspendBackgroundProcessing()</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/resumeBackgroundProcessing()"><linktext>mx.core.UIComponent.resumeBackgroundProcessing()</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:transitionControlsWithContent:get"><apiName>transitionControlsWithContent</apiName><shortdesc>
+      Ist sie auf „true“ gesetzt, wird der Übergang des Ansichtsnavigators mit dem primären Ansichtsübergang vollständig ausgeführt, auch der der Aktionsleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ist sie auf <codeph>true</codeph> gesetzt, wird der Übergang des Ansichtsnavigators mit dem primären Ansichtsübergang vollständig ausgeführt, auch der der Aktionsleiste. Spezifische Übergänge für die Aktionsleiste werden nicht ausgeführt. Da die Registerkartenleiste mit der gesamten Anwendung und nicht mit einer Ansicht verknüpft ist, haben Ansichtsübergänge keine Wirkung.
+           <p>Auch wenn sie auf <codeph>false</codeph> gesetzt ist, gibt es Fälle, in denen es nicht möglich ist, einen Übergang für die Aktionsleiste zu erstellen. Beispielsweise wenn die Aktionsleiste in einer der beiden Ansichten nicht vorhanden ist oder sich ihre Größe ändert.</p>
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransitionMode"><apiName>FlipViewTransitionMode</apiName><shortdesc>
+  Die FlipViewTransitionMode-Klasse definiert die Konstanten, die verwendet werden, wenn auf den Stilmodus einer Spiegelübergangsinstanz hingewiesen wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FlipViewTransitionMode-Klasse definiert die Konstanten, die verwendet werden, wenn auf den Stilmodus einer Spiegelübergangsinstanz hingewiesen wird.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransition"><linktext>FlipViewTransition</linktext></link></related-links><apiValue id="spark.transitions:FlipViewTransitionMode:CARD"><apiName>CARD</apiName><shortdesc>
+      Die vorherige Ansicht wird um den Mittelpunkt gespiegelt, während die neue Ansicht auf der anderen Seite aufgedeckt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>card</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die vorherige Ansicht wird um den Mittelpunkt gespiegelt, während die neue Ansicht auf der anderen Seite aufgedeckt wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:FlipViewTransitionMode:CUBE"><apiName>CUBE</apiName><shortdesc>
+     Die vorherige Ansicht wird wie die Fläche eines rotierenden Würfels transformiert, während die neue Ansicht als angrenzende Fläche des Würfels aufgedeckt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cube</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Die vorherige Ansicht wird wie die Fläche eines rotierenden Würfels transformiert, während die neue Ansicht als angrenzende Fläche des Würfels aufgedeckt wird.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

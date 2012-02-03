@@ -1,0 +1,1574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections"><apiName>mx.collections</apiName><apiDetail/><apiClassifier id="mx.collections:IHierarchicalCollectionViewCursor"><apiName>IHierarchicalCollectionViewCursor</apiName><shortdesc>
+  Интерфейс IHierarchicalCollectionViewCursor определяет интерфейс для представления двунаправленного иерархического просмотра коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IViewCursor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IHierarchicalCollectionViewCursor определяет интерфейс для представления двунаправленного иерархического просмотра коллекции. Данный курсор позволяет определить текущую глубину элемента. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.IViewCursor.xml"><linktext>mx.collections.IViewCursor</linktext></link><link href="" invalidHref="mx.controls.IHierarchicalCollectionView.xml"><linktext>mx.controls.IHierarchicalCollectionView</linktext></link></related-links><apiValue id="mx.collections:IHierarchicalCollectionViewCursor:mx.collections:IHierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      Содержит глубину узла в местоположении в исходной коллекции, на которое ссылается курсор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Содержит глубину узла в местоположении в исходной коллекции, на которое ссылается курсор. Если курсор находится за пределами коллекции, это свойство имеет значение 0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+  Класс SummaryField2 является отдельным свойством в экземпляре SummaryRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryField2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryField2
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    label="<i>No default</i>"
+    summaryOperation="<i>SUM</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SummaryField2 является отдельным свойством в экземпляре SummaryRow. Каждый экземпляр SummaryRow указывает один или несколько экземпляров SummaryField2, используемых для создания сводки данных. 
+ 
+  <p><b>Примечание. </b>В предыдущей версии Flex для создания данных сводки использовался класс SummaryField. Класс SummaryField2 является новым для Flex 4 и обеспечивает лучшую производительность, чем SummaryField.</p>
+ 
+  <p>Можно использовать свойство <codeph>dataField</codeph> для указания поля данных, применяемого при формировании сводки, свойство <codeph>label</codeph> для указания имени поля данных, создаваемого для сводки данных, и свойство <codeph>summaryOperation</codeph> для указания способа создания сводки для числовых полей. Можно указать одно из следующих значений: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>.</p>
+  Или можно указать реализацию ISummaryCalculator для вычисления сводок.
+ 
+  <p>В следующем примере создаются строки сводки на основе двух полей поставщика данных элемента управления AdvancedDataGrid:</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField2:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Поле данных, для которого вычисляется сводка.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>summaryOperation</apiItemName><apiType value="Object"/><apiData>SUM</apiData><apiDesc>Функция, которую следует выполнить в нижестоящих элементах. Можно указать одно из следующих значений для числовых полей: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>. Или можно указать реализацию ISummaryCalculator для вычисления сводок. 
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField2:dataField"><apiName>dataField</apiName><shortdesc>
+     Поле данных, для которого вычисляется сводка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Поле данных, для которого вычисляется сводка.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField2:label"><apiName>label</apiName><shortdesc>
+      Свойство, используемое в объекте сводки, экземпляре класса SummaryObject, содержащее информацию о сводке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Свойство, используемое в объекте сводки, экземпляре класса SummaryObject, содержащее информацию о сводке.
+     
+      <p>Например, если указать для свойства <codeph>label</codeph> значение «Сводка», то вычисленная сводка будет помещена в итоговом объекте в свойство с именем «Сводка». Свойство экземпляра SummaryObject, содержащего данные сводки, появляется следующим образом:</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField2/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField2:summaryOperation"><apiName>summaryOperation</apiName><shortdesc>
+       Сводка выполнена для подчиненных элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="Object"/><apiDefaultValue>SUM
+       </apiDefaultValue></apiValueDef><apiDesc>
+       Сводка выполнена для подчиненных элементов. Свойство может иметь одно из следующих значений:
+       
+       <ul>
+         <li>Для числовых полей: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>.</li>
+         <li>Экземпляр класса, реализующий пользовательский интерфейс ISummaryCalculator для вычисления пользовательской сводки.</li>
+       </ul>
+        
+       </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ISummaryCalculator"><linktext>mx.collections.ISummaryCalculator</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalCollectionView"><apiName>IHierarchicalCollectionView</apiName><shortdesc>
+  Интерфейс IHierarchicalCollectionView определяет интерфейс для иерархических или сгруппированных данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ICollectionView</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IHierarchicalCollectionView определяет интерфейс для иерархических или сгруппированных данных. Обычно эти данные используются с элементом управления AdvancedDataGrid. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Добавляет нижестоящий узел к узлу данных в указанной позиции индекса в данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при успешном добавлении узла.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий вышестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий новый узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс местоположения вставки нижестоящего узла.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет нижестоящий узел к узлу данных в указанной позиции индекса в данных.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      Добавляет нижестоящий узел к узлу данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при успешном добавлении узла.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий вышестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий новый узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет нижестоящий узел к узлу данных.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      Закрывает узел, скрывая его нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Закрывает узел, скрывая его нижестоящие элементы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Возвращает коллекцию нижестоящих элементов (при их наличии).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр ICollectionView, включающий нижестоящие узлы.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел. Если значение равно <codeph>null</codeph>, возвращает коллекцию узлов верхнего уровня.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает коллекцию нижестоящих элементов (при их наличии). 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      Возвращает глубину узла в коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Глубина узла.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает глубину узла в коллекции.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      Возвращает вышестоящий узел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел в качестве нижестоящего, для узла верхнего уровня используется значение <codeph>null</codeph>, и <codeph>undefined</codeph>, если вышестоящий элемент определить невозможно.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий узел. Вышестоящий элемент узла верхнего уровня содержит значение <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      Открывает узел для отображения его нижестоящих узлов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Открывает узел для отображения его нижестоящих узлов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при успешном завершении и <codeph>false</codeph>, если нет.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект узла, который в данный момент является вышестоящим для нижестоящего узла. Устанавливает значение <codeph>parent</codeph> на <codeph>null</codeph> для узлов верхнего уровня.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс нижестоящего узла, подлежащего удалению, по отношению к вышестоящему узлу.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      Удаляет нижестоящий узел из вышестоящего узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел успешно удален.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, который определяет вышестоящий узел, и значение <codeph>null</codeph> для узлов верхнего уровня.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Объект, который определяет нижестоящий узел, подлежащий удалению.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет нижестоящий узел из вышестоящего узла.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+      Флаг, который при значении true указывает, что текущий поставщик данных имеет корневой узел; например, отдельный узел верхнего уровня в иерархической структуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      Флаг, который при значении <codeph>true</codeph> указывает, что текущий поставщик данных имеет корневой узел; например, отдельный узел верхнего уровня в иерархической структуре. XML и объект являются примерами типов данных, которые имеют корневой узел, тогда как списки и массивы – нет.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      Массив объектов, содержащих элемент поставщика данных для всех открытых узлов ветви данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Массив объектов, содержащих элемент поставщика данных для всех открытых узлов ветви данных.
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      Логический флаг, указывающий, отобразить ли корневой узел поставщика данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Логический флаг, указывающий, отобразить ли корневой узел поставщика данных. Если исходные данные имеют корневой узел, а данное свойство равно <codeph>false</codeph>, то коллекция не включает корневой элемент. В коллекцию будут включены только нижестоящие элементы корневого элемента.  
+     
+      <p>Это свойство не влияет на источник без корневого узла, например на объекты списка и массива.</p> 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView/hasRoot"><linktext>hasRoot</linktext></link></related-links></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      Исходные данные IHierarchicalCollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      Исходные данные IHierarchicalCollectionView.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+  Класс SummaryObject определяет объект, используемый для хранения информации при выполнении пользовательских сводок данных в группированных данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SummaryObject определяет объект, используемый для хранения информации при выполнении пользовательских сводок данных в группированных данных. Можно использовать свойства <codeph>SummaryRow.summaryObjectFunction</codeph> и <codeph>SummaryField.summaryFunction</codeph> для добавления логики пользовательской сводки к приложению.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryObject:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+  Класс SummaryField является отдельным свойством в экземпляре SummaryRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SummaryField2" sinceVersion="4.0"/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SummaryField является отдельным свойством в экземпляре SummaryRow. Каждый экземпляр SummaryRow указывает один или несколько экземпляров SummaryField, используемых для создания сводки данных. 
+ 
+  <p>Можно использовать свойство <codeph>dataField</codeph> для указания поля данных, применяемого при формировании сводки, свойство <codeph>label</codeph> для указания имени поля данных, создаваемого для сводки данных, и свойство <codeph>operation</codeph> для указания способа создания сводка для числовых полей. Можно указать одно из следующих значений: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>.</p>
+ 
+  <p>В следующем примере создаются строки сводки на основе двух полей поставщика данных элемента управления AdvancedDataGrid:</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  <p>Этот класс устарел и заменен новым классом <codeph>SummaryField2</codeph>. Свойства <codeph>operation</codeph> и <codeph>summaryFunction</codeph> отсутствуют в классе <codeph>SummaryField2</codeph>. Новое свойство <codeph>summaryOperation</codeph> введено в <codeph>SummaryField2</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Поле данных, для которого вычисляется сводка.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>operation</apiItemName><apiType value="String"/><apiData>SUM</apiData><apiDesc>Функция, которую следует выполнить в нижестоящих элементах. Можно указать одно из следующих значений для числовых полей: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField:dataField"><apiName>dataField</apiName><shortdesc>
+     Поле данных, для которого вычисляется сводка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Поле данных, для которого вычисляется сводка.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:label"><apiName>label</apiName><shortdesc>
+      Свойство, используемое в объекте сводки, экземпляре класса SummaryObject, содержащее информацию о сводке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Свойство, используемое в объекте сводки, экземпляре класса SummaryObject, содержащее информацию о сводке.
+     
+      <p>Например, если указать для свойства <codeph>label</codeph> значение «Сводка», то вычисленная сводка будет помещена в итоговом объекте в свойство с именем «Сводка». Свойство экземпляра SummaryObject, содержащего данные сводки, появляется следующим образом:</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField:operation"><apiName>operation</apiName><shortdesc>
+      Функция, которую следует выполнить в нижестоящих элементах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="String"/><apiDefaultValue>SUM
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Функция, которую следует выполнить в нижестоящих элементах. Можно указать одно из следующих значений для числовых полей: <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> или <codeph>COUNT</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:summaryFunction"><apiName>summaryFunction</apiName><shortdesc>
+      Указывает функцию обратного вызова для вычисления пользовательской сводки данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Указывает функцию обратного вызова для вычисления пользовательской сводки данных.
+     
+      <p>Данное свойство используется со свойством <codeph>SummaryRow.summaryObjectFunction</codeph>, определяющим экземпляр класса SummaryObject, применяемый для сбора данных сводки при отображении в элементе управления AdvancedDataGrid.</p>
+     
+      <p>Функция должна иметь следующую подпись:</p>
+     
+      <pre>
+      function mySummaryFunction(iterator:IViewCursor, dataField:String, operation:String):Object</pre>
+     
+      <p>Все встроенные функции сводки для <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> и <codeph>COUNT</codeph> возвращают число, содержащее данные сводки. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+  Класс GroupingCollection2 позволяет создавать группированные данные из плоских данных для отображения в элементе управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[  The <code>&lt;mx.GroupingCollection2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+   <pre>
+  &lt;mx:GroupingCollection2
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IGroupingCollection2</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GroupingCollection2 позволяет создавать группированные данные из плоских данных для отображения в элементе управления AdvancedDataGrid. При создании экземпляра GroupingCollection2 из плоских данных следует указать поле или поля данных, используемые для создания иерархии.
+   <p><b>Примечание. </b>В предыдущей версии Flex использовался класс GroupingCollection с элементом управления AdvancedDataGrid. Класс GroupingCollection2 является новым для Flex 4 и обеспечивает лучшую производительность, чем GroupingCollection.</p>
+   <p>Для заполнения элемента управления AdvancedDataGrid группированными данными следует создать экземпляр класса GroupingCollection2 из плоских данных и передать его поставщику данных элемента управления AdvancedDataGrid. Для указания полей группировки плоских данных следует передать экземпляр группировки в свойство <codeph>GroupingCollection2.grouping</codeph>. Экземпляр группировки содержит экземпляры массива GroupingField, по одному для каждого поля группировки. </p>
+   <p>В следующем примере для определения двух полей группировки «Регион» и «Территория» используется класс GroupingCollection2.</p>
+   <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection2> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection2:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп. Этот метод отменяет обновление, если оно инициируется только вызовом метода <codeph>refresh()</codeph> с аргументом <codeph>asynch</codeph> <codeph>true</codeph>, соответствующим асинхронному обновлению.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      Возвращает вышестоящий узел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел в качестве нижестоящего, для узла верхнего уровня используется значение <codeph>null</codeph>, и <codeph>undefined</codeph>, если вышестоящий элемент определить невозможно.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий узел. Вышестоящий элемент узла верхнего уровня содержит значение <codeph>null</codeph>.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:getRoot"><apiName>getRoot</apiName><shortdesc>
+      Если установлено свойство grouping возвращается значение super.source, в противном случае – экземпляр ICollectionView, ссылающийся на super.source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Возвращаемый объект.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Если установлено свойство <codeph>grouping</codeph> возвращается значение <codeph>super.source</codeph>, в противном случае – экземпляр ICollectionView, ссылающийся на <codeph>super.source</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      Применяет группировку к коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при завершении метода <codeph>refresh()</codeph> и <codeph>false</codeph>, если обновление остается незавершенным, т.е. элементы по-прежнему могут находиться в состоянии ожидания.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph> определяет асинхронное обновление. Значение по умолчанию равно <codeph>false</codeph>, обозначая синхронное обновление.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Если значение <codeph>true</codeph>, события отправляются, когда группы сформированы. Для лучшей производительности установите значение на <codeph>false</codeph>. Если значение <codeph>true</codeph>, тогда события отправляются, когда группы и сводки синхронно вычислены для обновления элемента управления. Примечание. Если аргумент <codeph>async</codeph> имеет значение <codeph>true</codeph>, то <codeph>dispatchCollectionEvents</codeph> всегда устанавливается на <codeph>true</codeph>. По умолчанию он имеет значение <codeph>false</codeph>, что означает, никакое событие не будет отправлено.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Применяет группировку к коллекции. Коллекция не обнаруживает изменений группы автоматически, поэтому необходимо вызвать метод <codeph>refresh()</codeph> для обновления коллекции после установки свойств <codeph>grouping</codeph>, <codeph>source</codeph> или <codeph>summaries</codeph>. Метод <codeph>refresh()</codeph> также можно вызвать для изменения GroupingField коллекции, например путем изменения свойств <codeph>caseInsensitive</codeph>, <codeph>compareFunction</codeph> или <codeph>groupingFunction</codeph>.
+     
+      <p>Метод <codeph>refresh()</codeph> можно применять синхронно или асинхронно.</p>
+      
+      <p>При синхронном вызове метода <codeph>refresh()</codeph> все группы и сводки обновляются вместе до получения результата вызова метода. Это означает, что приложение не может выполнить другие операции обработки во время выполнения вызова. Клиент должен ожидать события CollectionEvent со значением свойства <codeph>kind</codeph>, равным <codeph>CollectionEventKind.REFRESH</codeph>, для обеспечения завершения метода<codeph>refresh()</codeph>.</p>
+     
+      <p>При асинхронном обновлении все группы и сводки обновляются индивидуально. Метод <codeph>refresh()</codeph> возвращает результат вызова до обновления групп и сводок, поэтому приложение может продолжать процесс выполнения. Кроме того, элемент управления обновляется во время процесса обновления, поэтому пользователь может продолжать работать с ним.</p>
+     
+      <p>Затраты ресурсов на индивидуальное обновление групп и сводок приводят к тому, что асинхронное обновление занимает больше времени, чем синхронное. Однако если наборы данных большие, во время обновления можно продолжать работу с приложением.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection2:summaries"><apiName>summaries</apiName><shortdesc>
+      Массив экземпляров SummaryRow, определяющих любые сводки данных корневого уровня.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров SummaryRow, определяющих любые сводки данных корневого уровня. Следует указать один или несколько экземпляров SummaryRow для определения сводки данных, как это показано в следующем примере:
+           <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Min Actual" summaryOperation="MIN"/>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Max Actual" summaryOperation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection2>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:protected:timer"><apiName>timer</apiName><shortdesc>
+      Таймер, связанный с операцией асинхронного обновления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      Таймер, связанный с операцией асинхронного обновления. Можно использовать для изменения временного интервала, приостановки обновления или выполнения других действий. Значение по умолчанию для свойства <codeph>delay</codeph> экземпляра таймера равно 1, что соответствует 1 миллисекунде.
+           
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Указывает экземпляр группировки, примененный к исходным данным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Указывает экземпляр группировки, примененный к исходным данным. Настройка свойства <codeph>grouping</codeph> не приводит к автоматическому обновлению представления, поэтому после установки этого свойства следует вызвать метод <codeph>refresh()</codeph>.
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection2/refresh()"><linktext>mx.collections.GroupingCollection2.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:source:get"><apiName>source</apiName><shortdesc>
+      Исходная коллекция, содержащая группируемые плоские данные.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Исходная коллекция, содержащая группируемые плоские данные. Источник, который не является коллекцией, автоматически преобразуется в коллекцию.
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalData"><apiName>IHierarchicalData</apiName><shortdesc>
+  Интерфейс IHierarchicalData определяет интерфейс, используемый для представления иерархических данных как поставщика данных для компонента Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IHierarchicalData определяет интерфейс, используемый для представления иерархических данных как поставщика данных для компонента Flex. Иерархические данные – данные в структуре вышестоящих и нижестоящих элементов данных.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+      Возвращает значение true, если узел может содержать нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел может содержать нижестоящие элементы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если узел может содержать нижестоящие элементы.
+     
+      <p>Узлы не должны содержать нижестоящих элементов метода для возврата значения <codeph>true</codeph>. Этот метод рекомендуется использовать при определении, могут ли другие узлы добавляться к указанному узлу в качестве нижестоящих элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Возвращает объект, представляющий нижестоящие элементы узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Object, содержащий нижестоящие узлы.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. Если значение равно <codeph>null</codeph>, возвращает коллекцию узлов верхнего уровня.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает объект, представляющий нижестоящие элементы узла. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      Возвращает данные из узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Запрашиваемые данные.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, из которого извлекаются данные.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает данные из узла.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     Возвращает корневой элемент данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, содержащий корневой элемент данных.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает корневой элемент данных.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Возвращает значение true, если узел имеет нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел имеет нижестоящие элементы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если узел имеет нижестоящие элементы. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+  Класс GroupingField представляет собой отдельные поля данных, которые используются при группировании плоских данных для отображения элементом управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="summaries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingField&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingField
+  <b>Properties </b>
+    caseInsensitive="false|true"
+    compareFunction="<i>No default</i>"
+    descending="false|true"
+    groupingFunction="<i>No default</i>"
+    groupingObjectFunction="<i>No default</i>"
+    name="null"
+    numeric="false|true"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GroupingField представляет собой отдельные поля данных, которые используются при группировании плоских данных для отображения элементом управления AdvancedDataGrid. 
+ 
+  <p>Для заполнения элемента управления AdvancedDataGrid группированными данными следует создать экземпляр класса GroupingCollection из плоских данных и передать его поставщику данных элемента управления AdvancedDataGrid. Для указания полей группировки плоских данных следует передать экземпляр группировки в свойство <codeph>GroupingCollection.grouping</codeph>. Экземпляр группировки содержит экземпляры массива GroupingField, по одному для каждого поля группировки. </p>
+ 
+  <p>В следующем примере используется класс группировки для определения двух полей группировки: «Регион» и «Территория».</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link></related-links><apiConstructor id="mx.collections:GroupingField:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя свойства, используемое этим полем для сравнения. Если объект относится к простому типу, следует передать <codeph>null</codeph>.
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>При сортировке строк сообщает устройству сравнения, следует ли игнорировать регистр значений.
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Сообщает устройству сравнения, следует ли разместить элементы в порядке убывания.
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Сообщает устройству сравнения, следует ли сравнивать элементы сортировки как числа, вместо алфавитного порядка.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:GroupingField:groupingFunction"><apiName>groupingFunction</apiName><shortdesc>
+      Функция, определяющая метку для этой группы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция, определяющая метку для этой группы. По умолчанию группа отображает текст для поля в данных, которые соответствуют полю, указанному свойством <codeph>name</codeph>. Однако иногда требуется группировать элементы на основании нескольких полей данных или критерия, не являющегося простым поле строки. В таком случае, определение функции обратного вызова осуществляется с помощью свойства <codeph>groupingFunction</codeph>.
+     
+      <p>Функция обратного вызова может преобразовать номер месяца в строку месяца или сгруппировать несколько элементов в отдельную группу на основании критериев, отличающихся от фактического значения поля.</p>
+     
+      <p>Для GroupField подпись метода имеет следующую форму:</p>
+     
+      <pre>groupingFunction(item:Object, field:GroupField):String</pre>
+     
+      <p>Где <codeph>item</codeph> содержит объект элемента данных, а <codeph>field</codeph> – объект GroupField.</p>
+     
+      Например, функцию <codeph>groupingFunction</codeph>, возвращающую первый символ имени группы, можно записать следующим образом 
+      <pre>
+      private function groupFunc(item:Object, field:GroupingField):String
+      {
+          return item[field.name].toString().substr(0, 1);
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      Функция обратного вызова для запуска в каждом узле группы при определении объекта группировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция обратного вызова для запуска в каждом узле группы при определении объекта группировки. По умолчанию для узлов группы создается новый объект.
+     
+      <p>Можно ввести функцию <codeph>groupingObjectFunction</codeph>, предоставляющую соответствующий объект для узлов группы.</p>
+     
+      <p>Подпись метода:</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>где в <codeph>label</codeph> содержится значение, которое будет показано для данного узла группы. Функция возвращает объект, который будет использоваться для узлов группы. </p>
+     
+      Так, функцию <codeph>groupingObjectFunction</codeph>, возвращающую объект, содержащий свойство name со значением Bob, можно записать следующим образом: 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:summaries"><apiName>summaries</apiName><shortdesc>
+      Массив экземпляров SummaryRow, определяющих сводки уровня группы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров SummaryRow, определяющих сводки уровня группы. Следует указать один или несколько экземпляров SummaryRow для определения сводки данных, как это показано в следующем примере:
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region">
+                       &lt;mx:summaries>
+                           &lt;mx:SummaryRow summaryPlacement="group">
+                             &lt;mx:fields>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Min Actual" operation="MIN"/>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Max Actual" operation="MAX"/>
+                             &lt;/mx:fields>
+                           &lt;/mx:SummaryRow>
+                         &lt;/mx:summaries>
+                     &lt;/mx:GroupingField>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid>  
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingField:caseInsensitive:get"><apiName>caseInsensitive</apiName><shortdesc>
+      Следует установить значение равным true, если сортировка для этого поля не должна зависеть от регистра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Следует установить значение равным <codeph>true</codeph>, если сортировка для этого поля не должна зависеть от регистра.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      Функция, сравнивающая два элемента при сортировке элементов для связанной коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция, сравнивающая два элемента при сортировке элементов для связанной коллекции. Если указать свойство <codeph>compareFunction</codeph> в объекте группировки, то в компоненте Flex игнорируются любые свойства <codeph>compareFunction</codeph> объектов GroupingField.
+     
+      <p>Функция сравнения должна иметь следующую подпись:</p>
+     
+      <pre>function myCompare(a:Object, b:Object):int</pre>
+     
+      <p>Эта функция должна возвращать следующие значения:</p>
+       <ul>
+            <li>-1, если <codeph>a</codeph> должно появиться перед <codeph>b</codeph> в сортированной последовательности;</li>
+            <li>0, если <codeph>a</codeph> равно <codeph>b</codeph>;</li>
+            <li>1, если <codeph>a</codeph> должно появиться после <codeph>b</codeph> в сортированной последовательности.</li>
+      </ul>
+     
+      <p>Значение по умолчанию представляет собой внутреннюю функцию сравнения, которая может выполнять сравнение строк, чисел или дат в восходящем или нисходящем порядке, с учетом или без учета регистра. Указывать собственную функцию следует только в том случае, если необходим пользовательский алгоритм сравнения. Обычно он применяется только в том только случае, если в отображении используется вычисленное поле.</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:descending:get"><apiName>descending</apiName><shortdesc>
+      Следует установить значение равным true, если сортировка для этого поля должна происходить в порядке убывания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Следует установить значение равным <codeph>true</codeph>, если сортировка для этого поля должна происходить в порядке убывания.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:name:get"><apiName>name</apiName><shortdesc>
+      Имя поля для сортировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Имя поля для сортировки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      Указывает, что если сортируемое поле содержит числовые значения (Number/int/uint) или строковые представления числовых значений, то устройство сравнения использует числовые сравнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, что если сортируемое поле содержит числовые значения (Number/int/uint) или строковые представления числовых значений, то устройство сравнения использует числовые сравнение. Если это свойство равно <codeph>false</codeph>, то поля со строковыми представлениями чисел сортируются с использованием сравнения строк, таким образом, 100 предшествует 99, поскольку 1 – более низкое строковое значение чем 9.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:Grouping"><apiName>Grouping</apiName><shortdesc>
+  Класс Grouping определяет поля в поставщике данных элемента управления AdvancedDataGrid, используемые для группировки данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.Grouping&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Grouping
+  <b>Properties </b>
+    compareFunction="<i>No default</i>"
+    fields="null"
+    groupingObjectFunction="<i>No default</i>"
+    label="GroupLabel"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Grouping определяет поля в поставщике данных элемента управления AdvancedDataGrid, используемые для группировки данных. Этот класс следует использовать для создания группы, если входные данные для элемента управления AdvancedDataGrid имеют плоскую структуру.
+ 
+  <p>Для заполнения элемента управления AdvancedDataGrid группированными данными следует создать экземпляр класса GroupingCollection из плоских данных и передать его поставщику данных элемента управления AdvancedDataGrid. Для указания полей группировки плоских данных следует передать экземпляр группировки в свойство <codeph>GroupingCollection.grouping</codeph>. Экземпляр группировки содержит экземпляры массива GroupingField, по одному для каждого поля группировки. </p>
+ 
+  <p>В следующем примере используется класс группировки для определения двух полей группировки: «Регион» и «Территория».</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:Grouping:Grouping"><apiName>Grouping</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:Grouping:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      Функция обратного вызова для запуска в каждом узле группы при определении объекта группировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция обратного вызова для запуска в каждом узле группы при определении объекта группировки. По умолчанию для узлов группы создается новый объект.
+     
+      <p>Можно ввести функцию <codeph>groupingObjectFunction</codeph>, предоставляющую соответствующий объект для узлов группы.</p>
+     
+      <p>Подпись метода:</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>где в <codeph>label</codeph> содержится значение, которое будет показано для данного узла группы. Функция возвращает объект, используемый для узлов группы. </p>
+     
+      Так, функцию <codeph>groupingObjectFunction</codeph>, возвращающую объект, содержащий свойство name со значением Bob, можно записать следующим образом: 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:label"><apiName>label</apiName><shortdesc>
+      Имя поля, добавляемого к плоским данным для создания иерархии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GroupLabel</apiData><apiType value="String"/><apiDefaultValue>GroupLabel
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Имя поля, добавляемого к плоским данным для создания иерархии. Значение верхних узлов (узлов, представляющих поля группы) в каждой группе будет представлено этим свойством. Это свойство следует использовать для указания другого имени.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      Метод, используемый для сравнения элементов при сортировке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Метод, используемый для сравнения элементов при сортировке. При указании этого свойства Flex игнорирует любые свойства <codeph>compareFunction</codeph>, которые указаны в объектах SortField, используемых в этом классе.
+     
+      <p>Функция сравнения должна иметь следующую подпись:</p>
+      <pre>
+         function [name](a:Object, b:Object, fields:Array=null):int</pre>
+     
+      <p>Эта функция должна возвращать следующее:</p>
+      <ul>
+            <li>-1, если <codeph>a</codeph> должно появиться перед <codeph>b</codeph> в сортированной последовательности;</li>
+            <li>0, если <codeph>a</codeph> равно <codeph>b</codeph>;</li>
+            <li>1, если <codeph>a</codeph> должно появиться после <codeph>b</codeph> в сортированной последовательности.</li>
+      </ul>
+     
+      <p>Для возврата внутренней функции сравнения следует установить это значение равным <codeph>null</codeph>.</p>
+     
+     <p>Массив <codeph>fields</codeph> указывает поля объекта для сравнения. Как правило, алгоритм сравнивает свойства до тех пор, пока не будет исчерпан список полей, или не появится возможность возврата ненулевого значения. Например:</p>
+     
+      <pre>
+        function myCompare(a:Object, b:Object, fields:Array=null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }</pre>
+     
+      <p>Значение по умолчанию представляет собой внутреннюю функцию сравнения, которая может выполнять сравнение строк, чисел или дат в восходящем или нисходящем порядке, с учетом или без учета регистра. Указывать собственную функцию следует только в том случае, если необходим пользовательский алгоритм сравнения. Обычно он применяется только в том только случае, если в отображении используется вычисленное поле.</p>
+     
+      <p>Также можно указать отдельные функции сравнения для каждого поля сортировки с помощью свойства <codeph>compare</codeph> класса SortField. Подобным образом можно использовать сравнение по умолчанию для одних полей и пользовательское сравнение для других.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:fields:get"><apiName>fields</apiName><shortdesc>
+      Массив объектов GroupingField, определяющий поля, используемые для группировки данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Массив объектов GroupingField, определяющий поля, используемые для группировки данных. Порядок объектов GroupingField в массиве определяет приоритетный порядок полей при сортировке.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingField"><linktext>GroupingField</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+  Класс SummaryRow представляет строку сводки AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryRow&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryRow
+  <b>Properties </b>
+    fields="<i>No default</i>"
+    summaryObjectFunction="<i>No default</i>"
+    summaryPlacement="<i>last</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SummaryRow представляет строку сводки AdvancedDataGrid. Данные сводки о группах данных создаются с помощью свойства <codeph>summaries</codeph> класса GroupingField или GroupingCollection. Данные сводки отображаются в существующей строке элемента управления AdvancedDataGrid или в отдельной строке.
+ 
+  <p>Свойство <codeph>summaries</codeph> класса GroupingField или GroupingCollection принимает экземпляр класса SummaryRow. Затем можно использовать свойство <codeph>fields</codeph> класса SummaryRow для указания массива одного или нескольких экземпляров SummaryField/SummaryField2, определяющих поля данных для создания сводки. Необходимо использовать <codeph>SummaryField2</codeph> при использовании <codeph>GroupingCollection2</codeph>.</p>
+ 
+  <p>В следующем примере создаются строки сводки на основе двух полей поставщика данных элемента управления AdvancedDataGrid:</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiConstructor id="mx.collections:SummaryRow:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryRow:fields"><apiName>fields</apiName><shortdesc>
+      Массив экземпляров SummaryField/SummaryField2, определяющих характеристики полей данных, используемых для создания сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров SummaryField/SummaryField2, определяющих характеристики полей данных, используемых для создания сводки.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryObjectFunction"><apiName>summaryObjectFunction</apiName><shortdesc>
+      Указывает функцию обратного вызова, определяющую объект сводки, который является экземпляром класса SummaryObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Указывает функцию обратного вызова, определяющую объект сводки, который является экземпляром класса SummaryObject. Экземпляр SummaryObject собирает данные сводки для отображения в элементе управления AdvancedDataGrid. Элемент управления AdvancedDataGrid добавляет экземпляр SummaryObject к поставщику данных для отображения данных сводки в элементе управления. Поэтому в экземпляре SummaryObject следует определить отображаемые свойства.
+     
+      <p>Это свойство следует использовать со свойством <codeph>SummaryField.summaryFunction</codeph>, определяющим функцию обратного вызова для вычисления сводки.</p>
+     
+      <p>Класс GroupingCollection добавляет к объекту свойство <codeph>children</codeph>.</p>
+     
+      <p>Функция обратного вызова должна иметь следующую подпись:</p>
+     
+      <pre>function mySumObjFunc():SummaryObject {}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>mx.collections.SummaryField.summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryPlacement"><apiName>summaryPlacement</apiName><shortdesc> 
+      Указывает, где появится строка сводки в элементе управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      Указывает, где появится строка сводки в элементе управления AdvancedDataGrid. Возможные значения:
+     
+      <ul>
+        <li><codeph>first</codeph> – создает строку сводки как первую строку в группе;</li>
+        <li><codeph>last</codeph> – создает строку сводки в качестве последней строки в группе;</li>
+        <li><codeph>group</codeph> – добавляет данные сводки к строке, соответствующей группе.</li>
+      </ul>
+     
+      <p>Можно указать несколько значений, разделенных пробелами. Например, значение <codeph>last group</codeph> показывает одинаковые строки сводки в уровне группы и в последней строке нижестоящих элементов.</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+  Класс HierarchicalCollectionViewCursor задает курсор для иерархического представления стандартной коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionViewCursor</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HierarchicalCollectionViewCursor задает курсор для иерархического представления стандартной коллекции. Коллекция, через которую перемещается этот курсор, может быть не только иерархической, но и плоской. Этот класс делегирует в IHierarchicalData информацию, относящуюся к древовидной структуре данных, по которым осуществляется перемещение. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#HierarchicalCollectionView"><linktext>HierarchicalCollectionView</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalCollectionViewCursor:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:HierarchicalCollectionView</apiOperationClassifier><apiDesc>Экземпляр HierarchicalCollectionView, на который ссылается этот курсор.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Коллекция исходных данных.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiDesc>Данные, используемые для создания экземпляра HierarchicalCollectionView.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findAny"><apiName>findAny</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findFirst"><apiName>findFirst</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findLast"><apiName>findLast</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:insert"><apiName>insert</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:moveNext"><apiName>moveNext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:movePrevious"><apiName>movePrevious</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:remove"><apiName>remove</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:seek"><apiName>seek</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>bookmark</apiItemName><apiType value="mx.collections:CursorBookmark"/></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.collections:HierarchicalCollectionViewCursor:afterLast:get"><apiName>afterLast</apiName><shortdesc conref="mx.collections.IViewCursor#afterLast">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#afterLast">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:beforeFirst:get"><apiName>beforeFirst</apiName><shortdesc conref="mx.collections.IViewCursor#beforeFirst">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#beforeFirst">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:bookmark:get"><apiName>bookmark</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      
+      Содержит глубину узла в местоположении в исходной коллекции, на которое ссылается курсор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      Содержит глубину узла в местоположении в исходной коллекции, на которое ссылается курсор. Если курсор находится за пределами коллекции, это свойство имеет значение 0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:current:get"><apiName>current</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:view:get"><apiName>view</apiName><shortdesc conref="mx.collections.IViewCursor#view">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#view">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:DefaultSummaryCalculator"><apiName>DefaultSummaryCalculator</apiName><shortdesc>
+  Класс DefaultSummaryCalculator обеспечивает логику вычисления сводки для операций SUM, MIN, MAX, AVG и COUNT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISummaryCalculator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DefaultSummaryCalculator обеспечивает логику вычисления сводки для операций <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> и <codeph>COUNT</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex вызывает этот метод в случае, если требуется добавить к уже вычисленной сводке новое значение сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный с помощью вызова метода <codeph>summaryOfSummaryCalculationBegin()</codeph>, либо вычисленный с помощью предыдущего вызова метода <codeph>calculateSummaryOfSummary()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>returnSummary()</codeph> для предыдущей агрегации.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод в случае, если требуется добавить к уже вычисленной сводке новое значение сводки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+	  
+      Flex вызывает этот метод в случае, если требуется добавить к значению сводки новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>summaryCalculationBegin()</codeph>, либо вычисленный посредством предварительного вызова метода <codeph>calculateSummary()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод в случае, если требуется добавить к значению сводки новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex вызывает этот метод для завершения процесса вычисления сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение сводки.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummaryOfSummary()</codeph>, который используется для сохранения результатов вычисления сводки. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод для завершения процесса вычисления сводки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+	  
+      Flex вызывает этот метод для завершения процесса вычисления значения сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение сводки.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummary()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения вычисления. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод для завершения процесса вычисления значения сводки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex вызывает этот метод для начала процесса вычисления значения сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициировавший вычисление сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот объект передается последующим вызовам для методов <codeph>calculateSummary()</codeph> и <codeph>returnSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод для начала процесса вычисления значения сводки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex вызывает этот метод для начала вычисления сводки по значениям сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициировавший вычисление сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот объект передается последующим вызовам для методов <codeph>calculateSummaryOfSummary()</codeph> и <codeph>returnSummaryOfSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummary()</codeph> для предыдущего вычисления сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex вызывает этот метод для начала вычисления сводки по значениям сводки. Примером вычисления сводки по значениям сводки является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+  Иерархические данные – данные в структуре вышестоящих и нижестоящих элементов данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Иерархические данные – данные в структуре вышестоящих и нижестоящих элементов данных. Класс HierarchicalData обеспечивает реализацию по умолчанию для получения и обработки данных, используемых в элементах управления, таких как AdvancedDataGrid. Для настройки элемента управления AdvancedDataGrid на отображение иерархических данных следует передать в свойство <codeph>dataProvider</codeph> экземпляр класса HierarchicalData. Эта реализация позволяет выполнить обработку узлов E4X, XML и объекта похожими, но разными способами. Подробная информация относительно способов, используемых методом для получения доступа к значениям в узлах различных типов, содержится в описании соответствующего метода.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalData:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Данные, используемые для заполнения экземпляра HierarchicalData.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+     
+      Возвращает значение true, если узел может содержать нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел может содержать нижестоящие элементы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Возвращает значение <codeph>true</codeph>, если узел может содержать нижестоящие элементы.
+     
+      <p>Узлы не должны содержать нижестоящих элементов метода для возврата значения <codeph>true</codeph>. Этот метод рекомендуется использовать при определении, могут ли другие узлы добавляться к указанному узлу в качестве нижестоящих элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      Возвращает объект, представляющий нижестоящие элементы узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Object, содержащий нижестоящие узлы.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. Если значение равно <codeph>null</codeph>, возвращает коллекцию узлов верхнего уровня.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает объект, представляющий нижестоящие элементы узла. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      
+      Возвращает данные из узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Запрашиваемые данные.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, из которого извлекаются данные.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает данные из узла.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     
+     Возвращает корневой элемент данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, содержащий корневой элемент данных.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     
+     Возвращает корневой элемент данных.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      
+      Возвращает значение true, если узел имеет нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел имеет нижестоящие элементы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает значение <codeph>true</codeph>, если узел имеет нижестоящие элементы. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalData:childrenField:get"><apiName>childrenField</apiName><shortdesc>
+      Указывает имя поля, используемое для обнаружения объектов нижестоящих элементов в элементе данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает имя поля, используемое для обнаружения объектов нижестоящих элементов в элементе данных. По умолчанию все подчиненные узлы рассматриваются как нижестоящие элементы для XML-данных, а свойство <codeph>children</codeph> используется для типа данных объекта. Рекомендуется для адаптации к формату данных, использующему пользовательские поля данных для представления нижестоящих элементов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalData:source:get"><apiName>source</apiName><shortdesc>
+      Исходная коллекция.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Исходная коллекция. Коллекция должна реализовать интерфейс IList для упрощения операции, подобной добавлению и удалению элементов.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+  Класс GroupingCollection позволяет создавать группированные данные из плоских данных для отображения в элементе управления AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingCollection&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingCollection
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  <p>This Class has been deprecated and replaced by a new Class
+  <code>GroupingCollection2</code> which provide faster, 
+  improved performance and a new summary calculation mechanism.
+  Class <code>SummaryField</code> has also been deprecated and 
+  replaced by a new Class <code>SummaryField2</code>.
+  Properties <code>operation</code> and <code>summaryFunction</code> are 
+  not present in the Class <code>SummaryField2</code>. 
+  A new property <code>summaryOperation</code> is introduced in 
+  <code>SummaryField2</code>.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="GroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IGroupingCollection</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GroupingCollection позволяет создавать группированные данные из плоских данных для отображения в элементе управления AdvancedDataGrid. При создании экземпляра GroupingCollection из плоских данных следует указать поле или поля данных, используемые для создания иерархии.
+ 
+  <p>Для заполнения элемента управления AdvancedDataGrid группированными данными следует создать экземпляр класса GroupingCollection из плоских данных и передать его поставщику данных элемента управления AdvancedDataGrid. Для указания полей группировки плоских данных следует передать экземпляр группировки в свойство <codeph>GroupingCollection.grouping</codeph>. Экземпляр группировки содержит экземпляры массива GroupingField, по одному для каждого поля группировки. </p>
+ 
+  <p>В следующем примере для определения полей группировки «Регион» и «Территория» используется класс GroupingCollection.</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп. Этот метод отменяет обновление, если оно инициируется только вызовом метода <codeph>refresh()</codeph> с аргументом <codeph>true</codeph>, соответствующим асинхронному обновлению.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      Возвращает вышестоящий узел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел в качестве нижестоящего, для узла верхнего уровня используется значение <codeph>null</codeph>, и <codeph>undefined</codeph>, если вышестоящий элемент определить невозможно.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий узел. Вышестоящий элемент узла верхнего уровня содержит значение <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:getRoot"><apiName>getRoot</apiName><shortdesc>
+      Если установлено свойство grouping возвращается значение super.source, в противном случае – экземпляр ICollectionView, ссылающийся на super.source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Возвращаемый объект.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Если установлено свойство <codeph>grouping</codeph> возвращается значение <codeph>super.source</codeph>, в противном случае – экземпляр ICollectionView, ссылающийся на <codeph>super.source</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      Применяет группировку к представлению.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при завершении метода <codeph>refresh()</codeph> и <codeph>false</codeph>, если обновление остается незавершенным, т.е. элементы по-прежнему могут находиться в состоянии ожидания.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph> определяет асинхронное обновление. Значение по умолчанию равно <codeph>false</codeph>, обозначая синхронное обновление.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Применяет группировку к представлению. IGroupingCollection не обнаруживает изменений группы автоматически, поэтому для обновления представления после установки свойства <codeph>group</codeph> следует вызвать метод <codeph>refresh()</codeph>.
+     
+      <p>Метод <codeph>refresh()</codeph> можно применять асинхронно путем вызова <codeph>refresh(true)</codeph>.</p>
+      
+      <p>При синхронном вызове <codeph>refresh()</codeph> клиент должен ожидать события CollectionEvent со значением свойства <codeph>kind</codeph>, равным <codeph>CollectionEventKind.REFRESH</codeph>, для обеспечения завершения метода <codeph>refresh()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection:summaries"><apiName>summaries</apiName><shortdesc>
+      Массив экземпляров SummaryRow, определяющих любые сводки данных корневого уровня.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров SummaryRow, определяющих любые сводки данных корневого уровня. Следует указать один или несколько экземпляров SummaryRow для определения сводки данных, как это показано в следующем примере:
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Min Actual" operation="MIN"/>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Max Actual" operation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:protected:timer"><apiName>timer</apiName><shortdesc>
+      Таймер, связанный с операцией асинхронного обновления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      Таймер, связанный с операцией асинхронного обновления. Можно использовать для изменения временного интервала, приостановки обновления или выполнения других действий. Значение по умолчанию для свойства <codeph>delay</codeph> экземпляра таймера равно 1, что соответствует 1 миллисекунде.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Указывает экземпляр группировки, примененный к исходным данным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Указывает экземпляр группировки, примененный к исходным данным. Настройка свойства <codeph>grouping</codeph> не приводит к автоматическому обновлению представления, поэтому после установки этого свойства следует вызвать метод <codeph>refresh()</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection/refresh()"><linktext>mx.collections.GroupingCollection.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:source:get"><apiName>source</apiName><shortdesc>
+      Исходная коллекция, содержащая группируемые плоские данные.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Исходная коллекция, содержащая группируемые плоские данные. Источник, который не является коллекцией, автоматически преобразуется в коллекцию.
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISummaryCalculator"><apiName>ISummaryCalculator</apiName><shortdesc>
+  Интерфейс ISummaryCalculator определяет интерфейс, реализованный пользовательскими классами калькулятора сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс ISummaryCalculator определяет интерфейс, реализованный пользовательскими классами калькулятора сводки. Экземпляр класса, реализующего этот интерфейс, можно передать в свойство <codeph>summaryOperation</codeph> класса <codeph>SummaryField2</codeph>.
+ 
+  <p>Реализация методов этого интерфейса в двух группах. Первая группа состоит из методов <codeph>summaryCalculationBegin()</codeph>, <codeph>calculateSummary()</codeph> и <codeph>returnSummary()</codeph>. Используйте эти методы для вычисления сводки значений.</p>
+ 
+  <p>Вторая группа состоит из методов <codeph>summaryOfSummaryCalculationBegin()</codeph>, <codeph>calculateSummaryOfSummary()</codeph> и <codeph>returnSummaryOfSummary()</codeph>. Используйте эти методы для вычисления сводки значений сводки.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+      Flex вызывает этот метод в случае, если требуется добавить к уже вычисленной сводке новое значение сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный с помощью вызова метода <codeph>summaryOfSummaryCalculationBegin()</codeph>, либо вычисленный с помощью предыдущего вызова метода <codeph>calculateSummaryOfSummary()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>returnSummary()</codeph> для предыдущей агрегации.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод в случае, если требуется добавить к уже вычисленной сводке новое значение сводки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+      Flex вызывает этот метод в случае, если требуется добавить к значению сводки новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>summaryCalculationBegin()</codeph>, либо вычисленный посредством предварительного вызова метода <codeph>calculateSummary()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод в случае, если требуется добавить к значению сводки новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+      Flex вызывает этот метод для завершения процесса вычисления сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение сводки.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummaryOfSummary()</codeph>, который используется для сохранения результатов вычисления сводки. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод для завершения процесса вычисления сводки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+      Flex вызывает этот метод для завершения процесса вычисления значения сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение сводки.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummary()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения вычисления. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод для завершения процесса вычисления значения сводки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+      Flex вызывает этот метод для начала процесса вычисления значения сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициировавший вычисление сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот объект передается последующим вызовам для методов <codeph>calculateSummary()</codeph> и <codeph>returnSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод для начала процесса вычисления значения сводки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+      Flex вызывает этот метод для начала вычисления сводки по значениям сводки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициировавший вычисление сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления. Этот объект передается последующим вызовам для методов <codeph>calculateSummaryOfSummary()</codeph> и <codeph>returnSummaryOfSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>calculateSummary()</codeph> для предыдущего вычисления сводки. Этот объект используется для хранения информации, необходимой для выполнения вычисления.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>SummaryField2, для которого необходимо вычислить сводку.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex вызывает этот метод для начала вычисления сводки по значениям сводки. Примером вычисления сводки по значениям сводки является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection2"><apiName>IGroupingCollection2</apiName><shortdesc>
+  Интерфейс IGroupingCollection2 определяет интерфейс, необходимый для создания группированных данных из плоских данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IGroupingCollection2 определяет интерфейс, необходимый для создания группированных данных из плоских данных.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection2"><linktext>mx.collections.GroupingCollection2</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп. Этот метод отменяет обновление, если оно инициируется только вызовом метода <codeph>refresh()</codeph> с аргументом <codeph>asynch</codeph> <codeph>true</codeph>, соответствующим асинхронному обновлению.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      Применяет группировку к коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при завершении метода <codeph>refresh()</codeph> и <codeph>false</codeph>, если обновление остается незавершенным, т.е. элементы по-прежнему могут находиться в состоянии ожидания.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph> определяет асинхронное обновление. Значение по умолчанию равно <codeph>false</codeph>, обозначая синхронное обновление.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Если значение <codeph>true</codeph>, события отправляются, когда группы сформированы. Для лучшей производительности установите значение на <codeph>false</codeph>. Если значение <codeph>true</codeph>, тогда события отправляются, когда группы и сводки синхронно вычислены для обновления элемента управления. Примечание. Если аргумент <codeph>async</codeph> имеет значение <codeph>true</codeph>, то <codeph>dispatchCollectionEvents</codeph> всегда устанавливается на <codeph>true</codeph>. По умолчанию он имеет значение <codeph>false</codeph>, что означает, никакое событие не будет отправлено.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Применяет группировку к коллекции. Коллекция не обнаруживает изменений группы автоматически, поэтому необходимо вызвать метод <codeph>refresh()</codeph> для обновления коллекции после установки свойств <codeph>grouping</codeph>, <codeph>source</codeph> или <codeph>summaries</codeph>. Метод <codeph>refresh()</codeph> также можно вызвать для изменения GroupingField коллекции, например путем изменения свойств <codeph>caseInsensitive</codeph>, <codeph>compareFunction</codeph> или <codeph>groupingFunction</codeph>.
+     
+      <p>Метод <codeph>refresh()</codeph> можно применять синхронно или асинхронно.</p>
+      
+      <p>При синхронном вызове метода <codeph>refresh()</codeph> все группы и сводки обновляются вместе до получения результата вызова метода. Это означает, что приложение не может выполнить другие операции обработки во время выполнения вызова. Клиент должен ожидать события CollectionEvent со значением свойства <codeph>kind</codeph>, равным <codeph>CollectionEventKind.REFRESH</codeph>, для обеспечения завершения метода<codeph>refresh()</codeph>.</p>
+     
+      <p>При асинхронном обновлении все группы и сводки обновляются индивидуально. Метод <codeph>refresh()</codeph> возвращает результат вызова до обновления групп и сводок, поэтому приложение может продолжать процесс выполнения. Кроме того, элемент управления обновляется во время процесса обновления, поэтому пользователь может продолжать работать с ним.</p>
+     
+      <p>Затраты ресурсов на индивидуальное обновление групп и сводок приводят к тому, что асинхронное обновление занимает больше времени, чем синхронное. Однако если наборы данных большие, во время обновления можно продолжать работу с приложением.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Объект группировки, примененный к исходным данным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Объект группировки, примененный к исходным данным. Установка этого свойства автоматически не обновляет представление; поэтому после его настройки следует вызвать метод <codeph>refresh()</codeph>.
+     
+      <p><b>Примечание.</b> Реализации IGroupingCollection2 в Flex перед выполнением группировки извлекают все элементы из удаленного местоположения.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+  Класс HierarchicalCollectionView обеспечивает иерархическое представление стандартной коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.HierarchicalCollectionView&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:HierarchicalCollectionView
+  <b>Properties </b>
+    showRoot="true|false"
+    source="<i>No default</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionView</apiBaseInterface><apiBaseInterface>mx.utils:IXMLNotifiable</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс HierarchicalCollectionView обеспечивает иерархическое представление стандартной коллекции.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections:HierarchicalCollectionView:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiData>null</apiData><apiDesc>Структура данных, содержащая иерархические данные.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>argOpenNodes</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Объект, определяющий появляющийся узел как открытый.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Добавление нижестоящего узла к узлу в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Содержит значение <codeph>true</codeph>, если нижестоящий элемент добавлен успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий вышестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий нижестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс местоположения для вставки нижестоящего узла.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавление нижестоящего узла к узлу в указанной позиции индекса. Эта реализация позволяет выполнять следующее:
+     
+      <ul>
+          <li>Если <codeph>parent</codeph> содержит значение null или undefined, вставляет <codeph>child</codeph> в указанную позицию <codeph>index</codeph> в коллекции, указанной с помощью параметра <codeph>source</codeph>.
+          </li>
+          <li>Если <codeph>parent</codeph> имеет поле или свойство <codeph>children</codeph>, этот метод добавляет к нему <codeph>child</codeph> в указанной позиции <codeph>index</codeph>. В этом случае указывать <codeph>source</codeph> не требуется.
+         </li>
+         <li>Если значение <codeph>parent</codeph> не имеет поля или свойства <codeph>children</codeph>, этот метод добавляет <codeph>children</codeph> к <codeph>parent</codeph>. Затем этот метод добавляет <codeph>child</codeph> к вышестоящему элементу в позиции <codeph>index</codeph>. В этом случае указывать <codeph>source</codeph> не требуется.
+         </li>
+         <li>Если значение <codeph>index</codeph> превышает длину коллекции или количество нижестоящих элементов в вышестоящем узле, объект добавляется в качестве последнего нижестоящего элемента.
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      
+      Добавляет нижестоящий узел к узлу данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при успешном добавлении узла.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий вышестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий новый узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Добавляет нижестоящий узел к узлу данных.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      
+      Закрывает узел, скрывая его нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Закрывает узел, скрывая его нижестоящие элементы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:contains"><apiName>contains</apiName><shortdesc>
+      Проверяет коллекцию на наличие элемента данных с использованием стандартной проверки равенства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Содержит значение <codeph>true</codeph>, если элемент данных находится в коллекции, и <codeph>false</codeph>, если отсутствует.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел для поиска.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Проверяет коллекцию на наличие элемента данных с использованием стандартной проверки равенства.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      Возвращает новый экземпляр итератора представления по элементам в данном представлении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр IViewCursor.
+     
+      </apiDesc><apiType value="mx.collections:IViewCursor"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает новый экземпляр итератора представления по элементам в данном представлении.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.IViewCursor.xml"><linktext>mx.utils.IViewCursor</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      Возвращает коллекцию нижестоящих элементов (при их наличии).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр ICollectionView, включающий нижестоящие узлы.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий узел. Если значение равно <codeph>null</codeph>, возвращает коллекцию узлов верхнего уровня.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает коллекцию нижестоящих элементов (при их наличии). 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+     
+      Возвращает глубину узла в коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Глубина узла.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Возвращает глубину узла в коллекции.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      Возвращает вышестоящий узел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел; значение <codeph>null</codeph> для узла верхнего уровня и <codeph>undefined</codeph>, если вышестоящий узел определить невозможно.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий узел. Вышестоящий элемент узла верхнего уровня содержит значение <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      
+      Открывает узел для отображения его нижестоящих узлов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Открывает узел для отображения его нижестоящих узлов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Содержит значение <codeph>true</codeph>, если нижестоящий узел успешно удален.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий вышестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс нижестоящего узла, подлежащего удалению, по отношению к вышестоящему узлу.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      
+      Удаляет нижестоящий узел из вышестоящего узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph>, если узел успешно удален.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект, который определяет вышестоящий узел, и значение <codeph>null</codeph> для узлов верхнего уровня.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Объект, который определяет нижестоящий узел, подлежащий удалению.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Удаляет нижестоящий узел из вышестоящего узла.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+       
+      Флаг, который при значении true указывает, что текущий поставщик данных имеет корневой узел; например, отдельный узел верхнего уровня в иерархической структуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+       
+      Флаг, который при значении <codeph>true</codeph> указывает, что текущий поставщик данных имеет корневой узел; например, отдельный узел верхнего уровня в иерархической структуре. XML и объект являются примерами типов данных, которые имеют корневой узел, тогда как списки и массивы – нет.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:length:get"><apiName>length</apiName><shortdesc>
+      Длина текущей анализируемой коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Длина текущей анализируемой коллекции.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      
+      Массив объектов, содержащих элемент поставщика данных для всех открытых узлов ветви данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      Массив объектов, содержащих элемент поставщика данных для всех открытых узлов ветви данных.
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      
+      Логический флаг, указывающий, отобразить ли корневой узел поставщика данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Логический флаг, указывающий, отобразить ли корневой узел поставщика данных. Если исходные данные имеют корневой узел, а данное свойство равно <codeph>false</codeph>, то коллекция не включает корневой элемент. В коллекцию будут включены только нижестоящие элементы корневого элемента.  
+     
+      <p>Это свойство не влияет на источник без корневого узла, например на объекты списка и массива.</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      
+      Исходные данные IHierarchicalCollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Исходные данные IHierarchicalCollectionView.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection"><apiName>IGroupingCollection</apiName><shortdesc>
+  Интерфейс IGroupingCollection определяет интерфейс, необходимый для создания группированных данных из плоских данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="IGroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IGroupingCollection определяет интерфейс, необходимый для создания группированных данных из плоских данных.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обновление, выполняемое асинхронно, отменяет операцию обновления и останавливает формирование групп. Этот метод отменяет обновление, если оно инициируется только вызовом метода <codeph>refresh()</codeph> с аргументом <codeph>true</codeph>, соответствующим асинхронному обновлению.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      Применяет группировку к представлению.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение равно <codeph>true</codeph> при завершении метода <codeph>refresh()</codeph> и <codeph>false</codeph>, если обновление остается незавершенным, т.е. элементы по-прежнему могут находиться в состоянии ожидания.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph> определяет асинхронное обновление. Значение по умолчанию равно <codeph>false</codeph>, обозначая синхронное обновление.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Применяет группировку к представлению. IGroupingCollection не обнаруживает изменений группы автоматически, поэтому для обновления представления после установки свойства <codeph>group</codeph> следует вызвать метод <codeph>refresh()</codeph>.
+     
+      <p>Метод <codeph>refresh()</codeph> можно применять асинхронно путем вызова <codeph>refresh(true)</codeph>.</p>
+      
+      <p>При синхронном вызове <codeph>refresh()</codeph> клиент должен ожидать события CollectionEvent со значением свойства <codeph>kind</codeph>, равным <codeph>CollectionEventKind.REFRESH</codeph>, для обеспечения завершения метода <codeph>refresh()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Объект группировки, примененный к исходным данным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Объект группировки, примененный к исходным данным. Установка этого свойства автоматически не обновляет представление; поэтому после его настройки следует вызвать метод <codeph>refresh()</codeph>.
+     
+      <p>Примечание. Реализации IGroupingCollection в Flex перед выполнением группировки извлекают все элементы из удаленного местоположения.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

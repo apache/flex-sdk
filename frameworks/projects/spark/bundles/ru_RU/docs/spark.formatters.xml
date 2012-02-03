@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters"><apiName>spark.formatters</apiName><apiDetail/><apiClassifier id="spark.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  Класс CurrencyFormatter обеспечивает форматирование и анализ денежных значений с учетом особенностей локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:CurrencyFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:CurrencyFormatter 
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale and OS dependent</i>"
+    currencySymbol="<i>locale and OS dependent</i>"
+    negativeCurrencyFormat="<i>locale and OS dependent</i>"
+    positiveCurrencyFormat="<i>locale and OS dependent</i>"
+    useCurrencySymbol="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CurrencyFormatter обеспечивает форматирование и анализ денежных значений с учетом особенностей локали. 
+ 
+  <p>Это класс-оболочка, включающий <codeph>flash.globalization.CurrencyFormatter</codeph>. Поэтому специфичное для локали форматирование обеспечивает <codeph>flash.globalization.CurrencyFormatter</codeph>. Класс CurrencyFormatter, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства.
+  </p><p>
+  Класс flash.globalization.CurrencyFormatter использует базовую операционную систему для форматирования функциональности и предоставления данных, относящихся к конкретной локали. В некоторых операционных системах, не поддерживающих классы flash.globalization, класс оболочки обеспечивает резервные функциональные возможности.
+  </p>
+ 
+  </apiDesc><example conref="CurrencyFormatterExample1.mxml"><swfblock conref="examples/CurrencyFormatterExample1.swf"/></example><example conref="CurrencyFormatterExample2.mxml"><swfblock conref="examples/CurrencyFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+      Создает новый объект CurrencyFormatter, чтобы отформатировать числа, представляющие денежные суммы в соответствии с правилами данной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструирует новый объект <codeph>CurrencyFormatter</codeph> для форматирования чисел, представляющих денежные суммы, в соответствии с условиями данной локали.
+      <p>
+      Стиль <codeph>locale</codeph> определяет локаль для этого класса. Стиль <codeph>locale</codeph> можно установить следующими способами.
+      </p>
+      <ul>
+      <li>
+      С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      </li>
+      Пример:
+      <pre>
+      &lt;fx:Declarations> 
+             &lt;s:CurrencyFormatter id="cf" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      С использованием объявления MXML и указанием значения локали в списке назначений.
+      </li>
+      Пример:
+      <pre>
+      &lt;fx:Declarations> 
+          &lt;s:CurrencyFormatter id="cf_Japanese" locale="ja-JP" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      Вызов метода <codeph>setStyle()</codeph>, например <codeph>cf.setStyle("locale", "ja-JP")</codeph>
+      </li>
+      <li> 
+      Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода <codeph>addStyleClient()</codeph> UIComponent.
+      </li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+     
+      <p>Многие свойства этого класса автоматически устанавливаются на основе стиля <codeph>locale</codeph>. При изменении стиля <codeph>locale</codeph> все свойства, которые не были явно указаны, будут обновлены в соответствии с новой локалью. Обратите внимание, что фактическая используемая локаль определяется в свойстве <codeph>actualLocaleIDName</codeph>.</p>
+     
+      <p><b>Примечание.</b> При использовании резервной локали для свойств валюты определены значения по умолчанию, в результате чего для свойства <codeph>currencySymbol</codeph> или <codeph>currencyISOCode</codeph> могут быть указаны непредвиденные значения. Рекомендуется проверить значения свойств <codeph>currencySymbol</codeph> и <codeph>currencyISOCode</codeph>, прежде чем форматировать денежную сумму.
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      Создается строка, которая представляет денежную сумму, отформатированную в соответствии с текущими свойствами данного объекта CurrencyFormatter, включая свойства locale, useCurrencySymbol, currencySymbol или currencyISOCode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Строка, содержащая отформатированное значение валюты.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий числовое значение, которое требуется отформатировать в строку валюты. Если объект не является <codeph>Number</codeph>, то он будет преобразован в число с помощью функции преобразования <codeph>Number()</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создается строка, которая представляет денежную сумму, отформатированную в соответствии с текущими свойствами данного объекта CurrencyFormatter, включая свойства <codeph>locale</codeph>, <codeph>useCurrencySymbol</codeph>, <codeph>currencySymbol</codeph> или <codeph>currencyISOCode</codeph>.
+     
+      <p>Свойство <codeph>useCurrencySymbol</codeph> определяет, будет ли метод формата использовать <codeph>currencySymbol</codeph> или <codeph>currencyISOCode</codeph> в отформатированной денежной сумме. Значением по умолчанию для <codeph>useCurrencySymbol</codeph> является <codeph>false</codeph>, поэтому денежные суммы будут по умолчанию форматироваться с помощью <codeph>currencyISOCode</codeph></p>
+     
+      <p>Во многих странах и регионах одинаковые символы валюты используются для обозначения разных денежных единиц. Например, в Соединенных Штатах, Австралии, Новой Зеландии, Канаде и Мексике используется один и тот же знак доллара ($) для обозначения местной валюты. Когда форматируемая валюта отличается от местной валюты пользователя, лучше использовать код ISO для обозначения валюты Чтобы проверить, соответствует ли код ISO валюты, которую необходимо отформатировать, коду ISO валюты по умолчанию для фактической локали, используемой средством форматирования, можно использовать метод <codeph>formattingWithCurrencySymbolIsSafe()</codeph>.
+      </p>
+     
+      <p>Этот метод позволяет форматировать как очень большие, так и очень малые числа. Однако число знаков ограничивается пределами точности, установленными для типа данных Number.
+      </p>
+     
+      <p>Если возникла ошибка при форматировании вследствие указания недопустимого входного значения или других причин, метод <codeph>format()</codeph> по умолчанию возвращает <codeph>null</codeph>. Но если для свойства <codeph>errorText</codeph> указано ненулевое значение, то возвращается значение свойства <codeph>errorText</codeph>. Для свойства <codeph>lastOperationStatus</codeph> устанавливается значение, указывающее на возникновение ошибки.</p>
+     
+      </apiDesc><example>В этом примере для стиля <codeph>locale</codeph> выбрано значение fr-CA [французский (Канада)]. Предполагается, что эта локаль поддерживается в операционной системе пользователя, и поэтому нет необходимости использовать резервную локаль. Для локали fr-CA канадский доллар является валютой по умолчанию, которой соответствует код ISO CAD. Поэтому при форматировании валюты со значениями по умолчанию в качестве символа денежной единицы используется CAD. Однако в случае, когда для свойства <codeph>useCurrencySymbol</codeph> установлено значение <codeph>true</codeph>, для форматирования денежной суммы используется свойство <codeph>currencySymbol</codeph>.
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+        &lt;s:CurrencyFormatter id="cf_use_ISOCode" locale="fr-CA" />
+        &lt;s:CurrencyFormatter id="cf_use_Symbol" locale="fr-CA" 
+                           useCurrencySymbol="true" />
+      &lt;/fx:Declarations>
+      
+      &lt;s:VGroup>
+        &lt;!-- label will use ISO code: 1,234,567.89 CAD -->
+        &lt;s:Label text="{cf_use_ISOCode.format(1234567.89)}" /> 
+        &lt;!-- label will use currency symbol: 1,234,567.89 $ -->
+        &lt;s:Label text="{cf_use_Symbol.format(1234567.89)}" /> 
+      &lt;/s:VGroup>
+     
+      </codeblock>
+     
+      <p>Во втором примере демонстрируется метод форматирования денежной суммы в канадских долларах с использованием пользовательской локали по умолчанию. Метод <codeph>formattingWithCurrencySymbolIsSafe()</codeph> используется для указания значения свойства <codeph>useCurrencySymbol</codeph>. Если пользовательской локалью по умолчанию является Канада (например, fr-CA или en-CA), будет использован символ валюты по умолчанию для Канады. Если установлена какая-либо локаль по умолчанию, значение <codeph>currencyISOCode</codeph> в CAD будет использоваться для форматирования денежной суммы.</p>
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+       &lt;s:CurrencyFormatter id="cf_CAD" locale="{LocaleID.DEFAULT}"
+        currencyISOCode="CAD"
+        useCurrencySymbol="{cf_CAD.formattingWithCurrencySymbolIsSafe('CAD')}"
+       />
+      &lt;/fx:Declarations>
+      
+      &lt;fx:Script>
+      &lt;![CDATA[
+          import flash.globalization.LocaleID;
+      ]]&gt;
+      &lt;/fx:Script>
+      
+      &lt;!-- label will use ISO code or currency symbol depending on
+              user's default locale -->
+      &lt;s:Label text="{cf_CAD.format(1234567.89)}" />
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:formattingWithCurrencySymbolIsSafe"><apiName>formattingWithCurrencySymbolIsSafe</apiName><shortdesc>
+      Определяет, может ли текущий заданный символ валюты использоваться при форматировании денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если параметр <codeph>requestedISOCode</codeph> имеет значение null.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc><codeph>true</codeph>, если <codeph>currencyISOCode</codeph> по умолчанию для локали, которая соответствует <codeph>actualLocaleIDName</codeph>, совпадает с параметром <codeph>requestedISOCode</codeph>; в противном случае <codeph>false</codeph>.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>requestedISOCode</apiItemName><apiType value="String"/><apiDesc>Трехбуквенный код валюты ISO 4217 (например, USD для долларов США, EUR для евро). Должен содержать три прописных буквы от A до Z.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет, может ли текущий заданный символ валюты использоваться при форматировании денежных сумм.
+     
+      <p>Во многих регионах и странах используются одинаковые символы валюты. Этот метод помогает предотвратить использование неоднозначного символа валюты либо неожиданного символа или кода ISO валюты в результате использования резервной локали.</p>
+     
+      <p>Этот метод часто используется для определения того, следует отображать символ местной валюты (если сумма форматируется с использованием пользовательской валюты по умолчанию) или более точный код ISO (если сумма форматируется в валюте, отличной от используемой по умолчанию).</p>
+     
+      <p>Этот метод сравнивает параметр <codeph>requestedISOCode</codeph> с <codeph>currencyISOCode</codeph> по умолчанию для фактической локали и возвращает <codeph>true</codeph>, если строки совпадают, и <codeph>false</codeph>, если не совпадают. Когда строки совпадают, использование метода <codeph>format()</codeph> со свойством <codeph>useCurrencySymbol</codeph>, которому задано значение <codeph>true</codeph>, приводит к тому, что отформатированная строка с денежной суммой будет содержать символ валюты, используемый в текущей локали. Если этот метод возвращает значение <codeph>false</codeph>, то использование метода <codeph>format()</codeph> со свойством <codeph>useCurrencySymbol</codeph>, которому задано значение <codeph>true</codeph>, может привести к использованию неоднозначного или некорректного символа валюты.
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Вектор строк, содержащий все имена идентификаторов локалей, поддерживаемые этим классом и операционной системой.
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом. В этом списке представлены локали, поддерживаемые операционной системой, но не локали, для которых присутствуют ресурсы в ResourceManager.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:parse"><apiName>parse</apiName><shortdesc>
+      Анализирует строку, возвращая денежную сумму и символ валюты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если параметр <codeph>inputString</codeph> имеет значение null.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>Объект CurrencyParseResult, содержащий числовое значение и символ или строку валюты.
+     
+      </apiDesc><apiType value="flash.globalization:CurrencyParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>Строка ввода для анализа.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Анализирует строку, возвращая денежную сумму и символ валюты.
+     
+      <p>Алгоритм анализа использует значение свойства <codeph>decimalSeparator</codeph>, чтобы определить целую и дробную часть числа. Он использует значения свойств <codeph>negativeCurrencyFormat</codeph> и <codeph>positiveCurrencyFormat</codeph>, чтобы определить местоположение символа или строки валюты относительно денежной суммы. Для отрицательных сумм свойство <codeph>negativeCurrencyFormat</codeph> определяет местоположение отрицательного символа и необходимость использования круглых скобок.</p>
+     
+      <p>Если порядок символа валюты, символа «-» и числа в введенной строке не соответствует шаблону, определенному свойствами <codeph>negativeCurrencyFormat</codeph> и <codeph>positiveCurrencyFormat</codeph>, тогда:</p>
+     
+      <ol>
+       <li>свойству <codeph>value</codeph> возвращенного объекта <codeph>CurrencyParseResult</codeph> задается значение <codeph>NaN</codeph>;</li>
+       <li>свойству <codeph>currencyString</codeph> возвращенного объекта CurrencyParseResult задается значение <codeph>null</codeph>;</li>
+       <li>Для свойства <codeph>lastOperationStatus</codeph> устанавливается значение <codeph>LastOperationStatus.PARSE_ERROR</codeph>, указывающее на ошибку анализа.</li>
+      </ol>
+     
+      <p>Строка ввода может содержать пробелы, которые игнорируются в ходе анализа.</p>
+     
+      <p>Анализ может успешно выполняться, даже если не указан символ валюты. Часть строки, соответствующая символу валюты, не проверяется. Если ввод не содержит символа или строки валюты, в качестве значения свойства <codeph>currencyString</codeph> возвращенного объекта CurrencyParseResult задается пустая строка.</p>
+     
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/decimalSeparator"><linktext>spark.formatters.supportClasses.NumberFormatterBase.decimalSeparator</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeCurrencyFormat"><linktext>negativeCurrencyFormat</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/positiveCurrencyFormat"><linktext>positiveCurrencyFormat</linktext></link><link href="" invalidHref="flash.globalization.CurrencyParseResult.xml"><linktext>flash.globalization.CurrencyParseResult</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:CurrencyFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса. Эта локаль используется для доступа к форматированию данных и функциональным возможностям операционной системы.
+     
+      <p>Если локаль, установленная стилем <codeph>locale</codeph>, недоступна, то значение <codeph>actualLocaleIDName</codeph> будет отличаться от значения стиля <codeph>locale</codeph>. Значение будет указывать резервную используемую локаль. Если стиль локали установлен как <codeph>LocaleID.DEFAULT</codeph>, будет использоваться имя локали, определенное операционной системой пользователя.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/CurrencyFormatter()"><linktext>CurrencyFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      Трехбуквенный код валюты ISO 4217 для фактической используемой локали (например,</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если это свойство имеет нулевое значение. 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Трехбуквенный код валюты ISO 4217 для фактической используемой локали (например, USD, EUR, JPY, CNY).
+     
+      <p>Если для свойства <codeph>useCurrencySymbol</codeph> установлено значение <codeph>false</codeph>, этот код обозначает тип валюты при форматировании денежных сумм с помощью метода <codeph>format()</codeph>. </p>
+     
+      <p>Свойство инициализируется, когда стиль локали установлен на основе фактической используемой локали. В случае использования резервной локали это свойство отражает предпочитаемый код валюты или код валюты по умолчанию для резервной локали.</p>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      Символ или строка валюты для фактически используемой локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если это свойство имеет нулевое значение. 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Символ или строка валюты для фактически используемой локали.
+     
+      <p>Это свойство используется для определения символа валюты при форматировании денежных сумм с помощью метода <codeph>format()</codeph> с параметром <codeph>withCurrencySymbol</codeph>, которому задано значение <codeph>true</codeph>.</p>
+     
+      <p>Свойство инициализируется, когда стиль локали установлен на основе фактической используемой локали. В случае использования резервной локали это свойство отражает предпочитаемый символ валюты или символ валюты по умолчанию для резервной локали, который может отличаться от стиля локали.</p>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+      Числовое значение, которое обозначает шаблон форматирования для отрицательных денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 15.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Числовое значение, которое обозначает шаблон форматирования для отрицательных денежных сумм. Этот шаблон определяет местоположение символа валюты и отрицательного символа или круглых скобок относительно числовой части денежной суммы.
+     
+       <p>В качестве значения этого свойства должна использоваться одна из констант, определенная в таблице ниже.
+      </p>
+     
+      <p>В приведенной ниже таблице перечислены возможные шаблоны форматирования для отрицательных денежных сумм. Когда денежная сумма форматируется с помощью метода <codeph>format()</codeph>:</p>
+     
+      <ul>
+       <li>вместо символа «¤» подставляется значение свойства <codeph>currencyISOCode</codeph> или <codeph>currencySymbol</codeph> в зависимости от значения параметра <codeph>withCurrencySymbol</codeph>, переданного методу <codeph>format()</codeph>;</li>
+       <li>вместо символа «-» подставляется значение свойства <codeph>negativeNumberSymbol</codeph>;</li>
+       <li>вместо символа «n» подставляется денежная сумма, переданная методу <codeph>format()</codeph>.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата отрицательной денежной суммы</entry>
+                <entry>Шаблон форматирования</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+      Числовое значение, которое обозначает шаблон форматирования для положительных денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 3.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Числовое значение, которое обозначает шаблон форматирования для положительных денежных сумм. Этот формат определяет местоположение символа валюты относительно числовой части денежной суммы.
+     
+      <p>В качестве значения этого свойства должна использоваться одна из констант, определенная в таблице ниже.
+      </p>
+     
+      <p>В приведенной ниже таблице перечислены возможные шаблоны форматирования для положительных денежных сумм. Когда денежная сумма форматируется с помощью метода <codeph>format()</codeph>:</p>
+     
+      <ul>
+       <li>вместо символа «¤» подставляется значение свойства <codeph>currencyISOCode</codeph> или <codeph>currencySymbol</codeph> в зависимости от значения параметра <codeph>withCurrencySymbol</codeph>, переданного методу <codeph>format()</codeph>;</li>
+       <li>вместо символа «n» подставляется денежная сумма, переданная методу <codeph>format()</codeph>.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата положительной денежной суммы</entry>
+                <entry>Шаблон форматирования</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Значение по умолчанию зависит от используемой локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:useCurrencySymbol:get"><apiName>useCurrencySymbol</apiName><shortdesc>
+      Позволяет использовать свойство currencySymbol для форматирования денежных сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Позволяет использовать свойство <codeph>currencySymbol</codeph> для форматирования денежных сумм.
+     
+      <p>Если для свойства <codeph>useCurrencySymbol</codeph> установлено значение <codeph>true</codeph>, то значение свойства <codeph>currencySymbol</codeph> используется в строке, возвращаемой методом format. Например, <codeph>;123,456,789.22</codeph></p>
+     
+      <p>Если для свойства <codeph>useCurrencySymbol</codeph> установлено значение <codeph>false</codeph>, то значение свойства <codeph>currencyISOCode</codeph> используется в строке, возвращаемой методом <codeph>format</codeph>. Например: <codeph>USD 123,456,789.22</codeph></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  Класс NumberFormatter обеспечивает форматирование и анализ числовых значений с учетом особенностей локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatter 
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс NumberFormatter обеспечивает форматирование и анализ числовых значений с учетом особенностей локали. Он может форматировать объекты <codeph>int</codeph>, <codeph>uint</codeph> и <codeph>Number</codeph>.
+ 
+  <p>Это класс-оболочка, включающий класс flash.globalization.NumberFormatter. Поэтому относящееся к конкретной локали форматирование обеспечивает flash.globalization.NumberFormatter. Класс NumberFormatter, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства.  
+  </p>
+ 
+  <p>Класс flash.globalization.NumberFormatter использует базовую операционную систему для форматирования функциональности и предоставления данных, относящихся к конкретной локали. В некоторых операционных системах, не поддерживающих классы flash.globalization, класс оболочки обеспечивает резервные функциональные возможности.</p>
+ 
+  </apiDesc><example conref="NumberFormatterExample1.mxml"><swfblock conref="examples/NumberFormatterExample1.swf"/></example><example conref="NumberFormatterExample2.mxml"><swfblock conref="examples/NumberFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      Создает новый объект NumberFormatter для форматирования чисел в соответствии с правилами данной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект NumberFormatter для форматирования чисел в соответствии с правилами данной локали.
+      <p>
+      Стиль локали определяет локаль для этого класса. Стиль локали можно установить следующими способами:
+      </p>
+      <ul>
+      <li>
+      С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление. Пример: <pre>
+      &lt;fx:Declarations> 
+             &lt;s:NumberFormatter id="nf" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      С использованием объявления MXML и указанием значения локали в списке назначений. Пример:<pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberFormatter id="nf_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      Вызов метода setStyle. Например:<pre>
+      <codeph>nf.setStyle("locale", "fr-FR")</codeph></pre>
+      </li>
+      <li> 
+      Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода <codeph>addStyleClient()</codeph> UIComponent.
+      </li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+      <p>Многие свойства этого класса автоматически устанавливаются на основе стиля локали. При изменении стиля локали все свойства, которые не были явно указаны, будут обновлены в соответствии с новой локалью. Обратите внимание, что фактическая используемая локаль определяется в свойстве actualLocaleIDName.</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#NumberFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      Форматирует число.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированная числовая строка.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, содержащий числовое значение для форматирования. Если объект не является <codeph>Number</codeph>, то он будет преобразован в число с помощью функции преобразования <codeph>Number()</codeph>.
+         
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Форматирует число.
+     
+     <p>Эта функция форматирует число, на основе значений свойств объекта NumberFormatter. Если свойства не меняются после установки стиля <codeph>locale</codeph>, числа форматируются в соответствии с условиями, предоставляемыми операционной системой для локали, указанной в свойстве <codeph>actualLocaleIDName</codeph>. Чтобы настроить формат, можно изменить свойства для определения специфических аспектов форматирования числа.</p>
+     
+      <p>Эта функция позволяет форматировать очень большие и очень малые числа. Однако число знаков ограничивается пределами точности, установленными объектом <codeph>Number</codeph>. Экспоненциальное представление не поддерживается.</p>
+     
+      <p>Если возникла ошибка при форматировании вследствие указания недопустимого входного значения или других причин, метод <codeph>format()</codeph> по умолчанию возвращает <codeph>null</codeph>. Но если для свойства <codeph>errorText</codeph> указано ненулевое значение, то возвращается значение свойства <codeph>errorText</codeph>. Для свойства <codeph>lastOperationStatus</codeph> будет установлено значение, указывающее на возникновение ошибки.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/NumberFormatter"><linktext>NumberFormatter</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Вектор строк, содержащий все имена идентификаторов локалей, поддерживаемые этим классом и операционной системой.
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом. В этом списке представлены локали, поддерживаемые операционной системой, но не локали, для которых присутствуют ресурсы в ResourceManager.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parseNumber"><apiName>parseNumber</apiName><shortdesc>
+      Анализирует строку, которая содержит только цифры и/или пробелы, и возвращает число.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если <codeph>parseString</codeph> имеет значение <codeph>null</codeph>
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>Объект <codeph>Number</codeph>, содержащий числовое значение.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>parseString</apiItemName><apiType value="String"/><apiDesc>Строка ввода для анализа.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Анализирует строку, которая содержит только цифры и/или пробелы, и возвращает число. Если строка не начинается с числа или содержит символы, отличные от пробела, которые не входят в состав числа, этот метод возвращает значение <codeph>NaN</codeph>. Пробел до или после числовых знаков игнорируется. 
+     
+      <p>Если до или после цифры числа стоит знак «плюс» (+), он рассматривается не как символ пробела. Возвращается значение <codeph>NaN</codeph>.
+      </p>
+     
+      <p>См. описание функции анализа для получения дополнительной информации об анализе чисел и признаках допустимого числа.
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/parse()"><linktext>parse()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parse"><apiName>parse</apiName><shortdesc>
+      Анализирует строку и возвращает объект NumberParseResult, содержащий проанализированные элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если параметр <codeph>inputString</codeph> имеет значение null.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>Объект <codeph>NumberParseResult</codeph>, который содержит числовое значение и индексы начала и конца части строки, содержащей число.
+     
+      </apiDesc><apiType value="flash.globalization:NumberParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>Строка ввода для анализа.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Анализирует строку и возвращает объект <codeph>NumberParseResult</codeph>, содержащий проанализированные элементы.
+     
+      <p>Объект <codeph>NumberParseResult</codeph> содержит значение первого числа, найденного в указанной строке, начальный индекс для числа в строке, а также индекс первого символа после числа в строке.</p>
+     
+      <p>Если строка не содержит числа, свойству NumberParseResult задается значение <codeph>NaN</codeph>, а свойствам <codeph>startIndex</codeph> и <codeph>endIndex</codeph> задается шестнадцатеричное значение <codeph>0x7fffffff</codeph>.
+      </p>
+     
+      <p>Эта функция использует значение свойства <codeph>decimalSeparator</codeph>, чтобы определить дробную часть числа, свойство <codeph>groupingSeparator</codeph>, чтобы определить, какие символы разрешено использовать в пределах цифр числа, и свойство <codeph>negativeNumberFormat</codeph>, чтобы управлять представлением отрицательных чисел. </p>
+     
+      <p>В следующей таблице перечислены результаты строк, проанализированных для различных значений <codeph>NegativeNumberFormat</codeph>.</p>
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="3"><tbody><row>
+                <entry>NegativeNumberFormat</entry>
+                <entry>Входная строка</entry>
+                <entry>Результат</entry>
+             </row><row>
+                <entry>(n)</entry>
+                <entry>«(123)» или «( 123 )»</entry>
+                <entry>«-123»</entry>
+            </row><row>
+                <entry>-n</entry>
+                <entry>«-123» или «- 123»</entry>
+                <entry>«-123»</entry>
+            </row><row>
+                <entry>- n</entry>
+                <entry>«-123» или «- 123»</entry>
+                <entry>«-123»</entry>
+            </row><row>
+                <entry>n-</entry>
+                <entry>«123-» или «123 -»</entry>
+                <entry>«-123»</entry>
+            </row><row>
+                <entry>n -</entry>
+                <entry>«123-» или «123 -»</entry>
+                <entry>«-123»</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Обратите внимание, что допускается использование одного пробела между числом и знаком «минус» или круглой скобкой. Разделитель — это символ, который имеет свойство разделителя-пробела (Zs) в базе данных символов Юникод. Для получения дополнительной информации см. <xref href="http://www.unicode.org/ucd/">http://www.unicode.org/ucd/</xref>).</p>
+     
+      <p>При определении допустимого числа остальные свойства игнорируются. В частности, значение свойства <codeph>digitsType</codeph> игнорируется, и знаки могут находиться в любых наборах, перечисленных в классе <codeph>NationalDigitsType</codeph>. Значения свойств <codeph>groupingPattern</codeph> и <codeph>useGrouping</codeph> не влияют на анализ числа.
+      </p>
+     
+      <p>Если до или после числа в строке следует знак «+», он рассматривается как символ, не входящий в состав числа.
+      </p>
+     
+      <p>Эта функция не анализирует строки, содержащие числа в экспоненциальном представлении (например, 1,23e40).</p>
+     
+     
+      </apiDesc><example>Следующий код анализирует число из строки, извлекает префикс и суффикс.
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","fr-FR");
+      var str:String = "1,56 mètre"
+      var result:NumberParseResult = nf.parse(str);
+      trace(result.value) // 1.56
+      trace(str.substr(0,result.startIndex));                // ""
+      trace(str.substr(result.startIndex, result.endIndex)); // "1,56"
+      trace(str.substr(result.endIndex));                 // " mètre"
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.NumberParseResult.xml"><linktext>flash.globalization.NumberParseResult</linktext></link><link href="spark.formatters.xml#NumberFormatter/parseNumber()"><linktext>parseNumber()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:NumberFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса. Эта локаль используется для доступа к форматированию данных и функциональным возможностям операционной системы.
+     
+      <p>Если локаль, установленная стилем <codeph>locale</codeph>, недоступна, то значение <codeph>actualLocaleIDName</codeph> будет отличаться от значения стиля <codeph>locale</codeph>. Значение будет указывать резервную используемую локаль. Если стиль локали установлен как <codeph>LocaleID.DEFAULT</codeph>, будет использоваться имя локали, определенное операционной системой пользователя.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.NumberFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/NumberFormatter()"><linktext>NumberFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:NumberFormatter:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      Числовое значение, которое обозначает шаблон форматирования для отрицательных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>если присвоенное значение не является числом в диапазоне от 0 до 4.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Числовое значение, которое обозначает шаблон форматирования для отрицательных чисел. Этот шаблон определяет местоположение отрицательного символа или круглых скобок относительно числовой части форматируемого числа.
+     
+      <p>В следующей таблице сведены все возможные форматы отрицательных чисел. При форматировании отрицательного числа знак «-» в шаблоне заменяется значением свойства <codeph>negativeSymbol</codeph>, а символ «n» заменяется отформатированным числовым значением.</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Тип формата отрицательного числа</entry>
+                <entry>Формат</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#NumberFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+  Класс DateTimeFormatter обеспечивает форматирование объекта Date на основе правил локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:DateTimeFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DateTimeFormatter
+    <strong>Properties</strong>
+    dateStyle="long"
+    dateTimePattern="EEEE, MMMM dd, yyyy h:mm:ss a"
+    errorText="null"
+    timeStyle="long"
+    useUTC="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DateTimeFormatter обеспечивает форматирование объекта <codeph>Date</codeph> на основе правил локали.
+ 
+  <p>Это класс-оболочка, включающий класс flash.globalization.DateTimeFormatter. Поэтому функциональность форматирования, названия месяцев и дней, а также первый день недели определяет flash.globalization.DateTimeFormatter. Класс DateTimeFormatter, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства.</p>
+ 
+  <p>Класс flash.globalization.DateTimeFormatter использует базовую операционную систему для форматирования функциональности и предоставления данных, относящихся к конкретной локали. В некоторых операционных системах, не поддерживающих классы flash.globalization, класс оболочки обеспечивает резервные функциональные возможности.</p>
+ 
+  </apiDesc><example conref="DateTimeFormatterExample.mxml"><swfblock conref="examples/DateTimeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.xml"><linktext>flash.globalization.DateTimeFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:DateTimeFormatter:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+      Создает новый объект DateTimeFormatter, чтобы отформатировать даты и время в соответствии с правилами указанной локали и заданных стилей форматирования даты и времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект <codeph>DateTimeFormatter</codeph>, чтобы отформатировать даты и время в соответствии с условиями указанной локали и заданных стилей форматирования даты и времени.
+     
+      <p>Стиль локали определяет локаль для этого класса. Стиль локали можно установить следующими способами:
+      </p>
+      <ul>
+      <li>
+      С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      </li>
+      Пример:<pre>
+      &lt;fx:Declarations> 
+             &lt;s:DateTimeFormatter id="df" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      С использованием объявления MXML и указанием значения локали в списке назначений.
+      </li>
+      Пример:<pre>
+      &lt;fx:Declarations> 
+          &lt;s:DateTimeFormatter id="df_Japanese" locale="ja-JP" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      Вызов метода setStyle. Например: <pre>
+      df.setStyle("locale", "ja-JP")</pre>
+      </li>
+      <li> 
+      Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода <codeph>addStyleClient()</codeph> UIComponent.
+      </li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>    
+     
+      <p>Многие свойства этого класса автоматически устанавливаются на основе стиля локали. При изменении стиля локали все свойства, которые не были явно указаны, будут обновлены в соответствии с новой локалью. Обратите внимание, что фактическая используемая локаль определяется в свойстве actualLocaleIDName.</p>
+      
+      
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:DateTimeFormatter:format"><apiName>format</apiName><shortdesc>
+     Форматирует строку отображения для объекта, который указывает дату в локальном формате времени пользователя или в формате UTC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированная строка, представляющая значение даты или времени.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение <codeph>Date</codeph>, которое требуется отформатировать. Если объект не является <codeph>Date</codeph>, то он будет преобразован в дату с помощью конструктора <codeph>Date()</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Форматирует строку отображения для объекта, который указывает дату в локальном формате времени пользователя или в формате UTC.
+     
+     
+      <p>Объект <codeph>Date</codeph> содержит два набора значений даты и времени: в формате времени пользователя (<codeph>date, day, fullYear, hours, minutes, month</codeph> и <codeph>seconds</codeph>) и в формате UTC (<codeph>dateUTC, dayUTC, fullYearUTC, hoursUTC, minutesUTC, monthUTC</codeph> и <codeph>secondsUTC</codeph>). Логическое свойство <codeph>useUTC</codeph> определяет набор компонентов даты и времени, который следует использовать при форматировании даты. Форматирование будет выполнено с использованием условий локали, установленных свойством стиля <codeph>locale</codeph> и свойствами <codeph>dateStyle</codeph> и <codeph>timeStyle</codeph> или <codeph>dateTimePattern</codeph>, указанными для этого экземпляра <codeph>DateTimeFormatter</codeph>.
+      </p>
+     
+      <p>Если возникла ошибка при форматировании вследствие указания недопустимого входного значения или других причин, метод <codeph>format()</codeph> по умолчанию возвратит <codeph>null</codeph>. Но если для свойства <codeph>errorText</codeph> указано ненулевое значение, то будет возвращено значение свойства <codeph>errorText</codeph>. Для свойства <codeph>lastOperationStatus</codeph> будет установлено значение, указывающее на возникновение ошибки.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link><link href="" invalidHref="spark.formatters.Date.xml"><linktext>Date</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter"><linktext>DateTimeFormatter</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Вектор строк, содержащий все имена идентификаторов локалей, поддерживаемые этим классом и операционной системой.
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      Перечисляет все имена идентификаторов локалей, поддерживаемые этим классом. В этом списке представлены локали, поддерживаемые операционной системой, но не локали, для которых присутствуют ресурсы в ResourceManager.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getFirstWeekday"><apiName>getFirstWeekday</apiName><shortdesc>
+      Возвращает целое число, соответствующее первому дню недели для данной локали и календарной системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Целое число, соответствующее первому дню недели для данной локали и календарной системы.
+     
+      </apiDesc><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает целое число, соответствующее первому дню недели для данной локали и календарной системы. 0 обозначает воскресенье, 1— понедельник и т. д. Последнее значение 6 соответствует субботе.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getMonthNames"><apiName>getMonthNames</apiName><shortdesc>
+      Получает список локализованных строк, содержащий названия месяцев для текущей календарной системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если <codeph>nameStyle</codeph> или <codeph>context</codeph> имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>Вектор локализованных строк, содержащий названия месяцев для текущей локали (указанной стилем локали), стиля имен и контекста. Первый элемент в векторе с индексом 0 содержит название первого месяца года, следующий элемент — название второго месяца и т. д.
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>Обозначает стиль строки названия, который должен использоваться Допустимые значения:
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>Код, обозначающий контекст, при котором должна использоваться отформатированная строка. Этот контекст имеет значение только для определенных локалей. Допустимые значения:
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает список локализованных строк, содержащий названия месяцев для текущей календарной системы. Первый элемент списка содержит название первого месяца в году.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getWeekdayNames"><apiName>getWeekdayNames</apiName><shortdesc>
+      Получает список локализованных строк, содержащий названия дней недели для текущей календарной системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>если <codeph>nameStyle</codeph> или <codeph>context</codeph> имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>Вектор локализованных строк, содержащий названия месяцев для текущей локали (указанной стилем локали), стиля имен и контекста. Первый элемент вектора с индексом 0 содержит название для воскресенья, следующий — для понедельника и т. д.
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>Обозначает стиль строки названия, который должен использоваться Допустимые значения:
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>Код, обозначающий контекст, при котором должна использоваться отформатированная строка. Этот контекст применяется только для определенных локалей, в которых названия месяцев изменяются в зависимости от контекста. Например, в греческом языке используются разные названия месяцев в зависимости от того, используются они отдельно или вместе с датой. Допустимые значения:
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает список локализованных строк, содержащий названия дней недели для текущей календарной системы. Первый элемент списка представляет название для воскресенья.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:DateTimeFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса. Эта локаль используется для доступа к форматированию данных и функциональным возможностям операционной системы.
+     
+      <p>Если локаль, установленная стилем <codeph>locale</codeph>, недоступна, то значение <codeph>actualLocaleIDName</codeph> будет отличаться от значения стиля <codeph>locale</codeph>. Значение будет указывать резервную используемую локаль. Если стиль локали установлен как <codeph>LocaleID.DEFAULT</codeph>, будет использоваться имя локали, определенное операционной системой пользователя.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.DateTimeFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateStyle:get"><apiName>dateStyle</apiName><shortdesc>
+      Стиль даты для данного экземпляра DateTimeFormatter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если присвоенное значение не является допустимой константой <codeph>DateTimeStyle</codeph> или является <codeph>DateTimeStyle.CUSTOM</codeph>.
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc>если для <codeph>dateStyle</codeph> установлено значение <codeph>null</codeph>.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Стиль даты для данного экземпляра DateTimeFormatter. Стиль даты служит для получения шаблона форматирования времени и локали, предварительно определенного в операционной системе. При форматировании даты стиль <codeph>locale</codeph> и свойства <codeph>timeStyle</codeph> и <codeph>dateStyle</codeph> определяют формат даты. Значение стиля даты можно установить с помощью присвоения значения свойству <codeph>dateStyle</codeph> или свойству <codeph>dateTimePattern</codeph>. 
+     
+      <p>Возможные значения данного свойства определены в классе flash.globalization.DateTimeStyle. Допустимые значения для свойства <codeph>dateStyle</codeph>:</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph> </li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph> </li>
+      <li><codeph>DateTimeStyle.SHORT </codeph></li>
+      <li><codeph>DateTimeStyle.NONE </codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM </codeph></li>
+      </ul>
+     
+     <p>Если для свойства <codeph>dateTimePattern</codeph> указано значение, дополнительным эффектом этого является то, что для свойства <codeph>dateStyle</codeph> устанавливается значение <codeph>DateTimeStyle.CUSTOM</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateTimePattern:get"><apiName>dateTimePattern</apiName><shortdesc>
+      Строка образца, используемая объектом DateTimeFormatter для форматирования дат и времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"EEEE, MMMM dd, yyyy h:mm:ss a"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка образца, используемая объектом DateTimeFormatter для форматирования дат и времени.
+     
+      <p>Этот шаблон можно установить одним из двух способов:</p>
+     
+      <ol>
+         <li>При установке свойств <codeph>dateStyle</codeph> и <codeph>timeStyle</codeph>. </li>
+         <li>При установке свойства <codeph>dateTimePattern</codeph>.</li>
+      </ol>
+     
+      <p>Если значение присваивается свойству непосредственно, то дополнительным эффектом этого будет переопределение текущего стиля времени и даты, для которых устанавливается значение <codeph>DateTimeStyle.CUSTOM</codeph>.</p>
+     
+      <p>Дополнительные сведения о синтаксисе шаблона см. в описании метода <xref href="..\..\flash\globalization\DateTimeFormatter.html#setDateTimePattern()"> <codeph>flash.globalization.DateTimeFormatter.setDateTimePattern()</codeph></xref>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:errorText:get"><apiName>errorText</apiName><shortdesc>
+      Строка, возвращенная методом format() при возникновении ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, возвращенная методом <codeph>format()</codeph> при возникновении ошибки.
+     
+      <p>Если <codeph>errorText</codeph> не является null и ошибка возникает при форматировании даты, метод формата возвратит строку, присвоенную этому свойству.</p>
+     
+      Например:
+      <codeblock rev="3.0">
+      var dtf:DateTimeFormatter = new DateTimeFormatter();
+      dtf.setStyle("locale", "en-US");
+      dtf.errorText = "----"
+      trace(dtf.format("abc"));  // ----
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса. Свойство <codeph>lastOperationStatus</codeph> задается каждый раз при вызове конструктора или метода этого класса или при задании значения для другого свойства. Другие возможные значения см. в описании соответствующего метода.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters:DateTimeFormatter:timeStyle:get"><apiName>timeStyle</apiName><shortdesc>
+      Стиль времени для данного экземпляра DateTimeFormatter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если присвоенное значение не является допустимой константой <codeph>DateTimeStyle</codeph> или является <codeph>DateTimeStyle.CUSTOM</codeph>.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc>если параметр <codeph>dateStyle</codeph> или <codeph>timeStyle</codeph> имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Стиль времени для данного экземпляра DateTimeFormatter. Стиль времени служит для получения шаблона форматирования времени и локали, предварительно определенного в операционной системе. При форматировании даты стиль <codeph>locale</codeph> и свойства <codeph>timeStyle</codeph> и <codeph>dateStyle</codeph> определяют формат даты. Значение стиля времени можно установить с помощью присвоения значения свойству <codeph>timeStyle</codeph> или свойству <codeph>dateTimePattern</codeph>.
+     
+      <p>Значения данного свойства определены в классе flash.globalization.DateTimeStyle. Допустимые значения для свойства <codeph>timeStyle</codeph>:</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph></li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph></li>
+      <li><codeph>DateTimeStyle.SHORT</codeph></li>
+      <li><codeph>DateTimeStyle.NONE</codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM </codeph></li>
+      </ul>
+     
+     <p>Если для свойства <codeph>dateTimePattern</codeph> указано значение, дополнительным эффектом этого является то, что для свойства dateStyle устанавливается значение <codeph>DateTimeStyle.CUSTOM </codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:useUTC:get"><apiName>useUTC</apiName><shortdesc>
+      Логический флаг, определяющий использование значений даты и времени в локальном формате или в формате UTC при форматировании даты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Логический флаг, определяющий использование значений даты и времени в локальном формате или в формате UTC при форматировании даты. Если для <codeph>useUTC</codeph> установлено значение <codeph>true</codeph>, то используются значения UTC. Если установлено значение<codeph>false</codeph>, то используются значения даты и времени, выбранные в текущем часовом поясе операционной системы.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

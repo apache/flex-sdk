@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.transitions"><apiName>spark.transitions</apiName><apiDetail/><apiClassifier id="spark.transitions:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+  La classe CrossFadeViewTransition sert de simple transition fondu enchaîné pour les vues.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CrossFadeViewTransition sert de simple transition fondu enchaîné pour les vues. Elle réalise sa transition en faisant disparaître graduellement la vue existante pour faire apparaître la nouvelle vue. Le fondu enchaîné effectue la transition de la barre de contrôle et du contenu d’affichage comme une seule entité.  
+   <p><b>Remarque :</b>créez et configurez les transitions entre les vues dans ActionScript ; vous ne pouvez pas les créer dans MXML.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.transitions:CrossFadeViewTransition:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+  La classe SlideViewTransition réalise une transition de diapositives simple des vues.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SlideViewTransition réalise une transition de diapositives simple des vues. La vue existante disparaît en glissant tandis que la nouvelle vue apparaît en glissant. La transition de diapositives prend en charge plusieurs modes (décaler, recouvrir et découvrir) ainsi qu’une direction facultative (vers le haut, le bas, la gauche ou la droite).
+   <p><b>Remarque :</b>créez et configurez les transitions entre les vues dans ActionScript ; vous ne pouvez pas les créer dans MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransitionMode"><linktext>SlideViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:SlideViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Spécifie la direction de la transition de diapositives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la direction de la transition de diapositives.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Spécifie le type de transition de diapositives à réaliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SlideViewTransitionMode.PUSH
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le type de transition de diapositives à réaliser.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransitionMode"><apiName>SlideViewTransitionMode</apiName><shortdesc>
+  La classe SlideViewTransitionMode fournit les constantes qui permettent de spécifier le type de transition de diapositives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SlideViewTransitionMode fournit les constantes qui permettent de spécifier le type de transition de diapositives.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransition"><linktext>SlideViewTransition</linktext></link></related-links><apiValue id="spark.transitions:SlideViewTransitionMode:COVER"><apiName>COVER</apiName><shortdesc>
+     La nouvelle vue entre en glissant afin de recouvrir la vue précédente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La nouvelle vue entre en glissant afin de recouvrir la vue précédente.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:PUSH"><apiName>PUSH</apiName><shortdesc>
+     La vue précédente sort en glissant alors que la nouvelle vue entre en glissant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La vue précédente sort en glissant alors que la nouvelle vue entre en glissant.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:UNCOVER"><apiName>UNCOVER</apiName><shortdesc>
+     La vue précédente sort en glissant pour révéler la nouvelle vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>uncover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La vue précédente sort en glissant pour révéler la nouvelle vue.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+  La classe ZoomViewTransition effectue une transition de zoom avant ou arrière pour les vues.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ZoomViewTransition effectue une transition de zoom avant ou arrière pour les vues. Elle réalise sa transition en appliquant un zoom arrière sur la vue existante pour faire apparaître la nouvelle vue ou en appliquant un zoom avant sur la nouvelle vue pour couvrir la vue existante. 
+ 
+  <p>La durée par défaut d’une transition ZoomViewTransition est de 350 ms. Par défaut, la transition de la barre de contrôle et du contenu d’affichage s’effectue comme une seule entité, comme si l’occcurence <codeph>transitionControlsWithContent</codeph> était définie sur <codeph>true</codeph>. </p>
+   <p><b>Remarque :</b>créez et configurez les transitions entre les vues dans ActionScript ; vous ne pouvez pas les créer dans MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransitionMode"><linktext>ZoomViewTransitionMode</linktext></link></related-links><apiConstructor id="spark.transitions:ZoomViewTransition:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:ZoomViewTransition:minimumScale:get"><apiName>minimumScale</apiName><shortdesc>
+      Spécifie l’échelle minimale de la vue agrandie (lorsque la vue est visible en premier en cas de zoom avant ou en dernier en cas de zoom arrière).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.25
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie l’échelle minimale de la vue agrandie (lorsque la vue est visible en premier en cas de zoom avant ou en dernier en cas de zoom arrière).
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Spécifie le type de transition de zoom à réaliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZoomTransitionMode.OUT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le type de transition de zoom à réaliser.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionDirection"><apiName>ViewTransitionDirection</apiName><shortdesc>
+  La classe ViewTransitionDirection fournit les constantes utilisées lors de l’indication de la direction d’une transition de vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ViewTransitionDirection fournit les constantes utilisées lors de l’indication de la direction d’une transition de vue.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.transitions:ViewTransitionDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      La transition est animée vers le bas.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La transition est animée vers le bas.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      La transition est animée vers la gauche.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La transition est animée vers la gauche.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      La transition est animée vers la droite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La transition est animée vers la droite.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:UP"><apiName>UP</apiName><shortdesc>
+      La transition est animée vers le haut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La transition est animée vers le haut.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+  La classe FlipViewTransition réalise une transition d’inversion simple des vues.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe FlipViewTransition réalise une transition d’inversion simple des vues. La transition d’inversion prend en charge deux modes (carte et cube) ainsi qu’une direction facultative (vers le haut, le bas, la gauche ou la droite).
+ 
+  <p>La durée par défaut d’une transition FlipViewTransition est de 400 ms.</p>
+   <p><b>Remarque :</b>créez et configurez les transitions entre les vues dans ActionScript ; vous ne pouvez pas les créer dans MXML.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:FlipViewTransition:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:FlipViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      Spécifie la direction de la transition d’inversion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la direction de la transition d’inversion.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links></apiValue><apiValue id="spark.transitions:FlipViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      Spécifie le type de transition d’inversion à réaliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FlipViewTransitionMode.CARD
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le type de transition d’inversion à réaliser.
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransitionMode"><apiName>ZoomViewTransitionMode</apiName><shortdesc>
+  La classe ZoomTransitionMode définit les constantes qui permettent de définir le mode de style d’une transition de zoom.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ZoomTransitionMode définit les constantes qui permettent de définir le mode de style d’une transition de zoom.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransition"><linktext>ZoomViewTransition</linktext></link></related-links><apiValue id="spark.transitions:ZoomViewTransitionMode:IN"><apiName>IN</apiName><shortdesc>
+      La nouvelle vue est agrandie afin de recouvrir la vue précédente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La nouvelle vue est agrandie afin de recouvrir la vue précédente.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransitionMode:OUT"><apiName>OUT</apiName><shortdesc>
+     La vue précédente est réduite pour révéler la nouvelle vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La vue précédente est réduite pour révéler la nouvelle vue.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+  La classe ViewTransitionBase est la classe de base pour toutes les transitions de vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ViewTransitionBase est la classe de base pour toutes les transitions de vue. Elle n’est pas destinée à être utilisée seule comme transition. En plus de fournir des méthodes de commodité et d’assistance communes utilisées par les transitions de vues, cette classe fournit une séquence de transition de barre d’action par défaut.
+ 
+  <p>Lorsqu’une transition de vue est initialisée, le navigateur de vue propriétaire définit les propriétés <codeph>startView</codeph> et <codeph>endView</codeph> sur les vues que la transition anime. La propriété <codeph>navigator</codeph> est définie sur le navigateur de vue.</p>
+ 
+  <p>Le cycle de vie d'une transition se présente comme suit :</p>
+    <ul>
+      <li>La transition commence avec la <codeph>méthode captureStartValues()</codeph> méthode. Lorsque cette méthode est appelée, le navigateur est actuellement dans l’état de départ. A ce stade, la transition doit capturer toutes les images bitmap ou valeurs de départ dont elle a besoin.  </li>
+      <li>Une validation de transmettre est effectuée sur la vue en attente, et le <codeph>captureEndValues()</codeph> méthode est appelée. A ce stade, la transition capture toutes les propriétés ou  représentations d’image bitmap à partir de la vue en attente.</li>
+      <li>A ce stade, la méthode <codeph>prepareForPlay()</codeph> est appelée, ce qui permet à la transition d’effectuer toute préparation ultérieure (telle que la préparation d’une séquence d’effets Spark ou le positionnement d’éléments transitoires dans la liste d’affichage).</li>
+      <li>Après une phase finale de validation (si nécessaire), la méthode <codeph>play()</codeph> est appelée par le navigateur pour effectuer la transition réelle. </li>
+      <li>Avant tout démarrage de l’animation, l’événement <codeph>start</codeph> est distribué.</li>
+      <li>Lorsqu'une transition se termine, il envoie un <codeph>fin</codeph> événement.</li>
+    </ul>
+   <p><b>Remarque :</b>créez et configurez les transitions entre les vues dans ActionScript ; vous ne pouvez pas les créer dans MXML.</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionEnd"><apiName>transitionEnd</apiName><shortdesc>
+  Distribué lorsque la transaction se termine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la transaction se termine.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionStart"><apiName>transitionStart</apiName><shortdesc>
+  Distribuée lorsque la transition commence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribuée lorsque la transition commence.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.transitions:ViewTransitionBase:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.transitions:ViewTransitionBase:protected:canTransitionControlBarContent"><apiName>canTransitionControlBarContent</apiName><shortdesc>
+      Déterminer si Flex peut effectuer une transition sur barre d'action ou barre d'onglets contenu indépendamment des vues.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>false</codeph> si Flex détermine que les barres de contrôle entre les vues sont incompatibles d’une certaine manière.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Déterminer si Flex peut effectuer une transition sur barre d'action ou barre d'onglets contenu indépendamment des vues.
+     
+      <p>Flex ne peut pas effectuer une transition sur le contrôle barres indépendamment les unes des autres :</p>
+      <ul>
+          <li>Si la vue contenant navigator est un TabbedViewNavigator et sa barre d'onglets sa visibilité change entre les vues.</li>
+          <li>Si la valeur de l'affichage du navigateur <codeph>overlayControls</codeph> propriété les modifications effectuées entre les vues.</li>
+          <li>Si la taille ou la visibilité de la barre d'action change entre les vues.</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureEndValues"><apiName>captureEndValues</apiName><shortdesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition. Elle est appelée lorsque la nouvelle vue a été entièrement réalisée et validée, et que le contenu de la barre d’action et de la barre d’onglets reflète l’état de la nouvelle vue. A ce stade, la transition peut capturer toutes les valeurs dont elle a besoin à partir de la vue en attente. En outre, toute image bitmap reflétant l’état de la nouvelle vue, barre d’onglets ou barre d’action, doit être capturée si elle est requise pour l’animation.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition. Elle est appelée lorsque la nouvelle vue a été entièrement réalisée et validée, et que le contenu de la barre d’action et de la barre d’onglets reflète l’état de la nouvelle vue. La transition peut utiliser cette méthode pour capturer les valeurs doit elle a besoin à partir de la vue en attente. Toute image bitmap reflétant l’état de la nouvelle vue, barre d’onglets ou barre d’action, doit être capturée si elle est requise pour l’animation.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:cleanUp"><apiName>cleanUp</apiName><shortdesc>
+      Appelée une fois transition terminée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée une fois transition terminée. Cette méthode est chargée de libérer toutes les références et les constructions temporaires utilisées par la transition.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createActionBarEffect"><apiName>createActionBarEffect</apiName><shortdesc>
+      Appelée par l’implémentation de la méthode prepareForPlay() par défaut, cette méthode est chargée de créer l’effet Spark qui doit être appliqué à la barre d’action lorsque la transition commence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Occurrence de IEffect qui fait office d’effet de barre d’action. L’effet est appliqué par l’implémentation de la méthode <codeph>play()</codeph> par défaut.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par l’implémentation de la méthode <codeph>prepareForPlay() </codeph>par défaut, cette méthode est chargée de créer l’effet Spark qui doit être appliqué à la barre d’action lorsque la transition commence. Cette méthode doit être remplacée par des sous-classes si un effet de barre d’action personnalisé est requis. Par défaut, cette méthode renvoie un effet de barre d’action élémentaire.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createConsolidatedEffect"><apiName>createConsolidatedEffect</apiName><shortdesc>
+      Appelée par l’implémentation de la méthode prepareForPlay() par défaut, cette méthode est chargée de créer l’effet Spark qui est appliqué pour effectuer la transition du navigateur entier (y compris du contenu de la barre de contrôle) lorsque cela est nécessaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Occurrence de IEffect qui fait office de transition de vue. L’effet est appliqué par l’implémentation de la méthode <codeph>play()</codeph> par défaut.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par l’implémentation de la méthode <codeph>prepareForPlay()</codeph> par défaut, cette méthode est chargée de créer l’effet Spark qui est appliqué pour effectuer la transition du navigateur entier (y compris du contenu de la barre de contrôle) lorsque cela est nécessaire. Cette méthode doit être remplacée par des sous-classes. Par défaut, cette méthode renvoie la valeur null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createTabBarEffect"><apiName>createTabBarEffect</apiName><shortdesc>
+      Appelée par l’implémentation de la méthode prepareForPlay() par défaut, cette méthode est chargée de créer l’effet Spark qui doit être appliqué à la barre d’onglets lorsque la transition commence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Occurrence de IEffect qui fait office de transition de barre d’onglets. L’effet est appliqué par l’implémentation de la méthode <codeph>play()</codeph> par défaut.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par l’implémentation de la méthode <codeph>prepareForPlay()</codeph>par défaut, cette méthode est chargée de créer l’effet Spark qui doit être appliqué à la barre d’onglets lorsque la transition commence. Cette méthode doit être remplacée par des sous-classes. Par défaut, cette méthode renvoie la valeur null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createViewEffect"><apiName>createViewEffect</apiName><shortdesc>
+      Appelée par l’implémentation de la méthode prepareForPlay() par défaut, cette méthode est chargée de créer l’effet Spark qui est appliqué à la vue actuelle et à la vue suivante lorsque la transition commence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Occurrence de IEffect qui fait office de transition de vue. L’effet est appliqué par l’implémentation de la méthode <codeph>play()</codeph> par défaut.
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par l’implémentation de la méthode <codeph>prepareForPlay()</codeph>par défaut, cette méthode est chargée de créer l’effet Spark qui est appliqué à la vue actuelle et à la vue suivante lorsque la transition commence. Cette méthode doit être remplacée par des sous-classes. Par défaut, cette méthode renvoie la valeur null.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      Permet d’effectuer le rendu d’instantanés des éléments d’écran en phase de préparation pour la transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Objet BitmapImage représentant la cible.
+     
+      </apiDesc><apiType value="spark.primitives:BitmapImage"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Objet d’affichage à capturer.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>Marge autour de l’objet à inclure dans l’objet BitmapImage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>globalPosition</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>S’il n’est pas nul, <codeph>globalPosition</codeph> sera mis à jour avec l’origine de la classe BitmapImage dans les coordonnées globales. Lors du déplacement vers un autre espace de coordonnées, cette valeur peut être utilisée pour régler la position de l’instantané, de sorte que la position globale à l’écran ne change pas. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Permet d’effectuer le rendu d’instantanés des éléments d’écran en phase de préparation pour la transition. L’image bitmap est renvoyée sous la forme d’un objet BitmapImage. 
+       
+      <p>La classe BitmapImage se situe dans l’espace de coordonnées parents de la cible. Elle recouvre précisément la cible si elle a le même parent. Lors du déplacement vers un autre parent, assurez-vous de régler la transformation de la classe BitmapImage correctement pour tenir compte de la modification dans des espaces de coordonnées. La valeur mise à jour du paramètre <codeph>globalPosition</codeph> peut être ici utilisée.</p> 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:play"><apiName>play</apiName><shortdesc>
+      Appelée par le composant ViewNavigator lorsque la transition doit commencer l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par le composant ViewNavigator lorsque la transition doit commencer l’animation. A ce stade, la transition doit distribuer un événement <codeph>start</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:prepareForPlay"><apiName>prepareForPlay</apiName><shortdesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par le composant ViewNavigator pendant la phase de préparation d’une transition. Cette méthode permet à la transition de créer et configurer l’occurrence IEffect sous-jacente ou d’ajouter des éléments transitoires à la liste d’affichage. Les éléments transitoires sont par exemple des espaces réservés bitmap, des conteneurs temporaires nécessaires au cours de la transition et d’autres éléments. Le cas échéant, une validation finale survient avant l’invocation de la méthode <codeph>play()</codeph>.
+     
+      <p>S’il est déterminé qu’une transition standard peut être lancée (c’est-à-dire qu’elle assure la transition des barres de contrôle séparément des vues), l’implémentation par défaut de cette méthode crée un effet Parallel unique qui regroupe les séquences d’effet individuelles pour la transition de la vue, la transition de la barre d’action et la transition de la barre d’onglets. Cette méthode utilise les méthodes <codeph>createActionBarEffect()</codeph>, <codeph>createTabBarEffect()</codeph> et <codeph>createViewEffect()</codeph>.</p>
+     
+      <p>Si <codeph>transitionControlsWithContent</codeph> a la valeur <codeph>true</codeph>, ou s’il est déterminé que la transition des barres de contrôle ne peut pas être effectuée indépendamment, un effet unique est créé pour effectuer la transition du navigateur dans son intégralité. Dans ce cas, seule la méthode <codeph>createConsolidatedEffect()</codeph> est invoquée.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      Appelée par la transition pour indiquer que la transition est terminée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée par la transition pour indiquer que la transition est terminée. Cette méthode distribue l’événement <codeph>end</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.transitions:ViewTransitionBase:duration:get"><apiName>duration</apiName><shortdesc>
+      Durée de la transition en millisecondes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Durée de la transition en millisecondes. La valeur par défaut peut varier selon la transition, mais est définie dans ViewTransitionBase sur 250 ms.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:easer:get"><apiName>easer</apiName><shortdesc>
+      Le comportement d’accélération de cette transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>Sine(.5);
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Le comportement d’accélération de cette transition. l’objet IEaser est généralement propagé à l’occurrence de IEffect qui gère l’animation de la transition réelle.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.xml"><linktext>Spark.effets.easing</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:endView:get"><apiName>endView</apiName><shortdesc>
+      Vue vers laquelle le navigateur effectue la transition, définie par l’objet ViewNavigator propriétaire lui-même.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Vue vers laquelle le navigateur effectue la transition, définie par l'objet ViewNavigator propriétaire lui-même. Cette propriété peut être de valeur null.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:navigator:get"><apiName>navigator</apiName><shortdesc>
+      Référence à l’occurrence du composant ViewNavigator propriétaire définie par le composant ViewNavigator propriétaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:ViewNavigator</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Référence à l’occurrence du composant ViewNavigator propriétaire définie par le composant ViewNavigator propriétaire.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:startView:get"><apiName>startView</apiName><shortdesc>
+      Vue actuellement active du navigateur de vue, définie par le navigateur de vue propriétaire lui-même.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier></apiValueDef><apiDesc>
+      Vue actuellement active du navigateur de vue, définie par le navigateur de vue propriétaire lui-même. Cette propriété peut être de valeur null.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:suspendBackgroundProcessing:get"><apiName>suspendBackgroundProcessing</apiName><shortdesc>
+      Lorsqu’elle est définie sur true, la méthode UIComponent.suspendBackgroundProcessing() est appelée avant la lecture de la transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Lorsqu’elle est définie sur <codeph>true</codeph>, la méthode <codeph>UIComponent.suspendBackgroundProcessing()</codeph> est appelée avant la lecture de la transition. Cette action désactive Flex du gestionnaire de mise en page et amélioration des performances. A la fin de la transition, le gestionnaire de mise en page fonction est restaurée par un appel à la <codeph>UIComponent.resumeBackgroundProcessing()</codeph> méthode. 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/suspendBackgroundProcessing()"><linktext>mx.core.UIComponent.suspendBackgroundProcessing()</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/resumeBackgroundProcessing()"><linktext>mx.core.UIComponent.resumeBackgroundProcessing()</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:transitionControlsWithContent:get"><apiName>transitionControlsWithContent</apiName><shortdesc>
+      Lorsqu’elle est définie sur true, la transition de la vue principale est utilisée pour effectuer la transition de l’ensemble du navigateur de vue, y compris la barre d’action.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Lorsqu’elle est définie sur <codeph>true</codeph> , la transition de la vue principale est utilisée pour effectuer la transition de l’ensemble du navigateur de vue, y compris la barre d’action. Les transitions spécifique à la barre d’action ne sont pas exécutées. Etant donné que la barre d’onglets est associée à l’intégralité de l’application, et non à une vue, les transitions entre les vues n’ont pas d’incidence.
+           <p>Notez que même lorsqu’elle est définie sur <codeph>false</codeph>, il existe des cas où il n’est pas possible d’exécuter la transition de la barre d’action. Par exemple, lorsque la barre d’action n’est pas présente dans l’une des deux vues, ou si la taille de la barre d’action change.</p>
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransitionMode"><apiName>FlipViewTransitionMode</apiName><shortdesc>
+  La classe FlipViewTransitionMode définit les constantes utilisées lors de l’indication du mode de style d’une occurrence de transition d’inversion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe FlipViewTransitionMode définit les constantes utilisées lors de l’indication du mode de style d’une occurrence de transition d’inversion.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransition"><linktext>FlipViewTransition</linktext></link></related-links><apiValue id="spark.transitions:FlipViewTransitionMode:CARD"><apiName>CARD</apiName><shortdesc>
+      La vue précédente s’inverse au niveau de son centre au fur et à mesure que la nouvelle vue est révélée sur l’autre côté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>card</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La vue précédente s’inverse au niveau de son centre au fur et à mesure que la nouvelle vue est révélée sur l’autre côté.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:FlipViewTransitionMode:CUBE"><apiName>CUBE</apiName><shortdesc>
+     La vue précédente est écartée comme la face d’un cube en rotation alors que la nouvelle vue apparaît comme la face adjacente du cube.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cube</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     La vue précédente est écartée comme la face d’un cube en rotation alors que la nouvelle vue apparaît comme la face adjacente du cube.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

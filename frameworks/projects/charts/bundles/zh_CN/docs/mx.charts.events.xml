@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.events"><apiName>mx.charts.events</apiName><apiDetail/><apiClassifier id="mx.charts.events:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+   LegendMouseEvent 类表示特定于图表图例组件的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+   LegendMouseEvent 类表示特定于图表图例组件的事件对象。例如单击图例项目。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:LegendMouseEvent:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>鼠标事件的类型。如果已给定鼠标事件类型，则会将其转换为 LegendMouseEvent 类型。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>触发此 LegentMouseEvent 的 MouseEvent。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.charts:LegendItem</apiOperationClassifier><apiData>null</apiData><apiDesc>触发了此事件的图例中的项目。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  事件类型常量；指示用户在图例项目上单击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在图例项目上单击了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  事件类型常量；指示用户在图例项目上单击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在图例项目上单击了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OUT"><apiName>ITEM_MOUSE_OUT</apiName><shortdesc>
+	  事件类型常量；指示用户将鼠标指针滚离了某个图例项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户将鼠标指针滚离了某个图例项目。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OVER"><apiName>ITEM_MOUSE_OVER</apiName><shortdesc>
+	  事件类型常量；指示用户将鼠标指针滚到了某个图例项目上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户将鼠标指针滚到了某个图例项目上。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  事件类型常量；指示用户在图例项目上释放了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在图例项目上释放了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:item"><apiName>item</apiName><shortdesc>
+	  触发了此事件的图例中的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts:LegendItem</apiValueClassifier></apiValueDef><apiDesc>
+	  触发了此事件的图例中的项目。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+ ChartItemEvent 类表示特定于图表组件的事件，例如单击图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ ChartItemEvent 类表示特定于图表组件的事件，例如单击图表项目。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:ChartItemEvent:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+	 构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hitSet</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>一个描述触发事件的 ChartItems 的 HitData 结构数组。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>触发此 ChartItemEvent 的 MouseEvent。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>触发的事件所在的图表。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	 构造函数。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartItemEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+	  事件类型常量；指示图表中的选项已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示图表中的选项已更改。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上单击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上单击了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_DOUBLE_CLICK"><apiName>ITEM_DOUBLE_CLICK</apiName><shortdesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上双击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上双击了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上按下了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上按下了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_MOVE"><apiName>ITEM_MOUSE_MOVE</apiName><shortdesc>
+	  事件类型常量；指示用户移动了悬停在表示图表中数据的图表项目上方的鼠标指针。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户移动了悬停在表示图表中数据的图表项目上方的鼠标指针。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上方释放了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户在表示图表中数据的图表项目上方释放了鼠标按键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OUT"><apiName>ITEM_ROLL_OUT</apiName><shortdesc>
+	  事件类型常量；指示用户将鼠标指针滚离了表示图表中数据的图表项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户将鼠标指针滚离了表示图表中数据的图表项目。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OVER"><apiName>ITEM_ROLL_OVER</apiName><shortdesc>
+	  事件类型常量；指示用户将鼠标指针滚到了表示图表中数据的图表项目上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  事件类型常量；指示用户将鼠标指针滚到了表示图表中数据的图表项目上。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitSet"><apiName>hitSet</apiName><shortdesc>
+	  一组描述触发事件的图表项目的 HitData 结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  一组描述触发事件的图表项目的 HitData 结构。此数组采用深度顺序，数组中的第一项是最顶层的项目，最后一项是最底层的项目。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitData:get"><apiName>hitData</apiName><shortdesc> 
+	  hitSet 数组中的第一项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.charts:HitData</apiValueClassifier></apiValueDef><apiDesc> 
+	  hitSet 数组中的第一项。如果开发人员不关心对应于多个项目的事件，则此函数非常方便。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+ ChartEvent 类表示特定于图表控件的事件，例如单击图表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ ChartEvent 类表示特定于图表控件的事件，例如单击图表。仅当鼠标下方不存在 ChartItem 对象时才触发此事件。
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.events.xml#ChartItemEvent"><linktext>mx.charts.events.ChartItemEvent</linktext></link></related-links><apiConstructor id="mx.charts.events:ChartEvent:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件的类型。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>触发此 ChartEvent 的 MouseEvent。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>触发的事件所在的图表。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartEvent:CHART_CLICK"><apiName>CHART_CLICK</apiName><shortdesc>
+      指示用户在图表控件而不是图表项目上方单击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示用户在图表控件而不是图表项目上方单击了鼠标按键。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartEvent:CHART_DOUBLE_CLICK"><apiName>CHART_DOUBLE_CLICK</apiName><shortdesc>
+      指示用户在图表控件而不是图表项目上方双击了鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示用户在图表控件而不是图表项目上方双击了鼠标按键。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

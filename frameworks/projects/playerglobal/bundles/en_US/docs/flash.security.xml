@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.security" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.security</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.security:XMLSignatureValidator" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">XMLSignatureValidator</apiName><shortdesc class="- topic/shortdesc ">
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+	 The XMLSignatureValidator class validates whether an XML 
+	 signature file is well formed, unmodified, and, optionally, whether 
+	 it is signed using a key linked to a trusted digital certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The XMLSignatureValidator class validates whether an XML 
+	 signature file is well formed, unmodified, and, optionally, whether 
+	 it is signed using a key linked to a trusted digital certificate.
+	 
+	 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR profile support:</i> This feature is supported 
+	 on all desktop operating systems and AIR for TV devices, but it is not supported on mobile devices. You can test 
+	 for support at run time using the <codeph class="+ topic/ph pr-d/codeph ">XMLSignatureValidator.isSupported</codeph> property. See 
+	 <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">
+	 AIR Profile Support</xref> for more information regarding API support across multiple profiles.</p>
+	 
+	 <p class="- topic/p ">XMLSignatureValidator implements a subset of the 
+	 W3C Recommendation for XML-Signature Syntax and Processing and
+	 should not be considered a conforming implementation.
+ 	 The supported subset of the recommendation includes:</p>
+	 <ul class="- topic/ul "><li class="- topic/li ">All of the core signature syntax except KeyInfo element.</li><li class="- topic/li ">The KeyInfo element only supports the X509Data element.</li><li class="- topic/li ">The X509Data element only supports the X509Certificate element.</li><li class="- topic/li ">The SHA256 digest method algorithm.</li><li class="- topic/li ">The PKCS1 signing algorithm.</li><li class="- topic/li ">The "Canonical XML without comments" Canonicalization Method and Transform algorithm.</li><li class="- topic/li ">The Manifest element in additional signature syntax.</li></ul>
+	 
+	 <p class="- topic/p ">You must provide an IURIDereferencer implementation in order to verify an XML signature. This
+	 implementation class is responsible for resolving the URIs specified in the SignedInfo 
+	 elements of the signature file and returning the referenced data in an object, such 
+	 as a ByteArray, that implements the IDataInput interface.</p>
+	 
+	 <p class="- topic/p ">In order to verify that the signing certificate chains to a trusted certificate, either 
+	 the XML signature must contain the certificates required to build the chain in X509Certificate 
+	 elements, or you must supply the certificates required to build the chain using the 
+	 <codeph class="+ topic/ph pr-d/codeph ">addCertificate()</codeph> method.</p>
+	 
+	 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">To verify an XMLSignature:</b></p>
+	 <ol class="- topic/ol "><li class="- topic/li ">Create an instance of the XMLSignatureValidator class.</li><li class="- topic/li ">Set the <codeph class="+ topic/ph pr-d/codeph ">uriDereferencer</codeph> property of the instance to an instance of your
+	 IURIDereferencer implementation class.</li><li class="- topic/li ">Supply DER-encoded certificates for building the certificate trust chain, if desired, 
+	 using the <codeph class="+ topic/ph pr-d/codeph ">addCertificate()</codeph> method.</li><li class="- topic/li ">Call the XMLSignatureValidator <codeph class="+ topic/ph pr-d/codeph ">verify</codeph> method, passing in the signature to
+	 be verified.</li><li class="- topic/li ">Check the <codeph class="+ topic/ph pr-d/codeph ">validityStatus</codeph> property after the XMLSignatureValidator object 
+	 dispatches a complete event.</li></ol>
+	 
+	 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">About signature status:</b></p>
+	 <p class="- topic/p ">The validity of an XML signature can be valid, invalid, or unknown. The overall
+	 status depends on the verification status of the individual components of the signature file:</p>
+	 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph> — The validity of the cryptographic of the signature computed over
+	 the SignedInfo element. Can be <codeph class="+ topic/ph pr-d/codeph ">valid</codeph>, <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph>, or <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> — The validity of the signing certificate. If the certificate has 
+	 expired, has been revoked, or altered, the status is <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph>. If the certificate cannot be chained 
+	 to a trusted root certificate, the status is <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>. The certificate is not checked if the  
+	 digest is invalid. If not checked, the status will be reported as <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph> — The validity of the data addressed by the references in the
+	 SignedInfo element of the signature file. Can be <codeph class="+ topic/ph pr-d/codeph ">valid</codeph>, <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph>, or
+	 <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>. The references are not checked if the digest or certificate is invalid.
+	 Reference checking can also be skipped based on the setting of the <codeph class="+ topic/ph pr-d/codeph ">referencesValidationSetting</codeph> property. 
+	 If not checked, the status will be reported as <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</li></ul>
+	 <p class="- topic/p ">The signature validity reported by the <codeph class="+ topic/ph pr-d/codeph ">validityStatus</codeph> property can be:</p>
+	 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">valid</codeph> — If <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph>, <codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>, and 
+	 <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> are all <codeph class="+ topic/ph pr-d/codeph ">valid</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> — If any individual status is <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> — If <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph>,  <codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>, or 
+	 <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> is <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</li></ul>
+	 
+	 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Canonicalization limitations:</b></p>
+	 <p class="- topic/p ">The XML engine in AIR does not always produce the expected XML string when canonicalizing an XML document.
+	 For this reason, it is recommended that you avoid putting inter-element whitespace in enveloped or detached signature
+	 documents and do not redefine namespaces inside a signature document. In both cases, AIR may not recreate the document
+	 with the same character sequence as the original and, therefore, validation will fail.</p>
+	   
+	 </apiDesc><example conref="examples\XMLSignatureValidatorExample.as" class="- topic/example "> The following example loads and verifies a file containing an XML signature. 
+ 
+ To use this example, you must implement an IURIDereferencer appropriate for the signatures
+ to be validated (replacing the SignedMessageDereferencer class used in the example).  
+ Run the example by calling <codeph class="+ topic/ph pr-d/codeph ">SignatureValidatorExample.validateSignature( signatureFile )</codeph>,
+ passing in the file referencing the XML signature document to validate.
+ 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+import flash.events.Event;
+import flash.filesystem.File;
+import flash.filesystem.FileStream;
+import flash.security.ReferencesValidationSetting;
+import flash.security.XMLSignatureValidator; 
+
+import com.example.SignedMessageDereferencer; //A custom class implementing IURIDereferencer
+
+public class SignatureValidatorExample{ 
+    private var xmlSig:XML;
+    private const signatureNS:Namespace = new Namespace( "http://www.w3.org/2000/09/xmldsig#" );
+    
+    public static function validateSignature( signatureFile:File ):void{
+        try{
+            //Set up the XMLSignatureValidator
+            var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+            verifier.addEventListener( Event.COMPLETE, verificationComplete );
+            verifier.uriDereferencer = new SignedMessageDereferencer();
+            verifier.referencesValidationSetting = ReferencesValidationSetting.VALID_OR_UNKNOWN_IDENTITY;
+    
+            //Load the signed document
+            var sigFileStream:FileStream = new FileStream();
+            sigFileStream.open( signatureFile, FileMode.READ );
+            var xmlDoc:XML = XML( sigFileStream.readUTFBytes(sigFileStream.bytesAvailable) );
+            
+            //Get the last Signature element in the document
+            if( xmlDoc.name().localName != "Signature" ){
+                var signatureList:XMLList = xmlDoc..signatureNS::Signature;
+                xmlSig = XML( signatureList[ signatureList.length()-1 ] );
+            } else{
+                xmlSig = xmlDoc;
+            }
+    
+            //Validate the signature
+            verifier.verify( xmlSig );
+            
+        }catch (e:Error){
+            statusDisplay.text = "Verification error.\n" + e;
+        }
+    }
+    
+    private static function verificationComplete(event:Event):void{
+        trace( "Signature Validity: " + verifier.validityStatus );
+        trace( "Digest validity: " + verifier.digestStatus );
+        trace( "Certificate validity: " + verifier.identityStatus );
+        trace( "Data validity: " + verifier.referencesStatus );
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#IURIDereferencer" class="- topic/link "><linktext class="- topic/linktext ">IURIDereferencer</linktext></link><link href="http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/" class="- topic/link "><linktext class="- topic/linktext ">XML-Signature Syntax and Processing</linktext></link><link href="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" class="- topic/link "><linktext class="- topic/linktext ">Canonical XML</linktext></link><link href="http://www.ietf.org/rfc/rfc2437.txt" class="- topic/link "><linktext class="- topic/linktext ">PKCS #1</linktext></link></related-links><adobeApiEvent id="flash.security:XMLSignatureValidator_flash.events.ErrorEvent.ERROR_error" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">error</apiName><shortdesc class="- topic/shortdesc ">
+	 Dispatched if verification cannot complete because of errors.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.ErrorEvent.ERROR</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.ErrorEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Dispatched if verification cannot complete because of errors. 
+	 
+	 </apiDesc><example conref="examples\XMLSignatureValidator.error.1.as" class="- topic/example "> The following example listens for the error event dispatched by an XMLSignatureValidator
+ object and traces the error message:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+private function verificationError(event:ErrorEvent):void{
+    trace("Verification error: " + event.text);                
+}
+</codeblock></example></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="flash.security:XMLSignatureValidator_flash.events.Event.COMPLETE_complete" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">complete</apiName><shortdesc class="- topic/shortdesc ">
+	 Dispatched when verification is complete.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Dispatched when verification is complete.
+	 
+	 <p class="- topic/p ">A <codeph class="+ topic/ph pr-d/codeph ">complete</codeph> event does not imply that the
+	 signature is valid. Check the <codeph class="+ topic/ph pr-d/codeph ">validityStatus</codeph> property of
+	 the XMLSignatureValidator object to 
+	 determine the outcome of the signature verification.</p>
+	 
+	 </apiDesc><example conref="examples\XMLSignatureValidator.complete.1.as" class="- topic/example "> The following example listens for the complete event dispatched by an XMLSignatureValidator
+ object and traces the validation results:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+private function verificationComplete(event:Event):void{
+    var validator:XMLSignatureValidator = event.target as XMLSignatureValidator;
+    trace("Digest status: " + validator.digestStatus);
+    trace("Identity status: " + validator.identityStatus);
+    trace("Reference status: " + validator.referencesStatus);
+    trace("Signature status: " + validator.validityStatus);    
+}
+</codeblock></example></adobeApiEventDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/validityStatus" class="- topic/link "><linktext class="- topic/linktext ">validityStatus</linktext></link></related-links></adobeApiEvent><apiConstructor id="flash.security:XMLSignatureValidator:XMLSignatureValidator" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">XMLSignatureValidator</apiName><shortdesc class="- topic/shortdesc ">
+		 Creates an XMLSignatureValidator object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Creates an XMLSignatureValidator object.
+		 
+		 <p class="- topic/p ">You must set the <codeph class="+ topic/ph pr-d/codeph ">uriDereferencer</codeph> property before calling the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph>
+		 method of the new object.</p>
+		 
+		 </apiDesc><example conref="examples\XMLSignatureValidator.constructor.1.as" class="- topic/example "> The following example creates and sets up a new XMLSignatureValidator object:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock "> 
+import com.example.EnvelopedDereferencer; //Your custom IURIDereferencer implementation
+
+//Create the object
+var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+
+//Provide the IURIDerferencer
+verifier.uriDereferencer = new EnvelopedDereferencer(xmlDoc);
+
+//Set validation options
+verifier.referencesValidationSetting = ReferencesValidationSetting.VALID_OR_UNKNOWN_IDENTITY;
+verifier.revocationCheckSetting = RevocationCheckSettings.NEVER;
+verifier.useSystemTrustStore = true;
+
+//Add listeners to handle results
+verifier.addEventListener(Event.COMPLETE, verificationComplete);
+verifier.addEventListener(ErrorEvent.ERROR, verificationError);
+</codeblock></example></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/uriDereferencer" class="- topic/link "><linktext class="- topic/linktext ">uriDereferencer</linktext></link></related-links></apiConstructor><apiOperation id="flash.security:XMLSignatureValidator:addCertificate" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">addCertificate</apiName><shortdesc class="- topic/shortdesc ">
+	   Adds an x509 certificate for chain building.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If called while a signature is being validated.
+	   
+	   </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">cert</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.utils:ByteArray</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A ByteArray object containing a DER-encoded x509 digital certificate.
+	   </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">trusted</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> to designate this certificate as a trust anchor.
+	   </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	   Adds an x509 certificate for chain building. 
+	   
+	   <p class="- topic/p ">The certificate added must be a DER-encoded x509 certificate.</p>
+	   
+	   <p class="- topic/p ">If the <codeph class="+ topic/ph pr-d/codeph ">trusted</codeph> parameter is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, the 
+	   certificate is considered a trust anchor.</p>
+	   
+	   <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> An XML signature may include certificates for building 
+	   the signer's certificate chain. The XMLSignatureValidator class uses 
+	   these certificates for chain building, but not as trusted roots (by default).</p>
+	   
+	   </apiDesc><example conref="examples\XMLSignatureValidator.addCertificate.1.as" class="- topic/example "> The following example loads a certificate from the file system
+ and adds it as a trusted anchor.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.utils.ByteArray;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ var certificate:ByteArray = new ByteArray();
+ 
+ var certFile:File = new File("certificate.cer");
+ var certFileStream:FileStream = new FileStream();
+ certFileStream.open(certFile, FileMode.READ);
+ certFileStream.readBytes(certificate, 0, certFileStream.bytesAvailable);
+
+ verifier.addCertificate(certificate, true);
+</codeblock></example></apiOperationDetail></apiOperation><apiOperation id="flash.security:XMLSignatureValidator:verify" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">verify</apiName><shortdesc class="- topic/shortdesc ">
+		Verifies the specified signature.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If called while a signature is being validated. 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If other errors are encountered, such as non-well-formed XML or
+		 unsupported elements in the signature file. 
+		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">signature</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">XML</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The XML signature to verify.
+		</apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Verifies the specified signature. 
+		
+		<p class="- topic/p ">Verification is asynchronous. The XMLSignatureValidator object dispatches 
+		a <codeph class="+ topic/ph pr-d/codeph ">complete</codeph> event when verification completes successfully or 
+		an <codeph class="+ topic/ph pr-d/codeph ">error</codeph> event if verification cannot complete because of errors.</p> 
+		
+		<p class="- topic/p ">The verification process cannot be cancelled. While a verification process is under way, 
+		subsequent calls to the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method fail. After the current verification 
+		check is complete, you can call the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method again.</p> 
+		
+		<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Because the XMLSignatureValidator only implements a subset of the 
+		 W3C recommendation for XML Signature Syntax and Processing, not all valid 
+		 XML signatures can be verified.</p>
+		 
+		 
+		</apiDesc><example conref="examples\XMLSignatureValidator.verify.1.as" class="- topic/example "> The following example reads a file containing an XML signature and validates it by
+ calling the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method.
+ (The example assumes that the IURIDereferencer implementation is appropriate for the signature.)
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+import flash.filesystem.File;
+import flash.filesystem.FileStream;
+import com.example.SignedMessageDereferencer; //Your IURIDereferencer implementation
+ 
+const xmlSignatureNS:Namespace = new Namespace( "http://www.w3.org/2000/09/xmldsig#" );
+
+var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+verifier.uriDereferencer = new SignedMessageDereferencer();
+
+var signatureFile:File = new File( "path/to/XMLSignatureDocument.xml" );
+var sigFileStream:FileStream = new FileStream();
+sigFileStream.open( signatureFile, FileMode.READ );
+
+var xmlDoc:XML = XML( sigFileStream.readUTFBytes(sigFileStream.bytesAvailable) );
+var xmlSig:XML = XML( xmlDoc..xmlSignatureNS::Signature );
+
+verifier.verify( xmlSig );
+</codeblock></example></apiOperationDetail><adobeApiEvent id="flash.security:XMLSignatureValidator:verify_complete" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">complete</apiName><prolog class="- topic/prolog "/><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events:Event</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Dispatched when verification completes successfully.
+		</apiDesc></adobeApiEventDetail><shortdesc class="- topic/shortdesc ">Dispatched when verification completes successfully.</shortdesc></adobeApiEvent><adobeApiEvent id="flash.security:XMLSignatureValidator:verify_error" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">error</apiName><prolog class="- topic/prolog "/><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events:ErrorEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Dispatched if the verification of references encounters an error. 
+		</apiDesc></adobeApiEventDetail><shortdesc class="- topic/shortdesc ">Dispatched if the verification of references encounters an error.</shortdesc></adobeApiEvent></apiOperation><apiValue id="flash.security:XMLSignatureValidator:digestStatus:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">digestStatus</apiName><shortdesc class="- topic/shortdesc ">
+	    The validity status of the cryptographic signature computed over the 
+	    signature SignedInfo element.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+		 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    The validity status of the cryptographic signature computed over the 
+	    signature SignedInfo element.
+	    
+	    <p class="- topic/p ">The status is:</p>
+	    <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">valid</codeph> — If signature is cryptographically valid.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> — If the digest has been altered after signing.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> — If the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method has not
+	    been called.</li></ul>
+		
+		 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> If the <codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph> is invalid, the <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph>
+		 and <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph> are not checked and will be reported as <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</p>
+		 
+		 </apiDesc><example conref="examples\XMLSignature.digestStatus.1.as" class="- topic/example "/></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:identityStatus:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">identityStatus</apiName><shortdesc class="- topic/shortdesc ">
+	    The validity status of the signing certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+ 		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    The validity status of the signing certificate. 
+	    
+	    <p class="- topic/p ">The status can be:</p>
+	    <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">valid</codeph> — The certificate has not expired, has not failed a revocation check and chains
+	    to a trusted root certificate.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> — The certificate has not expired and has not failed a revocation check, 
+	    but does not chain to a trusted root certificate. A status of <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> will also
+	    be reported when the status has not been verified, either because the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method has not
+	    been called or because the cryptographic signature of the SignedInfo element (<codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>)
+	    is invalid.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> — The certificate has expired or fails a revocation check.</li></ul>
+	    <p class="- topic/p ">The certificates added using the <codeph class="+ topic/ph pr-d/codeph ">addCertificate()</codeph> method 
+	    and the settings of the <codeph class="+ topic/ph pr-d/codeph ">revocationCheckSetting</codeph> and the <codeph class="+ topic/ph pr-d/codeph ">useSystemTrustStore</codeph>
+	    properties can change whether a certificate is considered valid.</p>
+	    
+		<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> If the <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> is invalid, the <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph> is not checked 
+		 and will be reported as <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>. In addition, references are not checked when the <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph>
+		 is unknown unless the <codeph class="+ topic/ph pr-d/codeph ">referencesValidationSetting</codeph> is <codeph class="+ topic/ph pr-d/codeph ">validOrUnknownIdentity</codeph></p>
+		
+ 		</apiDesc><example conref="examples\XMLSignatureValidator.identityStatus.1.as" class="- topic/example "> The following example gets the result of validating the signing certificate 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.XMLSignatureValidator;
+ 
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var identityResult:String = verifier.identityStatus;
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/addCertificate()" class="- topic/link "><linktext class="- topic/linktext ">addCertificate()</linktext></link><link href="flash.security.xml#XMLSignatureValidator/revocationCheckSetting" class="- topic/link "><linktext class="- topic/linktext ">revocationCheckSetting</linktext></link><link href="flash.security.xml#XMLSignatureValidator/useSystemTrustStore" class="- topic/link "><linktext class="- topic/linktext ">useSystemTrustStore</linktext></link><link href="flash.security.xml#XMLSignatureValidator/referencesValidationSetting" class="- topic/link "><linktext class="- topic/linktext ">referencesValidationSetting</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+        The isSupported property is set to true if the 
+        XMLSignatureValidator class is supported on the current platform, otherwise it is
+        set to false.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Reports whether the XMLSignatureValidation class is supported on the client system.
+        
+        </apiTipText></apiTipTexts></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+        The <codeph class="+ topic/ph pr-d/codeph ">isSupported</codeph> property is set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> if the 
+        XMLSignatureValidator class is supported on the current platform, otherwise it is
+        set to <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. 
+        
+        </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:referencesStatus:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">referencesStatus</apiName><shortdesc class="- topic/shortdesc ">
+	    The validity status of the data in the references in the signature SignedInfo 
+	    element.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+ 		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    The validity status of the data in the references in the signature SignedInfo 
+	    element.
+	    
+	    <p class="- topic/p ">The status can be:</p>
+	    <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">valid</codeph> — If all references are valid.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> — If any reference is invalid.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> — If not verified. 
+	    References can remain unverified in the following circumstances:
+	    <ul class="- topic/ul "><li class="- topic/li ">the <codeph class="+ topic/ph pr-d/codeph ">verify()</codeph> method has not been called</li><li class="- topic/li ">the cryptographic signature of the SignedInfo element (<codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>) is invalid.</li><li class="- topic/li ">the signing certificate (<codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph>) is invalid</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">referencesValidationSetting</codeph> is <codeph class="+ topic/ph pr-d/codeph ">validIdentity</codeph> (which is the default setting) and 
+	    	the <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> of the signing certificate is unknown.</li><li class="- topic/li ">the <codeph class="+ topic/ph pr-d/codeph ">referencesValidationSetting</codeph> is <codeph class="+ topic/ph pr-d/codeph ">never</codeph>.</li></ul>
+	    </li></ul>
+		
+		 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Important:</b> External resources are not validated unless they are referenced directly 
+		 in a SignedInfo element within the signature document. External resources referred to by a secondary
+		 reference are not validated. For example, if an XML signature signs a manifest element, only 
+		 the integrity of the manifest element itself is verified. The files listed in the manifest are not
+		 checked.</p>
+		 
+		</apiDesc><example conref="examples\XMLSignatureValidator.referencesStatus.1.as" class="- topic/example "> The following example gets the result of validating the references in the signature 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.XMLSignatureValidator;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var dataResult:String = verifier.referencesStatus;
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/referencesValidationSetting" class="- topic/link "><linktext class="- topic/linktext ">referencesValidationSetting</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:referencesValidationSetting:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">referencesValidationSetting</apiName><shortdesc class="- topic/shortdesc ">
+	    Specifies the conditions under which references are checked.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If set while a signature is being validated.
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">if the <codeph class="+ topic/ph pr-d/codeph ">setting</codeph> parameter contains a value not defined in the ReferencesValidationSetting class.
+		 
+		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    Specifies the conditions under which references are checked.
+		
+		 <p class="- topic/p ">Use constants defined in the ReferencesValidationSetting class to set this property. The
+		 settings include:</p>
+		 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">ReferencesValidationSetting.VALID_IDENTITY</codeph> — Check references only
+		 if the signing certificate is valid and chains to a trusted root. This is the default setting.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">ReferencesValidationSetting.VALID_OR_UNKNOWN_IDENTITY</codeph> — Check references
+		 if the signing certificate is valid, even if it does not chain to a trusted root.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">ReferencesValidationSetting.NEVER</codeph> — Never check references.</li></ul>
+		 
+		 <p class="- topic/p ">
+		 Use the default, <codeph class="+ topic/ph pr-d/codeph ">validIdentity</codeph>, setting with signatures signed with a commercial certificate or when you
+		 supply your own certificate as a trust anchor with the <codeph class="+ topic/ph pr-d/codeph ">addCertificate()</codeph> method. This
+		 setting avoids the overhead of checking reference validity when the signed document will be rejected anyway.
+		 </p>
+		 <p class="- topic/p ">
+		 Use the <codeph class="+ topic/ph pr-d/codeph ">validOrUnknownIdentity</codeph> setting with signatures signed with self-signed certificates. This setting allows you to
+		 validate that the signed data has not been altered, but does not provide any assurances about the identity
+		 of the signer. 
+		 </p>
+		 <p class="- topic/p ">
+		 Use the <codeph class="+ topic/ph pr-d/codeph ">never</codeph> setting to avoid the overhead of validating references when such validation is not important in the
+		 context of your application.
+		 </p>
+		 </apiDesc><example conref="examples\XMLSignatureValidator.referencesValidationSetting.1.as" class="- topic/example "> The following example sets the XMLSignatureValidator object to check references only
+ if the signing certificate chains to a trust anchor:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.ReferencesValidationSetting;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator(); 
+ verifier.referencesValidationSetting = ReferencesValidationSetting.VALID_OR_UNKNOWN_IDENTITY;
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#ReferencesValidationSetting" class="- topic/link "><linktext class="- topic/linktext ">ReferencesValidationSetting</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:revocationCheckSetting:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">revocationCheckSetting</apiName><shortdesc class="- topic/shortdesc ">
+	    Specifies how certificate revocation is checked.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If set while a signature is being validated.
+		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    Specifies how certificate revocation is checked.
+		
+		 <p class="- topic/p ">Use constants defined in the RevocationSettings class to set this property. The
+		 settings include:</p>
+		 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">RevocationCheckSettings.NEVER</codeph> — Do not check certificate revocation.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">RevocationCheckSettings.BEST_EFFORT</codeph> — Check certificate revocation, 
+		 if revocation information is available and the revocation status can be obtained. 
+		 If revocation status cannot be positively determined, the certificate is not rejected.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">RevocationCheckSettings.REQUIRED_IF_AVAILABLE</codeph> — If the certificate includes 
+		 revocation information, the revocation status must be positively determined to validate 
+		 the certificate.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">RevocationCheckSettings.ALWAYS_REQUIRED</codeph> — Always check certificate revocation. 
+		 Certificates without revocation information are rejected.</li></ul>
+		 
+		 </apiDesc><example conref="examples\XMLSignature.revocationCheckSetting.1.as" class="- topic/example "/></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#RevocationCheckSettings" class="- topic/link "><linktext class="- topic/linktext ">RevocationCheckSettings</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:signerCN:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">signerCN</apiName><shortdesc class="- topic/shortdesc ">
+	   The Common Name field of the signing certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	   The Common Name field of the signing certificate.  
+	   
+	   </apiDesc><example conref="examples\XMLSignatureValidator.signerCN.1.as" class="- topic/example "> The following example reads the common name of the signing certificate 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var commonName:String = verifier.signerCN;
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:signerDN:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">signerDN</apiName><shortdesc class="- topic/shortdesc ">
+	   The Distinguished Name field of the signing certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	   The Distinguished Name field of the signing certificate.  
+	   
+	   </apiDesc><example conref="examples\XMLSignatureValidator.signerDN.1.as" class="- topic/example "> The following example reads the distinguished name of the signing certificate 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var distinguishedName:String = verifier.signerDN;
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:signerExtendedKeyUsages:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">signerExtendedKeyUsages</apiName><shortdesc class="- topic/shortdesc ">
+	   An array containing the Extended Key Usages OIDs listed in the signing certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+	   
+	   </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	   An array containing the Extended Key Usages OIDs listed in the signing certificate.
+	   
+	   <p class="- topic/p ">Each extended key usage is reported in numeric OID form.</p>
+	   
+	   </apiDesc><example conref="examples\XMLSignatureValidator.signerExtendedKeyUsages.1.as" class="- topic/example "> The following example reads the extended key OIDs of the signing certificate 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.XMLSignatureValidator;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var extendedKeyOIDs:Array = verifier.signerExtendedKeyUsages;
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:signerTrustSettings:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">signerTrustSettings</apiName><shortdesc class="- topic/shortdesc ">
+		An array containing the trust settings of the signing certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+		
+		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		An array containing the trust settings of the signing certificate.
+		
+		<p class="- topic/p ">Trust settings are derived from the system and the key usage OIDs embedded in 
+		the certificate. Constants for the strings representing the recognized trust settings 
+		are defined in the SignerTrustSettings class.</p>
+		 
+		 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">signerTrustSettings</codeph> array of an <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> or
+		 <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> certificate is empty.</p>
+		
+		<p class="- topic/p ">Modifying the array does not change the certificate trust settings. </p>
+		
+  	    </apiDesc><example conref="examples\XMLSignatureValidator.signerTrustSettings.1.as" class="- topic/example "> The following example reads the trust settings of the signing certificate 
+ (after a signature has been validated):
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.XMLSignatureValidator;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate a signature...
+  
+ var certificateTrustedFor:Array = verifier.signerTrustSettings;
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#SignerTrustSettings" class="- topic/link "><linktext class="- topic/linktext ">SignerTrustSettings</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:uriDereferencer:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">uriDereferencer</apiName><shortdesc class="- topic/shortdesc ">
+	     The IURIDereferencer implementation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.security:IURIDereferencer</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If set while a signature is being validated.
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	     The IURIDereferencer implementation.
+		 
+		 <p class="- topic/p ">An IURIDereferencer implementation must be provided before attempting to
+		 verify a signature.</p>
+		 
+		 </apiDesc><example conref="examples\XMLSignatureValidator.uriDereferencer.1.as" class="- topic/example "> The following example creates an instance of SignedMessageDereferencer, which implements
+ the IURIDereferencer interface, and sets it as the dereferencer to use for signature validation:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import com.example.SignedMessageDereferencer; //A custom class implementing IURIDereferencer
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator(); 
+ verifier.uriDereferencer = new SignedMessageDereferencer();
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#IURIDereferencer" class="- topic/link "><linktext class="- topic/linktext ">IURIDereferencer</linktext></link></related-links></apiValue><apiValue id="flash.security:XMLSignatureValidator:useSystemTrustStore:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">useSystemTrustStore</apiName><shortdesc class="- topic/shortdesc ">
+	    Specifies that certificates in the system trust store are used for chain building.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If set while a signature is being validated.
+		 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    Specifies that certificates in the system trust store are used for chain building.
+	    
+	    <p class="- topic/p ">If <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, then the trust anchors in the system trust store 
+	    are used as trusted roots. The system trust store is not used by default.</p>
+		
+		</apiDesc><example conref="examples\XMLSignatureValidator.useSystemTrustStore.1.as" class="- topic/example "> The following example creates an XMLSignatureValidator instance and sets it to use the
+ system repository of trusted certificates when validating an XML signature:
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator(); 
+ verifier.useSystemTrustStore = true;
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.security:XMLSignatureValidator:validityStatus:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">validityStatus</apiName><shortdesc class="- topic/shortdesc ">
+	    The validity status of a verified XML signature.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If accessed while a signature is being validated.
+		
+		</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	    The validity status of a verified XML signature.
+	    
+		<p class="- topic/p ">The XML signature is verified by validating the the cryptographic signature of the SignedInfo element, 
+		the signing certificate, and the data addressed by the references in the SignedInfo element. 
+		The validity of each of these elements is reported individually by the <codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>, 
+		<codeph class="+ topic/ph pr-d/codeph ">identityStatus()</codeph>, and <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph> properties, respectively.</p>
+		
+	    <p class="- topic/p ">The validity of an XML signature can be valid, invalid, or unknown. The overall
+	    status depends on the verification status of the individual components of the signature file:</p>
+	    <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph> — The validity of the cryptographic signature computed over
+	    the SignedInfo element.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> — The validity of the signing certificate.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph> — The validity of the digest of the references in the
+	    signature SignedInfo element.</li></ul>
+	    <p class="- topic/p ">The signature validity reported by the <codeph class="+ topic/ph pr-d/codeph ">validityStatus</codeph> property can be:</p>
+	    <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">valid</codeph> — If <codeph class="+ topic/ph pr-d/codeph ">referencesStatus</codeph>, <codeph class="+ topic/ph pr-d/codeph ">digestStatus</codeph>, and 
+	    <codeph class="+ topic/ph pr-d/codeph ">identityStatus</codeph> are all <codeph class="+ topic/ph pr-d/codeph ">valid</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">invalid</codeph> — If any individual status is <codeph class="+ topic/ph pr-d/codeph ">invalid</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">unknown</codeph> — If any individual status is <codeph class="+ topic/ph pr-d/codeph ">unknown</codeph>.</li></ul>
+		
+		</apiDesc><example conref="examples\XMLSignatureValidator.validityStatus.1.as" class="- topic/example "> The following example gets the result of validating the XML signature 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ import flash.security.XMLSignatureValidator;
+ 
+ var verifier:XMLSignatureValidator = new XMLSignatureValidator();
+ //validate the signature...
+  
+ var validationResult:String = verifier.validityStatus;
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/digestStatus" class="- topic/link "><linktext class="- topic/linktext ">digestStatus</linktext></link><link href="flash.security.xml#XMLSignatureValidator/identityStatus" class="- topic/link "><linktext class="- topic/linktext ">identityStatus</linktext></link><link href="flash.security.xml#XMLSignatureValidator/referencesStatus" class="- topic/link "><linktext class="- topic/linktext ">referencesStatus</linktext></link><link href="flash.security.xml#SignatureStatus" class="- topic/link "><linktext class="- topic/linktext ">SignatureStatus</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.security:IURIDereferencer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">IURIDereferencer</apiName><shortdesc class="- topic/shortdesc ">
+	IURIDereferencer defines an interface for objects that resolve 
+	URIs in an XML signature.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiInterface class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiInterface "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier "/></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	IURIDereferencer defines an interface for objects that resolve 
+	URIs in an XML signature.
+	 
+	<p class="- topic/p ">The IURIDereferencer implementation is responsible for resolving the 
+	URIs specified in the SignedInfo elements of an XML signature file and 
+	returning the referenced data in an object, such as a ByteArray, that implements 
+	the IDataInput interface. </p>
+	
+	<p class="- topic/p ">The interface has	one method: <codeph class="+ topic/ph pr-d/codeph ">dereference()</codeph>. 
+	A typical implementation might also require a method for passing
+	the XML signature object containing the URIs to be resolved to
+	the dereferencer.</p> 
+	 
+	 <p class="- topic/p ">The IURIDereferencer interface is used with the 
+	XMLSignatureValidator class.</p>
+	
+	</apiDesc><example conref="examples\IURIDereferencerExample.as" class="- topic/example "/></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator</linktext></link><link href="flash.security.xml#XMLSignatureValidator/uriDereferencer" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator.uriDereferencer</linktext></link></related-links><apiOperation id="flash.security:IURIDereferencer:flash.security:IURIDereferencer:dereference" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">dereference</apiName><shortdesc class="- topic/shortdesc ">
+		Resolves and dereferences the specified URI.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The data referenced by the URI.
+		</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.utils:IDataInput</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">uri</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The URI to dereference.
+		</apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Resolves and dereferences the specified URI.
+		
+		</apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier languages="" id="flash.security:SignerTrustSettings" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SignerTrustSettings</apiName><shortdesc class="- topic/shortdesc ">
+	The SignerTrustSettings class defines constants used with the 
+	signerTrustSettings property of an XMLSignatureValidator object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The SignerTrustSettings class defines constants used with the 
+	signerTrustSettings property of an XMLSignatureValidator object.
+	
+	</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/signerTrustSettings" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator.signerTrustSettings</linktext></link></related-links><apiValue id="flash.security:SignerTrustSettings:CODE_SIGNING" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CODE_SIGNING</apiName><shortdesc class="- topic/shortdesc "> 
+	   The certificate is trusted for code signing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">codeSigning</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	   The certificate is trusted for code signing. This implies that
+	   the certificate chains to a trusted root, the root is trusted for
+	   code signing, and the signing certificate has the CodeSigning
+	   OID in its Extended Key Usage extension.
+	   
+	   </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:SignerTrustSettings:PLAYLIST_SIGNING" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">PLAYLIST_SIGNING</apiName><shortdesc class="- topic/shortdesc "> 
+	   The certificate is trusted for signing playlists.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">playlistSigning</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	   The certificate is trusted for signing playlists. This implies that
+	   the certificate chains to a trusted root and has the 
+	   playlist signing OID in its Extended Key Usage extension.
+	   
+	   </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:SignerTrustSettings:SIGNING" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">SIGNING</apiName><shortdesc class="- topic/shortdesc "> 
+	  The certificate is trusted for signing in general.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">signing</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	  The certificate is trusted for signing in general. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.security:SignatureStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SignatureStatus</apiName><shortdesc class="- topic/shortdesc ">
+	The SignatureStatus class defines constants used by the validityStatus 
+	property of an XMLSignatureValidator object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The SignatureStatus class defines constants used by the validityStatus 
+	property of an XMLSignatureValidator object.
+	
+	</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/validityStatus" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator.validityStatus</linktext></link></related-links><apiValue id="flash.security:SignatureStatus:INVALID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">INVALID</apiName><shortdesc class="- topic/shortdesc "> 
+	Invalid status.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">invalid</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Invalid status.
+	
+	</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:SignatureStatus:UNKNOWN" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">UNKNOWN</apiName><shortdesc class="- topic/shortdesc "> 
+	Unknown status.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">unknown</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Unknown status.
+	
+	</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:SignatureStatus:VALID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VALID</apiName><shortdesc class="- topic/shortdesc "> 
+	Valid status.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">valid</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Valid status.
+	
+	</apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.security:ReferencesValidationSetting" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ReferencesValidationSetting</apiName><shortdesc class="- topic/shortdesc ">
+	The ReferencesValidationSetting class defines constants used by the referencesValidationSetting 
+	property of an XMLSignatureValidator object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Defines constants for the supported modes for validating referenced data in an XML signature.
+	 
+	</apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The ReferencesValidationSetting class defines constants used by the <codeph class="+ topic/ph pr-d/codeph ">referencesValidationSetting</codeph> 
+	property of an XMLSignatureValidator object.
+	
+	 </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/ReferencesValidationSetting" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator.ReferencesValidationSetting</linktext></link></related-links><apiValue id="flash.security:ReferencesValidationSetting:NEVER" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">NEVER</apiName><shortdesc class="- topic/shortdesc "> 
+	Never check references.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">never</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Never check references.
+	
+	</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:ReferencesValidationSetting:VALID_IDENTITY" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VALID_IDENTITY</apiName><shortdesc class="- topic/shortdesc "> 
+	Only check references if the signing certificate is valid and trusted.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">validIdentity</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Only check references if the signing certificate is valid and trusted.
+	
+	</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:ReferencesValidationSetting:VALID_OR_UNKNOWN_IDENTITY" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VALID_OR_UNKNOWN_IDENTITY</apiName><shortdesc class="- topic/shortdesc "> 
+	Check references even if the signing certificate is untrusted (does not chain to a known trusted root).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">validOrUnknownIdentity</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+	Check references even if the signing certificate is untrusted (does not chain to a known trusted root).
+	
+	</apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.security:RevocationCheckSettings" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">RevocationCheckSettings</apiName><shortdesc class="- topic/shortdesc ">
+	The RevocationCheckSettings class defines constants used by the 
+	revocationCheckSetting property of an XMLSignatureValidator object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The RevocationCheckSettings class defines constants used by the 
+	revocationCheckSetting property of an XMLSignatureValidator object.
+	
+	</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.security.xml#XMLSignatureValidator/revocationCheckSetting" class="- topic/link "><linktext class="- topic/linktext ">XMLSignatureValidator.revocationCheckSetting</linktext></link></related-links><apiValue id="flash.security:RevocationCheckSettings:ALWAYS_REQUIRED" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ALWAYS_REQUIRED</apiName><shortdesc class="- topic/shortdesc ">
+		Always check certificate revocation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">alwaysRequired</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Always check certificate revocation. Certificates without revocation information are rejected.
+		
+		</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:RevocationCheckSettings:BEST_EFFORT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">BEST_EFFORT</apiName><shortdesc class="- topic/shortdesc ">
+		Check certificate revocation, if revocation information is available and the revocation status 
+		can be obtained.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">bestEffort</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Check certificate revocation, if revocation information is available and the revocation status 
+		can be obtained. If revocation status cannot be positively determined, the certificate is not rejected.
+		</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:RevocationCheckSettings:NEVER" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">NEVER</apiName><shortdesc class="- topic/shortdesc ">
+		Do not check certificate revocation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">never</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Do not check certificate revocation.
+		
+		</apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:RevocationCheckSettings:REQUIRED_IF_AVAILABLE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">REQUIRED_IF_AVAILABLE</apiName><shortdesc class="- topic/shortdesc ">
+		Check certificate revocation if the certificate includes revocation information.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">requiredIfInfoAvailable</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Check certificate revocation if the certificate includes revocation information. If the information 
+		is available, but revocation status cannot be positively determined, the certificate is rejected.
+		
+		</apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.security:CertificateStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">CertificateStatus</apiName><shortdesc class="- topic/shortdesc ">
+	The CertificateStatus class defines constants used to report the
+	results of certificate validation processing by a SecureSocket object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The CertificateStatus class defines constants used to report the
+	results of certificate validation processing by a SecureSocket object.
+	
+	</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.net.xml#SecureSocket/serverCertificateStatus" class="- topic/link "><linktext class="- topic/linktext ">SecureSocket.serverCertificateStatus</linktext></link></related-links><apiValue id="flash.security:CertificateStatus:EXPIRED" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">EXPIRED</apiName><shortdesc class="- topic/shortdesc "> 
+		 The certificate is outside its valid period.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">expired</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The certificate is outside its valid period. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation processing
+		 was attempted, but failed because the validity period of the certificate is either before or
+		 after the current date. On some operating systems, the <codeph class="+ topic/ph pr-d/codeph ">notYetValid</codeph> status is reported
+		 when the current date is before the validity period of the cerificate. On other operating systems,
+		 the <codeph class="+ topic/ph pr-d/codeph ">expired</codeph> status is reported in both cases.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:INVALID_CHAIN" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">INVALID_CHAIN</apiName><shortdesc class="- topic/shortdesc "> 
+		 A root or intermediate certificate in this certificate's chain is invalid.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">invalidChain</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 A root or intermediate certificate in this certificate's chain is invalid. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation processing
+		 was attempted, but failed because the certificate's trust chain was
+		 invalid.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:INVALID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">INVALID</apiName><shortdesc class="- topic/shortdesc "> 
+		 An invalid certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">invalid</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 An invalid certificate. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation processing
+		 was attempted, but failed. This is the generic faliure status that
+		 is reported when a more specific certificate status cannot be
+		 determined.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:NOT_YET_VALID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">NOT_YET_VALID</apiName><shortdesc class="- topic/shortdesc "> 
+		 The certificate is not yet valid.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">notYetValid</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The certificate is not yet valid. 
+		 
+		 <p class="- topic/p ">Indicates that a certificate is not yet valid. 
+		 The current date is before the notBefore date/time of the certificate</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:PRINCIPAL_MISMATCH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">PRINCIPAL_MISMATCH</apiName><shortdesc class="- topic/shortdesc "> 
+		 The certificate common name does not match the expected host name.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">principalMismatch</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The certificate common name does not match the expected host name. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation
+		 processing was attempted, but failed because the certificate's
+		 common name does not match the fully qualified domain name of the host.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:REVOKED" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">REVOKED</apiName><shortdesc class="- topic/shortdesc "> 
+		 The certificate has been revoked.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">revoked</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The certificate has been revoked.
+		  
+		 <p class="- topic/p ">Indicates that certificate validation processing
+		 was attempted, but failed because the certificate has been revoked. On
+		 some operating systems, the <codeph class="+ topic/ph pr-d/codeph ">revoked</codeph> status is also reported 
+		 when the certificate (or its root certificate) has been added to the
+		 list of untrusted certificates on the client computer.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:TRUSTED" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">TRUSTED</apiName><shortdesc class="- topic/shortdesc "> 
+		 A valid, trusted certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">trusted</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 A valid, trusted certificate. 
+		 
+		 <p class="- topic/p ">Indicates that a certificate has not expired, has not
+		 failed a revocation check, and chains to a trusted root certificate.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:UNKNOWN" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">UNKNOWN</apiName><shortdesc class="- topic/shortdesc "> 
+		 The validity of the certificate is not known.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">unknown</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The validity of the certificate is not known. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation processing
+		 has not been performed yet on a certificate.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.security:CertificateStatus:UNTRUSTED_SIGNERS" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">UNTRUSTED_SIGNERS</apiName><shortdesc class="- topic/shortdesc "> 
+		 The certificate does not chain to a trusted root certificate.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">untrustedSigners</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The certificate does not chain to a trusted root certificate. 
+		 
+		 <p class="- topic/p ">Indicates that certificate validation
+		 processing was attempted, but that the certificate does not chain
+		 to any of the root certificates in the client trust store. On
+		 some operating systems, the <codeph class="+ topic/ph pr-d/codeph ">untrustedSigners</codeph> is also
+		 reported if the certificate is in the list of untrusted certificates
+		 on the client computer.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

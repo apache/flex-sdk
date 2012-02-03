@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.videoClasses"><apiName>mx.controls.videoClasses</apiName><apiDetail/><apiClassifier id="mx.controls.videoClasses:VideoError"><apiName>VideoError</apiName><shortdesc>
+  VideoError 类给出由 VideoDisplay 控件引发的错误的错误代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VideoError 类给出由 VideoDisplay 控件引发的错误的错误代码。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:VideoError:VideoError"><apiName>VideoError</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>errCode</apiItemName><apiType value="uint"/><apiDesc>错误代码。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.videoClasses:VideoError:DELETE_DEFAULT_PLAYER"><apiName>DELETE_DEFAULT_PLAYER</apiName><shortdesc>
+      无法删除默认的 VideoPlayer
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      无法删除默认的 VideoPlayer
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:ILLEGAL_CUE_POINT"><apiName>ILLEGAL_CUE_POINT</apiName><shortdesc>
+      非法提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      非法提示点。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_CONTENT_PATH"><apiName>INVALID_CONTENT_PATH</apiName><shortdesc>
+      无效的内容路径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      无效的内容路径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_SEEK"><apiName>INVALID_SEEK</apiName><shortdesc>
+      无效的搜索。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      无效的搜索。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_XML"><apiName>INVALID_XML</apiName><shortdesc>
+      无效的 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      无效的 XML。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_BITRATE_MATCH"><apiName>NO_BITRATE_MATCH</apiName><shortdesc>
+      没有匹配的比特率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      没有匹配的比特率。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CONNECTION"><apiName>NO_CONNECTION</apiName><shortdesc>
+      无法连接到服务器或找到服务器上的 FLV 文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      无法连接到服务器或找到服务器上的 FLV 文件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CUE_POINT_MATCH"><apiName>NO_CUE_POINT_MATCH</apiName><shortdesc>
+      找不到匹配的提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      找不到匹配的提示点。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:code:get"><apiName>code</apiName><shortdesc>
+      包含错误代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+      包含错误代码。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.videoClasses:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+  通过 CuePointManager 类，您可以使用 ActionScript 代码管理与 VideoDisplay 控件关联的提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  通过 CuePointManager 类，您可以使用 ActionScript 代码管理与 VideoDisplay 控件关联的提示点。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:CuePointManager:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="mx.controls.videoClasses:VideoPlayer"/><apiDesc>此 CuePointManager 的父类的 VideoPlayer 实例。
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>将忽略此参数；提供它只是为了实现向后兼容性。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.videoClasses:CuePointManager:addCuePoint"><apiName>addCuePoint</apiName><shortdesc>
+      添加提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果参数无效。
+      
+      </apiDesc><apiItemName>VideoError</apiItemName><apiOperationClassifier>mx.controls.videoClasses:VideoError</apiOperationClassifier></apiException><apiReturn><apiDesc>已添加的提示点 Object 的副本。副本具有下列附加属性：
+     
+      <ul>
+        <li><codeph>array</codeph> － 由所有提示点组成的 Array。只能将此 Array 视为只读，因为在该数组中添加、删除或编辑对象时会导致提示点出现故障。</li>
+     
+        <li><codeph>index</codeph> － 指向返回提示点的 Array 的索引。</li>
+      </ul>
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>该 Object 描述提示点。它必须包含属性 <codeph>name:String</codeph> 和 <codeph>time:Number</codeph>（以秒为单位）。如果对象不符合这些约定，将引发 <codeph>VideoError</codeph> 错误。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加提示点。
+     
+      <p>可以添加多个具有相同名称和时间的提示点。使用名称和时间选项调用 <codeph>removeCuePoint()</codeph> 方法时，该方法将删除第一个匹配的提示点。若要删除所有匹配的提示点，必须再次调用 <codeph>removeCuePoint()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePointByName"><apiName>getCuePointByName</apiName><shortdesc>
+      搜索具有指定名称的提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果找不到匹配的提示点，或仅找到与提示点 Object 匹配的具有附加属性的副本，则为 <codeph>null</codeph>：
+     
+      <ul>
+        <li><codeph>array</codeph> － 由搜索到的提示点组成的 Array。只能将此数组视为只读，因为在该数组中添加、删除或编辑对象时会导致提示点出现故障。</li>
+     
+        <li><codeph>index</codeph> － 指向返回提示点的 Array 的索引。</li>
+      </ul>
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>提示点的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      搜索具有指定名称的提示点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePoints"><apiName>getCuePoints</apiName><shortdesc>
+      返回由所有提示点组成的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>提示点对象的 Array。每个提示点对象均可描述提示点，并且包含属性 <codeph>name:String</codeph> 和 <codeph>time:Number</codeph>（以秒为单位）。  
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回由所有提示点组成的 Array。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeAllCuePoints"><apiName>removeAllCuePoints</apiName><shortdesc>
+      删除所有提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      删除所有提示点。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeCuePoint"><apiName>removeCuePoint</apiName><shortdesc>
+      从当前已加载的 FLV 文件中删除提示点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>代表已删除的提示点的对象。如果没有匹配的提示点，则它将返回 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>该 Object 至少必须包含 <codeph>name:String</codeph> 和 <codeph>time:Number</codeph> 属性中的一个属性，并删除与指定属性相匹配的提示点。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从当前已加载的 FLV 文件中删除提示点。<codeph>cuePoint</codeph> 参数仅使用 <codeph>name</codeph> 和 <codeph>time</codeph> 属性确定要删除的提示点。
+     
+      <p>如果有多个提示点符合搜索条件，则只删除其中一个。若要删除所有提示点，可在循环中使用相同的参数反复调用此函数，直到它返回 <codeph>null</codeph> 为止。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:setCuePoints"><apiName>setCuePoints</apiName><shortdesc>
+     设置提示点数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>cuePointArray</apiItemName><apiType value="Array"/><apiDesc>提示点对象的 Array。每个提示点对象均可描述提示点。它必须包含属性 <codeph>name:String</codeph> 和 <codeph>time:Number</codeph>（以秒为单位）。  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     设置提示点数组。
+     
+     <p>可以添加多个具有相同名称和时间的提示点。对具有此名称的提示点调用 <codeph>removeCuePoint()</codeph> 方法时，将仅删除第一个提示点。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

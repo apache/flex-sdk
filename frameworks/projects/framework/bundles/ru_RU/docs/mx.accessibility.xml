@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:AccConst"><apiName>AccConst</apiName><shortdesc>
+  Класс AccConst определяет константы, указанные в спецификации Microsoft Active Accessibility (MSAA).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AccConst определяет константы, указанные в спецификации Microsoft Active Accessibility (MSAA). Они используются для реализации подклассов AccessibilityImplementation.
+ 
+  <p>Так как Flash Player использует MSAA для предоставления расширенного доступа, имена констант в этом файле дословно заимствованы из MSAA SDK Microsoft. Их описания заимствованы с незначительными изменениями. При просмотре описаний следует иметь в виду, что Flash Player считается «приложением сервера MSAA», потому что объекты DisplayObject в файле SWF предоставляют информацию MSAA клиентам MSAA, таким как устройства считывания с экрана, через COM-интерфейс под названием IAccessible.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_ACCELERATORCHANGE"><apiName>EVENT_OBJECT_ACCELERATORCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA KeyboardShortcut объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA KeyboardShortcut объекта.
+     
+      <p>Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CONTENTSCROLLED"><apiName>EVENT_OBJECT_CONTENTSCROLLED</apiName><shortdesc>
+      Событие MSAA, указывающее окончание прокрутки объекта окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее окончание прокрутки объекта окна. (MSAA 2.0)
+     
+      <p>В отличие от подобного события (EVENT_SYSTEM_SCROLLEND) это событие будет связано непосредственно с окном прокрутки. Отличия отсутствуют между горизонтальной или вертикальной прокруткой. </p>
+     
+      <p>Это событие должно передаваться при каждом завершении операции прокрутки, в том числе при прокрутке с помощью полос прокрутки, колеса мыши или клавиш клавиатуры.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CREATE"><apiName>EVENT_OBJECT_CREATE</apiName><shortdesc>
+      Событие MSAA, указывающее создание объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее создание объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: текстового курсора, элемента управления заголовка, элемента управления представления в виде списка, элемента управления табуляцией, элемента управления панели инструментов, элемента управления представления в виде дерева и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Серверы должны отправить это событие всем нижестоящим объектам объекта перед отправкой события вышестоящему объекту. Серверы должны гарантировать, что все нижестоящие объекты полностью созданы и готовы принимать вызовы IAccessible от клиентов, когда вышестоящий объект отправляет это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DEFACTIONCHANGE"><apiName>EVENT_OBJECT_DEFACTIONCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA DefaultAction объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA DefaultAction объекта.
+     
+      <p>Система отправляет это событие для диалоговых полей. Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESCRIPTIONCHANGE"><apiName>EVENT_OBJECT_DESCRIPTIONCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA Description объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA Description объекта.
+     
+      <p>Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESTROY"><apiName>EVENT_OBJECT_DESTROY</apiName><shortdesc>
+      Событие MSAA, указывающее удаление объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее удаление объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: текстового курсора, элемента управления заголовка, элемента управления представления в виде списка, элемента управления табуляцией, элемента управления панели инструментов, элемента управления представления в виде дерева и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие может быть отправлено или не отправлено для нижестоящих объектов. Однако клиенты могут предположить, что все нижестоящие элементы объекта были удалены, когда вышестоящий объект отправляет это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_FOCUS"><apiName>EVENT_OBJECT_FOCUS</apiName><shortdesc>
+      Событие MSAA, указывающее получение объектом фокуса клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее получение объектом фокуса клавиатуры.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: элемента управления представления в виде списка, строки меню, всплывающего меню, окна переключения, элемента управления табуляцией, элемента управления представления в виде дерева и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HELPCHANGE"><apiName>EVENT_OBJECT_HELPCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA Help объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA Help объекта.
+     
+      <p>Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HIDE"><apiName>EVENT_OBJECT_HIDE</apiName><shortdesc>
+      Событие MSAA, указывающее скрытие объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее скрытие объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: текстового курсора и указателя мыши. Приложения сервера MSAA отправляют это событие для своих доступных объектов. При создании этого события для вышестоящего объекта все нижестоящие объекты уже скрыты. Поэтому приложениям сервера не требуется отправлять это событие для нижестоящих объектов. Скрытые объекты включают флаг STATE_SYSTEM_INVISIBLE в отличие от отображаемых объектов. Событие EVENT_OBJECT_HIDE также обозначает, что установлен флаг STATE_SYSTEM_INVISIBLE. Поэтому серверы не должны отправлять событие EVENT_STATE_CHANGE в этом случае.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_INVOKED"><apiName>EVENT_OBJECT_INVOKED</apiName><shortdesc>
+      Событие MSAA, указывающее вызов объекта, например при нажатии кнопки пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее вызов объекта, например при нажатии кнопки пользователем. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_LOCATIONCHANGE"><apiName>EVENT_OBJECT_LOCATIONCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение местоположения, формы или размера объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение местоположения, формы или размера объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: текстового курсора и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие создается в качестве ответа для объекта верхнего уровня в иерархии объектов, которая изменилась, а не для нижестоящих элементов, которые могут в ней содержаться. Например, если пользователь изменяет размер окна, то система отправляет это уведомление для окна, но не для строки меню, области заголовка, полос прокрутки или других объектов, которые также изменились. Система не отправляет это событие для каждого нединамического нижестоящего окна при перемещении вышестоящего объекта. Если приложение явно изменяет размер нижестоящих окон в результате изменения собственного размера, то система отправит несколько событий для нижестоящих элементов, размер которых был изменен. Если свойство состояния объекта установлено на STATE_SYSTEM_FLOATING, серверы должны отправить EVENT_OBJECT_LOCATIONCHANGE при каждом изменении местоположения объекта. Если у объекта нет этого состояния, серверы должны инициировать это событие только при перемещении объекта относительно его вышестоящего узла.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_NAMECHANGE"><apiName>EVENT_OBJECT_NAMECHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA Name объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA Name объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: флажка, указателя мыши, элемента управления представления в виде списка, нажимной кнопки, переключателя, элемента управления строки состояния, элемента управления представления в виде дерева и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_PARENTCHANGE"><apiName>EVENT_OBJECT_PARENTCHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее наличие нового вышестоящего объекта для объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее наличие нового вышестоящего объекта для объекта.
+     
+      <p>Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_REORDER"><apiName>EVENT_OBJECT_REORDER</apiName><shortdesc>
+      Событие MSAA , указывающее добавление и удаление объекта контейнера, а также переупорядочивание его нижестоящих элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA , указывающее добавление и удаление объекта контейнера, а также переупорядочивание его нижестоящих элементов.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: элемента управления заголовка, элемента управления представления в виде списка, элемента управления панели инструментов и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов при необходимости. Например, событие создается объектом представления в виде списка при изменении числа нижестоящих элементов или порядка элементов. Это событие также отправляется нижестоящим окном при изменении порядка по оси z для нижестоящих окон.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONADD"><apiName>EVENT_OBJECT_SELECTIONADD</apiName><shortdesc>
+      Событие MSAA, указывающее добавление элемента в объекте контейнера к выбранным элементам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее добавление элемента в объекте контейнера к выбранным элементам.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: поля списка, элемента управления представления в виде списка и элемента управления представления в виде дерева. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие обозначает, что к существующему выбору добавлен нижестоящий элемент.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONREMOVE"><apiName>EVENT_OBJECT_SELECTIONREMOVE</apiName><shortdesc>
+      Событие MSAA, указывающее удаление элемента в объекте контейнера из выбранных элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее удаление элемента в объекте контейнера из выбранных элементов.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: поля списка, элемента управления представления в виде списка и элемента управления представления в виде дерева. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие обозначает, что из существующего выбора удален нижестоящий элемент.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONWITHIN"><apiName>EVENT_OBJECT_SELECTIONWITHIN</apiName><shortdesc>
+      Событие MSAA, указывающее наличие множественных изменений выбора в объекте контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее наличие множественных изменений выбора в объекте контейнера.
+     
+      <p>Система отправляет это событие полям списка. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие может быть отправлено при значительном изменении выбранных элементов в элементе управления. Это событие сообщает клиенту о том, что произошли многочисленные изменения выбора (вместо отправки нескольких событий EVENT_OBJECT_SELECTIONADD или EVENT_OBJECT_SELECTIONREMOVE). Клиент может запросить выбранные элементы путем вызова метода IAccessible::get_accSelection объекта контейнера и перечисления выбранных элементов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTION"><apiName>EVENT_OBJECT_SELECTION</apiName><shortdesc>
+      Событие MSAA, указывающее изменение выбора в объекте контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение выбора в объекте контейнера.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: элемента управления представления в виде списка, элемента управления табуляцией, элемента управления представления в виде дерева и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Это событие сообщает об одном выборе: или нижестоящий элемент был выбран в контейнере, который ранее не содержал никаких выбранных нижестоящих элементов, или выбор изменился от одного нижестоящего элемента на другой.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SHOW"><apiName>EVENT_OBJECT_SHOW</apiName><shortdesc>
+      Событие MSAA, указывающее отображение скрытого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее отображение скрытого объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: текстового курсора, указателя мыши и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Клиенты могут предположить, что при отправлении этого события вышестоящим объектом все нижестоящие объекты уже отображаются на экране. Поэтому приложениям сервера не требуется отправлять это событие для нижестоящих объектов. Скрытые объекты включают флаг STATE_SYSTEM_INVISIBLE в отличие от отображаемых объектов. Событие EVENT_OBJECT_SHOW также обозначает, что сброшен флаг STATE_SYSTEM_INVISIBLE. Поэтому серверы не должны отправлять событие EVENT_STATE_CHANGE в этом случае.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_STATECHANGE"><apiName>EVENT_OBJECT_STATECHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение состояния объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение состояния объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: флажка, раскрывающегося списка, элемента управления заголовка, нажимной кнопки, переключателя, полосы прокрутки, элемента управления панели инструментов, элемента управления представления в виде дерева, элемента управления перемещением вверх и вниз и объекта окна. Приложения сервера MSAA отправляют это событие для своих доступных объектов. Например, состояние может измениться при нажатии или отпускании объекта кнопки или при включении или отключении объекта.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_TEXTSELECTIONCHANGED"><apiName>EVENT_OBJECT_TEXTSELECTIONCHANGED</apiName><shortdesc>
+      Событие MSAA, указывающее изменение выделения текста объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение выделения текста объекта. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_VALUECHANGE"><apiName>EVENT_OBJECT_VALUECHANGE</apiName><shortdesc>
+      Событие MSAA, указывающее изменение свойства MSAA Value объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение свойства MSAA Value объекта.
+     
+      <p>Система отправляет это событие для следующих элементов пользовательского интерфейса: средства редактирования, элемента управления заголовка, элемента управления горячими клавишами, элемента управления индикатора выполнения, полосы прокрутки, элемента управления прокруткой и элемента управления перемещением вверх и вниз. Приложения сервера MSAA отправляют это событие для своих доступных объектов.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_ALERT"><apiName>EVENT_SYSTEM_ALERT</apiName><shortdesc>
+      Событие MSAA, указывающее создание предупреждения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее создание предупреждения.
+     
+      <p>Приложения сервера MSAA отправляют это событие при каждом значительном изменении пользовательского  интерфейса, о котором требуется сообщить пользователю.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTUREEND"><apiName>EVENT_SYSTEM_CAPTUREEND</apiName><shortdesc>
+      Событие MSAA, указывающее потерю окном захвата мышью.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее потерю окном захвата мышью.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTURESTART"><apiName>EVENT_SYSTEM_CAPTURESTART</apiName><shortdesc>
+      Событие MSAA, указывающее получение окном захвата мышью.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее получение окном захвата мышью.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPEND"><apiName>EVENT_SYSTEM_CONTEXTHELPEND</apiName><shortdesc>
+      Событие MSAA, указывающее выход окна из режима справки, зависящего от контекста. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее выход окна из режима справки, зависящего от контекста. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPSTART"><apiName>EVENT_SYSTEM_CONTEXTHELPSTART</apiName><shortdesc>
+      Событие MSAA, указывающее вхождение окна в режим справки, зависящий от контекста. </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее вхождение окна в режим справки, зависящий от контекста. 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGEND"><apiName>EVENT_SYSTEM_DIALOGEND</apiName><shortdesc>
+      Событие MSAA, указывающее закрытие диалогового окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее закрытие диалогового окна.
+     
+      <p>Это событие отправляется системой для стандартных диалоговых полей. Приложения сервера MSAA отправляют это событие для пользовательских диалоговых полей.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGSTART"><apiName>EVENT_SYSTEM_DIALOGSTART</apiName><shortdesc>
+      Событие MSAA, указывающее отображение диалогового окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее отображение диалогового окна.
+     
+      <p>Это событие отправляется системой для стандартных диалоговых полей. Серверные приложения MSAA отправляют это событие для пользовательских диалоговых полей (окон, которые функционируют как диалоговые поля, но не созданы стандартным способом).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPEND"><apiName>EVENT_SYSTEM_DRAGDROPEND</apiName><shortdesc>
+      Событие MSAA, указывающее готовность приложения к выходу из режима перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее готовность приложения к выходу из режима перетаскивания.
+     
+      <p>Приложения, поддерживающие операции перетаскивания, должны отправлять это событие в отличие от системы.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPSTART"><apiName>EVENT_SYSTEM_DRAGDROPSTART</apiName><shortdesc>
+      Событие MSAA, указывающее готовность приложения к режиму перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее готовность приложения к режиму перетаскивания.
+     
+      <p>Приложения, поддерживающие операции перетаскивания, должны отправлять это событие в отличие от системы.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_FOREGROUND"><apiName>EVENT_SYSTEM_FOREGROUND</apiName><shortdesc>
+      Событие MSAA, указывающее изменение активного окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее изменение активного окна.
+     
+      <p>Система отправляет это событие, даже если окно переднего плана изменено на другое окно в том же потоке. Приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUEND"><apiName>EVENT_SYSTEM_MENUEND</apiName><shortdesc>
+      Событие MSAA, указывающее закрытие меню в строке меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее закрытие меню в строке меню.
+     
+      <p>Система отправляет это событие для стандартных меню. Приложения сервера MSAA отправляют это событие для пользовательских меню.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPEND"><apiName>EVENT_SYSTEM_MENUPOPUPEND</apiName><shortdesc>
+      Событие MSAA, указывающее закрытие всплывающего меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее закрытие всплывающего меню.
+     
+      <p>Система отправляет это событие для стандартных меню. Приложения сервера MSAA отправляют это событие для пользовательских меню. Когда всплывающее меню закрыто, клиент получает это сообщение, за которым практически немедленно следует событие EVENT_SYSTEM_MENUEND.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPSTART"><apiName>EVENT_SYSTEM_MENUPOPUPSTART</apiName><shortdesc>
+      Событие MSAA, указывающее отображение всплывающего меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее отображение всплывающего меню.
+     
+      <p>Система отправляет это событие для стандартных меню. Серверные приложения MSAA отправляют это событие для пользовательских меню (элементов пользовательского интерфейса, которые функционируют как меню, но не созданы стандартным способом).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUSTART"><apiName>EVENT_SYSTEM_MENUSTART</apiName><shortdesc>
+      Событие MSAA, указывающее выбор пункта меню в строке меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее выбор пункта меню в строке меню.
+     
+      <p>Система отправляет это событие для стандартных меню. Серверные приложения MSAA отправляют это событие для пользовательских меню (элементов пользовательского интерфейса, которые функционируют как меню, но не созданы стандартным способом). Система может инициировать более одного события EVENT_SYSTEM_MENUSTART, которое может иметь или не иметь соответствующее событие EVENT_SYSTEM_MENUEND.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZEEND"><apiName>EVENT_SYSTEM_MINIMIZEEND</apiName><shortdesc>
+      Событие MSAA, указывающее выполнение свертывания или развертывания для объекта окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0017</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее выполнение свертывания или развертывания для объекта окна.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZESTART"><apiName>EVENT_SYSTEM_MINIMIZESTART</apiName><shortdesc>
+      Событие MSAA, указывающее готовность объекта окна к свертыванию или развертыванию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0016</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее готовность объекта окна к свертыванию или развертыванию.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZEEND"><apiName>EVENT_SYSTEM_MOVESIZEEND</apiName><shortdesc>
+      Событие MSAA, указывающее окончание перемещения или изменения размера окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее окончание перемещения или изменения размера окна.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZESTART"><apiName>EVENT_SYSTEM_MOVESIZESTART</apiName><shortdesc>
+      Событие MSAA, указывающее перемещение или изменение размера окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее перемещение или изменение размера окна.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGEND"><apiName>EVENT_SYSTEM_SCROLLINGEND</apiName><shortdesc>
+      Событие MSAA, указывающее окончание прокрутки на полосе прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее окончание прокрутки на полосе прокрутки.
+     
+      <p>Это событие отправляется системой для полос прокрутки, прикрепленных к окну, и для стандартных элементов управления полосы прокрутки. Приложения сервера MSAA отправляют это событие для пользовательских полос прокрутки.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGSTART"><apiName>EVENT_SYSTEM_SCROLLINGSTART</apiName><shortdesc>
+      Событие MSAA, указывающее начало прокрутки на полосе прокрутки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее начало прокрутки на полосе прокрутки.
+     
+      <p>Это событие отправляется системой для полос прокрутки, прикрепленных к окну, и для стандартных элементов управления полосы прокрутки. Серверные приложения MSAA отправляют это событие для пользовательских полос прокрутки (элементов пользовательского интерфейса, которые функционируют как полосы прокрутки, но не созданы стандартным способом).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SOUND"><apiName>EVENT_SYSTEM_SOUND</apiName><shortdesc>
+      Событие MSAA, указывающее воспроизведение звука.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, указывающее воспроизведение звука.
+     
+      <p>Система отправляет это событие при воспроизведении системного звука (например, для меню), даже если звук не слышен (например, при отсутствии звукового файла или звуковой платы). Приложения сервера MSAA отправляют это событие при создании звука элементом специального пользовательского интерфейса.</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHEND"><apiName>EVENT_SYSTEM_SWITCHEND</apiName><shortdesc>
+      Событие MSAA, обозначающее отпускание клавиш ALT+TAB пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, обозначающее отпускание клавиш ALT+TAB пользователем.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие. При выполнении только одного приложения во время нажатия клавиш ALT+TAB пользователем система отправляет это событие без соответствующего события EVENT_SYSTEM_SWITCHSTART.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHSTART"><apiName>EVENT_SYSTEM_SWITCHSTART</apiName><shortdesc>
+      Событие MSAA, обозначающее отпускание клавиш ALT+TAB пользователем, что активирует окно переключения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Событие MSAA, обозначающее отпускание клавиш ALT+TAB пользователем, что активирует окно переключения.
+     
+      <p>Это событие отправляется системой; приложения сервера MSAA никогда не отправляют это событие. При выполнении только одного приложения во время нажатия клавиш ALT+TAB пользователем система отправляет событие EVENT_SYSTEM_SWITCHEND без соответствующего события EVENT_SYSTEM_SWITCHSTART.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ALERT"><apiName>ROLE_SYSTEM_ALERT</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом предупреждения или условия, о котором должен быть оповещен пользователь.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом предупреждения или условия, о котором должен быть оповещен пользователь.
+     
+      <p>Эта роль должна использоваться только для объектов, которые воплощают предупреждение, но не связаны с другим элементом пользовательского интерфейса, таким как окно сообщений, графика, текст или звук.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ANIMATION"><apiName>ROLE_SYSTEM_ANIMATION</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента управления анимации с изменяющимся в течение времени содержимым, например элемента управления, отображающего последовательность растровых фреймов наподобие киноленты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x36</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента управления анимации с изменяющимся в течение времени содержимым, например элемента управления, отображающего последовательность растровых фреймов наподобие киноленты.
+     
+      <p>Элементы управления анимации обычно отображаются при копировании файлов или при выполнении другой затратной по времени задачи.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_APPLICATION"><apiName>ROLE_SYSTEM_APPLICATION</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом основного окна приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xE</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом основного окна приложения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BORDER"><apiName>ROLE_SYSTEM_BORDER</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом границы окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом границы окна.
+     
+      <p>Вся рамка представлена единым объектом, а не отдельными объектами для каждой стороны.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWNGRID"><apiName>ROLE_SYSTEM_BUTTONDROPDOWNGRID</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей сетку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей сетку.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWN"><apiName>ROLE_SYSTEM_BUTTONDROPDOWN</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей список элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x38</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей список элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONMENU"><apiName>ROLE_SYSTEM_BUTTONMENU</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x39</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом кнопки, раскрывающей меню.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CARET"><apiName>ROLE_SYSTEM_CARET</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом системного текстового курсора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом системного текстового курсора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CELL"><apiName>ROLE_SYSTEM_CELL</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом ячейки в таблице.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом ячейки в таблице.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHARACTER"><apiName>ROLE_SYSTEM_CHARACTER</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом мультипликационного графического объекта, такого как помощник Microsoft Office, обычно отображаемого для предоставления справочной информации пользователям приложения.  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом мультипликационного графического объекта, такого как помощник Microsoft Office, обычно отображаемого для предоставления справочной информации пользователям приложения.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHART"><apiName>ROLE_SYSTEM_CHART</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом графического изображения, используемого для представления данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом графического изображения, используемого для представления данных.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHECKBUTTON"><apiName>ROLE_SYSTEM_CHECKBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента управления флажка. Эту функцию можно включать и отключать независимо от других функций.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента управления флажка. Эту функцию можно включать и отключать независимо от других функций.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLIENT"><apiName>ROLE_SYSTEM_CLIENT</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом клиентской области окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xA</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом клиентской области окна.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLOCK"><apiName>ROLE_SYSTEM_CLOCK</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента управления для отображения времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента управления для отображения времени.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMNHEADER"><apiName>ROLE_SYSTEM_COLUMNHEADER</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом заголовка столбца с визуальной меткой для столбца в таблице.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x19</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом заголовка столбца с визуальной меткой для столбца в таблице.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMN"><apiName>ROLE_SYSTEM_COLUMN</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом столбца ячеек в таблице.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом столбца ячеек в таблице.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COMBOBOX"><apiName>ROLE_SYSTEM_COMBOBOX</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом раскрывающегося списка, т.е. элемента управления редактирования со связанным полем списка, обеспечивающим набор заранее определенных возможностей выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом раскрывающегося списка, т.е. элемента управления редактирования со связанным полем списка, обеспечивающим набор заранее определенных возможностей выбора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CURSOR"><apiName>ROLE_SYSTEM_CURSOR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом системного указателя мыши.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x6</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом системного указателя мыши.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAGRAM"><apiName>ROLE_SYSTEM_DIAGRAM</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом графического изображения, используемого для построения диаграмм данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x35</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом графического изображения, используемого для построения диаграмм данных.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIALOG"><apiName>ROLE_SYSTEM_DIALOG</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом диалогового поля или поля сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом диалогового поля или поля сообщений.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAL"><apiName>ROLE_SYSTEM_DIAL</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом круговой шкалы или регулятора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x31</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом круговой шкалы или регулятора.
+     
+      <p>Также это может быть объект только для чтения с элементом, подобным спидометру.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DOCUMENT"><apiName>ROLE_SYSTEM_DOCUMENT</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом окна документа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом окна документа.
+     
+      <p>Окно документа всегда содержится в пределах окна приложения. Эта роль применяется только к окнам многодокументного интерфейса (MDI) и ссылается на объект, который содержит строку заголовка MDI.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DROPLIST"><apiName>ROLE_SYSTEM_DROPLIST</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом поля раскрывающегося списка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом поля раскрывающегося списка.
+     
+      <p>Он отображает один элемент и разрешает пользователю отобразить и выбрать другой элемент из списка альтернативных значений.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_EQUATION"><apiName>ROLE_SYSTEM_EQUATION</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом математического уравнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x37</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом математического уравнения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRAPHIC"><apiName>ROLE_SYSTEM_GRAPHIC</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x28</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом изображения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRIP"><apiName>ROLE_SYSTEM_GRIP</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом специального указателя мыши, позволяющего пользователю управлять такими элементами пользовательского интерфейса, как окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом специального указателя мыши, позволяющего пользователю управлять такими элементами пользовательского интерфейса, как окно.
+     
+      <p>Например, пользователь может щелкнуть по захвату для изменения размера, расположенному в нижнем правом углу окна, и перетащить его, чтобы изменить размер окна.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GROUPING"><apiName>ROLE_SYSTEM_GROUPING</apiName><shortdesc>
+      Роль MSAA, указывающая логическое группирование объектом других объектов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x14</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая логическое группирование объектом других объектов.
+     
+      <p>Связь «родитель-потомок» может существовать или отсутствовать между группирующим объектом и объектами, которые он содержит.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HELPBALLOON"><apiName>ROLE_SYSTEM_HELPBALLOON</apiName><shortdesc>
+      Роль MSAA, указывающая отображение объектом справки в виде ToolTip или выноски со справочной информацией.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая отображение объектом справки в виде ToolTip или выноски со справочной информацией.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HOTKEYFIELD"><apiName>ROLE_SYSTEM_HOTKEYFIELD</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом поля горячих клавиш, позволяющего пользователям вводить комбинацию или последовательность нажатий клавиш. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x32</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом поля горячих клавиш, позволяющего пользователям вводить комбинацию или последовательность нажатий клавиш. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_INDICATOR"><apiName>ROLE_SYSTEM_INDICATOR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом индикатора, такого как графического указателя, определяющего текущий элемент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x27</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом индикатора, такого как графического указателя, определяющего текущий элемент.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_IPADDRESS"><apiName>ROLE_SYSTEM_IPADDRESS</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента управления редактирования, созданного для адреса Internet Protocol (IP).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента управления редактирования, созданного для адреса Internet Protocol (IP). Средства редактирования группируются по разделам для различных частей IP-адреса.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LINK"><apiName>ROLE_SYSTEM_LINK</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом ссылки на какой-либо элемент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом ссылки на какой-либо элемент.
+     
+      <p>Этот объект может быть похожим на текст или графику, но он действует как кнопка.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LISTITEM"><apiName>ROLE_SYSTEM_LISTITEM</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента в поле списка или в области списка в раскрывающемся списке, поле выпадающего списка или поле списка с прокруткой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x22</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента в поле списка или в области списка в раскрывающемся списке, поле выпадающего списка или поле списка с прокруткой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LIST"><apiName>ROLE_SYSTEM_LIST</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом поля списка, где пользователь может выбрать один или более элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x21</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом поля списка, где пользователь может выбрать один или более элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUBAR"><apiName>ROLE_SYSTEM_MENUBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом строки меню, обычно следующей за (под) строкой заголовка окна, в котором пользователь может выбирать меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом строки меню, обычно следующей за (под) строкой заголовка окна, в котором пользователь может выбирать меню.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUITEM"><apiName>ROLE_SYSTEM_MENUITEM</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом пункта меню, являющегося записью в меню, которую пользователь может выбрать для выполнения команды, выбора параметра или отображения другого меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xC</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом пункта меню, являющегося записью в меню, которую пользователь может выбрать для выполнения команды, выбора параметра или отображения другого меню.
+     
+      <p>Функционально пункты меню могут быть эквивалентными нажимной кнопке, переключателю, флажку или меню.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUPOPUP"><apiName>ROLE_SYSTEM_MENUPOPUP</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом меню, являющегося списком параметров, которые могут быть выбраны пользователем для выполнения действия.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xB</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом меню, являющегося списком параметров, которые могут быть выбраны пользователем для выполнения действия.
+     
+      <p>Эта роль должна быть у всех типов меню, включая раскрывающиеся меню, которые выводятся на экран посредством выбора из строки меню, и контекстные меню, которые выводятся на экран при нажатии правой кнопки мыши.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEBUTTON"><apiName>ROLE_SYSTEM_OUTLINEBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элементов для навигации наподобие элемента структуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элементов для навигации наподобие элемента структуры. Для перемещения по структуре можно использовать клавиши со стрелками вверх и вниз. Для разворачивания и сворачивания меню вместо клавиш со стрелками вверх и вниз используется нажатие клавиши пробела или Enter, когда элемент имеет фокус.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEITEM"><apiName>ROLE_SYSTEM_OUTLINEITEM</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента в структуре или дереве.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x24</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента в структуре или дереве.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINE"><apiName>ROLE_SYSTEM_OUTLINE</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом структуры или дерева, например элемента управления представления в виде дерева, отображающего иерархический список и позволяющего пользователю свертывать и развертывать ветви.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x23</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом структуры или дерева, например элемента управления представления в виде дерева, отображающего иерархический список и позволяющего пользователю свертывать и развертывать ветви.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETABLIST"><apiName>ROLE_SYSTEM_PAGETABLIST</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом контейнера элементов управления вкладок страницы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом контейнера элементов управления вкладок страницы.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETAB"><apiName>ROLE_SYSTEM_PAGETAB</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом вкладки страницы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x25</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом вкладки страницы. Обычно единственным нижестоящим элементом элемента управления вкладок страницы является объект ROLE_SYSTEM_GROUPING, включающий в себя содержимое связанной страницы.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PANE"><apiName>ROLE_SYSTEM_PANE</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом панели в окне рамки или документа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом панели в окне рамки или документа.
+     
+      <p>Пользователи могут перемещаться между панелями и в пределах содержимого текущей панели, но не между элементами различных панелей. Таким образом, панели представляют более низкий уровень группирования, чем окна фрейма и документы, но более высокий по сравнению с отдельными элементами управления. Как правило, навигация между панелями осуществляется при нажатии пользователем клавиш TAB, F6 или CTRL+TAB в зависимости от контекста.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROGRESSBAR"><apiName>ROLE_SYSTEM_PROGRESSBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом индикатора выполнения, динамически отображающего процентное отношение выполнения текущей операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x30</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом индикатора выполнения, динамически отображающего процентное отношение выполнения текущей операции.
+     
+      <p>Этот элемент управления обычно не принимает ввод пользователя.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROPERTYPAGE"><apiName>ROLE_SYSTEM_PROPERTYPAGE</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом таблицы свойств.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x26</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом таблицы свойств.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PUSHBUTTON"><apiName>ROLE_SYSTEM_PUSHBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом элемента управления нажимной кнопки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом элемента управления нажимной кнопки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_RADIOBUTTON"><apiName>ROLE_SYSTEM_RADIOBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом кнопки выбора (также называемой переключателем).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом кнопки выбора (также называемой переключателем).
+     
+      <p>Это одна из группы взаимоисключающих параметров. Все объекты, совместно использующие единый вышестоящий узел и имеющие этот атрибут, рассматриваются как часть единой взаимоисключающей группы. Объекты ROLE_SYSTEM_GROUPING используются для разделения в отдельные группы при необходимости.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROWHEADER"><apiName>ROLE_SYSTEM_ROWHEADER</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом заголовка строки с визуальной меткой для строки таблицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом заголовка строки с визуальной меткой для строки таблицы.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROW"><apiName>ROLE_SYSTEM_ROW</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом строки ячеек в таблице.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом строки ячеек в таблице.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SCROLLBAR"><apiName>ROLE_SYSTEM_SCROLLBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом вертикальной или горизонтальной полосы прокрутки, которая может являться элементом области клиента или использоваться в элементе управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом вертикальной или горизонтальной полосы прокрутки, которая может являться элементом области клиента или использоваться в элементе управления.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SEPARATOR"><apiName>ROLE_SYSTEM_SEPARATOR</apiName><shortdesc>
+      Роль MSAA, указывающая использование объекта для визуального деления пространства на две области, такого как пункт меню разделителя или черта, разделяющая панели в окне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x15</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая использование объекта для визуального деления пространства на две области, такого как пункт меню разделителя или черта, разделяющая панели в окне.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SLIDER"><apiName>ROLE_SYSTEM_SLIDER</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом ползунка, позволяющего пользователю настроить данные приращения между минимальным и максимальным значениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x33</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом ползунка, позволяющего пользователю настроить данные приращения между минимальным и максимальным значениями.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SOUND"><apiName>ROLE_SYSTEM_SOUND</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом системного звука, связанного с различными событиями в системе.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом системного звука, связанного с различными событиями в системе.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPINBUTTON"><apiName>ROLE_SYSTEM_SPINBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом регулятора, являющегося элементом управления, позволяющим пользователю увеличивать или уменьшать значение, отображаемое в отдельном сопутствующем элементе управления, связанном с этим регулятором.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x34</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом регулятора, являющегося элементом управления, позволяющим пользователю увеличивать или уменьшать значение, отображаемое в отдельном сопутствующем элементе управления, связанном с этим регулятором.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPLITBUTTON"><apiName>ROLE_SYSTEM_SPLITBUTTON</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом кнопки на панели инструментов со значком раскрывающегося списка рядом с кнопкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом кнопки на панели инструментов со значком раскрывающегося списка рядом с кнопкой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATICTEXT"><apiName>ROLE_SYSTEM_STATICTEXT</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом текста только для чтения, например меток для других элементов управления или инструкций в диалоговом поле.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x29</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом текста только для чтения, например меток для других элементов управления или инструкций в диалоговом поле.
+     
+      <p>Статичный текст не может быть изменен или выделен.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATUSBAR"><apiName>ROLE_SYSTEM_STATUSBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом строки состояния, обычно являющейся областью в нижней части окна и отображающей информацию о текущей операции, состоянии приложения или выбранном объекте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x17</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом строки состояния, обычно являющейся областью в нижней части окна и отображающей информацию о текущей операции, состоянии приложения или выбранном объекте.
+     
+      <p>Строка состояния может иметь несколько полей для отображения различных видов информации.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TABLE"><apiName>ROLE_SYSTEM_TABLE</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом таблицы, содержащей строки и столбцы ячеек и дополнительно заголовки столбцов и строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x18</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом таблицы, содержащей строки и столбцы ячеек и дополнительно заголовки столбцов и строк.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TEXT"><apiName>ROLE_SYSTEM_TEXT</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом выбираемого текста, который может быть редактируемым или только для чтения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом выбираемого текста, который может быть редактируемым или только для чтения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TITLEBAR"><apiName>ROLE_SYSTEM_TITLEBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом строки заголовка или подписи для окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом строки заголовка или подписи для окна.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLBAR"><apiName>ROLE_SYSTEM_TOOLBAR</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом панели инструментов, являющейся группой элементов управления, обеспечивающих быстрый доступ к часто используемым функциям.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x16</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом панели инструментов, являющейся группой элементов управления, обеспечивающих быстрый доступ к часто используемым функциям.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLTIP"><apiName>ROLE_SYSTEM_TOOLTIP</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом ToolTip с полезными советами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xD</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом ToolTip с полезными советами.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WHITESPACE"><apiName>ROLE_SYSTEM_WHITESPACE</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом пустых областей между другими элементами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом пустых областей между другими элементами.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WINDOW"><apiName>ROLE_SYSTEM_WINDOW</apiName><shortdesc>
+      Роль MSAA, указывающая представление объектом рамки окна, обычно содержащей такие нижестоящие элементы, как строка заголовка, клиент и другие типичные объекты окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль MSAA, указывающая представление объектом рамки окна, обычно содержащей такие нижестоящие элементы, как строка заголовка, клиент и другие типичные объекты окна.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_ADDSELECTION"><apiName>SELFLAG_ADDSELECTION</apiName><shortdesc>
+      Флаг выбора MSAA, добавляющий объект к текущему выбору, что может привести к непоследовательному выбору.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг выбора MSAA, добавляющий объект к текущему выбору, что может привести к непоследовательному выбору.
+     
+      <p>Этот флаг изменяет фокус или привязку выбора только в том случае, если он соединен с SELFLAG_TAKEFOCUS. Варианты поведения SELFLAG_ADDSELECTION | SELFLAG_TAKEFOCUS эквивалентны добавлению элемента к выбору вручную путем удерживания клавиши CTRL и щелчка по невыделенному объекту в проводнике Windows.</p>
+     
+      <p>Этот флаг нельзя объединить с SELFLAG_REMOVESELECTION или SELFLAG_TAKESELECTION.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_EXTENDSELECTION"><apiName>SELFLAG_EXTENDSELECTION</apiName><shortdesc>
+      Флаг выбора MSAA, изменяющий выбор таким образом, что все объекты между привязкой выбора и этим объектом принимают состояние выбора объекта привязки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг выбора MSAA, изменяющий выбор таким образом, что все объекты между привязкой выбора и этим объектом принимают состояние выбора объекта привязки.
+     
+      <p>Таким образом, если объект привязки не выбран, объекты удаляются из выбора; если объект привязки выбран, выбор расширяется и включает этот объект и все промежуточные объекты. Состояние выбора назначается посредством объединения этого флага с SELFLAG_ADDSELECTION или SELFLAG_REMOVESELECTION.</p>
+     
+      <p>Этот флаг изменяет фокус или привязку выбора только в том случае, если он соединен с SELFLAG_TAKEFOCUS. Варианты поведения SELFLAG_EXTENDSELECTION | SELFLAG_TAKEFOCUS эквивалентны добавлению элемента к выбору вручную путем удерживания клавиши SHIFT и щелчка по невыделенному объекту в проводнике Windows.</p>
+     
+      <p>Этот флаг нельзя объединить с SELFLAG_TAKESELECTION.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_NONE"><apiName>SELFLAG_NONE</apiName><shortdesc>
+      Константа, представляющая отсутствие любых флагов выбора MSAA.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Константа, представляющая отсутствие любых флагов выбора MSAA.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_REMOVESELECTION"><apiName>SELFLAG_REMOVESELECTION</apiName><shortdesc>
+      Флаг выбора MSAA, удаляющий объект из текущего выбора, что может привести к непоследовательному выбору.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг выбора MSAA, удаляющий объект из текущего выбора, что может привести к непоследовательному выбору.
+     
+      <p>Этот флаг изменяет фокус или привязку выбора только в том случае, если он соединен с SELFLAG_TAKEFOCUS. Варианты поведения SELFLAG_REMOVESELECTION | SELFLAG_TAKEFOCUS эквивалентны удалению элемента из выбора вручную путем удерживания клавиши CTRL и щелчка по выделенному объекту в проводнике Windows.</p>
+     
+      <p>Этот флаг нельзя объединить с SELFLAG_ADDSELECTION или SELFLAG_TAKESELECTION.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKEFOCUS"><apiName>SELFLAG_TAKEFOCUS</apiName><shortdesc>
+      Флаг выбора MSAA, устанавливающий фокус на объект и назначающий его привязкой выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг выбора MSAA, устанавливающий фокус на объект и назначающий его привязкой выбора.
+     
+      <p>При использовании отдельно этот флажок не изменяет выбор и его варианты поведения аналогичны перемещению фокуса вручную путем нажатия клавиш со стрелками и удерживания клавиши CTRL в проводнике Windows или в любом окне списка, допускающего выбор нескольких элементов.</p>
+     
+      <p>Для объектов, имеющих состояние STATE_SYSTEM_MULTISELECTABLE, SELFLAG_TAKEFOCUS может быть объединен со следующими значениями:
+      <ul>
+        <li>SELFLAG_TAKESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKESELECTION"><apiName>SELFLAG_TAKESELECTION</apiName><shortdesc>
+      Флаг выбора MSAA, выделяющий объект и удаляющий его из всех остальных объектов в контейнере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг выбора MSAA, выделяющий объект и удаляющий его из всех остальных объектов в контейнере.
+     
+      <p>Этот флаг изменяет фокус или привязку выбора только в том случае, если он соединен с SELFLAG_TAKEFOCUS. Варианты поведения SELFLAG_TAKESELECTION | SELFLAG_TAKEFOCUS эквивалентны одному щелчку по элементу в проводнике Windows.</p>
+     
+      <p>Этот флаг нельзя объединить со следующими флагами:
+      <ul>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_VALID"><apiName>SELFLAG_VALID</apiName><shortdesc>
+      Битовая маска, представляющая все допустимые флаги выделения MSAA.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Битовая маска, представляющая все допустимые флаги выделения MSAA.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_HIGH"><apiName>STATE_SYSTEM_ALERT_HIGH</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отображение объектом важной информации, которую требуется передать пользователю немедленно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отображение объектом важной информации, которую требуется передать пользователю немедленно.
+     
+      <p>Например, индикатор уровня аккумулятора, достигающий критически низкого уровня, может перейти в это состояние, при этом утилита доступа для пользователей с нарушениями зрения немедленно передает эту информацию пользователю и программа увеличения изображения на экране прокручивает экран для отображения индикатора аккумулятора. Это состояние также используется для любого предложения или операции, которые должны быть завершены перед продолжением действий пользователя.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_LOW"><apiName>STATE_SYSTEM_ALERT_LOW</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отображение объектом второстепенной информации, которая может быть не важна для пользователя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отображение объектом второстепенной информации, которая может быть не важна для пользователя.
+     
+      <p>Например, это состояние применяется, когда Word изменяет внешний вид кнопки мастера подсказок на панели инструментов для указания того, что пользователь может использовать имеющуюся подсказку.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_MEDIUM"><apiName>STATE_SYSTEM_ALERT_MEDIUM</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отображение объектом важной информации, которую не требуется передать пользователю немедленно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отображение объектом важной информации, которую не требуется передать пользователю немедленно.
+     
+      <p>Например, когда индикатор уровня аккумулятора приближается к низкому уровню, может быть создано предупреждение средней степени важности. Утилиты доступа для пользователей с нарушениями зрения могут затем создать звуковое предупреждение, чтобы информировать пользователя о наличии важной информации без вмешательства в работу пользователя. Пользователь может ознакомиться с информацией предупреждения в любое удобное время.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ANIMATED"><apiName>STATE_SYSTEM_ANIMATED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий быстрое или постоянное изменение внешнего вида объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий быстрое или постоянное изменение внешнего вида объекта.
+     
+      <p>Графические объекты, которые анимируются лишь иногда, должны быть описаны как ROLE_SYSTEM_GRAPHIC, причем свойство состояния следует установить на STATE_SYSTEM_ANIMATED. Это состояние не должно использоваться для обозначения изменения местоположения объекта.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_BUSY"><apiName>STATE_SYSTEM_BUSY</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий невозможность для объекта принимать ввод в данное время.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий невозможность для объекта принимать ввод в данное время.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_CHECKED"><apiName>STATE_SYSTEM_CHECKED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий выбор флажка объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий выбор флажка объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_COLLAPSED"><apiName>STATE_SYSTEM_COLLAPSED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий скрытие нижестоящих элементов данного объекта с ролью ROLE_SYSTEM_OUTLINEITEM.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий скрытие нижестоящих элементов данного объекта с ролью ROLE_SYSTEM_OUTLINEITEM.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_DEFAULT"><apiName>STATE_SYSTEM_DEFAULT</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий кнопку или пункт меню по умолчанию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий кнопку или пункт меню по умолчанию.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXPANDED"><apiName>STATE_SYSTEM_EXPANDED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отображение нижестоящих элементов данного объекта с ролью ROLE_SYSTEM_OUTLINEITEM.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отображение нижестоящих элементов данного объекта с ролью ROLE_SYSTEM_OUTLINEITEM.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXTSELECTABLE"><apiName>STATE_SYSTEM_EXTSELECTABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность расширения объектом своего выбора с использованием SELFLAG_EXTENDSELECTION в методе IAccessible::accSelect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность расширения объектом своего выбора с использованием SELFLAG_EXTENDSELECTION в методе IAccessible::accSelect.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FLOATING"><apiName>STATE_SYSTEM_FLOATING</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий, что объект не обрезан в соответствии с границей своего вышестоящего объекта и не перемещается автоматически при перемещении вышестоящего объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий, что объект не обрезан в соответствии с границей своего вышестоящего объекта и не перемещается автоматически при перемещении вышестоящего объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSABLE"><apiName>STATE_SYSTEM_FOCUSABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий, что объект находится в активном окне и может получить фокус клавиатуры. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий, что объект находится в активном окне и может получить фокус клавиатуры. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSED"><apiName>STATE_SYSTEM_FOCUSED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий наличие фокуса клавиатуры у объекта в настоящее время.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий наличие фокуса клавиатуры у объекта в настоящее время.
+     
+      <p>Не следует путать фокус объекта с выбором объекта.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HASPOPUP"><apiName>STATE_SYSTEM_HASPOPUP</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий наличие всплывающего меню у объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий наличие всплывающего меню у объекта. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HOTTRACKED"><apiName>STATE_SYSTEM_HOTTRACKED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий текущее отслеживание объекта мышью, что означает изменение внешнего вида объекта для указания того, что курсор мыши наведен на объект.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий текущее отслеживание объекта мышью, что означает изменение внешнего вида объекта для указания того, что курсор мыши наведен на объект.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_INVISIBLE"><apiName>STATE_SYSTEM_INVISIBLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий скрытие или невидимость объекта. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий скрытие или невидимость объекта. 
+     
+      <p>Список имен файлов в поле списка может содержать несколько сотен имен, но только некоторые из них отображаются для пользователя. Остальные отсечены вышестоящим узлом и должны иметь свойство STATE_SYSTEM_INVISIBLE.</p>
+      <p>Объекты, которые никогда не видимы, должны быть установлены как STATE_SYSTEM_OFFSCREEN. Обратите внимание, что объект может рассматриваться как видимый (то есть, флажок STATE_SYSTEM_INVISIBLE не установлен) и может быть закрыт другой программой, являясь не видимым для пользователя. Например, объект рассматривается как видимый при отображении в главном окне приложения, даже если при этом он закрыт диалоговым окном.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_LINKED"><apiName>STATE_SYSTEM_LINKED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий наличие ссылки у объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий наличие ссылки у объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MARQUEED"><apiName>STATE_SYSTEM_MARQUEED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отображение объектом прокрутки или перемещения текста или графических объектов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отображение объектом прокрутки или перемещения текста или графических объектов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MIXED"><apiName>STATE_SYSTEM_MIXED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отсутствие определения состояния для флажка с тремя состояниями или кнопки панели инструментов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отсутствие определения состояния для флажка с тремя состояниями или кнопки панели инструментов.
+     
+      <p>Флажок не является установленным или не установленным, поэтому находится в третьем (смешанном) состоянии.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MOVEABLE"><apiName>STATE_SYSTEM_MOVEABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность перемещения объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность перемещения объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MULTISELECTABLE"><apiName>STATE_SYSTEM_MULTISELECTABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность для объекта принимать несколько выделенных элементов (т.е. SELFLAG_ADDSELECTION для метода IAccessible::accSelect является действительным).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность для объекта принимать несколько выделенных элементов (т.е. SELFLAG_ADDSELECTION для метода IAccessible::accSelect является действительным).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_NORMAL"><apiName>STATE_SYSTEM_NORMAL</apiName><shortdesc>
+      Константа, представляющая отсутствие любых флагов состояния MSAA.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Константа, представляющая отсутствие любых флагов состояния MSAA.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_OFFSCREEN"><apiName>STATE_SYSTEM_OFFSCREEN</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий отсутствие экранного представления для объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий отсутствие экранного представления для объекта.
+     
+      <p>Это состояние может быть у объекта звука или предупреждения или у скрытого окна, которое никогда не будет отображаться.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PRESSED"><apiName>STATE_SYSTEM_PRESSED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий нажатие объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий нажатие объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PROTECTED"><apiName>STATE_SYSTEM_PROTECTED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий, что объект является элементом управления редактирования, защищенным паролем. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий, что объект является элементом управления редактирования, защищенным паролем. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_READONLY"><apiName>STATE_SYSTEM_READONLY</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий, что объект предназначен только для чтения. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий, что объект предназначен только для чтения. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTABLE"><apiName>STATE_SYSTEM_SELECTABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность для объекта принимать выбор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность для объекта принимать выбор.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTED"><apiName>STATE_SYSTEM_SELECTED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий выбор объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий выбор объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELFVOICING"><apiName>STATE_SYSTEM_SELFVOICING</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность для объекта использовать преобразование текста в речь (TTS) для собственного описания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность для объекта использовать преобразование текста в речь (TTS) для собственного описания.
+     
+      <p>Основанная на речи специальная возможность не должна объявлять информацию, когда объект с этим состоянием имеет фокус, потому что объект автоматически объявит информацию о себе.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SIZEABLE"><apiName>STATE_SYSTEM_SIZEABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий возможность изменения размера объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий возможность изменения размера объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_TRAVERSED"><apiName>STATE_SYSTEM_TRAVERSED</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий упорядочение объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий упорядочение объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_UNAVAILABLE"><apiName>STATE_SYSTEM_UNAVAILABLE</apiName><shortdesc>
+      Флаг состояния MSAA, указывающий недоступность объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Флаг состояния MSAA, указывающий недоступность объекта. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_VALID"><apiName>STATE_SYSTEM_VALID</apiName><shortdesc>
+      Битовая маска, представляющая все допустимые флаги состояния MSAA.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7FFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Битовая маска, представляющая все допустимые флаги состояния MSAA.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+  UIComponentAccProps является подклассом AccessibilityProperties для использования различными компонентами UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityProperties</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIComponentAccProps является подклассом AccessibilityProperties для использования различными компонентами UIComponent. Он используется для предоставления расширенного доступа к Form, ToolTip или Error ToolTip.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:UIComponentAccProps:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Экземпляр UIComponent, который данный экземпляр AccessibilityProperties делает доступным.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:UIComponentAccProps:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Включает расширенный доступ в классе UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Включает расширенный доступ в классе UIComponent.
+     
+      <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров UIComponent их свойство <codeph>accessibilityProperties</codeph> будет установлено на экземпляр этого класса.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:UIComponentAccProps:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      Общий обработчик событий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      Общий обработчик событий. Все подклассы UIComponentAccProps должны выполнить эту реализацию для прослушивания событий от основного компонента. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:UIComponentAccProps:protected:master"><apiName>master</apiName><shortdesc>
+      Ссылка на UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ссылка на UIComponent.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+  AccImpl является базовым классом реализации специальных возможностей Flex для компонентов MX и Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityImplementation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccImpl является базовым классом реализации специальных возможностей Flex для компонентов MX и Spark.
+ 
+  <p>Это подкласс класса AccessibilityImplementation Flash Player.</p>
+ 
+  <p>После создания компонента MX или Spark для его свойства <codeph>accessibilityImplementation</codeph> назначается экземпляр подкласса этого класса. Затем Flash Player использует этот объект, чтобы разрешить клиентам MSAA, например устройствам считывания с экрана, обнаруживать этот компонент и управлять им. См. описание класса flash.accessibility.AccessibilityImplementation для получения дополнительной информации о классах реализации специальных возможностей и MSAA.</p>
+ 
+  <p><b>Нижестоящие элементы</b></p>
+ 
+  <p>Flash Player не поддерживает истинную иерархию доступных объектов. Если DisplayObject имеет объект <codeph>accessibilityImplementation</codeph>, то объекты <codeph>accessibilityImplementation</codeph> его нижестоящих элементов игнорируются. Однако в Player класс реализации специальных возможностей компонента может отображать информацию MSAA для своих внутренних элементов. (Например, в списке представлена информация MSAA об элементах этого списка.)</p>
+ 
+  <p>Число нижестоящих элементов (внутренних элементов) и нижестоящих идентификаторов, используемых для их распознавания, определяется методом <codeph>getChildIDArray()</codeph>. В базовом классе AccessibilityImplementation Player этот метод возвращает <codeph>null</codeph>. Класс AccImpl Flex изменяет его, чтобы возвратить пустой массив. Он также предоставляет защищенный служебный метод <codeph>createChildIDArray()</codeph>, подклассы с внутренними элементами которого могут использоваться при заменах.</p>
+ 
+  <p><b>Роль</b></p>
+ 
+  <p>Роль MSAA для компонента и его внутренних элементов определяется методом <codeph>get_accRole()</codeph>. В базовом классе AccessibilityImplementation Player этот метод вызывает ошибку времени выполнения, поскольку ожидается, что подклассы должны ее изменить. Класс AccImpl Flex имеет защищенное свойство <codeph>role</codeph>, подклассы которого обычно устанавливаются в соответствующем конструкторе, при этом для возвращения этого свойства заменяется <codeph>get_accRole()</codeph>.</p>
+ 
+  <p><b>Имя</b></p>
+ 
+  <p>Имя MSAA для компонента и его внутренних элементов определяется методом <codeph>get_accName()</codeph>. В базовом классе AccessibilityImplementation Player этот метод возвращает <codeph>null</codeph>. Класс AccImpl Flex изменяет его для создания имен следующим образом, начиная с пустой строки и разделяя добавленные части одиночным пробелом:
+  <ul>
+    <li>При запросе простого нижестоящего элемента (например, элемента окна списка или комбинированного списка) возвращается только имя по умолчанию для нижестоящего элемента. Остальная часть шагов, описанных ниже, применяется только непосредственно к компоненту (childID 0).</li>
+   <li>Если компонент находится внутри Form: 
+     <ul>
+       <li>Если в форме присутствует FormHeading, находящийся внутри FormItem, добавляется текст заголовка. Во избежание этой ситуации разработчики должны установить для <codeph>accessibilityName</codeph> FormHeading пробел (" ").</li>
+       <li>Если это поле требуется, то добавляется зависящая от языкового стандарта строка «поле добавлено».</li>
+       <li>Если компонент находится внутри FormItem, добавляется текст метки FormItem. Во избежание этой ситуации разработчики должны установить для <codeph>accessibilityName</codeph> FormItem пробел (" ").</li>
+    </ul></li>
+  <li>Затем имя компонента определяется следующим образом:
+    <ul>
+      <li>Если компонент <codeph>accessibilityName</codeph> (то есть <codeph>accessibilityProperties.name</codeph>) является пробелом, имена компонентов не добавляются.</li>
+      <li>В ином случае компонент добавляется, если указано его имя (то есть если компонент не null и не пустой).</li>
+      <li>В ином случае для получения имени по умолчанию вызывается защищенный метод <codeph>getName()</codeph>, определенный AccImpl и внедренный каждым подклассом. (Например, ButtonAccImpl реализует <codeph>getName()</codeph> для указания того, что именем по умолчанию для Button является отображаемая метка.) Если не является пустым, добавляется возвращаемое значение <codeph>getName()</codeph>.</li>
+      <li>В ином случае (если <codeph>getName()</codeph> вернул пустой элемент) добавляется строка, если установлено свойство <codeph>toolTip</codeph> компонента.</li>
+      <li>Если установлено свойство <codeph>errorString</codeph> компонента, то добавляется строка.</li>
+    </ul></li>
+  </ul></p>
+ 
+  <p><b>Описание</b></p>
+ 
+  <p>Описание MSAA определяется исключительно объектом <codeph>accessibilityProperties</codeph> компонента, а не его объектом <codeph>accessibilityImplementation</codeph>. Поэтому нелогично использовать AccessibilityImplementation или AccImpl, а также любые подклассы AccImpl, связанные с этим описанием. Обычно установка описания в Flex выполняется посредством свойства <codeph>accessibilityDescription</codeph> UIComponent, который просто устанавливает <codeph>accessibilityProperties.description</codeph>.</p>
+ 
+  <p><b>Состояние</b></p>
+ 
+  <p>Состояние MSAA для компонента и его внутренних элементов определяется методом <codeph>get_accState()</codeph>. В базовом классе AccessibilityImplementation Player этот метод вызывает ошибку времени выполнения, поскольку ожидается, что подклассы должны ее изменить. Класс AccImpl Flex не изменяет его, но предоставляет защищенный служебный метод <codeph>getState()</codeph> для подклассов для использования при заменах. Метод <codeph>getState()</codeph> определяет состояние в виде сочетания
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (если включено = false для данного компонента или его предка)</li>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED (когда фокус находится непосредственно на компоненте и не установлен на подчиненных элементах компонента)</li>
+  </ul>
+  Обратите внимание, что по умолчанию предполагается, что все компоненты могут иметь фокус, поэтому классы реализации специальных возможностей для компонентов, которые не могут иметь фокус, например Label, должны снять этот флаг состояния. Если состояние компонента является недоступным, то класс реализации специальных возможностей удаляет фокусируемое состояние.</p>
+ 
+  <p><b>Значение</b></p>
+ 
+  <p>Значение MSAA для компонента и его внутренних элементов определяется методом <codeph>get_accValue()</codeph>. В базовом классе AccessibilityImplementation Player этот метод возвращает <codeph>null</codeph>. Класс AccImpl Flex не изменяет его в отличие от подклассов для таких компонентов, как TextInput.</p>
+ 
+  <p><b>Расположение</b></p>
+ 
+  <p>Местоположение MSAA для внутренних элементов компонента, но не самого компонента, определяется методом <codeph>get_accLocation()</codeph>. Этот метод никогда не вызывается с childID 0; вместо этого Flash Player определяет местоположение MSAA компонента на основе его ограничительного прямоугольника в соответствии с <codeph>getBounds()</codeph>. Класс AccImpl Flex не изменяет этот метод в отличие от подклассов для компонентов с внутренними элементами.</p>
+ 
+  <p><b>Действие по умолчанию</b></p>
+ 
+  <p>Действие по умолчанию MSAA для компонента и его внутренних элементов определяется методом <codeph>get_accDefaultAction()</codeph>. В базовом классе AccessibilityImplementation Player этот метод возвращает <codeph>null</codeph>. Класс AccImpl Flex не изменяет его в отличие от подклассов с действиями по умолчанию. Эти подклассы также изменяют метод <codeph>accDoDefaultAction()</codeph> AccessibilityImplementation для выполнения действия по умолчанию, которое они предоставляют.</p>
+ 
+  <p><b>Другие</b></p>
+ 
+  <p>События MSAA EVENT_OBJECT_SHOW и EVENT_OBJECT_HIDE отправляются, когда объект показан или скрыт. Соответствующие состояния для них включены в Flash Player, который не выполняет визуализацию скрытых компонентов MSAA. При отображении компонента используются состояния, указанные для AccImpl.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccImpl:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccImpl:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      Общий обработчик событий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      Общий обработчик событий. Все подклассы AccImpl должны выполнить эту реализацию для прослушивания событий от основного компонента. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:getFormName"><apiName>getFormName</apiName><shortdesc>
+      Метод для поддержки расширенного доступа форм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+      Метод для поддержки расширенного доступа форм. Вызывается из get_accName() в классе AccImpl. Также вызывается из конструктора UIComponentAccProps.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getName"><apiName>getName</apiName><shortdesc>
+      Возвращает имя доступного компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      Возвращает имя доступного компонента. Все подклассы должны выполнить эту реализацию вместо реализации get_accName().
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+      Служебный метод для определения состояния доступного компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для определения состояния доступного компонента.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:isAncestorDisabled"><apiName>isAncestorDisabled</apiName><shortdesc>
+      Возвращает true, если предок компонента активировал установку значения false.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если компонент имеет отключенный вышестоящий элемент.
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>UIComponent используется для проверки отключенного вышестоящего элемента.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает true, если предок компонента активировал установку значения false. Сам компонент при этом не проверяется.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:AccImpl:protected:master"><apiName>master</apiName><shortdesc>
+      Ссылка на экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ссылка на экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:role"><apiName>role</apiName><shortdesc>
+      Роль расширенного доступа компонента, который становится доступным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Роль расширенного доступа компонента, который становится доступным.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:eventsToHandle:get"><apiName>eventsToHandle</apiName><shortdesc>
+      Все подклассы должны изменять эту функцию путем возвращения массива строк прослушиваемых событий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Все подклассы должны изменять эту функцию путем возвращения массива строк прослушиваемых событий.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

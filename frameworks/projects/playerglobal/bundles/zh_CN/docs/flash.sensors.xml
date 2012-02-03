@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sensors" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sensors</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sensors:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+ 	Accelerometer 类根据由设备的运动传感器检测的活动调度事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Accelerometer 类
+	
+	</apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Accelerometer 类根据由设备的运动传感器检测的活动调度事件。此数据表示设备的位置或沿三维轴的移动。当设备移动时，传感器会检测到此移动并返回加速数据。Accelerometer 类提供了各种方法，用于查询是否支持加速计以及设置调度加速事件时使用的速率。
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>使用 <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> 属性测试运行时环境是否能够使用此功能。当为各个 API 入口列出的运行时版本可以访问 Accelerometer 类及其成员时，运行时的当前环境将确定此功能的可用性。例如，您可以使用 Flash Player 10.1 的 Accelerometer 类属性编译代码，但是需要使用 <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> 属性测试 Accelerometer 功能在 Flash Player 运行时的当前部署环境中的可用性。如果 <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> 在运行时为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，则当前存在 Accelerometer 支持。</p>
+	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR 配置文件支持：</i>仅移动设备支持此功能。桌面或用于电视的 AIR 设备不支持此功能。有关在多个配置文件之间支持 API 的详细信息，请参阅 <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR 配置文件支持</xref>。   
+    </p>
+	
+ 	</apiDesc><example conref="examples\AccelerometerExample.as" class="- topic/example "> 在以下示例中，应用程序会基于加速计 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件而移动 Sprite。加速计 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件表示设备的移动情况。    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
+    import flash.events.Event;
+    import flash.events.AccelerometerEvent;
+    import flash.sensors.Accelerometer;
+
+    public class AccelerometerTest extends Sprite
+    {
+        private var ball:Sprite;
+        private var accelerometer:Accelerometer;        
+        private var xSpeed:Number = 0;
+        private var ySpeed:Number = 0;
+        private const RADIUS = 20;
+        
+        public final function AccelerometerTest()
+        {
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.align = StageAlign.TOP_LEFT;
+            
+            createBall();
+                                    
+            if (Accelerometer.isSupported)
+            {
+                accelerometer = new Accelerometer();
+                accelerometer.addEventListener(AccelerometerEvent.UPDATE, accUpdateHandler);
+                stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+        }
+        
+        private final function createBall():void
+        {
+             ball = new Sprite();
+             ball.graphics.beginFill(0xFF0000);
+             ball.graphics.drawCircle(0, 0, RADIUS);
+             ball.cacheAsBitmap = true;
+             ball.x = stage.stageWidth / 2;
+             ball.y = stage.stageHeight / 2;
+             addChild(ball);
+        }
+
+        private final function enterFrameHandler(event:Event):void
+        {
+            event.stopPropagation();
+            moveBall();
+        }
+        private final function moveBall():void
+        {
+            var newX:Number = ball.x + xSpeed;
+            var newY:Number = ball.y + ySpeed;
+            if (newX &lt; 20)
+            {
+                ball.x = RADIUS;
+                xSpeed = 0;
+            }
+            else if (newX > stage.stageWidth - RADIUS)
+            {
+                ball.x = stage.stageWidth - RADIUS;
+                xSpeed = 0;
+            }
+            else
+            {
+                ball.x += xSpeed;
+            }
+            
+            if (newY &lt; RADIUS)
+            {
+                ball.y = RADIUS;
+                ySpeed = 0;
+            }
+            else if (newY > stage.stageHeight - RADIUS)
+            {
+                ball.y = stage.stageHeight - RADIUS;
+                ySpeed = 0;
+            }
+            else
+            {
+                ball.y += ySpeed;
+            }
+        }
+
+        private final function accUpdateHandler(event:AccelerometerEvent):void
+        {
+            xSpeed -= event.accelerationX * 2;
+            ySpeed += event.accelerationY * 2;
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/isSupported" class="- topic/link "><linktext class="- topic/linktext ">isSupported</linktext></link><link href="flash.events.xml#AccelerometerEvent" class="- topic/link "><linktext class="- topic/linktext ">flash.events.AccelerometerEvent</linktext></link><link href="http://www.riagora.com/2010/04/air-and-the-accelerometer/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize：AIR 和加速计</linktext></link><link href="http://www.riagora.com/2010/05/become-an-air-pilot/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize：成为 AIR 先行者</linktext></link></related-links><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+	在加速计更改其状态时调度。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	在加速计更改其状态时调度。 
+	
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>在某些设备上，加速计总是可用。在此类设备上，Accelerometer 对象从不调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。</p>
+	
+	</apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.AccelerometerEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	为响应来自加速计传感器的更新而调度更新事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.AccelerometerEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.AccelerometerEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	为响应来自加速计传感器的更新而调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。在下列情况下调度此事件：
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">当通过 <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> 附加新的侦听器函数时，此事件将一次性传送给所有注册的侦听器，用于提供加速计的当前值。</li><li class="- topic/li ">以设备确定的时间间隔从平台获得加速计更新时。</li><li class="- topic/li ">当应用程序丢失对加速计的更改时（例如，空闲状态后恢复运行时）。</li></ul></p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Accelerometer:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+		创建新的 Accelerometer 实例。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		创建新的 Accelerometer 实例。 
+		
+		</apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Accelerometer:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 setRequestedUpdateInterval 方法用于设置更新所需的时间间隔。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定的 <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> 小于零。
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">请求更新的间隔。如果 <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> 设置为 0，则使用支持的更新时间间隔的最小值。
+ 		 
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph> 方法用于设置更新所需的时间间隔。以毫秒为单位度量时间间隔。更新间隔仅用作节省电池电量的提示。加速更新间的实际时间可能大于或小于此值。更新间隔的任何更改都会影响所有注册侦听器。无需调用 <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval()</codeph> 方法即可使用 Accelerometer 类。在这种情况下，应用程序会根据设备的默认间隔接收更新。  
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Accelerometer:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+	如果加速计传感器在设备上可用，则 isSupported 属性设置为 true，否则，设置为 false。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	如果加速计传感器在设备上可用，则 <codeph class="+ topic/ph pr-d/codeph ">isSupported</codeph> 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，否则，设置为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。 
+	
+ 	</apiDesc><example conref="examples\Accelerometer_isSupported.as" class="- topic/example "> 以下示例使用 <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> 属性来测试在运行时支持加速计的情况。如果当前的环境支持加速计功能，那么会为 Accelerometer 对象添加一个事件侦听器，并且相关的处理程序会使用时间戳和加速值来填充文本字段。否则，该文本字段会表示当前的环境不支持该功能。
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+var myTextField:TextField = new TextField();
+myTextField.width = 200;
+addChild(myTextField);
+var acc1:Accelerometer = new Accelerometer();
+var isSupported:Boolean = Accelerometer.isSupported;
+checksupport();
+
+function checksupport():void {
+    if (isSupported) {
+        myTextField.text = "Accelerometer feature supported";
+        acc1.addEventListener(AccelerometerEvent.UPDATE, updateHandler);
+    } else {
+        myTextField.text = "Accelerometer feature not supported";
+    }
+}
+
+function updateHandler(evt:AccelerometerEvent):void {
+    myTextField.text = String("at: " + evt.timestamp + "\n" + "acceleration X: " + evt.accelerationX + "\n" + "acceleration Y: " + evt.accelerationY + "\n" + "acceleration Z: " + evt.accelerationZ);
+
+}
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.sensors:Accelerometer:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 指定用户是已经拒绝对加速计的访问 (true) 还是已经允许对加速计的访问 (false)。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accelerometer, Accelerometer.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 指定用户是已经拒绝对加速计的访问 (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) 还是已经允许对加速计的访问 (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>)。当此值发生变化时，会调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。
+		 
+		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.sensors:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+ 	为响应设备的位置传感器，Geolocation 类调度事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	为响应设备的位置传感器，Geolocation 类调度事件。 
+	
+	<p class="- topic/p ">如果设备支持 geolocation，您可以使用此类获得设备当前的地理位置。地理位置以纬度和经度坐标形式（以 WGS-84 标准格式）显示在设备上。当设备的位置更改时，可以收到关于更改的更新。如果设备支持此功能，您将可以获得关于位置的最新更改的高度、精度、标题、速度和时间戳的信息。</p>
+ 	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR 配置文件支持：</i>仅移动设备支持此功能。桌面或用于电视的 AIR 设备不支持此功能。您可以使用 <codeph class="+ topic/ph pr-d/codeph ">Geolocation.isSupported</codeph> 属性在运行时测试是否受支持。有关在多个配置文件之间支持 API 的详细信息，请参阅 <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">AIR 配置文件支持</xref>。  
+    </p>	
+	
+ 	</apiDesc><example conref="examples\GeolocationExample.as" class="- topic/example "> 在下面的示例中，应用程序会在收到 geolocation <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件时，显示这些事件的维度、经度和水平精度。    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+   import flash.display.Sprite;
+   import flash.display.StageAlign;
+   import flash.display.StageScaleMode;
+   import flash.events.GeolocationEvent;
+   import flash.sensors.Geolocation;
+   import flash.text.TextField;
+   import flash.text.TextFormat;
+
+   public class GeolocationTest extends Sprite
+   {
+      private var geo:Geolocation;
+      private var log:TextField;
+      
+      public function GeolocationTest()
+      {
+         stage.scaleMode = StageScaleMode.NO_SCALE;
+         stage.align = StageAlign.TOP_LEFT;
+         setUpTextField();
+                                    
+         if (Geolocation.isSupported)
+         {
+            geo = new Geolocation();
+            geo.setRequestedUpdateInterval(100);
+            geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+         }
+         else
+         {
+            log.text =  "No geolocation support.";
+         }
+      }
+      
+      private function geolocationUpdateHandler(event:GeolocationEvent):void
+      {
+         log.text = "latitude:" + event.latitude.toString() + "°\n";
+         log.appendText("longitude:" + event.longitude.toString() + "°\n");
+         log.appendText("horizontal accuracy:" + event.horizontalAccuracy.toString() + " m");
+      }
+      private function setUpTextField():void
+      {
+         log = new TextField();
+         var format:TextFormat = new TextFormat("_sans", 24);
+         log.defaultTextFormat = format;
+         log.border = true;
+         log.wordWrap = true;
+         log.multiline = true;
+         log.x = 10;
+         log.y = 10;
+         log.height = stage.stageHeight - 20;
+         log.width = stage.stageWidth - 20;
+         addChild(log);
+      }
+   }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="http://coenraets.org/blog/2010/08/multi-user-google-map-collaboration-on-android/" class="- topic/link "><linktext class="- topic/linktext ">Cristophe Coenraets：多用户 Google 地图协作</linktext></link></related-links><adobeApiEvent id="flash.sensors:Geolocation_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+  	Geolocation 对象在用户更改对位置传感器的访问时调度 status 事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+  	Geolocation 对象在用户更改对位置传感器的访问时调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。例如，如果为了响应设备提示，用户阻止应用程序访问位置数据，则 Geolcation 对象将调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。当位置传感器不可用的地区的状态发生更改时，Geolocation 实例的 <codeph class="+ topic/ph pr-d/codeph ">muted</codeph> 属性为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。
+	
+ 	</apiDesc></adobeApiEventDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/muted" class="- topic/link "><linktext class="- topic/linktext ">muted</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="flash.sensors:Geolocation_flash.events.GeolocationEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	为响应来自位置传感器的更新，调度 update 事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.GeolocationEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.GeolocationEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	为响应来自位置传感器的更新，调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。在下列情况下调度该事件：
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">当通过 <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> 附加新的侦听器函数时，此事件将一次性传送给所有注册的侦听器，用于提供位置的当前值。</li><li class="- topic/li ">以设备确定的间隔从平台获得位置更新时。</li><li class="- topic/li ">当应用程序丢失对位置的更改时（例如，在休眠后唤醒应用程序）。</li></ul></p>
+ 	
+ 	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>第一代 iPhone 没有配备 GPS 装置，仅偶尔调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。在这些设备上，Geolocation 对象最初会调度一个或两个 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。信息变更显著时，它就会调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。</p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Geolocation:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+		 创建新的 Geolocation 实例。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 创建新的 Geolocation 实例。 
+ 		 
+ 		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Geolocation:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 用于设置更新的时间间隔（以毫秒为单位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定的 <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> 小于零。
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">请求的更新间隔。如果 <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> &lt;= 0，则对此方法的任何调用都无效。
+ 		 
+ 		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 用于设置更新的时间间隔（以毫秒为单位）。更新间隔仅用作节省电池电量的提示。位置更新间的实际时间可能大于或小于此值。使用此方法对更新间隔所做的任何更改都将影响所有注册的 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件侦听器。无需调用 <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph> 方法即可使用 Geolocation 类。在这种情况下，平台将根据其默认间隔返回更新。  
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">注意：</i>第一代 iPhone 没有配备 GPS 装置，仅偶尔调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。在这些设备上，Geolocation 对象最初会调度一个或两个 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。信息变更显著时，它就会调度 <codeph class="+ topic/ph pr-d/codeph ">update</codeph> 事件。</p>
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Geolocation:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+ 		 位置传感器在设备上是否可用，可用为 true，不可用为 false。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 		 位置传感器在设备上是否可用，可用为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，不可用为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+ 		 
+ 		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sensors:Geolocation:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 指定用户是已经拒绝对 geolocation 的访问 (true) 还是已经允许对 geolocation 的访问 (false)。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Geolocation, Geolocation.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 指定用户是已经拒绝对 geolocation 的访问 (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) 还是已经允许对 geolocation 的访问 (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>)。当此值发生变化时，会调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。
+		 
+ 		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

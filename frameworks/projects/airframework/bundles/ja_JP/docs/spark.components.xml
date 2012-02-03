@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components"><apiName>spark.components</apiName><apiDetail/><apiClassifier id="spark.components:Window"><apiName>Window</apiName><shortdesc>
+  Window は、AIR デスクトップアプリケーションの追加ウィンドウに対する最上位のコンテナです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  アプリケーションは無効で非アクティブです。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  アプリケーションは有効で非アクティブです。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:Window">
+<description>
+  コンポーネントの最小化が解除されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:Window">
+<description>
+  コンポーネントが最小化されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:Window">
+<description>
+  ウィンドウが閉じられたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+  ウィンドウの外縁から resizeAffordance のピクセル数の位置でクリックが発生した場合、そのようなウィンドウに対するクリックは、ウィンドウの境界線に対するクリックと見なされます。
+  
+  </description>
+<default>6
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:Window" playerVersion="Flash10" type="uint">
+<description>
+  アプリケーションの背景色です。この色は、アプリケーションのステージカラーおよび HTML 埋め込みタグの背景色として使用されます。
+   
+  </description>
+<default>0xFFFFFF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+  <codeph>backgroundColor</codeph> プロパティで定義されているカラーのアルファレベルです。 
+   
+  </description>
+<default>1.0
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:Window" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      ウィンドウのサイズ変更に使用されるグリッパーボタンを定義するスキンパーツです。 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      ステータスバーの表示を定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      ステータスバーのテキストの表示を定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      タイトルバーを定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    backgroundColor="white"
+    colorCorrection="default"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showStatusBar="true"
+    status=""
+    systemChrome="standard"
+    title=""
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window は、AIR デスクトップアプリケーションの追加ウィンドウに対する最上位のコンテナです。
+ 
+  <p>Window コンテナは、他のレイアウトコンテナ内では使用できない、という点で特殊なコンテナです。spark.components.Window コンポーネントは、MXML ドキュメントの最上位コンポーネントである必要があります。</p>
+ 
+  <p>Window コンポーネントを使用してネイティブウィンドウを定義するための最も簡単な方法は、MXML ドキュメントを作成し、そのドキュメントの最上位タグとして <codeph>&lt;s:Window></codeph> タグを使用することです。Window コンポーネントの使用方法は、レイアウトのタイプを指定したり、子コントロールを定義したりする場合などを含め、他のコンテナの場合と同様です。他のカスタム MXML コンポーネントと同様に、アプリケーションがコンパイルされると、MXML ドキュメントも Window コンポーネントのサブクラスであるカスタムクラスにコンパイルされます。</p>
+ 
+  <p>アプリケーションコードで、Window サブクラスのインスタンスを画面に表示するには、まずコード内でそのクラスのインスタンスを（変数を定義し、<codeph>new MyWindowClass()</codeph> コンストラクターを呼び出して）作成します。 次に、新しいウィンドウに対して指定する必要のあるプロパティを設定します。 最後に、Window コンポーネントの <codeph>open()</codeph> メソッドを呼び出して、画面上でウィンドウを開きます。</p>
+ 
+  <p>Window クラスの一部のプロパティでは、そのプロパティを<b>先に</b>設定してから <codeph>open()</codeph> メソッドを呼び出してウィンドウを開く必要があることに注意してください。 基になる NativeWindow が作成された後には、これらの初期化プロパティを読み取ることはできますが、変更することはできなくなります。 この制限は、次のプロパティに適用されます。</p>
+ 
+  <ul>
+    <li><codeph>maximizable</codeph></li>
+    <li><codeph>minimizable</codeph></li>
+    <li><codeph>resizable</codeph></li>
+    <li><codeph>systemChrome</codeph></li>
+    <li><codeph>transparent</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#WindowedApplication"><linktext>spark.components.WindowedApplication</linktext></link></related-links><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  基になる NativeWindow のサイズが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow のサイズが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  ウィンドウの移動後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウの移動後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Window の初期レイアウトが完了し、基になる NativeWindow を開くときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Window の初期レイアウトが完了し、基になる NativeWindow を開くときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  基になる NativeWindow のサイズの変更前、つまり Window オブジェクトの境界のドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow のサイズの変更前、つまり Window オブジェクトの境界のドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  ウィンドウの移動前、およびウィンドウのドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウの移動前、およびウィンドウのドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  最小化、最大化または復元するために表示状態が変化した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化、または復元するために表示状態が変化した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  ウィンドウが閉じる前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ウィンドウが閉じる前に送出されます。このイベントはキャンセル可能です。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  このウィンドウが閉じられた後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウが閉じられた後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  このウィンドウが非アクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウが非アクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  このウィンドウがアクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このウィンドウがアクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  このアプリケーションがアクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションがアクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:Window:Window"><apiName>Window</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:Window:activate"><apiName>activate</apiName><shortdesc>
+      基になる NativeWindow を（この Window のアプリケーションが現在アクティブでない場合でも）アクティブ化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基になる NativeWindow を（この Window のアプリケーションが現在アクティブでない場合でも）アクティブ化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:close"><apiName>close</apiName><shortdesc>
+      ウィンドウを閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを閉じます。このアクションはキャンセル可能です。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      コンポーネントの親である Window を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Window を検索する対象となるコンポーネントです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの親である Window を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      ウィンドウを最小化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最小化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      ウィンドウの境界線上でのマウスの押し下げイベントを管理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      ウィンドウの境界線上でのマウスの押し下げイベントを管理します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:open"><apiName>open</apiName><shortdesc>
+      基になる NativeWindow を作成して開きます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc> は、ウィンドウがアクティブ化された状態で開くかどうか（つまり、フォーカスを持っているかどうか）を表します。 デフォルト値は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基になる NativeWindow を作成して開きます。閉じられた後でも Window オブジェクトは有効な参照として残りますが、ほとんどのプロパティやメソッドにはアクセスできません。閉じたウィンドウを再び開くことはできません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの前面になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの背後に移動します。IWindow を実装していない NativeWindow の背後にウィンドウを移動するには、このウィンドウの nativeWindow の <codeph>orderInBackOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの背後になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの前面に移動します。IWindow を実装していない NativeWindow の前面にウィンドウを移動するには、このウィンドウの nativeWindow の <codeph>orderInFrontOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:restore"><apiName>restore</apiName><shortdesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      基になる NativeWindow を、常に他のウィンドウ（他のアプリケーションのウィンドウも含む）よりも前面に表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      基になる NativeWindow を、常に他のウィンドウ（他のアプリケーションのウィンドウも含む）よりも前面に表示するかどうかを指定します。 このプロパティを設定すると、基になる NativeWindow の <codeph>alwaysInFront</codeph> プロパティが設定されます。 このプロパティがウィンドウの積み重ね順序に与える影響の詳細については、<codeph>NativeWindow.alwaysInFront</codeph> プロパティの説明を参照してください。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      ウィンドウが閉じられているかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウが閉じられているかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:colorCorrection:get"><apiName>colorCorrection</apiName><shortdesc>
+     ステージの colorCorrection プロパティの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColorCorrection.DEFAULT
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     ステージの <codeph>colorCorrection</codeph> プロパティの値です。このアプリケーションがステージの <codeph>colorCorrection</codeph> プロパティにアクセスできない場合、<codeph>colorCorrection</codeph> プロパティの値は null として報告されます。メインアプリケーションのみが <codeph>colorCorrection</codeph> プロパティを設定できます。サブアプリケーションがカラー補正プロパティを設定する必要がある場合は、直接オブジェクトインスタンスを使用するかイベント（この目的用のフレームワークイベントはありません）を介して、メインアプリケーションのインスタンス経由でプロパティを設定する必要があります。  
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      ウィンドウを最大化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最大化できるかどうかを指定します。このプロパティの値は、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      ウィンドウを最小化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最小化できるかどうかを指定します。このプロパティは、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      この Window コンポーネントで使用される、基になる NativeWindow です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      この Window コンポーネントで使用される、基になる NativeWindow です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。このプロパティは、ウィンドウが開かれた後には読み取り専用になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      true の場合、ステータスバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ステータスバーは可視です。
+     
+      <p>ステータスバーは、アプリケーションまたはアプリケーションウィンドウのスキンとして WindowedApplicationSkin クラスまたは SparkChromeWindowedApplicationSkin クラスを使用している場合にのみ表示されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。有効な値のセットは、NativeWindowSystemChrome クラスの定数で定義されます。
+     
+      <p>このプロパティは、いったんウィンドウが開かれた後には読み取り専用になります。</p>
+     
+      <p>デフォルト値は、<codeph>NativeWindowSystemChrome.STANDARD</codeph> です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルテキストです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      ウィンドウを透明にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを透明にするかどうかを指定します。 システムクロムを使用するウィンドウで、このプロパティを <codeph>true</codeph> に設定することはサポートされていません。
+     
+      <p>このプロパティは、ウィンドウが開かれた後には読み取り専用になります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:type:get"><apiName>type</apiName><shortdesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。有効な値のセットは、NativeWindowType クラスの定数で定義されます。
+     
+      <p>このプロパティは、いったんウィンドウが開かれた後には読み取り専用になります。</p>
+     
+      <p>デフォルト値は、<codeph>NativeWindowType.NORMAL</codeph> です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      このウィンドウのウィンドウメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      このウィンドウのウィンドウメニューです。一部のオペレーティングシステムでは、ウィンドウメニューはサポートされていません。その場合、このプロパティは無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  WindowedApplication は、AIR アプリケーション用の Flex アプリケーションを作成するために使用するアプリケーションコンテナを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  アプリケーションは無効で非アクティブです。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  アプリケーションは有効で非アクティブです。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  コンポーネントの最小化が解除されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  コンポーネントが最小化されたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:WindowedApplication">
+<description>
+  ウィンドウが閉じられたときに再生されます。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+  ウィンドウの外縁から resizeAffordance のピクセル数の位置でクリックが発生した場合、そのようなウィンドウに対するクリックは、ウィンドウの境界線に対するクリックと見なされます。
+ 
+  </description>
+<default>6
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="uint">
+<description>
+  アプリケーションの背景色です。この色は、アプリケーションのステージカラーおよび HTML 埋め込みタグの背景色として使用されます。
+   
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+  <codeph>backgroundColor</codeph> プロパティで定義されているカラーのアルファレベルです。 
+   
+  </description>
+<default>1.0
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:WindowedApplication" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      ウィンドウのサイズ変更に使用されるグリッパーボタンを定義するスキンパーツです。 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      ステータスバーの表示を定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      ステータスバーのテキストの表示を定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      タイトルバーの表示を定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showStatusBar="true"
+    status=""
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleIcon="<i>null</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication は、AIR アプリケーション用の Flex アプリケーションを作成するために使用するアプリケーションコンテナを定義します。
+ 
+  <p>WindowedApplication は、2 つの役割を果たします。これは &lt;mx:WindowedApplication> タグの代わりに使用され、Flex ベースの AIR アプリケーションへのエントリポイントとして機能します。また、WindowedApplication はコンテナとして、Flex AIR アプリケーションの最初のウィンドウのレイアウトを定義します。WindowedApplication で定義されたすべてのビジュアルコントロールは、AIR アプリケーションによってロードされる最初のウィンドウのコンテンツになります。</p>
+ 
+  <p>WindowedApplication は、Flex ベースの AIR アプリケーションの最上位アプリケーションです。他の Flex アプリケーションによってロードされるように設計されていません。WindowedApplication で他のアプリケーションをロードする必要がある場合は、これらのアプリケーションのコンテナとして Application クラスを使用します。他のウィンドウが必要な場合は、これらのウィンドウのコンテナとして Window クラスを使用します。</p>
+  
+  <p>WindowedApplication は、マルチウィンドウアプリケーションのすべてのウィンドウではなく、単一のウィンドウのビジュアルコンテンツのみを表すため、WindowedApplication のインスタンスは、アプリケーション内の他のウィンドウで発生したイベントについてではなく、それ自身のステージおよびウィンドウについての表示関連のイベント（WindowedApplication クラスが InteractiveObject や UIComponent などの表示オブジェクトの基本クラスから継承したイベント）のみを送出します。この点で、FxApplication コンテナがアプリケーションのすべてのウィンドウのイベントを送出する、ブラウザーベースのアプリケーションとは異なっています（ブラウザーベースのアプリケーションでは、技術的にはウィンドウはすべて、単一の Application ステージにレンダリングされる表示オブジェクトです）。</p>
+ 
+  </apiDesc><example conref="WindowedApplicationSample.mxml"/></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.Windowed.xml"><linktext>spark.components.Windowed</linktext></link><link href="spark.skins.spark.xml#SparkChromeWindowedApplicationSkin"><linktext>spark.skins.spark.SparkChromeWindowedApplicationSkin</linktext></link><link href="spark.skins.spark.xml#WindowedApplicationSkin"><linktext>spark.skins.spark.WindowedApplicationSkin</linktext></link></related-links><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  基になる NativeWindow オブジェクトのサイズが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  基になる NativeWindow オブジェクトのサイズが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  WindowedApplication オブジェクトの移動後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトの移動後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  WindowedApplication が初期レイアウトを完了すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication が初期レイアウトを完了すると送出されます。デフォルトでは、WindowedApplication はこの時点で表示されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  WindowedApplication オブジェクトのサイズの変更前、つまり WindowedApplication オブジェクトの境界のドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトのサイズの変更前、つまり WindowedApplication オブジェクトの境界のドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンピューターがネットワークに接続したとき、またはネットワークから切断したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  WindowedApplication オブジェクトの移動前、つまり WindowedApplication オブジェクトのドラッグ中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication オブジェクトの移動前、つまり WindowedApplication オブジェクトのドラッグ中に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  アプリケーションが起動されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  アプリケーションが起動されたときに送出されます。
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  最小化、最大化、または復元するために表示状態が変化する前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化または復元するために表示状態が変化する前に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  最小化、最大化または復元するために表示状態が変化した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  最小化、最大化または復元するために表示状態が変化した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  WindowedApplication ウィンドウが閉じる前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  WindowedApplication ウィンドウが閉じる前に送出されます。キャンセル可能です。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  このアプリケーションウィンドウが閉じられた後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウが閉じられた後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  このアプリケーションウィンドウが非アクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウが非アクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  このアプリケーションウィンドウがアクティブ化された後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションウィンドウがアクティブ化された後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションが非アクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  このアプリケーションがアクティブ化されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  このアプリケーションがアクティブ化されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      （このアプリケーションがアクティブなアプリケーションでない場合でも）基になる NativeWindow をアクティブ化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      （このアプリケーションがアクティブなアプリケーションでない場合でも）基になる NativeWindow をアクティブ化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      アプリケーションの NativeWindow （アプリケーションによって開かれた最初のネイティブウィンドウ）を閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アプリケーションの NativeWindow （アプリケーションによって開かれた最初のネイティブウィンドウ）を閉じます。このアクションはキャンセル可能です。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      ウィンドウを閉じ、アプリケーションを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを閉じ、アプリケーションを終了します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最大化します。既に最大化されている場合は、何もしません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      ウィンドウを最小化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを最小化します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      ウィンドウの境界線上でのマウスの押し下げイベントを管理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      ウィンドウの境界線上でのマウスの押し下げイベントを管理します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背後に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの前面になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの背後に移動します。IWindow を実装していない NativeWindow の背後にウィンドウを移動するには、このウィンドウの NativeWindow の <codeph>orderInBackOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      ウィンドウを別のウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>移動後に、このウィンドウの背後になる IWindow（Window または WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ウィンドウを別のウィンドウの前面に移動します。IWindow を実装していない NativeWindow の前面にウィンドウを移動するには、このウィンドウの NativeWindow の <codeph>orderInFrontOf()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に背面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       ウィンドウを、同じアプリケーションのすべてのウィンドウの背後に移動します。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ウィンドウが正常に前面に移動された場合は <codeph>true</codeph>、ウィンドウが不可視であるか最小化されている場合は <codeph>false</codeph> になります。
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   ウィンドウを、同じアプリケーションのすべてのウィンドウの前面に移動します。
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ウィンドウを元の状態に戻します（ウィンドウが最大化されている場合は最大化を解除し、最小化されている場合は最小化を解除します）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      基になる NativeWindow を、常に他のウィンドウよりも前面に表示するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      基になる NativeWindow を、常に他のウィンドウよりも前面に表示するかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      AIR がアプリケーションの識別に使用する識別子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      AIR がアプリケーションの識別に使用する識別子です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      最後のウィンドウが閉じたときに、AIR アプリケーションが終了するか、バックグラウンドで実行を継続するかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      最後のウィンドウが閉じたときに、AIR アプリケーションが終了するか、バックグラウンドで実行を継続するかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      アプリケーションが非アクティブのときに使用するフレームレートを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アプリケーションが非アクティブのときに使用するフレームレートを指定します。-1 を設定すると、背景のフレームレートスロットルは実行されません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      基になるウィンドウが閉じられている場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      基になるウィンドウが閉じられている場合は、true を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      ドックアイコンメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      ドックアイコンメニューです。ドックアイコンメニューをサポートしないオペレーティングシステムもあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      ウィンドウを最大化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最大化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      アプリケーションメニューをサポートするオペレーティングシステムのアプリケーションメニュー、またはウィンドウメニューをサポートするオペレーティングシステムのアプリケーションの最初のウィンドウのウィンドウメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      アプリケーションメニューをサポートするオペレーティングシステムのアプリケーションメニュー、またはウィンドウメニューをサポートするオペレーティングシステムのアプリケーションの最初のウィンドウのウィンドウメニューです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      ウィンドウを最小化できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを最小化できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      AIR アプリケーションを表す NativeApplication オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      AIR アプリケーションを表す NativeApplication オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      この WindowedApplication コンポーネント（アプリケーションの最初のネイティブウィンドウ）によって使用される NativeWindow です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      この WindowedApplication コンポーネント（アプリケーションの最初のネイティブウィンドウ）によって使用される NativeWindow です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウをサイズ変更できるかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      true の場合、ステータスバーは可視です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、ステータスバーは可視です。
+     
+      <p>ステータスバーは、アプリケーションまたはアプリケーションウィンドウのスキンとして WindowedApplicationSkin クラスまたは SparkChromeWindowedApplicationSkin クラスを使用している場合にのみ表示されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      ウィンドウが持っているシステムクロム（存在する場合）のタイプを指定します。有効な値のセットは、NativeWindowSystemChrome クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      システムトレイアイコンメニューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      システムトレイアイコンメニューです。システムトレイアイコンメニューをサポートしないオペレーティングシステムもあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーとタスクバーに表示されるタイトルです。 システムクロムを使用する場合、application.xml でこのプロパティを &lt;title> タグ以外に設定すると、XML ファイルから取得されたタイトルが最初に短時間だけ表示されることがあります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーアイコンを描画するために使用する Class（通常はイメージ）です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      ウィンドウを透明にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ウィンドウを透明にするかどうかを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このコンポーネントが表す NativeWindow のタイプを指定します。有効な値のセットは、NativeWindowType クラスの定数で定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects"><apiName>mx.effects</apiName><apiDetail/><apiClassifier id="mx.effects:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>Die DefaultListEffect-Klasse definiert den Standardeffekt, der auf die Elementrenderer eines List-Steuerelements angewendet wird, wenn sich die Daten im Datenprovider ändern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="dissolve1"/><Exclude kind="property" name="wipeUp1"/><Exclude kind="property" name="shrink"/><Exclude kind="property" name="grow"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The &lt;mx:DefaultListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+  <pre>
+  &lt;DefaultListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="300"
+    fadeOutDuration="300"
+    growDuration="300"
+    removedElementOffset="100"
+    shrinkDuration="300"
+  /&gt;
+  </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>Die DefaultListEffect-Klasse definiert den Standardeffekt, der auf die Elementrenderer eines List-Steuerelements angewendet wird, wenn sich die Daten im Datenprovider ändern. Wenn ein Element im TileList-Steuerelement entfernt wird, blendet dieser Effekt das Element aus und reduziert die Größe des Elements auf 0. Wenn Sie ein Element dem List-Steuerelement hinzufügen, sorgt dieser Effekt dafür, dass für das neue Element Platz vorhanden ist und blendet es ein. 
+  
+ <p>Sie verwenden die <codeph>itemsChangeEffect</codeph>-Stileigenschaft, um diesen Effekt auf ein List-Steuerelement anzuwenden. Der Standardwert der <codeph>itemsChangeEffect</codeph>-Stileigenschaft ist <codeph>undefined</codeph>, das heißt, sie verwendet keinen Effekt.</p>
+  
+ <p>Da der DefaultListEffect-Effekt bei der Wiedergabe Elementrenderer vergrößert und verkleinert, müssen Sie die <codeph>List.variableRowHeight</codeph>-Eigenschaft auf <codeph>true</codeph> setzen, damit das List-Steuerelement die Zeilenhöhe dynamisch ändern kann.</p>
+ 
+  </apiDesc><example conref="DefaultListEffectExample.mxml"><swfblock conref="examples/DefaultListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#List"><linktext>mx.controls.List</linktext></link></related-links><apiConstructor id="mx.effects:DefaultListEffect:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>Konstruktor.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Konstruktor.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          Hex-Wert für die Farbe, die verwendet wird, um das hinzugefügte und entfernte Element ein- und auszublenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+          
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          Hex-Wert für die Farbe, die verwendet wird, um das hinzugefügte und entfernte Element ein- und auszublenden.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          Die Dauer (in Millisekunden) für das Einblenden von Renderern für hinzugefügte und entfernte Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer (in Millisekunden) für das Einblenden von Renderern für hinzugefügte und entfernte Elemente.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          Die Dauer (in Millisekunden) für das Ausblenden von Renderern für hinzugefügte und entfernte Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer (in Millisekunden) für das Ausblenden von Renderern für hinzugefügte und entfernte Elemente.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:growDuration:get"><apiName>growDuration</apiName><shortdesc>
+          Die Dauer in Millisekunden, die auf Renderer für hinzugefügte und entfernte Elemente angewendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer in Millisekunden, die auf Renderer für hinzugefügte und entfernte Elemente angewendet wird.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:removedElementOffset:get"><apiName>removedElementOffset</apiName><shortdesc>
+          Die Anzahl von Millisekunden zwischen den Effekten, die auf Renderer angewendet wird, die die gleichzeitige Löschung mehrerer Elemente darstellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Die Anzahl von Millisekunden zwischen den Effekten, die auf Renderer angewendet wird, die die gleichzeitige Löschung mehrerer Elemente darstellen. Bei 0 werden alle Renderer gleichzeitig ausgeblendet und verkleinert.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:shrinkDuration:get"><apiName>shrinkDuration</apiName><shortdesc>
+          Die Dauer in Millisekunden, die auf Renderer für hinzugefügte und entfernte Elemente angewendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer in Millisekunden, die auf Renderer für hinzugefügte und entfernte Elemente angewendet wird.
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>Die DefaultTileListEffect-Klasse definiert den Standardeffekt, der auf die Elementrenderer eines TileList-Steuerelements angewendet wird, wenn sich die Daten im Datenprovider ändern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="move1"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+ <p>The &lt;mx:DefaultTileListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+ <pre>
+  &lt;DefaultTileListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="350"
+    fadeOutDuration="350"
+    moveDuration="300"
+  /&gt;
+ </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>Die DefaultTileListEffect-Klasse definiert den Standardeffekt, der auf die Elementrenderer eines TileList-Steuerelements angewendet wird, wenn sich die Daten im Datenprovider ändern. Wird ein Element im TileList-Steuerelement entfernt, blendet dieser Effekt das Element aus und verschiebt die restlichen Elemente an ihre neue Position. Wenn Sie ein Element dem TileList-Steuerelement hinzufügen, verschiebt dieser Effekt die vorhandenen Elemente an ihre neue Position und blendet das neue Element ein. 
+  
+ <p>Sie verwenden die <codeph>itemsChangeEffect</codeph>-Stileigenschaft, um diesen Effekt auf ein TileList-Steuerelement anzuwenden. Der Standardwert der <codeph>itemsChangeEffect</codeph>-Stileigenschaft ist <codeph>undefined</codeph>, das heißt, sie verwendet keinen Effekt.</p>
+  
+ <p>Normalerweise stellen Sie die <codeph>TileList.offscreenExtraRowsOrColumns</codeph>-Eigenschaft ein, wenn Sie einen Dateneffekt anwenden. Normalerweise setzen <codeph>TileList.offscreenExtraRowsOrColumns</codeph> auf eine niedrige, gerade Zahl (wie 2) für ein TileList-Steuerelement. </p>
+  
+  </apiDesc><example conref="DefaultTileListEffectExample.mxml"><swfblock conref="examples/DefaultTileListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#TileList"><linktext>mx.controls.TileList</linktext></link></related-links><apiConstructor id="mx.effects:DefaultTileListEffect:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>Konstruktor.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Konstruktor.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultTileListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          Hex-Wert für die Farbe, die verwendet wird, um das hinzugefügte und entfernte Element ein- und auszublenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+         
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          Hex-Wert für die Farbe, die verwendet wird, um das hinzugefügte und entfernte Element ein- und auszublenden.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          Die Dauer in Millisekunden zum Einblenden von Renderern für hinzugefügte und entfernte Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer in Millisekunden zum Einblenden von Renderern für hinzugefügte und entfernte Elemente.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          Die Dauer in Millisekunden zum Ausblenden von Renderern für entfernte und ersetzte Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer in Millisekunden zum Ausblenden von Renderern für entfernte und ersetzte Elemente.
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:moveDuration:get"><apiName>moveDuration</apiName><shortdesc>
+          Die Dauer in Millisekunden, die auf Renderer für Elemente angewendet wird, die im Steuerelement als Teil des Effekts verschoben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Die Dauer in Millisekunden, die auf Renderer für Elemente angewendet wird, die im Steuerelement als Teil des Effekts verschoben werden.
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+  Die AddItemAction-Klasse definiert einen Aktionseffekt, der bestimmt, wann der Elementrenderer im Steuerelement angezeigt wird. Dies gilt für Elemente, die entweder einem listenbasierten Steuerelement (z. B. List oder TileList) hinzugefügt werden oder die ein vorhandenes Element im Steuerelement ersetzen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AddItemAction-Klasse definiert einen Aktionseffekt, der bestimmt, wann der Elementrenderer im Steuerelement angezeigt wird. Dies gilt für Elemente, die entweder einem listenbasierten Steuerelement (z. B. List oder TileList) hinzugefügt werden oder die ein vorhandenes Element im Steuerelement ersetzen. Sie können diese Klasse bei der Definition benutzerdefinierter Dateneffekte für die listenbasierten Klassen verwenden.
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddItemActionInstance"><linktext>mx.effects.effectClasses.AddItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:AddItemAction:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+  Die RemoveChildAction-Klasse definiert einen Aktionseffekt, der der RemoveChild-Eigenschaft einer Ansichtsstatusdefinition entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:RemoveChildAction" replacement="spark.effects.RemoveAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+
+  <pre>
+  &lt;mx:RemoveChildAction
+    <b>Properties</b>
+    id="ID"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RemoveChildAction-Klasse definiert einen Aktionseffekt, der der RemoveChild-Eigenschaft einer Anzeigestatusdefinition entspricht. Sie verwenden einen RemoveChildAction-Effekt in einer Übergangsdefinition, um zu steuern, wann die durch die RemoveChild-Eigenschaft definierte Anzeigestatusänderung während des Übergangs durchgeführt wird.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveChildActionInstance"><linktext>mx.effects.effectClasses.RemoveChildActionInstance</linktext></link><link href="" invalidHref="mx.states.RemoveChild.xml"><linktext>mx.states.RemoveChild</linktext></link></related-links><apiConstructor id="mx.effects:RemoveChildAction:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+  Die SetPropertyAction-Klasse definiert einen Aktionseffekt, der der SetProperty-Eigenschaft einer Anzeigestatusdefinition entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:SetPropertyAction" replacement="spark.effects.SetAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetPropertyAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SetPropertyAction
+    <b>Properties</b>
+    id="ID"
+    name=""
+    value=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SetPropertyAction-Klasse definiert einen Aktionseffekt, der der <codeph>SetProperty</codeph>-Eigenschaft einer Ansichtsstatusdefinition entspricht. Sie verwenden einen SetPropertyAction-Effekt in einer Übergangsdefinition, um zu steuern, wann die durch die <codeph>SetProperty</codeph>-Eigenschaft definierte Ansichtsstatusänderung während des Übergangs durchgeführt wird.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#SetPropertyActionInstance"><linktext>mx.effects.effectClasses.SetPropertyActionInstance</linktext></link><link href="" invalidHref="mx.states.SetProperty.xml"><linktext>mx.states.SetProperty</linktext></link></related-links><apiConstructor id="mx.effects:SetPropertyAction:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:SetPropertyAction:name"><apiName>name</apiName><shortdesc> 
+	  Der Name der zu ändernden Eigenschaft.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Der Name der zu ändernden Eigenschaft. Standardmäßig bestimmt Flex diesen Wert mithilfe der <codeph>SetProperty</codeph>-Eigenschaftsdefinition in der Ansichtsstatusdefinition.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:SetPropertyAction:value"><apiName>value</apiName><shortdesc> 
+	  Der neue Wert der Eigenschaft. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc> 
+	  Der neue Wert der Eigenschaft. Standardmäßig bestimmt Flex diesen Wert mithilfe der <codeph>SetProperty</codeph>-Eigenschaftsdefinition in der Ansichtsstatusdefinition.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+  Der von der RemoveItemAction-Klasse definierte Aktionseffekt legt fest, wann der Elementrenderer auf einem listenbasierten Steuerelement (List, TileList) ausgeblendet wird, wenn das Element entfernt oder durch ein neues Element ersetzt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RemoveItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Der von der RemoveItemAction-Klasse definierte Aktionseffekt bestimmt, wann der Elementrenderer auf einem listenbasierten Steuerelement (List, TileList) ausgeblendet wird, wenn das Element entfernt oder durch ein neues Element ersetzt wird. Sie können diese Klasse bei der Definition benutzerdefinierter Dateneffekte für die listenbasierten Klassen verwenden.
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveItemActionInstance"><linktext>mx.effects.effectClasses.RemoveItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:RemoveItemAction:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:Glow"><apiName>Glow</apiName><shortdesc>
+  Mit dem Glühen-Effekt können Sie eine Komponente aufglühen lassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Glow" replacement="spark.effects.AnimateFilter" since="4.0">
+<description>
+  In Flex 4 verwenden Sie einen AnimateFilter-Effekt mit einem Glühen-Bitmapfilter.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Glow&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:Glow
+    id="ID"
+    alphaFrom="val"
+    alphaTo="val"
+    blurXFrom="val"
+    blurXTo="val"
+    blurYFrom="val"
+    blurYTo="val"
+    color="<i>themeColor of the application</i>"
+    inner="false|true"
+    knockout="false|true"
+    strength="2"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Mit dem Glühen-Effekt können Sie eine Komponente aufglühen lassen. 
+ 
+  <p>Der Glühen-Effekt verwendet die GlowFilter-Klasse von Flash als Teil der Implementierung. Weitere Informationen finden Sie im Abschnitt zur flash.filters.GlowFilter-Klasse. Wenn Sie einen Glühen-Effekt auf eine Komponente anwenden, können Sie keinen GlowFilter und auch keinen zweiten Glühen-Effekt für die Komponente verwenden.</p>
+ 
+  </apiDesc><example conref="GlowEffectExample.mxml"><swfblock conref="examples/GlowEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="mx.effects.effectClasses.xml#GlowInstance"><linktext>mx.effects.effectClasses.GlowInstance</linktext></link></related-links><apiConstructor id="mx.effects:Glow:Glow"><apiName>Glow</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Glow:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="Number"/><apiDefaultValue>1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang. Die zulässigen Werte liegen zwischen 0,0 und 255,0.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende. Die zulässigen Werte liegen zwischen 0,0 und 255,0.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang. Die zulässigen Werte liegen zwischen 0,0 und 255,0. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende. Die zulässigen Werte liegen zwischen 0,0 und 255,0. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:color"><apiName>color</apiName><shortdesc> 
+	  Die Farbe des Glühen-Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>StyleManager.NOT_A_COLOR
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Farbe des Glühen-Effekts. Der Standardwert entspricht der <codeph>themeColor</codeph>-Stileigenschaft der Anwendung. Der Standardwert dieser Eigenschaft ist <codeph>StyleManager.NOT_A_COLOR</codeph>. Wenn der Effekt <codeph>play()</codeph> aufruft und die Farbeigenschaft auf den Standardwert gesetzt wurde, nimmt der Farbwert der Effektinstanz den Wert des aktuellen <codeph>themeColor</codeph>-Stils für die Anwendung an.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:inner"><apiName>inner</apiName><shortdesc> 
+	  Gibt an, ob es sich um ein inneres Glühen handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Gibt an, ob es sich um ein inneres Glühen handelt. Der Wert <codeph>true</codeph> gibt an, dass es sich um ein inneres Glühen innerhalb der Außenkanten des Objekts handelt. Der Standardwert ist <codeph>false</codeph> und gibt ein äußeres Glühen um die Außenkanten des Objekts an. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:knockout"><apiName>knockout</apiName><shortdesc> 
+	  Gibt an, ob für das Objekt ein Aussparungseffekt definiert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Gibt an, ob für das Objekt ein Aussparungseffekt definiert wurde. Bei <codeph>true</codeph> wird die Füllfarbe des Objekts transparent und die Farbe des darunter befindlichen Objekts oder die Hintergrundfarbe wird angezeigt. Der Standardwert ist <codeph>false</codeph>, d. h. keine Aussparung. 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:strength"><apiName>strength</apiName><shortdesc> 
+	  Die Stärke des Abdrucks oder Auftragens.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="Number"/><apiDefaultValue>2 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Stärke des Abdrucks oder Auftragens. Je höher der Wert, desto mehr Farbe wird aufgetragen und desto stärker ist der Kontrast zwischen dem Glühen und dem Hintergrund. Die zulässigen Werte liegen zwischen <codeph>0</codeph> und <codeph>255</codeph>. 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:Resize"><apiName>Resize</apiName><shortdesc>
+  Der Resize-Effekt ändert die Breite oder Höhe oder Breite und Höhe einer Komponente innerhalb eines angegebenen Zeitintervalls.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Resize" replacement="spark.effects.Resize" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Resize&gt;</code> tag
+  inherits all of the tag attributes of its superclass, 
+  and adds the following tab attributes:</p>
+  
+  <pre>
+  &lt;mx:Resize
+    id="ID"
+    widthFrom="val"
+    heightFrom="val"
+    widthTo="val"
+    heightTo="val"
+    widthBy="val"
+    heightBy="val"
+    hideChildrenTargets=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Der Resize-Effekt ändert die Breite oder Höhe oder Breite und Höhe einer Komponente innerhalb eines angegebenen Zeitintervalls. 
+  
+  <p>Wenn Sie nur zwei der drei Werte der Eigenschaften <codeph>widthFrom</codeph>, <codeph>widthTo</codeph> und <codeph>widthBy</codeph> angeben, berechnet Flex den dritten Wert. Wenn Sie alle drei Werte angeben, ignoriert Flex den <codeph>widthBy</codeph>-Wert. Wenn Sie nur den <codeph>widthBy</codeph>- oder den <codeph>widthTo</codeph>-Wert angeben, wird die <codeph>widthFrom</codeph>-Eigenschaft auf die aktuelle Breite des Objekts eingestellt. Gleiches gilt für die Eigenschaften <codeph>heightFrom</codeph>, <codeph>heightTo</codeph> und <codeph>heightBy</codeph>.</p>
+  
+  <p>Wenn Sie den Größenänderungseffekt für einen Größenänderungsauslöser angeben und die sechs From-, To- und By-Eigenschaften nicht festlegen, legt Flex sie fest, um einen glatten Übergang zwischen der alten und neuen Größe des Objekts zu erzeugen.</p>
+  
+  </apiDesc><example conref="ResizeEffectExample.mxml"><swfblock conref="examples/ResizeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#ResizeInstance"><linktext>mx.effects.effectClasses.ResizeInstance</linktext></link><link href="" invalidHref="mx.effects.Tween.xml"><linktext>mx.effects.Tween</linktext></link></related-links><apiConstructor id="mx.effects:Resize:Resize"><apiName>Resize</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Resize:heightBy"><apiName>heightBy</apiName><shortdesc> 
+	  Anzahl von Pixeln, um die die Höhe der Komponente zu ändern ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Ändern der Höhe der Komponente. Die Werte können negativ sein.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  Ursprüngliche Höhe in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anfangshöhe in Pixeln. Wird kein Wert angegeben, verwendet Flex die aktuelle Höhe.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightTo"><apiName>heightTo</apiName><shortdesc> 
+	  Endhöhe in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Endhöhe in Pixeln.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  Ein Array von Bedienfeldcontainern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Ein Array von Bedienfeldcontainern. Die untergeordneten Elemente dieser Bedienfeldcontainer sind während der Wiedergabe des Größenänderungseffekts ausgeblendet.
+	 
+	  <p>Sie können eine Datenbindungssyntax verwenden, um diese Eigenschaft in MXML festzulegen, wie in folgendem Beispiel gezeigt. Dabei sind panelOne und panelTwo die Namen der beiden Bedienfeldcontainer in Ihrer Anwendung:</p>
+	 
+	  <pre>&lt;mx:Resize id="e" heightFrom="100" heightTo="400"
+	 hideChildrenTargets="{[panelOne, panelTwo]}" /></pre>		
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthBy"><apiName>widthBy</apiName><shortdesc> 
+	  Anzahl der Pixel zum Ändern der Breite der Komponente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Ändern der Breite der Komponente. Die Werte können negativ sein.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  Anfangsbreite in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anfangsbreite in Pixeln. Wird kein Wert angegeben, verwendet Flex die aktuelle Breite.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthTo"><apiName>widthTo</apiName><shortdesc> 
+	  Endbreite in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Endbreite in Pixeln.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+  Die AddChildAction-Klasse definiert einen Aktionseffekt, der der AddChild-Eigenschaft einer Ansichtsstatusdefinition entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:AddChildAction" replacement="spark.effects.AddAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddChildAction
+    <b>Properties</b>
+    id="ID"
+    index="-1"
+    relativeTo=""
+    position="index"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AddChildAction-Klasse definiert einen Aktionseffekt, der der <codeph>AddChild</codeph>-Eigenschaft einer Ansichtsstatusdefinition entspricht. Sie verwenden einen AddChildAction-Effekt in einer Übergangsdefinition, um zu steuern, wann die von der AddChild-Eigenschaft definierte Ansichtsstatusänderung während des Übergangs durchgeführt wird.
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddChildActionInstance"><linktext>mx.effects.effectClasses.AddChildActionInstance</linktext></link><link href="" invalidHref="mx.states.AddChild.xml"><linktext>mx.states.AddChild</linktext></link></related-links><apiConstructor id="mx.effects:AddChildAction:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:AddChildAction:index"><apiName>index</apiName><shortdesc> 
+	  Die Indexposition des untergeordneten Elements innerhalb des übergeordneten Elements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/><apiDefaultValue>-1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Indexposition des untergeordneten Elements im übergeordneten Element. Der Wert „-1“ bedeutet, dass das untergeordnete Element als letztes untergeordnetes Element des übergeordneten Elements hinzugefügt wird.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:position"><apiName>position</apiName><shortdesc> 
+	  Die Position des untergeordneten Elements in der Anzeigeliste relativ zu dem Objekt, das durch die relativeTo-Eigenschaft angegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>index</apiData><apiType value="String"/><apiDefaultValue>"index"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Die Position des untergeordneten Elements in der Anzeigeliste, relativ zu dem durch die <codeph>relativeTo</codeph>-Eigenschaft angegebenen Objekt. Die Werte <codeph>"before"</codeph>, <codeph>"after"</codeph>, <codeph>"firstChild"</codeph>, <codeph>"lastChild"</codeph> und <codeph>"index"</codeph> sind zulässig, wobei <codeph>"index"</codeph> festlegt, dass die Position des untergeordneten Elements durch die <codeph>index</codeph>-Eigenschaft bestimmt werden soll.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  Die Position, an der die untergeordnete Komponente hinzugefügt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  Die Position, an der die untergeordnete Komponente hinzugefügt wird. Standardmäßig bestimmt Flex diesen Wert mithilfe der <codeph>AddChild</codeph>-Eigenschaftsdefinition in der Anzeigestatusdefinition.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+  Die WipeUp-Klasse definiert einen Verwischungseffekt nach oben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeUp" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Die richtungsspezifischen Verwischungseffekte in Flex 3 wurden durch einen allgemeineren Verwischungseffekt in eine generische Richtung ersetzt. Um bei dem neuen Verwischungseffekt ein ähnliches Verhalten zu erzielen, ändern Sie den <codeph>direction</codeph>-Parameter entsprechend.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeUp&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeUp
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeUp-Klasse definiert einen Verwischungseffekt nach oben. Der Status der Komponente vor oder nach dem Effekt muss unsichtbar sein. 
+ 
+  <p>Dieser Effekt wird oft mit <codeph>showEffect</codeph>- und <codeph>hideEffect</codeph>-Auslösern verwendet. Der <codeph>showEffect</codeph>-Auslöser wird aktiv, wenn eine Komponente sichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>false</codeph> in <codeph>true</codeph> geändert wird. Der <codeph>hideEffect</codeph>-Auslöser wird aktiv, wenn die Komponente unsichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>true</codeph> in <codeph>false</codeph> geändert wird.</p>
+ 
+  <p>Dieser Effekt erbt die <codeph>MaskEffect.show</codeph>-Eigenschaft. Wenn Sie den Wert auf <codeph>true</codeph> setzen, wird die Komponente eingeblendet. Wenn Sie den Wert auf <codeph>false</codeph> setzen, wird die Komponente ausgeblendet. Der Standardwert ist <codeph>true</codeph>.</p>
+  
+  <p>Geben Sie diesen Effekt für einen <codeph>showEffect</codeph>- oder <codeph>hideEffect</codeph>-Auslöser an, dann setzt Flex die <codeph>show</codeph>-Eigenschaft entweder auf <codeph>true</codeph>, wenn die Komponente ausgeblendet wird, oder auf <codeph>false</codeph>, wenn die Komponente eingeblendet wird.</p> 
+  
+  </apiDesc><example conref="WipeUpExample.mxml"><swfblock conref="examples/WipeUpExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeUpInstance"><linktext>mx.effects.effectClasses.WipeUpInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeUp:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+  Die WipeLeft-Klasse definiert einen Verwischungseffekt nach links.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeLeft" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Die richtungsspezifischen Verwischungseffekte in Flex 3 wurden durch einen allgemeineren Verwischungseffekt in eine generische Richtung ersetzt. Um bei dem neuen Verwischungseffekt ein ähnliches Verhalten zu erzielen, ändern Sie den <codeph>direction</codeph>-Parameter entsprechend.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeLeft&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeLeft
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeLeft-Klasse definiert einen Verwischungseffekt nach links. Der Status der Komponente vor oder nach dem Effekt muss unsichtbar sein. 
+ 
+  <p>Dieser Effekt wird oft mit <codeph>showEffect</codeph>- und <codeph>hideEffect</codeph>-Auslösern verwendet. Der <codeph>showEffect</codeph>-Auslöser wird aktiv, wenn eine Komponente sichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>false</codeph> in <codeph>true</codeph> geändert wird. Der <codeph>hideEffect</codeph>-Auslöser wird aktiv, wenn die Komponente unsichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>true</codeph> in <codeph>false</codeph> geändert wird.</p>
+ 
+  <p>Dieser Effekt erbt die <codeph>MaskEffect.show</codeph>-Eigenschaft. Wenn Sie den Wert auf <codeph>true</codeph> setzen, wird die Komponente eingeblendet. Wenn Sie den Wert auf <codeph>false</codeph> setzen, wird die Komponente ausgeblendet. Der Standardwert ist <codeph>true</codeph>.</p>
+ 
+  <p>Geben Sie diesen Effekt für einen <codeph>showEffect</codeph>- oder <codeph>hideEffect</codeph>-Auslöser an, dann setzt Flex die <codeph>show</codeph>-Eigenschaft entweder auf <codeph>true</codeph>, wenn die Komponente ausgeblendet wird, oder auf <codeph>false</codeph>, wenn die Komponente eingeblendet wird.</p> 
+ 
+  </apiDesc><example conref="WipeLeftExample.mxml"><swfblock conref="examples/WipeLeftExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeLeftInstance"><linktext>mx.effects.effectClasses.WipeLeftInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeLeft:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+  Die WipeRight-Klasse definiert einen Verwischungseffekt nach rechts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeRight" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Die richtungsspezifischen Verwischungseffekte in Flex 3 wurden durch einen allgemeineren Verwischungseffekt in eine generische Richtung ersetzt. Um bei dem neuen Verwischungseffekt ein ähnliches Verhalten zu erzielen, ändern Sie den <codeph>direction</codeph>-Parameter entsprechend.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeRight&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeRight
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeRight-Klasse definiert einen Verwischungseffekt nach rechts. Der Status der Komponente vor oder nach dem Effekt muss unsichtbar sein. 
+ 
+  <p>Dieser Effekt wird oft mit <codeph>showEffect</codeph>- und <codeph>hideEffect</codeph>-Auslösern verwendet. Der <codeph>showEffect</codeph>-Auslöser wird aktiv, wenn eine Komponente sichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>false</codeph> in <codeph>true</codeph> geändert wird. Der <codeph>hideEffect</codeph>-Auslöser wird aktiv, wenn die Komponente unsichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>true</codeph> in <codeph>false</codeph> geändert wird.</p>
+ 
+  <p>Dieser Effekt erbt die <codeph>MaskEffect.show</codeph>-Eigenschaft. Wenn Sie den Wert auf <codeph>true</codeph> setzen, wird die Komponente eingeblendet. Wenn Sie den Wert auf <codeph>false</codeph> setzen, wird die Komponente ausgeblendet. Der Standardwert ist <codeph>true</codeph>.</p>
+ 
+  <p>Geben Sie diesen Effekt für einen <codeph>showEffect</codeph>- oder <codeph>hideEffect</codeph>-Auslöser an, dann setzt Flex die <codeph>show</codeph>-Eigenschaft entweder auf <codeph>true</codeph>, wenn die Komponente ausgeblendet wird, oder auf <codeph>false</codeph>, wenn die Komponente eingeblendet wird. </p>
+  
+  </apiDesc><example conref="WipeRightExample.mxml"><swfblock conref="examples/WipeRightExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeRightInstance"><linktext>mx.effects.effectClasses.WipeRightInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeRight:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+  Die WipeDown-Klasse definiert einen Verwischungseffekt nach unten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeDown" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Die richtungsspezifischen Verwischungseffekte in Flex 3 wurden durch einen allgemeineren Verwischungseffekt in eine generische Richtung ersetzt. Um bei dem neuen Verwischungseffekt ein ähnliches Verhalten zu erzielen, ändern Sie den <codeph>direction</codeph>-Parameter entsprechend.
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeDown&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeDown
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die WipeDown-Klasse definiert einen Verwischungseffekt nach unten. Der Status der Komponente vor oder nach dem Effekt muss unsichtbar sein. 
+ 
+  <p>Dieser Effekt wird oft mit <codeph>showEffect</codeph>- und <codeph>hideEffect</codeph>-Auslösern verwendet. Der <codeph>showEffect</codeph>-Auslöser wird aktiv, wenn eine Komponente sichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>false</codeph> in <codeph>true</codeph> geändert wird. Der <codeph>hideEffect</codeph>-Auslöser wird aktiv, wenn die Komponente unsichtbar wird, indem ihre <codeph>visible</codeph>-Eigenschaft von <codeph>true</codeph> in <codeph>false</codeph> geändert wird.</p>
+ 
+  <p>Dieser Effekt erbt die <codeph>MaskEffect.show</codeph>-Eigenschaft. Wenn Sie den Wert auf <codeph>true</codeph> setzen, wird die Komponente eingeblendet. Wenn Sie den Wert auf <codeph>false</codeph> setzen, wird die Komponente ausgeblendet. Der Standardwert ist <codeph>true</codeph>.</p>
+ 
+  <p>Geben Sie diesen Effekt für einen <codeph>showEffect</codeph>- oder <codeph>hideEffect</codeph>-Auslöser an, dann setzt Flex die <codeph>show</codeph>-Eigenschaft entweder auf <codeph>true</codeph>, wenn die Komponente ausgeblendet wird, oder auf <codeph>false</codeph>, wenn die Komponente eingeblendet wird.</p> 
+  
+  </apiDesc><example conref="WipeDownExample.mxml"><swfblock conref="examples/WipeDownExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeDownInstance"><linktext>mx.effects.effectClasses.WipeDownInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeDown:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+  Die UnconstrainItemAction-Klasse definiert einen Aktionseffekt, der in einer Dateneffektdefinition verwendet wird, damit der Layoutalgorithmus des übergeordneten Steuerelements vorübergehend keine Elementrenderer platziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:UnconstrainItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:UnconstrainItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die UnconstrainItemAction-Klasse definiert einen Aktionseffekt, der in einer Dateneffektdefinition verwendet wird, damit der Layoutalgorithmus des übergeordneten Steuerelements vorübergehend keine Elementrenderer platziert. Dieser Effekt kann verwendet werden, damit sich Elementrenderer in einem TileList-Steuerelement frei bewegen können, statt auf das normale vom Steuerelement definierte Raster beschränkt zu sein. Die Standard-Dateneffektklasse für das TileList-Steuerelement, DefaultTileListEffect, verwendet diesen Effekt.
+ 
+  <p>Üblicherweise fügen Sie diesen Effekt hinzu, wenn der benutzerdefinierte Dateneffekt Elementrenderer verschiebt.</p>
+   
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#UnconstrainItemActionInstance"><linktext>mx.effects.effectClasses.UnconstrainItemActionInstance</linktext></link><link href="mx.effects.xml#DefaultTileListEffect"><linktext>mx.effects.DefaultTileListEffect</linktext></link></related-links><apiConstructor id="mx.effects:UnconstrainItemAction:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:ViewMenuLayout"><apiName>ViewMenuLayout</apiName><shortdesc>
+  ViewMenuLayout 类定义 ViewMenu 容器的布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ViewMenuLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ViewMenuLayout 
+    <strong>Properties</strong>
+    horizontalGap="2"
+    requestedMaxColumnCount="3"
+    verticalGap="2"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewMenuLayout 类定义 ViewMenu 容器的布局。菜单可以有多个行，具体取决于菜单项的数量。
+ 
+  <p><codeph>requestedMaxColumnCount</codeph> 属性定义一行中菜单项的最大数量。默认情况下，该属性的设置为 3。</p>
+ 
+  <p>ViewMenuLayout 类按如下定义布局： </p>
+  
+  <ul>
+    <li>如果您定义了 3 或少于 3 个菜单项，其中 <codeph>requestedMaxColumnCount</codeph> 属性包含的默认值为 3，则菜单项将显示在单个行中。每个菜单项的大小都是一样的。 
+       <p>如果您定义了 4 或多于 4 个菜单项，表示将通过 <codeph>requestedMaxColumnCount</codeph> 指定更多的菜单项，则 ViewMenu 容器将创建多个行。</p></li>
+    <li>如果菜单项的数量可以由 <codeph>requestedMaxColumnCount</codeph> 属性进行等分，则每一行将包含相等数量的菜单项。每个菜单项的大小都是一样的。
+       <p>例如 <codeph>requestedMaxColumnCount</codeph> 属性设置为默认值 3，且您定义了 6 个菜单项。菜单将显示两行，每一行中包含 3 个菜单项。 </p></li>
+    <li>如果菜单项的数量无法由 <codeph>requestedMaxColumnCount</codeph> 属性进行等分，则各个行所包含的菜单项的数量将不同。菜单项的大小将根据一行中菜单项的数量来决定。 
+       <p>例如 <codeph>requestedMaxColumnCount</codeph> 属性设置为默认值 3，且您定义了 8 个菜单项。菜单将显示 3 行。第一行包含 2 个菜单项。第二行与第三行每行包含 3 个项。 </p></li>
+  </ul>
+  
+  <p>您可以通过创建自己的布局类来为菜单创建自己的自定义布局。默认情况下，spark.skins.mobile.ViewMenuSkin 类定义 ViewMenu 容器的外观。要将自定义的 ViewMenuLayout 类应用于 ViewMenu 容器，请先为 ViewMenu 容器定义一个新的外观类。 </p>
+ 
+  <p>ViewMenuSkin 类包含 Group 容器的定义，名称为 <codeph>contentGroup</codeph>，如下所示：</p>
+ 
+  <pre>
+    &lt;s:Group id="contentGroup" left="0" right="0" top="3" bottom="2" 
+        minWidth="0" minHeight="0"> 
+        &lt;s:layout> 
+            &lt;s:ViewMenuLayout horizontalGap="2" verticalGap="2" id="contentGroupLayout" 
+                requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/> 
+        &lt;/s:layout> 
+    &lt;/s:Group></pre>
+ 
+  <p>要应用自定义的 ViewMenuLayout 类，您的外观类应定义一个容器，名称为 <codeph>contentGroup</codeph>。容器使用 <codeph>layout</codeph> 属性指定自定义的布局类。 </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewMenu"><linktext>spark.components.ViewMenu</linktext></link><link href="spark.components.xml#ViewMenuItem"><linktext>spark.components.ViewMenuItem</linktext></link><link href="" invalidHref="spark.skins.mobile.ViewMenuSkin.xml"><linktext>spark.skins.mobile.ViewMenuSkin</linktext></link></related-links><apiConstructor id="spark.layouts:ViewMenuLayout:ViewMenuLayout"><apiName>ViewMenuLayout</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts:ViewMenuLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      列之间的水平间距（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列之间的水平间距（以像素为单位）。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#ViewMenuLayout/verticalGap"><linktext>verticalGap</linktext></link></related-links></apiValue><apiValue id="spark.layouts:ViewMenuLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      在一行中可显示列的最大数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在一行中可显示列的最大数量。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ViewMenuLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      行之间的垂直间距（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行之间的垂直间距（以像素为单位）。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#ViewMenuLayout/horizontalGap"><linktext>horizontalGap</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

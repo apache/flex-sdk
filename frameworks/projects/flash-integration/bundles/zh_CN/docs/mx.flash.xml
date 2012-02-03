@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.flash"><apiName>mx.flash</apiName><apiDetail/><apiClassifier id="mx.flash:UIMovieClip"><apiName>UIMovieClip</apiName><shortdesc>
+  在 Adobe Flash Professional 中创建以便在 Flex 中使用的组件是 mx.flash.UIMovieClip 类的子类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.core:IDeferredInstantiationUIComponent</apiBaseInterface><apiBaseInterface>mx.managers:IToolTipManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IStateClient</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IConstraintClient</apiBaseInterface><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.core:ILayoutElement</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseClassifier>flash.display:MovieClip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在 Adobe Flash Professional 中创建以便在 Flex 中使用的组件是 mx.flash.UIMovieClip 类的子类。UIMovieClip 类用于实现其使用方式与普通 Flex 组件一样的某个 Flash 组件的必要接口。因此，UIMovieClip 的子类可以用作 Flex 容器的子项或外观，它可以响应事件、定义视图状态和转换，还可以像所有 Flex 组件一样使用效果。
+   <p>以下过程描述了在 Flash Professional 中创建 Flex 组件的基本流程：</p>
+   <ol>
+    <li>安装 Adobe Flash Component Kit for Flex。</li> 
+    <li>在 FLA 文件中为动态资源创建元件。</li>
+    <li>运行“命令”>“生成 Flex 组件”，将元件转换为 UIMovieClip 类的子类，并配置 Flash Professional 发布设置以使用 Flex。</li> 
+    <li>将 FLA 文件发布为 SWC 文件。</li> 
+    <li>像使用其他类一样，在 Flex 应用程序中引用元件的类名称。</li> 
+    <li>编译 Flex 应用程序时，在 <codeph>library-path</codeph> 中包括 SWC 文件。</li>
+  </ol>
+   <p>有关详细信息，请参阅随 Flex/Flash 集成工具包提供的文档，网址为 <xref href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</xref>。</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_START_toolTipStart"><apiName>toolTipStart</apiName><shortdesc>
+  用户将鼠标移动到设置了 toolTip 属性的组件上方后，由该组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_START</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  用户将鼠标移动到设置了 <codeph>toolTip</codeph> 属性的组件上方后，由该组件分派。
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_SHOWN_toolTipShown"><apiName>toolTipShown</apiName><shortdesc>
+  显示组件的 ToolTip 时由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_SHOWN</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  显示组件的 ToolTip 时由组件分派。
+   <p>如果使用 <codeph>ToolTipManager.showEffect</codeph> 属性指定了效果，则在停止播放该效果之后分派此事件。</p>
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_SHOW_toolTipShow"><apiName>toolTipShow</apiName><shortdesc>
+  要显示组件的 ToolTip 时由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_SHOW</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  要显示组件的 ToolTip 时由组件分派。
+   <p>如果使用 <codeph>ToolTipManager.showEffect</codeph> 属性指定了效果，则在开始播放该效果之前分派此事件。您可以使用此事件在 ToolTip 出现前对其进行修改。</p>
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_HIDE_toolTipHide"><apiName>toolTipHide</apiName><shortdesc>
+  要隐藏组件的 ToolTip 时由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_HIDE</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  要隐藏组件的 ToolTip 时由组件分派。
+   <p>如果使用 <codeph>ToolTipManager.hideEffect</codeph> 属性指定了效果，则在开始播放该效果之前分派此事件。</p>
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_END_toolTipEnd"><apiName>toolTipEnd</apiName><shortdesc>
+  已隐藏组件的 ToolTip 并要将其放弃时由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_END</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  已隐藏组件的 ToolTip 并要将其放弃时由组件分派。
+   <p>如果使用 <codeph>ToolTipManager.hideEffect</codeph> 属性指定了效果，则在停止播放该效果后分派此事件。</p>
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ToolTipEvent.TOOL_TIP_CREATE_toolTipCreate"><apiName>toolTipCreate</apiName><shortdesc>
+  要创建 ToolTip 时由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ToolTipEvent.TOOL_TIP_CREATE</apiEventType><adobeApiEventClassifier>mx.events.ToolTipEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  要创建 ToolTip 时由组件分派。
+   <p>如果创建了自己的 IToolTip 对象，并在传递到 <codeph>toolTipCreate</codeph> 处理函数的事件对象的 <codeph>toolTip</codeph> 属性中置入了对该对象的引用，则 ToolTipManager 将显示您的自定义 ToolTip。否则，ToolTipManager 将创建 <codeph>ToolTipManager.toolTipClass</codeph> 的实例以用于显示。</p>
+   <p>ToolTip 事件的顺序为 <codeph>toolTipStart</codeph>、<codeph>toolTipCreate</codeph>、<codeph>toolTipShow</codeph>、<codeph>toolTipShown</codeph>、<codeph>toolTipHide</codeph> 和 <codeph>toolTipEnd</codeph>。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.StateChangeEvent.CURRENT_STATE_CHANGE_currentStateChange"><apiName>currentStateChange</apiName><shortdesc>
+  视图状态更改后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.StateChangeEvent.CURRENT_STATE_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.StateChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  视图状态更改后分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.StateChangeEvent.CURRENT_STATE_CHANGING_currentStateChanging"><apiName>currentStateChanging</apiName><shortdesc>
+  在 currentState 属性更改后但视图状态更改前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.StateChangeEvent.CURRENT_STATE_CHANGING</apiEventType><adobeApiEventClassifier>mx.events.StateChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 <codeph>currentState</codeph> 属性更改后但视图状态更改前分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><shortdesc>
+  在拖动操作完成时（将拖动的数据放到放置目标时或在没有执行放置操作的情况下结束拖放操作时）由拖动启动器（作为要拖动的数据源的组件）分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在拖动操作完成时（将拖动的数据放到放置目标时或在没有执行放置操作的情况下结束拖放操作时）由拖动启动器（作为要拖动的数据源的组件）分派。
+   <p>您可以使用此事件执行拖放操作的任意最终清理。例如，将 List 控件项目从一个列表拖动到另一个列表时，如果不再需要此 List 控件项目，则可以将其从源列表中删除。</p>
+   <p>将数据从一个 Tree 控件拖动到另一个控件时，如果在 Tree 控件 <codeph>dragComplete</codeph> 事件的事件处理函数调用 <codeph>Event.preventDefault()</codeph>，它将阻止该放置操作。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><shortdesc>
+  用户在放置目标上释放鼠标时由放置目标分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  用户在放置目标上释放鼠标时由放置目标分派。
+   <p>可以使用此事件处理函数将拖动数据添加到放置目标。</p>
+   <p>将数据从一个 Tree 控件拖动到另一个控件时，如果在 Tree 控件 <codeph>dragDrop</codeph> 事件的事件处理函数调用 <codeph>Event.preventDefault()</codeph>，它将阻止该放置操作。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_EXIT_dragExit"><apiName>dragExit</apiName><shortdesc>
+  用户在组件外拖动但没有将数据放置到目标时，由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_EXIT</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  用户在组件外拖动但没有将数据放置到目标时，由组件分派。
+   <p>如果在处理 <codeph>dragEnter</codeph> 或 <codeph>dragOver</codeph> 事件时修改了放置目标的外观，则可以使用此事件将放置目标还原为正常外观。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_OVER_dragOver"><apiName>dragOver</apiName><shortdesc>
+  在拖动操作期间，当用户在鼠标位于组件上方的情况下移动鼠标时，由组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_OVER</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在拖动操作期间，当用户在鼠标位于组件上方的情况下移动鼠标时，由组件分派。
+   <p>在处理函数中，您可以通过更改放置目标的外观向用户提供可视反馈，即组件可以接受此拖动。例如，您可以围绕放置目标绘制一个边框，或者为放置目标提供焦点。</p>
+   <p>您应该对此事件进行处理，从而在允许放置之前执行其他逻辑，例如，将数据放置在放置目标中的各不同位置，读取键盘输入以确定拖放操作是拖动还是复制拖放数据，或者根据拖放操作类型提供不同类型的可视反馈。</p>
+   <p>您还可以通过更改 <codeph>DragManager.showFeedback()</codeph> 方法来更改拖动操作的类型。<codeph>action</codeph> 属性的默认值为 <codeph>DragManager.MOVE</codeph>。</p>
+   </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.DragEvent.DRAG_ENTER_dragEnter"><apiName>dragEnter</apiName><shortdesc>
+  当用户在拖动操作过程中将鼠标移动到某个组件所处的位置时，由该组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DragEvent.DRAG_ENTER</apiEventType><adobeApiEventClassifier>mx.events.DragEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户在拖动操作过程中将鼠标移动到某个组件所处的位置时，由该组件分派。
+   <p>为使放置目标有效，您必须为此事件定义处理函数。在处理函数中，您可以通过更改放置目标的外观向用户提供可视反馈，即组件可以接受此拖动。例如，您可以围绕放置目标绘制一个边框，或者为放置目标提供焦点。</p>
+   <p>如果希望接受拖动，您必须调用 <codeph>DragManager.acceptDragDrop()</codeph> 方法。如果不调用 <codeph>acceptDragDrop()</codeph>，您将无法获得其他任何拖动事件。</p>
+   <p><codeph>action</codeph> 属性的值始终是 <codeph>DragManager.MOVE</codeph>，即使用户执行的是复制操作也不例外。这是因为在控件识别出已按下 Ctrl 键来指示复制之前，即已发生 <codeph>dragEnter</codeph> 事件。<codeph>dragOver</codeph> 事件的事件对象的 <codeph>action</codeph> 属性确实包含指示拖动操作类型的值。</p>
+ 
+  <p>您可以通过调用 <codeph>DragManager.showFeedback()</codeph> 方法来更改拖动操作的类型。</p>
+   </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE_mouseWheelOutside"><apiName>mouseWheelOutside</apiName><shortdesc>
+  当用户使用鼠标滚轮滚动到使用 PopUpManager 打开的某个组件外部时，从该组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexMouseEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户使用鼠标滚轮滚动到使用 PopUpManager 打开的某个组件外部时，从该组件分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE_mouseDownOutside"><apiName>mouseDownOutside</apiName><shortdesc>
+  当用户在使用 PopUpManager 打开的某个组件外部单击时，从该组件分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexMouseEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户在使用 PopUpManager 打开的某个组件外部单击时，从该组件分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.SHOW_show"><apiName>show</apiName><shortdesc>
+  当对象的状态从不可见变为可见时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.SHOW</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当对象的状态从不可见变为可见时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.ResizeEvent.RESIZE_resize"><apiName>resize</apiName><shortdesc>
+  在调整组件大小时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ResizeEvent.RESIZE</apiEventType><adobeApiEventClassifier>mx.events.ResizeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整组件大小时分派。
+   <p>您可以通过以下方法调整组件大小：设置 <codeph>width</codeph> 或 <codeph>height</codeph> 属性、调用 <codeph>setActualSize()</codeph> 方法、在该组件上或其他组件上设置下列属性之一以使 LayoutManager 需要更改该组件的 <codeph>width</codeph> 或 <codeph>height</codeph> 属性：</p>
+   <ul>
+    <li><codeph>minWidth</codeph></li>
+    <li><codeph>minHeight</codeph></li>
+    <li><codeph>maxWidth</codeph></li>
+    <li><codeph>maxHeight</codeph></li>
+    <li><codeph>explicitWidth</codeph></li>
+    <li><codeph>explicitHeight</codeph></li>
+  </ul>
+   <p>在更改该属性之前，不会分派 <codeph>resize</codeph> 事件。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.REMOVE_remove"><apiName>remove</apiName><shortdesc>
+  使用 removeChild() 或 removeChildAt() 方法将组件作为内容子项从容器中删除时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.REMOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  使用 <codeph>removeChild()</codeph> 或 <codeph>removeChildAt()</codeph> 方法将组件作为内容子项从容器中删除时分派。如果已使用 <codeph>rawChildren.removeChild()</codeph> 或 <codeph>rawChildren.removeChildAt()</codeph> 方法将组件作为非内容子项从容器中删除，则不会分派此事件。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.PREINITIALIZE_preinitialize"><apiName>preinitialize</apiName><shortdesc>
+  在组件初始化序列开始时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.PREINITIALIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在组件初始化序列开始时分派。分派此事件时，组件恰处于原始状态。许多组件（如 Button 控件）可创建内部子组件来实现功能；例如，Button 控件可创建内部 UITextField 组件来呈示其标签文本。当 Flex 分派 <codeph>preinitialize</codeph> 事件时，尚未创建组件的子项（包括内部子项）。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.MoveEvent.MOVE_move"><apiName>move</apiName><shortdesc>
+  移动对象后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.MoveEvent.MOVE</apiEventType><adobeApiEventClassifier>mx.events.MoveEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  移动对象后分派。
+   <p>您可以通过以下方法移动组件：设置 <codeph>x</codeph> 或 <codeph>y</codeph> 属性、调用 <codeph>move()</codeph> 方法，在该组件上或其他组件上设置下列属性以使 LayoutManager 更改该组件的 <codeph>x</codeph> 或 <codeph>y</codeph> 属性：</p>
+   <ul>
+    <li><codeph>minWidth</codeph></li>
+    <li><codeph>minHeight</codeph></li>
+    <li><codeph>maxWidth</codeph></li>
+    <li><codeph>maxHeight</codeph></li>
+    <li><codeph>explicitWidth</codeph></li>
+    <li><codeph>explicitHeight</codeph></li>
+  </ul>
+   <p>调用 <codeph>move()</codeph> 方法时，将在此方法返回之前分派 <codeph>move</codeph> 事件。在其他所有情形下，在该属性更改之前都不会分派 <codeph>move</codeph> 事件。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.INITIALIZE_initialize"><apiName>initialize</apiName><shortdesc>
+  当组件完成构建并设置了所有初始化属性后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.INITIALIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当组件完成构建并设置了所有初始化属性后分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.HIDE_hide"><apiName>hide</apiName><shortdesc>
+  当对象的状态从可见变为不可见时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.HIDE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当对象的状态从可见变为不可见时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.CREATION_COMPLETE_creationComplete"><apiName>creationComplete</apiName><shortdesc>
+  当组件完成构建时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.CREATION_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当组件完成构建时分派。对于基于 Flash 的组件，同时还将分派 <codeph>initialize</codeph> 事件。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.flash:UIMovieClip_mx.events.FlexEvent.ADD_add"><apiName>add</apiName><shortdesc>
+  使用 addChild() 或 addChildAt() 方法将组件作为内容子项添加到容器时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ADD</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  使用 <codeph>addChild()</codeph> 或 <codeph>addChildAt()</codeph> 方法将组件作为内容子项添加到容器时分派。如果已使用 <codeph>rawChildren.addChild()</codeph> 或 <codeph>rawChildren.addChildAt()</codeph> 方法将该组件作为非内容子项添加到容器，则不会分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.flash:UIMovieClip:UIMovieClip"><apiName>UIMovieClip</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.flash:UIMovieClip:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:createReferenceOnParentDocument"><apiName>createReferenceOnParentDocument</apiName><shortdesc>
+      在 IUIComponent 对象的父项文档对象上创建对此对象的 id 引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parentDocument</apiItemName><apiType value="mx.core:IFlexDisplayObject"/><apiDesc>此 IUIComponent 对象的父项。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在 IUIComponent 对象的父项文档对象上创建对此对象的 <codeph>id</codeph> 引用。此函数可以对一个或多个 repeater 中的象创建多维引用，如 b[2][4]。如果索引为 null，它将创建一个简单的非 Array 引用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:deleteReferenceOnParentDocument"><apiName>deleteReferenceOnParentDocument</apiName><shortdesc>
+      在 IUIComponent 对象的父项文档对象上删除对此对象的 id 引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parentDocument</apiItemName><apiType value="mx.core:IFlexDisplayObject"/><apiDesc>此 IUIComponent 对象的父项。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在 IUIComponent 对象的父项文档对象上删除对此对象的 <codeph>id</codeph> 引用。此函数可以对一个或多个 Repeater 中的对象删除多维引用，如 b[2][4]。如果索引为 null，它将删除简单的非 Array 引用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:drawFocus"><apiName>drawFocus</apiName><shortdesc>
+      当组件获得焦点时，由 FocusManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>isFocused</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>true</codeph>，则绘制焦点指示符，否则隐藏它。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当组件获得焦点时，由 FocusManager 调用。组件应该绘制或隐藏表示组件具有焦点的图形。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:enterFrameHandler"><apiName>enterFrameHandler</apiName><shortdesc>
+      当 width、height、x 或 y 值更改时，将使用此 enter 帧处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      当 width、height、x 或 y 值更改时，将使用此 enter 帧处理函数。这就是该更改可以进行延迟的原因，这样同时设置 x 和 y 仅会导致一个 change 事件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:executeBindings"><apiName>executeBindings</apiName><shortdesc>
+      将数据绑定到此 UIComponent 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>以递归方式为此组件的子项执行绑定。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将数据绑定到此 UIComponent 对象。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:findFocusCandidates"><apiName>findFocusCandidates</apiName><shortdesc>
+      以递归方式查找所有 tabEnabled=true 的子项，并将它们添加到 focusableObjects 数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObjectContainer"/></apiParam></apiOperationDef><apiDesc>
+      以递归方式查找所有 tabEnabled=true 的子项，并将它们添加到 focusableObjects 数组。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:focusInHandler"><apiName>focusInHandler</apiName><shortdesc>
+      当焦点进入我们的任一子项时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:FocusEvent"/></apiParam></apiOperationDef><apiDesc>
+      当焦点进入我们的任一子项时调用。确保调用了焦点事件处理程序，以便从 Flex 焦点管理器进行控制。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.automation:IAutomationObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getConstraintValue"><apiName>getConstraintValue</apiName><shortdesc conref="mx.core.IConstraintClient#getConstraintValue()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.IConstraintClient#getConstraintValue()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getExplicitOrMeasuredHeight"><apiName>getExplicitOrMeasuredHeight</apiName><shortdesc>
+      确定是使用显式高度还是测量高度的一种简便方法
+           </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个 Number，在已定义的情况下是 explicitHeight，在未定义的情况下是 measuredHeight。
+      
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      确定是使用显式高度还是测量高度的一种简便方法
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getExplicitOrMeasuredWidth"><apiName>getExplicitOrMeasuredWidth</apiName><shortdesc>
+      确定是使用显式宽度还是测量宽度的一种简便方法
+           </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个 Number，在已定义的情况下是 explicitWidth，在未定义的情况下是 measuredWidth。
+      
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      确定是使用显式宽度还是测量宽度的一种简便方法
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsHeight"><apiName>getLayoutBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsWidth"><apiName>getLayoutBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsX"><apiName>getLayoutBoundsX</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutBoundsY"><apiName>getLayoutBoundsY</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutMatrix3D"><apiName>getLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getLayoutMatrix"><apiName>getLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMaxBoundsHeight"><apiName>getMaxBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMaxBoundsWidth"><apiName>getMaxBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMinBoundsHeight"><apiName>getMinBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getMinBoundsWidth"><apiName>getMinBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getPreferredBoundsHeight"><apiName>getPreferredBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:getPreferredBoundsWidth"><apiName>getPreferredBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:initialize"><apiName>initialize</apiName><shortdesc>
+      初始化对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      初始化对象。
+           </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/initialize()"><linktext>mx.core.UIComponent.initialize()</linktext></link></related-links></apiOperation><apiOperation id="mx.flash:UIMovieClip:invalidateLayoutDirection"><apiName>invalidateLayoutDirection</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:invalidateParentSizeAndDisplayList"><apiName>invalidateParentSizeAndDisplayList</apiName><shortdesc>
+      此对象影响其布局时（includeInLayout 为 true），使父代大小和显示列表失效的 Helper 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此对象影响其布局时（includeInLayout 为 true），使父代大小和显示列表失效的 Helper 方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:move"><apiName>move</apiName><shortdesc>
+      将此对象移动到指定的 x 和 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>此对象的新 x 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>此对象的新 y 位置。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将此对象移动到指定的 x 和 y 坐标。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:notifySizeChanged"><apiName>notifySizeChanged</apiName><shortdesc>
+      通知父项大小已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      通知父项大小已更改。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:owns"><apiName>owns</apiName><shortdesc>
+      如果 owner 属性链从 child 指向此 UIComponent，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果子项以此 UIComponent 为父项或归其所有，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>一个 UIComponent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 <codeph>owner</codeph> 属性链从 <codeph>child</codeph> 指向此 UIComponent，则返回 <codeph>true</codeph>。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      当在父项中添加或删除 UIComponent 对象时由 Flex 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>p</apiItemName><apiType value="flash.display:DisplayObjectContainer"/><apiDesc>此 UIComponent 对象的父项。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当在父项中添加或删除 UIComponent 对象时由 Flex 调用。开发人员通常无需调用此方法。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      对于每个效果事件，注册 EffectManager 作为其中一个事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>效果名称的字符串 Array。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对于每个效果事件，注册 EffectManager 作为其中一个事件侦听器。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+      设置此对象的实际大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>此对象的新宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>此对象的新高度。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置此对象的实际大小。
+           <p>此方法主要用于实现 <codeph>updateDisplayList()</codeph> 方法。在此期间，您可以根据其显式大小、相对于父项的（百分比）大小以及度量大小计算此对象的实际大小。然后，通过调用 <codeph>setActualSize()</codeph> 将此实际大小应用于对象。</p>
+           <p>在其他情况下，您应该设置 <codeph>width</codeph>、<codeph>height</codeph>、<codeph>percentWidth</codeph> 或 <codeph>percentHeight</codeph> 属性，而非调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setConstraintValue"><apiName>setConstraintValue</apiName><shortdesc conref="mx.core.IConstraintClient#setConstraintValue()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.IConstraintClient#setConstraintValue()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setFocus"><apiName>setFocus</apiName><shortdesc>
+      当组件获得焦点时，由 FocusManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      当组件获得焦点时，由 FocusManager 调用。同样，该组件可以将焦点设置给某个内部组件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutBoundsPosition"><apiName>setLayoutBoundsPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutBoundsSize"><apiName>setLayoutBoundsSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutMatrix3D"><apiName>setLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix3D"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setLayoutMatrix"><apiName>setLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:UIMovieClip:setVisible"><apiName>setVisible</apiName><shortdesc>
+      当 visible 属性发生更改时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc><codeph>visible</codeph> 属性的新值。指定 <codeph>true</codeph> 可显示组件，指定 <codeph>false</codeph> 可隐藏组件。 
+           </apiDesc></apiParam><apiParam><apiItemName>noEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则不分派事件。如果为 <codeph>false</codeph>，则当组件变为可见时分派 <codeph>show</codeph> 事件，当组件变为不可见时分派 <codeph>hide</codeph> 事件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当 <codeph>visible</codeph> 属性发生更改时调用。您应设置 <codeph>visible</codeph> 属性来显示或隐藏组件，而不是直接调用此方法。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:transformAround"><apiName>transformAround</apiName><shortdesc>
+      用于更新转换的旋转、缩放和平移的一种实用程序方法，同时保留某个特定点，该点是在组件自己的坐标空间中指定的，且在父项的坐标空间中是固定的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transformCenter</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>在组件自己的坐标中用于相对于其父项保持固定的点。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>translation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutScale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>    
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutRotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTranslation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData><apiDesc>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于更新转换的旋转、缩放和平移的一种实用程序方法，同时保留某个特定点，该点是在组件自己的坐标空间中指定的，且在父项的坐标空间中是固定的。此函数将指定提供的旋转值、缩放值和平移值，然后根据需要更新 x/y/z 属性以保持转换中心固定。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:transformPointToParent"><apiName>transformPointToParent</apiName><shortdesc>
+      一种实用程序方法，用于将以该对象的本地坐标指定的点转换为在该对象父坐标中的相应位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><postLayoutPosition>A Vector3D point that will hold the post-layout
+      result. If null, the parameter is ignored.
+     
+      </postLayoutPosition></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>localPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>将要转换的点，指定为对象的本地坐标。
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam><apiParam><apiItemName>postLayoutPosition</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam></apiOperationDef><apiDesc>
+      一种实用程序方法，用于将以该对象的本地坐标指定的点转换为在该对象父坐标中的相应位置。如果 <codeph>position</codeph> 和 <codeph>postLayoutPosition</codeph> 参数为非 null，将对这两个参数设置布局前和布局后结果。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:UIMovieClip:protected:transitionEnterFrameHandler"><apiName>transitionEnterFrameHandler</apiName><shortdesc>
+      此 enter 帧处理函数通过转换进行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      此 enter 帧处理函数通过转换进行。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.flash:UIMovieClip:boundingBoxName"><apiName>boundingBoxName</apiName><shortdesc>
+      用作边框的对象的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>boundingBox</apiData><apiType value="String"/><apiDefaultValue>"boundingBox"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用作边框的对象的名称。
+           <p>边框是一个对象，供 Flex 用于确定组件大小。实际内容可能大于边框，也可能小于边框，但 Flex 在布置组件时将使用边框大小。此对象是可选的。如果省略了此对象，则使用组件的实际内容大小。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:protected:initialized"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:autoUpdateCurrentState:get"><apiName>autoUpdateCurrentState</apiName><shortdesc>
+      我们是否应主动观察对 flash 对象的标签的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      我们是否应主动观察对 flash 对象的标签的更改。Flex <codeph>currentState</codeph> 属性依赖于此 flash 标签。如果将此属性设置为 <codeph>true</codeph>，则对于每个帧，都将查询 flash 对象的标签。如果标签已更改，则这将成为 Flex 对象的新 <codeph>currentState</codeph>。
+     
+      <p>注意：因为我们现在正在请求 flash 对象在每个单帧下的当前标签，所以将此属性设置为 <codeph>true</codeph> 可能会代价很高。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:autoUpdateMeasuredSize:get"><apiName>autoUpdateMeasuredSize</apiName><shortdesc>
+      我们是否应主动观察对 flash 对象的大小的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      我们是否应主动观察对 flash 对象的大小的更改。如果将此属性设置为 <codeph>true</codeph>，则对于每个帧，都将确定 flash 对象的大小。如果大小已更改，则 flash 对象将相应地缩放以适合其显式边界（或者，如果不存在显式调整大小，则它将调整大小并通知其父代）。
+     
+      <p>注意：因为我们现在正在请求 flash 对象在每个单帧下的当前大小，所以将此属性设置为 <codeph>true</codeph> 可能会代价很高。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      处理自动化相关功能的委托对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      处理自动化相关功能的委托对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationName:get"><apiName>automationName</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:automationValue:get"><apiName>automationValue</apiName><shortdesc conref="mx.automation.IAutomationObject#automationValue">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.automation.IAutomationObject#automationValue">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+      组件第一行文本的基线的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      组件第一行文本的基线的 y 坐标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:baseline:get"><apiName>baseline</apiName><shortdesc>
+      从内容区域顶边到组件基线位置的垂直距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从内容区域顶边到组件基线位置的垂直距离（以像素为单位）。如果设置了此属性，组件的基线将锚定在其内容区域的顶边；当调整其容器大小时，这两条边始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:bottom:get"><apiName>bottom</apiName><shortdesc>
+      从组件底边到其内容区域底边之间的垂直距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从组件底边到其内容区域底边之间的垂直距离（以像素为单位）。如果设置了此属性，组件的底边将锚定在其内容区域的底边；当调整其容器大小时，这两条边始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:protected:bounds:get"><apiName>bounds</apiName><shortdesc>
+      未经缩放的内容范围。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      未经缩放的内容范围。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:cachePolicy:get"><apiName>cachePolicy</apiName><shortdesc>
+      指定此对象的位图缓存策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>UIComponentCachePolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定此对象的位图缓存策略。在 MXML 中，可能值为 <codeph>"on"</codeph>、<codeph>"off"</codeph> 和 <codeph>"auto"</codeph>（默认值）。
+     
+      <p>在 ActionScript 中，可能值为 <codeph>UIComponentCachePolicy.ON</codeph>、<codeph>UIComponentCachePolicy.OFF</codeph> 和 <codeph>UIComponentCachePolicy.AUTO</codeph>（默认值）。</p>
+           <p><ul>
+        <li>如果值为 <codeph>UIComponentCachePolicy.ON</codeph>，则表示对象始终作为位图缓存。</li>
+        <li>如果值为 <codeph>UIComponentCachePolicy.OFF</codeph>，则表示对象从不作为位图缓存。</li>
+        <li>如果值为 <codeph>UIComponentCachePolicy.AUTO</codeph>，则表示框架将使用试探法确定此对象是否应作为位图缓存。</li>
+      </ul></p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:currentState:get"><apiName>currentState</apiName><shortdesc>
+      此组件的当前状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此组件的当前状态。对于 UIMovieClip，<codeph>currentState</codeph> 属性的值是当前的帧标签。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:depth:get"><apiName>depth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:descriptor:get"><apiName>descriptor</apiName><shortdesc>
+      引用 UIComponentDescriptor（如果有），过去曾通过 createComponentFromDescriptor() 方法使用它来创建此 UIComponent 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:UIComponentDescriptor"/></apiValueDef><apiDesc>
+      引用 UIComponentDescriptor（如果有），过去曾通过 <codeph>createComponentFromDescriptor()</codeph> 方法使用它来创建此 UIComponent 实例。如果此 UIComponent 实例并非基于描述符创建，则此属性为 null。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.UIComponentDescriptor.xml"><linktext>mx.core.UIComponentDescriptor</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:designLayer:get"><apiName>designLayer</apiName><shortdesc conref="mx.core.IVisualElement#designLayer">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:DesignLayer"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#designLayer">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:document:get"><apiName>document</apiName><shortdesc conref="mx.core.IUIComponent#document">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#document">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      在组件坐标中显式指定的组件高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中显式指定的组件高度（以像素为单位）。如果没有显式指定的高度，则值为 <codeph>NaN</codeph>。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitHeight"><linktext>mx.core.UIComponent.explicitHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      在组件坐标中指定组件最大高度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最大高度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxHeight"><linktext>mx.core.UIComponent.explicitMaxHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      在组件坐标中指定组件最大宽度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最大宽度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxWidth"><linktext>mx.core.UIComponent.explicitMaxWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc>
+      在组件坐标中指定组件最小高度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最小高度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinHeight"><linktext>mx.core.UIComponent.explicitMinHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc>
+      在组件坐标中指定组件最小宽度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最小宽度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinWidth"><linktext>mx.core.UIComponent.explicitMinWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      在组件坐标中显式指定的组件宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中显式指定的组件宽度（以像素为单位）。如果没有显式指定的宽度，则值为 <codeph>NaN</codeph>。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitWidth"><linktext>mx.core.UIComponent.explicitWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      一个标志，用于指示组件处于选中状态时是否可以获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示组件处于选中状态时是否可以获得焦点。
+     
+      <p>如果组件中的子组件实现了 IFocusManagerComponent 接口，但是您从不希望它获得焦点，作为一种优化，您可以先将 <codeph>focusEnabled</codeph> 设置为 <codeph>false</codeph>，然后再在子组件上调用 <codeph>addChild()</codeph>。</p>
+     
+      <p>这将使 FocusManager 忽略此组件，并且使它不会对组件进行监视以查看 <codeph>tabFocusEnabled</codeph>、<codeph>tabChildren</codeph> 和 <codeph>mouseFocusEnabled</codeph> 属性是否发生更改。这也意味着 <codeph>addChild()</codeph> 之后，您无法更改此值，也不能指望 FocusManager 进行监视。</p>
+           <p>注意：这并不意味着您无法在 <codeph>setFocus()</codeph> 方法中以编程方式使此对象获得焦点；它仅通知 FocusManager 在 Tab 和鼠标搜索中忽略此 IFocusManagerComponent 组件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:focusPane:get"><apiName>focusPane</apiName><shortdesc>
+      在组件中共享并用作绘图焦点叠加层的单个 Sprite 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      在组件中共享并用作绘图焦点叠加层的单个 Sprite 对象。如果组件的父项具有焦点，则这些组件共享此对象；如果该组件实现了 IFocusManagerComponent 接口，则不共享此对象。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/focusPane"><linktext>mx.core.UIComponent.focusPane</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:hasFocusableChildren:get"><apiName>hasFocusableChildren</apiName><shortdesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="hasFocusableChildrenChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:hasLayoutMatrix3D:get"><apiName>hasLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:height:get"><apiName>height</apiName><shortdesc>
+      此对象的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:horizontalCenter:get"><apiName>horizontalCenter</apiName><shortdesc>
+      从组件内容区域的中心到组件中心的水平距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从组件内容区域的中心到组件中心的水平距离（以像素为单位）。如果设置了此属性，组件的中心将锚定在其内容区域的中心；当调整其容器大小时，这两个中心在水平方向上始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:id:get"><apiName>id</apiName><shortdesc>
+      组件 ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      组件 ID。此值将作为对象的实例名称，因此不应包含任何空格或特殊字符。应用程序中的每个组件都应具有唯一的 ID。
+           <p>如果将使用第三方工具对您的应用程序进行测试，请为每个组件赋予一个有意义的 ID。测试工具使用 ID 代表其脚本中的控件，因此使用有意义的名称可使脚本更具可读性。例如，将某个按钮的值设置为 submit_button 而不是 b1 或 button1。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc>
+      指定此组件是否包含在父容器的布局中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定此组件是否包含在父容器的布局中。如果为 <codeph>true</codeph>，则该对象包含在其父容器的布局中。如果为 <codeph>false</codeph>，则由其父容器按布局规则定位该对象，但计算下一子项的位置时将忽略该对象。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:is3D:get"><apiName>is3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:isPopUp:get"><apiName>isPopUp</apiName><shortdesc>
+      PopUpManager 将其设置为 true 以指示已弹出该组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      PopUpManager 将其设置为 <codeph>true</codeph> 以指示已弹出该组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:layoutDirection:get"><apiName>layoutDirection</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:left:get"><apiName>left</apiName><shortdesc>
+      从组件内容区域的左边到组件左边之间的水平距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从组件内容区域的左边到组件左边之间的水平距离（以像素为单位）。如果设置了此属性，组件的左边将锚定在其内容区域的左边；当调整其容器大小时，这两条边始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      在组件坐标中指定组件最大高度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最大高度的数字（以像素为单位）。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/maxHeight"><linktext>mx.core.UIComponent.maxHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      在组件坐标中指定组件最大宽度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最大宽度的数字（以像素为单位）。
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/maxWidth"><linktext>mx.core.UIComponent.maxWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+      此对象的测量高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的测量高度。
+           <p>通常为图形外观硬编码此属性，因为此数字只是图形中的像素数目。对于代码外观来说，如果希望以特定大小进行绘制，也可以对其进行硬编码。如果此大小可以随属性更改，您可能还希望是 ILayoutManagerClient，以便在适当时调用 <codeph>measure()</codeph> 方法，从而能够计算 <codeph>measuredHeight</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredMinHeight:get"><apiName>measuredMinHeight</apiName><shortdesc>
+      组件的默认最小高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      组件的默认最小高度（以像素为单位）。此值由 <codeph>measure()</codeph> 方法设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredMinWidth:get"><apiName>measuredMinWidth</apiName><shortdesc>
+      组件的默认最小宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      组件的默认最小宽度（以像素为单位）。此值由 <codeph>measure()</codeph> 方法设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+      此对象的测量宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的测量宽度。
+           <p>通常为图形外观硬编码此属性，因为此数字只是图形中的像素数目。对于代码外观来说，如果希望以特定大小进行绘制，也可以对其进行硬编码。如果此大小可以随属性更改，您可能还希望是 ILayoutManagerClient，以便在适当时调用 <codeph>measure()</codeph> 方法，从而能够计算 <codeph>measuredHeight</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      在组件坐标中指定组件最小高度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最小高度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/minHeight"><linktext>mx.core.UIComponent.minHeight</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      在组件坐标中指定组件最小宽度的数字（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在组件坐标中指定组件最小宽度的数字（以像素为单位）。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/minWidth"><linktext>mx.core.UIComponent.minWidth</linktext></link></related-links></apiValue><apiValue id="mx.flash:UIMovieClip:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      模块工厂用作上下文，用于为组件使用嵌入字体，和查找用于控制样式的样式管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      模块工厂用作上下文，用于为组件使用嵌入字体，和查找用于控制样式的样式管理器。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:mouseFocusEnabled:get"><apiName>mouseFocusEnabled</apiName><shortdesc>
+      一个标志，用于当使用鼠标选中组件时组件是否可以获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于当使用鼠标选中组件时组件是否可以获得焦点。如果为 <codeph>false</codeph>，焦点将转移到第一个 <codeph>mouseFocusEnabled</codeph> 父项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:owner:get"><apiName>owner</apiName><shortdesc>
+      通常为此组件的父容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      通常为此组件的父容器。但是，如果这是一个弹出组件，则所有者为弹出该组件的组件。例如，ComboBox 控件下拉列表的所有者是 ComboBox 控件本身。此属性并非由 Flex 管理，而由各个组件管理。因此，如果弹出一个组件，则应对此属性进行相应的设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:parentDocument:get"><apiName>parentDocument</apiName><shortdesc>
+      包含此组件的文档。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含此组件的文档。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      以组件父项大小百分比的方式指定组件高度的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      以组件父项大小百分比的方式指定组件高度的数字。允许的值为从 0 到 100。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      以组件父项大小百分比形式指定其宽度的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      以组件父项大小百分比形式指定其宽度的数字。允许的值为从 0 到 100。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:right:get"><apiName>right</apiName><shortdesc>
+      从组件右边到其内容区域右边之间的水平距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从组件右边到其内容区域右边之间的水平距离（以像素为单位）。如果设置了此属性，组件的右边将锚定在其内容区域的右边；当调整其容器大小时，这两条边始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationX:get"><apiName>rotationX</apiName><shortdesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 x 轴旋转（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 x 轴旋转（以度为单位）。从 0 到 180 的值表示顺时针方向旋转；从 0 到 -180 的值表示逆时针方向旋转。对于此范围之外的值，可以通过加上或减去 360 获得该范围内的值。在计算过程中，Flex 的任一 2D 布局都会忽略此属性。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationY:get"><apiName>rotationY</apiName><shortdesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 y 轴旋转（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 y 轴旋转（以度为单位）。从 0 到 180 的值表示顺时针方向旋转；从 0 到 -180 的值表示逆时针方向旋转。对于此范围之外的值，可以通过加上或减去 360 获得该范围内的值。在计算过程中，Flex 的任一 2D 布局都会忽略此属性。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:rotationZ:get"><apiName>rotationZ</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:rotation:get"><apiName>rotation</apiName><shortdesc conref="mx.core.IFlexDisplayObject#rotation">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.IFlexDisplayObject#rotation">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      用于指定水平缩放系数的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于指定水平缩放系数的数字。
+           <p>默认值为 1.0，即不缩放对象。将 <codeph>scaleX</codeph> 值设为 2.0 表示对象将放大 2 倍，将 <codeph>scaleX</codeph> 值设为 0.5 表示对象将缩小 2 倍。</p>
+           <p>值 0.0 是无效值。不要将它设置为 0.0，但可以设置为一个很小的值，或者将 <codeph>visible</codeph> 属性设置为 <codeph>false</codeph> 来隐藏此组件。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      用于指定垂直缩放系数的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于指定垂直缩放系数的数字。
+           <p>默认值为 1.0，即不缩放对象。将 <codeph>scaleY</codeph> 值设为 2.0 表示对象将放大 2 倍，将 <codeph>scaleY</codeph> 值设为 0.5 表示对象将缩小 2 倍。</p>
+           <p>值 0.0 是无效值。不要将它设置为 0.0，但可以设置为一个很小的值，或者将 <codeph>visible</codeph> 属性设置为 <codeph>false</codeph> 来隐藏此组件。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:scaleZ:get"><apiName>scaleZ</apiName><shortdesc>
+      指定沿着 z 轴的缩放因子的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定沿着 z 轴的缩放因子的数值。
+           <p>沿着 z 轴缩放不会影响在 z=0 平面中保持平放的典型组件。具有已应用 3D 转换的子项的组件，或具有非零 transformZ 的组件，将受到影响。</p>
+      
+      <p>默认值为 1.0，即不缩放对象。</p>
+     
+      <p>在计算过程中，Flex 的任一 2D 布局都会忽略此属性。 </p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:systemManager:get"><apiName>systemManager</apiName><shortdesc>
+      对此组件的 SystemManager 对象的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.managers:ISystemManager"/></apiValueDef><apiDesc>
+      对此组件的 SystemManager 对象的引用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:tabFocusEnabled:get"><apiName>tabFocusEnabled</apiName><shortdesc>
+      一个标志，指示子对象是否能够获得焦点。这与 Flash Player 使用的 tabEnabled 属性类似。对于处理键盘输入的组件该标志通常为 true，但是控件栏中的一些组件将其设置为 false，因为它们不能像编辑器一样从另外的组件窃取焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="tabFocusEnabledChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示子对象是否能够获得焦点
+     
+      <p>这与 Flash Player 使用的 <codeph>tabEnabled</codeph> 属性类似。</p>
+     
+      <p>对于处理键盘输入的组件该标志通常为 <codeph>true</codeph>，但是控件栏中的一些组件将其设置为 <codeph>false</codeph>，因为它们不能像编辑器一样从另外的组件窃取焦点。
+      </p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:toolTip:get"><apiName>toolTip</apiName><shortdesc>
+      要在 ToolTip 中显示的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要在 ToolTip 中显示的文本。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:top:get"><apiName>top</apiName><shortdesc>
+      从控件内容区域的顶边到组件顶边之间的垂直距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从控件内容区域的顶边到组件顶边之间的垂直距离（以像素为单位）。如果设置了此属性，组件的顶边将锚定在其内容区域的顶边；当调整其容器大小时，这两条边始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformX:get"><apiName>transformX</apiName><shortdesc conref="mx.core.UIComponent#transformX">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformX">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformY:get"><apiName>transformY</apiName><shortdesc conref="mx.core.UIComponent#transformY">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformY">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:transformZ:get"><apiName>transformZ</apiName><shortdesc conref="mx.core.UIComponent#transformZ">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#transformZ">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:tweeningProperties:get"><apiName>tweeningProperties</apiName><shortdesc>
+      由 EffectManager 使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      由 EffectManager 使用。如果组件不使用 EffectManager 执行 Tween，则返回非空值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:verticalCenter:get"><apiName>verticalCenter</apiName><shortdesc>
+      从组件内容区域的中心到组件中心的垂直距离（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      从组件内容区域的中心到组件中心的垂直距离（以像素为单位）。如果设置了此属性，组件的中心将锚定在其内容区域的中心；当调整其容器大小时，这两个中心在垂直方向上始终相互独立。
+           <p>仅当作用于 Canvas 容器中的组件时，或作用于 Panel 或 Application 容器中将 layout 属性设置为 <codeph>absolute</codeph> 的组件时，此属性才起作用。</p>
+           <p>默认值为 <codeph>undefined</codeph>，即不进行设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:visible:get"><apiName>visible</apiName><shortdesc>
+      显示对象是否可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      显示对象是否可见。不可见的显示对象已被禁用。例如，如果 InteractiveObject 实例的 <codeph>visible=false</codeph>，则无法单击该对象。 
+           <p>当设置为 <codeph>true</codeph> 时，此对象将分派 <codeph>show</codeph> 事件。当设置为 <codeph>false</codeph> 时，此对象将分派 <codeph>hide</codeph> 事件。无论在哪种情况下，对象的子项都不会生成 <codeph>show</codeph> 或 <codeph>hide</codeph> 事件，除非明确地针对该对象编写一个实现来执行此操作。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:width:get"><apiName>width</apiName><shortdesc>
+      此对象的宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      此对象的宽度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:x:get"><apiName>x</apiName><shortdesc>
+      指定组件在其父容器中的水平位置（以像素为单位）的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定组件在其父容器中的水平位置（以像素为单位）的数字。
+           <p>如果组件的父级是布局容器（如 HBox、Grid 或 Form），则直接设置此属性或调用 <codeph>move()</codeph> 都不会有任何效果，或只有暂时的效果，因为这些容器的布局计算会将 <codeph>x</codeph> 位置设置为此计算结果。但当父级是 Canvas 或其他绝对定位容器时，则必须几乎始终设置 <codeph>x</codeph> 属性，因为这些容器的默认值为 0。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:y:get"><apiName>y</apiName><shortdesc>
+      指定组件在其父容器中的垂直位置（以像素为单位）的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定组件在其父容器中的垂直位置（以像素为单位）的数字。
+           <p>如果组件的父级是布局容器（如 HBox、Grid 或 Form），则直接设置此属性或调用 <codeph>move()</codeph> 都不会有任何效果，或只有暂时的效果，因为这些容器的布局计算会将 <codeph>x</codeph> 位置设置为此计算结果。但当父级是 Canvas 或其他绝对定位容器时，则必须几乎始终设置 <codeph>x</codeph> 属性，因为这些容器的默认值为 0。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:z:get"><apiName>z</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="zChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.flash:UIMovieClip:cacheHeuristic:set"><apiName>cacheHeuristic</apiName><shortdesc>
+      供 Flex 使用，表示建议为对象实施位图缓存。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      供 Flex 使用，表示建议为对象实施位图缓存。如果 <codeph>cachePolicy</codeph> 为 <codeph>UIComponentCachePolicy.AUTO</codeph>，则 <codeph>cacheHeuristic</codeph> 用于控制对象的 <codeph>cacheAsBitmap</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:maintainProjectionCenter:set"><apiName>maintainProjectionCenter</apiName><shortdesc>
+      如果为 true，则该组件将使其投影矩阵在其边框的中央保持居中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 true，则该组件将使其投影矩阵在其边框的中央保持居中。如果未在组件上定义投影矩阵，则会自动添加一个。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:UIMovieClip:postLayoutTransformOffsets:set"><apiName>postLayoutTransformOffsets</apiName><shortdesc>
+      定义一组调整，可以使用一种对组件父项的布局不可见的方式将这些调整应用到组件的转换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.geom:TransformOffsets"/></apiValueDef><apiDesc>
+      定义一组调整，可以使用一种对组件父项的布局不可见的方式将这些调整应用到组件的转换。例如，如果希望某个布局为将旋转 90 度的某个组件进行调整，请设置该组件的 <codeph>rotation</codeph> 属性。如果<i/>不希望布局为要旋转的组件进行调整，请设置其 <codeph>postLayoutTransformOffsets.rotationZ</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.flash:ContainerMovieClip"><apiName>ContainerMovieClip</apiName><shortdesc>
+  在 Adobe Flash Professional 中创建以便在 Flex 中使用的容器组件是 mx.flash.ContainerMovieClip 类的子类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="content"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.core:IVisualElementContainer</apiBaseInterface><apiBaseClassifier>mx.flash:UIMovieClip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在 Adobe Flash Professional 中创建以便在 Flex 中使用的容器组件是 mx.flash.ContainerMovieClip 类的子类。您可以将 ContainerMovieClip 的子类用作 Flex 容器，它可以保存子项、响应事件、定义视图状态和转换，还可以像所有 Flex 组件一样使用效果。
+ 
+  <p>一个 Flash 容器只能具有一个 Flex IUIComponent 子项。但是，这个子项可以是允许添加其它子项的 Flex 容器。</p>
+ 
+  <p>如果 Flash 容器要修改其中包含的 Flex 组件的可视特征（如更改 <codeph>alpha</codeph> 属性），您必须嵌入 Flex 组件所用的字体。对 Flex 组件应用 Dissolve、Fade 和 Rotate 效果时，也需要同样的要求。 </p>
+ 
+  <p>以下过程描述了在 Flash Professional 中创建 Flex 组件的基本流程：</p>
+ 
+  <ol>
+    <li>安装 Adobe Flash 工作流程集成工具包。</li> 
+    <li>在 FLA 文件中为动态资源创建元件。</li>
+    <li>运行“命令”>“生成 Flex 容器”，将元件转换为 ContainerMovieClip 类的子类，配置 Flash Professional 发布设置以使用 Flex，并向库中添加名为 FlexContentHolder 的新元件。此元件定义容器的内容区域，您可以在此区域中放置 Flex 子组件。</li> 
+    <li>将 FLA 文件发布为 SWC 文件。</li> 
+    <li>像使用其他类一样，在 Flex 应用程序中引用元件的类名称。</li> 
+    <li>编译 Flex 应用程序时，在 <codeph>library-path</codeph> 中包括 SWC 文件。</li>
+  </ol>
+ 
+  <p>有关详细信息，请参阅随 Flex/Flash 集成工具包提供的文档，网址为 <xref href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</xref>。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.flash:ContainerMovieClip:ContainerMovieClip"><apiName>ContainerMovieClip</apiName><shortdesc>
+     构造函数
+     
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     构造函数
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.flash:ContainerMovieClip:addElementAt"><apiName>addElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:addElement"><apiName>addElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:getElementAt"><apiName>getElementAt</apiName><shortdesc>
+      如果存在视域，且传入的索引为 0，则返回该视域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果在子列表中不存在该索引位置。
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>位于指定索引位置的元素。
+     
+      </apiDesc><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要检索的元素的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果存在视域，且传入的索引为 0，则返回该视域。否则将引发 RangeError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:getElementIndex"><apiName>getElementIndex</apiName><shortdesc>
+      如果传入的元素是视域，则返回 0。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果元素不是此对象的子项。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiReturn><apiDesc>要标识的元素的索引位置。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/><apiDesc>要标识的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果传入的元素是视域，则返回 0。否则将引发 ArgumentError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeAllElements"><apiName>removeAllElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeElementAt"><apiName>removeElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:removeElement"><apiName>removeElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:setElementIndex"><apiName>setElementIndex</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:swapElementsAt"><apiName>swapElementsAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index1</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>index2</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.flash:ContainerMovieClip:swapElements"><apiName>swapElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element1</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>element2</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.flash:ContainerMovieClip:content:get"><apiName>content</apiName><shortdesc>
+      要在此容器内部显示的 Flex 内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IUIComponent"/></apiValueDef><apiDesc>
+      要在此容器内部显示的 Flex 内容。
+     
+      <p>通常，要在 ActionScript 中向容器添加子项，需要使用 <codeph>Container.addChild()</codeph> 或 <codeph>Container.addChildAt()</codeph> 方法。但是，要向 Flash 容器的 <codeph>ContainerMovieClip.content</codeph> 属性添加子项，则不使用 <codeph>addChild()</codeph> 或 <codeph>addChildAt()</codeph> 方法，而是直接将子项分配给内容属性。  </p>
+     
+      <p>以下示例将向 <codeph>ContainerMovieClip.content</codeph> 属性分配一个容器。</p>
+      <pre>
+      &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+         xmlns:myComps="~~">
+         
+         &lt;mx:Script>
+             &lt;![CDATA[
+                 import mx.containers.HBox;
+                 import mx.controls.Image;
+     
+                 private function init():void {            
+                     // Define the Image control.
+                     var image1:Image = new Image();
+                     image1.source = "../assets/logowithtext.jpg";
+                     image1.percentWidth = 80;
+                     image1.percentHeight = 80;
+     
+                     // Define the HBox container.
+                     var hb1:HBox = new HBox();
+                     hb1.percentWidth = 100;
+                     hb1.percentHeight = 100;
+                     hb1.setStyle('borderStyle', 'solid');
+                     hb1.addChild(image1);
+     
+                     // Assign the HBox container to the 
+                     // ContainerMovieClip.content property..
+                     pFrame.content = hb1;
+                 }
+             ]]&gt;
+         &lt;/mx:Script>    
+     
+         &lt;myComps:MyPictureFrameContainer id="pFrame" 
+             initialize="init();"/>
+     &lt;/mx:Application></pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:ContainerMovieClip:numElements:get"><apiName>numElements</apiName><shortdesc>
+      如果存在视域，则返回 1；否则，返回 0。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      如果存在视域，则返回 1；否则，返回 0。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.flash:ContainerMovieClip:scaleContentWhenResized:get"><apiName>scaleContentWhenResized</apiName><shortdesc>
+      由于调整容器大小而导致该容器的缩放是否会影响 flex 内容的缩放。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      由于调整容器大小而导致该容器的缩放是否会影响 flex 内容的缩放。
+     
+      <p>调整 Flash 组件的大小后，它们会放大或缩小为新的大小。但是，这也意味着它们的子项也会相应地进行缩放。如果将此标志设置为 false，则在调整容器的大小后，会对其子项进行反向缩放。</p>
+     
+      <p>注意：如果容器是直接缩放的（通过 scaleX 或 scaleY），则内容也会相应地缩放。此操作仅会影响通过调整大小对容器进行的缩放。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

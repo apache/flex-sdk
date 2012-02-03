@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="air.net" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">air.net</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="air.net:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+ The URLMonitor class monitors availablity of an HTTP- or HTTPS-based service.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The URLMonitor class monitors availablity of an HTTP- or HTTPS-based service.
+ 
+ <p class="- topic/p ">This class is included in the aircore.swc file. 
+ Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">™</sup> Builder loads this class automatically when you create a project for 
+ Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR<sup class="+ topic/ph hi-d/sup ">™</sup>. The Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex<sup class="+ topic/ph hi-d/sup ">™</sup> SDK also 
+ includes this aircore.swc file, which you should include when compiling the application if you are using 
+ the Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">In Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional,
+ this class is included in the ServiceMonitorShim.swc file. To use classes in the air.net package , 
+ you must first drag the ServiceMonitorShim component from the Components panel to the 
+ Library and then add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">To use air.net package in Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 or higher): </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Select the File &gt; Publish Settings command.</li><li class="- topic/li ">In the Flash panel, click the Settings button for ActionScript 3.0. Select Library Path.</li><li class="- topic/li ">Click the Browse to SWC File button. Browse to Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc
+ 		file in the Adobe Flash Professional installation folder.</li><li class="- topic/li ">Click the OK button.</li><li class="- topic/li ">Add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:URLMonitor:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     Creates a URLMonitor Object for a specified HTTP- or HTTPS-based service.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">urlRequest</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:URLRequest</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The URLRequest object representing a probe request for polling the server.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">acceptableStatusCodes</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An array of numeric status codes listing the codes that represent a successful result.
+     
+     <p class="- topic/p ">If you do not specify a value for the <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> property, the following status
+     codes will be recognized as successful responses:</p>
+     
+     <ul class="- topic/ul "><li class="- topic/li ">200 (OK) </li><li class="- topic/li ">202 (Accepted) </li><li class="- topic/li ">204 (No content </li><li class="- topic/li ">205 (Reset content) </li><li class="- topic/li ">206 (Partial content, in response to request with a Range header) </li></ul>
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Creates a URLMonitor Object for a specified HTTP- or HTTPS-based service.
+     
+     <p class="- topic/p ">After creating a URLMonitor, the caller should call the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph>
+     method to begin monitoring the status of the service.</p>
+     
+     <p class="- topic/p ">As with the Timer object, the caller should maintain a reference to the URLMonitor
+     object. Otherwise the runtime could delete the object, thereby ending the monitoring.</p>
+     
+     <p class="- topic/p ">A URLRequest parameter specifies the probe request for polling the server.
+     Typically, the request method will be either <codeph class="+ topic/ph pr-d/codeph ">"GET"</codeph> or <codeph class="+ topic/ph pr-d/codeph ">"HEAD"</codeph>.</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:URLMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+    Attempts to load content from a URL in the background, to check for a 
+    returned HTTP status code.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Attempts to load content from a URL in the background, to check for a 
+    returned HTTP status code. 
+    <p class="- topic/p ">
+    If it receives a status code that is listed in the <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> 
+    property, the <codeph class="+ topic/ph pr-d/codeph ">available</codeph> property will be set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>. 
+    If it receives a status code that is not in the <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> 
+    list, or if there is a security error or I/O error, the <codeph class="+ topic/ph pr-d/codeph ">available</codeph> 
+    property will be set to <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+    </p>
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:URLMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+     
+	 Returns the string representation of the specified object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string representation of the object.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+     
+	 Returns the string representation of the specified object.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Methods of the Object class are dynamically created on Object's prototype. To redefine this method in a subclass of Object, do not use the <codeph class="+ topic/ph pr-d/codeph ">override</codeph> keyword. For example, a subclass of Object implements <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> instead of using an override of the base class.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:URLMonitor:acceptableStatusCodes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">acceptableStatusCodes</apiName><shortdesc class="- topic/shortdesc ">
+     The numeric status codes representing a successful result.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The numeric status codes representing a successful result.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:URLMonitor:urlRequest:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">urlRequest</apiName><shortdesc class="- topic/shortdesc ">
+     The URLRequest object representing the probe request.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.net:URLRequest</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The URLRequest object representing the probe request.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ The ServiceMonitor class implements the framework for monitoring the status and availability of network services.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The ServiceMonitor class implements the framework for monitoring the status and availability of network services. 
+ The ServiceMonitor class acts as the base class for all other service monitors.
+ 
+ <p class="- topic/p ">This class is included in the aircore.swc file. 
+ Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash™ Builder™ loads this class automatically 
+ when you create a project for Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR™.
+ Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex™ SDK also includes this aircore.swc file, 
+ which you should include when compiling the application if you are using Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">In Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional,
+ this class is included in the ServiceMonitorShim.swc file. To use classes in the air.net package , 
+ you must first drag the ServiceMonitorShim component from the Components panel to the 
+ Library and then add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">To use air.net package in Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 or higher): </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Select the File &gt; Publish Settings command.</li><li class="- topic/li ">In the Flash panel, click the Settings button for ActionScript 3.0. Select Library Path.</li><li class="- topic/li ">Click the Browse to SWC File button. Browse to Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc
+ 		file in the Adobe Flash Professional installation folder.</li><li class="- topic/li ">Click the OK button.</li><li class="- topic/li ">Add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><adobeApiEvent id="air.net:ServiceMonitor_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+ Indicates that the service status has changed.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Indicates that the service status has changed.
+ 
+ <p class="- topic/p ">The value of the <codeph class="+ topic/ph pr-d/codeph ">code</codeph> property is either <codeph class="+ topic/ph pr-d/codeph ">"Service.available"</codeph> or <codeph class="+ topic/ph pr-d/codeph ">"Service.unavailable"</codeph>, 
+ but best practice is to check the value of the <codeph class="+ topic/ph pr-d/codeph ">ServiceMonitor.available</codeph> property.</p>
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="air.net:ServiceMonitor:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     Creates a ServiceMonitor object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Creates a ServiceMonitor object. 
+     
+     <p class="- topic/p ">This class is typically subclassed to monitor specific service types.</p>
+     
+     
+     
+     <p class="- topic/p ">After creating a ServiceMonitor object (or a subclass object), call the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> method
+     to begin monitoring the status of the service.</p>
+     
+     <p class="- topic/p ">As with the Timer object, the caller should maintain a reference to the ServiceMonitor
+     object. Otherwise, the runtime deletes the object and monitoring ends.</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:ServiceMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+     Checks the status of the service.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Checks the status of the service.
+     
+     <p class="- topic/p ">A subclass override method for checking the status of the service.</p>
+     
+     <p class="- topic/p ">Typically, this method will initiate a network operation whose completion or failure will result in
+     setting the <codeph class="+ topic/ph pr-d/codeph ">available</codeph> property.</p>
+     
+     <p class="- topic/p ">JavaScript code can specialize this method by defining a <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> method 
+     in the "specializer" object.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:makeJavascriptSubclass" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">makeJavascriptSubclass</apiName><shortdesc class="- topic/shortdesc ">
+     Adds public ServiceMonitor methods to a JavaScript constructor function's prototype.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">constructorFunction</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The JavaScript object's <codeph class="+ topic/ph pr-d/codeph ">prototype</codeph> property. For example, if the JavaScript 
+     object that you are using to serve as a specializer object is named MyHTTPMonitor, pass 
+     <codeph class="+ topic/ph pr-d/codeph ">MyHTTPMonitor.prototype</codeph> as the value for this parameter.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Adds public ServiceMonitor methods to a JavaScript constructor function's prototype.
+     
+     <p class="- topic/p ">Adds functions to the JavaScript constructor function's prototype that forward public
+     ServiceMonitor functions to the ServiceMonitor object. This approximates
+     a normal JavaScript subclass of the ActionScript base class.</p>
+     
+     <p class="- topic/p ">A JavaScript class specializing a ServiceMonitor would look like this:</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     // JavaScript Constructor function
+     function MyHTTPMonitor(url, method)
+     {
+         // "that" variable makes "this" available in closures below
+         var that = this;
+         // Required initialization of the service monitor, returns the actual ServiceMonitor object.
+         this.monitor = this.initServiceMonitor();
+         // Initializes URLStream and event handlers.
+         this._urlStream = new air.URLStream();
+         this._urlRequest = new air.URLRequest(url);
+         if (method)
+         {
+             this._urlRequest.method = method;
+         }
+         else
+         {
+             this._urlRequest.method = "GET";
+         }
+         function onStatus(event) {
+             that.monitor.available = Number(event.status) == 200;
+             that._urlStream.close();
+         }
+         function onError(event)
+         {
+             that.monitor.available = false;
+             that._urlStream.close();
+         }
+         this._urlStream.addEventListener(air.HTTPStatusEvent.HTTP_RESPONSE_STATUS, onStatus);
+         this._urlStream.addEventListener(air.SecurityErrorEvent.SECURITY_ERROR, onError);
+         this._urlStream.addEventListener(air.IOErrorEvent.IO_ERROR, onError);
+     }
+     
+     // Augment JavaScript prototype with public methods from ServiceMonitor
+     air.ServiceMonitor.makeJavascriptSubclass(MyHTTPMonitor);
+     
+     // Implement specializer functions, just as you would when subclassing a JavaScript class
+     MyHTTPMonitor.prototype.checkStatus = function()
+     {
+         air.trace('OVERRIDDEN checkStatus!', this);
+         this._urlStream.load(this._urlRequest);
+     }
+     </codeblock>
+     
+     <p class="- topic/p ">To use the JavaScript class:</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var httpMon = new MyHTTPMonitor('http://www.adobe.com')
+     </codeblock>
+     
+     <p class="- topic/p ">Be sure to load the AIRAliases.js and aircore.swf files with <codeph class="+ topic/ph pr-d/codeph ">script</codeph> tags.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     Starts the service monitor.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Starts the service monitor.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:stop" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stop</apiName><shortdesc class="- topic/shortdesc ">
+     Stops monitoring the service.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Stops monitoring the service.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+	 Returns the string representation of the specified object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string representation of the object.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+	 Returns the string representation of the specified object.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Methods of the Object class are dynamically created on Object's prototype. To redefine this method in a subclass of Object, do not use the <codeph class="+ topic/ph pr-d/codeph ">override</codeph> keyword. For example, a subclass of Object implements <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> instead of using an override of the base class.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:ServiceMonitor:available:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">available</apiName><shortdesc class="- topic/shortdesc ">
+     Whether the service is currently considered "available."
+     
+     The initial value is false until either a status check sets the
+     property to true or the property is initialized to true explicitly.
+     
+     Typically, this property is set by the checkStatus() implementation in a subclass or specializer,
+     but if the application has independent information about a service's availability (for example, a request just succeeded
+     or failed), the property can be set explicitly.
+     
+     </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Whether the service is currently considered "available."
+     
+     <p class="- topic/p ">The initial value is <codeph class="+ topic/ph pr-d/codeph ">false</codeph> until either a status check sets the
+     property to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> or the property is initialized to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> explicitly.</p>
+     
+     <p class="- topic/p ">Typically, this property is set by the <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> implementation in a subclass or specializer,
+     but if the application has independent information about a service's availability (for example, a request just succeeded
+     or failed), the property can be set explicitly.</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:lastStatusUpdate:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastStatusUpdate</apiName><shortdesc class="- topic/shortdesc ">
+     The time of the last status update.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Date</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The time of the last status update.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:pollInterval:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pollInterval</apiName><shortdesc class="- topic/shortdesc ">
+     The interval, in milliseconds, for polling the server.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The interval, in milliseconds, for polling the server.
+     
+     <p class="- topic/p ">If zero, the server is not polled periodically, but only immediately after <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> is called
+     and when the network status changes.</p>
+     
+     <p class="- topic/p ">The ServiceMonitor object only dispatches a <codeph class="+ topic/ph pr-d/codeph ">status</codeph> event if service
+     status has changed (not on every poll interval). The object also dispatches a <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 
+     event as a result of network connectivity changes (regardles of the poll interval).</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:running:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">running</apiName><shortdesc class="- topic/shortdesc ">
+     Whether the monitor has been started.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Whether the monitor has been started.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ A SecureSocketMonitor object monitors availablity of a TCP endpoint over Secure Sockets Layer (SSL)
+ and Transport Layer Security (TLS) protocols.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:SocketMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ A SecureSocketMonitor object monitors availablity of a TCP endpoint over Secure Sockets Layer (SSL)
+ and Transport Layer Security (TLS) protocols. 
+ 
+ <p class="- topic/p ">This class is included in the aircore.swc file. 
+ Flash Builder loads this class automatically when you create a project for AIR.
+ The Flex SDK also includes this aircore.swc file, which you should include
+ when compiling the application if you are using Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">In Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional,
+ this class is included in the ServiceMonitorShim.swc file. To use classes in the air.net package , 
+ you must first drag the ServiceMonitorShim component from the Components panel to the 
+ Library and then add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">To use air.net package in Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 or higher): </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Select the File &gt; Publish Settings command.</li><li class="- topic/li ">In the Flash panel, click the Settings button for ActionScript 3.0. Select Library Path.</li><li class="- topic/li ">Click the Browse to SWC File button. Browse to Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc
+ 		file in the Adobe Flash Professional installation folder.</li><li class="- topic/li ">Click the OK button.</li><li class="- topic/li ">Add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SecureSocketMonitor:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 Creates a SecureSocketMonitor object for a specified TCP endpoint.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The host to monitor.
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The port to monitor.
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Creates a SecureSocketMonitor object for a specified TCP endpoint.
+	 
+	 <p class="- topic/p ">After creating a SecureSocketMonitor object, the caller should call <codeph class="+ topic/ph pr-d/codeph ">start</codeph>
+	 to begin monitoring the status of the service.</p>
+	 
+	 <p class="- topic/p ">As with the Timer object, the caller should maintain a reference to the SecureSocketMonitor
+	 object. Otherwise, the runtime deletes the object and monitoring ends.</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SecureSocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	Creates a SecureSocket object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">SecureSocket the SecureSocket object to be used by this SocketMonitor or <codeph class="+ topic/ph pr-d/codeph ">null</codeph> if
+	 secure sockets are not supported on the current system.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Creates a SecureSocket object.
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SecureSocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	 
+     
+	 Returns the string representation of the specified object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string representation of the object.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	 
+     
+	 Returns the string representation of the specified object.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Methods of the Object class are dynamically created on Object's prototype. To redefine this method in a subclass of Object, do not use the <codeph class="+ topic/ph pr-d/codeph ">override</codeph> keyword. For example, a subclass of Object implements <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> instead of using an override of the base class.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier languages="" id="air.net:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ A SocketMonitor object monitors availablity of a TCP endpoint.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ A SocketMonitor object monitors availablity of a TCP endpoint.
+ 
+ <p class="- topic/p ">This class is included in the aircore.swc file. 
+ Flash Builder loads this class automatically when you create a project for AIR.
+ The Flex SDK also includes this aircore.swc file, which you should include
+ when compiling the application if you are using Flex SDK.
+ </p>
+ 
+ <p class="- topic/p ">In Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional,
+ this class is included in the ServiceMonitorShim.swc file. To use classes in the air.net package , 
+ you must first drag the ServiceMonitorShim component from the Components panel to the 
+ Library and then add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code:
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">To use air.net package in Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Professional (CS4 or higher): </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">Select the File &gt; Publish Settings command.</li><li class="- topic/li ">In the Flash panel, click the Settings button for ActionScript 3.0. Select Library Path.</li><li class="- topic/li ">Click the Browse to SWC File button. Browse to Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc
+ 		file in the Adobe Flash Professional installation folder.</li><li class="- topic/li ">Click the OK button.</li><li class="- topic/li ">Add the following <codeph class="+ topic/ph pr-d/codeph ">import</codeph> statement to your ActionScript 3.0 code: <codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SocketMonitor:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 Creates a SocketMonitor object for a specified TCP endpoint.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The host to monitor.
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The port to monitor.
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Creates a SocketMonitor object for a specified TCP endpoint.
+	 
+	 <p class="- topic/p ">After creating a SocketMonitor object, the caller should call <codeph class="+ topic/ph pr-d/codeph ">start</codeph>
+	 to begin monitoring the status of the service.</p>
+	 
+	 <p class="- topic/p ">As with the Timer object, the caller should maintain a reference to the SocketMonitor
+	 object. Otherwise, the runtime deletes the object and monitoring ends.</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SocketMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+	Calling the checkStatus() method of a SocketMonitor object causes
+	the application to try connecting to the socket, to check for a 
+	connect event.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Calling the <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> method of a SocketMonitor object causes
+	the application to try connecting to the socket, to check for a 
+	<codeph class="+ topic/ph pr-d/codeph ">connect</codeph> event.
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	Creates a Socket object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">the Socket object to be used by this SocketMonitor.
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Creates a Socket object. 
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+     
+	 Returns the string representation of the specified object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string representation of the object.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+     
+	 Returns the string representation of the specified object.
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Methods of the Object class are dynamically created on Object's prototype. To redefine this method in a subclass of Object, do not use the <codeph class="+ topic/ph pr-d/codeph ">override</codeph> keyword. For example, a subclass of Object implements <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> instead of using an override of the base class.</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:SocketMonitor:host:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">host</apiName><shortdesc class="- topic/shortdesc ">
+	 The host being monitored.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The host being monitored.
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:SocketMonitor:port:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">port</apiName><shortdesc class="- topic/shortdesc ">
+	 The port being monitored.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The port being monitored.
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

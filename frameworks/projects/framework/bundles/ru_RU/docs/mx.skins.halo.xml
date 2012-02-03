@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:DefaultDragImage"><apiName>DefaultDragImage</apiName><shortdesc>
+  Изображение прокси перетаскивания по умолчанию для операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseClassifier>mx.core:SpriteAsset</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Изображение прокси перетаскивания по умолчанию для операции перетаскивания.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.managers.xml#DragManager"><linktext>mx.managers.DragManager</linktext></link></related-links><apiConstructor id="mx.skins.halo:DefaultDragImage:DefaultDragImage"><apiName>DefaultDragImage</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:BrokenImageBorderSkin"><apiName>BrokenImageBorderSkin</apiName><shortdesc>
+  Тема оформления границ элемента SWFLoader или компонента Image в случае, если содержимое не может быть загружено.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления границ элемента SWFLoader или компонента Image в случае, если содержимое не может быть загружено.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:BrokenImageBorderSkin:BrokenImageBorderSkin"><apiName>BrokenImageBorderSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:BusyCursor"><apiName>BusyCursor</apiName><shortdesc>
+  Определяет внешний вид курсора, появляющегося в ходе выполнения операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:FlexSprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет внешний вид курсора, появляющегося в ходе выполнения операции. Например, при выполнении загрузки ресурса классом SWFLoader.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:BusyCursor:BusyCursor"><apiName>BusyCursor</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiData>null</apiData><apiDesc>- Менеджер стиля, связанный с объектом, создающим курсор. Менеджер стиля используется для получения объявления стиля менеджера курсора, который определяет класс, использованный для курсора в состоянии занятости. Если styleManager имеет значение null, используется менеджер стиля верхнего уровня.
+     
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ListDropIndicator"><apiName>ListDropIndicator</apiName><shortdesc>
+  Тема оформления индикатора перетаскивания для элемента управления на основе списка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления индикатора перетаскивания для элемента управления на основе списка.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ListDropIndicator:ListDropIndicator"><apiName>ListDropIndicator</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins.halo:ListDropIndicator:direction"><apiName>direction</apiName><shortdesc>
+	  Определяет, какая линия должна отображаться темой оформления: горизонтальная или вертикальная.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Определяет, какая линия должна отображаться темой оформления: горизонтальная или вертикальная. По умолчанию выводится горизонтальная линия.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins.halo:HaloFocusRect"><apiName>HaloFocusRect</apiName><shortdesc>
+  Определяет тему оформления индикатора фокуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет тему оформления индикатора фокуса. Представляет собой прямоугольник, появляющийся вокруг элемента управления, когда он находится в фокусе.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloFocusRect:HaloFocusRect"><apiName>HaloFocusRect</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ToolTipBorder"><apiName>ToolTipBorder</apiName><shortdesc>
+  Тема оформления элемента управления ToolTip.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления элемента управления ToolTip.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ToolTipBorder:ToolTipBorder"><apiName>ToolTipBorder</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

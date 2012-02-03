@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap.mxml"><apiName>mx.rpc.soap.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.soap.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+专门由 WebServices 使用的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+专门由 WebServices 使用的 Operation。Operation 是服务上的单个方法。可以通过在服务上调用同名函数或在服务上访问作为属性的 Operation 并调用 <codeph>send()</codeph> 方法来调用 Operation。
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc.soap:WebService</apiOperationClassifier><apiData>null</apiData><apiDesc>对其调用此 Operation 的 Web 服务。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此操作的名称。
+       
+       </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建一个新的 Operation。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+     
+      取消上次服务调用或具有指定 ID 的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>与被取消的调用关联的 AsyncToken，如果未取消任何调用，则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要取消的调用的 messageId。可选。如果省略，将取消上一次服务调用。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     
+      取消上次服务调用或具有指定 ID 的调用。即使网络操作可能仍在继续，也不分派 result 或 fault 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     此操作的并发设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此操作的并发设置。如果尚未明确设置，将使用 WebService 中的设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     此操作是否应在其执行时显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     此操作是否应在其执行时显示忙状态光标。如果尚未明确设置，将使用 WebService 中的设置。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap.mxml:WebService"><apiName>WebService</apiName><shortdesc>
+ &amp;lt;mx:WebService&amp;gt; 标记使您可以访问与 SOAP 兼容的 Web 服务的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:WebService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:WebService
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   destination="<i>No default.</i>"
+   id="<i>No default.</i>"
+   serviceName="<i>No default.</i>"
+   showBusyCursor="false|true"
+   makeObjectsBindable="false|true"
+   useProxy="false|true"
+   wsdl="<i>No default.</i>"
+ 
+   <b>Events</b>
+   fault="<i>No default.</i>"
+   result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ </p>
+ <p>
+ An &lt;mx:WebService&gt; tag can have multiple &lt;mx:operation&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:operation
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   name=<i>No default, required.</i>
+   resultFormat="object|xml|e4x"
+   makeObjectsBindable="false|true"
+ 
+   
+   <b>Events</b>
+   fault=<i>No default.</i>
+   result=<i>No default.</i>
+ /&gt;
+ </pre>
+ 
+ An &lt;mx:Operation&gt; tag contains an &lt;mx:request&gt; tag. 
+ To specify an XML structure in an &lt;mx:request&gt; tag, you must set the value of the tag's
+ <code>format</code> attribute to <code>"xml"</code>. Otherwise, the body is converted into Objects.
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:WebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ &lt;mx:WebService> 标签使您可以访问与 SOAP 兼容的 Web 服务的操作。
+ </apiDesc><example conref="WebServiceExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     创建一个新的 WebService 组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService 的目标，应与 services-config.xml 文件中的目标名称匹配。如果未指定，则 WebService 组件使用 DefaultHTTP 目标。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 WebService 组件。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     返回给定名称的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>为此名称执行的操作。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>操作的名称。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定名称的操作。如果之前没有创建该操作，则将在此调用过程中创建一个新的 <codeph>mx.rpc.soap.mxml.Operation</codeph>。通常只需在服务变量之后命名操作即可访问操作 (<codeph>myService.someOperation</codeph>)，但如果 Operation 的名称恰好与服务上所定义的方法（如 <codeph>setCredentials</codeph>）相匹配，则可以改用此方法来获取 Operation。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap.mxml:WebService:initialized"><apiName>initialized</apiName><shortdesc>
+     如果使用标签设置 WebService，则由 MXML 编译器自动调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>此 WebService 所在的 MXML 文档
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>此 WebService 在文档中的 ID
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     如果使用标签设置 WebService，则由 MXML 编译器自动调用。如果通过 ActionScript 创建 WebService，则可能希望自行调用此方法（因为它对验证任何参数都非常有用）。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:WebService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     指示如何处理对同一服务的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指示如何处理对同一服务的多个调用的值。默认值为 multiple。允许使用的值包括：
+     <ul>
+     <li>multiple — 不取消现有请求，由开发人员负责通过仔细管理事件流来确保返回数据的一致性。此为默认。</li>
+     <li>single — 每次只允许在此方法中发出一个请求；在有请求未处理时在客户端上发出的其它请求会立即出错，而不会发送给服务器。</li>
+     <li>last — 发出请求可导致客户端忽略任何当前未处理请求的结果或错误。仅在客户端上分派最新请求的结果或错误。这样可以简化客户端应用程序中的事件处理过程，但应该特别注意的是，只有在可以安全忽略请求的结果或错误时，才可使用此模式。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:serviceName:get"><apiName>serviceName</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDeprecated replacement="destination"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:protocol:set"><apiName>protocol</apiName><shortdesc>
+     不适合使用，请改用相应目标；或者如果使用 url，请使用 DefaultHTTP 或 DefaultHTTPS。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="String"/><apiDeprecated replacement="channelSet"/></apiValueDef><apiDesc>
+     不适合使用，请改用相应目标；或者如果使用 url，请使用 <codeph>DefaultHTTP</codeph> 或 <codeph>DefaultHTTPS</codeph>。如果使用默认，则该不适合使用的行为将仅更新目标。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

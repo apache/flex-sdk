@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.binding.utils"><apiName>mx.binding.utils</apiName><apiDetail/><apiClassifier id="mx.binding.utils:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+  ChangeWatcher クラスは、バインド可能な Flex プロパティと共に使用できるユーティリティメソッドを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChangeWatcher クラスは、バインド可能な Flex プロパティと共に使用できるユーティリティメソッドを定義します。 これらのメソッドを使用すると、バインド可能プロパティが更新されるたびに実行されるイベントハンドラーを定義できます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.binding.utils:ChangeWatcher:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>access</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。パブリックでの使用を目的としていません。 このメソッドは、<codeph>watch()</codeph> メソッドからのみ呼び出されます。 パラメーターの使用法については、<codeph>watch()</codeph> メソッドを参照してください。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.binding.utils:ChangeWatcher:canWatch"><apiName>canWatch</apiName><shortdesc>
+      そのプロパティに対するデータバインディングイベントをホストが公開しているかどうかを判別できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> なのは、<codeph>host</codeph>が <codeph>name</codeph> に対する change イベントを公開している場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>プロパティのホストです。 詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>プロパティの名前です。詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>コミットする change イベントでのみハンドラーを呼び出す場合は <codeph>true</codeph> に設定します。 詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      そのプロパティに対するデータバインディングイベントをホストが公開しているかどうかを判別できます。 
+     
+      <p>注意：プロパティチェーンは <codeph>canWatch()</codeph> メソッドではサポートされていません。 <codeph>watch()</codeph> メソッドでサポートされています。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getEvents"><apiName>getEvents</apiName><shortdesc>
+      ホストオブジェクトのバインド可能プロパティに対するすべてのバインディングイベントを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>そのプロパティに対するすべての change イベントを含む <codeph>{ eventName: isCommitting, ... }</codeph> 形式のオブジェクトです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>プロパティのホストです。 詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>プロパティまたはプロパティチェーンの名前です。 詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>コミットしない change イベントを戻り値に入れるかどうかを制御します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ホストオブジェクトのバインド可能プロパティに対するすべてのバインディングイベントを返します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getValue"><apiName>getValue</apiName><shortdesc>
+      監視されるプロパティまたはプロパティチェーンの現在の値を取得します。ホストオブジェクトが null の場合は null が取得されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>監視されるプロパティまたはプロパティチェーンの現在の値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      監視されるプロパティまたはプロパティチェーンの現在の値を取得します。ホストオブジェクトが null の場合は null が取得されます。 次に実際の使用例を示します。
+      <pre>
+      watch(obj, ["a","b","c"], ...).getValue() === obj.a.b.c
+      </pre>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:isWatching"><apiName>isWatching</apiName><shortdesc>
+      チェーン内の各 Watcher に少なくとも 1 つの change イベントが関連付けられている場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>チェーン内の各 Watcher に少なくとも 1 つの change イベントが関連付けられている場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      チェーン内の各 Watcher に少なくとも 1 つの change イベントが関連付けられている場合は、<codeph>true</codeph> を返します。 Watcher で選択されたプロパティに対して発生する change イベントはホストによって異なる場合があるため、<codeph>isWatching()</codeph> メソッドはホストによって異なります。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:reset"><apiName>reset</apiName><shortdesc>
+      この ChangeWatcher インスタンスをリセットして、新しいホストオブジェクトを使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newHost</apiItemName><apiType value="Object"/><apiDesc>プロパティの新しいホストです。 詳細については、<codeph>watch()</codeph> メソッドを参照してください。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この ChangeWatcher インスタンスをリセットして、新しいホストオブジェクトを使用します。 このメソッドを呼び出すと、別のホストにある Watcher インスタンスを再使用できます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:setHandler"><apiName>setHandler</apiName><shortdesc>
+      ハンドラー関数を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>ハンドラー関数です。 この引数を null に指定しないでください。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ハンドラー関数を設定します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:unwatch"><apiName>unwatch</apiName><shortdesc>
+      この ChangeWatcher インスタンスおよびハンドラー関数を現在のホストから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      この ChangeWatcher インスタンスおよびハンドラー関数を現在のホストから削除します。 <codeph>reset()</codeph> メソッドを使用すると、ChangeWatcher インスタンスを再追加し、異なるホストオブジェクトにある同じプロパティまたはプロパティチェーンを監視できます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:watch"><apiName>watch</apiName><shortdesc>
+      ChangeWatcher インスタンスを作成し、開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>少なくとも１つのプロパティ名が <codeph>chain</codeph> 引数に指定されている場合は ChangeWatcher インスタンスです。それ以外の場合は null です。 指定されたプロパティまたはプロパティチェーンに対するイベントをホストが公開していない場合があるため、返された Watcher が change イベントの検出と関連付けに成功したかどうかは保証されません。 <codeph>isWatching()</codeph> メソッドを使用すると、Watcher の状態を確認できます。
+           </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>監視されるプロパティまたはプロパティチェーンをホストするオブジェクトです。 <codeph>reset()</codeph> メソッドを使用すると、ChangeWatcher インスタンスを作成した後に <codeph>host</codeph> 引数の値を変更できます。<codeph>host</codeph> には、<codeph>prop</codeph> が変更されたときに起動する <codeph>handlers</codeph> のリストが保持されます。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>監視されるプロパティまたはプロパティチェーンを指定する値です。 有効な値は次のとおりです。
+      <ul>
+        <li>ホストオブジェクトのパブリックなバインド可能パブリックプロパティ名を含むストリングです。</li>
+             <li><codeph>{ name: <i>property name</i>, getter: function(host) { return host[name] } }</codeph>.という形式のオブジェクトです。 このオブジェクトには、パブリックなバインド可能プロパティ、およびそのプロパティの getter として機能する関数の名前が含まれます。</li>
+             <li>最初の２つのオプションの任意の組み合わせを含む空でない配列です。 ホストからアクセスできるバインド可能プロパティのチェーンを表します。 例えば、プロパティ <codeph>host.a.b.c</codeph> を監視するには、<codeph>watch(host, ["a","b","c"], ...)</codeph> のようにメソッドを呼び出します。</li>
+      </ul>
+           <p>メモ：<codeph>chain</codeph> 引数で指定するプロパティはパブリックである必要があります。<codeph>describeType()</codeph> メソッドでは、パブリックでないプロパティに関する情報は返されないためです。パブリックでないプロパティには、特定のプロパティに対して公開されている change イベントを検索するために ChangeWatcher がスキャンする、バインド可能性を表すメタデータなどがあります。 ただし、上記の <codeph>{ name, getter }</codeph> 引数形式の使用時に getter 関数を指定すると、指定した（パブリック）プロパティに任意の計算結果を関連付けることができます。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>監視されるプロパティまたは監視されるチェーン内のプロパティの変更時に呼び出されるイベントハンドラー関数です。 変更が通知されるのは、Watcher チェーン内のホストオブジェクトが、そのホストオブジェクトの <codeph>[Bindable]</codeph> メタデータタグで監視対象プロパティの指定イベントを送出したときです。 デフォルトイベントの名前は <codeph>propertyChange</codeph> です。
+           <p>バインド可能プロパティが送出したイベントオブジェクトは、変更なしにこのハンドラー関数に渡されます。 デフォルトでは、PropertyChangeEvent 型のイベントオブジェクトが送出されます。 ただし、<codeph>[Bindable]</codeph> メタデータタグを使用してバインド可能プロパティを定義する場合、独自のイベントタイプを定義できます。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>コミットする change イベントでのみハンドラーを呼び出す場合は <codeph>true</codeph> に設定し、コミットする change イベントとコミットしない change イベントの両方でハンドラーを呼び出す場合は <codeph>false</codeph> に設定します。 メモ：プロパティについてコミットしない change イベントがあるかどうかは、<codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph> メタデータタグが示します。 通常は、テキストフィールドでの確定前の変更などの詳細な値の変更を示すのに、これらのタグが使用されます。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>（default = false）<codeph>handler</codeph> への参照が強参照と弱参照のいずれであるかを判断します。デフォルトである強参照の場合は、<codeph>handler</codeph> のガベージコレクションが回避されます。弱参照では回避されません。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChangeWatcher インスタンスを作成し、開始します。 1 つの ChangeWatcher インスタンスで、１つのプロパティまたはプロパティチェーンを監視できます。 プロパティチェーンは、ホストオブジェクトからアクセスできる一連のプロパティです。 例えば、式 <codeph>obj.a.b.c</codeph> にはプロパティチェーン（a、b、c）があります。
+           </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiValue id="mx.binding.utils:ChangeWatcher:useWeakReference"><apiName>useWeakReference</apiName><shortdesc>
+      handler への参照が強参照と弱参照のいずれであるかを判断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>handler</codeph> への参照が強参照と弱参照のいずれであるかを判断します。デフォルトである強参照の場合は、<codeph>handler</codeph> のガベージコレクションが回避されます。弱参照では回避されません。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.binding.utils:BindingUtils"><apiName>BindingUtils</apiName><shortdesc>
+  BindingUtils クラスは、ActionScript からデータバインディングを実行するユーティリティメソッドを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BindingUtils クラスは、ActionScript からデータバインディングを実行するユーティリティメソッドを定義します。 このクラスで定義されたメソッドを使用すると、データバインディングを設定できます。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.binding.utils:BindingUtils:bindProperty"><apiName>bindProperty</apiName><shortdesc>
+      site オブジェクトのパブリックプロパティ prop を、バインド可能なプロパティまたはプロパティチェーンにバインドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>少なくとも 1 つのプロパティ名が <codeph>chain</codeph> 引数に指定されている場合は ChangeWatcher インスタンスです。それ以外の場合は null です。 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>site</apiItemName><apiType value="Object"/><apiDesc><codeph>chain</codeph> にバインドされるプロパティを定義するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prop</apiItemName><apiType value="String"/><apiDesc>バインドされる <codeph>site</codeph> オブジェクトに定義されているパブリックプロパティの名前です。 <codeph>chain</codeph> の現在の値をプロパティが受け取るのは、<codeph>chain</codeph> の値が変化するときです。 
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>監視されるプロパティまたはプロパティチェーンをホストするオブジェクトです。 <codeph>host</codeph> には、<codeph>prop</codeph> が変更されたときに更新する <codeph>sites</codeph> のリストが保持されます。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>監視されるプロパティまたはプロパティチェーンを指定する値です。 有効な値は次のとおりです。
+      <ul>
+        <li>ホストオブジェクトのパブリックなバインド可能パブリックプロパティの名前を含むストリングです。</li>
+     
+        <li><codeph>{ name: <i>property name</i>, getter: function(host) { return host[<i>property name</i>] } }</codeph> という形式のオブジェクトです。 このオブジェクトには、ホストオブジェクトのパブリックでないバインド可能プロパティの名前および getter 関数が含まれている必要があります。</li>
+     
+        <li>ホストからアクセスできるバインド可能プロパティのチェーンを表す最初の 2 つのオプションの組み合わせを含む空でない配列です。 例えば、プロパティ <codeph>host.a.b.c</codeph> をバインドするには、<codeph>bindProperty(site, prop, host, ["a","b","c"])</codeph> のようにメソッドを呼び出します。</li>
+      </ul>
+           <p>メモ：<codeph>chain</codeph> 引数で指定するプロパティはパブリックである必要があります。<codeph>describeType()</codeph> メソッドでは、パブリックでないプロパティに関する情報は返されないためです。パブリックでないプロパティには、特定のプロパティに対して公開されている change イベントを検索するために ChangeWatcher がスキャンする、バインド可能性を表すメタデータなどがあります。 ただし、上記の <codeph>{ name, getter }</codeph> 引数形式の使用時に getter 関数を指定すると、指定した（パブリック）プロパティに任意の計算結果を関連付けることができます。</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>コミットする change イベントでのみハンドラーを呼び出す場合は <codeph>true</codeph> に設定し、コミットする change イベントとコミットしない change イベントの両方でハンドラーを呼び出す場合は <codeph>false</codeph> に設定します。 メモ：プロパティについてコミットしない change イベントがあるかどうかは、<codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph> メタデータタグが示します。 通常は、テキストフィールドでの確定前の変更などの詳細な値の変更を示すのに、これらのタグが使用されます。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>site</codeph> への参照が強参照と弱参照のいずれであるかを判断します。 デフォルトである強参照の場合は、<codeph>site</codeph> のガベージコレクションが回避されます。弱参照では回避されません。Flex 4 用に追加されました。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      パブリックプロパティ <codeph>prop</codeph>（<codeph>site</codeph> オブジェクト上）を、バインド可能なプロパティまたはプロパティチェーンにバインドします。 ChangeWatcher インスタンスが正常に作成されると、<codeph>prop</codeph> は <codeph>chain</codeph> の現在の値に初期化されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:BindingUtils:bindSetter"><apiName>bindSetter</apiName><shortdesc>
+      setter 関数 setter をバインド可能なプロパティまたはプロパティチェーンにバインドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>少なくとも 1 つのプロパティ名が <codeph>chain</codeph> 引数に指定されている場合は ChangeWatcher インスタンスです。それ以外の場合は null です。 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>setter</apiItemName><apiType value="Function"/><apiDesc>値が変更されたときに、<codeph>chain</codeph> の現在の値を引数として指定して呼び出す setter メソッドです。
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>プロパティのホストです。 詳細については、<codeph>bindProperty()</codeph> メソッドを参照してください。<codeph>host</codeph> には、<codeph>prop</codeph> が変更されたときに更新する <codeph>setters</codeph> のリストが保持されます。
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>プロパティまたはプロパティチェーンの名前です。 詳細については、<codeph>bindProperty()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>コミットする change イベントでのみハンドラーを呼び出す場合は <codeph>true</codeph> に設定します。 詳細については、<codeph>bindProperty()</codeph> メソッドを参照してください。
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>setter</codeph> への参照が強参照と弱参照のいずれであるかを判断します。 デフォルトである強参照の場合は、<codeph>setter</codeph> のガベージコレクションが回避されます。弱参照では回避されません。Flex 4 用に追加されました。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      setter 関数 <codeph>setter</codeph> をバインド可能なプロパティまたはプロパティチェーンにバインドします。 ChangeWatcher インスタンスが正常に作成されると、setter 関数が呼び出されます。setter には次の関数シグネチャが必要です。
+           <pre>
+      function mySetterFunction(object:Object):void {
+          //Do whatever you want with the value of the bound property.
+      }</pre> 
+           <p>ここで、<codeph>object</codeph> には、<codeph>chain</codeph> の現在値が含まれます。</p>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

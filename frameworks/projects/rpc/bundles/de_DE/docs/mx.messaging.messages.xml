@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.messages"><apiName>mx.messaging.messages</apiName><apiDetail/><apiClassifier id="mx.messaging.messages:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+  SOAPMessages ähneln HTTPRequestMessages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:HTTPRequestMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SOAPMessages ähneln HTTPRequestMessages. Sie enthalten jedoch immer einen SOAP XML-Hüllenanforderungskörper, der immer durch HTTP POST gesendet wird. Dadurch kann auch eine SOAP-Aktion definiert werden.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:SOAPMessage:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+      Erstellt eine nicht initialisierte SOAPMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine nicht initialisierte SOAPMessage.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:SOAPMessage:getSOAPAction"><apiName>getSOAPAction</apiName><shortdesc>
+      Stellt Zugriff auf den Namen der Remote-Methode bzw. des Remote-Vorgangs zur Verfügung, die bzw. der aufgerufen wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt den Namen der Remote-Methode bzw. des Remote-Vorgangs zurück, die bzw. der aufgerufen wird.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Stellt Zugriff auf den Namen der Remote-Methode bzw. des Remote-Vorgangs zur Verfügung, die bzw. der aufgerufen wird.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:SOAPMessage:SOAP_ACTION_HEADER"><apiName>SOAP_ACTION_HEADER</apiName><shortdesc>
+      Der HTTP-Header, der die SOAP-Aktion für die SOAPMessage speichert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SOAPAction</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der HTTP-Header, der die SOAP-Aktion für die SOAPMessage speichert.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+  Die ErrorMessage-Klasse wird zum Melden von Fehlern im Meldungssystem verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AcknowledgeMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ErrorMessage-Klasse wird zum Melden von Fehlern im Meldungssystem verwendet. Eine Fehlermeldung tritt nur als Reaktion auf eine im System gesendete Meldung auf.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:ErrorMessage:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+      Erstellt eine ErrorMessage-Instanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine ErrorMessage-Instanz.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:ErrorMessage:MESSAGE_DELIVERY_IN_DOUBT"><apiName>MESSAGE_DELIVERY_IN_DOUBT</apiName><shortdesc>
+      Wenn eine Meldung nicht zugestellt wurde, enthält faultCode diese Konstante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.Error.DeliveryInDoubt</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Wenn eine Meldung nicht zugestellt wurde, enthält <codeph>faultCode</codeph> diese Konstante. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:RETRYABLE_HINT_HEADER"><apiName>RETRYABLE_HINT_HEADER</apiName><shortdesc>
+      Header-Name für den erneut versuchbaren Hinweis-Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRetryableErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Header-Name für den erneut versuchbaren Hinweis-Header. Das weist darauf hin, dass der Vorgang, durch den der Fehler generiert wurde, erneut versucht werden kann und es sich nicht um einen schwerwiegenden Fehler handelt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:extendedData"><apiName>extendedData</apiName><shortdesc>
+     Erweiterte Daten, die vom Remote-Ziel ausgewählt wurden, um diesen Fehler zu verknüpfen, damit die benutzerdefinierte Fehlerverarbeitung auf dem Client erleichtert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Erweiterte Daten, die vom Remote-Ziel ausgewählt wurden, um diesen Fehler zu verknüpfen, damit die benutzerdefinierte Fehlerverarbeitung auf dem Client erleichtert wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultCode"><apiName>faultCode</apiName><shortdesc>
+      Der Code des Fehlers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Code des Fehlers. Dieser Wert entspricht normalerweise der Konvention „[äußerer_Kontext].[innerer_Kontext].[Problem]“. Beispiel: „Channel.Connect.Failed“, „Server.Call.Failed“ usw.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      Ausführliche Beschreibung zur Ursache des Fehlers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Ausführliche Beschreibung zur Ursache des Fehlers. Dabei handelt es sich normalerweise um ein Stack-Trace von dem Remote-Ziel.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultString"><apiName>faultString</apiName><shortdesc>
+      Eine einfache Beschreibung des Fehlers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Eine einfache Beschreibung des Fehlers.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:rootCause"><apiName>rootCause</apiName><shortdesc>
+      Wenn eine zugrundeliegende Ursache für den Fehler vorliegt, enthält die Eigenschaft diese Details.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Wenn eine zugrundeliegende Ursache für den Fehler vorliegt, enthält die Eigenschaft diese Details. Dabei kann es sich um eine ErrorMessage, ein NetStatusEvent-Informationsobjekt oder ein zugrundeliegendes Flash-Fehlerereignis (ErrorEvent, IOErrorEvent oder SecurityErrorEvent) handeln.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+  RemotingMessages werden zum Senden von RPC-Anforderungen an einen Remote-Endpunkt verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemotingMessages werden zum Senden von RPC-Anforderungen an einen Remote-Endpunkt verwendet. Diese Meldungen verwenden die Eigenschaft <codeph>operation</codeph>, um anzugeben, welche Methode am Remote-Objekt aufgerufen werden soll. Die Eigenschaft <codeph>destination</codeph> gibt an, welches Objekt bzw. welcher Dienst verwendet werden soll.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:RemotingMessage:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+      Erstellt eine nicht initialisierte RemotingMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine nicht initialisierte RemotingMessage.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:RemotingMessage:operation"><apiName>operation</apiName><shortdesc>
+      Stellt Zugriff auf den Namen der Remote-Methode bzw. des Remote-Vorgangs zur Verfügung, die bzw. der aufgerufen werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf den Namen der Remote-Methode bzw. des Remote-Vorgangs zur Verfügung, die bzw. der aufgerufen werden soll.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:RemotingMessage:source"><apiName>source</apiName><shortdesc>
+      Diese Eigenschaft wird aus Gründen der Abwärtskompatibilität zur Verfügung gestellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Diese Eigenschaft wird aus Gründen der Abwärtskompatibilität zur Verfügung gestellt. Es wird jedoch empfohlen, die zugrundeliegende Quelle eines RemoteObject-Ziels auf dem Client nicht bereitzustellen und nur eine Quelle einem Ziel bereitzustellen. Einige Typen von Remoting-Diensten ignorieren diese Eigenschaft möglicherweise auch aus Sicherheitsgründen.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+  Abstrakte Basisklasse für alle Meldungen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Abstrakte Basisklasse für alle Meldungen. Meldungen bestehen aus zwei anpassbaren Abschnitten: Header und Körper. Die Eigenschaft <codeph>headers</codeph> stellt Zugriff auf spezielle Metainformationen für eine bestimmte Meldungsinstanz zur Verfügung. Die Eigenschaft <codeph>headers</codeph> ist ein assoziatives Array mit dem bestimmten Header-Namen als Schlüssel.
+  <p>
+  Der Körper einer Meldung enthält die instanzspezifischen Daten, die an das Remote-Ziel zugestellt und von diesem verarbeitet werden sollen. Der Körper (<codeph>body</codeph>) ist ein Objekt und entspricht den Nutzdaten einer Meldung.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AbstractMessage:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+      Erstellt eine Instanz einer AbstractMessage mit leerem Körper und Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine Instanz einer AbstractMessage mit leerem Körper und Header. Dieser Meldungstyp sollte nicht instanziiert oder direkt verwendet werden.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:AbstractMessage:toString"><apiName>toString</apiName><shortdesc>
+      Gibt eine Stringdarstellung der Meldung zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Stringdarstellung der Meldung.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt eine Stringdarstellung der Meldung zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:AbstractMessage:DESTINATION_CLIENT_ID_HEADER"><apiName>DESTINATION_CLIENT_ID_HEADER</apiName><shortdesc>
+      Die vom Server weitergeleiteten Meldungen können in einem Stapel ankommen, wobei die Meldungen im Stapel möglicherweise an unterschiedliche Verbraucherinstanzen gerichtet sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSDstClientId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die vom Server weitergeleiteten Meldungen können in einem Stapel ankommen, wobei die Meldungen im Stapel möglicherweise an unterschiedliche Verbraucherinstanzen gerichtet sind. Jede Meldung enthält diesen Header, die die Verbraucherinstanz kennzeichnet, die die Meldung erhalten soll.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:ENDPOINT_HEADER"><apiName>ENDPOINT_HEADER</apiName><shortdesc>
+      Meldungen erhalten ein Tag der Endpunkt-ID für den Kanal, an den sie gesendet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSEndpoint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Meldungen erhalten ein Tag der Endpunkt-ID für den Kanal, an den sie gesendet werden. Durch Kanäle wird dieser Wert automatisch festgelegt, wenn eine Meldung gesendet wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:FLEX_CLIENT_ID_HEADER"><apiName>FLEX_CLIENT_ID_HEADER</apiName><shortdesc>
+	  Dieser Header wird zur Übertragung des globalen ID-Werts FlexClient in ausgehenden Meldungen verwendet, nachdem dieser Wert vom Server zugewiesen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Dieser Header wird zur Übertragung des globalen ID-Werts FlexClient in ausgehenden Meldungen verwendet, nachdem dieser Wert vom Server zugewiesen wurde.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:PRIORITY_HEADER"><apiName>PRIORITY_HEADER</apiName><shortdesc>
+      Die von einem MessageAgent gesendeten Meldungen können einen Prioritäten-Header mit einem numerischen Wert von 0-9 (0 ist der niedrigste Wert) aufweisen und der Server kann diesen numerischen Wert zum Prioritisieren von Meldungen an Clients verwenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPriority</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die von einem MessageAgent gesendeten Meldungen können einen Prioritäten-Header mit einem numerischen Wert von 0-9 (0 ist der niedrigste Wert) aufweisen und der Server kann diesen numerischen Wert zum Prioritisieren von Meldungen an Clients verwenden. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_CHARSET_HEADER"><apiName>REMOTE_CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+      Meldungen, bei denen Remote-Benutzerdaten für ein Ziel festgelegt werden müssen, müssen möglicherweise auch die Zeichensatzkodierung melden, die zur Erstellung des Benutzerdatenstrings mithilfe dieses Header verwendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Meldungen, bei denen Remote-Benutzerdaten für ein Ziel festgelegt werden müssen, müssen möglicherweise auch die Zeichensatzkodierung melden, die zur Erstellung des Benutzerdatenstrings mithilfe dieses Header verwendet wurde.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_HEADER"><apiName>REMOTE_CREDENTIALS_HEADER</apiName><shortdesc>
+      Meldungen, bei denen Remote-Benutzerdaten für ein Ziel festgelegt werden müssen, enthalten die nach Base64 kodierten Benutzerdaten in diesem Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentials</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Meldungen, bei denen Remote-Benutzerdaten für ein Ziel festgelegt werden müssen, enthalten die nach Base64 kodierten Benutzerdaten in diesem Header.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REQUEST_TIMEOUT_HEADER"><apiName>REQUEST_TIMEOUT_HEADER</apiName><shortdesc>
+	  Meldungen, die mit einem definierten Anforderungszeitlimit gesendet werden, verwenden diesen Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRequestTimeout</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Meldungen, die mit einem definierten Anforderungszeitlimit gesendet werden, verwenden diesen Header. Der angeforderte Zeitlimitwert wird auf ausgehenden Meldungen von Diensten oder Kanälen definiert. Der Wert steuert, wie lange der entsprechende MessageResponder auf eine Bestätigung, ein Ergebnis oder eine Fehlerreaktion der Meldung wartet, bevor das Zeitlimit der Anforderung überschritten wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:STATUS_CODE_HEADER"><apiName>STATUS_CODE_HEADER</apiName><shortdesc>
+      Ein Statuscode kann einen Kontext zur Art der Antwortmeldung bieten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSStatusCode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Ein Statuscode kann einen Kontext zur Art der Antwortmeldung bieten. Beispielsweise müssen die von einem HTTP-basierten Kanal erhaltenen Meldungen möglicherweise den HTTP-Reaktionsstatuscode (falls verfügbar) melden.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:body:get"><apiName>body</apiName><shortdesc>
+      Der Körper einer Meldung enthält die spezifischen Daten, die an das Remote-Ziel zugestellt werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Der Körper einer Meldung enthält die spezifischen Daten, die an das Remote-Ziel zugestellt werden sollen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      ClientId weist darauf hin, von welchem MessageAgent die Meldung gesendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ClientId weist darauf hin, von welchem MessageAgent die Meldung gesendet wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      Das Meldungsziel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Das Meldungsziel.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      Die Header einer Meldung sind ein assoziatives Array, wobei der Schlüssel der Header-Name und der Wert der Header-Wert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die Header einer Meldung sind ein assoziatives Array, wobei der Schlüssel der Header-Name und der Wert der Header-Wert ist. Diese Eigenschaft bietet Zugriff auf spezielle Metainformationen für die bestimmte Meldungsinstanz. Kern-Header-Namen beginnen mit dem Präfix 'DS'. Benutzerdefinierte Header-Namen sollten mit einem eindeutigen Präfix beginnen, um Überschneidungen zwischen Namen zu vermeiden.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      Die eindeutige ID für die Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Die eindeutige ID für die Meldung.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      Die Zeit des Live-Werts einer Meldung gibt an, wie lange die Meldung als gültig und zustellbar betrachtet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Zeit des Live-Werts einer Meldung gibt an, wie lange die Meldung als gültig und zustellbar betrachtet werden soll. Dieser Wert wird zusammen mit dem Wert <codeph>timestamp</codeph> verwendet. Die Zeit für Live ist der Zeitraum in Millisekunden, die die Meldung ab dem Wert <codeph>timestamp</codeph> gültig ist. Wenn der Wert <codeph>timestamp</codeph> beispielsweise 04/05/05 1:30:45 PST und der Wert <codeph>timeToLive</codeph> 5000 beträgt, läuft diese Meldung am 04/05/05 um 1:30:50 PST ab. Nach dem Ablaufen einer Meldung wird sie nicht mehr anderen Clients zugestellt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Stellt Zugriff auf den Zeitstempel für die Meldung zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf den Zeitstempel für die Meldung zur Verfügung. Ein Zeitstempel ist das Datum und die Uhrzeit einer gesendeten Meldung. Der Zeitstempel wird zum Auffinden der Meldung im System, Sicherstellen der Qualität der Dienststufen und Bereitstellung eines Mechanismus für den Meldungsablauf verwendet.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc> 
+     Die MessagePerformanceUtils-Dienstprogrammklasse wird zum Abrufen verschiedener metrischer Informationen zu Größe und Zeit einer vom Client zum Server gesendeten Meldung und der zugehörigen Antwortmeldung sowie vom Server zu den Clients weitergeleiteten Meldungen verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+     Die MessagePerformanceUtils-Dienstprogrammklasse wird zum Abrufen verschiedener metrischer Informationen zu Größe und Zeit einer vom Client zum Server gesendeten Meldung und der zugehörigen Antwortmeldung sowie vom Server zu den Clients weitergeleiteten Meldungen verwendet. Metrische Informationen werden gesammelt, wenn die entsprechenden Eigenschaften des Kanals aktiviert sind: &lt;record-message-times> gibt die Erfassung von Zeitinformationen an, &lt;record-message-sizes> gibt die Erfassung von Größeninformationen an.
+     
+     <p>Sie können dann Methoden dieser Dienstprogrammklasse verwenden, um verschiedene Leistungsinformationen zu den Meldungen abzurufen, die Sie gerade erhalten haben.</p>
+     
+     <p>Wenn diese metrischen Informationen aktiviert sind, sollte eine Instanz dieser Klasse aus einer Reaktion, Bestätigung oder Meldungsprozedur mit folgendem Code erstellt werden: </p>
+     
+     <pre>
+          var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
+     </pre> 
+          </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:MessagePerformanceUtils:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc>
+         Konstruktor, der eine MPUtils-Instanz mit Informationen aus den MPI-Headern der übergebenen Meldung erstellt.
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="Object"/><apiDesc>Die Meldung, deren MPI-Header durch Abrufen der MPI-Informationen verwendet wird.
+                  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         Konstruktor, der eine MPUtils-Instanz mit Informationen aus den MPI-Headern der übergebenen Meldung erstellt.
+         
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:MessagePerformanceUtils:prettyPrint"><apiName>prettyPrint</apiName><shortdesc>
+          Gibt eine Übersicht über alle in MPI verfügbaren Informationen zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>String mit einer Übersicht über alle in MPI verfügbaren Informationen
+                  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+          Gibt eine Übersicht über alle in MPI verfügbaren Informationen zurück. Beispiel:
+         
+         <pre>
+              var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                     
+              Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);
+         </pre>            
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:MessagePerformanceUtils:clientReceiveTime:get"><apiName>clientReceiveTime</apiName><shortdesc>
+         Zeitstempel in Millisekunden, ab dem Zeitpunkt, an dem der Client die Antwortmeldung vom Server empfangen hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeitstempel in Millisekunden, ab dem Zeitpunkt, an dem der Client die Antwortmeldung vom Server empfangen hat.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:messageSize:get"><apiName>messageSize</apiName><shortdesc>
+         Die Größe der ursprünglichen Clientmeldung, gemessen während Deserialisierung durch den Serverendpunkt.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         Die Größe der ursprünglichen Clientmeldung, gemessen während Deserialisierung durch den Serverendpunkt.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:networkRTT:get"><apiName>networkRTT</apiName><shortdesc>
+         Für Clientmeldung und Serverantwort benötigte Netzwerkzeit, wird aus der Differenz zwischen Gesamtzeit und Serververarbeitungszeit errechnet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Für Clientmeldung und Serverantwort benötigte Netzwerkzeit, wird aus der Differenz zwischen Gesamtzeit und Serververarbeitungszeit errechnet.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSentTime:get"><apiName>originatingMessageSentTime</apiName><shortdesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Zeitstempel in Millisekunden ab dem Zeitpunkt, an dem der Client die Meldung gesendet hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Zeitstempel in Millisekunden ab dem Zeitpunkt, an dem der Client die Meldung gesendet hat.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSize:get"><apiName>originatingMessageSize</apiName><shortdesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Größe der Meldung in Byte, die ursprünglich zu dieser weitergeleiteten Meldung geführt hat .</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Größe der Meldung in Byte, die ursprünglich zu dieser weitergeleiteten Meldung geführt hat .
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushOneWayTime:get"><apiName>pushOneWayTime</apiName><shortdesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Netzwerkzeit zwischen dem Zeitpunkt, an dem der Server die Meldung weitergeleitet und der Client sie empfangen hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt; Netzwerkzeit zwischen dem Zeitpunkt, an dem der Server die Meldung weitergeleitet und der Client sie empfangen hat. Damit diese Angabe aussagekräftig ist, müssen Server- und Clientuhr synchron laufen.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushedMessageFlag:get"><apiName>pushedMessageFlag</apiName><shortdesc>
+         Gibt „true“ zurück, wenn die Meldung an den Client weitergeleitet wurde, aber keine Antwort auf eine Meldung ist, die von dem Client stammt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+         Gibt „true“ zurück, wenn die Meldung an den Client weitergeleitet wurde, aber keine Antwort auf eine Meldung ist, die von dem Client stammt.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:responseMessageSize:get"><apiName>responseMessageSize</apiName><shortdesc>
+         Die Größe der Antwortmeldung in Byte, die vom Server an den Client gesendet wird, zum Zeitpunkt der Serialisierung am Serverendpunkt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         Die Größe der Antwortmeldung in Byte, die vom Server an den Client gesendet wird, zum Zeitpunkt der Serialisierung am Serverendpunkt.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterExternalTime:get"><apiName>serverAdapterExternalTime</apiName><shortdesc>
+         Zeit, die in einem Modul gebraucht wurde, das von einem externen Adapter aufgerufen wurde, der mit dem Ziel dieser Meldung verknüpft ist, und zwar entweder bevor die Antwort auf die Meldung bereitsteht oder die Meldung zur Weiterleitung an den erhaltenden Client vorbereitet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeit, die in einem Modul gebraucht wurde, das von einem externen Adapter aufgerufen wurde, der mit dem Ziel dieser Meldung verknüpft ist, und zwar entweder bevor die Antwort auf die Meldung bereitsteht oder die Meldung zur Weiterleitung an den erhaltenden Client vorbereitet ist.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterTime:get"><apiName>serverAdapterTime</apiName><shortdesc>
+         Zeit, die in dem mit dem Meldungsziel verknüpften Adapter gebraucht wurde, um eine Antwort auf die Meldung bereitzustellen oder die Meldung an einen Client weiterzuleiten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeit, die in dem mit dem Meldungsziel verknüpften Adapter gebraucht wurde, um eine Antwort auf die Meldung bereitzustellen oder die Meldung an einen Client weiterzuleiten.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverNonAdapterTime:get"><apiName>serverNonAdapterTime</apiName><shortdesc>
+         Serververarbeitungszeit außerhalb dieses Adapters, der mit dem Ziel dieser Meldung verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Serververarbeitungszeit außerhalb dieses Adapters, der mit dem Ziel dieser Meldung verknüpft ist.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPollDelay:get"><apiName>serverPollDelay</apiName><shortdesc>
+         Wartezeit der Meldung auf dem Server, nachdem sie zur Weiterleitung an den Client bereit war, jedoch noch nicht abgefragt war.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Wartezeit der Meldung auf dem Server, nachdem sie zur Weiterleitung an den Client bereit war, jedoch noch nicht abgefragt war.
+                  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPrePushTime:get"><apiName>serverPrePushTime</apiName><shortdesc>
+         Zeit zwischen dem Erhalt der Clientmeldung durch den Server und der Weiterleitung von Meldungen durch den Server an andere Clients, die durch die ursprüngliche Meldung ausgelöst wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeit zwischen dem Erhalt der Clientmeldung durch den Server und der Weiterleitung von Meldungen durch den Server an andere Clients, die durch die ursprüngliche Meldung ausgelöst wurden.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverProcessingTime:get"><apiName>serverProcessingTime</apiName><shortdesc>
+         Zeit zwischen dem Erhalt der Clientmeldung durch den Server und dem Zeitpunkt, an dem der Server auf die erhaltene Meldung antwortet oder die weitergeleitete Meldung zum Senden an einen erhaltenden Client bereitstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeit zwischen dem Erhalt der Clientmeldung durch den Server und dem Zeitpunkt, an dem der Server auf die erhaltene Meldung antwortet oder die weitergeleitete Meldung zum Senden an einen erhaltenden Client bereitstellt.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverSendTime:get"><apiName>serverSendTime</apiName><shortdesc>
+         Zeitstempel in Millisekunden ab dem Zeitpunkt, an dem der Server eine Antwortmeldung an den Client gesendet hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeitstempel in Millisekunden ab dem Zeitpunkt, an dem der Server eine Antwortmeldung an den Client gesendet hat.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalPushTime:get"><apiName>totalPushTime</apiName><shortdesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt. Dies ist die Zeit zwischen der Weiterleitung der Meldung durch den Client, der die Weiterleitung verursacht, und dem Erhalt der Meldung durch den Client, der die Weiterleitung erhält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Wird nur bei einer weitergeleiteten Meldung ausgefüllt. Dies ist die Zeit zwischen der Weiterleitung der Meldung durch den Client, der die Weiterleitung verursacht, und dem Erhalt der Meldung durch den Client, der die Weiterleitung erhält. Damit diese Angabe aussagekräftig ist, müssen die Uhren beider Clients synchron laufen.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalTime:get"><apiName>totalTime</apiName><shortdesc>
+         Zeit zwischen der Versendung einer Meldung durch diesen Client und dem Erhalt einer Antwort vom Server
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Zeit zwischen der Versendung einer Meldung durch diesen Client und dem Erhalt einer Antwort vom Server
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+  HTTP-Anforderungen werden unter Verwendung dieses Meldungstyps an den HTTP-Endpunkt gesendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTTP-Anforderungen werden unter Verwendung dieses Meldungstyps an den HTTP-Endpunkt gesendet. HTTPRequestMessage bindet Inhalts- und Header-Informationen ein, die normalerweise in den von einem Browser gestellten HTTP-Anforderungen zu finden sind.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:HTTPRequestMessage:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+      Erstellt eine nicht inititalisierte HTTP-Anforderung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine nicht inititalisierte HTTP-Anforderung.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      Gibt an, dass der Inhalt dieser Meldung ein Formular ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass der Inhalt dieser Meldung ein Formular ist.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_SOAP_XML"><apiName>CONTENT_TYPE_SOAP_XML</apiName><shortdesc>
+      Gibt an, dass der Inhalt dieser Meldung XML für eine SOAP-Anforderung ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text/xml; charset=utf-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass der Inhalt dieser Meldung XML für eine SOAP-Anforderung ist.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      Gibt an, dass der Inhalt dieser Meldung XML ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass der Inhalt dieser Meldung XML ist.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:DELETE_METHOD"><apiName>DELETE_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „delete“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DELETE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „delete“ verwendet werden soll.
+      
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.DELETE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:GET_METHOD"><apiName>GET_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „get“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „get“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.GET_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:HEAD_METHOD"><apiName>HEAD_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „head“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HEAD</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „head“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.HEAD_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:OPTIONS_METHOD"><apiName>OPTIONS_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „options“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>OPTIONS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „options“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.OPTIONS_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:POST_METHOD"><apiName>POST_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „post“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>POST</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „post“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:PUT_METHOD"><apiName>PUT_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „put“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>PUT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „put“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.PUT_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:TRACE_METHOD"><apiName>TRACE_METHOD</apiName><shortdesc>
+      Gibt an, dass für diese Anforderung die Methode „trace“ verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>TRACE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, dass für diese Anforderung die Methode „trace“ verwendet werden soll.
+     
+      <p>In folgendem Beispiel wird diese Konstante verwendet:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.TRACE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:contentType"><apiName>contentType</apiName><shortdesc>
+      Gibt den Inhaltstyp für diese Meldung an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt den Inhaltstyp für diese Meldung an. Dieser Wert muss vom Ziel verstanden werden, an das diese Anforderung gesendet wird.
+     
+      <p>Im folgenden Beispiel wird die <codeph>contentType</codeph>-Eigenschaft eingestellt:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:httpHeaders"><apiName>httpHeaders</apiName><shortdesc>
+      Enthält bestimmte HTTP-Header, die in der Anforderung an das Ziel enthalten sein sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Enthält bestimmte HTTP-Header, die in der Anforderung an das Ziel enthalten sein sollen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:recordHeaders"><apiName>recordHeaders</apiName><shortdesc>
+     Wird nur bei Verwendung von Proxy eingesetzt, wenn der Proxy die Anforderung und die Antwort-Header zurücksendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Wird nur bei Verwendung von Proxy eingesetzt, wenn der Proxy die Anforderung und die Antwort-Header zurücksendet. Der Standardwert ist „false“. Derzeit nur bei Verwendung von NetworkMonitor definiert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:url"><apiName>url</apiName><shortdesc>
+      Enthält das endgültige Ziel dieser Anforderung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Enthält das endgültige Ziel dieser Anforderung. Das ist die URL, an die der Inhalt dieser Meldung, die in der Eigenschaft <codeph>body</codeph> festgelegt ist, unter Verwendung der angegebenen Methode gesendet wird.
+     
+      <p>Im folgenden Beispiel wird die <codeph>url</codeph>-Eigenschaft eingestellt:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:method:get"><apiName>method</apiName><shortdesc>
+      Gibt an, welche Methode für die Anforderung verwendet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt an, welche Methode für die Anforderung verwendet werden soll. Es sind ausschließlich folgende Werte gültig:
+      <ul>
+        <li><codeph>HTTPRequestMessage.DELETE_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.GET_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.HEAD_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.POST_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.OPTIONS_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.PUT_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.TRACE_METHOD</codeph></li>
+      </ul>
+     
+      <p>Im folgenden Beispiel wird die <codeph>method</codeph>-Eigenschaft eingestellt:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+  AsyncMessage ist die Basisklasse für alle asynchronen Meldungen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncMessage ist die Basisklasse für alle asynchronen Meldungen.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AsyncMessage:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+      Erstellt eine Instanz von AsyncMessage mit einem leeren Körper und Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>body</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Der Körper, der optional der Meldung zugewiesen werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>headers</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Header, der optional der Meldung zugewiesen werden können.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Erstellt eine Instanz von AsyncMessage mit einem leeren Körper und Header. Zusätzlich zu diesem Standardverhalten können der Körper und die Header der Meldung auch an den Konstruktor übergeben werden. Ein Beispiel für diese Vorgehensweise des Aufrufs für den Körper: <codeph>var msg:AsyncMessage = new AsyncMessage("Body text");</codeph> Ein Beispiel, in dem sowohl der Körper als auch der Header zur Verfügung gestellt werden: <codeph>var msg:AsyncMessage = new AsyncMessage("Body text", {"customerHeader":"customValue"});</codeph>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AsyncMessage:SUBTOPIC_HEADER"><apiName>SUBTOPIC_HEADER</apiName><shortdesc>
+	  Meldungen, die von MessageAgent mit einer definierten subtopic-Eigenschaft gesendet werden, geben das zugehörige Ziel-subtopic in diesem Header an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSubtopic</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Meldungen, die von MessageAgent mit einer definierten <codeph>subtopic</codeph>-Eigenschaft gesendet werden, geben das zugehörige Ziel-subtopic in diesem Header an.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AsyncMessage:correlationId:get"><apiName>correlationId</apiName><shortdesc>
+      Stellt Zugriff auf die Korrelations-ID der Meldung zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf die Korrelations-ID der Meldung zur Verfügung. Wird zur Bestätigung und Segmentation von Meldungen verwendet. Die <codeph>correlationId</codeph> enthält die <codeph>messageId</codeph> der vorherigen Meldung, auf die sich diese Meldung bezieht.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/messageId"><linktext>mx.messaging.messages.AbstractMessage.messageId</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+  Eine AcknowledgeMessage bestätigt den Erhalt einer Meldung, die zuvor gesendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Eine AcknowledgeMessage bestätigt den Erhalt einer Meldung, die zuvor gesendet wurde. Alle im Meldungssystem gesendeten Meldungen müssen eine Bestätigung erhalten.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AcknowledgeMessage:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+      Erstellt eine Instanz einer AcknowledgeMessage mit einem leeren Körper und Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine Instanz einer AcknowledgeMessage mit einem leeren Körper und Header.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AcknowledgeMessage:ERROR_HINT_HEADER"><apiName>ERROR_HINT_HEADER</apiName><shortdesc>
+      Header-Name für den Fehlerhinweis-Header.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Header-Name für den Fehlerhinweis-Header. Wird verwendet, um anzugeben, dass die Bestätigung für eine Meldung ist, die einen Fehler generiert hat.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:IMessage"><apiName>IMessage</apiName><shortdesc>
+  Diese Schnittstelle definiert den Vertrag für Meldungsobjekte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Diese Schnittstelle definiert den Vertrag für Meldungsobjekte.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:toString"><apiName>toString</apiName><shortdesc>
+      Diese Methode gibt eine Stringdarstellung der Meldung zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Stringdarstellung der Meldung.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Diese Methode gibt eine Stringdarstellung der Meldung zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:body:get"><apiName>body</apiName><shortdesc>
+      Der Körper einer Meldung enthält die spezifischen Daten, die an das Remote-Ziel zugestellt werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Der Körper einer Meldung enthält die spezifischen Daten, die an das Remote-Ziel zugestellt werden sollen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      Die ClientId gibt an, von welchem Client die Meldung gesendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Die ClientId gibt an, von welchem Client die Meldung gesendet wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      Das Meldungsziel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Das Meldungsziel.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      Stellt Zugriff auf die Header der Meldung zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf die Header der Meldung zur Verfügung. Die Header einer Meldung sind ein assoziatives Array, wobei der Schlüssel der Header-Name ist. Diese Eigenschaft bietet Zugriff auf spezielle Metainformationen für die bestimmte Meldungsinstanz.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      Die eindeutige ID für die Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Die eindeutige ID für die Meldung. Die Meldungs-ID kann eine Antwort auf die ursprüngliche Anforderungsmeldung in einem Antwort-Antwort-Meldungsszenario zuordnen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      Die Zeit des Live-Werts einer Meldung gibt an, wie lange die Meldung als gültig und zustellbar betrachtet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Zeit des Live-Werts einer Meldung gibt an, wie lange die Meldung als gültig und zustellbar betrachtet werden soll. Dieser Wert wird zusammen mit dem Wert <codeph>timestamp</codeph> verwendet. Die Zeit für Live ist der Zeitraum in Millisekunden, die die Meldung ab dem Wert <codeph>timestamp</codeph> gültig ist. Wenn der Wert <codeph>timestamp</codeph> beispielsweise 04/05/05 1:30:45 PST und der Wert <codeph>timeToLive</codeph> 5000 beträgt, läuft diese Meldung am 04/05/05 um 1:30:50 PST ab. Nach dem Ablaufen einer Meldung wird sie nicht mehr anderen Clients zugestellt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Stellt Zugriff auf den Zeitstempel für die Meldung zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf den Zeitstempel für die Meldung zur Verfügung. Ein Zeitstempel ist das Datum und die Uhrzeit einer gesendeten Meldung. Der Zeitstempel wird zum Auffinden der Meldung im System, Sicherstellen der Qualität der Dienststufen und Bereitstellung eines Mechanismus für den Ablauf verwendet.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#IMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+  Die CommandMessage-Klasse bietet einen Mechanismus zum Senden von Befehlen an die Serverinfrastruktur, beispielsweise Befehle zum Veröffentlichen/Abonnieren von Meldungsszenarien, Ping-Vorgängen und Cluster-Vorgängen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die CommandMessage-Klasse bietet einen Mechanismus zum Senden von Befehlen an die Serverinfrastruktur, beispielsweise Befehle zum Veröffentlichen/Abonnieren von Meldungsszenarien, Ping-Vorgängen und Cluster-Vorgängen.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:CommandMessage:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+      Erstellt eine Instanz einer CommandMessage mit einem leeren Körper und Header und dem Standardvorgang UNKNOWN_OPERATION.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt eine Instanz einer CommandMessage mit einem leeren Körper und Header und dem <codeph>Standardvorgang</codeph> <codeph>UNKNOWN_OPERATION</codeph>.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:CommandMessage:getOperationAsString"><apiName>getOperationAsString</apiName><shortdesc>
+      Stellt eine Beschreibung des angegebenen Vorgangs zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Kurzname des Vorgangs.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>op</apiItemName><apiType value="uint"/><apiDesc>Eine der CommandMessage-Vorgangskonstanten.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stellt eine Beschreibung des angegebenen Vorgangs zur Verfügung. Diese Methode wird in Vorgängen des Typs <codeph>toString()</codeph> in dieser Meldung verwendet.
+     
+      </apiDesc><example>
+      <codeph><pre>
+         var msg:CommandMessage = CommandMessage(event.message);
+         trace("Current operation -'"+
+                CommandMessage.getOperationAsString(msg.operation)+ "'.");
+      </pre></codeph>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.messages:CommandMessage:toString"><apiName>toString</apiName><shortdesc>
+      Gibt eine Stringdarstellung der Meldung zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Die Stringdarstellung der Meldung.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt eine Stringdarstellung der Meldung zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:CommandMessage:ADD_SUBSCRIPTIONS"><apiName>ADD_SUBSCRIPTIONS</apiName><shortdesc> 
+     Header, der in einer Meldung des Typs MULTI_SUBSCRIBE verwendet wird, um ein Array von subtopic/selector-Paaren zum Hinzufügen zum vorhandenen Abonnementsatz anzugeben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSAddSub</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+     Header, der in einer Meldung des Typs MULTI_SUBSCRIBE verwendet wird, um ein Array von subtopic/selector-Paaren zum Hinzufügen zum vorhandenen Abonnementsatz anzugeben.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:AUTHENTICATION_MESSAGE_REF_TYPE"><apiName>AUTHENTICATION_MESSAGE_REF_TYPE</apiName><shortdesc>
+      Der Servermeldungstyp für Authentifizierungsbefehle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flex.messaging.messages.AuthenticationMessage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Servermeldungstyp für Authentifizierungsbefehle.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_PING_OPERATION"><apiName>CLIENT_PING_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird zum Testen von Konnektivität über den aktuellen Kanal an den Remote-Endpunkt verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird zum Testen von Konnektivität über den aktuellen Kanal an den Remote-Endpunkt verwendet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_SYNC_OPERATION"><apiName>CLIENT_SYNC_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird von einem Remote-Ziel verwendet, um fehlende oder zwischengespeicherte Meldungen bei einem Client zu synchronisieren, wenn vom Client ein Abfragebefehl abgesetzt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird von einem Remote-Ziel verwendet, um fehlende oder zwischengespeicherte Meldungen bei einem Client zu synchronisieren, wenn vom Client ein Abfragebefehl abgesetzt wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLUSTER_REQUEST_OPERATION"><apiName>CLUSTER_REQUEST_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird verwendet, um eine Liste von Ausfallsicherungsendpunkt-URIs für das Remote-Ziel basierend auf der Cluster-Mitgliedschaft anzufordern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird verwendet, um eine Liste von Ausfallsicherungsendpunkt-URIs für das Remote-Ziel basierend auf der Cluster-Mitgliedschaft anzufordern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CREDENTIALS_CHARSET_HEADER"><apiName>CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+     Header, der angibt, welche Zeichensatzkodierung zum Kodieren der Anmeldeinformationen verwendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der angibt, welche Zeichensatzkodierung zum Kodieren der Anmeldeinformationen verwendet wurde. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:DISCONNECT_OPERATION"><apiName>DISCONNECT_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird verwendet, um anzugeben, dass die Verbindung eines Kanals getrennt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird verwendet, um anzugeben, dass die Verbindung eines Kanals getrennt wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:HEARTBEAT_HEADER"><apiName>HEARTBEAT_HEADER</apiName><shortdesc>
+     Header, der angibt, dass es sich bei der Meldung um einen Heartbeat handelt.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DS&lt;3</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der angibt, dass es sich bei der Meldung um einen Heartbeat handelt.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGIN_OPERATION"><apiName>LOGIN_OPERATION</apiName><shortdesc>
+     Dieser Vorgang wird verwendet, um Benutzerdaten an den Endpunkt zu senden, damit der Benutzer sich über den aktuellen Kanal anmelden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Dieser Vorgang wird verwendet, um Benutzerdaten an den Endpunkt zu senden, damit der Benutzer sich über den aktuellen Kanal anmelden kann. Die Anmeldedaten müssen gemäß Base64 kodiert und im Körper (<codeph>body</codeph>) der Meldung gespeichert werden.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGOUT_OPERATION"><apiName>LOGOUT_OPERATION</apiName><shortdesc>
+     Dieser Vorgang wird zum Abmelden des Benutzers vom aktuellen Kanal verwendet und macht die Serversitzung ungültig, wenn der Kanal HTTP-basiert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Dieser Vorgang wird zum Abmelden des Benutzers vom aktuellen Kanal verwendet und macht die Serversitzung ungültig, wenn der Kanal HTTP-basiert ist.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MAX_FREQUENCY_HEADER"><apiName>MAX_FREQUENCY_HEADER</apiName><shortdesc>
+     Header, der die maximale Anzahl von Meldungen angibt, die ein Verbraucher pro Sekunde erhalten möchte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMaxFrequency</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der die maximale Anzahl von Meldungen angibt, die ein Verbraucher pro Sekunde erhalten möchte.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MESSAGING_VERSION"><apiName>MESSAGING_VERSION</apiName><shortdesc>
+     Endpunkte können indirekt festlegen, welche Funktionen unterstützt werden, indem sie während des Handshake der anfänglichen Ping-CommandMessage mitteilen, welche Messagingversion sie unterstützen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMessagingVersion</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Endpunkte können indirekt festlegen, welche Funktionen unterstützt werden, indem sie während des Handshake der anfänglichen Ping-CommandMessage mitteilen, welche Messagingversion sie unterstützen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MULTI_SUBSCRIBE_OPERATION"><apiName>MULTI_SUBSCRIBE_OPERATION</apiName><shortdesc>
+     Verwendet von MultiTopicConsumer, um das Abonnement mehrerer Themen in der gleichen Meldung zu erstellen bzw. aufzuheben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Verwendet von MultiTopicConsumer, um das Abonnement mehrerer Themen in der gleichen Meldung zu erstellen bzw. aufzuheben.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NEEDS_CONFIG_HEADER"><apiName>NEEDS_CONFIG_HEADER</apiName><shortdesc>
+     Header, der angibt, dass der Kanal die Konfiguration vom Server benötigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNeedsConfig</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der angibt, dass der Kanal die Konfiguration vom Server benötigt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NO_OP_POLL_HEADER"><apiName>NO_OP_POLL_HEADER</apiName><shortdesc>
+     Header, der die Verarbeitung der Abfrageantwort unterdrückt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNoOpPoll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der die Verarbeitung der Abfrageantwort unterdrückt. Wenn ein Client eine lange Abfrageanforderung auf dem Server geparkt hat und eine weitere Abfrage absetzt, sollte die Antwort auf diese nachfolgende Abfrage ein Tag mit diesem Header erhalten. In diesem Fall wird die Antwort als Leerbefehl behandelt und die nächste Abfrage wird nicht geplant. Andernfalls wird durch eine nachfolgende Abfrage der Kanal und Endpunkt in einen aktiven Abfragezyklus versetzt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_OPERATION"><apiName>POLL_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird zum Abfragen eines Remote-Ziels für ausstehende, nicht zugestellte Meldungen verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird zum Abfragen eines Remote-Ziels für ausstehende, nicht zugestellte Meldungen verwendet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_WAIT_HEADER"><apiName>POLL_WAIT_HEADER</apiName><shortdesc>
+     Header, der eine inaktive Wartezeit vor der nächsten Client-Abfrageanforderung festlegt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPollWait</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Header, der eine inaktive Wartezeit vor der nächsten Client-Abfrageanforderung festlegt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:PRESERVE_DURABLE_HEADER"><apiName>PRESERVE_DURABLE_HEADER</apiName><shortdesc>
+      Permanente JMS-Abonnements werden beibehalten, wenn in einer Meldung zur Aufhebung des Abonnements dieser Parameter im Header auf „true“ gesetzt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPreserveDurable</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Permanente JMS-Abonnements werden beibehalten, wenn in einer Meldung zur Aufhebung des Abonnements dieser Parameter im Header auf „true“ gesetzt wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:REMOVE_SUBSCRIPTIONS"><apiName>REMOVE_SUBSCRIPTIONS</apiName><shortdesc>
+     Wie oben, jedoch wird das zu entfernende subtopic/selector-Array angegeben.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemSub</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Wie oben, jedoch wird das zu entfernende subtopic/selector-Array angegeben.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SELECTOR_HEADER"><apiName>SELECTOR_HEADER</apiName><shortdesc>
+      Abonnementbefehle, die von einem Verbraucher abgesetzt wurden, werden an den selector-Ausdruck in diesem Header übergeben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSelector</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Abonnementbefehle, die von einem Verbraucher abgesetzt wurden, werden an den <codeph>selector</codeph>-Ausdruck in diesem Header übergeben.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIBE_OPERATION"><apiName>SUBSCRIBE_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird zum Abonnement an einem Remote-Ziel verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird zum Abonnement an einem Remote-Ziel verwendet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIPTION_INVALIDATE_OPERATION"><apiName>SUBSCRIPTION_INVALIDATE_OPERATION</apiName><shortdesc>
+     Dieser Vorgang wird verwendet, um anzugeben, dass das Abonnement des Clients an einem Remote-Ziel abgelaufen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Dieser Vorgang wird verwendet, um anzugeben, dass das Abonnement des Clients an einem Remote-Ziel abgelaufen ist.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBTOPIC_SEPARATOR"><apiName>SUBTOPIC_SEPARATOR</apiName><shortdesc>
+     Der Trennzeichenstring, der zum Trennen von untergeordnetem Thema und Selektoren beim Hinzufügen und Entfernen in Abonnement-Headern verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>_;_</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Der Trennzeichenstring, der zum Trennen von untergeordnetem Thema und Selektoren beim Hinzufügen und Entfernen in Abonnement-Headern verwendet wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:TRIGGER_CONNECT_OPERATION"><apiName>TRIGGER_CONNECT_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird zum Triggern eines zu verbindenden ChannelSet verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird zum Triggern eines zu verbindenden ChannelSet verwendet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNKNOWN_OPERATION"><apiName>UNKNOWN_OPERATION</apiName><shortdesc>
+      Dies ist der Standardvorgang für neue CommandMessage-Instanzen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dies ist der Standardvorgang für neue CommandMessage-Instanzen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNSUBSCRIBE_OPERATION"><apiName>UNSUBSCRIBE_OPERATION</apiName><shortdesc>
+      Dieser Vorgang wird zum Aufheben des Abonnements an einem Remote-Ziel verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Dieser Vorgang wird zum Aufheben des Abonnements an einem Remote-Ziel verwendet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:operation"><apiName>operation</apiName><shortdesc>
+      Stellt Zugriff auf den Vorgang/Befehl für die CommandMessage zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Stellt Zugriff auf den Vorgang/Befehl für die CommandMessage zur Verfügung. Vorgänge geben an, wie diese Meldung von dem Remote-Ziel verarbeitet werden soll.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ISmallMessage"><apiName>ISmallMessage</apiName><shortdesc>
+ Eine Markierungsschnittstelle, die angibt, dass IMessage über ein alternatives kleineres Format zur Serialisierung verfügt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Eine Markierungsschnittstelle, die angibt, dass IMessage über ein alternatives kleineres Format zur Serialisierung verfügt.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:ISmallMessage:mx.messaging.messages:ISmallMessage:getSmallMessage"><apiName>getSmallMessage</apiName><shortdesc>
+     Diese Methode muss von Unterklassen implementiert werden, die über ein „kleines“ Format verfügen, was normalerweise über die Verwendung von flash.utils.IExternalizable geschieht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt eine alternative Darstellung von flex.messaging.messages.IMessage zurück, sodass das serialisierte Format kleiner als die normale Meldung ist.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     Diese Methode muss von Unterklassen implementiert werden, die über ein „kleines“ Format verfügen, was normalerweise über die Verwendung von <codeph>flash.utils.IExternalizable</codeph> geschieht. Wenn ein kleines Format nicht verfügbar ist, gibt diese Methode einen leeren Wert zurück.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

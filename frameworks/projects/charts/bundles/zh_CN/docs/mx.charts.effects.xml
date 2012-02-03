@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.effects"><apiName>mx.charts.effects</apiName><apiDetail/><apiClassifier id="mx.charts.effects:SeriesZoom"><apiName>SeriesZoom</apiName><shortdesc>
+  SeriesZoom 效果是将图表数据聚合到您指定的焦点位置，或从该位置分解出图表数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:SeriesZoom&gt;</code> tag
+  inherits all the properties of its parent classes,
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:SeriesZoom
+    <strong>Properties</strong>
+    horizontalFocus="center|left|right|null"
+    relativeTo="series|chart"
+    verticalFocus="top|center|bottom|null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects:SeriesEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesZoom 效果是将图表数据聚合到您指定的焦点位置，或从该位置分解出图表数据。同 SeriesSlide 效果一样，此效果在该点聚合还是分解取决于将其分配给了 <codeph>showDataEffect</codeph> 还是 <codeph>hideDataEffect</codeph> 效果触发器。
+ 
+  </apiDesc><example conref="SeriesZoomExample.mxml"><swfblock conref="examples/SeriesZoomExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.charts.effects:SeriesZoom:SeriesZoom"><apiName>SeriesZoom</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>效果的目标。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects:SeriesZoom:horizontalFocus"><apiName>horizontalFocus</apiName><shortdesc>
+      定义缩放焦点的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"center"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      定义缩放焦点的位置。
+     
+      <p><codeph>horizontalFocus</codeph> 属性的有效值为 <codeph>"left"</codeph>、<codeph>"center"</codeph>、<codeph>"right"</codeph> 和 <codeph>null</codeph>。</p>
+      
+      <p>您可以通过组合 <codeph>horizontalFocus</codeph> 和 <codeph>verticalFocus</codeph> 来定义数据系列的缩放焦点位置。例如，将 <codeph>horizontalFocus</codeph> 属性设置为 <codeph>"left"</codeph>，并将 <codeph>verticalFocus</codeph> 属性设置为 <codeph>"top"</codeph> 可在元素或图表的左上角聚合及分解系列数据（取决于 <codeph>relativeTo</codeph> 属性的设置）。</p>
+      
+      <p>如果仅指定了上述任一属性，则焦点将为一条水平线或垂直线，而不是一个点。例如，如果将 <codeph>horizontalFocus</codeph> 设置为 <codeph>"left"</codeph>，但将 <codeph>verticalFocus</codeph> 设置为 <codeph>null</codeph>，则将沿边框左边缘的垂直线缩放元素。将 <codeph>verticalFocus</codeph> 属性设置为 <codeph>"center"</codeph> 可沿图表边框的中部在水平线上聚合及分解图表元素。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects:SeriesZoom:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      控制 Flex 用于计算缩放焦点的边框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>series</apiData><apiType value="String"/><apiDefaultValue>"series"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控制 Flex 用于计算缩放焦点的边框。
+     
+      <p><codeph>relativeTo</codeph> 属性的有效值为 <codeph>"series"</codeph> 和 <codeph>"chart"</codeph>。</p>
+     
+      <p>如果设置为 <codeph>"series"</codeph>，则相对于元素本身缩放每个元素。例如，ColumnChart 的每列从该列的左上角或中心等位置进行缩放。</p>
+     
+      <p>如果设置为 <codeph>"chart"</codeph>，则相对于图表区域缩放每个元素。例如，从轴的左上角或中心等位置缩放每一列。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects:SeriesZoom:verticalFocus"><apiName>verticalFocus</apiName><shortdesc>
+      定义缩放焦点的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"center"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      定义缩放焦点的位置。有关详细信息，请参阅 <codeph>horizontalFocus</codeph> 属性的说明。
+      
+      <p><codeph>verticalFocus</codeph> 的有效值为 <codeph>"top"</codeph>、<codeph>"center"</codeph>、<codeph>"bottom"</codeph> 和 <codeph>null</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects:SeriesInterpolate"><apiName>SeriesInterpolate</apiName><shortdesc>
+  SeriesInterpolate 效果将系列中表示现有数据的图形移动到新位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects:SeriesEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesInterpolate 效果将系列中表示现有数据的图形移动到新位置。此效果始终将数据保留在屏幕上，而不会清除图表并像 SeriesZoom 和 SeriesSlide 一样置入数据。
+ 
+  <p>您只能将 SeriesInterpolate 效果与 <codeph>showDataEffect</codeph> 效果触发器一同使用。如果将其设置为与 <codeph>hideDataEffect</codeph> 一同使用，则没有任何效果。</p>
+ 
+  </apiDesc><example conref="SeriesInterpolateExample.mxml"><swfblock conref="examples/SeriesInterpolateExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.charts.effects:SeriesInterpolate:SeriesInterpolate"><apiName>SeriesInterpolate</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>效果的目标。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.charts.effects:SeriesEffect"><apiName>SeriesEffect</apiName><shortdesc>
+  图表效果的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SeriesEffect&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    elementOffset="20"
+    minimumElementDuration="0"
+    offset="0"
+    type="show|hide <i>(Default value is set by chart)</i>"
+  &gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  图表效果的基类。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.effects:SeriesEffect:SeriesEffect"><apiName>SeriesEffect</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>效果的目标。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects:SeriesEffect:elementOffset"><apiName>elementOffset</apiName><shortdesc>
+      指定 Flex 延迟效果开始作用于系列中各元素的时间量（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>20</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定 Flex 延迟效果开始作用于系列中各元素的时间量（以毫秒为单位）。
+     
+      <p>将 <codeph>elementOffset</codeph> 设置为 <codeph>0</codeph> 可同时作用于系列中的所有元素。效果作用于这些元素的开始时间和结束时间相同。</p>
+     
+      <p>将 <codeph>elementOffset</codeph> 设置为正整数（如 <codeph>30</codeph>）可按该时间量将该效果交错作用于各个元素。例如，对于滑动效果，第一个元素立即滑动，下一个元素在 30 毫秒之后开始滑动，依此类推。每个元素执行效果的时间量都是相同的，但效果的整体持续时间将会延长。</p>
+     
+      <p>将 <codeph>elementOffset</codeph> 设置为负值可使效果从最后一个元素开始起作用，并在列表中逆向移动。</p>
+     
+      <p>默认值为 <codeph>20</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects:SeriesEffect:minimumElementDuration"><apiName>minimumElementDuration</apiName><shortdesc>
+      指定单个元素完成效果所需的时间量（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定单个元素完成效果所需的时间量（以毫秒为单位）。
+     
+      <p>系列中数据点数可变的图表仅通过 <codeph>duration</codeph> 属性可能无法创建平滑的效果。例如，如果系列中包含两个元素，则对于将 <codeph>duration</codeph> 设置为 <codeph>1000</codeph>，以及将 <codeph>elementOffset</codeph> 设置为 <codeph>100</codeph> 的效果，每个元素需要 900 毫秒来完成此效果。这是因为每个效果的起始点都偏移了 100，并且都要在 1000 毫秒内完成。</p>
+     
+      <p>如果系列中包含四个元素，则每个元素需要 700 毫秒来完成此效果（最后一个效果将在第一个效果完成 300 毫秒后启动，并且必须在 1000 毫秒内完成）。如果包含 10 个元素，则每个元素只有 100 毫秒的时间</p>
+      来完成效果。
+     
+      <p><codeph>minimumElementDuration</codeph> 值设置了每个元素的最短持续时间。无论系列中包含多少元素以及 <codeph>duration</codeph> 属性的值如何设置，系列中任何元素执行此效果的时间量（以毫秒为单位）都不能少于此值。因此，如果指定了 <codeph>duration</codeph>、<codeph>offset</codeph> 和 <codeph>minimumElementDuration</codeph> 中的任意两个属性，则执行效果所需的时间就可能长于指定的 <codeph>duration</codeph>。</p>
+      
+      <p>默认值为 <codeph>0</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects:SeriesEffect:offset"><apiName>offset</apiName><shortdesc>
+      指定 Flex 延迟效果的时间量（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      指定 Flex 延迟效果的时间量（以毫秒为单位）。
+     
+      <p>使用此属性在多个系列上交错执行多个效果。</p>
+     
+      <p>默认值为 <codeph>0</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects:SeriesEffect:type"><apiName>type</apiName><shortdesc>
+      此效果适用的过渡类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>show</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      此效果适用的过渡类型。根据将要应用于图表过渡过程的显示阶段还是隐藏阶段，某些系列效果定义了不同的行为。例如，当此属性设置为 <codeph>hide</codeph> 时，SeriesSlide 效果会使元素从自身位置滑离屏幕；当此属性设置为 <codeph>show</codeph> 时，元素将在屏幕上滑动。此属性由图表根据将此效果分配给了 ShowDataEffect 还是 HideDataEffect 样式来设置。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects:SeriesSlide"><apiName>SeriesSlide</apiName><shortdesc>
+  SeriesSlide 效果将数据系列滑向或滑离图表边界。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:SeriesSlide&gt;</code> tag
+  inherits all the properties of its parent classes,
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:SeriesSlide
+    <strong>Properties</strong>
+    direction="<i>left|right|up|down</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects:SeriesEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesSlide 效果将数据系列滑向或滑离图表边界。您可以使用 <codeph>direction</codeph> 属性指定系列滑动的起始位置。
+ 
+  <p>如果您将 SeriesSlide 与 <codeph>hideDataEffect</codeph> 效果触发器一同使用，系列将沿指示的方向从屏幕上的当前位置滑动到屏幕外的某个位置。如果您将 SeriesSlide 与 <codeph>showDataEffect</codeph> 一同使用，系列将沿指示方向从屏幕外的位置滑动到屏幕上的某个位置。</p>
+  
+  </apiDesc><example conref="SeriesSlideExample.mxml"><swfblock conref="examples/SeriesSlideExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.charts.effects:SeriesSlide:SeriesSlide"><apiName>SeriesSlide</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>效果的目标。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.effects:SeriesSlide:protected:initInstance"><apiName>initInstance</apiName><shortdesc>
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>inst</apiItemName><apiType value="mx.effects:IEffectInstance"/></apiParam></apiOperationDef><apiDesc>
+	  </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.charts.effects:SeriesSlide:direction"><apiName>direction</apiName><shortdesc>
+	  定义系列开始滑动的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  定义系列开始滑动的位置。有效值为 <codeph>"left"</codeph>、<codeph>"right"</codeph>、<codeph>"up"</codeph> 和 <codeph>"down"</codeph>。默认值为 <codeph>"left"</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

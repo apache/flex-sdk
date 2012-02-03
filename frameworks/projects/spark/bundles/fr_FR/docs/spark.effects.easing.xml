@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.easing"><apiName>spark.effects.easing</apiName><apiDetail/><apiClassifier id="spark.effects.easing:IEaser"><apiName>IEaser</apiName><shortdesc>
+  L’interface IEaser est implémentée par les classes qui fournissent des fonctions d’accélération temporelle à la classe Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IEaser est implémentée par les classes qui fournissent des fonctions d’accélération temporelle à la classe Animation. Les implémenteurs sont responsables de l’unique fonction, <codeph>ease()</codeph>, qui accepte et renvoie une fraction en fonction du comportement d’accélération souhaité. Prenons un exemple simple : LinearEase renvoie simplement la fraction d’entrée, car aucune accélération n’est opérée par cet accélérateur. Il est également possible d’écrire un accélérateur d’inversion pour renvoyer la fraction inverse, (1 - <codeph>fraction</codeph>).
+ 
+  <p>En accélérant les valeurs de fraction du temps écoulé dans une animation, ces classes accélèrent les valeurs résultant de l’animation, mais elles n’ont qu’à traiter la valeur de fraction correspondant au temps écoulé et non des types d’objets spécifiques. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.easing:IEaser:spark.effects.easing:IEaser:ease"><apiName>ease</apiName><shortdesc>
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur accélérée de la durée écoulée. En règle générale, cette valeur doit être comprise entre 0.0 et 1.0, même si les valeurs situées en dehors de cette plage sont quand même renvoyées. Les valeurs ainsi renvoyées sont peu fiables et dépendent avant tout des effets qui utilisent cette valeur accélérée. Par exemple, les valeurs de position d’un objet qui se déplace de façon linéaire peuvent sans problème être calculées en dehors des valeurs de début et de fin, mais d’autres types de valeurs (valeurs de couleur, par exemple) peuvent ne pas générer le résultat attendu s’ils utilisent des valeurs temporelles qui provoquent le dépassement des extrémités. 
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée d’une animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée. Cette valeur est utilisée pour calculer les valeurs de la propriété animated. En modifiant la valeur de la fraction écoulée, vous modifiez l’animation de la propriété.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  La classe Bounce implémente une fonctionnalité d’accélération simulant l’attraction gravitationnelle et le rebond de l’objet cible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Bounce implémente une fonctionnalité d’accélération simulant l’attraction gravitationnelle et le rebond de l’objet cible. Le mouvement de la cible de l’effet accélère vers la valeur finale, puis rebondit plusieurs fois par rapport à cette dernière.  
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Bounce:Bounce"><apiName>Bounce</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Bounce:ease"><apiName>ease</apiName><shortdesc>
+      
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur accélérée de la durée écoulée. En règle générale, cette valeur doit être comprise entre 0.0 et 1.0, même si les valeurs situées en dehors de cette plage sont quand même renvoyées. Les valeurs ainsi renvoyées sont peu fiables et dépendent avant tout des effets qui utilisent cette valeur accélérée. Par exemple, les valeurs de position d’un objet qui se déplace de façon linéaire peuvent sans problème être calculées en dehors des valeurs de début et de fin, mais d’autres types de valeurs (valeurs de couleur, par exemple) peuvent ne pas générer le résultat attendu s’ils utilisent des valeurs temporelles qui provoquent le dépassement des extrémités. 
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée d’une animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée. Cette valeur est utilisée pour calculer les valeurs de la propriété animated. En modifiant la valeur de la fraction écoulée, vous modifiez l’animation de la propriété.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  La classe Linear définit une accélération composée de trois phases : accélération, mouvement uniforme et ralentissement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Linear&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Linear
+    id="ID"
+    easeInFraction="0" 
+    easeOutFraction="0"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Linear définit une accélération composée de trois phases : accélération, mouvement uniforme et ralentissement. L’animation commence par accélérer pendant la période définie par la propriété <codeph>easeInFraction</codeph>. Elle suit ensuite un mouvement uniforme (linéaire) tout au long de la phase suivante, avant de ralentir pendant la période spécifiée par la propriété <codeph>easeOutFraction</codeph>.
+ 
+  <p>Les valeurs d’accélération des trois phases sont calculées de sorte que le comportement d’accélération constante, de mouvement linéaire et de ralentissement constant soit entièrement réalisé pendant la durée spécifiée de l’animation.</p>
+  
+  <p>Un mouvement linéaire strict peut être obtenu en définissant <codeph>easeInFraction</codeph> et <codeph>easeOutFraction</codeph> sur 0.0. Si les valeurs d’accélération ou de ralentissement ne sont pas nulles, le mouvement de la phase intermédiaire ne se déroule pas à la même vitesse qu’un mouvement purement linéaire. La phase intermédiaire correspond à un mouvement uniforme, mais la vitesse de ce mouvement est déterminée par la durée de cette phase par rapport à l’animation globale. </p>
+  
+  </apiDesc><example conref="LinearEffectExample.mxml"><swfblock conref="examples/LinearEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Linear:Linear"><apiName>Linear</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Fraction de la durée totale dans la phase d’accélération, entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>easeOutFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Fraction de la durée totale dans la phase de ralentissement, entre 0.0 et 1.0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Linear:ease"><apiName>ease</apiName><shortdesc>
+      Calcule la valeur de la fraction accélérée, en fonction des propriétés easeInFraction et easeOutFraction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Fraction accélérée de l’animation.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Calcule la valeur de la fraction accélérée, en fonction des propriétés <codeph>easeInFraction</codeph> et <codeph>easeOutFraction</codeph>. Si la valeur <codeph>fraction</codeph> est inférieure à la valeur <codeph>easeInFraction</codeph>, la valeur est calculée en fonction de l’accélération jusqu’à la phase de mouvement linéaire. Si la valeur <codeph>fraction</codeph> est supérieure à la valeur <codeph>easeInFraction</codeph> et inférieure à <codeph>(1-easeOutFraction)</codeph>, la valeur est calculée en fonction de la phase de mouvement linéaire, entre les phases d’accélération et de ralentissement. Dans tous les autres cas, la valeur est calculée en fonction du ralentissement constant entre la phase de mouvement linéaire et 0.0.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:Linear:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Fraction de l’animation passée à accélérer, entre 0.0 et 1.0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fraction de l’animation passée à accélérer, entre 0.0 et 1.0. Les valeurs des propriétés <codeph>easeOutFraction</codeph> et <codeph>easeInFraction</codeph> doivent satisfaire l’équation <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>, où le temps restant est passé en phase de mouvement linéaire.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:Linear:easeOutFraction:get"><apiName>easeOutFraction</apiName><shortdesc>
+      Pourcentage de l’animation passé à ralentir, entre 0.0 et 1.0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Pourcentage de l’animation passé à ralentir, entre 0.0 et 1.0. Les valeurs des propriétés <codeph>easeOutFraction</codeph> et <codeph>easeInFraction</codeph> doivent satisfaire l’équation <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>, où le temps restant est passé en phase de mouvement linéaire.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Power"><apiName>Power</apiName><shortdesc>
+  La classe Power définit la fonction d’accélération à l’aide d’une expression polynomiale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Power&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Power
+    id="ID"
+    exponent="2"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Power définit la fonction d’accélération à l’aide d’une expression polynomiale. L’accélération se compose de deux phases : l’accélération proprement dite, puis le ralentissement. La vitesse d’accélération et de ralentissement dépend de la propriété <codeph>exponent</codeph>. Plus la valeur de la propriété <codeph>exponent</codeph> est élevée, plus les valeurs d’accélération et de ralentissement sont élevées. Utilisez la propriété <codeph>easeInFraction</codeph> pour spécifier le pourcentage de l’animation passé à accélérer.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Power:Power"><apiName>Power</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Fraction de la durée totale dans la phase d’accélération, entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exponent</apiItemName><apiType value="Number"/><apiData>2</apiData><apiDesc>Exposant utilisé dans le calcul d’accélération.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.easing:Power:exponent:get"><apiName>exponent</apiName><shortdesc>
+      Exposant utilisé dans le calcul d’accélération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Exposant utilisé dans le calcul d’accélération. Plus la valeur de la propriété <codeph>exponent</codeph> est élevée, plus les valeurs d’accélération et de ralentissement sont élevées. Par exemple, pour obtenir un comportement quadratique, définissez <codeph>exponent</codeph> sur 2. Pour obtenir un comportement cubique, définissez <codeph>exponent</codeph> sur 3. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  La classe Elastic implémente une fonctionnalité d’accélération dans laquelle le mouvement de l’objet cible est défini par une onde sinusoïdale qui décroît exponentiellement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Elastic implémente une fonctionnalité d’accélération dans laquelle le mouvement de l’objet cible est défini par une onde sinusoïdale qui décroît exponentiellement. La cible de l’effet ralentit vers la valeur finale et dépasse cette dernière. Elle oscille ensuite autour de la valeur finale selon des incréments de plus en plus petits, avant atteindre la valeur finale.  
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Elastic:Elastic"><apiName>Elastic</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Elastic:ease"><apiName>ease</apiName><shortdesc>
+      
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur accélérée de la durée écoulée. En règle générale, cette valeur doit être comprise entre 0.0 et 1.0, même si les valeurs situées en dehors de cette plage sont quand même renvoyées. Les valeurs ainsi renvoyées sont peu fiables et dépendent avant tout des effets qui utilisent cette valeur accélérée. Par exemple, les valeurs de position d’un objet qui se déplace de façon linéaire peuvent sans problème être calculées en dehors des valeurs de début et de fin, mais d’autres types de valeurs (valeurs de couleur, par exemple) peuvent ne pas générer le résultat attendu s’ils utilisent des valeurs temporelles qui provoquent le dépassement des extrémités. 
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée d’une animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée. Cette valeur est utilisée pour calculer les valeurs de la propriété animated. En modifiant la valeur de la fraction écoulée, vous modifiez l’animation de la propriété.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:EasingFraction"><apiName>EasingFraction</apiName><shortdesc>
+  La classe EasingFraction définit des constantes pour la propriété easeInFraction de la classe EaseInOutBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe EasingFraction définit des constantes pour la propriété <codeph>easeInFraction</codeph> de la classe EaseInOutBase.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.easing.xml#EaseInOutBase"><linktext>EaseInOutBase</linktext></link><link href="spark.effects.easing.xml#EaseInOutBase/easeInFraction"><linktext>EaseInOutBase.easeInFraction</linktext></link></related-links><apiValue id="spark.effects.easing:EasingFraction:IN_OUT"><apiName>IN_OUT</apiName><shortdesc>
+      Spécifie qu’une occurrence d’accélération doit accélérer pendant la première moitié de l’animation et ralentir pendant la seconde moitié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0.5</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Spécifie qu’une occurrence d’accélération doit accélérer pendant la première moitié de l’animation et ralentir pendant la seconde moitié. Cela équivaut à définir la propriété <codeph>easeInFraction</codeph> sur 0.5.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:IN"><apiName>IN</apiName><shortdesc>
+      Spécifie que l’occurrence d’accélération passe la totalité de l’animation à accélérer. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Spécifie que l’occurrence d’accélération passe la totalité de l’animation à accélérer. Cela équivaut à définir la propriété <codeph>easeInFraction</codeph> sur 1.0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:OUT"><apiName>OUT</apiName><shortdesc>
+      Spécifie que l’occurrence d’accélération passe la totalité de l’animation à ralentir.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Spécifie que l’occurrence d’accélération passe la totalité de l’animation à ralentir. Cela équivaut à définir la propriété <codeph>easeInFraction</codeph> sur 0.0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  La classe Sine définit une fonction d’accélération à l’aide d’une fonction Sine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sine&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Sine
+    id="ID"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Sine définit une fonction d’accélération à l’aide d’une fonction Sine. L’accélération se compose de deux phases : l’accélération proprement dite, puis le ralentissement. Utilisez la propriété <codeph>easeInFraction</codeph> pour spécifier le pourcentage de l’animation passé à accélérer.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Sine:Sine"><apiName>Sine</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Définit la valeur de la propriété <codeph>easeInFraction</codeph>. La valeur par défaut est <codeph>EasingFraction.IN_OUT</codeph> : l’animation accélère pendant toute la première moitié et ralentit pendant le temps restant.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.easing:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+  La classe EaseInOutBase est la classe de base fournissant une fonction d’accélération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:EaseInOutBase
+    id="ID"
+    easeInFraction="0.5"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe EaseInOutBase est la classe de base fournissant une fonction d’accélération. La classe EaseInOutBase définit l’accélération comme étant composée de deux phases : l’accélération proprement dite, puis le ralentissement. Le comportement par défaut de cette classe renvoie une interpolation linéaire pour les deux phases d’accélération. Vous pouvez créer une sous-classe de la classe EaseInOutBase pour obtenir un comportement plus sophistiqué.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.easing:EaseInOutBase:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Définit la valeur de la propriété <codeph>easeInFraction</codeph>. La valeur par défaut est <codeph>EasingFraction.IN_OUT</codeph> : l’animation accélère pendant toute la première moitié et ralentit pendant le temps restant.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Renvoie une valeur représentant la fraction accélérée pendant la phase d’accélération de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Valeur représentant la valeur accélérée pour cette phase de l’animation.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de la phase d’accélération de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une valeur représentant la fraction accélérée pendant la phase d’accélération de l’animation. La valeur renvoyée par cette classe est tout simplement la fraction elle-même, ce qui représente une interpolation linéaire de la fraction. Vous pouvez mettre en œuvre un comportement plus sophistiqué à l’aide des sous-classes de la classe EaseInOutBase.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Renvoie une valeur représentant la fraction accélérée pendant la phase de ralentissement de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Valeur représentant la valeur accélérée pour cette phase de l’animation.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de la phase de ralentissement de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une valeur représentant la fraction accélérée pendant la phase de ralentissement de l’animation. La valeur renvoyée par cette classe est tout simplement la fraction elle-même, ce qui représente une interpolation linéaire de la fraction. Vous pouvez mettre en œuvre un comportement plus sophistiqué à l’aide des sous-classes de la classe EaseInOutBase.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:ease"><apiName>ease</apiName><shortdesc>
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Fraction accélérée de l’animation.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Récupère la fraction représentant la durée écoulée d’une animation (valeur comprise entre 0.0 et 1.0) et renvoie une nouvelle valeur écoulée. Cette valeur est utilisée pour calculer les valeurs de la propriété animated. En modifiant la valeur de la fraction écoulée, vous modifiez l’animation de la propriété. Pour la classe EaseInOutBase, cette méthode calcule la valeur de la fraction accélérée, en fonction de la propriété <codeph>easeInFraction</codeph>. Si la valeur <codeph>fraction</codeph> est inférieure à <codeph>easeInFraction</codeph>, cette méthode appelle la méthode <codeph>easeIn()</codeph>. Sinon, elle appelle la méthode <codeph>easeOut()</codeph>. Ces fonctions sont destinées à être remplacées dans une sous-classe.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:EaseInOutBase:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Pourcentage d’une animation qui doit être passé à accélérer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.5
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Pourcentage d’une animation qui doit être passé à accélérer. Ce facteur définit un paramètre « easeOut » implicite, égal à (1 - <codeph>easeIn</codeph>), de sorte que chaque instant qui n’est pas passé à accélérer est passé à ralentir. Par exemple, pour obtenir une équation d’accélération spécifiant que l’animation doit passer la moitié du temps à accélérer et l’autre moitié à ralentir, définissez la propriété <codeph>easeIn</codeph> sur 0,5.
+     
+      <p>Les valeurs possibles sont les valeurs comprises entre 0.0 et 1.0.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

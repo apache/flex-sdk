@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="flash.text.engine"><apiName>flash.text.engine</apiName><apiDetail/><apiClassifier id="flash.text.engine:ITextSupport"><apiName>ITextSupport</apiName><shortdesc>
+  ITextSupport インターフェイスは、インライン IME を実装しようとするオブジェクト、または Web で検索可能にされているテキストを含む（またはアクセス可能な）オブジェクトによって実装されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ITextSupport インターフェイスは、インライン IME を実装しようとするオブジェクト、または Web で検索可能にされているテキストを含む（またはアクセス可能な）オブジェクトによって実装されます。 
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:getTextInRange"><apiName>getTextInRange</apiName><shortdesc> 
+	  ITextSupport を実装するコンポーネントから、テキストの指定範囲を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要求されたテキスト。指定された範囲にテキストがない場合やインデックスの一方または両方が無効の場合は、<codeph>null</codeph>。<codeph/><codeph/>
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>startIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>オプション：取得するテキスト範囲の開始位置を指定する整数。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>オプション：取得するテキスト範囲の終了位置を指定する整数。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  ITextSupport を実装するコンポーネントから、指定された範囲のテキストを取得します。コンポーネント内のすべてのテキストを取得するには、<codeph>startIndex</codeph> および <codeph>endIndex</codeph> の値を指定しないでください。インライン IME または Web での検索性をサポートしようとするコンポーネントによって、このメソッドは無効にされます。 このメソッドを無効にするコンポーネントによって、<codeph>startIndex</codeph> と <codeph>endIndex</codeph> のデフォルトの値として <codeph>-1</codeph> がサポートされるようになります。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectRange"><apiName>selectRange</apiName><shortdesc> 
+	  ITextSupport を実装するコンポーネント内のテキストの選択範囲を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>選択のアンカー終点位置にある文字の、ゼロベースのインデックス値
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>選択のアクティブ終点位置にある文字の、ゼロベースのインデックス値
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  ITextSupport を実装するコンポーネントに、選択したテキストの範囲を設定します。引数のいずれかが範囲を超えると、選択範囲は変更されません。インライン IME をサポートするコンポーネントによって、このメソッドは無効にされます。 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:canReconvert:get"><apiName>canReconvert</apiName><shortdesc>
+	  ITextSupport を実装するコンポーネントが再変換をサポートしているか（編集可能なテキストがあるか）かどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  ITextSupport を実装するコンポーネントが再変換をサポートしているか（編集可能なテキストがあるか）かどうかを示します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc> 
+	  現在の選択範囲における最後の文字を示す、0 から始まるインデックス値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  現在の選択範囲における最後の文字を示す、0 から始まるインデックス値です。インライン IME または検索性をサポートしようとするコンポーネントによって、このメソッドは無効にされます。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc> 
+	  現在の選択範囲の最初の文字を示す、0 から始まるインデックス値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  現在の選択範囲の最初の文字を示す、0 から始まるインデックス値です。インライン IME または検索性をサポートしようとするコンポーネントによって、このメソッドは無効にされます。 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

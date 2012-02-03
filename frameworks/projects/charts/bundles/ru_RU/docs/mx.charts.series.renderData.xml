@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.renderData"><apiName>mx.charts.series.renderData</apiName><apiDetail/><apiClassifier id="mx.charts.series.renderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую HLOCSeries и объектам CandlestickSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую HLOCSeries и объектам CandlestickSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:HLOCSeriesRenderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов HLOCSeriesItem, представляющих элементы в поставщике данных.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов HLOCSeriesItem, которые представляют элементы в поставщике данных, остающиеся после фильтрации.
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>1/2 толщины данного элемента в пикселях.
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>	Смещение каждого элемента с его значения по оси x в пикселях.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+	  1/2 толщины данного элемента в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  1/2 толщины данного элемента в пикселях.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+	  Смещение каждого элемента с его значения по оси x в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Смещение каждого элемента с его значения по оси x в пикселях.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую PlotSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую PlotSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PlotSeriesRenderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов PlotSeriesItem, представляющих элементы в dataProvider.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов PlotSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Радиус отдельных объектов PlotSeriesItem.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PlotSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  Радиус отдельных объектов PlotSeriesItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Радиус отдельных объектов PlotSeriesItem.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую ColumnSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую ColumnSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:ColumnSeriesRenderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов ColumnSeriesItem, представляющих элементы в dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов ColumnSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Вертикальное расположение основания столбцов в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>1/2 ширины столбца в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Смещение каждого столбца с его значения по оси x в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Коэффициент масштаба меток, отображаемых рядом столбцов.
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Структура данных связана с макетом меток, отображаемых рядом столбцов.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      Структура данных связана с макетом меток, отображаемых рядом столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Структура данных связана с макетом меток, отображаемых рядом столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      Коэффициент масштаба меток, отображаемых рядом столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Коэффициент масштаба меток, отображаемых рядом столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Вертикальное расположение основания столбцов в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Вертикальное расположение основания столбцов в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      1/2 ширины столбца в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      1/2 ширины столбца в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+      Смещение каждого столбца с его значения по оси x в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение каждого столбца с его значения по оси x в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую AreaSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую AreaSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:AreaSeriesRenderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiDesc>Объект AreaSeries, с которым связана эта структура.
+      </apiDesc></apiParam><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов AreaSeriesItem, представляющих элементы в dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов AreaSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Расположение по вертикали основания ряда областей в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Радиус элементов AreaSeries.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:element"><apiName>element</apiName><shortdesc>
+      Класс AreaSeries, с которым связана эта структура</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:AreaSeries</apiValueClassifier></apiValueDef><apiDesc>
+      Класс AreaSeries, с которым связана эта структура
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+      Радиус элементов AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус элементов AreaSeries.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Расположение по вертикали основания ряда областей в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расположение по вертикали основания ряда областей в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую LineSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую LineSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:LineSeriesRenderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов LineSeriesItem, представляющих элементы в dataProvider.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов LineSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+	 </apiDesc></apiParam><apiParam><apiItemName>validPoints</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Число действительных точек в кэше.
+	 </apiDesc></apiParam><apiParam><apiItemName>segments</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив объектов LineSeriesSegment, представляющих каждый отдельный сегмент LineSeries.
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Радиус отдельных элементов в LineSeries.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  Радиус отдельных элементов в ряде полос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Радиус отдельных элементов в ряде полос.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:segments"><apiName>segments</apiName><shortdesc>
+	  Массив экземпляров LineSeriesSegment, представляющих каждый отдельный сегмент в ряде полос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Массив экземпляров LineSeriesSegment, представляющих каждый отдельный сегмент в ряде полос.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:validPoints"><apiName>validPoints</apiName><shortdesc>
+	  Число точек в кэше, которые не были отфильтрованы осями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число точек в кэше, которые не были отфильтрованы осями.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую BubbleSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую BubbleSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BubbleSeriesRenderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов BubbleSeriesItem, представляющих элементы в dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов BubbleSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.charts.series.renderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую BarSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую BarSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BarSeriesRenderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов BarSeriesItem, представляющих элементы в dataProvider
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов BarSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Расположение по горизонтали основания полос в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>1/2 ширины полосы в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedYOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Смещение каждой полосы с ее значения по оси y в пикселях.
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Коэффициент масштаба меток, отображаемых рядом полос.
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Структура данных, связанная с макетом меток, отображаемых рядом полос.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      Структура данных, связанная с макетом меток, отображаемых рядом полос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Структура данных, связанная с макетом меток, отображаемых рядом полос.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      Коэффициент масштаба меток, отображаемых рядом полос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Коэффициент масштаба меток, отображаемых рядом полос.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Расположение по горизонтали основания полос в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расположение по горизонтали основания полос в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      1/2 ширины полосы в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      1/2 ширины полосы в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedYOffset"><apiName>renderedYOffset</apiName><shortdesc>
+      Смещение каждой полосы с ее значения по оси y в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение каждой полосы с ее значения по оси y в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+  Представляет всю информацию, необходимую PieSeries для выполнения визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет всю информацию, необходимую PieSeries для выполнения визуализации.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PieSeriesRenderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов PieSeriesItem, представляющих элементы в dataProvider.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Список объектов PieSeriesItem, которые представляют элементы в dataProvider, остающиеся после фильтрации.
+	 </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Коэффициент масштаба меток, отображаемых PieSeries.
+	 </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Структура данных, связанная с макетом меток, отображаемых PieSeries.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:itemSum"><apiName>itemSum</apiName><shortdesc>
+	  Общая сумма значений, представляемых в серии сектора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Общая сумма значений, представляемых в серии сектора.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+	  Структура данных, связанная с макетом меток, отображаемых серией сектора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Структура данных, связанная с макетом меток, отображаемых серией сектора.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+	  Коэффициент масштаба меток, отображаемых серией сектора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Коэффициент масштаба меток, отображаемых серией сектора.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

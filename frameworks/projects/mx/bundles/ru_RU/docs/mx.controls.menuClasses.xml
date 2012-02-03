@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.menuClasses"><apiName>mx.controls.menuClasses</apiName><apiDetail/><apiClassifier id="mx.controls.menuClasses:IMenuBarItemRenderer"><apiName>IMenuBarItemRenderer</apiName><shortdesc>
+  Интерфейс IMenuBarItemRenderer определяет интерфейс, реализуемый средством визуализации элементов для самой верхней позиции панели меню для элемента управления MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IMenuBarItemRenderer определяет интерфейс, реализуемый средством визуализации элементов для самой верхней позиции панели меню для элемента управления MenuBar. Средство визуализации элемента определяет вид отдельных кнопок на самом верхнем уровне в строке меню. Для реализации этого интерфейса следует определить методы установщика и получателя, реализующие свойства <codeph>menuBar</codeph>, <codeph>menuBarItemIndex</codeph> и <codeph>menuBarItemState</codeph>. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.menuClasses.xml#MenuBarItem"><linktext>mx.controls.menuClasses.MenuBarItem</linktext></link></related-links><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc>
+      Содержит индекс средства визуализации этого элемента для других средств визуализации элементов в элементе управления MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Содержит индекс средства визуализации этого элемента для других средств визуализации элементов в элементе управления MenuBar. Индекс средства визуализации первого элемента, самого крайнего слева средства визуализации, является нулем и увеличивается до единицы, поскольку выполняется перемещение вправо в элементе управления MenuBar. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc>
+      Содержит текущее состояние этой единицы средства визуализации этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Содержит текущее состояние этой единицы средства визуализации этого элемента. Возможными значениями являются <codeph>itemUpSkin</codeph>, <codeph>itemDownSkin</codeph> и <codeph>itemOverSkin</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBar:get"><apiName>menuBar</apiName><shortdesc>
+      Содержит ссылку на элемент для элемента управления MenuBar средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc>
+      Содержит ссылку на элемент для элемента управления MenuBar средства визуализации элементов. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+  Класс MenuBarItem определяет средство визуализации элементов по умолчанию для верхнего уровня строки меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Смещение первой строки текста с левой стороны контейнера в пикселях.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="Class">
+<description>
+  Класс, реализующий IUITextField, который используется этим компонентом для визуализации текста.
+ 
+  <p>Этот тип можно установить либо для класса mx.core.UITextField (для использования типичного класса TextField, встроенного в Flash Player), либо для класса mx.core.UIFTETextField (для использования Text Layout Framework для достижения оптимизированной визуализации текста, включая двусторонний макет).</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование подчеркивания текста. Возможными значениями являются <codeph>none</codeph> и <codeph>underline</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Выравнивание текста внутри контейнера. Возможными значениями являются <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>.
+ 
+  <p>Значением по умолчанию является <codeph>left</codeph>. Для компонента FormItem, значением по умолчанию является <codeph>right</codeph>. Для компонентов Button, LinkButton и AccordionHeader значением по умолчанию является <codeph>center</codeph> и это свойство является допустимым, только если свойство <codeph>labelPlacement</codeph> установлено на <codeph>left</codeph> или <codeph>right</codeph>. Если свойство <codeph>labelPlacement</codeph> установлено на <codeph>top</codeph> или <codeph>bottom</codeph>, текст и любой значок располагаются по центру.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  Языковой стандарт текста, отображаемый этим компонентом.
+ 
+  <p>FTE и TLF используют этот языковой стандарт для сопоставления символов «Юникод» с глифами шрифтов и поиска резервных шрифтов.</p>
+ 
+  <p>Примечание. Этот стиль применяется только в том случае, если компонент MX определяет UIFTETextField как <codeph>textFieldClass</codeph>.</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Число дополнительных пикселей, отображаемых между каждым символом. Положительное значение увеличивает интервал между символами вне стандартного интервала, в то время как отрицательное значение его уменьшает.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Boolean">
+<description>
+  Логическое значение, указывающее использование кернинга (<codeph>true</codeph> — включено и <codeph>false</codeph> — отключено). Кернинг регулирует промежуток между определенными символьными парами для повышения удобочитаемости и должен использоваться, например, в заголовках при использовании крупных шрифтов. Кернинг поддерживается только для встроенных шрифтов. Определенные шрифты, например Verdana, и моноширинные шрифты, например Courier New, не поддерживают кернинг.
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование жирного шрифта в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph> bold</codeph>. Значение по умолчанию для элемента управления Button равно <codeph>bold</codeph>. Значением по умолчанию для всех прочих элементов управления является<codeph>normal</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Устанавливает свойство <codeph>thickness</codeph> внутреннего класса TextFields, представляющего текст в элементе управления Flex. Это свойство указывает толщину границ глифов. Возможные значения – числа от -200 до 200. 
+  
+  <p>Это свойство применяется только при использовании вложенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField и не может быть применен только к отдельным символам.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование курсива в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph>italic</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Высота текста в пикселях. Для тем Halo значением по умолчанию для всех элементов управления, кроме ColorPicker, является 10. Для элемента управления ColorPicker с темой Halo значением по умолчанию является 11. Для тем Spark значением по умолчанию для всех элементов управления, кроме ColorPicker, является 12. Для элемента управления ColorPicker с темой Spark значением по умолчанию является 11.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Устанавливает свойство <codeph>sharpness</codeph> для внутреннего класса TextFields, представляющего текст в элементах управления Flex. Это свойство указывает резкость краев глифа. Возможными значениями являются числа от -400 до 400. 
+  
+  <p>Это свойство применяется только при использовании вложенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField и не может быть применен только к отдельным символам.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Устанавливает свойство <codeph>gridFitType</codeph> внутреннего класса TextFields, представляющего текст в элементах управления Flex. Допустимыми значениями являются <codeph>none</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>), <codeph>pixel</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) и <codeph>subpixel</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>). 
+  
+  <p>Это свойство применяется только при использовании вложенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField и не может быть применен только к отдельным символам.</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Имя используемого шрифта. В отличие от использования в реализации CSS, разделенные запятой списки не поддерживаются. Можно использовать любое имя гарнитуры шрифтов. При указании общего имени шрифта оно преобразовывается в соответствующий шрифт устройства. Шрифтом по умолчанию для темы Halo является <codeph>Verdana</codeph>. Шрифтом по умолчанию для темы Spark является <codeph>Arial</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Устанавливает свойство <codeph>antiAliasType</codeph> внутреннего класса TextFields. Возможными значениями являются <codeph>normal</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) и <codeph>advanced</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>). 
+  
+  <p>Значением по умолчанию является <codeph>advanced</codeph>, активирующее расширенные возможности сглаживания для шрифтов. Установлено на <codeph>normal</codeph> для деактивации расширенных возможностей сглаживания.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+  
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления класса TextField; его можно применять только к определенным символам.</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста в компоненте при его деактивации.
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  Направленность текста, отображенная компонентом.
+ 
+  <p>Допустимые значения – <codeph>ltr</codeph> для текста, записываемого слева направо, как в гарнитурах латинского стиля, и <codeph>rtl</codeph> для текста, записываемого справа налево, как в арабском и иврите.</p>
+ 
+  <p>FTE и TLF используют это значение в алгоритме двухстороннего макета текста, который сопоставляет последовательность символов «Юникод» с последовательностью глифов.</p>
+ 
+  <p>Примечание. Этот стиль применяется только в том случае, если компонент MX определяет UIFTETextField как <codeph>textFieldClass</codeph>.</p>
+ 
+  <p>Параметр <codeph>direction</codeph> также влияет на выравнивание текста в рамках TLFTextField. Однако он не влияет на размещение TLFTextField внутри компонента.</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста в компоненте, включая метку компонента. Значением по умолчанию для темы Halo является <codeph>0x0B333C</codeph>. Значение по умолчанию для темы Spark - <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Дополнительный вертикальный пробел между строками текста.
+ 
+  <p>По умолчанию используется значение 2.</p>
+  <p>Значением по умолчанию для элемента управления ComboBox является 0.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.menuClasses:IMenuBarItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MenuBarItem определяет средство визуализации элементов по умолчанию для верхнего уровня строки меню. По умолчанию средство визуализации элементов выводит текст, связанный с каждым элементом на самом верхнем уровне в строке меню, и необязательный значок. 
+ 
+  <p>Экземпляр MenuBarItem передает использование мыши и клавиатуры в MenuBar для того, чтобы с помощью свойства MenuBar было правильно выполнено отображение и скрытие меню. </p>
+ 
+  <p>Можно переопределить средство визуализации элементов по умолчанию путем создания пользовательского средства визуализации элементов, реализующего интерфейс IMenuBarItemRenderer.</p>
+ 
+  <p>Можно также определить средство визуализации элементов для всплывающих подменю элемента управления MenuBar. Поскольку каждое всплывающее подменю – экземпляр элемента управления Menu, используется класс MenuItemRenderer для определения средства визуализации элементов всплывающих подменю.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer</linktext></link><link href="mx.controls.menuClasses.xml#MenuItemRenderer"><linktext>mx.controls.menuClasses.MenuItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuBarItem:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:icon"><apiName>icon</apiName><shortdesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок в этом классе MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок в этом классе MenuBarItem.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:label"><apiName>label</apiName><shortdesc>
+      Класс UITextField, отображающий текст в этом классе MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Класс UITextField, отображающий текст в этом классе MenuBarItem.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+	  Объект, предоставляющий данные для меню, всплывающего при выборе MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"undefined"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Объект, предоставляющий данные для меню, всплывающего при выборе MenuBarItem.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:data:get"><apiName>data</apiName><shortdesc>
+      Реализация свойства data, как определено интерфейсом IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>data</codeph>, как определено интерфейсом IDataRenderer. Все средства визуализации элементов должны реализовать интерфейс IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      Реализация свойства menuBarItemIndex, как определено интерфейсом IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      Реализация свойства <codeph>menuBarItemIndex</codeph>, как определено интерфейсом IMenuBarItemRenderer.  
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemIndex"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      Реализация свойства menuBarItemState, как определено интерфейсом IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      Реализация свойства <codeph>menuBarItemState</codeph>, как определено интерфейсом IMenuBarItemRenderer.  
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemState"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemState</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBar:get"><apiName>menuBar</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      Реализация свойства menuBar, как определено интерфейсом IMenuBarItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      Реализация свойства <codeph>menuBar</codeph>, как определено интерфейсом IMenuBarItemRenderer. 
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBar"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBar</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+  Класс TileListItemRenderer определяет средство визуализации элементов по умолчанию для элементов меню в любых элементах управления меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет элемента меню при его деактивации.
+  
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста для метки элемента меню. Значением по умолчанию для темы Halo является <codeph>0x0B333C</codeph>. Значение по умолчанию для темы Spark - <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TileListItemRenderer определяет средство визуализации элементов по умолчанию для элементов меню в любых элементах управления меню. По умолчанию средство визуализации элементов выводит текст, связанный с каждым элементом в списке, разделительные символы и значки.
+ 
+  <p>Можно перезаписать средство визуализации элементов по умолчанию путем создания пользовательского средства визуализации элементов.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.menuClasses:MenuItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Передается при изменении свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства<codeph>data</codeph>.
+ 
+  <p>При использовании компонента как средства визуализации элементов свойство <codeph>data</codeph> содержит данные для отображения. Прослушиватель события может использовать это событие и обновить компонент при изменении свойства <codeph>data</codeph>.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.menuClasses:MenuItemRenderer:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:branchIcon"><apiName>branchIcon</apiName><shortdesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок ветви в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок ветви в этом средстве визуализации.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+	  Внутренний класс UITextField, отображающий текст в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Внутренний класс UITextField, отображающий текст в этом средстве визуализации.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:separatorIcon"><apiName>separatorIcon</apiName><shortdesc>
+	  Внутренний IFlexDisplayObject, отображающий значок-разделитель в этом средстве визуализации.
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Внутренний IFlexDisplayObject, отображающий значок-разделитель в этом средстве визуализации.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:typeIcon"><apiName>typeIcon</apiName><shortdesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок типа в этом средстве визуализации для контрольных кнопок и переключателей.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок типа в этом средстве визуализации для контрольных кнопок и переключателей.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Реализация свойства data, как определено интерфейсом IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Реализация свойства <codeph>data</codeph>, как определено интерфейсом IDataRenderer.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:icon:get"><apiName>icon</apiName><shortdesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Внутренний объект IFlexDisplayObject, отображающий значок в этом средстве визуализации.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+	  Реализация свойства listData, как определено интерфейсом IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+	  Реализация свойства <codeph>listData</codeph>, как определено интерфейсом IDropInListItemRenderer.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      Ширина значка ветви
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка ветви
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      Ширина значка
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      Ширина значка типа (переключатель/контрольная клавиша)
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка типа (переключатель/контрольная клавиша)
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+	  Содержит ссылку на связанный элемент управления Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Содержит ссылку на связанный элемент управления Menu.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:IMenuItemRenderer"><apiName>IMenuItemRenderer</apiName><shortdesc>
+  Интерфейс IMenuBarItemRenderer определяет интерфейс, реализуемый средством визуализации элементов для элемента управления Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IMenuBarItemRenderer определяет интерфейс, реализуемый средством визуализации элементов для элемента управления Menu.
+ 
+  <p>Средства визуализации элементов часто используются повторно. С момента создания они могут использоваться повторно путем простого ввода новых данных. Поэтому в отдельных реализациях разработчики компонентов должны убедиться, что свойства компонентов не содержат определенные начальные значения или значения по умолчанию.</p>
+ 
+  <p>Для реализации этого интерфейса разработчик компонентов должен определить методы установщика и получателя, реализующие свойство <codeph>menu</codeph>. Метод установщика обычно записывает значение свойства данных для внутренней переменной и возвращает текущее значение внутренней переменной, как представлено в примере:</p>
+  <pre>
+     // Internal variable for the property value.
+     private var _menu:Menu;
+ 
+     // Define the getter method.
+     public function get menu():Menu
+     {
+         return _menu;
+     }
+ 
+     // Define the setter method.
+     public function set menu(value:Menu):void
+     {
+         _menu = value;
+     }
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      Ширина значка ветви.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка ветви.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      Ширина значка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      Ширина значка типа (переключатель/контрольная клавиша).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина значка типа (переключатель/контрольная клавиша).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+      Ссылка на элемент управления Menu средства визуализации элементов меню при его наличии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier></apiValueDef><apiDesc>
+      Ссылка на элемент управления Menu средства визуализации элементов меню при его наличии. Это указывает, что средство визуализации элементов меню является узлом ветви с возможностью появления всплывающего меню.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+  Класс MenuListData определяет тип данных свойства listData, реализуемый средствами визуализации вставных элементов или редакторами вставных элементов для элементов управления Menu и MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MenuListData определяет тип данных свойства <codeph>listData</codeph>, реализуемый средствами визуализации вставных элементов или редакторами вставных элементов для элементов управления Menu и MenuBar. Все средства визуализации вставных элементов или редакторы вставных элементов должны реализовать интерфейс IDropInListItemRenderer, определяющий свойство <codeph>listData</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuListData:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Текстовое представление данных элемента.
+	 
+	 	</apiDesc></apiParam><apiParam><apiItemName>icon</apiItemName><apiType value="Class"/><apiDesc>Объект классов Class или String, представляющий значок для элемента в элементе управления List.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiDesc>Указывает поле поставщика данных, содержащее данные меток компонента списка.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для элемента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Справочная информация по элементу управления Menu.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс элемента в поставщике данных для элемента управления Menu.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс столбца в видимых в настоящий момент столбцах элемента управления.
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredBranchIconWidth"><apiName>maxMeasuredBranchIconWidth</apiName><shortdesc>
+	  Максимальная ширина значка ветви для всего класса MenuItemListRenderers
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Максимальная ширина значка ветви для всего класса MenuItemListRenderers
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredIconWidth"><apiName>maxMeasuredIconWidth</apiName><shortdesc>
+	  Максимальная ширина значка для всего класса MenuItemListRenderers
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Максимальная ширина значка для всего класса MenuItemListRenderers
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredTypeIconWidth"><apiName>maxMeasuredTypeIconWidth</apiName><shortdesc>
+	  Максимальная ширина значка типа для всего класса MenuItemListRenderers
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Максимальная ширина значка типа для всего класса MenuItemListRenderers
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:useTwoColumns"><apiName>useTwoColumns</apiName><shortdesc>
+	  Потребность в расположении значков с левой стороны в двух отдельных столбцах (один для значков и один для значков типа, как, например, контрольная клавиша и переключатель)
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Потребность в расположении значков с левой стороны в двух отдельных столбцах (один для значков и один для значков типа, как, например, контрольная клавиша и переключатель)
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

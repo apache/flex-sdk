@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.textClasses"><apiName>mx.controls.textClasses</apiName><apiDetail/><apiClassifier id="mx.controls.textClasses:TextRange"><apiName>TextRange</apiName><shortdesc>
+  Класс TextRange предоставляет свойства, позволяющие выбирать и форматировать диапазон текста в элементах управления Label, Text, TextArea, TextEditor и RichTextEditor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TextRange предоставляет свойства, позволяющие выбирать и форматировать диапазон текста в элементах управления Label, Text, TextArea, TextEditor и RichTextEditor.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Label"><linktext>mx.controls.Label</linktext></link><link href="mx.controls.xml#RichTextEditor"><linktext>mx.controls.RichTextEditor</linktext></link><link href="mx.controls.xml#Text"><linktext>mx.controls.Text</linktext></link><link href="mx.controls.xml#TextArea"><linktext>mx.controls.TextArea</linktext></link><link href="mx.controls.xml#TextInput"><linktext>mx.controls.TextInput</linktext></link><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links><apiConstructor id="mx.controls.textClasses:TextRange:TextRange"><apiName>TextRange</apiName><shortdesc>
+	  Создайте новый объект TextRange, представляющий подмножество содержимого текстового элемента управления, включая информацию форматирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Элемент управления, содержащий текст. Этот элемент управления должен иметь свойство <codeph>textField</codeph>, либо, как в случае элемента управления RichTextEditor, свойство <codeph>textArea</codeph>.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>modifiesSelection</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Выбор текста в диапазоне. Если для этого параметра установлено значение <codeph>true</codeph>, но не указан начальный или конечный индекс, соответствующий тексту в элементе управления, Flex использует начальный или конечный индекс текущей текстовой выборки. Если для этого параметра установлено значение <codeph>true</codeph>, и параметры <codeph>beginIndex</codeph> и <codeph>endIndex</codeph> опущены, выбор отсутствует, и объект TextRange является пустым.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс первого символа в диапазоне, отсчитываемый от нуля. Если параметр <codeph>modifiesSelection</codeph> имеет значение <codeph>false</codeph>, и этот параметр опускается или, указывается отрицательное значение, диапазон начинается с первого текстового символа.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от нуля индекс позиции <i>после</i> последнего символа в диапазоне. Если параметр <codeph>modifiesSelection</codeph> имеет значение <codeph>false</codeph>, и этот параметр опускается, указывается отрицательное значение или значение за пределами конца текста, диапазон заканчивается последним текстовым символом.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Создайте новый объект TextRange, представляющий подмножество содержимого текстового элемента управления, включая информацию форматирования.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.textClasses:TextRange:beginIndex:get"><apiName>beginIndex</apiName><shortdesc>
+	  Отсчитываемый от нуля индекс в текстовом поле элемента управления для первого символа в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Отсчитываемый от нуля индекс в текстовом поле элемента управления для первого символа в диапазоне. Если пятый символ в тексте является первым символом в диапазоне, это свойство имеет значение 4.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:bullet:get"><apiName>bullet</apiName><shortdesc>
+	  Текст в диапазоне в виде маркированного списка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Текст в диапазоне в виде маркированного списка. Если только часть диапазона представлена в виде маркированного списка, это свойство имеет значение <codeph>false</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:color:get"><apiName>color</apiName><shortdesc>
+	  Цвет текста в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Цвет текста в диапазоне. Для установки этого значения используется любой допустимый идентификатор цвета. Это свойство возвращает числовое значение. Если диапазон содержит несколько цветов, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+	  Отсчитываемый от нуля индекс в текстовом поле элемента управления для точки, следующей непосредственно за последним символом в диапазоне; эквивалентен индексу последнего символа, отсчитываемому от единицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Отсчитываемый от нуля индекс в текстовом поле элемента управления для точки, следующей непосредственно за последним символом в диапазоне; эквивалентен индексу последнего символа, отсчитываемому от единицы. Если пятый символ в тексте является последним символом в диапазоне, это свойство имеет значение 5.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontFamily:get"><apiName>fontFamily</apiName><shortdesc>
+	  Имя шрифта для текста в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Имя шрифта для текста в диапазоне. Если диапазон включает несколько шрифтов, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontSize:get"><apiName>fontSize</apiName><shortdesc>
+	  Размер кегля для текста в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Размер кегля для текста в диапазоне. Если диапазон имеет несколько размеров, это значение равно 0.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontStyle:get"><apiName>fontStyle</apiName><shortdesc>
+	  Стиль шрифта в диапазоне: «курсив» или «обычный».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Стиль шрифта в диапазоне: «курсив» или «обычный». Установка в качестве значения свойства любой другой строки приводит к использованию обычного стиля. Если диапазон содержит несколько стилей, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontWeight:get"><apiName>fontWeight</apiName><shortdesc>
+	  Толщина шрифта в диапазоне: «полужирный» или «обычный».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Толщина шрифта в диапазоне: «полужирный» или «обычный». Установка в качестве значения свойства любой другой строки приводит к использованию обычной толщины. Если диапазон содержит несколько вариантов толщины, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+	  Содержимое диапазона в формате текста HTML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Содержимое диапазона в формате текста HTML. Это свойство возвращает всю разметку HTML для диапазона, включая разметку для форматирования, используемую Flex, а не только параметры HTML, которые определяются при помощи свойства <codeph>htmlText</codeph>. Таким образом, это свойство полностью определяет представление HTML текста, иcпользуемое в элементе управления.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:kerning:get"><apiName>kerning</apiName><shortdesc>
+	  Логическое значение, указывающее использование кернинга (true – включено и false – отключено).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Логическое значение, указывающее использование кернинга (<codeph>true</codeph> – включено и <codeph>false</codeph> – отключено). Функция кернинга позволяет регулировать число пикселей между определенными символьными парами в целях упрощения восприятия. Эту функцию рекомендуется применять только в случае необходимости, например, в отношении заголовков при использовании крупных шрифтов. Кернинг поддерживается только для встроенных шрифтов. Определенные шрифты, например, Verdana, и моноширинные шрифты, например, Courier New, не поддерживают кернинг.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:letterSpacing:get"><apiName>letterSpacing</apiName><shortdesc>
+	  Число дополнительных пикселей, отображаемых между символами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Число дополнительных пикселей, отображаемых между символами. Положительное значение увеличивает интервал между символами вне стандартного интервала, в то время как отрицательное значение его уменьшает.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:modifiesSelection:get"><apiName>modifiesSelection</apiName><shortdesc>
+	  Изменение выбранного текста посредством элемента управления «Диапазон текста».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Изменение выбранного текста посредством элемента управления «Диапазон текста». Устанавливается конструктором.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:owner:get"><apiName>owner</apiName><shortdesc>
+	  Элемент управления, содержащий текст.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+	  Элемент управления, содержащий текст. Этот элемент управления владельца текста должен иметь свойство <codeph>textField</codeph>, либо, как в случае элемента управления RichTextEditor, свойство <codeph>textArea</codeph>. Владелец текста в элементе управления RichTextEditor – это элемент управления RichTextEditor, а не соответствующий нижестоящий элемент управления TextArea. Первоначально определяется конструктором.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:textAlign:get"><apiName>textAlign</apiName><shortdesc>
+	  Выравнивание текста в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Выравнивание текста в диапазоне. Допустимые значения определяются константами flash.text.TextFormatAlign. Установка для этого свойства любого другого значения не имеет последствий. Если в диапазоне существует несколько вариантов выравнивания, это свойство имеет значение <codeph>null</codeph>.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links></apiValue><apiValue id="mx.controls.textClasses:TextRange:textDecoration:get"><apiName>textDecoration</apiName><shortdesc>
+	  Оформление шрифта в диапазоне: «подчеркивание» или «обычный».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Оформление шрифта в диапазоне: «подчеркивание» или «обычный». Установка в качестве значения свойства любой другой строки приводит к использованию обычного текста. Если в диапазоне существует несколько вариантов оформления, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:text:get"><apiName>text</apiName><shortdesc>
+	  Содержимое обычного текста в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Содержимое обычного текста в диапазоне.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:url:get"><apiName>url</apiName><shortdesc>
+	  URL для гипертекстовой ссылки в диапазоне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  URL для гипертекстовой ссылки в диапазоне. Если диапазон не содержит ссылку, значением является пустая строка. Если диапазон включает несколько ссылок, это свойство имеет значение <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

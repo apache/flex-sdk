@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.interpolation"><apiName>spark.effects.interpolation</apiName><apiDetail/><apiClassifier id="spark.effects.interpolation:IInterpolator"><apiName>IInterpolator</apiName><shortdesc>
+  IInterpolator インターフェイスは、Animation クラスの値を計算するクラスによって実装されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IInterpolator インターフェイスは、Animation クラスの値を計算するクラスによって実装されます。Animation クラスは、Number 値および Number 値配列の間でのパラメーター補間を処理できますが、異なる補間のタイプや異なる値のタイプの間での補間は処理できません。このインターフェイスのインプリメンターは、Animation を任意の値の間で作成できるように、任意の補間機能を提供できます。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) - Number(incrementValue)</codeph> になります。この関数は、何らかの終了値とそれから減算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) + Number(incrementValue)</codeph> になります。このメソッドは、何らかの開始値とそれに加算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      アニメーションの経過割合（0.0 ～ 1.0）および補間する開始値と終了値が指定されると、補間された値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>補間の終了値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションの経過割合（0.0 ～ 1.0）および補間する開始値と終了値が指定されると、補間された値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+  MultiValueInterpolator クラスは、各エレメントの補間を実行するために別のインターポレーターを使用して、開始エレメントと終了エレメントの配列またはベクターの各エレメントを個別に補間します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MultiValueInterpolator クラスは、各エレメントの補間を実行するために別のインターポレーターを使用して、開始エレメントと終了エレメントの配列またはベクターの各エレメントを個別に補間します。デフォルトでは、各エレメントの補間は NumberInterpolator クラスを使用しますが、異なるインターポレーターで MultiValueInterpolator インスタンスを作成できます。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href=""><linktext/></link></related-links><apiConstructor id="spark.effects.interpolation:MultiValueInterpolator:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>elementInterpolator</apiItemName><apiOperationClassifier>spark.effects.interpolation:IInterpolator</apiOperationClassifier><apiData>null</apiData><apiDesc>配列の各エレメントのインターポレーターです。インターポレーターが指定されていない場合、NumberInterpolator クラスを使用します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+     
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) - Number(incrementValue)</codeph> になります。この関数は、何らかの終了値とそれから減算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:increment"><apiName>increment</apiName><shortdesc>
+     
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) + Number(incrementValue)</codeph> になります。このメソッドは、何らかの開始値とそれに加算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      アニメーションの経過割合（0.0 ～ 1.0）および補間する開始値と終了値が指定されると、補間された値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>補間の終了値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションの経過割合（0.0 ～ 1.0）および補間する開始値と終了値が指定されると、補間された値を返します。MultiValueInterpolator の補間では、startValue および endValue 配列またはベクターの各エレメントに対して個別に補間を実行し、それらの補間された値を保持する新しい配列またはベクターを返します。startValue および endValue が Array 型である場合、返されるオブジェクトは Array です。それ以外の場合、返されるオブジェクトは Vector 型になります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.interpolation:MultiValueInterpolator:elementInterpolator:get"><apiName>elementInterpolator</apiName><shortdesc>
+      入力配列またはベクターの各エレメントのインターポレーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier><apiDefaultValue>NumberInterpolator
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力配列またはベクターの各エレメントのインターポレーターです。値が null の場合、NumberInterpolator クラスが使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.interpolation:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+ NumberInterpolator クラスは、Number インスタンスとして表される開始値と終了値の間において補間を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ NumberInterpolator クラスは、Number インスタンスとして表される開始値と終了値の間において補間を提供します。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:NumberInterpolator:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:NumberInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      基本値とそれから減算する値が指定されると、そのデクリメント演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) - Number(incrementValue)</codeph> になります。この関数は、何らかの終了値とそれから減算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      このクラスのシングルトンを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスのシングルトンです。
+     
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:NumberInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      このクラスのシングルトンを返します。すべての NumberInterpolator は同じビヘイビアーであるため、複数のインスタンスは必要ありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      基本値とそれに加算する値が指定されると、その演算の結果を返します。例えば、オブジェクトが単純な Number である場合、結果は <codeph>Number(baseValue) + Number(incrementValue)</codeph> になります。このメソッドは、何らかの開始値とそれに加算する「差分」値が指定され、動的に値を計算する必要がある場合に、アニメーションシステムによって呼び出されます。両方の引数は Object 型であり、単純には合算できません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      NumberInterpolator の補間は、startValue と endValue の間の単純なパラメーター計算で構成され、fraction を開始から終了までの経過時間の割合として使用します。startValue + fraction (endValue - startValue) を返します。
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>補間の終了値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      NumberInterpolator の補間は、<codeph>startValue</codeph> と <codeph>endValue</codeph> の間の単純なパラメーター計算で構成され、<codeph>fraction</codeph> を開始から終了までの経過時間の割合として使用します。
+     
+      <pre>return startValue + fraction (endValue - startValue);</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+  RGBInterpolator クラスは、RGB カラーを表す uint の開始値と終了値の間において補間を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RGBInterpolator クラスは、RGB カラーを表す <codeph>uint</codeph> の開始値と終了値の間において補間を提供します。補間実行の際には、最下位の 3 バイトにカラーチャンネル情報がある整数として開始値と終了値を処理してから、各チャンネルを個別に補間します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:RGBInterpolator:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:RGBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      チャンネルごとに 2 つの値が減算された結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルごとに 2 つの値が減算された結果を返します。アンダーフローの問題を回避するため、各チャンネルの最小値は 0 になっています。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      このクラスのシングルトンを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスのシングルトンです。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:RGBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      このクラスのシングルトンを返します。すべての RGBInterpolator は同じビヘイビアーであるため、複数のインスタンスは必要ありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      チャンネルごとに 2 つの値が合算された結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルごとに 2 つの値が合算された結果を返します。オーバーフローの問題を回避するため、各チャンネルの最大値は 255 になっています。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      RGBInterpolator クラスの補間は、startValue と endValue の各最下位の 3 バイトを対象としたパラメーター計算という形をとります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>補間の終了値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      RGBInterpolator クラスの補間は、<codeph>startValue</codeph> と <codeph>endValue</codeph> の各最下位の 3 バイトを対象としたパラメーター計算という形をとります。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+  HSBInterpolator クラスは、RGB を表す uint の開始値と終了値の間において、色相、彩度および明度（HSB）のカラーの補間を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HSBInterpolator クラスは、RGB を表す <codeph>uint</codeph> の開始値と終了値の間において、色相、彩度および明度（HSB）のカラーの補間を提供します。補間実行の際には、最下位の 3 バイトに RGB カラーチャンネル情報がある整数として開始値と終了値を処理し、これらを HSB 値に変換して、h（色相）、s（彩度）および b（明度）のパラメーターごとに直線的に補間します。
+ 
+  <p>このインターポレーターは、指定された型を単純に補間する通常のインターポレーターに比べて、特に RGB の開始値と終了値を変換する目的で多くの計算を行う場合があるため、このインターポレーターには、開始値と終了値をコンストラクターに提供するオプションがあります。RGB の開始値と終了値を指定すると、これらの値の変換が一度だけ計算され、その後、アニメーション実行期間に <codeph>interpolate()</codeph> メソッドを呼び出すたびにこの処理を行う必要がなくなります。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:HSBInterpolator:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>startRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>符号なし整数の RGB 値を表す開始カラーです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>符号なし整数の RGB 値を表す終了カラーです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。<codeph>startRGB</codeph> と <codeph>endRGB</codeph> のオプションパラメーターは、RGB から HSB への変換を、<codeph>interpolate()</codeph> メソッドを呼び出すたびに動的に行うのではなく作成時に行うことによって、実行時のパフォーマンスを最適化するのに役立ちます。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:HSBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      HSB カラーとして 2 つの RGB 値が合算された結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      HSB カラーとして 2 つの RGB 値が合算された結果を返します。各値は、まず HSB カラーに変換され、その後、各構成要素（色相、彩度および明度）が個別に処理されます。彩度と明度の構成要素は 0 ～ 1 の範囲で表され、色相の度合いは 360°に調整されて 0 ～ 360 の範囲で表されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      このクラスのシングルトンを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>HSBInterpolator クラスのシングルトンです。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:HSBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      このクラスのシングルトンを返します。 
+     
+      <p>別個のインスタンスは、開始カラーと終了カラーについて RGB から HSB への変換を事前に計算する方法を利用できるため、HSBInterpolator クラスのシングルトンはクラスの別個のインスタンスよりも有用でない可能性があることに注意してください。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      HSB カラーとして 2 つの RGB 値が合算された結果を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc><codeph>baseValue</codeph> に適用する変更です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      HSB カラーとして 2 つの RGB 値が合算された結果を返します。各値は、まず HSB カラーに変換され、その後、各構成要素（色相、彩度および明度）が個別に処理されます。彩度と明度の構成要素は 0 ～ 1 の範囲で表され、色相の度合いは 360°に調整されて 0 ～ 360 の範囲で表されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      HSBInterpolator クラスの補間は、RGB の開始カラーと終了カラーから派生した HSB カラーの h（色相）、s（彩度）および b（明度）という 3 つの各値を対象としたパラメーター計算という形をとります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>補間の開始値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>補間の終了値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      HSBInterpolator クラスの補間は、RGB の開始カラーと終了カラーから派生した HSB カラーの h（色相）、s（彩度）および b（明度）という 3 つの各値を対象としたパラメーター計算という形をとります。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

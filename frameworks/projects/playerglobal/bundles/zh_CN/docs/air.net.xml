@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="air.net" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">air.net</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="air.net:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ URLMonitor 类监视基于 HTTP 或 HTTPS 的服务的可用性。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ URLMonitor 类监视基于 HTTP 或 HTTPS 的服务的可用性。
+ 
+ <p class="- topic/p ">此类包含在 aircore.swc 文件中。创建 Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR<sup class="+ topic/ph hi-d/sup ">™</sup> 项目时，Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash<sup class="+ topic/ph hi-d/sup ">™</sup> Builder 将自动加载此类。Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex<sup class="+ topic/ph hi-d/sup ">™</sup> SDK 也包含此 aircore.swc 文件，当您使用 Flex SDK 编译应用程序时应包含此文件。
+ </p>
+ 
+ <p class="- topic/p ">在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional 中，此类包含在 ServiceMonitorShim.swc 文件中。要使用 air.net 包中的类，必须先将 ServiceMonitorShim 组件从“组件”面板拖到“库”中，然后将以下 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">要在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 或更高版本）中使用 air.net 包： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">选择“文件”>“发布设置”命令。</li><li class="- topic/li ">在 Flash 面板中，单击 ActionScript 3.0 对应的“设置”按钮。选择“库路径”。</li><li class="- topic/li ">单击“浏览到 SWC 文件”按钮。浏览到 Adobe Flash Professional 安装文件夹中的 Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc 文件。</li><li class="- topic/li ">单击“确定”按钮。</li><li class="- topic/li ">将下面的 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：<codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:URLMonitor:URLMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">URLMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     为指定的基于 HTTP 或 HTTPS 的服务创建 URLMonitor 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">urlRequest</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:URLRequest</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">表示用于轮询服务器的探查请求的 URLRequest 对象。
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">acceptableStatusCodes</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">一个数字状态代码数组，列出表示成功结果的代码。
+     
+     <p class="- topic/p ">如果不指定 <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> 属性的值，则会将以下状态代码识别为成功响应：</p>
+     
+     <ul class="- topic/ul "><li class="- topic/li ">200（正常） </li><li class="- topic/li ">202（可接受） </li><li class="- topic/li ">204（无内容） </li><li class="- topic/li ">205（重置内容） </li><li class="- topic/li ">206（部分内容，响应带有 Range 标头的请求） </li></ul>
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     为指定的基于 HTTP 或 HTTPS 的服务创建 URLMonitor 对象。
+     
+     <p class="- topic/p ">在创建 URLMonitor 后，调用方应调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 方法以开始监视服务的状态。</p>
+     
+     <p class="- topic/p ">与 Timer 对象一样，调用方应保持对 URLMonitor 对象的引用。否则，运行时会删除该对象，从而结束监视。</p>
+     
+     <p class="- topic/p ">URLRequest 参数指定用于轮询服务器的探查请求。通常，请求方法是 <codeph class="+ topic/ph pr-d/codeph ">"GET"</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">"HEAD"</codeph>。</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:URLMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+    尝试在后台从 URL 加载内容，以检查返回的 HTTP 状态代码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    尝试在后台从 URL 加载内容，以检查返回的 HTTP 状态代码。 
+    <p class="- topic/p ">
+    如果接收到 <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> 属性中列出的状态代码，则会将 <codeph class="+ topic/ph pr-d/codeph ">available</codeph> 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。如果接收到 <codeph class="+ topic/ph pr-d/codeph ">acceptableStatusCodes</codeph> 列表中以外的状态代码，或如果出现安全错误或 I/O 错误，则会将 <codeph class="+ topic/ph pr-d/codeph ">available</codeph> 属性设置为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>。
+    </p>
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:URLMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+     
+	 返回指定对象的字符串表示形式。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">对象的字符串表示形式。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+     
+	 返回指定对象的字符串表示形式。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object 类的方法是在 Object 的原型上动态创建的。要在 Object 的子类中重新定义该方法，请不要使用 <codeph class="+ topic/ph pr-d/codeph ">override</codeph> 关键字。例如，Object 的一个子类实现 <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> 而不使用基类覆盖。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:URLMonitor:acceptableStatusCodes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">acceptableStatusCodes</apiName><shortdesc class="- topic/shortdesc ">
+     表示成功结果的数值状态代码。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示成功结果的数值状态代码。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:URLMonitor:urlRequest:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">urlRequest</apiName><shortdesc class="- topic/shortdesc ">
+     表示探查请求的 URLRequest 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.net:URLRequest</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     表示探查请求的 URLRequest 对象。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ ServiceMonitor 类实现用于监视网络服务的状态和可用性的框架。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ ServiceMonitor 类实现用于监视网络服务的状态和可用性的框架。ServiceMonitor 类作为所有其他服务监视器的基类。
+ 
+ <p class="- topic/p ">此类包含在 aircore.swc 文件中。创建 Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> AIR™ 项目时，Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flash™ Builder™ 将自动加载此类。Adobe<sup class="+ topic/ph hi-d/sup ">®</sup> Flex™ SDK 也包含此 aircore.swc 文件，当您使用 Flex SDK 编译应用程序时应包含此文件。
+ </p>
+ 
+ <p class="- topic/p ">在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional 中，此类包含在 ServiceMonitorShim.swc 文件中。要使用 air.net 包中的类，必须先将 ServiceMonitorShim 组件从“组件”面板拖到“库”中，然后将以下 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">要在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 或更高版本）中使用 air.net 包： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">选择“文件”>“发布设置”命令。</li><li class="- topic/li ">在 Flash 面板中，单击 ActionScript 3.0 对应的“设置”按钮。选择“库路径”。</li><li class="- topic/li ">单击“浏览到 SWC 文件”按钮。浏览到 Adobe Flash Professional 安装文件夹中的 Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc 文件。</li><li class="- topic/li ">单击“确定”按钮。</li><li class="- topic/li ">将下面的 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：<codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><adobeApiEvent id="air.net:ServiceMonitor_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+ 表示服务状态已更改。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 表示服务状态已更改。
+ 
+ <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">code</codeph> 属性的值为 <codeph class="+ topic/ph pr-d/codeph ">"Service.available"</codeph> 或 <codeph class="+ topic/ph pr-d/codeph ">"Service.unavailable"</codeph>，但最佳做法是检查 <codeph class="+ topic/ph pr-d/codeph ">ServiceMonitor.available</codeph> 属性的值。</p>
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="air.net:ServiceMonitor:ServiceMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">ServiceMonitor</apiName><shortdesc class="- topic/shortdesc ">
+     创建 ServiceMonitor 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     创建 ServiceMonitor 对象。 
+     
+     <p class="- topic/p ">通常会从此类派生子类以监视特定的服务类型。</p>
+     
+     
+     
+     <p class="- topic/p ">在创建 ServiceMonitor 对象（或子类对象）后，调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 方法可开始监视服务的状态。</p>
+     
+     <p class="- topic/p ">与 Timer 对象一样，调用方应保持对 ServiceMonitor 对象的引用。否则，运行时会删除该对象并结束监视。</p>
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:ServiceMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+     检查服务状态。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     检查服务状态。
+     
+     <p class="- topic/p ">用于检查服务状态的子类覆盖方法。</p>
+     
+     <p class="- topic/p ">通常，此方法将启动网络操作，该操作的完成或失败将导致设置 <codeph class="+ topic/ph pr-d/codeph ">available</codeph> 属性。</p>
+     
+     <p class="- topic/p ">通过在“专用函数”对象中定义 <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> 方法，JavaScript 代码可以专用此方法。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:makeJavascriptSubclass" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">makeJavascriptSubclass</apiName><shortdesc class="- topic/shortdesc ">
+     将公共 ServiceMonitor 方法添加到 JavaScript 构造函数的原型中。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">constructorFunction</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">JavaScript 对象的 <codeph class="+ topic/ph pr-d/codeph ">prototype</codeph> 属性。例如，如果要用作专用函数对象的 JavaScript 对象名为 MyHTTPMonitor，请传递 <codeph class="+ topic/ph pr-d/codeph ">MyHTTPMonitor.prototype</codeph> 作为此参数的值。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     将公共 ServiceMonitor 方法添加到 JavaScript 构造函数的原型中。
+     
+     <p class="- topic/p ">将函数添加到 JavaScript 构造函数的原型，以将公共 ServiceMonitor 函数进一步应用到 ServiceMonitor 对象。此类近似于 ActionScript 基类的常规 JavaScript 子类。</p>
+     
+     <p class="- topic/p ">专用 ServiceMonitor 的 JavaScript 类如下所示：</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     // JavaScript Constructor function
+     function MyHTTPMonitor(url, method)
+     {
+         // "that" variable makes "this" available in closures below
+         var that = this;
+         // Required initialization of the service monitor, returns the actual ServiceMonitor object.
+         this.monitor = this.initServiceMonitor();
+         // Initializes URLStream and event handlers.
+         this._urlStream = new air.URLStream();
+         this._urlRequest = new air.URLRequest(url);
+         if (method)
+         {
+             this._urlRequest.method = method;
+         }
+         else
+         {
+             this._urlRequest.method = "GET";
+         }
+         function onStatus(event) {
+             that.monitor.available = Number(event.status) == 200;
+             that._urlStream.close();
+         }
+         function onError(event)
+         {
+             that.monitor.available = false;
+             that._urlStream.close();
+         }
+         this._urlStream.addEventListener(air.HTTPStatusEvent.HTTP_RESPONSE_STATUS, onStatus);
+         this._urlStream.addEventListener(air.SecurityErrorEvent.SECURITY_ERROR, onError);
+         this._urlStream.addEventListener(air.IOErrorEvent.IO_ERROR, onError);
+     }
+     
+     // Augment JavaScript prototype with public methods from ServiceMonitor
+     air.ServiceMonitor.makeJavascriptSubclass(MyHTTPMonitor);
+     
+     // Implement specializer functions, just as you would when subclassing a JavaScript class
+     MyHTTPMonitor.prototype.checkStatus = function()
+     {
+         air.trace('OVERRIDDEN checkStatus!', this);
+         this._urlStream.load(this._urlRequest);
+     }
+     </codeblock>
+     
+     <p class="- topic/p ">使用 JavaScript 类：</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var httpMon = new MyHTTPMonitor('http://www.adobe.com')
+     </codeblock>
+     
+     <p class="- topic/p ">确保加载具有 <codeph class="+ topic/ph pr-d/codeph ">script</codeph> 标签的 AIRAliases.js 和 aircore.swf 文件。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     启动服务监视器。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     启动服务监视器。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:stop" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stop</apiName><shortdesc class="- topic/shortdesc ">
+     停止监视服务。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     停止监视服务。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:ServiceMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+	 返回指定对象的字符串表示形式。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">对象的字符串表示形式。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+	 返回指定对象的字符串表示形式。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object 类的方法是在 Object 的原型上动态创建的。要在 Object 的子类中重新定义该方法，请不要使用 <codeph class="+ topic/ph pr-d/codeph ">override</codeph> 关键字。例如，Object 的一个子类实现 <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> 而不使用基类覆盖。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:ServiceMonitor:available:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">available</apiName><shortdesc class="- topic/shortdesc ">
+     当前是否将服务视为“可用”。初始值为 false，直至状态检查将该属性设置为 true，或者该属性被显式初始化为 true。通常，此属性是由子类或专用函数中的 checkStatus() 实现设置的，但是，如果应用程序具有与服务可用性有关的独立信息（例如，请求刚刚成功或失败），则可以显式设置该属性。
+     
+     </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     当前是否将服务视为“可用”。
+     
+     <p class="- topic/p ">初始值为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph>，直至状态检查将该属性设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>，或者显式将该属性初始化为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>。</p>
+     
+     <p class="- topic/p ">通常，此属性是由子类或专用函数中的 <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> 实现设置的，但是，如果应用程序具有与服务可用性有关的独立信息（例如，请求刚刚成功或失败），则可以显式设置该属性。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:lastStatusUpdate:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastStatusUpdate</apiName><shortdesc class="- topic/shortdesc ">
+     上次更新状态的时间。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Date</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     上次更新状态的时间。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:pollInterval:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pollInterval</apiName><shortdesc class="- topic/shortdesc ">
+     服务器的轮询间隔（以毫秒为单位）。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     服务器的轮询间隔（以毫秒为单位）。
+     
+     <p class="- topic/p ">如果为零，则不定期轮询服务器，而仅在调用 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> 后和网络状态发生更改时立即轮询。</p>
+     
+     <p class="- topic/p ">如果服务状态已更改（不是在每次轮询间隔时），则 ServiceMonitor 对象只调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。如果网络连接发生更改（不管轮询间隔如何），该对象也会调度 <codeph class="+ topic/ph pr-d/codeph ">status</codeph> 事件。</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:ServiceMonitor:running:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">running</apiName><shortdesc class="- topic/shortdesc ">
+     是否已启动监视器。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     是否已启动监视器。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="air.net:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ SecureSocketMonitor 对象将通过安全套接字层 (SSL) 和传输层安全 (TLS) 协议监视 TCP 端点的可用性。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:SocketMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ SecureSocketMonitor 对象将通过安全套接字层 (SSL) 和传输层安全 (TLS) 协议监视 TCP 端点的可用性。 
+ 
+ <p class="- topic/p ">此类包含在 aircore.swc 文件中。创建 AIR 项目时，Flash Builder 将自动加载此类。Flex SDK 也包含此 aircore.swc 文件，当您使用 Flex SDK 编译应用程序时应包含此文件。
+ </p>
+ 
+ <p class="- topic/p ">在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional 中，此类包含在 ServiceMonitorShim.swc 文件中。要使用 air.net 包中的类，必须先将 ServiceMonitorShim 组件从“组件”面板拖到“库”中，然后将以下 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">要在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 或更高版本）中使用 air.net 包： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">选择“文件”>“发布设置”命令。</li><li class="- topic/li ">在 Flash 面板中，单击 ActionScript 3.0 对应的“设置”按钮。选择“库路径”。</li><li class="- topic/li ">单击“浏览到 SWC 文件”按钮。浏览到 Adobe Flash Professional 安装文件夹中的 Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc 文件。</li><li class="- topic/li ">单击“确定”按钮。</li><li class="- topic/li ">将下面的 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：<codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SecureSocketMonitor:SecureSocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SecureSocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 为指定的 TCP 端点创建 SecureSocketMonitor 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要监视的主机。
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要监视的端口。
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 为指定的 TCP 端点创建 SecureSocketMonitor 对象。
+	 
+	 <p class="- topic/p ">在创建 SecureSocketMonitor 对象后，调用方应调用 <codeph class="+ topic/ph pr-d/codeph ">start</codeph> 以开始监视服务的状态。</p>
+	 
+	 <p class="- topic/p ">与 Timer 对象一样，调用方应保持对 SecureSocketMonitor 对象的引用。否则，运行时会删除该对象并结束监视。</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SecureSocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	创建一个 SecureSocket 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">SecureSocket 此 SocketMonitor 使用的 SecureSocket 对象，如果当前系统不支持安全套接字，则它为 <codeph class="+ topic/ph pr-d/codeph ">null</codeph>。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	创建一个 SecureSocket 对象。
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SecureSocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	 
+     
+	 返回指定对象的字符串表示形式。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="2.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">对象的字符串表示形式。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	 
+     
+	 返回指定对象的字符串表示形式。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object 类的方法是在 Object 的原型上动态创建的。要在 Object 的子类中重新定义该方法，请不要使用 <codeph class="+ topic/ph pr-d/codeph ">override</codeph> 关键字。例如，Object 的一个子类实现 <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> 而不使用基类覆盖。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier languages="" id="air.net:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+ SocketMonitor 对象监视 TCP 端点的可用性。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">air.net:ServiceMonitor</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ SocketMonitor 对象监视 TCP 端点的可用性。
+ 
+ <p class="- topic/p ">此类包含在 aircore.swc 文件中。创建 AIR 项目时，Flash Builder 将自动加载此类。Flex SDK 也包含此 aircore.swc 文件，当您使用 Flex SDK 编译应用程序时应包含此文件。
+ </p>
+ 
+ <p class="- topic/p ">在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> CS3 Professional 中，此类包含在 ServiceMonitorShim.swc 文件中。要使用 air.net 包中的类，必须先将 ServiceMonitorShim 组件从“组件”面板拖到“库”中，然后将以下 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：
+ </p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import air.net.~~;</codeblock>
+ 
+ <p class="- topic/p ">要在 Adobe <sup class="+ topic/ph hi-d/sup ">®</sup> Flash <sup class="+ topic/ph hi-d/sup ">®</sup> Professional（CS4 或更高版本）中使用 air.net 包： </p>
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">选择“文件”>“发布设置”命令。</li><li class="- topic/li ">在 Flash 面板中，单击 ActionScript 3.0 对应的“设置”按钮。选择“库路径”。</li><li class="- topic/li ">单击“浏览到 SWC 文件”按钮。浏览到 Adobe Flash Professional 安装文件夹中的 Adobe Flash CS<i class="+ topic/ph hi-d/i ">n</i>/AIK<i class="+ topic/ph hi-d/i ">n.n</i>/frameworks/libs/air/aircore.swc 文件。</li><li class="- topic/li ">单击“确定”按钮。</li><li class="- topic/li ">将下面的 <codeph class="+ topic/ph pr-d/codeph ">import</codeph> 语句添加到 ActionScript 3.0 代码中：<codeph class="+ topic/ph pr-d/codeph ">import air.net.~~;</codeph></li></ol>
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="air.net:SocketMonitor:SocketMonitor" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SocketMonitor</apiName><shortdesc class="- topic/shortdesc ">
+	 为指定的 TCP 端点创建 SocketMonitor 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">host</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要监视的主机。
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">port</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">要监视的端口。
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 为指定的 TCP 端点创建 SocketMonitor 对象。
+	 
+	 <p class="- topic/p ">在创建 SocketMonitor 对象后，调用方应调用 <codeph class="+ topic/ph pr-d/codeph ">start</codeph> 以开始监视服务的状态。</p>
+	 
+	 <p class="- topic/p ">与 Timer 对象一样，调用方应保持对 SocketMonitor 对象的引用。否则，运行时会删除该对象并结束监视。</p>
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="air.net:SocketMonitor:protected:checkStatus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">checkStatus</apiName><shortdesc class="- topic/shortdesc ">
+	调用 SocketMonitor 对象的 checkStatus() 方法会导致应用程序尝试连接到套接字以检查 connect 事件。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	调用 SocketMonitor 对象的 <codeph class="+ topic/ph pr-d/codeph ">checkStatus()</codeph> 方法会导致应用程序尝试连接到套接字以检查 <codeph class="+ topic/ph pr-d/codeph ">connect</codeph> 事件。
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:protected:createSocket" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createSocket</apiName><shortdesc class="- topic/shortdesc ">
+	创建一个 Socket 对象。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="protected" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">此 SocketMonitor 使用的 Socket 对象。
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.net:Socket</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	创建一个 Socket 对象。 
+	
+	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="air.net:SocketMonitor:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+     
+	 返回指定对象的字符串表示形式。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">对象的字符串表示形式。
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+     
+	 返回指定对象的字符串表示形式。
+	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">注意：</b>Object 类的方法是在 Object 的原型上动态创建的。要在 Object 的子类中重新定义该方法，请不要使用 <codeph class="+ topic/ph pr-d/codeph ">override</codeph> 关键字。例如，Object 的一个子类实现 <codeph class="+ topic/ph pr-d/codeph ">function toString():String</codeph> 而不使用基类覆盖。</p>
+     
+  	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="air.net:SocketMonitor:host:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">host</apiName><shortdesc class="- topic/shortdesc ">
+	 所监视的主机。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 所监视的主机。
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="air.net:SocketMonitor:port:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">port</apiName><shortdesc class="- topic/shortdesc ">
+	 所监视的端口。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 所监视的端口。
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

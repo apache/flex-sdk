@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+  Класс MaskEffectInstance – это абстрактный базовый класс, реализующий класс экземпляра для класса MaskEffect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MaskEffectInstance – это абстрактный базовый класс, реализующий класс экземпляра для класса MaskEffect. 
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Mask свойство <codeph>TweenEvent.value</codeph> содержит массив из 4 элементов, где: </p>
+  <ul>
+    <li>value[0]:Number является значением свойства <codeph>x</codeph> целевого объекта;</li> 
+  
+    <li>value[1]:Number является значением свойства <codeph>y</codeph> целевого объекта;</li>
+  
+    <li>value[2]:Number является значением свойства <codeph>scaleX</codeph> целевого объекта;</li>
+  
+    <li>value[3]:Number является значением свойства <codeph>scaleY</codeph> целевого объекта.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#MaskEffect"><linktext>mx.effects.MaskEffect</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MaskEffectInstance:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор. 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:defaultCreateMask"><apiName>defaultCreateMask</apiName><shortdesc>
+	  Создает маску по умолчанию для данного эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Объект Shape, определяющий маску.
+	  
+	  </apiDesc><apiType value="flash.display:Shape"/></apiReturn><apiParam><apiItemName>targ</apiItemName><apiType value="Object"/><apiDesc>Целевой объект эффекта.
+	  </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Фактические визуальные пределы целевого объекта, включая тени.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Создает маску по умолчанию для данного эффекта.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:initMaskEffect"><apiName>initMaskEffect</apiName><shortdesc>
+	  Инициализирует свойства move и scale данного эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Инициализирует свойства <codeph>move</codeph> и <codeph>scale</codeph> данного эффекта. Все подклассы должны отменять эту функцию. Flex вызывает ее после создания эффекта маски, но перед созданием эффекта анимации. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenEnd"><apiName>onMoveTweenEnd</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении позиций x и y маски в рамках реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Содержит последние значения x и y для позиции маски, где <codeph>value[0]</codeph> содержит позицию x маски, и <codeph>value[1]</codeph> содержит позицию y.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении позиций x и y маски в рамках реализации эффекта. Этот метод не вызывается напрямую. Этот метод реализует метод суперкласса. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenUpdate"><apiName>onMoveTweenUpdate</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при обновлении позиций x и y маски в рамках реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Содержит интерполированные значения x и y для позиции маски, где <codeph>value[0]</codeph> содержит новую позицию x маски, и <codeph>value[1]</codeph> содержит новую позицию y.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при обновлении позиций x и y маски в рамках реализации эффекта. Этот метод не вызывается напрямую. Этот метод реализует метод суперкласса. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenEnd"><apiName>onScaleTweenEnd</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении свойств scaleX и scaleY маски в рамках реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Содержит последние значения <codeph>scaleX</codeph> и <codeph>scaleY</codeph> для маски, где <codeph>value[0]</codeph> содержит значение <codeph>scaleX</codeph> маски, и <codeph>value[1]</codeph> содержит значение <codeph>scaleY</codeph>.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении свойств <codeph>scaleX</codeph> и <codeph>scaleY</codeph> маски в рамках реализации эффекта. Этот метод не вызывается напрямую. Этот метод реализует метод суперкласса. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenUpdate"><apiName>onScaleTweenUpdate</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при обновлении свойств scaleX и scaleY маски в рамках реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Содержит интерполированные значения <codeph>scaleX</codeph> и <codeph>scaleY</codeph> для маски, где <codeph>value[0]</codeph> содержит новое значение <codeph>scaleX</codeph> маски, и <codeph>value[1]</codeph> содержит новое значение <codeph>scaleY</codeph>.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при обновлении свойств <codeph>scaleX</codeph> и <codeph>scaleY</codeph> маски в рамках реализации эффекта. Этот метод не вызывается напрямую. Этот метод реализует метод суперкласса. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:pause"><apiName>pause</apiName><shortdesc>
+	  Приостанавливает эффект до вызова метода resume().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Приостанавливает эффект до вызова метода <codeph>resume()</codeph>.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:resume"><apiName>resume</apiName><shortdesc>
+	  Продолжает воспроизведение эффекта после установки паузы путем вызова метода pause().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Продолжает воспроизведение эффекта после установки паузы путем вызова метода <codeph>pause()</codeph>. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:reverse"><apiName>reverse</apiName><shortdesc>
+	  Воспроизводит эффект в обратном порядке, начиная с текущей позиции эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Воспроизводит эффект в обратном порядке, начиная с текущей позиции эффекта.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:effectMask"><apiName>effectMask</apiName><shortdesc>
+	  Содержит маску эффекта: либо маску по умолчанию, создаваемую методом defaultCreateMask(), либо маску, определяемую функцией, переданной в свойство createMaskFunction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+	  Содержит маску эффекта: либо маску по умолчанию, создаваемую методом <codeph>defaultCreateMask()</codeph>, либо маску, определяемую функцией, переданной в свойство <codeph>createMaskFunction</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:moveEasingFunction"><apiName>moveEasingFunction</apiName><shortdesc>
+	  Функция замедления, используемая для перемещения маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Функция замедления, используемая для перемещения маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleEasingFunction"><apiName>scaleEasingFunction</apiName><shortdesc>
+	  Функция замедления, используемая для масштабирования маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Функция замедления, используемая для масштабирования маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+	  Начальное значение scaleX для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Начальное значение scaleX для маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXTo"><apiName>scaleXTo</apiName><shortdesc> 
+	  Конечное значение scaleX для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечное значение scaleX для маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc> 
+	  Начальное значение scaleY для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальное значение scaleY для маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+	  Конечное значение scaleY для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Конечное значение scaleY для маски.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  Область применения маски для целевого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  Область применения маски для целевого объекта. Размеры указываются относительно самого целевого объекта. По умолчанию область, которая совпадает с целевым объектом, создается следующим образом: <codeph>new Rectangle(0, 0, target.width, target.height);</codeph>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:targetVisualBounds"><apiName>targetVisualBounds</apiName><shortdesc>
+	  Фактический размер целевого объекта эффекта, включая тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  Фактический размер целевого объекта эффекта, включая тени. Значение этого свойства вычисляется в приложении Flex; устанавливать его самостоятельно не требуется. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  Координата х начальной позиции для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата х начальной позиции для маски.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  Координата х целевой позиции для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата х целевой позиции для маски.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  Координата у начальной позиции для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Координата у начальной позиции для маски.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  Координата у целевой позиции для маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата у целевой позиции для маски.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:createMaskFunction:get"><apiName>createMaskFunction</apiName><shortdesc>
+	  Функция, вызываемая при создании маски путем реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Функция, вызываемая при создании маски путем реализации эффекта. Значением по умолчанию является функция, возвращающая объект Rectangle с размерами, совпадающими с размерами целевого объекта эффекта. 
+	 
+	  <p>Это свойство можно использовать для указания собственной функции обратного вызова для отображения маски. Эта функция должна иметь следующую подпись:</p>
+	 
+	  <pre>
+	  public function createLargeMask(targ:Object, bounds:Rectangle):Shape {
+	    var myMask:Shape = new Shape();
+	    // Create mask.
+	  
+	    return myMask;
+	  }
+	  </pre>
+	 
+	  <p>Следует установить это свойство для имени функции, как показано в примере для эффекта WipeLeft:</p>
+	 
+	  <pre>
+	    &lt;mx:WipeLeft id="showWL" createMaskFunction="createLargeMask" showTarget="false"/></pre>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:showTarget:get"><apiName>showTarget</apiName><shortdesc>
+      Указывает, что целевой компонент становится видимым (false) или невидимым (true).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, что целевой компонент становится видимым (<codeph>false</codeph>) или невидимым (<codeph>true</codeph>).
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+  Класс IrisInstance реализует класс экземпляра для эффекта Iris.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс IrisInstance реализует класс экземпляра для эффекта Iris. Flex создает экземпляр этого класса при воспроизведении им эффекта Iris; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Iris"><linktext>mx.effects.Iris</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:IrisInstance:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+  Класс ZoomInstance реализует класс экземпляра для эффекта Zoom.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ZoomInstance реализует класс экземпляра для эффекта Zoom. Flex создает экземпляр этого класса при воспроизведении им эффекта Zoom; создавать его самостоятельно не требуется.
+ 
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Zoom свойство <codeph>TweenEvent.value</codeph> содержит массив из 2 элементов, где: </p>
+  <ul>
+    <li>value[0]:Number является числом в диапазоне между значениями свойств <codeph>Zoom.zoomWidthFrom</codeph> и <codeph>Zoom.zoomWidthTo</codeph>.</li>
+  
+    <li>value[1]:Number является числом в диапазоне между значениями свойств <codeph>Zoom.zoomHeightFrom</codeph> и <codeph>Zoom.zoomHeightTo</codeph>.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Zoom"><linktext>mx.effects.Zoom</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ZoomInstance:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ZoomInstance:captureRollEvents"><apiName>captureRollEvents</apiName><shortdesc>
+	  Предотвращает диспетчеризацию событий rollOut и rollOver без перемещения мыши.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Предотвращает диспетчеризацию событий <codeph>rollOut</codeph> и <codeph>rollOver</codeph> без перемещения мыши. Значение <codeph>true</codeph> устанавливается в ситуациях переключения целевого объекта между крупным и мелким отображением без перемещения мыши.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originX"><apiName>originX</apiName><shortdesc>
+	  Число, представляющее позицию по оси x источника масштабирования (или точки регистрации).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее позицию по оси x источника масштабирования (или точки регистрации). По умолчанию используется значение <codeph>target.width / 2</codeph>, соответствующее центру целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originY"><apiName>originY</apiName><shortdesc>
+	  Число, представляющее позицию по оси у источника масштабирования (или точки регистрации).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее позицию по оси у источника масштабирования (или точки регистрации). По умолчанию используется значение <codeph>target.height / 2</codeph>, соответствующее центру целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightFrom"><apiName>zoomHeightFrom</apiName><shortdesc>
+	  Число, представляющее масштаб, с которого начинается масштабирование высоты, в виде процентного значения от 0,01 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее масштаб, с которого начинается масштабирование высоты, в виде процентного значения от 0,01 до 1,0. Значением по умолчанию является 0,01, которое является очень маленьким.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightTo"><apiName>zoomHeightTo</apiName><shortdesc>
+	  Число, представляющее масштаб, которым завершается масштабирование высоты, в виде процентного значения от 0,01 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее масштаб, которым завершается масштабирование высоты, в виде процентного значения от 0,01 до 1,0. Значением по умолчанию является 1,0, которое соответствует объекту нормального размера.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthFrom"><apiName>zoomWidthFrom</apiName><shortdesc>
+	  Число, представляющее масштаб, с которого начинается масштабирование ширины, в виде процентного значения от 0,01 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее масштаб, с которого начинается масштабирование ширины, в виде процентного значения от 0,01 до 1,0. Значением по умолчанию является 0,01, которое является очень маленьким.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthTo"><apiName>zoomWidthTo</apiName><shortdesc>
+	  Число, представляющее масштаб, которым завершается масштабирование ширины, в виде процентного значения от 0,01 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Число, представляющее масштаб, которым завершается масштабирование ширины, в виде процентного значения от 0,01 до 1,0. Значением по умолчанию является 1,0, которое соответствует объекту нормального размера.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+  Класс PauseInstance реализует класс экземпляра для эффекта Pause.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PauseInstance реализует класс экземпляра для эффекта Pause. Flex создает экземпляр этого класса при воспроизведении им эффекта Pause; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Pause"><linktext>mx.effects.Pause</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PauseInstance:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Этот аргумент игнорируется в случае эффекта Pause. Эта функция включена только для обеспечения соответствия другим эффектам.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PauseInstance:eventName"><apiName>eventName</apiName><shortdesc> 
+     Имя события, ожидаемого эффектом Pause перед завершением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     Имя события, ожидаемого эффектом Pause перед завершением. Этот параметр следует использовать совместно со свойством <codeph>target</codeph>, которое должно иметь тип IEventDispatcher; инициатором всех событий должен являться определенный диспетчер.
+     
+     <p>Прослушивание <codeph>eventName</codeph> также связано со свойством <codeph>duration</codeph>, которое действует как тайм-аут для события. Если событие не будет получено в рамках временного интервала, указанного свойством <codeph>duration</codeph>, воспроизведение эффекта завершается в любом случае.</p>
+     
+     <p>Это свойство не является обязательным; под стандартным действием подразумевается воспроизведение без ожидания какого-либо события.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+  Класс PropertyChanges определяет начальные и конечные значения для ряда свойств целевого компонента перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PropertyChanges определяет начальные и конечные значения для ряда свойств целевого компонента перехода. Поля <codeph>start</codeph> и <codeph>end</codeph> класса PropertyChanges содержат тот же самый набор свойств, но с другими значениями. 
+ 
+  <p>Целевые свойства, которые имеют идентичные начальные и конечные значения, не включаются в поля <codeph>start</codeph> и <codeph>end</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PropertyChanges:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+	  The PropertyChanges constructor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, который является целевым объектом эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  The PropertyChanges constructor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PropertyChanges:end"><apiName>end</apiName><shortdesc>
+	  Object, содержащий конечные свойства целевого компонента, которые модифицируются при изменении состояния представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  Object, содержащий конечные свойства компонента <codeph>target</codeph>, которые модифицируются при изменении состояния представления.
+	 
+	  <p>Например, для компонента <codeph>target</codeph>, который перемещается и изменяет размер при изменении состояния представления, поле <codeph>end</codeph> содержит конечную позицию и конечный размер компонента, как показано в следующем примере:
+	  <pre>{ x: 100, y: 100, width: 200, height: 200 }</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:start"><apiName>start</apiName><shortdesc>
+	  Object, содержащий начальные свойства целевого компонента, которые модифицируются при изменении состояния представления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  Object, содержащий начальные свойства компонента <codeph>target</codeph>, которые модифицируются при изменении состояния представления.
+	 
+	  <p>Например, для компонента <codeph>target</codeph>, который перемещается и изменяет размер при изменении состояния представления, поле <codeph>start</codeph> содержит исходную позицию и исходный размер компонента, как показано в следующем примере:
+	  <pre>{ x: 0, y: 0, width: 100, height: 100}</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:stripUnchangedValues"><apiName>stripUnchangedValues</apiName><shortdesc>
+      Этот флаг управляет удалением значений, которые являются идентичными в начальном и конечном состояниях этих объектов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Этот флаг управляет удалением значений, которые являются идентичными в начальном и конечном состояниях этих объектов. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:target"><apiName>target</apiName><shortdesc>
+	  Целевой компонент перехода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Целевой компонент перехода. Поля <codeph>start</codeph> и <codeph>end</codeph> объекта PropertyChanges определяют способ модификации целевого компонента при изменении состояния представления.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+  Класс SoundEffectInstance реализует класс экземпляра для эффекта SoundEffect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SoundEffectInstance реализует класс экземпляра для эффекта SoundEffect. Flex создает экземпляр этого класса при воспроизведении им эффекта SoundEffect; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SoundEffectInstance:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SoundEffectInstance:bufferTime"><apiName>bufferTime</apiName><shortdesc> 
+      Класс SoundEffect использует внутренний звуковой объект для управления файлом MP3.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1000</apiData><apiType value="Number"/><apiDefaultValue>1000
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Класс SoundEffect использует внутренний звуковой объект для управления файлом MP3. Это свойство указывает минимальное количество миллисекунд воспроизведения звуковых данных, содержащихся в буфере звукового объекта. Звуковой объект ожидает, пока не будет загружен как минимум этот объем данных, прежде чем воспроизведение начнется или возобновится после прерывания подключения к сети.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:loops"><apiName>loops</apiName><shortdesc>
+      Число воспроизведений звукового эффекта в цикле: при значении 0 эффект воспроизводится однократно, при значении 1 – дважды и т. д.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число воспроизведений звукового эффекта в цикле: при значении 0 эффект воспроизводится однократно, при значении 1 – дважды и т. д. Если файл MP3 повторяется, для него по-прежнему используется значение свойства <codeph>useDuration</codeph>, определяющее время воспроизведения.
+     
+      <p>Свойство <codeph>duration</codeph> имеет приоритет над этим свойством. Если продолжительность эффекта не достаточна для, по крайней мере, однократного воспроизведения звука, звук не образует цикла.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panEasingFunction"><apiName>panEasingFunction</apiName><shortdesc>
+      Функция замедления для эффекта Pan.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция замедления для эффекта Pan. Эта функция используется для интерполяции в диапазоне между значениями <codeph>panFrom</codeph> и <codeph>panTo</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panFrom"><apiName>panFrom</apiName><shortdesc>
+      Начальное значение Pan звукового объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Начальное значение Pan звукового объекта. Значение может принадлежать диапазону от -1.0 до 1.0; при значении -1.0 используется только левый канал, а при значении 1.0 – только правый канал, при значении 0.0 звук равномерно сбалансирован между этими двумя каналами.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panTo"><apiName>panTo</apiName><shortdesc>
+      Конечное значение Pan звукового объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Конечное значение Pan звукового объекта. Значение может принадлежать диапазону от -1.0 до 1.0; при значении -1.0 используется только левый канал, а при значении 1.0 – только правый канал, при значении 0.0 звук равномерно сбалансирован между этими двумя каналами.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:sound"><apiName>sound</apiName><shortdesc> 
+      Ссылка на внутренний звуковой объект.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.media:Sound"/></apiValueDef><apiDesc> 
+      Ссылка на внутренний звуковой объект. SoundEffect использует этот экземпляр для воспроизведения файла MP3.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:startTime"><apiName>startTime</apiName><shortdesc> 
+      Исходное положение в файле MP3 (в миллисекундах), с которого должно начинаться воспроизведение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Исходное положение в файле MP3 (в миллисекундах), с которого должно начинаться воспроизведение.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:useDuration"><apiName>useDuration</apiName><shortdesc>
+      В случае значения true воспроизведение эффекта прекращается по истечении времени, указанного свойством duration.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      В случае значения <codeph>true</codeph> воспроизведение эффекта прекращается по истечении времени, указанного свойством <codeph>duration</codeph>. Если значение равно <codeph>false</codeph>, воспроизведение эффекта прекращается после завершения воспроизведения файла MP3 или выполнения цикла.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeEasingFunction"><apiName>volumeEasingFunction</apiName><shortdesc>
+      Функция замедления для эффекта Volume.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция замедления для эффекта Volume. Эта функция используется для интерполяции в диапазоне между значениями <codeph>volumeFrom</codeph> и <codeph>volumeTo</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeFrom"><apiName>volumeFrom</apiName><shortdesc>
+      Начальное значение Volume звукового объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Начальное значение Volume звукового объекта. Допустимыми являются значения от 0,0 до 1,0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeTo"><apiName>volumeTo</apiName><shortdesc>
+      Конечное значение Volume звукового объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Конечное значение Volume звукового объекта. Допустимыми являются значения от 0,0 до 1,0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:isLoading:get"><apiName>isLoading</apiName><shortdesc>
+      Это свойство имеет значение true, если файл MP3 загружен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Это свойство имеет значение <codeph>true</codeph>, если файл MP3 загружен. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:soundChannel:get"><apiName>soundChannel</apiName><shortdesc>
+      Объект SoundChannel, в который загружен файл MP3.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.media:SoundChannel"/></apiValueDef><apiDesc>
+      Объект SoundChannel, в который загружен файл MP3. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:source:get"><apiName>source</apiName><shortdesc>
+      URL или класс воспроизводимого файла MP3.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      URL или класс воспроизводимого файла MP3. Если уже имеется встроенный файл MP3, с помощью ключевого слова <codeph>Embed</codeph> можно передать объект Class файла MP3 в свойство <codeph>source</codeph>. В противном случае, следует указать полный URL-адрес файла MP3.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+  Класс ActionEffectInstance – это суперкласс для всех классов экземпляров эффектов действия.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ActionEffectInstance – это суперкласс для всех классов экземпляров эффектов действия.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:ActionEffectInstance:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:getStartValue"><apiName>getStartValue</apiName><shortdesc>
+	  Возвращает значение начального состояния, которое было сохранено посредством метода saveStartValue().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращает значение начального состояния.
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  Возвращает значение начального состояния, которое было сохранено посредством метода <codeph>saveStartValue()</codeph>.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:saveStartValue"><apiName>saveStartValue</apiName><shortdesc>
+	  Подклассы реализуют этот метод для сохранения начального состояния перед воспроизведением эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращает значение начального состояния.
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  Подклассы реализуют этот метод для сохранения начального состояния перед воспроизведением эффекта.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ActionEffectInstance:protected:playedAction"><apiName>playedAction</apiName><shortdesc>
+	  Указывает, был ли воспроизведен эффект (true) или нет (false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Указывает, был ли воспроизведен эффект (<codeph>true</codeph>) или нет (<codeph>false</codeph>). 
+	 
+	  <p>Метод <codeph>play()</codeph> устанавливает для этого свойства значение <codeph>true</codeph> после воспроизведения эффекта; задавать его непосредственно не требуется.</p> 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+  Класс SetStyleActionInstance реализует класс экземпляра для эффекта SetStyleAction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SetStyleActionInstance реализует класс экземпляра для эффекта SetStyleAction. Flex создает экземпляр этого класса при воспроизведении им эффекта SetStyleAction; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetStyleActionInstance:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  Имя изменяемого свойства style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Имя изменяемого свойства style.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  Новое значение свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  Новое значение свойства.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+  Класс AnimatePropertyInstance реализует класс экземпляра для эффекта AnimateProperty.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AnimatePropertyInstance реализует класс экземпляра для эффекта AnimateProperty. Flex создает экземпляр этого класса при воспроизведении им эффекта AnimateProperty; создавать его самостоятельно не требуется.
+ 
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта AnimateProperty свойство <codeph>TweenEvent.value</codeph> содержит число в диапазоне между значениями свойств <codeph>AnimateProperty.fromValue</codeph> и <codeph>AnimateProperty.toValue</codeph> для целевого свойства, указываемого <codeph>AnimateProperty.property</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AnimateProperty"><linktext>mx.effects.AnimateProperty</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AnimatePropertyInstance:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:fromValue"><apiName>fromValue</apiName><shortdesc>
+	  Начальное значение свойства для эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Начальное значение свойства для эффекта. Значением по умолчанию является текущее значение свойства целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:isStyle"><apiName>isStyle</apiName><shortdesc>
+	  В случае значения true атрибутом свойства является стиль, этот атрибут устанавливается при использовании метода setStyle().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  В случае значения <codeph>true</codeph> атрибутом свойства является стиль, этот атрибут устанавливается при использовании метода <codeph>setStyle()</codeph>. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:property"><apiName>property</apiName><shortdesc>
+	  Имя свойства целевого объекта, которое используется для анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Имя свойства целевого объекта, которое используется для анимации. Этот атрибут является обязательным.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:roundValue"><apiName>roundValue</apiName><shortdesc>
+	  В случае значения true интерполированное значение для анимации округляется до ближайшего целого числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  В случае значения <codeph>true</codeph> интерполированное значение для анимации округляется до ближайшего целого числа. Это свойство рекомендуется применять, если свойство, используемое для анимации, имеет значение int или uint.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:toValue"><apiName>toValue</apiName><shortdesc>
+	  Конечное значение для эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Конечное значение для эффекта. Значением по умолчанию является текущее значение свойства целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+  Класс FadeInstance реализует класс экземпляра для эффекта Fade.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FadeInstance реализует класс экземпляра для эффекта Fade. Flex создает экземпляр этого класса при воспроизведении им эффекта Fade; создавать его самостоятельно не требуется.
+ 
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Fade свойство <codeph>TweenEvent.value</codeph> содержит число в диапазоне между значениями свойств <codeph>Fade.alphaFrom</codeph> и <codeph>Fade.alphaTo</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:FadeInstance:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:FadeInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:FadeInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+  Класс ParallelInstance реализует класс экземпляра для эффекта Parallel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ParallelInstance реализует класс экземпляра для эффекта Parallel. Flex создает экземпляр этого класса при воспроизведении им эффекта Parallel; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Parallel"><linktext>mx.effects.Parallel</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ParallelInstance:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Этот аргумент игнорируется в случае эффектов Parallel. Эта функция включена только для обеспечения соответствия с другими типами эффектов.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ParallelInstance:end"><apiName>end</apiName><shortdesc>
+	  Прерывает любые эффекты, воспроизводящиеся в данный момент, пропускает любые эффекты, которые еще не начали процесс воспроизведения, и обеспечивает переход к завершению составного эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Прерывает любые эффекты, воспроизводящиеся в данный момент, пропускает любые эффекты, которые еще не начали процесс воспроизведения, и обеспечивает переход к завершению составного эффекта.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ParallelInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+	  При каждом завершении нижестоящего эффекта SequenceInstance или ParallelInstance приложение Flex выполняет вызов метода onEffectEnd().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Нижестоящий эффект, выполнение которого завершилось. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  При каждом завершении нижестоящего эффекта SequenceInstance или ParallelInstance приложение Flex выполняет вызов метода <codeph>onEffectEnd()</codeph>. Для SequenceInstance воспроизводится следующий эффект. В ParallelInstance эта функция отслеживает все эффекты до полного завершения их воспроизведения. Если создается подкласс CompositeEffect, следует реализовать этот метод.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ParallelInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      Текущая позиция эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      Текущая позиция эффекта. Значение этого свойства находится в диапазоне от 0 до значения общей продолжительности, включающей значения параметров эффекта <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> и <codeph>repeatDelay</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+  Класс SequenceInstance реализует класс экземпляра для эффекта Sequence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SequenceInstance реализует класс экземпляра для эффекта Sequence. Flex создает экземпляр этого класса при воспроизведении им эффекта Sequence; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Sequence"><linktext>mx.effects.Sequence</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SequenceInstance:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Этот аргумент для эффектов Sequence игнорируется. Эта функция включена только для обеспечения соответствия с другими типами эффектов.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:SequenceInstance:end"><apiName>end</apiName><shortdesc>
+      Прерывает любые эффекты, воспроизводящиеся в данный момент, пропускает любые эффекты, которые еще не начали процесс воспроизведения, и обеспечивает переход к завершению составного эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Прерывает любые эффекты, воспроизводящиеся в данный момент, пропускает любые эффекты, которые еще не начали процесс воспроизведения, и обеспечивает переход к завершению составного эффекта.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:SequenceInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+     При каждом завершении нижестоящего эффекта SequenceInstance приложение Flex выполняет вызов метода onEffectEnd().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Нижестоящий эффект.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     При каждом завершении нижестоящего эффекта SequenceInstance приложение Flex выполняет вызов метода <codeph>onEffectEnd()</codeph>. Для SequenceInstance воспроизводится следующий эффект. Этот метод реализует метод суперкласса.
+    
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:SequenceInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      Текущая позиция эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      Текущая позиция эффекта. Значение этого свойства находится в диапазоне от 0 до значения общей продолжительности, включающей значения параметров эффекта <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> и <codeph>repeatDelay</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+  Класс MoveInstance реализует класс экземпляра для эффекта Move.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MoveInstance реализует класс экземпляра для эффекта Move. Flex создает экземпляр этого класса при воспроизведении им эффекта Move; создавать его самостоятельно не требуется.
+  
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Move свойство <codeph>TweenEvent.value</codeph> содержит массив из 2 элементов, в котором: </p>
+  <ul>
+    <li>value[0]:Number является числом в диапазоне между значениями свойств <codeph>Move.xFrom</codeph> и <codeph>Move.xTo</codeph>.</li>
+  
+    <li>value[1]:Number является числом в диапазоне между значениями свойств <codeph>Move.yFrom</codeph> и <codeph>Move.yTo</codeph>.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Move"><linktext>mx.effects.Move</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MoveInstance:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:MoveInstance:xBy"><apiName>xBy</apiName><shortdesc> 
+	  Число пикселей для перемещения компонентов по оси X.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Число пикселей для перемещения компонентов по оси X. Значения могут быть отрицательными. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  Координата х начальной позиции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата х начальной позиции.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  Координата х целевой позиции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата х целевой позиции.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yBy"><apiName>yBy</apiName><shortdesc> 
+	  Число пикселей для перемещения компонентов вдоль оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Число пикселей для перемещения компонентов вдоль оси y. Значения могут быть отрицательными. 	
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  Координата у начальной позиции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Координата у начальной позиции.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  Координата у целевой позиции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Координата у целевой позиции.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+  Класс RotateInstance реализует класс экземпляра для эффекта Rotate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RotateInstance реализует класс экземпляра для эффекта Rotate. Flex создает экземпляр этого класса при воспроизведении им эффекта Rotate; создавать его самостоятельно не требуется.
+  
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Rotate свойство <codeph>TweenEvent.value</codeph> содержит число в диапазоне между значениями свойств <codeph>Rotate.angleFrom</codeph> и <codeph>Rotate.angleTo</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Rotate"><linktext>mx.effects.Rotate</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RotateInstance:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:RotateInstance:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+	  Начальный угол вращения целевого объекта (в градусах).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Начальный угол вращения целевого объекта (в градусах). Допустимыми являются значения от 0 до 360.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:angleTo"><apiName>angleTo</apiName><shortdesc> 
+	  Конечный угол вращения целевого объекта (в градусах).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>360</apiData><apiType value="Number"/><apiDefaultValue>360
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Конечный угол вращения целевого объекта (в градусах). Значения могут быть как положительными, так и отрицательными.
+	 
+	  <p>Если значение <codeph>angleTo</codeph> меньше значения <codeph>angleFrom</codeph>, то целевой объект вращается в направлении против часовой стрелки. В противном случае вращение производится по часовой стрелке. Если требуется задать многократное вращение целевого объекта, в качестве этого значения следует установить большое положительное или малое отрицательное число.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originX"><apiName>originX</apiName><shortdesc>
+	  Координата x центра вращения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Координата x центра вращения. Целевой объект вращается вокруг этой точки. Допустимые значения принадлежат диапазону от 0 до величины, соответствующей ширине целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originY"><apiName>originY</apiName><shortdesc>
+	  Координата y центра вращения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Координата y центра вращения. Целевой объект вращается вокруг этой точки. Допустимые значения принадлежат диапазону от 0 до величины, соответствующей высоте целевого объекта.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+  Класс DissolveInstance реализует класс экземпляра для эффекта Dissolve.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DissolveInstance реализует класс экземпляра для эффекта Dissolve. Flex создает экземпляр этого класса при воспроизведении им эффекта Dissolve; создавать его самостоятельно не требуется.
+  
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Dissolve свойство <codeph>TweenEvent.value</codeph> содержит число в диапазоне между значениями свойств <codeph>Dissolve.alphaFrom</codeph> и <codeph>Dissolve.alphaTo</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Dissolve"><linktext>mx.effects.Dissolve</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:DissolveInstance:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечный уровень прозрачности соответствует значению в диапазоне от 0,0 до 1,0; где 0,0 означает полную прозрачность, а 1,0 – полную непрозрачность.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:color"><apiName>color</apiName><shortdesc> 
+	  Шестнадцатеричное значение, представляющее цвет выпадающего прямоугольника, который отображается в результате эффекта для целевого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  Шестнадцатеричное значение, представляющее цвет выпадающего прямоугольника, который отображается в результате эффекта для целевого объекта. Значение по умолчанию – цвет, указанный свойством стиля <codeph>backgroundColor</codeph> целевого компонента, или 0xFFFFFF, если <codeph>backgroundColor</codeph> не установлен.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  Область целевого объекта для воспроизведения эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+	  Область целевого объекта для воспроизведения эффекта. Область перекрытия эффекта Dissolve отображается с использованием размеров, определяемых этим свойством. UIComponents создают область перекрытия, охватывающую весь компонент. Контейнеры создают область перекрытия, охватывающую соответствующую область содержимого, но не стиль оформления. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+  AddRemoveEffectTargetFilter – это подкласс класса EffectTargetFilter, обрабатывающий логику фильтрации целевых объектов, которые были добавлены или удалены как нижестоящие элементы контейнера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddRemoveEffectTargetFilter – это подкласс класса EffectTargetFilter, обрабатывающий логику фильтрации целевых объектов, которые были добавлены или удалены как нижестоящие элементы контейнера. Если для свойства Effect.filter задано значение add или remove, используется один из этих подклассов. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:add"><apiName>add</apiName><shortdesc>
+	  Определяет, является ли этот фильтр фильтром добавления или удаления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Определяет, является ли этот фильтр фильтром добавления или удаления.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+  Класс BlurInstance реализует класс экземпляра для эффекта Blur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс BlurInstance реализует класс экземпляра для эффекта Blur. Flex создает экземпляр этого класса при воспроизведении им эффекта Blur; создавать его самостоятельно не требуется.
+ 
+  <p>Каждый класс эффекта, являющийся подклассом класса TweenEffect, поддерживает следующие события:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: передается по завершении эффекта Tween. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: передается при каждом вычислении классом TweenEffect нового значения.</li> 
+  </ul>
+  
+  <p>Объект события, передаваемый в средство прослушивания этих событий, имеет тип TweenEvent. Класс TweenEvent определяет свойство <codeph>value</codeph>, которое содержит значение Tween, вычисленное эффектом. Для эффекта Blur свойство <codeph>TweenEvent.value</codeph> содержит массив из 2 элементов, где: </p>
+  <ul>
+    <li>value[0]:Number является значением в диапазоне между значениями свойств <codeph>Blur.blurXTo</codeph> и <codeph>Blur.blurXFrom</codeph>, применяемым в отношении свойства <codeph>BlurFilter.blurX</codeph> целевого объекта;</li> 
+  
+    <li>value[1]:Number является значением в диапазоне между значениями свойств <codeph>Blur.blurYTo</codeph> и <codeph>Blur.blurYFrom</codeph>, применяемым в отношении свойства <codeph>BlurFilter.blurY</codeph> целевого объекта.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Blur"><linktext>mx.effects.Blur</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:BlurInstance:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:BlurInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  Начальная степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальная степень размытия по горизонтали.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  Конечная степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечная степень размытия по горизонтали.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  Начальная степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Начальная степень размытия по вертикали.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  Конечная степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Конечная степень размытия по вертикали.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+  Класс CompositeEffectInstance реализует класс экземпляра для класса CompositeEffect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CompositeEffectInstance реализует класс экземпляра для класса CompositeEffect. Flex создает экземпляр этого класса при воспроизведении им эффекта CompositeEffect; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#CompositeEffect"><linktext>mx.effects.CompositeEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:CompositeEffectInstance:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Этот аргумент игнорируется для эффектов Composite. Эта функция включена только для обеспечения соответствия с другими типами эффектов.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.  
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:addChildSet"><apiName>addChildSet</apiName><shortdesc>
+      Добавляет новый набор нижестоящих эффектов к этому составному эффекту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childSet</apiItemName><apiType value="Array"/><apiDesc>Массив нижестоящих эффектов, добавляемых к CompositeEffect.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет новый набор нижестоящих эффектов к этому составному эффекту. Эффект Sequence по очереди воспроизводит каждый из установленных нижестоящих эффектов в порядке их добавления. Эффект Parallel воспроизводит весь набор нижестоящих эффектов одновременно; порядок, в котором они добавляются, не имеет значения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+      Вызывается в момент завершения воспроизведения каждого из нижестоящих эффектов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Нижестоящий эффект.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается в момент завершения воспроизведения каждого из нижестоящих эффектов. Эта функция реализуется подклассами.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:CompositeEffectInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+      Текущая позиция эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Текущая позиция эффекта. Значение этого свойства находится в диапазоне от 0 до значения общей продолжительности, включающей значения параметров эффекта <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> и <codeph>repeatDelay</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+ 
+  Класс TweenEffectInstance реализует класс экземпляра для TweenEffect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  Класс TweenEffectInstance реализует класс экземпляра для TweenEffect. Flex создает экземпляр этого класса при воспроизведении им эффекта TweenEffect; создавать его самостоятельно не требуется.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Tween"><linktext>mx.effects.Tween</linktext></link><link href="mx.effects.xml#TweenEffect"><linktext>mx.effects.TweenEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:TweenEffectInstance:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Объект, анимируемый с использованием данного эффекта.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:protected:createTween"><apiName>createTween</apiName><shortdesc>
+	  Создает экземпляр Tween и присваивает его начальному и конечному значению, а также значению длительности.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Вновь созданный экземпляр Tween.
+	  
+	  </apiDesc><apiOperationClassifier>mx.effects:Tween</apiOperationClassifier></apiReturn><apiParam><apiItemName>listener</apiItemName><apiType value="Object"/><apiDesc>Объект, получающий уведомление в каждом интервале анимации. Как правило, в качестве значения передается ключевое слово <codeph>this</codeph>. <codeph>Listener</codeph> должен определить метод <codeph>onTweenUpdate()</codeph> и, при необходимости, метод <codeph>onTweenEnd()</codeph>. Метод <codeph>onTweenUpdate()</codeph> вызывается для каждого интервала анимации, и метод <codeph>onTweenEnd()</codeph> вызывается только после завершения анимации.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Начальное(ые) значение(я) анимации. Число или массив чисел. Если передается число, Tween интерполирует значение в диапазоне между этим числом и числом, переданным параметром <codeph>endValue</codeph>. Если передается массив чисел, интерполируется каждое число в массиве.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Последнее(ие) значение(я) анимации. Тип этого аргумента должен соответствовать параметру <codeph>startValue</codeph>.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>Продолжительность анимации в миллисекундах.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>minFps</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>Минимальное количество вызовов метода <codeph>onTweenUpdate()</codeph> в секунду. Код Tween выполняет попытки вызова метода <codeph>onTweenUpdate()</codeph> настолько часто, насколько это возможно (до 100 раз в секунду). Однако если частота не превосходит <codeph>minFps</codeph>, продолжительность анимации автоматически увеличивается. В результате предварительно «замороженная» анимация (не получающая циклов ЦП) не осуществляет немедленный переход вперед, а возобновляется с момента останова. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Создает экземпляр Tween и присваивает его начальному и конечному значению, а также значению длительности. Если была указана функция замедления, она присваивается экземпляру Tween. Экземпляр Tween присваивается средству прослушивания событий для TweenEvents: <codeph>tweenStart</codeph>, <codeph>tweenUpdate</codeph> и <codeph>tweenEnd</codeph>. Как правило, этот метод вызывается при отмене метода <codeph>EffectInstance.play()</codeph> для запуска таймера анимации. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:end"><apiName>end</apiName><shortdesc>
+	  Прерывает эффект, воспроизводящийся в настоящее время, и обеспечивает немедленный переход к завершению эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Прерывает эффект, воспроизводящийся в настоящее время, и обеспечивает немедленный переход к завершению эффекта. Выполняет вызов метода <codeph>Tween.endTween()</codeph> для свойства <codeph>tween</codeph>. Этот метод реализует метод суперкласса. 
+	 
+	  <p>При создании подкласса класса TweenEffectInstance можно, при необходимости, отменить этот метод.</p>
+     
+	  <p>Эффект передает событие <codeph>effectEnd</codeph>.</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.effects.xml#EffectInstance/end()"><linktext>mx.effects.EffectInstance.end()</linktext></link></related-links></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenEnd"><apiName>onTweenEnd</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении целевого объекта в рамках реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение аргумента <codeph>value</codeph> является интерполированным значением, определяемым свойствами <codeph>Tween.startValue</codeph> и <codeph>Tween.endValue</codeph>, а также функцией интерполяции, указываемой реализацией эффекта в соответствующем методе <codeph>play()</codeph>. Метод <codeph>play()</codeph> использует эти значения для создания объекта Tween, который воспроизводит эффект в течение периода времени. Аргумент <codeph>value</codeph> может являться числом или массивом чисел. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при последнем обновлении целевого объекта в рамках реализации эффекта. Класс Tween передает <codeph>Tween.endValue</codeph> как значение аргумента <codeph>value</codeph>. Аргумент <codeph>value</codeph> может являться числом или массивом чисел. 
+	 
+	  <p>Отмена этой функции является необязательной. Следует также выполнить вызов суперверсии этого метода при завершении отмены, <codeph>super.onTweenEnd(val)</codeph>, после обработки логики.</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenUpdate"><apiName>onTweenUpdate</apiName><shortdesc> 
+	  Метод обратного вызова, который вызывается при обновлении целевого объекта путем реализации эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение аргумента <codeph>value</codeph> является интерполированным значением, определяемым свойствами <codeph>Tween.startValue</codeph> и <codeph>Tween.endValue</codeph>, а также функцией интерполяции, указываемой реализацией эффекта в соответствующем методе <codeph>play()</codeph>. Метод <codeph>play()</codeph> использует эти значения для создания объекта Tween, который воспроизводит эффект в течение периода времени. Аргумент <codeph>value</codeph> может являться числом или массивом чисел. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Метод обратного вызова, который вызывается при обновлении целевого объекта путем реализации эффекта. Класс Tween использует функцию замедления и свойства <codeph>Tween.startValue</codeph>, <codeph>Tween.endValue</codeph> и <codeph>Tween.duration</codeph> для вычисления значения аргумента <codeph>value</codeph>. Аргумент <codeph>value</codeph> может являться числом или массивом чисел. 
+	 
+	  <p>Все подклассы должны отменять эту функцию. Вызывать суперверсию данной функции при отмене этого метода не требуется.</p>
+	 
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:TweenEffectInstance:easingFunction"><apiName>easingFunction</apiName><shortdesc>
+	  Функция замедления для анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Функция замедления для анимации. По умолчанию эффекты используют ту же самую функцию замедления, что и класс TweenEffect.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.effects.xml#TweenEffect/easingFunction"><linktext>mx.effects.TweenEffect.easingFunction</linktext></link></related-links></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:tween"><apiName>tween</apiName><shortdesc>
+	  Объект Tween, определяющий анимацию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:Tween</apiValueClassifier></apiValueDef><apiDesc>
+	  Объект Tween, определяющий анимацию. Для создания эффекта следует создать экземпляр Tween при отмене метода <codeph>EffectInstance.play()</codeph> и присвоить его свойству <codeph>tween</codeph>. Для создания объекта Tween используйте метод <codeph>createTween()</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+	  
+      Текущая позиция эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  
+      Текущая позиция эффекта. Значение этого свойства находится в диапазоне от 0 до значения общей продолжительности, включающей значения параметров эффекта <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> и <codeph>repeatDelay</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+  HideShowEffectTargetFilter – это подкласс класса EffectTargetFilter, обрабатывающий логику фильтрации целевых объектов, которые отображались или были скрыты путем изменения их свойства visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HideShowEffectTargetFilter – это подкласс класса EffectTargetFilter, обрабатывающий логику фильтрации целевых объектов, которые отображались или были скрыты путем изменения их свойства <codeph>visible</codeph>. Если для свойства Effect.filter задано значение <codeph>hide</codeph> или <codeph>show</codeph>, используется один из этих подклассов.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:HideShowEffectTargetFilter:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:HideShowEffectTargetFilter:show"><apiName>show</apiName><shortdesc>
+	  Определяет, является ли этот фильтр фильтром отображения или скрытия.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Определяет, является ли этот фильтр фильтром отображения или скрытия.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

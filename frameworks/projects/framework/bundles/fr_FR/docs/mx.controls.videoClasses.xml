@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.videoClasses"><apiName>mx.controls.videoClasses</apiName><apiDetail/><apiClassifier id="mx.controls.videoClasses:VideoError"><apiName>VideoError</apiName><shortdesc>
+  La classe VideoError représente les codes d’erreur des erreurs lancées par le contrôle VideoDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe VideoError représente les codes d’erreur des erreurs lancées par le contrôle VideoDisplay.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:VideoError:VideoError"><apiName>VideoError</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>errCode</apiItemName><apiType value="uint"/><apiDesc>Code d’erreur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Message d’erreur.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.videoClasses:VideoError:DELETE_DEFAULT_PLAYER"><apiName>DELETE_DEFAULT_PLAYER</apiName><shortdesc>
+      Impossible de supprimer le lecteur VideoPlayer par défaut
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Impossible de supprimer le lecteur VideoPlayer par défaut
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:ILLEGAL_CUE_POINT"><apiName>ILLEGAL_CUE_POINT</apiName><shortdesc>
+      Point de repère non valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Point de repère non valide.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_CONTENT_PATH"><apiName>INVALID_CONTENT_PATH</apiName><shortdesc>
+      Chemin de contenu non valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Chemin de contenu non valide.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_SEEK"><apiName>INVALID_SEEK</apiName><shortdesc>
+      Recherche non valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Recherche non valide.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_XML"><apiName>INVALID_XML</apiName><shortdesc>
+      XML non valide.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      XML non valide.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_BITRATE_MATCH"><apiName>NO_BITRATE_MATCH</apiName><shortdesc>
+      Aucune concordance de débit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Aucune concordance de débit.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CONNECTION"><apiName>NO_CONNECTION</apiName><shortdesc>
+      Impossible d’établir une connexion avec le serveur ou de localiser le fichier FLV sur le serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Impossible d’établir une connexion avec le serveur ou de localiser le fichier FLV sur le serveur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CUE_POINT_MATCH"><apiName>NO_CUE_POINT_MATCH</apiName><shortdesc>
+      Aucun point de repère correspondant n’a été détecté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Aucun point de repère correspondant n’a été détecté.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:code:get"><apiName>code</apiName><shortdesc>
+      Contient le code d’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Contient le code d’erreur.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.videoClasses:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+  La classe CuePointManager vous permet d’utiliser le code ActionScript pour gérer les points de repère associés au contrôle VideoDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CuePointManager vous permet d’utiliser le code ActionScript pour gérer les points de repère associés au contrôle VideoDisplay.  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:CuePointManager:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="mx.controls.videoClasses:VideoPlayer"/><apiDesc>L’occurrence VideoPlayer qui est le parent de cette classe CuePointManager.
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Ce paramètre est ignoré. Il est fourni uniquement pour la compatibilité descendante.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.videoClasses:CuePointManager:addCuePoint"><apiName>addCuePoint</apiName><shortdesc>
+      Ajoute un point de repère.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si les arguments ne sont pas valides.
+      
+      </apiDesc><apiItemName>VideoError</apiItemName><apiOperationClassifier>mx.controls.videoClasses:VideoError</apiOperationClassifier></apiException><apiReturn><apiDesc>Une copie de l’objet de point de repère a été ajoutée. La copie a les propriétés supplémentaires suivantes :
+     
+      <ul>
+        <li><codeph>array</codeph> : tableau de tous les points de repère. Traitez ce tableau comme étant en lecture seule, car si vous y ajoutez, supprimez ou modifiez des objets, les points de repère risquent de ne pas fonctionner correctement.</li>
+     
+        <li><codeph>index</codeph> : index situé dans le tableau du point de repère retourné.</li>
+      </ul>
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>L’objet décrit le point de repère. Il doit contenir les propriétés <codeph>name:String</codeph> et <codeph>time:Number</codeph> (en secondes). Si l’objet n’est pas conforme à ces conventions, la méthode retourne une erreur <codeph>VideoError</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un point de repère.
+     
+      <p>Vous pouvez ajouter plusieurs points de repère avec le même nom et la même heure. Lorsque vous appelez la méthode <codeph>removeCuePoint()</codeph> avec le nom et l’heure, elle supprime le premier point de repère correspondant. Pour supprimer tous les points de repère correspondants, vous devez appeler plusieurs fois la méthode <codeph>removeCuePoint()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePointByName"><apiName>getCuePointByName</apiName><shortdesc>
+      Recherchez un point de repère dont le nom est spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>null</codeph> si aucune correspondance n’est trouvée ou est une copie de l’objet de point de repère correspondant avec des propriétés supplémentaires :
+     
+      <ul>
+        <li><codeph>array</codeph> : tableau des points de repère recherchés. Traitez ce tableau comme étant en lecture seule, car si vous y ajoutez, supprimez ou modifiez des objets, les points de repère risquent de ne pas fonctionner correctement.</li>
+     
+        <li><codeph>index</codeph> : index situé dans le tableau du point de repère retourné.</li>
+      </ul>
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom du point de repère.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Recherchez un point de repère dont le nom est spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePoints"><apiName>getCuePoints</apiName><shortdesc>
+      Retourne un tableau de tous les points de repère.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau d’objets de points de repère. Chaque objet de point de repère décrit le point de repère et renferme les propriétés <codeph>name:String</codeph> et <codeph>time:Number</codeph> (en secondes).  
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Retourne un tableau de tous les points de repère.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeAllCuePoints"><apiName>removeAllCuePoints</apiName><shortdesc>
+      Supprime tous les points de repère.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Supprime tous les points de repère.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeCuePoint"><apiName>removeCuePoint</apiName><shortdesc>
+      Supprime un point de repère du fichier FLV actuellement chargé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet représentant le point de repère supprimé. Si aucun point ne correspond, la valeur <codeph>null</codeph> est retournée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>L’objet doit contenir au moins une des propriétés <codeph>name:String</codeph> et <codeph>time:Number</codeph> et supprime le point de repère qui correspond aux propriétés spécifiées.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime un point de repère du fichier FLV actuellement chargé. Seules les propriétés <codeph>name</codeph> et <codeph>time</codeph> sont utilisées dans l’argument <codeph>cuePoint</codeph> pour déterminer le point de repère à supprimer.
+     
+      <p>Si plusieurs points de repère correspondent aux critères de recherche, un seul sera supprimé. Pour supprimer tous les points de repère, appelez plusieurs fois cette fonction dans une boucle avec les mêmes arguments jusqu’à ce qu’elle retourne la valeur <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:setCuePoints"><apiName>setCuePoints</apiName><shortdesc>
+     Définissez le tableau de points de repères.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>cuePointArray</apiItemName><apiType value="Array"/><apiDesc>Tableau d’objets de points de repère. Chaque objet de point de repère décrit le point de repère. Il doit contenir les propriétés <codeph>name:String</codeph> et <codeph>time:Number</codeph> (en secondes).  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Définissez le tableau de points de repères.
+     
+     <p>Vous pouvez ajouter plusieurs points de repère avec le même nom et la même heure. Lorsque vous appelez la méthode <codeph>removeCuePoint()</codeph> avec ce nom, seul le premier point de repère est supprimé.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

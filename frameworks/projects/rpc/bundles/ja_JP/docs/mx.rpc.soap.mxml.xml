@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap.mxml"><apiName>mx.rpc.soap.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.soap.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+WebServices 専用の Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+WebServices 専用の Operation です。 Operation は、サービスに対する個々のメソッドです。 Operation は、サービスに対して同じ名前の関数を呼び出すか、サービスのプロパティとして Operation にアクセスして <codeph>send()</codeph> メソッドを呼び出すことによって、呼び出すことができます。
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      新しい Operation を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc.soap:WebService</apiOperationClassifier><apiData>null</apiData><apiDesc>この Operation が呼び出される Web サービスです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>この Operation の名前です。
+       
+       </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      新しい Operation を作成します。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>キャンセルされた呼び出しに関連付けられた AsyncToken、または呼び出しがキャンセルされなかった場合は null です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>キャンセルする呼び出しの messageId です。オプションです。省略した場合、最後のサービス呼び出しがキャンセルされます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。ネットワーク処理が続行する場合でも、result イベントや fault イベントは送出されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     この Operation の concurrency です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この Operation の concurrency です。 明示的に設定されていない場合は、WebService の設定が使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     この処理の実行中にビジーカーソルを表示するかどうか。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この処理の実行中にビジーカーソルを表示するかどうか。 明示的に設定されていない場合は、WebService の設定が使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap.mxml:WebService"><apiName>WebService</apiName><shortdesc>
+ &amp;lt;mx:WebService&amp;gt; タグにより、SOAP に準拠した Web サービスの処理にアクセスできます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:WebService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:WebService
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   destination="<i>No default.</i>"
+   id="<i>No default.</i>"
+   serviceName="<i>No default.</i>"
+   showBusyCursor="false|true"
+   makeObjectsBindable="false|true"
+   useProxy="false|true"
+   wsdl="<i>No default.</i>"
+ 
+   <b>Events</b>
+   fault="<i>No default.</i>"
+   result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ </p>
+ <p>
+ An &lt;mx:WebService&gt; tag can have multiple &lt;mx:operation&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:operation
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   name=<i>No default, required.</i>
+   resultFormat="object|xml|e4x"
+   makeObjectsBindable="false|true"
+ 
+   
+   <b>Events</b>
+   fault=<i>No default.</i>
+   result=<i>No default.</i>
+ /&gt;
+ </pre>
+ 
+ An &lt;mx:Operation&gt; tag contains an &lt;mx:request&gt; tag. 
+ To specify an XML structure in an &lt;mx:request&gt; tag, you must set the value of the tag's
+ <code>format</code> attribute to <code>"xml"</code>. Otherwise, the body is converted into Objects.
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:WebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ &lt;mx:WebService> タグにより、SOAP に準拠した Web サービスの処理にアクセスできます。
+ </apiDesc><example conref="WebServiceExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     新しい WebService コンポーネントを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService の宛先。services-config.xml ファイル内の宛先名と一致する必要があります。宛先を指定しない場合、WebService コンポーネントでは DefaultHTTP 宛先が使用されます。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい WebService コンポーネントを作成します。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     指定された名前の Operation を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この名前に対して実行される Operation です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Operation の名前です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された名前の Operation を返します。Operation が事前に作成されなかった場合、新しい <codeph>mx.rpc.soap.mxml.Operation</codeph> がこの呼び出し中に作成されます。 Operation は通常、その名前をサービス変数（<codeph>myService.someOperation</codeph>）の後に指定するだけでアクセスすることができますが、Operation 名がサービスに対して定義されているメソッドと一致している場合（例えば <codeph>setCredentials</codeph>）、代わりにこのメソッドを使って Operation を取得することができます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap.mxml:WebService:initialized"><apiName>initialized</apiName><shortdesc>
+     WebService がタグを使用して設定されている場合、MXML コンパイラーによって自動的に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>この WebService が存在する MXML ドキュメントです。
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ドキュメント内部でのこの WebService の ID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     WebService がタグを使用して設定されている場合、MXML コンパイラーによって自動的に呼び出されます。 ActionScript によって WebService を作成する場合、このメソッドはすべてのパラメーターを検証する際に役立つため、このメソッドを呼び出すことをお勧めします。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:WebService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     同一サービスに対する複数の呼び出しの処理方法を示す値です。 デフォルト値は multiple です。 使用できる値は次のとおりです。
+     <ul>
+     <li>multiple：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。これはデフォルトの設定です。</li>
+     <li>single：メソッドでは一度に 1 つの要求しか作成できません。要求が未解決の間にさらに要求を作成すると、それらの要求はクライアントでただちにフォルトになり、サーバーに送信されません。</li>
+     <li>last：要求を作成すると、クライアントが現在の未処理の要求に関する結果またはフォルトを無視することになります。最も新しい要求についての結果またはフォルトのみがクライアントで送出されます。これによってクライアントアプリケーションでのイベント処理が簡単になる可能性があります。しかし、要求の結果またはフォルトを無視しても安全なときにのみこのモードを使用するよう注意してください。</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:serviceName:get"><apiName>serviceName</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDeprecated replacement="destination"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:protocol:set"><apiName>protocol</apiName><shortdesc>
+     非推奨。代わりに適切な宛先を使用するか、url を使用する場合は、DefaultHTTP または DefaultHTTPS を使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="String"/><apiDeprecated replacement="channelSet"/></apiValueDef><apiDesc>
+     非推奨。代わりに適切な宛先を使用するか、url を使用する場合は、<codeph>DefaultHTTP</codeph> または <codeph>DefaultHTTPS</codeph> を使用します。 推奨されない動作では、デフォルトが使用されている場合に単に宛先が更新されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

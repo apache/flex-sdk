@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.accessibility"><apiName>spark.accessibility</apiName><apiDetail/><apiClassifier id="spark.accessibility:ButtonBarBaseAccImpl"><apiName>ButtonBarBaseAccImpl</apiName><shortdesc>
+  ButtonBarBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.ButtonBarBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonBarBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.ButtonBarBase.
+ 
+  <p>Obwohl TabBar eine eigene Accessibility-Implementierungsunterklasse hat, verwendet ButtonBar einfach diejenige der ButtonBarBase. Deshalb bezieht sich der Rest dieser Beschreibung auf die häufig verwendete ButtonBar-Komponente und nicht auf die ButtonBarBase-Basisklasse.</p>
+ 
+  <p>Wenn eine Spark-ButtonBar erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die ButtonBar erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente einer ButtonBar sind ihre Buttons. Wie unten beschrieben wird die Accessibility dieser Buttons von der ButtonBar verwaltet; ihre eigene <codeph>accessibilityImplementation</codeph> und <codeph>accessibilityProperties</codeph> werden von Flash Player ignoriert.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer ButtonBar ist ROLE_SYSTEM_TOOLBAR.</p>
+ 
+  <p>Die Rolle eines jeden Buttons der ButtonBar ist ROLE_SYSTEM_PUSHBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer ButtonBar ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der ButtonBar fest.</p>
+ 
+  <p>Der Name der einzelnen Buttons wird durch die <codeph>itemToLabel()</codeph>-Methode der ButtonBar bestimmt.</p>
+ 
+  <p>Wenn der Name der ButtonBar oder eines ihrer Buttons geändert wird, löst die ButtonBar das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für den Button oder 0 für sie selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer ButtonBar ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der ButtonBar festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden Button ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer ButtonBar ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die ButtonBar den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Der Status eines Button in einer ButtonBar ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_FOCUSED (wenn im Fokus)</li>
+    <li>STATE_SYSTEM_PRESSED (wenn ausgewählt)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status der ButtonBar oder eines ihrer untergeordneten Buttons geändert wird, löst die ButtonBar das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für den Button oder 0 für sie selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Eine ButtonBar bzw. ein Button einer ButtonBar hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer ButtonBar oder eines Button in einer ButtonBar ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Eine ButtonBar hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die DefaultAction eines Button in einer ButtonBar ist „Press“.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Sowohl die ButtonBar als auch ihre einzelnen Buttons können den Fokus erhalten. Wenn dies der Fall ist, lösen sie das MSAA-Ereignis EVENT_OBJECT_FOCUS aus. Ein Button wird nicht automatisch ausgewählt, wenn er mithilfe der Navigation über die Pfeiltasten den Fokus erhält. Damit ein im Fokus befindlicher Button ausgewählt wird, muss der Benutzer die Leertaste drücken.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Die MSAA-Auswahl drückt den Button entsprechend der angegebenen childID. Es kann immer nur ein Button gleichzeitig gedrückt werden.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ButtonBarBaseAccImpl:ButtonBarBaseAccImpl"><apiName>ButtonBarBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ButtonBarBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ButtonBarBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ButtonBarBase-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ButtonBarBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBarBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TabBar.
+ 
+  <p>Wenn eine Spark-TabBar erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die TabBar erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente einer TabBar sind ihre Registerkarten. Wie oben beschrieben wird die Accessibility dieser Registerkarten und der Listenelemente von der TabBar verwaltet; ihre eigene <codeph>accessibilityImplementation</codeph> und <codeph>accessibilityProperties</codeph> werden von Flash Player ignoriert.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer TabBar ist ROLE_SYSTEM_PAGETABLIST.</p>
+ 
+  <p>Die Rolle einer jeden Registerkarte ist ROLE_SYSTEM_PAGETAB.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer TabBar ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der TabBar fest.</p>
+ 
+  <p>Der Name der einzelnen Registerkarten wird durch die <codeph>itemToLabel()</codeph>-Methode der TabBar bestimmt.</p>
+ 
+  <p>Wenn der Name der TabBar oder einer ihrer untergeordneten Registerkarten geändert wird, löst die TabBar das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für die Registerkarte oder 0 für sie selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer TabBar ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der TabBar festlegen.</p>
+ 
+  <p>Die Beschreibung einer jeden Registerkarte ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer TabBar ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die TabBar den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Der Status einer Registerkarte in einer TabBar ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_FOCUSED</li>
+    <li>STATE_SYSTEM_PRESSED</li>
+  </ul></p>
+ 
+  <p>Wenn der Status der TabBar oder einer ihrer Registerkarten geändert wird, löst die TabBar das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für die Registerkarte oder 0 für sie selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Eine TabBar bzw. eine Registerkarte in einer TabBar hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer TabBar oder einer Registerkarte in einer TabBar ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Eine TabBar hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die DefaultAction einer Registerkarte in einer TabBar ist „Switch“. Wenn sie ausgeführt wird, wird die entsprechende Registerkarte gedrückt.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Sowohl die TabBar als auch ihre einzelnen Registerkarten können den Fokus erhalten. Wenn dies der Fall ist, lösen sie das MSAA-Ereignis EVENT_OBJECT_FOCUS aus. Eine Registerkarte wird nicht automatisch gedrückt, wenn sie mithilfe der Navigation über die Pfeiltasten den Fokus erhält. Damit eine im Fokus befindliche Registerkarte gedrückt wird, muss der Benutzer die Leertaste drücken.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Die MSAA-Auswahl drückt die Registerkarte entsprechend der angegebenen childID. Es kann immer nur eine Registerkarte gedrückt werden.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TabBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TabBar-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend TabBar-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:DropDownListBaseAccImpl"><apiName>DropDownListBaseAccImpl</apiName><shortdesc>
+  DropDownListAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.DropDownListBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DropDownListAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.DropDownListBase.
+ 
+  <p>Obwohl ComboBox eine eigene Accessibility-Implementierungsunterklasse hat, verwendet DropDownList einfach diejenige der DropDownListBase. Deshalb bezieht sich der Rest dieser Beschreibung auf die häufig verwendete DropDownList-Komponente und nicht auf die DropDownListBase-Basisklasse.</p>
+ 
+  <p>Wenn eine Spark-DropDownList erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die DropDownList erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente einer DropDownList sind ihre Listenelemente. Die Anzahl der untergeordneten Elemente ist die Anzahl der Elemente im <codeph>dataProvider</codeph>, nicht nur die Anzahl der sichtbaren Renderer.</p>
+ 
+  <p>Wie unten beschrieben wird die Accessibility der Listenelemente von der DropDownList verwaltet; die <codeph>accessibilityImplementation</codeph> und <codeph>accessibilityProperties</codeph> der Elementrenderer werden von Flash Player ignoriert.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer DropDownList ist ROLE_SYSTEM_COMBOBOX.</p>
+ 
+  <p>Die Rolle eines jeden Listenelements ist ROLE_SYSTEM_LISTITEM.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer DropDownList ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der DropDownList fest.</p>
+ 
+  <p>Der Name der einzelnen Listenelemente wird durch die <codeph>itemToLabel()</codeph>-Methode der DropDownList bestimmt.</p>
+ 
+  <p>Wenn der Name der DropDownList oder eines ihrer Elemente geändert wird, löst die DropDownList das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für ein Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer DropDownList ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der DropDownList festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden Listenelements ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer DropDownList ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die DropDownList den Fokus hat)</li>
+    <li>STATE_SYSTEM_EXPANDED (wenn geöffnet)</li>
+    <li>STATE_SYSTEM_COLLAPSED (wenn geschlossen)</li>
+  </ul></p>
+ 
+  <p>Der Status eines Listenelements ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn im Fokus)</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED (wenn ausgewählt)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status der DropDownList oder eines ihrer Listenelemente geändert wird, löst die DropDownList das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für das Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert einer DropDownList ist der MSAA-Name des aktuell ausgewählten Listenelements.</p>
+ 
+  <p>Der Wert eines jeden Listenelements ist der leere String.</p>
+ 
+  <p>Wenn der Wert der DropDownList geändert wird, löst sie das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer DropDownList oder eines Listenelements ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Eine DropDownList hat keine MSAA-DefaultAction</p>
+ 
+  <p>Die DefaultAction eines Listenelements lautet „Double click“.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Die DropDownList selbst und ihre Listenelemente können den Fokus erhalten (während die DropDownList reduziert oder erweitert ist). Wenn dies geschieht, wird EVENT_OBJECT_FOCUS ausgelöst.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Die DropDownList lässt die Auswahl eines einzelnen Elements zu. In diesem Falle wird ein EVENT_OBJECT_SELECTION-Ereignis ausgelöst.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:DropDownListBaseAccImpl:DropDownListBaseAccImpl"><apiName>DropDownListBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:DropDownListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der DropDownListBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der DropDownListBase-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend DropDownListBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl ist eine Superklasse von Spark ListAccImpl, DropDownListAccImpl, ComboBoxAccImpl, ButtonBarBaseAccImpl und TabBarAccImpl.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl ist eine Superklasse von Spark ListAccImpl, DropDownListAccImpl, ComboBoxAccImpl, ButtonBarBaseAccImpl und TabBarAccImpl.
+ 
+  <p>Die Dokumentation dieser Klassen enthält weitere Informationen darüber, wie die Spark-Komponenten „List“, „DropDownList“, „ComboBox“, „ButtonBar“ und „TabBar“ die Accessibility implementieren.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.accessibility.xml#ListAccImpl"><linktext>spark.accessibility.ListAccImpl</linktext></link><link href="" invalidHref="spark.accessibility.DropDownListAccImpl.xml"><linktext>spark.accessibility.DropDownListAccImpl</linktext></link><link href="spark.accessibility.xml#ComboBoxAccImpl"><linktext>spark.accessibility.ComboBoxAccImpl</linktext></link><link href="spark.accessibility.xml#ButtonBarBaseAccImpl"><linktext>spark.accessibility.ButtonBarBaseAccImpl</linktext></link><link href="spark.accessibility.xml#TabBarAccImpl"><linktext>spark.accessibility.TabBarAccImpl</linktext></link></related-links><apiConstructor id="spark.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ListBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ListBase-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ListBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:VideoPlayerAccImpl"><apiName>VideoPlayerAccImpl</apiName><shortdesc>
+  VideoPlayerAccImpl ist die Accessibility-Implementierungsklasse für spark.components.VideoPlayer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VideoPlayerAccImpl ist die Accessibility-Implementierungsklasse für spark.components.VideoPlayer.
+ 
+  <p>Wenn ein Spark-VideoPlayer erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den VideoPlayer erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Der VideoPlayer hat sechs untergeordnete MSAA-Elemente:
+  <ol>
+    <li>Abspielen/Anhalten</li>
+    <li>Suche</li>
+    <li>Anzeige der Abspielzeit</li>
+    <li>Ton aus/Ton an</li>
+    <li>Lautstärke</li>
+    <li>Vollbild</li>
+  </ol></p>
+ 
+  <p>Die Steuerelemente werden für Accessibility-Zwecke immer in derselben Reihenfolge eingeblendet, unabhängig von ihrer Anordnung auf der Skin.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines VideoPlayer ist ROLE_SYSTEM_PANE.</p>
+ 
+  <p>Die untergeordneten Steuerelemente haben folgende Rollen:
+  <ol>
+    <li>Abspielen/Anhalten: ROLE_SYSTEM_BUTTON</li>
+    <li>Suche: ROLE_SYSTEM_SLIDER</li>
+    <li>Anzeige der Abspielzeit: ROLE_SYSTEM_STATICTEXT</li>
+    <li>Ton aus/Ton an: ROLE_SYSTEM_BUTTON</li>
+    <li>Lautstärke: ROLE_SYSTEM_SLIDER</li>
+    <li>Vollbild: ROLE_SYSTEM_BUTTON</li>
+  </ol></p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines VideoPlayer wird standardmäßig durch eine gebietsschemaabhängige Ressource angezeigt. Beim Gebietsschema en_US lautet der Name „VideoPlayer“. Wenn der Name in einem FormItem-Element eingeschlossen ist, wird er mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des VideoPlayer fest.</p>
+ 
+  <p>In ähnlicher Weise wird der Name der untergeordneten Elemente durch eine Ressource angegeben. Die en_US-Namen der Steuerelemente lauten:
+  <ol>
+    <li>Abspielen/Anhalten: „Play“ bzw. „Pause“</li>
+    <li>Suche: „Scrub Bar“</li>
+    <li>Anzeige der Abspielzeit: Die angezeigte Information</li>
+    <li>Ton aus/Ton an: „Muted“ bzw. „Not muted“</li>
+    <li>Lautstärke: „Volume Bar“</li>
+    <li>Vollbild: „Full Screen“</li>
+  </ol></p>
+ 
+  <p>Um die Namen der untergeordneten Elemente zu überschreiben, weisen Sie dem VideoPlayer eine neue Skin zu und legen Sie den <codeph>￼accessibilityName</codeph> der Steuerelemente fest.</p>
+ 
+  <p>Die MSAA-Namen der Steuerung für Abspielen/Anhalten und Ton aus/Ton an ändern sich, wenn diese Steuerelemente bedient werden. Um die Namen der Steuerelemente anzugeben, legen Sie <codeph>accessibilityName</codeph> als kommagetrennte Liste von MSAA-Namen fest, z. B. „Abspielen,Anhalten“ oder „Ton aus,Ton an“.</p>
+ 
+  <p>Wenn der Name des VideoPlayer oder eines seiner untergeordneten Steuerelemente geändert wird, löst der VideoPlayer das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für das Steuerelement oder 0 für ihn selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines VideoPlayer ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des VideoPlayer festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden untergeordneten Elements ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines VideoPlayer ist ROLE_SYSTEM_NORMAL.</p>
+ 
+  <p>Die untergeordneten Steuerelemente haben folgende Status:
+  <ol>
+    <li>Abspielen/Anhalten:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>Suche:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>Anzeige der Abspielzeit:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_READONLY</li>
+      </ul></li>
+    <li>Ton aus/Ton an:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>Lautstärke:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>Vollbild:
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+   </ol></p>
+ 
+   <p>Wenn der Status des VideoPlayer oder eines seiner untergeordneten Steuerelemente geändert wird, löst der VideoPlayer das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für das Steuerelement oder 0 für ihn selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Ein VideoPlayer hat keinen MSAA-Wert.</p>
+ 
+  <p>Die untergeordneten Steuerelemente haben folgende Werte:
+  <ol>
+    <li>Abspielen/Anhalten: Kein Wert</li>
+    <li>Suche: Schiebereglerwert für die Zeitdauer</li>
+    <li>Anzeige der Abspielzeit: Kein Wert</li>
+    <li>Ton aus/Ton an: Kein Wert</li>
+    <li>Lautstärke: Wert des Schiebereglers</li>
+    <li>Vollbild: Kein Wert</li>
+  </ol></p>
+ 
+  <p>Wenn der Wert eines der untergeordneten Steuerelemente geändert wird, löst der VideoPlayer das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus mit der richtigen childID für das Steuerelement.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines VideoPlayer oder eines seiner untergeordneten Steuerelemente ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein VideoPlayer hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die untergeordneten Steuerelemente haben folgende DefaultAction:
+  <ol>
+    <li>Abspielen/Anhalten: „Press“</li>
+    <li>Suche: Keine</li>
+    <li>Anzeige der Abspielzeit: Keine</li>
+    <li>Ton aus/Ton an: „Press“</li>
+    <li>Lautstärke: Keine</li>
+    <li>Vollbild: „Press“</li>
+  </ol></p>
+ 
+  <p>Die Ausführung der Standardaktion bei einem der untergeordneten Steuerelemente hat folgende Auswirkungen:
+  <ol>
+    <li>Abspielen/Anhalten: Umschalten zwischen Abspielen und Anhalten</li>
+    <li>Suche: Keine</li>
+    <li>Anzeige der Abspielzeit: Keine</li>
+    <li>Ton aus/Ton an: Umschalten zwischen Ton aus und Ton an</li>
+    <li>Lautstärke: Keine</li>
+    <li>Vollbild: Umschalten zwischen Vollbild an und Vollbild aus</li>
+  </ol></p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein VideoPlayer kann den Fokus erhalten. Wenn dies der Fall ist, löst der Spinner das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p>Auch einige seiner untergeordneten Steuerelemente können den Fokus erhalten:
+  <ol>
+    <li>Abspielen/Anhalten: Kein Fokus</li>
+    <li>Suche: Fokus möglich</li>
+    <li>Die Anzeige der Abspielzeit kann keinen Fokus erhalten.</li>
+    <li>Ton aus/Ton an: Leitet den Fokus an den Lautstärkeregler weiter</li>
+    <li>Lautstärke: Fokus möglich</li>
+    <li>Vollbild: Fokus möglich</li>
+  </ol></p>
+ 
+  <p>Wenn der VideoPlayer den Fokus meldet, heißt das, dass keines seiner untergeordneten Steuerelemente den Fokus hat, sondern er selbst. Andernfalls wird gemeldet, dass eines der Steuerelemente für Abspielen/Anhalten, Suche, Lautstärke bzw. Vollbild den Fokus hat.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein VideoPlayer unterstützt keine Auswahl im MSAA-Sinne.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:VideoPlayerAccImpl:VideoPlayerAccImpl"><apiName>VideoPlayerAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:VideoPlayerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der VideoPlayer-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der VideoPlayer-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend VideoPlayer-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TextBaseAccImpl"><apiName>TextBaseAccImpl</apiName><shortdesc>
+  TextBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TextBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TextBase.
+ 
+  <p>Wenn eine Spark-Label- oder RichtText-Komponente erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die Label- oder RichText-Komponente erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Eine TextBase hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer TextBase ist ROLE_SYSTEM_STATICTEXT.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer TextBase ist standardmäßig der angezeigte Text. Wenn der Text in einem FormItem eingeschlossen ist, wird er mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der Komponente fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst die TextBase das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer TextBase ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der TextBase festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer TextBase ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_READONLY</li>
+  </ul></p>
+ 
+  <p>Wenn der Status geändert wird, löst die TextBase das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Eine TextBase hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer TextBase ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Eine TextBase hat keine MSAA-DefaultAction.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Eine TextBase kann keinen Fokus erhalten.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Eine TextBase unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  <p><b>Sonstiges</b></p>
+ 
+  <p>Laut MSAA-Dokumentation ist der <codeph>accessibilityShortcut</codeph> auf die Kurzbefehl-Tastenkombination der jeweils entsprechenden Eingabekomponente zu setzen. Da der Kurzbefehl eine Accessibility-Eigenschaft ist und nicht von einer AccessibilityImplementation implementiert werden kann, wird er nicht von TextBaseAccImpl angesprochen.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TextBaseAccImpl:TextBaseAccImpl"><apiName>TextBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TextBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TextBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TextBase-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend TextBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:SliderBaseAccImpl"><apiName>SliderBaseAccImpl</apiName><shortdesc>
+  SliderBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.SliderBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.SliderBase.
+ 
+  <p>Die Spark-Komponenten „HSlider“ und „VSlider“ erweitern SliderBase und verwenden SlideBaseAccImpl als Accessibility-Implementierungsklasse. Aus praktischen Gründen wird in der folgenden Beschreibung der Begriff „Slider“ anstelle von „HSlider“ bzw. „VSlider“ verwendet, obwohl tatsächlich keine Spark-Klasse namens „Slider“ existiert.</p>
+ 
+  <p>Wenn ein Slider erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den Slider erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein Slider hat drei untergeordnete MSAA-Elemente:
+  <ol>
+    <li>Klickbarer Bereich unterhalb des Schiebereglers (oder links von ihm)</li>
+    <li>Schieberegler</li>
+    <li>Klickbarer Bereich oberhalb des Schiebereglers (oder rechts von ihm)</li>
+  </ol></p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines Slider ist ROLE_SYSTEM_SLIDER.</p>
+ 
+  <p>Die untergeordneten Elemente haben folgende Rollen:
+  <ol>
+    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+    <li>ROLE_SYSTEM_INDICATOR</li>
+    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+  </ol></p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines Slider ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des Slider fest.</p>
+ 
+  <p>Der Name der untergeordneten Elemente kommt aus einer gebietsschemaabhängigen Ressource. Beim Gebietsschema en_US lauten die Namen:
+  <ol>
+    <li>„Page left“ für HSlider; „Page up“ für VSlider</li>
+    <li>„Position“</li>
+    <li>„Page right“ für HSlider; „Page down“ für VSlider</li>
+  </ol></p>
+ 
+  <p>Wenn der Name des Slider oder eines seiner untergeordneten Teile geändert wird, löst der Slider das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für das Teil oder 0 für ihn selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines Slider ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des Slider festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden untergeordneten Teils ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines Slider ist eine Kombination aus: 
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der Slider den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Die untergeordneten Teile haben folgende Status:
+  <ul>
+     <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status des Slider oder eines seiner untergeordneten Teile geändert wird, löst der Slider das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für das Teil oder 0 für ihn selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines Slider ist eine Zahl zwischen 0 und 100.</p>
+ 
+  <p>Die untergeordneten Teile haben keine MSAA-Werte.</p>
+ 
+  <p>Wenn der Wert des Slider geändert wird, löst er das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines Slider oder seines Schiebereglers ist sein Begrenzungsrechteck. Für die beiden untergeordneten Teile, die die unmittelbar an den Schieberegler angrenzenden Leistenbereiche darstellen, wird das Begrenzungsrechteck des Slider zurückgegeben.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein Slider und seine untergeordneten Teile haben keine Standardaktion.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein Slider kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+ <p>Ein Slider unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:SliderBaseAccImpl:SliderBaseAccImpl"><apiName>SliderBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:SliderBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der SliderBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der SliderBase-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Slider-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ButtonBaseAccImpl"><apiName>ButtonBaseAccImpl</apiName><shortdesc>
+  ButtonBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.ButtonBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonBaseAccImpl ist die Accessibility-Implementierungsklasse für spark.components.supportClasses.ButtonBase.
+ 
+  <p>Obwohl ToggleButton, CheckBox und RadioButton jeweils eigene Accessibility-Implementierungsunterklassen haben, verwendet Button einfach diejenige der ButtonBase. Deshalb bezieht sich der Rest dieser Beschreibung auf die häufig verwendete Button-Komponente und nicht auf die ButtonBase-Basisklasse.</p>
+ 
+  <p>Wenn ein Spark-Button erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den Button erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein Button hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines Button ist ROLE_SYSTEM_PUSHBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines Button ist standardmäßig die angezeigte Beschriftung. Wenn die Beschriftung in einem FormItem-Element eingeschlossen ist, wird sie mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des Button fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst der Button das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines Button ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des Button festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines Button ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der Button den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status geändert wird, löst der Button das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Ein Button hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines Button ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Die MSAA-DefaultAction eines Button ist „Press“.</p>
+ 
+  <p>Wenn ein MSAA-Client den Button anweist, diese Aktion auszuführen, werden KEY_DOWN- und KEY_UP-MouseEvents für die SPACE-Taste generiert, um das Drücken der ButtonBase (wenn der Button im aktiven Status ist) mithilfe der Tastatur zu simulieren.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein Button kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein Button unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ButtonBaseAccImpl:ButtonBaseAccImpl"><apiName>ButtonBaseAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ButtonBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Button-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Button-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Button-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TitleWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl ist die Accessibility-Implementierungsklasse für spark.components.TitleWindow.
+ 
+  <p>Wenn ein Spark-TitleWindow erstellt wird, wird die <codeph>accessibilityImplementation</codeph>-Eigenschaft eines speziellen untergeordneten Sprite auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, diese Komponente erkennen.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein TitleWindow hat keine untergeordneten MSAA-Elemente. Alle untergeordneten Elemente des tatsächlichen TitleWindow befinden sich in der MSAA-Struktur des FlashPlayer auf derselben Ebene wie das TitleWindow, da Flash Player keine Objekte mit Accessibility-Implementierungen unterstützt, die untergeordnete Elemente mit eigenen Accessibility-Implementierungen haben.</p>
+ 
+  <p>TitleWindowAccImpl wird als <codeph>accessibilityImplementation</codeph> des <codeph>titleDisplay</codeph>-Objekts festgelegt, da eine Festlegung beim TitleWindow selbst die Zugänglichkeit der untergeordneten Elemente des TitleWindow für MSAA verhindern würde. Deshalb wird im <codeph>titleDisplay</codeph> ein unsichtbares Rechteck in der Größe des gesamten TitleWindow gezeichnet, sodass die MSAA-Position mit dem Begrenzungsrechteck des gesamten TitleWindow übereinstimmt. Da die MSAA-Struktur flach ist, entnehmen Bildschirmleseprogramme wie JAWS die Information, ob sich eine Komponente im TitleWindow befindet, der MSAA-Position.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines TitleWindow ist ROLE_SYSTEM_PANE.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines TitleWindow ist standardmäßig der angezeigte Titel. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des TitleWindow fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst das TitleWindow das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines TitleWindow ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des TitleWindow festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines TitleWindow ist immer STATE_SYSTEM_MOVEABLE.</p>
+ 
+  <p>Da sich der Status nicht ändert, löst ein TitleWindow nicht das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines TitleWindow ist immer der leere String.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines TitleWindow ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein TitleWindow hat keine MSAA-DefaultAction.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein TitleWindow kann keinen Fokus erhalten.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein TitleWindow unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  <p><b>Sonstiges</b></p>
+ 
+  <p>Ein TitleWindow löst auch die folgenden MSAA-Ereignisse aus:
+  <ul>
+     <li>EVENT_OBJECT_CREATE, wenn es erstellt wird</li>
+     <li>EVENT_OBJECT_DESTROY, wenn es geschlossen wird</li>
+     <li>EVENT_OBJECT_LOCATIONCHANGE, wenn es verschoben wird</li>
+  </ul></p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TitleWindow-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der TitleWindow-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn später TitleWindow-Instanzen initialisiert werden, wird die <codeph>accessibilityImplementation</codeph>-Eigenschaft eines speziellen ersten untergeordneten Sprite auf eine Instanz dieser Klasse gesetzt. Wenn TitleWindowAccImpl dem TitleWindow selbst zugeordnet würde, würden die Accessibility-Implementierungen der untergeordneten Elemente des TitleWindow ignoriert.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:NumericStepperAccImpl"><apiName>NumericStepperAccImpl</apiName><shortdesc>
+  NumericStepperAccImpl ist die Accessibility-Implementierungsklasse für spark.components.NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:SpinnerAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumericStepperAccImpl ist die Accessibility-Implementierungsklasse für spark.components.NumericStepper.
+ 
+  <p>Wenn ein Spark-NumericStepper erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den NumericStepper erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein NumericStepper hat zwei untergeordnete MSAA-Elemente: die Buttons zum Inkrementieren und Dekrementieren.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines NumericStepper ist ROLE_SYSTEM_TEXT.</p>
+ 
+  <p>Die Rolle eines jeden untergeordneten Button ist ROLE_SYSTEM_PUSHBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines NumericStepper ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des NumericStepper fest.</p>
+ 
+  <p>Der Name der untergeordneten Buttons kommt aus einer gebietsschemaabhängigen Ressource. Beim Gebietsschema en_US lauten die Namen „More“ und „Less“.</p>
+ 
+  <p>Wenn der Name des NumericStepper oder eines seiner untergeordneten Buttons geändert wird, löst der NumericStepper das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für den Button oder 0 für ihn selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines NumericStepper ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des NumericStepper festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden untergeordneten Button ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines NumericStepper ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der Spinner den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status des NumericStepper oder eines seiner untergeordneten Buttons geändert wird, löst der NumericStepper das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für den Button oder 0 für ihn selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines NumericStepper ist sein derzeitiger Wert.</p>
+ 
+  <p>Die untergeordneten Buttons haben keine MSAA-Werte.</p>
+ 
+  <p>Wenn der Wert des NumericStepper geändert wird, löst er das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines NumericStepper oder eines seiner untergeordneten Buttons ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein NumericStepper hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die untergeordneten Buttons haben die DefaultAction „Press“.</p>
+ 
+  <p>Die Ausführung der Standardaktion bei einem der untergeordneten Buttons inkrementiert bzw. dekrementiert den Wert.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein NumericStepper kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein NumericStepper unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:NumericStepperAccImpl:NumericStepperAccImpl"><apiName>NumericStepperAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:NumericStepperAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Spinner-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Spinner-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Spinner-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl ist die Accessibility-Implementierungsklasse für spark.components.ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:DropDownListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl ist die Accessibility-Implementierungsklasse für spark.components.ComboBox.
+ 
+  <p>Wenn eine Spark-ComboBox erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die ComboBox erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente einer ComboBox sind der bearbeitbare TextInput (mit childID 1) und die Listenelemente (mit childIDs 2, 3, ... n). Die Anzahl der untergeordneten Elemente ist 1 plus die Anzahl der Elemente im <codeph>dataProvider</codeph> (nicht jedoch 1 plus die Anzahl der sichtbaren Renderer).</p>
+ 
+  <p>Wie unten beschrieben wird die Accessibility des TextInput und der Listenelemente von der ComboBox verwaltet; die <codeph>accessibilityImplementation</codeph> und <codeph>accessibilityProperties</codeph> werden von Flash Player ignoriert.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer ComboBox ist ROLE_SYSTEM_COMBOBOX.</p>
+ 
+  <p>Die MSAA-Rolle des bearbeitbaren TextInput ist ROLE_SYSTEM_TEXT.</p>
+ 
+  <p>Die Rolle eines jeden Listenelements ist ROLE_SYSTEM_LISTITEM.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer ComboBox (und ihres bearbeitbaren TextInput) ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der ComboBox fest.</p>
+ 
+  <p>Der Name der einzelnen Listenelemente wird durch die <codeph>itemToLabel()</codeph>-Methode der ComboBox bestimmt.</p>
+ 
+  <p>Wenn der Name der ComboBox oder eines ihrer Elemente geändert wird, löst die ComboBox das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für ein Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer ComboBox ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der ComboBox festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden Listenelements ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer ComboBox ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die ComboBox den Fokus hat)</li>
+    <li>STATE_SYSTEM_EXPANDED (wenn geöffnet)</li>
+    <li>STATE_SYSTEM_COLLAPSED (wenn geschlossen)</li>
+  </ul></p>
+ 
+  <p>Der Status des bearbeitbaren TextInput ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die ComboBox den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Der Status eines Listenelements ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn im Fokus)</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED (wenn ausgewählt)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status der ComboBox, ihres TextInput oder eines ihrer Listenelemente geändert wird, löst die ComboBox das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für den TextInput, das Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert einer ComboBox ist der MSAA-Name des aktuell ausgewählten Listenelements oder der im TextInput eingegebene Text.</p>
+ 
+  <p>Der Wert eines Listenelements ist immer der leere String.</p>
+ 
+  <p>Wenn der Wert der ComboBox geändert wird, löst sie das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer ComboBox, ihres TextInput oder eines ihrer Listenelemente ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Weder die ComboBox noch ihr TextInput haben eine MSAA-DefaultAction.</p>
+ 
+  <p>Die DefaultAction eines Listenelements lautet „Double click“. Durch Ausführung dieser Aktion wird das Element ausgewählt.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Die ComboBox selbst und ihre Listenelemente können den Fokus erhalten (während die ComboBox reduziert oder erweitert ist).</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Die ComboBox lässt die Auswahl eines einzelnen Elements zu. In diesem Falle wird ein EVENT_OBJECT_SELECTION-Ereignis ausgelöst.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ComboBox-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ComboBox-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ComboBox-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl ist die Accessibility-Implementierungsklasse für spark.components.RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl ist die Accessibility-Implementierungsklasse für spark.components.RadioButton.
+ 
+  <p>Wenn ein Spark-RadioButton erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den RadioButton erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein RadioButton hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines RadioButton ist ROLE_SYSTEM_RADIOBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines RadioButton ist standardmäßig die angezeigte Beschriftung. Wenn die Beschriftung in einem FormItem eingeschlossen ist, wird sie mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des RadioButton fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines RadioButton ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des RadioButton festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines RadioButton ist eine Kombination aus: 
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der RadioButton den Fokus hat)</li>
+    <li>STATE_SYSTEM_CHECKED (wenn „selected“ den Wert „true“ hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status geändert wird, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Ein RadioButton hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines RadioButton ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Die MSAA-DefaultAction eines RadioButton ist „Check“.</p>
+ 
+  <p>Wenn ein MSAA-Client den RadioButton anweist, diese Aktion auszuführen, werden KEY_DOWN- und KEY_UP-MouseEvents für die SPACE-Taste generiert, um das Drücken des RadioButton (wenn dieser im aktiven Status ist) mithilfe der Tastatur zu simulieren.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein RadioButton kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein RadioButton unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der RadioButton-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der RadioButton-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend RadioButton-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ToggleButtonAccImpl"><apiName>ToggleButtonAccImpl</apiName><shortdesc>
+  ToggleButtonAccImpl ist die Accessibility-Implementierungsklasse für spark.components.ToggleButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ToggleButtonAccImpl ist die Accessibility-Implementierungsklasse für spark.components.ToggleButton.
+ 
+  <p>Wenn ein Spark-ToggleButton erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den ToggleButton erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein ToggleButton hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines ToggleButton ist ROLE_SYSTEM_PUSHBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines ToggleButton ist standardmäßig die angezeigte Beschriftung. Wenn die Beschriftung in einem FormItem-Element eingeschlossen ist, wird sie mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des ToggleButton fest.</p>
+ 
+  <p>Um zwei verschiedene Namen für die unterschiedlichen Status eines symbolbasierten ToggleButton (z. B. „Mute“ und „Unmute“ oder „Play“ und „Pause“) bereitzustellen, können Sie die beiden Namen in der <codeph>accessibilityName</codeph>-Eigenschaft durch ein Komma getrennt angeben, z. B. als <codeph>accessibilityProperty="Mute,Unmute"</codeph>. Wenn Sie derartige statusbezogene Namen vergeben, erhält der Button nicht den „pressed“-Status, wenn er gedrückt wird.</p>
+ 
+  <p>Wenn der Name geändert wird, löst der ToggleButton das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines ToggleButton ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des ToggleButton festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines ToggleButton ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die CheckBox den Fokus hat)</li>
+    <li>STATE_SYSTEM_PRESSED (wenn „selected“ den Wert „true“ hat; nicht verwendet, wenn statusbezogene Namen bereitgestellt werden)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status geändert wird, löst der ToggleButton das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Ein ToggleButton hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines ToggleButton ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Die MSAA-DefaultAction eines ToggleButton ist „Toggle“.</p>
+ 
+  <p>Wenn ein MSAA-Client den Button anweist, diese Aktion auszuführen, werden KEY_DOWN- und KEY_UP-MouseEvents für die SPACE-Taste generiert, um das Drücken des ToggleButton (wenn dieser im aktiven Status ist) mithilfe der Tastatur zu simulieren.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein ToggleButton kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein ToggleButton unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ToggleButtonAccImpl:ToggleButtonAccImpl"><apiName>ToggleButtonAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ToggleButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ToggleButton-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der ToggleButton-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ToggleButton-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl ist die Accessibility-Implementierungsklasse für spark.components.List.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl ist die Accessibility-Implementierungsklasse für spark.components.List.
+ 
+  <p>Wenn eine Spark-ListBase erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die List erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente einer List sind ihre Listenelemente. Die Anzahl der untergeordneten Elemente ist die Anzahl der Elemente im <codeph>dataProvider</codeph>, nicht nur die Anzahl der sichtbaren Renderer.</p>
+ 
+  <p>Wie oben beschrieben wird die Accessibility der Listenelemente von der List verwaltet; die <codeph>accessibilityImplementation</codeph> und <codeph>accessibilityProperties</codeph> der Elementrenderer werden von Flash Player ignoriert.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer List ist ROLE_SYSTEM_LIST.</p>
+ 
+  <p>Die Rolle eines jeden Listenelements der List ist ROLE_SYSTEM_LISTITEM.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer List ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der List fest.</p>
+ 
+  <p>Der Name der einzelnen Listenelemente wird durch die <codeph>itemToLabel()</codeph>-Methode der List bestimmt.</p>
+ 
+  <p>Wenn der Name der List oder eines ihrer Elemente geändert wird, löst die List das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für ein Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer List ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der List festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden Listenelements ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer List ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die List den Fokus hat)</li>
+    <li>STATE_SYSTEM_MULTISELECTABLE (wenn „allowMultipleSelection“ den Wert „true“ hat)</li>
+  </ul></p>
+ 
+  <p>Der Status eines Listenelements ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn im Fokus)</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED (wenn sich das Einfügezeichen darin befindet)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status der List oder eines ihrer Listenelemente geändert wird, löst die List das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für das Listenelement oder 0 für sie selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Eine List bzw. ein Listenelement hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer List oder eines Listenelements ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Eine List hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die MSAA-DefaultAction eines Listenelements lautet „Double click“.</p>
+ 
+  <p>Durch die Ausführung der Standardaktion auf einem Listenelement wird es ausgewählt.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Eine List kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Eine List lässt die Auswahl eines einzelnen oder aber mehrerer Listenelemente zu, je nach der <codeph>allowMultipleSelection</codeph>-Eigenschaft. Wenn ein Element ausgewählt ist, löst es das MSAA-Ereignis EVENT_OBJECT_SELECTION aus.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der List-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der List-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend List-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  Dies ist die Accessibility-Implementierungsklasse für spark.components.DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dies ist die Accessibility-Implementierungsklasse für spark.components.DataGrid.
+ 
+  <p>Wenn ein Spark DataGrid erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft des untergeordneten <codeph>focusOwner</codeph>-Elementobjekts auf eine Instanz dieser Klasse gesetzt. Die Accessibility-Implementierung wird auf dieses <codeph>focusOwner</codeph>-Platzhalterobjekt platziert, sodass die Accessibility-Implementierung des DataGrid nicht die Accessibility-Implementierung des Elementeditors verdeckt. Die DataGrid-Komponente selbst hat keine Accessibility-Implementierung. Dieser Schritt ist erforderlich, da die aktuelle Version von Flash Player nicht mehrere Ebenen von MSAA-Objekten unterstützt. Elementeditoren können alle Komponenten sein und müssen vollständige MSAA-Objekte sein. Diese Elementeditorobjekte erscheinen als dem DataGrid gleichgeordnete Objekte in der Baumstruktur. Die Accessibility-Implementierung für jeden Elementeditor wird daher von der mit dieser Komponente verknüpften Accessibility-Implementierung wie <codeph>CheckBoxAccImpl</codeph> für eine CheckBox verarbeitet. Die Accessibility-Implementierung des Elementeditors existiert nur in einer Elementeditorsitzung und es kann jeweils nur einen aktiven Elementeditor geben. Daher ist jeweils eine oder keine Instanz der Accessibility-Implementierung des Elementeditors aktiv.</p>
+ 
+  <p>Zwei Methoden werden in der <codeph>DataGrid</codeph>-Klasse überschrieben, um den Fokus zwischen <codeph>DataGrid</codeph> und dem untergeordneten <codeph>focusOwner</codeph>-Element von <codeph>DataGrid</codeph> ordnungsgemäß zu verarbeiten. Die <codeph>GridItemRenderer</codeph>-Klasse deaktiviert Accessibility für Elementrenderer, da diese standardmäßig als einfache Objekte unter der DataGrid-Accessibility-Implementierung verarbeitet werden. Während dies die Verwendung von Nicht-Elementeditorkomponenten wie CheckBox, Panel usw. in DataGrids einschränkt, wird verhindert, dass diese Elemente in der MSAA-Struktur als dem DataGrid gleichgeordnet erscheinen. Wenn alle Renderer für Rasterelemente in der MSAA-Struktur als dem DataGrid gleichgeordnete Elemente erscheinen, würde das für Benutzer von Bildschirmleseprogrammen sehr verwirrend sein, da es keinen Kontext und keine Beziehungen geben würde. Entwickler können dieses Standardverhalten gegebenenfalls natürlich überschreiben, um diese Renderer mit aktivierter Accessibility anzuzeigen.</p>
+ 
+  <p>Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, das DataGrid erkennen und ändern. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p>Das <codeph>DataGridAccImpl</codeph> erweitert den <codeph>ListBaseAccImpl</codeph> (wenn das <codeph>DataGrid</codeph> den <codeph>DataGridBase</codeph> erweitert, der die <codeph>ListBase</codeph>-Klasse erweitert). Spark <codeph>DataGridAccImpl</codeph> ähnelt MX <codeph>AdvancedDataGridAccImpl</codeph>, da das AdvancedDataGrid auch einzelne Zellen- und Zeilenauswahl unterstützt, die das MX DataGrid nicht unterstützte.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Die untergeordneten MSAA-Elemente eines DataGrid sind in folgender Reihenfolge angeordnet:</p>
+  <ul>
+  <li>Beginnend von links: ein untergeordnetes Element für jede sichtbare Kopfzeile. „Sichtbar“ bedeutet hier nicht vom Entwickler ausgeblendet (<codeph>column.visible=false</codeph>). Die Kopfzeile für eine Spalte, die vom Entwickler nicht als nicht sichtbar markiert wurde, die aber aus dem Bildschirm gescrollt ist, wird hier als „sichtbar“ betrachtet.</li>
+  <li>Im Zeilenauswahlmodus ein untergeordnetes Element für jede Datenzeile im Raster; ODER</li>
+  <li>Im Zellenauswahlmodus ein untergeordnetes Element für jede Zelle im Raster, unter Ausschluss von Zellen in nicht sichtbaren (wie gerade beschrieben) Spalten.</li>
+  </ul>
+ 
+  <p>Die Anzahl von untergeordneten Elementen beruht auf der Anzahl der Zeilen und Spalten im <codeph>dataProvider</codeph>, nicht auf der Anzahl der Elemente, die derzeit auf dem Bildschirm angezeigt werden.</p>
+ 
+  <p>Beachten Sie, dass im Gegensatz zu <codeph>ListBase</codeph> die untergeordnete DataGrid-Elementanzahl nicht die Anzahl von Datenzeilen im Steuerelement darstellt. Unterstützende Technologie sollte deshalb die Verwendung von <codeph>AccChildCount</codeph> zur Meldung der Zeilenanzahl vermeiden.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines DataGrid ist <codeph>ROLE_SYSTEM_LIST</codeph>.</p>
+ 
+  <p>Die Rolle jeder Datenzeile oder -zelle im DataGrid ist <codeph>ROLE_SYSTEM_LISTITEM</codeph>.</p>
+ 
+  <p>Die Rolle jeder Kopfzelle im DataGrid ist <codeph>ROLE_SYSTEM_COLUMNHEADER</codeph>.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines DataGrid ist standardmäßig ein leerer String. Wenn der Name in einem <codeph>FormItem</codeph>-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des DataGrid fest. Die Einstellung der <codeph>accessibilityName</codeph>-Eigenschaft wendet außerdem den barrierefreien Namen auf das untergeordnete <codeph>focusOwner</codeph>-Elementobjekt des DataGrid an, welches das DataGrid darstellt.</p>
+ 
+  <p>Der Name jeder Datenzeile (im Zeilenauswahlmodus) ist ein String in folgender Form: „_column1Name_: _column1Value_, _column2Name_: _column2Value_, ..., _columnNName_: _columnNValue_, Zeile _m_ von _n_.“ Spalten werden durch Kommas voneinander getrennt und Spaltennamen und -werte werden durch Doppelpunkte voneinander getrennt. Vom Entwickler ausgeblendete Spalten werden vollkommen aus dem Namensstring weggelassen. Beispielnamensstring: „Kontaktname: Doug, Kontakttelefonnummer: 555-1212, PLZ: 12345, Zeile 3 von 7.“</p>
+  <p>Beachten Sie, dass „Zeile _m_ von _n_“ lokalisiert ist. </p>
+ 
+  <p>Der Name jeder Datenzelle in Spalte 1 (im Zellenauswahlmodus) ist ein String in folgender Form: „_columnName_: _columnValue_, Zeile _m_ von _n_.“ Beispiel: „Kontakttelefonnummer: 555-1212, Zeile 2 von 5.“ Nachfolgende Spalten verwenden das gleiche Format, lassen allerdings den Teil „Zeile _m_ von _n_“ weg.</p>
+  <p>Beachten Sie, dass „Zeile _m_ von _n_“ lokalisiert ist. </p>
+ 
+  <p>Der Namensstring für eine Spaltenüberschrift (im Zellen- oder Zeilenauswahlmodus) ist normalerweise der Text der Überschrift. Beispiel: „Kontakttelefonnummer.“ Wenn das Raster allerdings nach der entsprechenden Spalte sortiert wird, wird der String „sortiert“ oder „absteigend sortiert“ an den Spaltennamen angehängt, um die Sortierung und ihre Richtung anzuzeigen. Beispiel: „Kontaktname sortiert“. Bei Mehrspalten-Sortierung werden Ebenenstrings ebenfalls angehängt, wobei die Spalte jeder Ebene in der Gruppe von Sortierungsspalten angezeigt wird. Wenn ein Raster beispielsweise zuerst nach Spalte 3 und dann nach Spalte 2 sortiert wird und Spalte 2 wird in absteigender Reihenfolge sortiert, endet der Name von Spalte 3 auf „sortiert Ebene 1“ und der Name von Spalte 2 endet auf „absteigend sortiert Ebene 2“. Die Strings, die die aufsteigende und absteigende Sortierung sowie die Sortierungsebene angeben, sind lokalisiert.</p>
+ 
+  <p>Wenn der Name des DataGrid oder eines seiner Elemente geändert wird, löst ein DataGrid das MSAA-Ereignis <codeph>EVENT_OBJECT_NAMECHANGE</codeph> aus – mit der richtigen childID für eine Zeile oder Zelle oder 0 für es selbst.</p>
+ 
+  <p>Wenn ein Accessibility-Name nicht für einen Elementeditor festgelegt wird, wird ein Name basierend auf dem Namen der Spaltenüberschrift für die Zelle festgelegt.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines DataGrid ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des DataGrid festlegen.</p>
+ 
+  <p>Die Beschreibung jeder Zeile, Zelle oder Überschrift ist der leere String und kann nicht von einem AccImpl festgelegt werden.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines DataGrid ist eine Kombination aus:</p>
+  <ul>
+  <li><codeph>STATE_SYSTEM_UNAVAILABLE</codeph> (wenn <codeph>enabled</codeph> den Wert <codeph>false</codeph> hat)</li>
+  <li><codeph>STATE_SYSTEM_FOCUSABLE</codeph> (wenn <codeph>enabled</codeph> den Wert <codeph>true</codeph> hat)</li>
+  <li><codeph>STATE_SYSTEM_FOCUSED</codeph> (wenn <codeph>enabled</codeph> den Wert <codeph>true</codeph> hat und das DataGrid den Fokus hat)</li>
+  <li><codeph>STATE_SYSTEM_MULTISELECTABLE</codeph> (wenn <codeph>allowMultipleSelection</codeph> den Wert „true“ hat)</li>
+  </ul>
+ 
+  <p>Der Status einer Datenzeile oder -zelle ist eine Kombination aus:</p>
+  <ul>
+  <li><codeph>STATE_SYSTEM_FOCUSABLE</codeph></li>
+  <li><codeph>STATE_SYSTEM_FOCUSED</codeph> (wenn im Fokus)</li>
+  <li><codeph>STATE_SYSTEM_OFFSCREEN</codeph> (wenn die Zeile oder Zelle aus dem Bildschirm gescrollt ist)</li>
+  <li><codeph>STATE_SYSTEM_SELECTABLE</codeph></li>
+  <li><codeph>STATE_SYSTEM_SELECTED</codeph> (wenn ausgewählt)</li>
+  </ul>
+ 
+  <p>Der Status einer Kopfzelle ist <codeph>STATE_SYSTEM_NORMAL</codeph>, da Kopfzellen möglicherweise keinen Fokus erhalten oder ausgewählt werden. Derzeit implementierte Kopfzellen melden möglicherweise das <codeph>STATE_SYSTEM_OFFSCREEN</codeph>-Ereignis nicht, selbst wenn das Raster selbst so bewegt wird, dass sich seine Überschriften außerhalb des Bildschirms befinden.</p>
+ 
+  <p>Wenn der Status des DataGrid oder eines seiner Elemente geändert wird, löst ein DataGrid das MSAA-Ereignis <codeph>EVENT_OBJECT_STATECHANGE</codeph> aus – mit der richtigen childID für die Zeile oder Zelle oder 0 für es selbst.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>DataGrids und ihre untergeordneten Elemente (Zeilen, Zellen und Überschriften) haben keine MSAA-Werte.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines DataGrid oder einer darin enthaltenen Zeile, Datenzelle oder Kopfzelle ist sein/ihr Begrenzungsrechteck. Die Position eines Elements, das derzeit nicht auf dem Bildschirm angezeigt wird, ist nicht festgelegt.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein DataGrid hat keine MSAA-DefaultAction. Die MSAA-DefaultAction für eine Zeile oder Zelle ist „Double Click“ und für eine Kopfzeile „Click“ und der entsprechende lokalisierte String wird zurückgegeben, wenn der String für die Standardaktion aufgerufen wird.</p>
+ 
+  <p>Bei der Durchführung der Standardaktion auf einer Datenzeile oder -zelle erhält diese den Fokus und wird ausgewählt und kann anderes Verhalten in Abhängigkeit von Zellen-/Zeilentyp verursachen. Bei der Durchführung der Standardaktion in einer Überschrift wird das Raster nach dieser Spalte sortiert. Wiederholte Standardaktionen in der Überschrift zeigen die Sortierreihenfolge abwechselnd aufsteigend oder absteigend an. Zum Zeitpunkt des Verfassens ist es unmöglich, über die AccImpl eine Sortierung auf mehreren Ebenen in verschiedenen Spalten gleichzeitig anzuordnen.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Wenn es kein bestimmtes Element (Zeile oder Zelle, abhängig vom Auswahlmodus) im Fokus mit dem Raster gibt, gibt der Fokus 0 zurück und zeigt an, dass das Raster selbst den Fokus besitzt. Das sollte nur passieren, wenn das Raster keine Daten enthält.</p>
+ 
+  <p>Wenn eine Zeile (Zeilenauswahlmodus) oder Zelle (Zellenauswahlmodus) den Fokus besitzt, gibt der Fokus die childID des Elements, das gerade den Fokus besitzt, zurück.</p>
+ 
+  <p>Wenn ein DataGrid Fokus erhält, löst das MSAA-Ereignis <codeph>EVENT_OBJECT_FOCUS</codeph> aus. Das Ereignis wird auch ausgelöst, wenn der Fokus zwischen Zeilen und Zellen im Raster verschoben wird.</p>
+ 
+  <p>Ein Fokusänderungsereignis wird für den Elementeditor ausgelöst, wenn er startet/erscheint. Ein Fokusänderungsereignis wird auf dem DataGrid ausgelöst, wenn der Elementeditor gespeichert oder geschlossen wird.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>In einem DataGrid können entweder eine einzelne Zeile oder Zelle oder mehrere Zeilen oder Zellen, abhängig von der <codeph>allowMultipleSelection</codeph>-Eigenschaft, ausgewählt werden. Auswahl gibt ein Array der Ganzzahl der childIDs der ausgewählten Elemente zurück.</p>
+ 
+  <p>Wenn ein Element exklusiv ausgewählt ist, löst es das MSAA-Ereignis <codeph>EVENT_OBJECT_SELECTION</codeph> aus. Wenn eine Zelle (Zellenauswahlmodus) oder Zeile (Zeilenauswahlmodus) zur aktuellen Auswahlgruppe hinzugefügt wird, lautet das ausgelöste Ereignis <codeph>EVENT_OBJECT_SELECTIONADD</codeph>. Wenn ein Element (Zelle oder Zeile) aus der Auswahl entfernt wird, lautet das ausgelöste Ereignis entsprechend <codeph>EVENT_OBJECT_SELECTIONREMOVE</codeph>. Wenn jede Auswahl gelöscht wird (egal wie viele Elemente ausgewählt wurden) oder eine select-all- oder select-region-Aktion durchgeführt wird, lautet das ausgelöste Ereignis <codeph>EVENT_OBJECT_SELECTIONWITHIN</codeph>. Jeder Auswahlvorgang, der nicht einer der oben aufgelisteten Auswahl entspricht, löst <codeph>EVENT_OBJECT_SELECTION</codeph> aus.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  <p><b>Auswählen</b></p>
+ 
+  <p>Die <codeph>accSelect</codeph>-Methode implementiert über MSAA gestellte Anfragen für Änderungen der Auswahl und/oder des Fokus im DataGrid. Die AccImpl für das DataGrid unterstützt das Festlegen des Fokus auf ein DataGrid selbst oder auf ein Datenelement oder auf eine Gruppe von Elementen (Zeile oder Zelle, abhängig vom Auswahlmodus) darin. Unterstützte Aktionen umfassen das Festlegen des Fokus, die exklusive Auswahl eines Elements und das Hinzufügen und Entfernen eines Elements oder einer Gruppe von Elementen aus der Auswahl, wie in der Microsoft Active Accessibility-Spezifikation definiert. Bei diesem Schreibvorgang kann die Verwendung von <codeph>accSelect</codeph> zur Erweiterung eines bereits ausgewählten mehrzelligen Bereichs im Mehrfachzellen-Auswahlmodus, um weitere Zeilen und Spalten gleichzeitig einschließen zu können, andere Ergebnisse erzielen als wenn dieselbe Aktion mit einer Maus durchgeführt wird.</p>
+ 
+  <p>Diese Eigenschaft wird nicht von der DataGrid Accessibility-Implementierung für Elementeditoren verarbeitet, da sich Elementeditoren selbst verwalten.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der DataGrid-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der DataGrid-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend DataGrid-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl ist die Accessibility-Implementierungsklasse für spark.components.CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl ist die Accessibility-Implementierungsklasse für spark.components.CheckBox.
+ 
+  <p>Wenn eine Spark-CheckBox erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, die CheckBox erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Eine CheckBox hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer CheckBox ist ROLE_SYSTEM_CHECKBOX.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer CheckBox ist standardmäßig die angezeigte Beschriftung. Wenn die Beschriftung in einem FormItem-Element eingeschlossen ist, wird sie mit der Beschriftung des FormItem kombiniert. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft der CheckBox fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst die CheckBox das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung einer CheckBox ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft der CheckBox festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer CheckBox ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und die CheckBox den Fokus hat)</li>
+    <li>STATE_SYSTEM_CHECKED (wenn „selected“ den Wert „true“ hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Name geändert wird, löst die CheckBox das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Eine CheckBox hat keinen MSAA-Wert.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position einer CheckBox ist ihr Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Die MSAA-DefaultAction einer CheckBox ist „Check“ oder „UnCheck“, je nachdem, ob sie aktuell markiert ist.</p>
+ 
+  <p>Wenn ein MSAA-Client die CheckBox anweist, diese Aktion auszuführen, werden KEY_DOWN- und KEY_UP-MouseEvents für die SPACE-Taste generiert, um das Markieren der CheckBox (wenn diese im aktiven Status ist) mithilfe der Tastatur zu simulieren.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Eine CheckBox kann den Fokus erhalten. Wenn dies der Fall ist, löst der RadioButton das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Eine CheckBox unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der CheckBox-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der CheckBox-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend CheckBox-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:RichEditableTextAccImpl"><apiName>RichEditableTextAccImpl</apiName><shortdesc>
+  RichEditableTextAccImpl ist die Accessibility-Implementierungsklasse für spark.components.RichEditableText.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RichEditableTextAccImpl ist die Accessibility-Implementierungsklasse für spark.components.RichEditableText.
+ 
+  <p>Wenn ein Spark-RichEditableText erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den RichEditableText erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein RichEditableText hat keine untergeordneten MSAA-Elemente.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines RichEditableText ist ROLE_SYSTEM_TEXT.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines RichEditableText ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des RichEditableText fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst der RichEditableText das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines RichEditableText ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des RichEditableText festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines RichEditableText ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der RichEditableText den Fokus hat)</li>
+    <li>STATE_SYSTEM_PROTECTED (wenn „displayAsPassword“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_READONLY (wenn „editable“ den Wert „false“ hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status geändert wird, löst der RichEditableText das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines RichEditableText stimmt mit seiner <codeph>text</codeph>-Eigenschaft überein.</p>
+ 
+  <p>Wenn der Wert geändert wird, löst der RichEditableText das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines RichEditableText ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein RichEditableText hat keine MSAA-DefaultAction.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein RichEditableText kann den Fokus erhalten. Wenn dies der Fall ist, löst der RichEditableText das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein RichEditableText unterstützt keine Auswahl im MSAA-Sinne und die Textauswahl ist nicht Teil der IAccessibility COM-Schnittstelle von Microsoft. Jedoch ist es ab Flash Player 10.1 möglich, dass Bildschirmleseprogramme den aktuell ausgewählten Textbereich über die <codeph>GetSelection()</codeph>-Methode der ISimpleTextSelection COM-Schnittstelle von Adobe ermitteln. Diese ruft die <codeph>selectionAnchorIndex</codeph>- und <codeph>selectionActiveIndex</codeph>-Getter dieser Klasse auf.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:RichEditableTextAccImpl:RichEditableTextAccImpl"><apiName>RichEditableTextAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:RichEditableTextAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der RichEditableText-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der RichEditableText-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend RichEditableText-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.accessibility:RichEditableTextAccImpl:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc>
+      Eine Zeichenposition, die relativ zum Anfang des Textstrings von RichEditableText ist und das Auswahlende angibt, das verschoben wird, wenn die Auswahl mit den Pfeiltasten erweitert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+     
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Eine Zeichenposition, die relativ zum Anfang des <codeph>text</codeph>-Strings von RichEditableText ist und das Auswahlende angibt, das verschoben wird, wenn die Auswahl mit den Pfeiltasten erweitert wird.
+     
+      <p>Die aktive Position kann entweder dem Anfang oder dem Ende der Auswahl entsprechen.</p>
+     
+      <p>Wenn Sie beispielsweise durch Ziehen und Auswählen Position 12 bis Position 8 markieren, ist <codeph>selectionAnchorPosition</codeph> 12 und <codeph>selectionActivePosition</codeph> 8, und wenn Sie die Nach-Links-Taste drücken, ist <codeph>selectionActivePosition</codeph> 7.</p>
+     
+      <p>Der Wert „-1“ bedeutet „nicht festgelegt“.</p>
+	 
+	  <p>Bei der Playerversion 10.1 und höher sowie AIR 2.0 und höher kann AccessibilityImplementation <codeph>selectionAnchorIndex</codeph> und <codeph>selectionAnchorIndex</codeph> implementieren, um einem Accessibility-Client die Textauswahl im TLF-Text über die ISimpleTextSelection-COM-Schnittstelle von Adobe mitzuteilen.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.accessibility.xml#RichEditableTextAccImpl/selectionAnchorIndex"><linktext>spark.accessibility.RichEditableTextAccImpl.selectionAnchorIndex</linktext></link><link href="spark.components.xml#RichEditableText/selectionActivePosition"><linktext>spark.components.RichEditableText.selectionActivePosition</linktext></link></related-links></apiValue><apiValue id="spark.accessibility:RichEditableTextAccImpl:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc>
+      Eine Zeichenposition, die relativ zum Anfang des Textstrings von RichEditableText ist und das Auswahlende angibt, das nicht veränderlich ist, wenn die Auswahl mit den Pfeiltasten erweitert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+     
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Eine Zeichenposition, die relativ zum Anfang des <codeph>text</codeph>-Strings von RichEditableText ist und das Auswahlende angibt, das nicht veränderlich ist, wenn die Auswahl mit den Pfeiltasten erweitert wird.
+     
+      <p>Die Ankerposition kann entweder dem Anfang oder dem Ende der Auswahl entsprechen.</p>
+     
+      <p>Wenn Sie beispielsweise durch Ziehen und Auswählen Position 12 bis Position 8 markieren, ist <codeph>selectionAnchorPosition</codeph> 12 und <codeph>selectionActivePosition</codeph> 8, und wenn Sie die Nach-Links-Taste drücken, ist <codeph>selectionActivePosition</codeph> 7.</p>
+     
+      <p>Der Wert „-1“ bedeutet „nicht festgelegt“.</p>
+	 
+	  <p>Bei der Playerversion 10.1 und höher sowie AIR 2.0 und höher kann AccessibilityImplementation <codeph>selectionAnchorIndex</codeph> und <codeph>selectionAnchorIndex</codeph> implementieren, um einem Accessibility-Client die Textauswahl im TLF-Text über die ISimpleTextSelection-COM-Schnittstelle von Adobe mitzuteilen.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.accessibility.xml#RichEditableTextAccImpl/selectionActiveIndex"><linktext>spark.accessibility.RichEditableTextAccImpl.selectionActiveIndex</linktext></link><link href="spark.components.xml#RichEditableText/selectionAnchorPosition"><linktext>spark.components.RichEditableText.selectionAnchorPosition</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl ist die Accessibility-Implementierungsklasse für spark.components.Panel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl ist die Accessibility-Implementierungsklasse für spark.components.Panel.
+ 
+  <p>Wenn ein Spark-Panel erstellt wird, wird die <codeph>accessibilityImplementation</codeph>-Eigenschaft eines speziellen untergeordneten Sprite auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, das Panel erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein Panel hat keine untergeordneten MSAA-Elemente. Alle untergeordneten Elemente des tatsächlichen Panel befinden sich in der MSAA-Struktur des FlashPlayer auf derselben Ebene wie das Panel, da Flash Player keine Objekte mit Accessibility-Implementierungen unterstützt, die untergeordnete Elemente mit eigenen Accessibility-Implementierungen haben.</p>
+ 
+  <p>PanelAccImpl wird als <codeph>accessibilityImplementation</codeph> des <codeph>titleDisplay</codeph>-Objekts festgelegt, da eine Festlegung beim Panel selbst die Zugänglichkeit der untergeordneten Elemente des Panel für MSAA verhindern würde. Deshalb wird im <codeph>titleDisplay</codeph> ein unsichtbares Rechteck in der Größe des gesamten Panel gezeichnet, sodass die MSAA-Position mit dem Begrenzungsrechteck des gesamten Panel übereinstimmt. Da die MSAA-Struktur flach ist, entnehmen Bildschirmleseprogramme wie JAWS die Information, ob eine Komponente Teil einer Gruppe ist, der MSAA-Position.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines Panel ist ROLE_SYSTEM_GROUPING.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines Panel ist standardmäßig der angezeigte Titel. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des Panel fest.</p>
+ 
+  <p>Wenn der Name geändert wird, löst das Panel das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines Panel ist standardmäßig der leere String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des Panel festlegen.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines Panel ist immer STATE_SYSTEM_NORMAL, d. h. es wird angegeben, dass keine Status-Flags gesetzt sind.</p>
+ 
+  <p>Da sich der Status nicht ändert, löst ein Panel nicht das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines Panel ist immer der leere String.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines Panel ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein Panel hat keine MSAA-DefaultAction.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein Panel kann keinen Fokus erhalten.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein Panel unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Panel-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Panel-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn später Panel-Instanzen initialisiert werden, wird die <codeph>accessibilityImplementation</codeph>-Eigenschaft eines speziellen ersten untergeordneten Sprite auf eine Instanz dieser Klasse gesetzt. Wenn PanelAccImpl dem Panel selbst zugeordnet würde, würden die Accessibility-Implementierungen der untergeordneten Elemente des Panel ignoriert.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:SpinnerAccImpl"><apiName>SpinnerAccImpl</apiName><shortdesc>
+  SpinnerAccImpl ist die Accessibility-Implementierungsklasse für spark.components.Spinner.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SpinnerAccImpl ist die Accessibility-Implementierungsklasse für spark.components.Spinner.
+ 
+  <p>Wenn ein Spark-Spinner erstellt wird, wird seine <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieser Klasse zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, den Spinner erkennen und ändern.. Weitere Hintergrundinformationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter den Klassen „mx.accessibility.AccImpl“ und „flash.accessibility.AccessibilityImplementation“.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Ein Spinner hat zwei untergeordnete MSAA-Elemente: die Buttons zum Inkrementieren und Dekrementieren.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle eines Spinner ist ROLE_SYSTEM_SPINBUTTON.</p>
+ 
+  <p>Die Rolle eines jeden untergeordneten Button ist ROLE_SYSTEM_PUSHBUTTON.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name eines Spinner ist standardmäßig ein leerer String. Wenn der Name in einem FormItem-Element eingeschlossen ist, entspricht er der Beschriftung des FormItem. Um dieses Verhalten zu überschreiben, legen Sie die <codeph>accessibilityName</codeph>-Eigenschaft des Spinner fest.</p>
+ 
+  <p>Der Name der untergeordneten Buttons kommt aus einer gebietsschemaabhängigen Ressource. Beim Gebietsschema en_US lauten die Namen „More“ und „Less“.</p>
+ 
+  <p>Wenn der Name des Spinner oder eines seiner untergeordneten Buttons geändert wird, löst der Spinner das MSAA-Ereignis EVENT_OBJECT_NAMECHANGE aus mit der richtigen childID für den Button oder 0 für ihn selbst.</p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung eines Spinner ist standardmäßig ein leerer String, Sie können jedoch die <codeph>accessibilityDescription</codeph>-Eigenschaft des Spinner festlegen.</p>
+ 
+  <p>Die Beschreibung eines jeden untergeordneten Button ist der leere String.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status eines Spinner ist eine Kombination aus:
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn „enabled“ den Wert „false“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSABLE (wenn „enabled“ den Wert „true“ hat)</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn „enabled“ den Wert „true“ und der Spinner den Fokus hat)</li>
+  </ul></p>
+ 
+  <p>Wenn der Status des Spinner oder eines seiner untergeordneten Buttons geändert wird, löst der Spinner das MSAA-Ereignis EVENT_OBJECT_STATECHANGE aus mit der richtigen childID für den Button oder 0 für ihn selbst.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert eines Spinner ist sein derzeitiger Wert.</p>
+ 
+  <p>Die untergeordneten Buttons haben keine MSAA-Werte.</p>
+ 
+  <p>Wenn der Wert des Spinner geändert wird, löst er das MSAA-Ereignis EVENT_OBJECT_VALUECHANGE aus.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position eines Spinner oder eines seiner untergeordneten Buttons ist sein Begrenzungsrechteck.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Ein Spinner hat keine MSAA-DefaultAction.</p>
+ 
+  <p>Die untergeordneten Buttons haben die DefaultAction „Press“.</p>
+ 
+  <p>Die Ausführung der Standardaktion bei einem der untergeordneten Buttons inkrementiert bzw. dekrementiert den Wert.</p>
+ 
+  <p><b>Fokus</b></p>
+ 
+  <p>Ein Spinner kann den Fokus erhalten. Wenn dies der Fall ist, löst der Spinner das MSAA-Ereignis EVENT_OBJECT_FOCUS aus.</p>
+ 
+  <p><b>Auswahl</b></p>
+ 
+  <p>Ein Spinner unterstützt keine Auswahl im MSAA-Sinne.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:SpinnerAccImpl:SpinnerAccImpl"><apiName>SpinnerAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:SpinnerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Spinner-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Spinner-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Spinner-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+    scaleGridLeft="4" scaleGridRight="24" scaleGridTop="4" scaleGridBottom="24">
+
+    <!-- invisible fix for scaling -->
+    <Rect x="0" y="0" width="28" height="28">
+        <fill>
+            <SolidColor color="#ffffff" alpha="0"/>
+        </fill>
+    </Rect>
+
+    <!-- border -->
+      <Path winding="nonZero" data="M28 24C28 26.209 26.209 28 24 28L4 28C1.79102 28 0 26.209 0 24L0 3.96924C0 1.76025 1.79102 0 4 0L24 0C26.209 0 28 1.76025 28 3.96924L28 24ZM27.3335 4C27.3335 2.15918 25.8418 0.666504 24 0.666504L4 0.666504C2.15918 0.666504 0.666504 2.15918 0.666504
+ 4L0.666504 24C0.666504 25.8418 2.15918 27.3335 4 27.3335L24 27.3335C25.8418 27.3335 27.3335 25.8418 27.3335 24L27.3335 4Z">
+        <fill>
+          <SolidColor color="#323232"/>
+        </fill>
+      </Path>
+
+    <!-- shadow fill -->
+      <Rect x="0.666504" y="0.666504" width="26.667" height="26.667" radiusX="3.33487" radiusY="3.33487">
+        <fill>
+          <LinearGradient x="13.3335" y="0" scaleX="15.0766" rotation="90">
+            <GradientEntry ratio="0" alpha="0.25"/>
+            <GradientEntry ratio="1" alpha="0"/>
+          </LinearGradient>
+        </fill>
+      </Rect>
+
+    <!-- inner highlight -->
+      <Path x="0.666504" y="0.666504" winding="nonZero" data="M23.3335 0.666992C24.8032 0.666992 26.0005 1.86328 26.0005 3.3335L26.0005 23.3335C26.0005 24.8032 24.8032 26.0005 23.3335 26.0005L3.3335 26.0005C1.86328 26.0005 0.666992 24.8032 0.666992 23.3335L0.666992 3.3335C0.666992 1.86328 1.86328 0.666992
+ 3.3335 0.666992L23.3335 0.666992ZM23.3335 0 3.3335 0C1.49268 0 0 1.49268 0 3.3335L0 23.3335C0 25.1753 1.49268 26.667 3.3335 26.667L23.3335 26.667C25.1753 26.667 26.667 25.1753 26.667 23.3335L26.667 3.3335C26.667 1.49268 25.1753 0 23.3335 0L23.3335
+ 0Z">
+        <fill>
+          <LinearGradient x="13.3335" y="0.666504" scaleX="25.334" rotation="90">
+            <GradientEntry ratio="0" color="#FFFFFF" alpha="0.05"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.1"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+
+</Graphic>

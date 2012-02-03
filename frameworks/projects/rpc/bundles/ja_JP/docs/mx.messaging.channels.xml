@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.channels"><apiName>mx.messaging.channels</apiName><apiDetail/><apiClassifier id="mx.messaging.channels:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+  HTTPChannel クラスは、メッセージング用の HTTP サポートを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTTPChannel クラスは、メッセージング用の HTTP サポートを提供します。 このチャンネルは、サーバープッシュにほぼ応じた間隔でサーバーをポーリングするように設定することができます。 ポーリングを無効にした状態でこのチャンネルを使用すると、リモート宛先に RPC メッセージを送信してリモート宛先のメソッドを呼び出すことができます。
+ 
+  <p>
+  HTTPChannel は Flash Player および AIR に備わっているネットワークサービスに依存し、URLLoader クラスによって ActionScript に公開されます。 このチャンネルでは URLLoader が排他的に使用され、要求ごとに新しい URLLoader が作成されます。
+  </p>
+ 
+  <p>
+  チャンネルは、<codeph>ServerConfig.getChannel()</codeph> メソッドによってフレームワーク内で作成されます。 必要に応じて、チャンネルを直接作成し、ChannelSet に割り当てることができます。
+  </p>
+ 
+  <p>
+  チャンネルは、リモートエンドポイントへの物理接続を表します。 デフォルトでは、複数の宛先の間でチャンネルが共有されます。 つまり、複数の宛先をターゲットとしているクライアントでは、それらの宛先との通信に同一のチャンネルを使用することがあります。
+  </p>
+ 
+  <p>
+  このチャンネルをポーリングモードで使用すると、設定ファイル内の <codeph>polling-interval-seconds</codeph> プロパティに基づいて、サーバーに対する新しいメッセージのポーリングが行われます。この動作は、<codeph>pollingInterval</codeph> プロパティを設定すると変更できます。 デフォルト値は 3 秒です。 ポーリングを有効にするには、チャンネルを接続して、設定ファイル内の <codeph>polling-enabled</codeph> プロパティを <codeph>true</codeph> に設定するか、チャンネルの <codeph>pollingEnabled</codeph> プロパティを <codeph>true</codeph> に設定する必要があります。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:HTTPChannel:HTTPChannel"><apiName>HTTPChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:HTTPChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      未処理のポーリングが進行中でないときに、このチャンネルがポーリング要求と通常の送信要求を一緒に送るかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      未処理のポーリングが進行中でないときに、このチャンネルがポーリング要求と通常の送信要求を一緒に送るかどうかを示します。 これにより、サーバーはクライアント向けのデータとクライアントのメッセージへの応答を一緒に送ることができます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      このチャンネルでポーリングが有効であるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルでポーリングが有効であるかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      このチャンネルのポーリング間隔へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>pollingInterval に 0 以下の値が割り当てられている場合。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      このチャンネルのポーリング間隔へのアクセスを提供します。 値はミリ秒単位です。 この値は、サーバープッシュに合わせて、このチャンネルがサーバーにメッセージを要求する頻度を決定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      チャンネルがアクティブにポーリングしているかどうかを報告します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      チャンネルがアクティブにポーリングしているかどうかを報告します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:HTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（http）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（http）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+  サーバーへの内部 HTTP 接続をオープンしてサーバーによるクライアントへのデータストリーミングをポーリングのオーバーヘッドなしに可能にするために、ストリーミングチャンネルによって使用されるヘルパークラス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  サーバーへの内部 HTTP 接続をオープンしてサーバーによるクライアントへのデータストリーミングをポーリングのオーバーヘッドなしに可能にするために、ストリーミングチャンネルによって使用されるヘルパークラス。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.channels:StreamingConnectionHandler_flash.events.StatusEvent_status"><apiName>status</apiName><shortdesc>
+  StreamingConnectionHandler がサーバーから ステータスコマンドを受け取ったときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.StatusEvent</apiEventType><adobeApiEventClassifier>flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  StreamingConnectionHandler がサーバーから ステータスコマンドを受け取ったときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.channels:StreamingConnectionHandler:StreamingConnectionHandler"><apiName>StreamingConnectionHandler</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>このクラスを使用する Channel です。
+	  </apiDesc></apiParam><apiParam><apiItemName>log</apiItemName><apiType value="mx.logging:ILogger"/><apiDesc>関連付けられた Channel のロガーへの参照。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:closeStreamingConnection"><apiName>closeStreamingConnection</apiName><shortdesc>
+      ストリーミング接続を切断するために、ストリーミングチャンネルによって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ストリーミング接続を切断するために、ストリーミングチャンネルによって使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:openStreamingConnection"><apiName>openStreamingConnection</apiName><shortdesc>
+      必要に応じてストリーミング接続を設定し、サーバーに対してオープン要求を発行するために、ストリーミングチャンネルによって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>appendToURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ストリーミング接続要求を行うときにエンドポイント URL に追加する、セッション ID などのストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      必要に応じてストリーミング接続を設定し、サーバーに対してオープン要求を発行するために、ストリーミングチャンネルによって使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:StreamingConnectionHandler:protected:readMessage"><apiName>readMessage</apiName><shortdesc>
+      メッセージを読むために、streamProgressHandler によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>読まれたメッセージを返します。
+	 
+	  </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      メッセージを読むために、streamProgressHandler によって使用されます。デフォルトの実装は null を返します。サブクラスはこのメソッドをオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:StreamingConnectionHandler:DISCONNECT_CODE"><apiName>DISCONNECT_CODE</apiName><shortdesc>
+      サーバーから切断コマンドを受け取ったときに、このハンドラーによって送出される StatusEvent のコードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>disconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      サーバーから切断コマンドを受け取ったときに、このハンドラーによって送出される StatusEvent のコードです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:channel"><apiName>channel</apiName><shortdesc>
+     このクラスを使用する Channel です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+     このクラスを使用する Channel です。
+  	 
+  	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:chunkBuffer"><apiName>chunkBuffer</apiName><shortdesc>
+      リモートエンドポイントからの現在のチャンクを格納するために使用されるバイトバッファーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      リモートエンドポイントからの現在のチャンクを格納するために使用されるバイトバッファーです。 チャンク全体がバッファーされると、バイナリ AMF 形式でエンコードされたメッセージインスタンスをチャンクから読み出して送出できるようになります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataBytesToRead"><apiName>dataBytesToRead</apiName><shortdesc>
+      現在のチャンクから読み出す残りデータバイト数の変化を記録するカウンターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      現在のチャンクから読み出す残りデータバイト数の変化を記録するカウンターです。 -1 というセンチネル値は、初期状態（最初のチャンクの待ち状態か、直前のチャンクの解析を終えた状態のいずれか）を示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:StreamingConnectionHandler:protected:dataOffset"><apiName>dataOffset</apiName><shortdesc>
+      チャンクデータの最初のバイトを指すチャンクバッファーのインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      チャンクデータの最初のバイトを指すチャンクバッファーのインデックスです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+  SecureStreamingHTTPChannel クラスは StreamingHTTPChannel クラスと基本的に同じですが、HTTP エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingHTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureStreamingHTTPChannel クラスは StreamingHTTPChannel クラスと基本的に同じですが、HTTP エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingHTTPChannel:SecureStreamingHTTPChannel"><apiName>SecureStreamingHTTPChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（https）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（https）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+  StreamingHTTPChannel クラスはメッセージングをサポートし、基本クラス HTTPChannel とは異なるプッシュモデルを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StreamingHTTPChannel クラスはメッセージングをサポートし、基本クラス HTTPChannel とは異なるプッシュモデルを提供します。 ストリーミングチャンネルは、サーバーからデータをポーリングするのではなく、サーバーへの内部 HTTP 接続をオープンして、サーバーからクライアントへのデータストリーミングをポーリングのオーバーヘッドなしに行えるようにします。
+   <p>
+  このチャンネルによってサーバーに送信されるメッセージは、その処理の間、内部的に HTTP 接続を使用する URLLoader を使用して送信されます。 メッセージが送信されて応答または失敗が返されると、URLLoader で使用されている HTTP 接続はチャンネルによって解放されます。 これらのクライアントからサーバーへのメッセージは、サーバーのプッシュしたデータを受け取るためにチャンネルが開いているストリーミング HTTP 接続を通じて送信されるわけではありません。
+  </p>
+   <p>
+  このクラスは基本クラス HTTPChannel を拡張して通常の HTTP 処理を継承していますが、ポーリングはサポートしていません。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingHTTPChannel:StreamingHTTPChannel"><apiName>StreamingHTTPChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingHTTPChannel:poll"><apiName>poll</apiName><shortdesc>
+      ポーリングはこのチャンネルではサポートされていません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ポーリングはこのチャンネルではサポートされていません。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+  SecureStreamingAMFChannel クラスは StreamingAMFChannel クラスと基本的に同じですが、AMF エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:StreamingAMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureStreamingAMFChannel クラスは StreamingAMFChannel クラスと基本的に同じですが、AMF エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureStreamingAMFChannel:SecureStreamingAMFChannel"><apiName>SecureStreamingAMFChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureStreamingAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（https）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（https）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+  PollingChannel クラスは、メッセージングシステム内のすべてのポーリングチャンネルで必要となるポーリング動作を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Channel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PollingChannel クラスは、メッセージングシステム内のすべてのポーリングチャンネルで必要となるポーリング動作を提供します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:PollingChannel:PollingChannel"><apiName>PollingChannel</apiName><shortdesc>
+      指定された ID を持つ新しい PollingChannel インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定された ID を持つ新しい PollingChannel インスタンスを作成します。PollingChannel は接続してポーリングを開始すると、デフォルトで 3 秒ごとにポーリング要求を発行します。 
+     
+      <p><b>メモ：</b> PollingChannel のタイプは直接作成しないでください。 代わりに、PollingChannel を拡張するプロトコル固有のサブクラス（HTTPChannel や AMFChannel など）のインスタンスを作成します。</p>
+     
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:PollingChannel:disablePolling"><apiName>disablePolling</apiName><shortdesc>
+      enablePolling() および disablePolling() が呼び出された回数に基づいてポーリングを無効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>enablePolling()</codeph> および <codeph>disablePolling()</codeph> が呼び出された回数に基づいてポーリングを無効にします。 最終結果としてポーリングが無効になった場合、チャンネルのポーリングが停止します。
+      <p>PollingChannel を通じたリモート宛先へのサブスクライブまたはサブスクライブ解除に基づいて自動的に呼び出されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:enablePolling"><apiName>enablePolling</apiName><shortdesc>
+      enablePolling() および disablePolling() が呼び出された回数に基づいてポーリングを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>enablePolling()</codeph> および <codeph>disablePolling()</codeph> が呼び出された回数に基づいてポーリングを有効にします。 最終結果としてポーリングが有効になった場合、接続している MessageAgent に代わってチャンネルがサーバーに対するポーリングを行います。
+      <p>PollingChannel を通じたリモート宛先へのサブスクライブまたはサブスクライブ解除に基づいて自動的に呼び出されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:poll"><apiName>poll</apiName><shortdesc>
+      このチャンネルにサブスクライブしているコンシューマが存在し、このチャンネルでポーリングが有効な場合に、ポーリング処理を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このチャンネルにサブスクライブしているコンシューマが存在し、このチャンネルでポーリングが有効な場合に、ポーリング処理を開始します。 現在進行中のポーリング処理がある場合、このメソッドは新しいポーリング処理を開始しません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.channels:PollingChannel:send"><apiName>send</apiName><shortdesc>
+	  指定されたメッセージをターゲットの宛先に送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiException><apiDesc>MessageAgent とメッセージのいずれにも宛先が指定されていない場合。
+	  
+	  </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>メッセージを送信している MessageAgent です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  指定されたメッセージをターゲットの宛先に送信します。 実際の送信を実行するには、サブクラスで <codeph>internalSend()</codeph> メソッドをオーバーライドする必要があります。 <codeph>PollingChannel</codeph> は、ポーリングが現在未処理でない場合、送信メッセージをポーリング要求にラップします。
+     
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.channels:PollingChannel:protected:LOGIN_AFTER_DISCONNECT"><apiName>LOGIN_AFTER_DISCONNECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>login-after-disconnect</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:PIGGYBACKING_ENABLED"><apiName>PIGGYBACKING_ENABLED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>piggybacking-enabled</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_LEGACY"><apiName>POLLING_INTERVAL_LEGACY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:PollingChannel:protected:POLLING_INTERVAL_MILLIS"><apiName>POLLING_INTERVAL_MILLIS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>polling-interval-millis</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+  SecureAMFChannel クラスは AMFChannel クラスと基本的に同じですが、AMF エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureAMFChannel クラスは AMFChannel クラスと基本的に同じですが、AMF エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureAMFChannel:SecureAMFChannel"><apiName>SecureAMFChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureAMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（https）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（https）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+  StreamingAMFChannel クラスはメッセージングをサポートし、基本クラス AMFChannel とは異なるプッシュモデルを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:AMFChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StreamingAMFChannel クラスはメッセージングをサポートし、基本クラス AMFChannel とは異なるプッシュモデルを提供します。 ストリーミングチャンネルは、サーバーからデータをポーリングするのではなく、サーバーへの内部 HTTP 接続をオープンして、サーバーからクライアントへのデータストリーミングをポーリングのオーバーヘッドなしに行えるようにします。
+   <p>
+  このチャンネルによってサーバーに送信されるメッセージは、その処理の間、内部的に HTTP 接続を使用する NetConnection を使用して送信されます。 メッセージが送信されて応答または失敗が返されると、NetConnection で使用されている HTTP 接続はチャンネルによって解放されます。 これらのクライアントからサーバーへのメッセージは、サーバーのプッシュしたデータを受け取るためにチャンネルが開いているストリーミング HTTP 接続を通じて送信されるわけではありません。
+  </p>
+   <p>
+  このクラスは基本クラス AMFChannel を拡張して通常の AMF 処理を継承していますが、ポーリングはサポートしていません。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:StreamingAMFChannel:StreamingAMFChannel"><apiName>StreamingAMFChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+           </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.channels:StreamingAMFChannel:poll"><apiName>poll</apiName><shortdesc>
+      ポーリングはこのチャンネルではサポートされていません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ポーリングはこのチャンネルではサポートされていません。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.messaging.channels:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+  SecureHTTPChannel クラスは HTTPChannel クラスと基本的に同じですが、HTTP エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:HTTPChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SecureHTTPChannel クラスは HTTPChannel クラスと基本的に同じですが、HTTP エンドポイントへのメッセージ送信にセキュアなプロトコル（HTTPS）を使用する点が異なります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:SecureHTTPChannel:SecureHTTPChannel"><apiName>SecureHTTPChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:SecureHTTPChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（https）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（https）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+  この NetConnectionChannel は、メッセージング用の基本的な NetConnection サポートを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:PollingChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  この NetConnectionChannel は、メッセージング用の基本的な NetConnection サポートを提供します。 AMFChannel と RTMPChannel はどちらもこのクラスを拡張します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:NetConnectionChannel:NetConnectionChannel"><apiName>NetConnectionChannel</apiName><shortdesc>
+      新しい NetConnectionChannel インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      新しい NetConnectionChannel インスタンスを作成します。
+      <p>
+      基となる NetConnection の <codeph>objectEncoding</codeph> はデフォルトで <codeph>ObjectEncoding.AMF3</codeph> に設定されます。 この設定は、チャンネルの <codeph>netConnection</codeph> プロパティにアクセスして、手動で変更することができます。 グローバルな <codeph>NetConnection.defaultObjectEncoding</codeph> 設定は、このチャンネルでは使用されません。
+      </p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:NetConnectionChannel:netConnection:get"><apiName>netConnection</apiName><shortdesc>
+      このチャンネルに関連付けられた NetConnection へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.net:NetConnection"/></apiValueDef><apiDesc>
+      このチャンネルに関連付けられた NetConnection へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.channels:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+  AMFChannel クラスは、メッセージング用の AMF サポートを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.channels:NetConnectionChannel</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AMFChannel クラスは、メッセージング用の AMF サポートを提供します。 このチャンネルは、サーバープッシュにほぼ応じた間隔でサーバーをポーリングするように設定することができます。 ポーリングを無効にした状態でこのチャンネルを使用すると、リモート宛先に RPC メッセージを送信してリモート宛先のメソッドを呼び出すことができます。
+ 
+  <p>
+  AMFChannel は Flash Player および AIR に備わっているネットワークサービスに依存し、NetConnection クラスによって ActionScript に公開されます。 このチャンネルでは NetConnection が排他的に使用され、インスタンスごとに新しい NetConnection が作成されます。
+  </p>
+ 
+  <p>
+  チャンネルは、<codeph>ServerConfig.getChannel()</codeph> メソッドによってフレームワーク内で作成されます。 必要に応じて、チャンネルを直接作成し、ChannelSet に割り当てることができます。
+  </p>
+ 
+  <p>
+  チャンネルは、リモートエンドポイントへの物理接続を表します。 デフォルトでは、複数の宛先の間でチャンネルが共有されます。 つまり、複数の宛先をターゲットとしているクライアントでは、それらの宛先との通信に同一のチャンネルを使用することがあります。
+  </p>
+ 
+  <p>
+  このチャンネルをポーリングモードで使用すると、設定ファイル内の <codeph>polling-interval-seconds</codeph> プロパティに基づいて、サーバーに対する新しいメッセージのポーリングが行われます。この動作は、<codeph>pollingInterval</codeph> プロパティを設定すると変更できます。 デフォルト値は 3 秒です。 ポーリングを有効にするには、チャンネルを接続して、設定ファイル内の <codeph>polling-enabled</codeph> プロパティを <codeph>true</codeph> に設定するか、チャンネルの <codeph>pollingEnabled</codeph> プロパティを <codeph>true</codeph> に設定する必要があります。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.channels:AMFChannel:AMFChannel"><apiName>AMFChannel</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの URI です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.channels:AMFChannel:piggybackingEnabled:get"><apiName>piggybackingEnabled</apiName><shortdesc>
+      未処理のポーリングが進行中でないときに、このチャンネルがポーリング要求と通常の送信要求を一緒に送るかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      未処理のポーリングが進行中でないときに、このチャンネルがポーリング要求と通常の送信要求を一緒に送るかどうかを示します。 これにより、サーバーはクライアント向けのデータとクライアントのメッセージへの応答を一緒に送ることができます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingEnabled:get"><apiName>pollingEnabled</apiName><shortdesc>
+      このチャンネルでポーリングが有効であるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルでポーリングが有効であるかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:pollingInterval:get"><apiName>pollingInterval</apiName><shortdesc>
+      このチャンネルのポーリング間隔へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiException><apiDesc>pollingInterval に 0 以下の値が割り当てられている場合。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      このチャンネルのポーリング間隔へのアクセスを提供します。 値はミリ秒単位です。 この値は、サーバープッシュに合わせて、このチャンネルがサーバーにメッセージを要求する頻度を決定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:polling:get"><apiName>polling</apiName><shortdesc>
+      チャンネルがアクティブにポーリングしているかどうかを報告します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      チャンネルがアクティブにポーリングしているかどうかを報告します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.channels:AMFChannel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      このチャンネルのプロトコル（http）を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのプロトコル（http）を返します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

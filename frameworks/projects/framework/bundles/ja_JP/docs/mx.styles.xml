@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.styles"><apiName>mx.styles</apiName><apiDetail/><apiClassifier id="mx.styles:IStyleManager"><apiName>IStyleManager</apiName><shortdesc>
+  IStyleManager クラスでは、クラスが継承する CSS スタイルプロパティ、カラーであり特殊な処理を必要とするスタイルプロパティ、およびカラー値のエイリアスであるストリングのリストが管理されます。このインターフェイスは、Flex 2.0.1 で使用されていました。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="2.0.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IStyleManager クラスでは次の事項が管理されます。
+  <ul>
+    <li>クラスがどの CSS スタイルプロパティを継承するか</li>
+    <li>どのスタイルプロパティがカラーであり、特殊な処理を必要とするか</li>
+    <li>カラー値のエイリアスであるストリングのリスト</li>
+  </ul>
+ 
+  このインターフェイスは、Flex 2.0.1 で使用されていました。Flex 3 では、代わりに IStyleManager2 が使用されています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトをクリアします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>クリアする CSS セレクターの名前です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このメソッドの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトをクリアします。
+     
+      <p>指定したセレクターがクラスセレクター（".bigMargins" や ".myStyle" など）の場合、<codeph>selector</codeph> プロパティの先頭をピリオド（.）にする必要があります。</p>
+     
+      <p>指定したセレクターがタイプセレクター（"Button" など）の場合、<codeph>selector</codeph> プロパティの先頭をピリオドにしないでください。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      指定されたカラーストリングに対応する RGB カラー数値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>カラー値を表す uint か <codeph>NOT_A_COLOR</codeph> を返します。後者は、<codeph>colorName</codeph> プロパティの値がカラーのエイリアスでない場合に返されます。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>カラー名です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたカラーストリングに対応する RGB カラー数値を返します。 カラーストリングは、<codeph>"red"</codeph>、<codeph>"Blue"</codeph>、<codeph>"haloGreen"</codeph> などの大文字と小文字を区別しないカラー名、0xFF0000 などの 16 進数値、または <codeph>"#FF0000"</codeph> などの #-16 進数のストリングです。
+     
+      <p>このメソッドは、カラーを表す 4521830 などの uint を返します。 この uint を 16 進数値に変換するには、次の例のように、基数（この場合は 16）を uint クラスの <codeph>toString()</codeph> メソッドに渡します。</p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      カラー配列の各エレメントを、カラー名から RGB カラー数値に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>カラー名の配列です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      カラー配列の各エレメントを、カラー名から RGB カラー数値に変換します。 各カラーストリングは、<codeph>"red"</codeph>、<codeph>"Blue"</codeph>、<codeph>"haloGreen"</codeph> などの大文字と小文字を区別しないカラー名、0xFF0000 などの 16 進数値、または <codeph>"#FF0000"</codeph> などの #-16 進数のストリングです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>名前が <codeph>selector</codeph> プロパティと一致するスタイル宣言です。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS セレクターの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオド（.）である場合は、戻される CSSStyleDeclaration はクラスセレクターであり、<codeph>styleName</codeph> プロパティがそのクラスセレクター（ピリオドを含まないもの）を指定するインスタンスにのみ適用されます。 例えば、クラスセレクター <codeph>".bigMargins"</codeph> は、<codeph>styleName</codeph> が <codeph>"bigMargins"</codeph> であるすべての UIComponent に適用されます。</p>
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオドではない場合は、戻される CSSStyleDeclaration はタイプセレクターであり、該当タイプのすべてのインスタンスに適用されます。 例えば、タイプセレクター <codeph>"Button"</codeph> は、Button とそのサブクラスのすべてのインスタンスに適用されます。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      指定されたストリングがカラー値のエイリアスかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは、<codeph>colorName</codeph> がカラーのエイリアスの場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>テストするカラー名です。 このパラメーターでは大文字と小文字が区別されません。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたストリングがカラー値のエイリアスかどうかをテストします。 例えば、ストリング "blue" はデフォルトで 0x0000FF のエイリアスになっています。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      スタイルが継承されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定のスタイルが継承スタイルである場合、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>継承されるかどうかをテストするスタイルの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルが継承されるかどうかをテストします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      TextFormat スタイルが継承されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定の TextFormat スタイルが継承スタイルである場合、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>継承されるかどうかをテストするスタイルの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      TextFormat スタイルが継承されるかどうかをテストします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      このスタイルがコンポーネントの親コンテナに反映され、このスタイルが変更されたときに親コンテナが必ず再描画されるようになるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定のスタイルがコンポーネントの親コンテナの外観またはレイアウトに影響する可能性がある場合に <codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このスタイルがコンポーネントの親コンテナに反映され、このスタイルが変更されたときに親コンテナが必ず再描画されるようになるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、子の再描画または再レイアウトのために、コンポーネントの親コンテナに対して <codeph>invalidateDisplayList()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      スタイルでコンポーネントの親コンテナが変更されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定のスタイルがコンポーネントの親コンテナの測定サイズに影響する可能性がある場合に <codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルでコンポーネントの親コンテナが変更されるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントの親コンテナに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      スタイルでコンポーネントのサイズが変更されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定のスタイルがコンポーネントの測定サイズに影響する可能性がある場合は、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルでコンポーネントのサイズが変更されるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> メソッドにより設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      指定されたパラメーターが有効なスタイルプロパティかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>getStyle()</codeph> メソッドの呼び出しから返された値をこのメソッドに渡すと、スタイルが設定されていれば <codeph>true</codeph>、スタイルが設定されていなければ <codeph>false</codeph> を返します。
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>テストするスタイルプロパティです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたパラメーターが有効なスタイルプロパティかどうかを判別します。 次に実際の使用例を示します。
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>一部のスタイルは、0、<codeph>NaN</codeph>、空のストリング（<codeph>""</codeph>）、<codeph>null</codeph> など、<codeph>if (value)</codeph> テストで不合格になる可能性のある値に設定されることがあるので、この機能が役立つ場合があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      スタイル SWF をロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>StyleEvent.PROGRESS、StyleEvent.COMPLETE、および StyleEvent.ERROR をサポートする IEventDispatcher の実装です。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>スタイル SWF の場所です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このパラメーターはオプションで、デフォルトは <codeph>true</codeph> です。このパラメーターの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>廃止されて現在は使用されていません。 このパラメーターはオプションで、デフォルトは <codeph>false</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>スタイル SWF をロードする IModuleInfo の <codeph>load()</codeph> メソッドに渡される ApplicationDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>スタイル SWF をロードする IModuleInfo の <codeph>load()</codeph> メソッドに渡される SecurityDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイル SWF をロードします。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      カラーのエイリアスのリストにカラー名を追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>リストに追加するカラーの名前（"blue" など）です。 後からこのカラー名にアクセスする場合、この値では大文字と小文字が区別されません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>カラー値（例: 0x0000FF）
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      カラーのエイリアスのリストにカラー名を追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      親から値を継承できるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>値を継承できるスタイルのリストに追加されるスタイルの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      親から値を継承できるスタイルのリストに追加します。
+     
+      <p><b>メモ：</b>スタイル名は重複しないようにします。重複していると、既に使用されているスタイルが継承されたときに、名前が競合してパフォーマンスが低下することがあります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの親コンテナの外観またはレイアウトに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>登録するスタイルの名前。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの親コンテナの外観またはレイアウトに影響する可能性のあるスタイルのリストに追加します。 これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、子の再描画または再レイアウトのために、コンポーネントの親コンテナに対して <codeph>invalidateDisplayList()</codeph> メソッドが自動的に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの親コンテナの測定サイズに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>登録するスタイルの名前。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの親コンテナの測定サイズに影響する可能性のあるスタイルのリストに追加します。
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントの親コンテナに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの測定サイズに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>リストに追加するスタイルの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの測定サイズに影響する可能性のあるスタイルのリストに追加します。 これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS セレクターの名前です。
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>新しいスタイル宣言です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>スタイルを強制的に即時更新すには、<codeph>true</codeph> に設定します。内部的には、UIComponent の <codeph>styleChanged()</codeph> メソッドが呼び出されます。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。
+     
+      <p>スタイルは、次回、次のいずれかのメソッドが <codeph>update</codeph> プロパティを <codeph>true</codeph> に設定して呼び出されるときに更新されます。
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>通常、これらのいずれかのメソッドを複数回呼び出す場合は、最後の呼び出し時にのみこのプロパティを <codeph>true</codeph> に設定します。こうすると、<codeph>styleChanged()</codeph> メソッドが複数回呼び出されることはありません。</p>
+     
+      <p><codeph>getStyle()</codeph> メソッドを呼び出したときは、<codeph>styleChanged()</codeph> メソッドの呼び出しによって UIComponent に最後に適用されたスタイル値が返されます。 コンポーネントの外観が <codeph>getStyle()</codeph> メソッドによって返される値を反映していない場合があります。 これが発生するのは、これらのスタイル宣言メソッドのいずれかが、<codeph>update</codeph> プロパティが <codeph>true</codeph> に設定された状態で呼び出されていないためです。</p>
+      
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを設定します。
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオド（.）である場合は、指定されるセレクターはクラスセレクターで、<codeph>styleName</codeph> プロパティがそのクラスセレクター（ピリオドを含まないもの）を指定しているインスタンスにのみ適用されます。 例えば、クラスセレクター <codeph>".bigMargins"</codeph> は、<codeph>styleName</codeph> が <codeph>"bigMargins"</codeph> であるすべての UIComponent に適用されます。</p>
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオドではない場合は、指定されるセレクターは "タイプセレクター" で、該当タイプのすべてのインスタンスに適用されます。 例えば、タイプセレクター <codeph>"Button"</codeph> は、Button とそのサブクラスのすべてのインスタンスに適用されます。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      スタイル SWF をアンロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>スタイル SWF の場所です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このメソッドの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイル SWF をアンロードします。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+  特定のプロパティに基づいてコンポーネントのサブセットを照合するために使用される CSSSelector の条件を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  特定のプロパティに基づいてコンポーネントのサブセットを照合するために使用される CSSSelector の条件を表します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links><apiConstructor id="mx.styles:CSSCondition:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>kind</apiItemName><apiType value="String"/><apiDesc>条件の種類です。有効な値については、CSSConditionKind の列挙を参照してください。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>条件の値です（CSS シンタックスなし）。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSCondition:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      この条件が特定のコンポーネントと一致するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>コンポーネントが一致する場合は true、それ以外の場合は false です。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>条件を適用できるコンポーネントです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この条件が特定のコンポーネントと一致するかどうかを示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSCondition:toString"><apiName>toString</apiName><shortdesc>
+     この条件のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この条件のストリング表現です（CSS シンタックスを含む）。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     この条件のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSCondition:kind:get"><apiName>kind</apiName><shortdesc>
+      このインスタンスが表す条件の種類です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このインスタンスが表す条件の種類です。有効な値は、class、id、および pseudo です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links></apiValue><apiValue id="mx.styles:CSSCondition:specificity:get"><apiName>specificity</apiName><shortdesc>
+      セレクターチェーンに含まれる条件付きセレクターの特異性を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      セレクターチェーンに含まれる条件付きセレクターの特異性を計算します。特異性の合計は、一致する複数のスタイル宣言を適用するときの優先順位を決定するために使用されます。id 条件には 100 ポイント、pseudo 条件と class 条件にはそれぞれ 10 ポイントが付与されます。特異性の高いセレクターは、特異の低いセレクターよりも優先されます。セレクターの特異性が等しい場合は、宣言の順序によって優先順位が決まります（つまり、最後の宣言が優先されます）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSCondition:value:get"><apiName>value</apiName><shortdesc>
+      CSS シンタックスを含まない、この条件の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      CSS シンタックスを含まない、この条件の値です。CSS シンタックスを含むストリング表現を取得するには、<codeph>toString()</codeph> メソッドを呼び出します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleModule"><apiName>IStyleModule</apiName><shortdesc>
+ スタイルモジュールを操作するための簡単なインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ スタイルモジュールを操作するための簡単なインターフェイスです。オブジェクトは IStyleModule 型にキャストできるので、アプリケーションをロードする際に StyleModule 型への依存関係はありません。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:setStyleDeclarations"><apiName>setStyleDeclarations</apiName><shortdesc>
+      スタイルモジュールからスタイル宣言を作成して、指定したスタイルマネージャーに設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiDesc>スタイル宣言がロードされるスタイルマネージャーです。スタイル宣言は、このスタイルマネージャーに対して相対的に作成されます。unload() 関数は、このスタイルマネージャーからスタイルをアンロードします。null が渡された場合は、トップレベルスタイルマネージャーが使用されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルモジュールからスタイル宣言を作成して、指定したスタイルマネージャーに設定します。これは、スタイルモジュールが作成された後に呼び出す必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:unload"><apiName>unload</apiName><shortdesc>
+      スタイルモジュールをアンロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      スタイルモジュールをアンロードします。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+  CSS スタイル宣言をコンポーネントと照合するために使用されるセレクターの潜在的なチェーンに含まれるセレクターノードを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CSS スタイル宣言をコンポーネントと照合するために使用されるセレクターの潜在的なチェーンに含まれるセレクターノードを表します。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.styles:CSSSelector:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>subject</apiItemName><apiType value="String"/><apiDesc>条件および上位要素を含まない、このセレクターのプレーン表現です。通常、これは完全修飾クラス名（spark.components.Button など）です。グローバルセレクターには、"to match all components" または "global" を使用できます。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>conditions</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc> コンポーネントインスタンスのサブセットの照合に使用される CSSCondition 型のオブジェクトの配列です（オプション）。現在は、単一または 2 つの条件のみがサポートされています。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ancestor</apiItemName><apiOperationClassifier>mx.styles:CSSSelector</apiOperationClassifier><apiData>null</apiData><apiDesc>任意の上位要素の下位にあるコンポーネントに対して照合するオプションのセレクターです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSSelector:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      このセレクターが特定のコンポーネントと一致するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>コンポーネントが一致する場合は true、一致しない場合は false です。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>セレクターを適用できるコンポーネントです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このセレクターが特定のコンポーネントと一致するかどうかを示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSSelector:toString"><apiName>toString</apiName><shortdesc>
+      このセレクターのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>すべてのシンタックス、条件、および上位要素を含む、このセレクターのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      このセレクターのストリング表現を返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSSelector:ancestor:get"><apiName>ancestor</apiName><shortdesc>
+      このセレクターが下位要素セレクターの一部である場合は、任意の上位要素に対してセレクターがさらに定義されている可能性があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      このセレクターが下位要素セレクターの一部である場合は、任意の上位要素に対してセレクターがさらに定義されている可能性があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:conditions:get"><apiName>conditions</apiName><shortdesc>
+      このセレクターは、さらに条件を指定することによってコンポーネントのサブセットと一致する場合があります（例えば、一致するコンポーネントには、特定の ID、styleName（CSS の 'class' 条件と同等）またはステート（CSS の 'pseudo' 条件と同等）が必要です）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      このセレクターは、さらに条件を指定することによってコンポーネントのサブセットと一致する場合があります（例えば、一致するコンポーネントには、特定の ID、styleName（CSS の 'class' 条件と同等）またはステート（CSS の 'pseudo' 条件と同等）が必要です）。
+      
+      <p>条件が何も指定されていない場合、このプロパティは null です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:specificity:get"><apiName>specificity</apiName><shortdesc>
+      一致する複数のスタイル宣言を適用するときの優先順位を決定するために、セレクターチェーンの特異性を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      一致する複数のスタイル宣言を適用するときの優先順位を決定するために、セレクターチェーンの特異性を計算します。id 条件には 100 ポイント、pseudo 条件および class 条件にはそれぞれ 10 ポイント、タイプ（セレクターのチェーンに含まれる下位要素など）には 1 ポイントが付与されます。ユニバーサルセレクター（"）には何も付与されません。結果はこれらのポイントの合計になります。特異性の高いセレクターは、特異の低いセレクターよりも優先されます。セレクターの特異性が等しい場合は、宣言の順序によって優先順位が決まります（最後の宣言が優先されます）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:subject:get"><apiName>subject</apiName><shortdesc>
+      このセレクターノード（のみ）のサブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このセレクターノード（のみ）のサブジェクトです。このセレクターのすべての条件および下位要素のストリング表現を取得するには、<codeph>toString()</codeph> メソッドを呼び出します。
+     
+      <p>このセレクターが、セレクターの潜在的なチェーンのルートノードを表している場合は、サブジェクトもセレクター式全体のサブジェクトを表します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:ISimpleStyleClient"><apiName>ISimpleStyleClient</apiName><shortdesc>
+  このインターフェイスは、スタイルサブシステムに対応するためにオブジェクトが実装する必要があるプロパティとメソッドを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、スタイルサブシステムに対応するためにオブジェクトが実装する必要があるプロパティとメソッドを示します。 このインターフェイスは、ローカルに設定された値やタイプセレクターからではなく他のオブジェクトからスタイル値を取得するクラスによる使用を目的としています。 このインターフェイスは ProgrammaticSkin によって実装されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IStyleClient"><linktext>mx.styles.IStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      スタイルプロパティの値が変化したときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>変更されるスタイルプロパティの名前を表します。    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルプロパティの値が変化したときに呼び出されます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      オブジェクトのスタイル値のソースです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      オブジェクトのスタイル値のソースです。 <codeph>styleName</codeph> プロパティの値は、次の 3 つの有効な型のうちのいずれかにすることができます。
+     
+      <ul>
+        <li>String（例："headerStyle"）。 この文字列は、CSS スタイルシートで定義されたクラスセレクターの名前です。</li>
+     
+        <li>CSSStyleDeclaration（例：<codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>）。</li>
+     
+        <li>UIComponent。このインターフェイスを実装するオブジェクトは、参照先の UIComponent からすべてのスタイル値を継承します。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IAdvancedStyleClient"><apiName>IAdvancedStyleClient</apiName><shortdesc>
+  このインターフェイスは、高度なスタイルサブシステムに完全に対応するためにコンポーネントで実装する必要がある高度なプロパティを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、高度なスタイルサブシステムに完全に対応するためにコンポーネントで実装する必要がある高度なプロパティを定義します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      currentCSSState が null でない場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> になります。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、false を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> を返します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           <p>Spark コンポーネントは、スキンステートを擬似ステートとして使用します。Halo コンポーネントは、<codeph>currentState</codeph> プロパティを使用します。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      cssState が currentCSSState に一致した場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>cssState</codeph> が <codeph>currentCSSState</codeph> に一致した場合は、<codeph>true</codeph> を返します。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、null を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> の有効な値。これは、CSS 擬似セレクターの照合に使用されるこのコンポーネントの現在のステートを表します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>cssState</codeph> が <codeph>currentCSSState</codeph> に一致した場合は、<codeph>true</codeph> を返します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           <p>Spark コンポーネントは、スキンステートを擬似ステートとして使用します。Halo コンポーネントは、<codeph>currentState</codeph> プロパティを使用します。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      このインスタンスが、指定されたタイプと同じであるのか、それともそのサブクラスであるのかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>cssType</codeph> が修飾されたタイプセレクターの階層にある場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>CSSSelector オブジェクト。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このインスタンスが、指定されたタイプと同じであるのか、それともそのサブクラスであるのかを判別します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      コンポーネントのスタイルを初めて初期化するとき、Flex は stylesInitialized() メソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      コンポーネントのスタイルを初めて初期化するとき、Flex は <codeph>stylesInitialized()</codeph> メソッドを呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      コンポーネントの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      コンポーネントの ID です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      この IAdvancedStyleClient の親です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      この <codeph>IAdvancedStyleClient</codeph> の親です。 通常、このプロパティは直接割り当てないでください。 <codeph>flash.display.DisplayObjectContainer</codeph> の<codeph>addChild、addChildAt、removeChild、removeChildAt</codeph> の各メソッドおよび <codeph>mx.core.UIComponent.addStyleClient()</codeph> メソッドおよび <codeph>mx.core.UIComponent.removeStyleClient()</codeph> メソッドによって設定されます。 前述のメソッドのいずれかを呼び出さずに値を直接割り当てると、このインターフェイスを実装するクラスのインスタンスは、UIComponent または DisplayObject からスタイルを継承しません。 また、最初に前述の削除メソッドで現在の親からオブジェクトを削除せずに値を直接割り当てた場合も、メモリリークが発生する可能性があります。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+  IAdvancedStyleClient インターフェイスを実装するオブジェクトをラップします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  IAdvancedStyleClient インターフェイスを実装するオブジェクトをラップします。このインターフェイスは、スタイルソースとスタイル適用先のペアを含む <codeph>filterMap</codeph> プロパティをサポートします。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link></related-links><apiConstructor id="mx.styles:StyleProxy:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiDesc>IStyleClient インターフェイスを実装するオブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>filterMap</apiItemName><apiType value="Object"/><apiDesc>ソースからサブコンポーネントに渡すスタイルのセットです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:StyleProxy:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.styles.IStyleClient#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/><apiDesc>CSSStyleDeclaration オブジェクトの配列です。
+      
+      </apiDesc></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.styles.IStyleClient#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/><apiDesc>スタイル値です。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      currentCSSState が null でない場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> になります。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、false を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      <codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> を返します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           <p>Spark コンポーネントは、スキンステートを擬似ステートとして使用します。Halo コンポーネントは、<codeph>currentState</codeph> プロパティを使用します。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc><codeph>cssState</codeph> が <codeph>currentCSSState</codeph> に一致した場合は、<codeph>true</codeph> を返します。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、null を返します。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> の有効な値。これは、CSS 擬似セレクターの照合に使用されるこのコンポーネントの現在のステートを表します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc><codeph>cssType</codeph> が修飾されたタイプセレクターの階層にある場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>CSSSelector オブジェクト。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>スタイルの変更を子の子に反映するかどうかを指定します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>子のプロトチェーンを再生成します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:registerEffects"><apiName>registerEffects</apiName><shortdesc conref="mx.styles.IStyleClient#registerEffects()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>エフェクト名を表すストリングの配列です。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#registerEffects()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.styles.IStyleClient#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>スタイルの新しい値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>変更されるスタイルプロパティの名前を表します。    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:StyleProxy:className:get"><apiName>className</apiName><shortdesc conref="mx.styles.IStyleClient#className">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#className">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:filterMap:get"><apiName>filterMap</apiName><shortdesc>
+      1 組のストリングのペアです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      1 組のストリングのペアです。 ストリングのペアの最初の項目は、ソースコンポーネント内のスタイルの名前です。 ストリングのペアの 2 番目の項目は、サブコンポーネント内のスタイルの名前です。 このオブジェクトを使用すると、親コンポーネント内の特定のスタイルをサブコンポーネント内の異なるスタイルにマッピングできます。 これは、親コンポーネントとサブコンポーネントが同じスタイルを共有していて、その値を別々に制御できるようにしたい場合に役立ちます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:id:get"><apiName>id</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#id">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#id">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:source:get"><apiName>source</apiName><shortdesc>
+      IStyleClient インターフェイスを実装するオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      IStyleClient インターフェイスを実装するオブジェクトです。 これはプロキシされているオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleName:get"><apiName>styleName</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleParent:get"><apiName>styleParent</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleManager"><apiName>StyleManager</apiName><shortdesc>
+  StyleManager クラスでは、クラスが継承する CSS スタイルプロパティ、カラーであり特殊な処理を必要とするスタイルプロパティ、およびカラー値のエイリアスであるストリングのリストが管理されます。
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleManager クラスでは次の事項が管理されます。
+  <ul>
+    <li>クラスがどの CSS スタイルプロパティを継承するか</li>
+    <li>どのスタイルプロパティがカラーであり、特殊な処理を必要とするか</li>
+    <li>カラー値のエイリアスであるストリングのリスト</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:StyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトをクリアします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>クリアする CSS セレクターの名前です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このメソッドの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.clearStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトをクリアします。
+     
+      <p>指定したセレクターがクラスセレクター（".bigMargins" や ".myStyle" など）の場合、<codeph>selector</codeph> プロパティの先頭をピリオド（.）にする必要があります。</p>
+     
+      <p>指定したセレクターがタイプセレクター（"Button" など）の場合、<codeph>selector</codeph> プロパティの先頭をピリオドにしないでください。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      カラー配列の各エレメントを、カラー名から RGB カラー数値に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>カラー名の配列です。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorNames on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      カラー配列の各エレメントを、カラー名から RGB カラー数値に変換します。 各カラーストリングは、<codeph>"red"</codeph>、<codeph>"Blue"</codeph>、<codeph>"haloGreen"</codeph> などの大文字と小文字を区別しないカラー名、0xFF0000 などの 16 進数値、または <codeph>"#FF0000"</codeph> などの #-16 進数のストリングです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      指定されたカラーストリングに対応する RGB カラー数値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>カラー値を表す uint か <codeph>NOT_A_COLOR</codeph> を返します。後者は、<codeph>colorName</codeph> プロパティの値がカラーのエイリアスでない場合に返されます。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>カラー名です。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定されたカラーストリングに対応する RGB カラー数値を返します。 カラーストリングは、<codeph>"red"</codeph>、<codeph>"Blue"</codeph>、<codeph>"haloGreen"</codeph> などの大文字と小文字を区別しないカラー名、0xFF0000 などの 16 進数値、または <codeph>"#FF0000"</codeph> などの #-16 進数のストリングです。
+     
+      <p>このメソッドは、カラーを表す 4521830 などの uint を返します。 この uint を 16 進数値に変換するには、次の例のように、基数（この場合は 16）を uint クラスの <codeph>toString()</codeph> メソッドに渡します。</p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>名前が <codeph>selector</codeph> プロパティと一致するスタイル宣言です。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS セレクターの名前です。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオド（.）である場合は、戻される CSSStyleDeclaration はクラスセレクターであり、<codeph>styleName</codeph> プロパティがそのクラスセレクター（ピリオドを含まないもの）を指定するインスタンスにのみ適用されます。 例えば、クラスセレクター <codeph>".bigMargins"</codeph> は、<codeph>styleName</codeph> が <codeph>"bigMargins"</codeph> であるすべての UIComponent に適用されます。</p>
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオドではない場合は、戻される CSSStyleDeclaration はタイプセレクターであり、該当タイプのすべてのインスタンスに適用されます。 例えば、タイプセレクター <codeph>"Button"</codeph> は、Button とそのサブクラスのすべてのインスタンスに適用されます。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleManager"><apiName>getStyleManager</apiName><shortdesc>
+      オブジェクトのスタイルマネージャーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定されたモジュールファクトリのスタイルマネージャーです。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier></apiReturn><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>スタイルマネージャーのオブジェクトのモジュールファクトリです。null の場合、トップレベルスタイルマネージャーが返されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      オブジェクトのスタイルマネージャーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      指定されたストリングがカラー値のエイリアスかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは、<codeph>colorName</codeph> がカラーのエイリアスの場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>テストするカラー名です。 このパラメーターでは大文字と小文字が区別されません。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定されたストリングがカラー値のエイリアスかどうかをテストします。 例えば、ストリング "blue" はデフォルトで 0x0000FF のエイリアスになっています。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      スタイルが継承されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定のスタイルが継承スタイルである場合、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>継承されるかどうかをテストするスタイルの名前です。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      スタイルが継承されるかどうかをテストします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      TextFormat スタイルが継承されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定の TextFormat スタイルが継承スタイルである場合、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>継承されるかどうかをテストするスタイルの名前です。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingTextFormatStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      TextFormat スタイルが継承されるかどうかをテストします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      このスタイルがコンポーネントの親コンテナに反映され、このスタイルが変更されたときに親コンテナが必ず再描画されるようになるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定のスタイルがコンポーネントの親コンテナの外観またはレイアウトに影響する可能性がある場合に <codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      このスタイルがコンポーネントの親コンテナに反映され、このスタイルが変更されたときに親コンテナが必ず再描画されるようになるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、子の再描画または再レイアウトのために、コンポーネントの親コンテナに対して <codeph>invalidateDisplayList()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      スタイルでコンポーネントの親コンテナが変更されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定のスタイルがコンポーネントの親コンテナの測定サイズに影響する可能性がある場合に <codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      スタイルでコンポーネントの親コンテナが変更されるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントの親コンテナに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      スタイルでコンポーネントのサイズが変更されるかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定のスタイルがコンポーネントの測定サイズに影響する可能性がある場合は、<codeph>true</codeph> を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>テストするスタイルの名前。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      スタイルでコンポーネントのサイズが変更されるかどうかをテストします。
+     
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> メソッドにより設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      指定されたパラメーターが有効なスタイルプロパティかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>getStyle()</codeph> メソッドの呼び出しから返された値をこのメソッドに渡すと、スタイルが設定されていれば <codeph>true</codeph>、スタイルが設定されていなければ <codeph>false</codeph> を返します。
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>テストするスタイルプロパティです。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isValidStyleValue on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定されたパラメーターが有効なスタイルプロパティかどうかを判別します。 次に実際の使用例を示します。
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>一部のスタイルは、0、<codeph>NaN</codeph>、空のストリング（<codeph>""</codeph>）、<codeph>null</codeph> など、<codeph>if (value)</codeph> テストで不合格になる可能性のある値に設定されることがあるので、この機能が役立つ場合があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      スタイル SWF をロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>StyleEvent.PROGRESS、StyleEvent.COMPLETE、および StyleEvent.ERROR をサポートする IEventDispatcher の実装です。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>スタイル SWF の場所です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このパラメーターはオプションで、デフォルトは <codeph>true</codeph> です。このパラメーターの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>廃止されて現在は使用されていません。 このパラメーターはオプションで、デフォルトは <codeph>false</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>スタイル SWF をロードする IModuleInfo の <codeph>load()</codeph> メソッドに渡される ApplicationDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>スタイル SWF をロードする IModuleInfo の <codeph>load()</codeph> メソッドに渡される SecurityDomain です。 このパラメーターはオプションで、デフォルトは <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.loadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      スタイル SWF をロードします。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      カラーのエイリアスのリストにカラー名を追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>リストに追加するカラーの名前（"blue" など）です。 後からこのカラー名にアクセスする場合、この値では大文字と小文字が区別されません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>カラー値（例: 0x0000FF）
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      カラーのエイリアスのリストにカラー名を追加します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      親から値を継承できるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>値を継承できるスタイルのリストに追加されるスタイルの名前です。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      親から値を継承できるスタイルのリストに追加します。
+     
+      <p><b>メモ：</b>スタイル名は重複しないようにします。重複していると、既に使用されているスタイルが継承されたときに、名前が競合してパフォーマンスが低下することがあります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの親コンテナの外観またはレイアウトに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>登録するスタイルの名前。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      コンポーネントの親コンテナの外観またはレイアウトに影響する可能性のあるスタイルのリストに追加します。 これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、子の再描画または再レイアウトのために、コンポーネントの親コンテナに対して <codeph>invalidateDisplayList()</codeph> メソッドが自動的に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの親コンテナの測定サイズに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>登録するスタイルの名前。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      コンポーネントの親コンテナの測定サイズに影響する可能性のあるスタイルのリストに追加します。
+      <p>これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントの親コンテナに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      コンポーネントの測定サイズに影響する可能性のあるスタイルのリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>リストに追加するスタイルの名前です。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      コンポーネントの測定サイズに影響する可能性のあるスタイルのリストに追加します。 これらのスタイルのいずれかを <codeph>setStyle()</codeph> により設定すると、コンポーネントの測定サイズを再計算するために、コンポーネントに対して <codeph>invalidateSize()</codeph> メソッドが自動的に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS セレクターの名前です。
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>新しいスタイル宣言です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>スタイルを強制的に即時更新すには、<codeph>true</codeph> に設定します。内部的には、UIComponent の <codeph>styleChanged()</codeph> メソッドが呼び出されます。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。
+     
+      <p>スタイルは、次回、次のいずれかのメソッドが <codeph>update</codeph> プロパティを <codeph>true</codeph> に設定して呼び出されるときに更新されます。
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>通常、これらのいずれかのメソッドを複数回呼び出す場合は、最後の呼び出し時にのみこのプロパティを <codeph>true</codeph> に設定します。こうすると、<codeph>styleChanged()</codeph> メソッドが複数回呼び出されることはありません。</p>
+     
+      <p><codeph>getStyle()</codeph> メソッドを呼び出したときは、<codeph>styleChanged()</codeph> メソッドの呼び出しによって UIComponent に最後に適用されたスタイル値が返されます。 コンポーネントの外観が <codeph>getStyle()</codeph> メソッドによって返される値を反映していない場合があります。 これが発生するのは、これらのスタイル宣言メソッドのいずれかが、<codeph>update</codeph> プロパティが <codeph>true</codeph> に設定された状態で呼び出されていないためです。</p>
+      
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.setStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを設定します。
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオド（.）である場合は、指定されるセレクターはクラスセレクターで、<codeph>styleName</codeph> プロパティがそのクラスセレクター（ピリオドを含まないもの）を指定しているインスタンスにのみ適用されます。 例えば、クラスセレクター <codeph>".bigMargins"</codeph> は、<codeph>styleName</codeph> が <codeph>"bigMargins"</codeph> であるすべての UIComponent に適用されます。</p>
+     
+      <p><codeph>selector</codeph> パラメーターの先頭がピリオドではない場合は、指定されるセレクターは "タイプセレクター" で、該当タイプのすべてのインスタンスに適用されます。 例えば、タイプセレクター <codeph>"Button"</codeph> は、Button とそのサブクラスのすべてのインスタンスに適用されます。</p>
+     
+      <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      スタイル SWF をアンロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>スタイル SWF の場所です。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>スタイルを強制的に即時更新するには、<codeph>true</codeph> に設定します。 アプリケーションのスタイルを強制的に即時更新しないようにするには、<codeph>false</codeph> に設定します。 このメソッドの詳細については、<codeph>setStyleDeclaration()</codeph> メソッドの説明を参照してください。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.unloadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      スタイル SWF をアンロードします。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiValue id="mx.styles:StyleManager:NOT_A_COLOR"><apiName>NOT_A_COLOR</apiName><shortdesc>
+      passed-in ストリングが適切なカラー名でない場合、getColorName() メソッドはこの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      passed-in ストリングが適切なカラー名でない場合、<codeph>getColorName()</codeph> メソッドはこの値を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleManager:selectors:get"><apiName>selectors</apiName><shortdesc>
+      StyleManager に登録されているすべての CSS セレクターを含む配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="Array"/><apiDeprecated replacement="IStyleManager2.selectors on a style manager instance" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      StyleManager に登録されているすべての CSS セレクターを含む配列を返します。 この配列の項目を <codeph>getStyleDeclaration()</codeph> メソッドに渡して、対応する CSSStyleDeclaration オブジェクトを取得できます。 クラスセレクターの前にはピリオドが付加されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+  CSSStyleDeclaration クラスは CSS スタイルの規則のセットを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CSSStyleDeclaration クラスは CSS スタイルの規則のセットを表します。 MXML コンパイラーは、Flex アプリケーションに関連付けられた CSS ファイル内のセレクターごとに、1 つの CSSStyleDeclaration オブジェクトを自動的に生成します。
+  
+  <p>CSS 規則（例：
+  <pre>
+      Button { color: #FF0000 }
+  </pre>
+  ）は、Button クラスの各インスタンスに影響します。<codeph>Button</codeph> などのセレクターは、タイプセレクターと呼ばれ、先頭にドットは付けません。</p>
+   <p>CSS 規則（例：
+  <pre>
+      .redButton { color: #FF0000 }
+  </pre>
+  これは、<codeph>styleName</codeph> プロパティが <codeph>"redButton"</codeph> に設定されたコンポーネントにのみ影響します。<codeph>.redButton</codeph> などのセレクターは、クラスセレクターと呼ばれ、先頭にドットを付ける必要があります。</p>
+   <p><codeph>StyleManager.getStyleDeclaration()</codeph> メソッドを使用して、自動生成された CSSStyleDeclaration オブジェクトにアクセスし、それをタイプセレクター
+  <pre>
+  var buttonDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration("Button");
+  </pre>
+  またはクラスセレクターに渡すことができます。
+  <pre>
+  var redButtonStyleDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration(".redButton");
+  </pre>
+  </p>
+   <p><codeph>getStyle()</codeph> メソッド、<codeph>setStyle()</codeph> メソッド、および <codeph>clearStyle()</codeph> メソッドを使用して、CSSStyleDeclaration のスタイルプロパティを取得、設定、およびクリアします。</p>
+   <p>また、<codeph>StyleManager.setStyleDeclaration()</codeph> メソッドを使用して、実行時に CSSStyleDeclaration を作成およびインストールできます。
+  <pre>
+  var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(".bigMargins");
+  newStyleDeclaration.defaultFactory = function():void
+  {
+      leftMargin = 50;
+      rightMargin = 50;
+  }
+  StyleManager.setStyleDeclaration(".bigMargins", newStyleDeclaration, true);
+  </pre>
+  </p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#UIComponent"><linktext>mx.core.UIComponent</linktext></link><link href="mx.styles.xml#StyleManager"><linktext>mx.styles.StyleManager</linktext></link></related-links><apiConstructor id="mx.styles:CSSStyleDeclaration:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>selector</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>- セレクターが CSSSelector である場合は、高度な CSS セレクターがサポートされます。セレクターにストリングが使用されている場合は、簡単な CSS セレクターのみがサポートされます。ストリングがドットで始まる場合は、ユニバーサルクラスセレクターとして解釈されます。それ以外の場合は、単純なタイプセレクターを表している必要があります。null 以外の場合、StyleManager には、この CSSStyleDeclaration が登録されます。 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiData>null</apiData><apiDesc>- この宣言を設定するスタイルマネージャーです。styleManager が null の場合は、トップレベルスタイルマネージャーが使用されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>autoRegisterWithStyleManager</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>- true の場合、styleManager にセレクターを設定します。セレクターが設定されるのは、<codeph>selector</codeph> と <codeph>styleManager</codeph> の両方が null でない場合のみです。
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSStyleDeclaration:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      この CSSStyleDeclaration のスタイルプロパティをクリアします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この CSSStyleDeclaration のスタイルプロパティをクリアします。 これは、スタイル値を <codeph>undefined</codeph> に設定した場合と同じ結果が得られます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:getStyle"><apiName>getStyle</apiName><shortdesc>
+      この CSSStyleDeclaration による単独の決定に従って、指定のスタイルプロパティの値を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>設定されている場合は指定のスタイルプロパティの値、設定されていない場合は <codeph>undefined</codeph> です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この CSSStyleDeclaration による単独の決定に従って、指定のスタイルプロパティの値を取得します。
+           <p>戻り値は、どの型でもかまいません。</p>
+           <p>値 <codeph>null</codeph>、<codeph>""</codeph>、<codeph>false</codeph>、<codeph>NaN</codeph>、および <codeph>0</codeph> は、すべて有効なスタイル値ですが、値 <codeph>undefined</codeph> は有効なスタイル値ではありません。これは、指定されたスタイルが、この CSSStyleDeclaration に設定されていないことを示します。 <codeph>StyleManager.isValidStyleValue()</codeph> メソッドを使用して、返された値をテストできます。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      このスタイル宣言がセレクターチェーンの一致に基づいて特定のコンポーネントに適用されるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このスタイル宣言がコンポーネントに適用される場合は true、それ以外の場合は false です。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>スタイル宣言を一致させる相手のコンポーネントです。     
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このスタイル宣言がセレクターチェーンの一致に基づいて特定のコンポーネントに適用されるかどうかを示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:setStyle"><apiName>setStyle</apiName><shortdesc>
+      この CSSStyleDeclaration のスタイルプロパティを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+           </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>スタイルプロパティの値です。 この値は、どの型でもかまいません。 値 <codeph>null</codeph>、<codeph>""</codeph>、<codeph>false</codeph>、<codeph>NaN</codeph>、および <codeph>0</codeph> は、すべて有効なスタイル値ですが、値 <codeph>undefined</codeph> は有効なスタイル値ではありません。 スタイルプロパティを値 <codeph>undefined</codeph> に設定した場合は、<codeph>clearStyle()</codeph> メソッドを呼び出した場合と同じ結果が得られます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この CSSStyleDeclaration のスタイルプロパティを設定します。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSStyleDeclaration:selectorIndex"><apiName>selectorIndex</apiName><shortdesc>
+      この CSSStyleDeclaration がその StyleManager に追加された順序です。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      この CSSStyleDeclaration がその StyleManager に追加された順序です。MatchStyleDeclarations は、宣言された順序で宣言を返す必要があります
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:defaultFactory:get"><apiName>defaultFactory</apiName><shortdesc>
+      この関数が null でない場合、通常、MXML コンパイラーにより自動生成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      この関数が <codeph>null</codeph> でない場合、通常、MXML コンパイラーにより自動生成されます。 <codeph>{ leftMargin : 10, rightMargin : 10 }</codeph> など、スタイルプロパティの名前と値のペアを含むプレーンのオブジェクトのコピーを作成します。このオブジェクトを使用して、スタイルプロパティを検索するためのプロトタイプチェーンのノードが構築されます。
+           <p>この CSSStyleDeclaration が MXML で記述された UIComponent に所有されている場合、この関数はコンポーネント定義のルートタグで指定されたスタイル属性をエンコードします。</p>
+           <p>UIComponent が ActionScript で記述されている場合、このプロパティは <codeph>null</codeph> となります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:factory:get"><apiName>factory</apiName><shortdesc>
+      この関数が null でない場合、通常、MXML コンパイラーにより自動生成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      この関数が <codeph>null</codeph> でない場合、通常、MXML コンパイラーにより自動生成されます。 <codeph>{ leftMargin : 10, rightMargin : 10 }</codeph> など、スタイルプロパティの名前と値のペアを含むプレーンのオブジェクトのコピーを作成します。このオブジェクトを使用して、スタイルプロパティを検索するためのプロトタイプチェーンのノードが構築されます。
+           <p>この CSSStyleDeclaration が UIComponent に所有されている場合、この関数はそのコンポーネントのインスタンスについて MXML で指定されたスタイル属性をエンコードします。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:overrides:get"><apiName>overrides</apiName><shortdesc>
+      実行時に UIComponent または CSSStyleDeclaration 上で setStyle() メソッドが呼び出されると、設定された名前と値のペアがこのオブジェクトに格納されます。これらのペアは、defaultFactory プロパティおよび factory プロパティで指定されたメソッドが生成したオブジェクトに格納されている名前と値のペアをオーバーライドします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      実行時に UIComponent または CSSStyleDeclaration 上で <codeph>setStyle()</codeph> メソッドが呼び出されると、設定された名前と値のペアがこのオブジェクトに格納されます。これらのペアは、<codeph>defaultFactory</codeph> プロパティおよび <codeph>factory</codeph> プロパティで指定されたメソッドが生成したオブジェクトに格納されている名前と値のペアをオーバーライドします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:selector:get"><apiName>selector</apiName><shortdesc>
+      このプロパティは、CSS スタイル宣言をコンポーネントと照合するために使用されるセレクターと条件の潜在的なチェーンの基本セレクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      このプロパティは、CSS スタイル宣言をコンポーネントと照合するために使用されるセレクターと条件の潜在的なチェーンの基本セレクターです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:specificity:get"><apiName>specificity</apiName><shortdesc>
+      複数のスタイル宣言をコンポーネントに適用するときの優先順位を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      複数のスタイル宣言をコンポーネントに適用するときの優先順位を決定します。スタイル宣言の優先順位が等しい場合は、最後の宣言が優先されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:subject:get"><apiName>subject</apiName><shortdesc>
+      サブジェクトは、このスタイル宣言と潜在的に一致する可能性があるコンポーネントの名前を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      サブジェクトは、このスタイル宣言と潜在的に一致する可能性があるコンポーネントの名前を示します。サブジェクトは潜在的なセレクターチェーンの中で最も単純なタイプセレクターと見なされます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleClient"><apiName>IStyleClient</apiName><shortdesc>
+  このインターフェイスは、オブジェクトがスタイルサブシステムに完全に対応するために実装しなければならないプロパティとメソッドを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、オブジェクトがスタイルサブシステムに完全に対応するために実装しなければならないプロパティとメソッドを示します。 このインターフェイスは UIComponent によって実装されます。
+ 
+  <p>オブジェクトは、スタイル値をローカルに保存する必要がない場合、代わりに <codeph>ISimpleStyleClient</codeph> インターフェイスを実装します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#ISimpleStyleClient"><linktext>mx.styles.ISimpleStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      このコンポーネントインスタンスからスタイルプロパティを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンポーネントインスタンスからスタイルプロパティを削除します。
+     
+      <p><codeph>getStyle()</codeph> メソッドは、必ずしも <codeph>undefined</codeph> を返すわけではありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は null を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>CSSStyleDeclaration オブジェクトの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は <codeph>null</codeph> を返します。
+     
+      <p>例えば、コンポーネント MyButton が Button を継承するとします。 このメソッドでは、最初に MyButton セレクターを検索します。その後、Button タイプセレクターを検索し、最後に UIComponent タイプセレクターを検索します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      このコンポーネントのスタイル参照チェーンのいずれかの場所に設定されたスタイルプロパティを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>スタイル値です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンポーネントのスタイル参照チェーンのいずれかの場所に設定されたスタイルプロパティを取得します。
+     
+      <p>この同じメソッドを使用して任意の種類のスタイルプロパティを取得するため、戻り値は、Boolean、String、Number、int、uint（RGB カラーの場合）、Class（スキンの場合）、または何らかのオブジェクトになります。 したがって、戻り値の型は ~~ として指定されます。</p>
+     
+      <p>特定のスタイルプロパティを取得している場合は、その型を認識し、その型の変数に結果を保存することがよくあります。 これを行うには、以下のように <codeph>as</codeph> 演算子または強制型変換を使用します。 次に実際の使用例を示します。</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>スタイルプロパティがスタイル参照チェーンのどこにも設定されていない場合は、<codeph>getStyle()</codeph> メソッドによって返される値は <codeph>undefined</codeph> になります。 <codeph>undefined</codeph> は特殊な値であり、<codeph>false</codeph>、空のストリング（<codeph>""</codeph>）、<codeph>NaN</codeph>、0、または <codeph>null</codeph> とは異なります。 有効なスタイル値が <codeph>undefined</codeph> になることはありません。値が設定されたかどうかをテストするには、静的メソッド <codeph>StyleManager.isValidStyleValue()</codeph> を使用します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      このコンポーネントの子にスタイルの変更を反映します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>スタイルの変更を子の子に反映するかどうかを指定します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンポーネントの子にスタイルの変更を反映します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      getStyle() メソッドが機能するように、内部のスタイルキャッシュ値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>子のプロトチェーンを再生成します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>getStyle()</codeph> メソッドが機能するように、内部のスタイルキャッシュ値を設定します。 このオブジェクトに既に子がある場合に、その子のスタイルキャッシュを再初期化します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>エフェクト名を表すストリングの配列です。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      このコンポーネントインスタンスのスタイルプロパティを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>スタイルの新しい値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンポーネントインスタンスのスタイルプロパティを設定します。
+     
+      <p>これは、グローバル設定されたスタイルをオーバーライドできます。</p>
+     
+      <p><codeph>setStyle()</codeph> メソッドを呼び出すと、パフォーマンスが低下することがあります。これは必要な場合のみ使用してください。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      コンポーネントクラスの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      コンポーネントクラスの名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      このコンポーネントの継承可能なスタイルを格納するオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントの継承可能なスタイルを格納するオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      このコンポーネントの継承不可能なスタイルを格納するオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントの継承不可能なスタイルを格納するオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      このオブジェクトで宣言されたインラインスタイルを保持するスタイル宣言です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      このオブジェクトで宣言されたインラインスタイルを保持するスタイル宣言です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleManager2"><apiName>IStyleManager2</apiName><shortdesc>
+  IStyleManager2 クラスでは、クラスが継承する CSS スタイルプロパティ、カラーであり特殊な処理を必要とするスタイルプロパティ、およびカラー値のエイリアスであるストリングのリストが管理されます。
+  
+   </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleManager</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IStyleManager2 クラスでは次の事項が管理されます。
+  <ul>
+    <li>クラスがどの CSS スタイルプロパティを継承するか</li>
+    <li>どのスタイルプロパティがカラーであり、特殊な処理を必要とするか</li>
+    <li>カラー値のエイリアスであるストリングのリスト</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:getMergedStyleDeclaration"><apiName>getMergedStyleDeclaration</apiName><shortdesc> 
+     指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>名前が <codeph>selector</codeph> プロパティと一致するスタイル宣言です。 
+      
+     </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS セレクターの名前です。 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc> 
+     指定した CSS セレクターの規則を保存する CSSStyleDeclaration オブジェクトを取得します。CSSStyleDeclaration オブジェクトは、このスタイルマネージャーに指定された CSS セレクターのプロパティを、親スタイルマネージャーのプロパティとマージして作成されます。
+     
+     <p><codeph>selector</codeph> パラメーターの先頭がピリオド（.）である場合は、戻される CSSStyleDeclaration はクラスセレクターであり、<codeph>styleName</codeph> プロパティがそのクラスセレクター（ピリオドを含まないもの）を指定するインスタンスにのみ適用されます。 例えば、クラスセレクター <codeph>".bigMargins"</codeph> は、<codeph>styleName</codeph> が <codeph>"bigMargins"</codeph> であるすべての UIComponent に適用されます。</p> 
+     
+     <p><codeph>selector</codeph> パラメーターの先頭がピリオドではない場合は、戻される CSSStyleDeclaration はタイプセレクターであり、該当タイプのすべてのインスタンスに適用されます。 例えば、タイプセレクター <codeph>"Button"</codeph> は、Button とそのサブクラスのすべてのインスタンスに適用されます。</p> 
+     
+     <p><codeph>global</codeph> セレクターはタイプセレクターに似ており、先頭にはピリオドがありません。</p> 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:parent:get"><apiName>parent</apiName><shortdesc>
+      この StyleManager の親であるスタイルマネージャーです。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      この StyleManager の親であるスタイルマネージャーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:selectors:get"><apiName>selectors</apiName><shortdesc>
+      StyleManager に登録されているすべての CSS セレクターを含む配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      StyleManager に登録されているすべての CSS セレクターを含む配列を返します。 この配列の項目を <codeph>getStyleDeclaration()</codeph> メソッドに渡して、対応する CSSStyleDeclaration オブジェクトを取得できます。 クラスセレクターの前にはピリオドが付加されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSConditionKind"><apiName>CSSConditionKind</apiName><shortdesc>
+  CSSCondition の種類の列挙です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CSSCondition の種類の列挙です。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSCondition"><linktext>mx.styles.CSSCondition</linktext></link><link href="mx.styles.xml#CSSSelector"><linktext>mx.styles.CSSSelector</linktext></link></related-links><apiValue id="mx.styles:CSSConditionKind:CLASS"><apiName>CLASS</apiName><shortdesc>
+      styleName に基づいてコンポーネントを照合するためのセレクター条件です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>class</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      styleName に基づいてコンポーネントを照合するためのセレクター条件です。例：Button.special { ... } .special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:ID"><apiName>ID</apiName><shortdesc>
+      ID に基づいてコンポーネントを照合するためのセレクター条件です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>id</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ID に基づいてコンポーネントを照合するためのセレクター条件です。例：Button#special { ... } #special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:PSEUDO"><apiName>PSEUDO</apiName><shortdesc>
+      ステートに基づいてコンポーネントを照合するためのセレクター条件です（ステートは時間の経過につれて動的に変換する可能性があります）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pseudo</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ステートに基づいてコンポーネントを照合するためのセレクター条件です（ステートは時間の経過につれて動的に変換する可能性があります）。例：Button:special { ... } :special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+  IAdvancedStyleClient インターフェイスを使用するオブジェクトを実装する際に使用できる基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>IAdvancedStyleClient</codeph> インターフェイスを使用するオブジェクトを実装する際に使用できる基本クラスです。この基本クラスには、スタイルサブシステムにオブジェクトが参加するために必要なメソッドとプロパティの実装が用意されています。
+   <p><codeph>IAdvancedStyleClient</codeph> インターフェイスに加えて、このオブジェクトは、<codeph>IFlexModule</codeph> インターフェイスと <codeph>IMXMLObject</codeph> インターフェイスも実装します。 <codeph>IMXMLObject</codeph> インターフェイスには、MXML 宣言を使用してクラスがインスタンス化されるときに呼び出される <codeph>initialized</codeph> メソッドが含まれています。 この基本クラスで提供される <codeph>initialized</codeph> メソッドの実装は、MXML 宣言を含むドキュメントオブジェクトにクラスのインスタンスを追加します。 詳細については、<codeph>initilized</codeph> メソッドの説明を参照してください。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link><link href="mx.styles.xml#AdvancedStyleClient/initialized"><linktext>initialized</linktext></link></related-links><apiConstructor id="mx.styles:AdvancedStyleClient:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:AdvancedStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      
+      このコンポーネントインスタンスからスタイルプロパティを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      このコンポーネントインスタンスからスタイルプロパティを削除します。
+     
+      <p><codeph>getStyle()</codeph> メソッドは、必ずしも <codeph>undefined</codeph> を返すわけではありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は null を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>CSSStyleDeclaration オブジェクトの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      
+      このコンポーネントに適用されるタイプセレクターの CSSStyleDeclaration オブジェクトの配列を返します。何も存在しない場合は <codeph>null</codeph> を返します。
+     
+      <p>例えば、コンポーネント MyButton が Button を継承するとします。 このメソッドでは、最初に MyButton セレクターを検索します。その後、Button タイプセレクターを検索し、最後に UIComponent タイプセレクターを検索します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      
+      このコンポーネントのスタイル参照チェーンのいずれかの場所に設定されたスタイルプロパティを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>スタイル値です。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      このコンポーネントのスタイル参照チェーンのいずれかの場所に設定されたスタイルプロパティを取得します。
+     
+      <p>この同じメソッドを使用して任意の種類のスタイルプロパティを取得するため、戻り値は、Boolean、String、Number、int、uint（RGB カラーの場合）、Class（スキンの場合）、または何らかのオブジェクトになります。 したがって、戻り値の型は ~~ として指定されます。</p>
+     
+      <p>特定のスタイルプロパティを取得している場合は、その型を認識し、その型の変数に結果を保存することがよくあります。 これを行うには、以下のように <codeph>as</codeph> 演算子または強制型変換を使用します。 次に実際の使用例を示します。</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>スタイルプロパティがスタイル参照チェーンのどこにも設定されていない場合は、<codeph>getStyle()</codeph> メソッドによって返される値は <codeph>undefined</codeph> になります。 <codeph>undefined</codeph> は特殊な値であり、<codeph>false</codeph>、空のストリング（<codeph>""</codeph>）、<codeph>NaN</codeph>、0、または <codeph>null</codeph> とは異なります。 有効なスタイル値が <codeph>undefined</codeph> になることはありません。値が設定されたかどうかをテストするには、静的メソッド <codeph>StyleManager.isValidStyleValue()</codeph> を使用します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      currentCSSState が null でない場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> になります。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、false を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      <codeph>currentCSSState</codeph> が <codeph>null</codeph> でない場合、<codeph>true</codeph> を返します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           <p>Spark コンポーネントは、スキンステートを擬似ステートとして使用します。Halo コンポーネントは、<codeph>currentState</codeph> プロパティを使用します。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:initialized"><apiName>initialized</apiName><shortdesc>
+      initialized メソッドは、このクラスまたはこのクラスを拡張するクラスが MXML 宣言で使用されると呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>このオブジェクトを作成した MXML ドキュメントです。
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ドキュメントオブジェクトがこのオブジェクトを参照するために使用する識別子です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      initialized メソッドは、このクラスまたはこのクラスを拡張するクラスが MXML 宣言で使用されると呼び出されます。実装オブジェクトが作成され、MXML タグに指定されたすべてのコンポーネントプロパティが初期化された後に呼び出されます。
+      <p>
+      このオブジェクトを作成したドキュメントが <codeph>UIComponent</codeph>（アプリケーション、モジュールなど）の場合は、UIComponent の <codeph>addStyleClient</codeph> メソッドが呼び出されて、UIComponent のビジュアルではないスタイルクライアントのリストに、このオブジェクトが追加されます。 これにより、オブジェクトはドキュメントからスタイルを継承できます。 </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      
+      cssState が currentCSSState に一致した場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>cssState</codeph> が <codeph>currentCSSState</codeph> に一致した場合は、<codeph>true</codeph> を返します。デフォルトでは、<codeph>currentCSSState</codeph> は <codeph>currentState</codeph> と同じです。ステートが存在しない場合は、null を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> の有効な値。これは、CSS 擬似セレクターの照合に使用されるこのコンポーネントの現在のステートを表します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      <codeph>cssState</codeph> が <codeph>currentCSSState</codeph> に一致した場合は、<codeph>true</codeph> を返します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           <p>Spark コンポーネントは、スキンステートを擬似ステートとして使用します。Halo コンポーネントは、<codeph>currentState</codeph> プロパティを使用します。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      
+      このインスタンスが、指定されたタイプと同じであるのか、それともそのサブクラスであるのかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>cssType</codeph> が修飾されたタイプセレクターの階層にある場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>CSSSelector オブジェクト。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      このインスタンスが、指定されたタイプと同じであるのか、それともそのサブクラスであるのかを判別します。通常、このメソッドは直接呼び出さないでください。このメソッドは、<codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> メソッドによって呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      スタイルの変更を、このスタイルクライアントのインスタンスの子に通知します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+           </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>スタイルの変更を子の子に反映するかどうかを指定します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルの変更を、このスタイルクライアントのインスタンスの子に通知します。ビジュアルでないスタイルクライアント（つまり、DisplayObject でないスタイルクライアント）には子がありません。そのため、このメソッドは、ビジュアルでないスタイルクライアントに対しては、何もしません。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      getStyle() メソッドが機能するように、内部のスタイルキャッシュ値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>子のプロトチェーンを再生成します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>getStyle()</codeph> メソッドが機能するように、内部のスタイルキャッシュ値を設定します。 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>エフェクト名を表すストリングの配列です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      各エフェクトイベントのイベントリスナーの 1 つとして、EffectManager を登録します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      
+      このコンポーネントインスタンスのスタイルプロパティを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>スタイルの新しい値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      このコンポーネントインスタンスのスタイルプロパティを設定します。
+     
+      <p>これは、グローバル設定されたスタイルをオーバーライドできます。</p>
+     
+      <p><codeph>setStyle()</codeph> メソッドを呼び出すと、パフォーマンスが低下することがあります。これは必要な場合のみ使用してください。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      スタイルプロパティの変更を検出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>スタイルプロパティの名前です。このスタイルクライアントのすべてのスタイルが変更された場合は、null になります。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルプロパティの変更を検出します。何らかのスタイルプロパティが設定されていると、Flex が <codeph>styleChanged()</codeph> メソッドを呼び出し、設定されているスタイルの名前を渡します。
+           <p>これは、<codeph>AdvancedStyleClient</codeph> のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。 カスタムクラスを作成するときには、渡されたスタイル名をチェックし、その結果に従って変更内容を処理するよう、<codeph>styleChanged()</codeph> メソッドをオーバーライドできます。 これにより、既存スタイルのデフォルト動作をオーバーライドできるだけでなく、独自のスタイルプロパティを追加することもできます。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      
+      コンポーネントのスタイルを初めて初期化するとき、Flex は stylesInitialized() メソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      コンポーネントのスタイルを初めて初期化するとき、Flex は <codeph>stylesInitialized()</codeph> メソッドを呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:AdvancedStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      コンポーネントクラスの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      コンポーネントクラスの名前です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      
+      コンポーネントの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      コンポーネントの ID です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      このビジュアルでないスタイルクライアントのインスタンスの継承可能なスタイルを含むオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このビジュアルでないスタイルクライアントのインスタンスの継承可能なスタイルを含むオブジェクトです。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      モジュールファクトリは、このビジュアルでないスタイルクライアントのインスタンスのスタイルを制御するスタイルマネージャーを検索するためのコンテキストとして使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      モジュールファクトリは、このビジュアルでないスタイルクライアントのインスタンスのスタイルを制御するスタイルマネージャーを検索するためのコンテキストとして使用されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      このコンポーネントの非継承スタイルのチェーンの始まりです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントの非継承スタイルのチェーンの始まりです。 <codeph>getStyle()</codeph> メソッドは単に <codeph>nonInheritingStyles[styleName]</codeph> にアクセスして、プロトタイプリンクのチェーン全体を検索します。 このオブジェクトは <codeph>initProtoChain()</codeph> によって設定されます。 開発者は通常このプロパティに直接アクセスする必要はありません。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      このオブジェクトで宣言されたインラインスタイルを保持するスタイル宣言です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      このオブジェクトで宣言されたインラインスタイルを保持するスタイル宣言です。
+           </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleManager:get"><apiName>styleManager</apiName><shortdesc>
+      このコンポーネントで使用する StyleManager インスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      このコンポーネントで使用する StyleManager インスタンスを返します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      
+      オブジェクトのスタイル値のソースです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      オブジェクトのスタイル値のソースです。 <codeph>styleName</codeph> プロパティの値は、次の 3 つの有効な型のうちのいずれかにすることができます。
+     
+      <ul>
+        <li>String（例："headerStyle"）。 この文字列は、CSS スタイルシートで定義されたクラスセレクターの名前です。</li>
+     
+        <li>CSSStyleDeclaration（例：<codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>）。</li>
+     
+        <li>UIComponent。このインターフェイスを実装するオブジェクトは、参照先の UIComponent からすべてのスタイル値を継承します。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      コンポーネントの親は、下位要素のセレクターを評価するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      コンポーネントの親は、下位要素のセレクターを評価するために使用されます。高度なスタイル宣言に対応するには、親も IAdvancedStyleClient である必要があります。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

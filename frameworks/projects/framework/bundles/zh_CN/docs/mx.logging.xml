@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging"><apiName>mx.logging</apiName><apiDetail/><apiClassifier id="mx.logging:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+  代表单个日志记录事件的日志信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  代表单个日志记录事件的日志信息。每当进程请求记录信息时，日志记录系统就将分派单个事件。任何对象都可捕获此事件以进行存储或格式化。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogEvent:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiData/><apiDesc>包含日志数据的字符串。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>此日志事件的级别。有效值为：
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件</li>
+	 
+        <li><codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</li>
+	 
+        <li><codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。</li>
+	 
+        <li><codeph>LogEventLevel.ALL</codeph>，旨在强制目标处理所有消息。</li>
+      </ul>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogEvent:getLevelString"><apiName>getLevelString</apiName><shortdesc>
+      返回代表指定级别的字符串值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>用英语指定的级别。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="uint"/><apiDesc>需要获取相应字符串形式的级别。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回代表指定级别的字符串值。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogEvent:LOG"><apiName>LOG</apiName><shortdesc>
+      事件类型常量；用于标识日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>log</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      事件类型常量；用于标识日志事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:level"><apiName>level</apiName><shortdesc>
+      提供对此日志事件级别的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对此日志事件级别的访问。有效值为：
+        <ul>
+          <li><codeph>LogEventLogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</li>
+     
+          <li><codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。</li>
+     
+          <li><codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+          <li><codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件。</li>
+     
+          <li><codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件。</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:message"><apiName>message</apiName><shortdesc>
+      提供对记录的消息的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对记录的消息的访问。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+  该类提供目标实现的日志记录框架所需的基本功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILoggingTarget</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类提供目标实现的日志记录框架所需的基本功能。它处理滤镜表达式验证，并提供默认级别属性。未提供 <codeph>logEvent()</codeph> 方法的实现。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:AbstractTarget:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:AbstractTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      使用指定的记录器设置此目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>此目标应该侦听的 ILogger。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的记录器设置此目标。这样，此目标就可以接收来自指定记录器的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:initialized"><apiName>initialized</apiName><shortdesc>
+      在创建了实现对象、并分配了标签上指定的所有属性后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>创建此对象的 MXML 文档。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>文档用于引用此对象。如果该对象是文档上的深层属性，则 id 为 null。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在创建了实现对象、并分配了标签上指定的所有属性后调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      此方法处理相关记录器中的 LogEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>相关记录器中的事件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      此方法处理相关记录器中的 <codeph>LogEvent</codeph>。目标使用此方法将事件转换为相应格式以便进行传输、存储或显示。仅当事件的级别在目标的级别范围内时才调用此方法。
+     
+      <p><b><i>注意：后代必须覆盖此方法才能使其发挥作用。</i></b></p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      阻止此目标接收来自指定记录器的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>此目标应该忽略的 ILogger。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      阻止此目标接收来自指定记录器的事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:AbstractTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      除了 level 设置外，滤镜还可用于提供伪层次结构映射，以便仅处理那些给定类别的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      除了 <codeph>level</codeph> 设置外，滤镜还可用于提供伪层次结构映射，以便仅处理那些给定类别的事件。
+      <p>
+      每个记录器都属于一个类别。一般而言，这些类别将映射到使用记录器的 fully-qualified 类名称。例如，记录 <codeph>mx.rpc.soap.WebService</codeph> 类的消息的记录器使用“mx.rpc.soap.WebService”作为 <codeph>Log.getLogger()</codeph> 方法调用的参数。当发送此类别的消息时，只有拥有与该类别匹配的滤镜的那些目标才能接收这些事件的通知。滤镜表达式可以包括通配符，用星号表示。通配符必须是表达式中最右端的字符。例如：rpc~~、mx.~~ 或者 ~~。如果指定的表达式无效，将引发 <codeph>InvalidFilterError</codeph>。如果指定了 <codeph>null</codeph> 或 []，则滤镜将设置为默认值 ["~~"]。
+      </p>
+      <p>例如：
+         <pre>
+               var traceLogger:ILoggingTarget = new TraceTarget();
+               traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
+               Log.addTarget(traceLogger);
+         </pre>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:id:get"><apiName>id</apiName><shortdesc>
+       提供对此目标的 ID 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+       提供对此目标的 ID 的访问。如果将 ID 用作 mxml 标签，则会在运行时由 mxml 编译器分配；如果在脚本块中使用，则在内部分配。
+       
+       </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:level:get"><apiName>level</apiName><shortdesc>
+      提供对此目标的当前设置级别的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对此目标的当前设置级别的访问。有效值包括：
+        <ul>
+          <li><codeph>LogEventLevel.FATAL (1000)</codeph>，指示负面影响严重且最终会导致应用程序失败的事件</li>
+     
+          <li><codeph>LogEventLevel.ERROR (8)</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+          <li><codeph>LogEventLevel.WARN (6)</codeph>，指示会对应用程序运行造成损害的事件</li>
+     
+          <li><codeph>LogEventLevel.INFO (4)</codeph>，指示粗略地介绍应用程序进度的说明性消息。</li>
+     
+          <li><codeph>LogEventLevel.DEBUG (2)</codeph>，指示对调试应用程序大有帮助的精细说明性消息。</li>
+     
+          <li><codeph>LogEventLevel.ALL (0)</codeph>，旨在强制目标处理所有消息。</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:LogEventLevel"><apiName>LogEventLevel</apiName><shortdesc>
+  一个静态类，其中包含要在 level 属性中使用的常数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  一个静态类，其中包含要在 <codeph>level</codeph> 属性中使用的常量。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.logging:LogEventLevel:ALL"><apiName>ALL</apiName><shortdesc>
+      通知目标处理所有消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      通知目标处理所有消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:DEBUG"><apiName>DEBUG</apiName><shortdesc>
+      指示对调试应用程序大有帮助的细粒度级别的信息性消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      指示对调试应用程序大有帮助的细粒度级别的信息性消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:ERROR"><apiName>ERROR</apiName><shortdesc>
+      指示可能仍然允许应用程序继续运行的错误事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      指示可能仍然允许应用程序继续运行的错误事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:FATAL"><apiName>FATAL</apiName><shortdesc>
+      指示负面影响严重且最终会导致应用程序失败的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      指示负面影响严重且最终会导致应用程序失败的事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:INFO"><apiName>INFO</apiName><shortdesc>
+      指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:WARN"><apiName>WARN</apiName><shortdesc>
+      指示会对应用程序运行造成损害的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>6</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      指示会对应用程序运行造成损害的事件。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILoggingTarget"><apiName>ILoggingTarget</apiName><shortdesc>
+  日志记录框架中的所有记录器目标实现都必须实现此接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  日志记录框架中的所有记录器目标实现都必须实现此接口。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      使用指定的记录器设置此目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>此目标侦听的 ILogger。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的记录器设置此目标。这样，此目标就可以接收来自指定记录器的日志事件。
+      
+      <p><b>注意：</b>此方法由框架调用，您不应该进行直接调用。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      阻止此目标接收来自指定记录器的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>此目标忽略的 ILogger。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      阻止此目标接收来自指定记录器的事件。
+      
+      <p><b>注意：</b>此方法由框架调用，您不应该进行直接调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      除了 level 设置外，滤镜还可用于提供伪层次结构映射，以便仅处理那些给定类别的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      除了 <codeph>level</codeph> 设置外，滤镜还可用于提供伪层次结构映射，以便仅处理那些给定类别的事件。
+      
+      <p>每个记录器都属于一个类别。一般而言，这些类别将映射到使用记录器的完全限定类名称。例如，记录 <codeph>mx.rpc.soap.WebService</codeph> 类的消息的记录器将使用 <codeph>"mx.rpc.soap.WebService"</codeph> 作为 <codeph>Log.getLogger()</codeph> 调用的参数。当发送此类别的消息时，只有拥有与该类别匹配的滤镜的那些目标才能接收这些事件的通知。滤镜表达式可以包括通配符，用星号表示。通配符必须是表达式中最右端的字符。例如：rpc~~、mx.~~ 或者 ~~。如果指定的表达式无效，将引发 <codeph>InvalidFilterError</codeph>。空格和下列字符在滤镜表达式中无效：[]~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@。</p>
+      
+      </apiDesc><example>
+      <pre>
+      var traceLogger:ILoggingTarget = new TraceTarget();
+      traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
+      Log.addTarget(traceLogger);
+      </pre>
+      
+      </example></apiValueDetail></apiValue><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:level:get"><apiName>level</apiName><shortdesc>
+      提供对此目标的当前设置级别的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对此目标的当前设置级别的访问。有效值包括：
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。</li>
+     
+        <li><codeph>LogEventLevel.ALL</codeph>，旨在强制目标处理所有消息。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILogger"><apiName>ILogger</apiName><shortdesc>
+  日志记录框架中的所有记录器都必须实现此接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  日志记录框架中的所有记录器都必须实现此接口。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:debug"><apiName>debug</apiName><shortdesc>
+      使用 LogEventLevel.DEBUG 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此字符串可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 <codeph>LogEventLevel.DEBUG</codeph> 级别记录指定的数据。<codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.debug("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:error"><apiName>error</apiName><shortdesc>
+      使用 LogEventLevel.ERROR 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 <codeph>LogEventLevel.ERROR</codeph> 级别记录指定的数据。<codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.error("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:fatal"><apiName>fatal</apiName><shortdesc>
+      使用 LogEventLevel.FATAL 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 <codeph>LogEventLevel.FATAL</codeph> 级别记录指定的数据。<codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件
+     
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.fatal("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:info"><apiName>info</apiName><shortdesc>
+      使用 LogEvent.INFO 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 <codeph>LogEvent.INFO</codeph> 级别记录指定的数据。<codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.info("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:log"><apiName>log</apiName><shortdesc>
+      在给定级别记录指定数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>此信息应使用的记录级别。有效值为：
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在给定级别记录指定数据。
+      
+      <p>为日志记录指定的 String 可以包含使用括号括起来的索引，用于指示在记录 String 之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.log(LogEventLevel.DEBUG, "here is some channel info {0} and {1}", LogEventLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:warn"><apiName>warn</apiName><shortdesc>
+      使用 LogEventLevel.WARN 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 <codeph>LogEventLevel.WARN</codeph> 级别记录指定的数据。<codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件。
+          
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.warn("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILogger:mx.logging:ILogger:category:get"><apiName>category</apiName><shortdesc>
+      记录器的类别值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      记录器的类别值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:Log"><apiName>Log</apiName><shortdesc>
+  为伪层次结构日志记录功能提供多种格式和输出选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  为伪层次结构日志记录功能提供多种格式和输出选项。日志系统包含两个主要组件：记录器和目标。您可以使用记录器向目标发送信息。目标负责设置日志数据的格式，以及日志数据的一般性输出。
+  <p>
+  记录器是为特殊类别的信息创建的 singleton 实例。通常，类别是希望记录信息的组件的包名称。通过类别，用户可以指定自己感兴趣的日志信息。您可以选择多个类别并使用正则表达式将其合并。这样可以扩大或缩小获取的日志记录信息的范围。例如，您也许对“mx.messaging”和“mx.rpc”包下的所有日志信息感兴趣，并希望这些包中的内容的输出格式为 XML。要获得“mx.messaging”类别（包括子包和组件）下的所有日志信息，则需要通配符表达式，如“mx.messaging.~~”。有关更多详细信息，请参阅下文中的代码示例。
+  </p>
+  <p>目标提供记录的数据的输出机制。此机制通常包括格式设置、传输或存储，但可以是 VM 下的任何内容。提供了两个目标：<codeph>MiniDebugTarget</codeph> 和 <codeph>TraceTarget</codeph>。其中的每个写入程序都获取当前日志信息并将其“发送”到某个位置进行显示和/或存储。目标还为要输出哪些日志数据提供了规范。
+  </p>
+ 
+  </apiDesc><example>
+  <pre>
+  ... 
+  import mx.logging.targets.
+  import mx.logging.
+ 
+  private function initLogging():void {
+      // Create a target.
+      var logTarget:TraceTarget = new TraceTarget();
+ 
+      // Log only messages for the classes in the mx.rpc.and 
+      // mx.messaging packages.
+      logTarget.filters=["mx.rpc.,"mx.messaging.];
+ 
+      // Log all log levels.
+      logTarget.level = LogEventLevel.ALL;
+ 
+      // Add date, time, category, and log level to the output.
+      logTarget.includeDate = true;
+      logTarget.includeTime = true;
+      logTarget.includeCategory = true;
+      logTarget.includeLevel = true;
+ 
+      // Begin logging.
+      Log.addTarget(logTarget);
+  } 
+  ...
+  </pre>
+  
+  </example></apiClassifierDetail><apiOperation id="mx.logging:Log:addTarget"><apiName>addTarget</apiName><shortdesc>
+      允许指定的目标开始接收日志事件的通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>应该捕获日志事件的特定目标。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      允许指定的目标开始接收日志事件的通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:flush"><apiName>flush</apiName><shortdesc>
+      此方法将从缓存中删除当前的所有记录器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此方法将从缓存中删除当前的所有记录器。随后，将调用 <codeph>getLogger()</codeph> 方法返回记录器的新实例，而不会返回先前的任何同类别实例。此方法仅适用于调试。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:getLogger"><apiName>getLogger</apiName><shortdesc>
+      返回与指定类别关联的记录器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定名称的记录器对象的实例。如果此名称不存在，则返回使用此指定名称的新实例。
+      
+      </apiDesc><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier></apiReturn><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>应该返回的记录器的类别。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回与指定类别关联的记录器。如果给定的类别不存在，则返回新的记录器实例，并将其与该类别关联。类别必须至少有一个字符的长度，并且可能不允许包含任何空白或下列任一字符：[]~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@ 如果指定的类别格式错误，则此方法将引发 <codeph>InvalidCategoryError</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:hasIllegalCharacters"><apiName>hasIllegalCharacters</apiName><shortdesc>
+      此方法检查指定的字符串值中是否存在非法字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>若发现任何非法字符，则为 <codeph>true</codeph>；否则，为 <codeph>false</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要从中检查非法字符的 String。下列字符为非法字符：[]~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      此方法检查指定的字符串值中是否存在非法字符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isDebug"><apiName>isDebug</apiName><shortdesc>
+      指示日志目标是否会处理调试级别的日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果记录调试级别的日志事件，则为 true；否则，为 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      指示日志目标是否会处理调试级别的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isError"><apiName>isError</apiName><shortdesc>
+      指示日志目标是否处理错误级别的日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果记录错误级别的日志事件，则为 true；否则，为 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      指示日志目标是否处理错误级别的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isFatal"><apiName>isFatal</apiName><shortdesc>
+      指示日志目标是否处理严重级别的日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果记录严重级别的日志事件，则为 true；否则，为 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      指示日志目标是否处理严重级别的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isInfo"><apiName>isInfo</apiName><shortdesc>
+      指示日志目标是否处理信息级别的日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果记录信息级别的日志事件，则为 true；否则，为 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      指示日志目标是否处理信息级别的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isWarn"><apiName>isWarn</apiName><shortdesc>
+      指示日志目标是否处理警告级别的日志事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果记录警告级别的日志事件，则为 true；否则，为 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      指示日志目标是否处理警告级别的日志事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:removeTarget"><apiName>removeTarget</apiName><shortdesc>
+      停止指定的目标接收日志事件的通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>应该捕获日志事件的特定目标。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      停止指定的目标接收日志事件的通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+  在日志记录框架中使用的记录器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILogger</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在日志记录框架中使用的记录器。此类为使用 <codeph>log()</codeph> 方法记录的每条消息分派事件。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogLogger:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>此日志发送的消息所属的类别。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogLogger:debug"><apiName>debug</apiName><shortdesc>
+	  
+      使用 LogEventLevel.DEBUG 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此字符串可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      使用 <codeph>LogEventLevel.DEBUG</codeph> 级别记录指定的数据。<codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:error"><apiName>error</apiName><shortdesc>
+	  
+      使用 LogEventLevel.ERROR 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      使用 <codeph>LogEventLevel.ERROR</codeph> 级别记录指定的数据。<codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:fatal"><apiName>fatal</apiName><shortdesc>
+	  
+      使用 LogEventLevel.FATAL 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      使用 <codeph>LogEventLevel.FATAL</codeph> 级别记录指定的数据。<codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件
+     
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:info"><apiName>info</apiName><shortdesc>
+	  
+      使用 LogEvent.INFO 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      使用 <codeph>LogEvent.INFO</codeph> 级别记录指定的数据。<codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。
+      
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:log"><apiName>log</apiName><shortdesc>
+	  
+      在给定级别记录指定数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>此信息应使用的记录级别。有效值为：
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph>，指示负面影响严重且最终会导致应用程序失败的事件</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph>，指示可能仍然允许应用程序继续运行的错误事件。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>，指示在粗粒度级别重点介绍应用程序运行情况的信息性消息。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph>，指示对调试应用程序大有帮助的细粒度级别的信息性消息。</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      在给定级别记录指定数据。
+      
+      <p>为日志记录指定的 String 可以包含使用括号括起来的索引，用于指示在记录 String 之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:warn"><apiName>warn</apiName><shortdesc>
+	  
+      使用 LogEventLevel.WARN 级别记录指定的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>要记录的信息。此 String 可以包含 {x} 形式的特殊标记字符，其中 x 是从零开始的索引，将由在该索引位置找到的附加参数取代（如果已指定）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可以在字符串参数中的每个“{<codeph>x</codeph>}”位置处作为替代内容的附加参数，其中 <codeph>x</codeph> 是指定值的 Array 中一个从零开始的整数索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      使用 <codeph>LogEventLevel.WARN</codeph> 级别记录指定的数据。<codeph>LogEventLevel.WARN</codeph>，指示会对应用程序运行造成损害的事件。
+          
+      <p>为日志记录指定的字符串可以包含使用括号括起来的索引，用于指示在记录字符串之前应该插入哪个附加参数。例如，当使用 10 和 15 作为参数进行调用时，“第一个附加参数是 {0}，第二个附加参数是 {1}”将转化为“第一个附加参数是 10，第二个附加参数是 15”。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogLogger:category:get"><apiName>category</apiName><shortdesc>
+	  此记录器发送的消息的类别。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+	  此记录器发送的消息的类别。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

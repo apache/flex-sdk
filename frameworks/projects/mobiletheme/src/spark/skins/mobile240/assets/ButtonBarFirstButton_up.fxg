@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+    scaleGridLeft="9" scaleGridTop="9" scaleGridRight="116" scaleGridBottom="51">
+    
+      <!-- highlight fill -->
+      <Path data="M120 60 7.93359 60C3.55273 60 0 56.4766 0 52.1309L0 7.86865C0 3.52295 3.55273 0 7.93359 0L120 0 120 60Z">
+        <fill>
+          <LinearGradient x="59.9995" y="0.51709" scaleX="32.2191" rotation="90">
+            <GradientEntry ratio="0" color="#FFFFFF" alpha="0.698039"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.047059"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      
+      <!-- border -->
+      <Path winding="nonZero" data="M119.008 0.983398 119.008 59.0166 7.93359 59.0166C4.10645 59.0166 0.992188 55.9277 0.992188 52.1309L0.992188 7.86865C0.992188 4.07227 4.10645 0.983398 7.93359 0.983398L119.008 0.983398ZM120 0 7.93359 0C3.55273 0 0 3.52295 0 7.86865L0 52.1309C0
+ 56.4766 3.55273 60 7.93359 60L120 60 120 0 120 0Z">
+        <fill>
+          <SolidColor color="#646464"/>
+        </fill>
+      </Path>
+      
+      <!-- right separator highlight -->
+      <Rect x="118" y="1" width="1" height="58">
+        <fill>
+          <SolidColor color="#FFFFFF" alpha="0.2"/>
+        </fill>
+      </Rect>
+</Graphic>

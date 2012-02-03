@@ -1,0 +1,1475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:AdvancedListBase"><apiName>AdvancedListBase</apiName><shortdesc>
+  AdvancedListBase 类是一些提供项目列表的控件（如 AdvancedDataGrid 和 OLAPDataGrid 控件）的基类。这些列表可以包含一个或多个选定项目，也可以在项目之间滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="dataChangeEffect" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Object">
+<description>
+ 控件的数据提供程序中发生更改时使用的效果。这可以是类引用（对效果子类的引用），也可以是 Effect 对象实例。前者适用于 CSS，后者适用于组件中的内嵌定义。
+ 
+ </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="bottom,middle,top" inherit="no" name="verticalAlign" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="String">
+<description>
+  垂直对齐行中的呈示器。可能值包括 <codeph>"top"</codeph>、<codeph>"middle"</codeph> 和 <codeph>"bottom"</codeph>。DataGrid 根据此样式以及 <codeph>paddingTop</codeph> 和 <codeph>paddingBottom</codeph> 样式在行中定位呈示器。如果某一行上各列中项目的高度不等，则其它列表类不使用 <codeph>verticalAlign</codeph>，但项呈示器可以检查此样式属性，并根据检查结果调整其布局。
+ 
+  </description>
+<default>"top"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="useRollOver" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Boolean">
+<description>
+  一个标志，控制当鼠标滚过项目时是否加亮显示该项目。如果为 <codeph>true</codeph>，则当鼠标滚过行时加亮显示这些行。如果为 <codeph>false</codeph>，则只在选中行时才进行加亮显示。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textSelectedColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  用户选中呈示器时其文本的颜色。
+ 
+  </description>
+<default>0x2B333C
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textRollOverColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  用户滚过鼠标时呈示器文本的颜色。
+ 
+  </description>
+<default>0x2B333C
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="selectionEasingFunction" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Function">
+<description>
+  针对选项效果的 easingFunction。如果选中了某个项目，则在背景着色时会播放相应的效果。默认效果为颜色的线性淡入淡出。easingFunction 可用于控制选择效果。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="selectionDuration" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  选择效果的持续时间。如果选中了某个项目，则在背景着色时会播放相应的效果。设置为 0 可禁用此效果。
+  
+  </description>
+<default>250
+  
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionDisabledColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  禁用此组件时呈示器的背景色。
+ 
+  </description>
+<default>0xDDDDDD
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  用户选中呈示器时其背景的颜色。
+ 
+  </description>
+<default>0x7FCEFF
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="rollOverColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  用户滚过鼠标时呈示器的背景色。
+ 
+  </description>
+<default>0xEEFEE6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingTop" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  行的顶部与该行中呈示器顶部之间的像素数目。
+  
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  行的底部与该行中呈示器底部之间的像素数目。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropIndicatorSkin" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Class">
+<description>
+  用于指示所拖动项目的放置位置的外观。如果 AdvancedListBase 派生的组件可能是拖放操作的放置目标，则调用 <codeph>showDropFeedback()</codeph> 方法将生成此类的一个实例，并将其放置在所放置项目之后项目的项呈示器上方一个像素处（如果进行放置）。
+ 
+  </description>
+<default>mx.controls.listClasses.ListDropIndicator
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="alternatingItemColors" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Array">
+<description>
+  列表中项目使用的背景色。此值是由两种或更多种颜色组成的数组。列表项目的背景将交替使用此数组中的各种颜色。 
+ 
+  <p>对于 DataGrid 控件，行中的所有项目都使用相同的背景色，而每行的背景色都由颜色数组确定。</p>
+ 
+  <p>对于只使用一个列表填充二维显示的 TileList 控件，此样式可根据指定的列数、行数和颜色数生成棋盘外观、条纹或其它图案。TileList 循环使用各种颜色，根据布局方向设置各个项目的背景色。如果您的 TileList 为水平布局，并且颜色数和列数均为偶数，则显示条纹图案。如果列数为奇数，则显示棋盘图案。
+  </p>
+ 
+  <p>仅当未指定 <codeph>backgroundColor</codeph> 时才会生效。</p>
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  控件右边框与内容区域右边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  控件左边框与内容区域左边缘之间的像素数目。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusRoundedCorners" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="String">
+<description>
+  指定焦点矩形的哪些角应该是圆角。此值是使用空格分隔的 String，该 String 可以是 <codeph>"tl"</codeph>、<codeph>"tr"</codeph>、<codeph>"bl"</codeph> 和 <codeph>"br"</codeph> 的任意组合。例如，要指定右侧的角为圆角，左侧的角为直角，应使用 <codeph>"tr br"</codeph>。<codeph>cornerRadius</codeph> 样式属性指定圆角的半径。默认值取决于组件类；如果未覆盖该类的默认值，则默认值为 <codeph>"tl tr bl br"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusAlpha" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  指定焦点外观的 alpha 透明度值。
+  
+  </description>
+<default>0.4
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The AdvancedListBase class inherits all of the tag properties of its superclasses,
+  and adds the following tag properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    allowDragSelection="false|true"
+    allowMultipleSelection="false|true"
+    columnCount="4"
+    columnWidth="NaN"
+    dataProvider="null"
+    dataTipField="label"
+    dataTipFunction="null"
+    dragEnabled="false|true"
+    dragMoveEnabled="false|true"
+    dropEnabled="false|true"
+    iconField="null"
+    iconFunction="null"
+    itemRenderer="null"
+    labelField="label"
+    labelFunction="null"
+    lockedColumnCount=0
+    lockedRowCount=0
+    menuSelectionMode="false|true"
+    rowCount="-1"
+    rowHeight="NaN"
+    selectable="true|false"
+    selectedIndex="-1"
+    selectedIndices="null"
+    selectedItem="null"
+    selectedItems="null"
+    showDataTips="false|true"
+    variableRowHeight="false|true"
+    wordWrap="false|true"
+ 
+    <b>Styles</b>
+    alternatingItemColors="undefined"
+    dataChangeEffect="undefined"
+    dropIndicatorSkin="ListDropIndicator"
+    focusAlpha="0.5"
+    focusRoundedCorners="tl tr bl br"
+    paddingBottom="2"
+    paddingLeft="2"
+    paddingRight="0"
+    paddingTop="2"
+    rollOverColor="0xEEFEE6"
+    selectionColor="0x7FCEFF"
+    selectionDisabledColor="0xDDDDDD"
+    selectionDuration="250"
+    selectionEasingFunction="undefined"
+    textRollOverColor="0x2B333C"
+    textSelectedColor="0x2B333C"
+    useRollOver="true|false"
+    verticalAlign="top|middle|bottom"
+ 
+    <b>Events</b>
+    change="<i>No default</i>"
+    dataChange="<i>No default</i>"
+    itemClick="<i>No default</i>"
+    itemDoubleClick="<i>No default</i>"
+    itemRollOut="<i>No default</i>"
+    itemRollOver="<i>No default</i>"
+    itemClick="<i>No default</i>"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.effects:IEffectTargetHost</apiBaseInterface><apiBaseClassifier>mx.core:ScrollControlBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AdvancedListBase 类是一些提供项目列表的控件（如 AdvancedDataGrid 和 OLAPDataGrid 控件）的基类。这些列表可以包含一个或多个选定项目，也可以在项目之间滚动。这些项目由 <codeph>dataProvider</codeph> 属性提供，并通过项呈示器显示。
+ 
+  <p>在模型/视图体系结构中，AdvancedListBase 子类提供视图，数据提供程序提供模型。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_DOUBLE_CLICK_itemDoubleClick"><apiName>itemDoubleClick</apiName><shortdesc>
+  当用户双击控件中的某个项目时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_DOUBLE_CLICK</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户双击控件中的某个项目时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_CLICK_itemClick"><apiName>itemClick</apiName><shortdesc>
+  当用户单击控件中的某个项目时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户单击控件中的某个项目时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_ROLL_OUT_itemRollOut"><apiName>itemRollOut</apiName><shortdesc>
+  当用户将鼠标指针移出控件中的某个项目时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_ROLL_OUT</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将鼠标指针移出控件中的某个项目时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_ROLL_OVER_itemRollOver"><apiName>itemRollOver</apiName><shortdesc>
+  当用户将鼠标指针滚至控件中的某个项目时分派此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_ROLL_OVER</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户将鼠标指针滚至控件中的某个项目时分派此方法。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  当用户操作导致 selectedIndex 或 selectedItem 属性发生变化时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户操作导致 <codeph>selectedIndex</codeph> 或 <codeph>selectedItem</codeph> 属性发生变化时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.listClasses:AdvancedListBase:AdvancedListBase"><apiName>AdvancedListBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.listClasses:AdvancedListBase:addDataEffectItem"><apiName>addDataEffectItem</apiName><shortdesc>
+      如果正在运行数据更改效果，则添加项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要添加到控件布局中的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果正在运行数据更改效果，则添加项呈示器。项呈示器应与数据提供程序集合中最近添加但尚未显示的数据项目对应。此函数将作为数据更改效果的一部分由 <codeph>AddItemAction</codeph> 效果调用，用以指定使用项呈示器的控件开始显示添加到集合中的项目的时间点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:addDragData"><apiName>addDragData</apiName><shortdesc>
+      作为拖放操作的一部分，将所选项目添加到 DragSource 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dragSource</apiItemName><apiType value="Object"/><apiDesc>在其中添加数据的 DragSource 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      作为拖放操作的一部分，将所选项目添加到 DragSource 对象。覆盖此方法可将其它数据添加到拖动源。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:addToFreeItemRenderers"><apiName>addToFreeItemRenderers</apiName><shortdesc>
+      将呈示器添加到循环使用的呈示器列表，使其不可见并清除对该呈示器的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>要添加的 IListItemRenderer。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将呈示器添加到循环使用的呈示器列表，使其不可见并清除对该呈示器的引用。如果正在运行某个数据效果，则将保留该呈示器以供那些数据以后使用。否则，会将其添加到常规 freeItemRenderers 堆栈中。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:adjustListContent"><apiName>adjustListContent</apiName><shortdesc>
+      从 updateDisplayList() 方法调用，用以调整列表内容的大小和位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>指定组件在组件坐标中的宽度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>指定组件在组件坐标中的高度（以像素为单位）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从 <codeph>updateDisplayList()</codeph> 方法中调用，用以调整列表内容的大小和位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:applySelectionEffect"><apiName>applySelectionEffect</apiName><shortdesc>
+      设置应用选择指示符的效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>包含描绘选择的图形的 Sprite。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>所选项目的 UID，可用于在表中编制索引并跟踪多个选择效果。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>要作为所选内容显示的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置应用选择指示符的效果。默认为基本的 alpha 补间。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      返回将放置项目添加到放置目标中的位置的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指示放置项目的添加位置的索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiData>null</apiData><apiDesc>包含鼠标位置相关信息的 DragEvent。如果为 <codeph>null</codeph>，此方法应从最后的有效事件中返回 <codeph>dropIndex</codeph> 值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回将放置项目添加到放置目标中的位置的索引。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:calculateDropIndicatorY"><apiName>calculateDropIndicatorY</apiName><shortdesc>
+      在执行拖放操作时计算拖放指示符的 y 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>拖放指示符的 y 轴坐标。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>rowCount</apiItemName><apiType value="Number"/><apiDesc>控件中可视行的数目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>拖放指示符应在控件中出现的位置的行编号。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在执行拖放操作时计算拖放指示符的 y 位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:clearIndicators"><apiName>clearIndicators</apiName><shortdesc>
+      删除所有选定、加亮显示和尖号指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      删除所有选定、加亮显示和尖号指示符。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:clearSelected"><apiName>clearSelected</apiName><shortdesc>
+      清除所选项目组，并移除表示那些项目的选定状态的所有图形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果图形应该显示淡出效果，则返回 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      清除所选项目组，并移除表示那些项目的选定状态的所有图形。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:collectionChangeHandler"><apiName>collectionChangeHandler</apiName><shortdesc>
+      当数据发生更改时，处理从数据提供程序中分派的 CollectionEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>CollectionEvent。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当数据发生更改时，处理从数据提供程序中分派的 CollectionEvent。根据需要，更新呈示器、所选索引和滚动条。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      根据是否已显式设置 columnCountcolumnWidth、rowHeight 和 rowCount 等属性来计算列宽、行高以及行数和列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      根据是否已显式设置 <codeph>columnCount</codeph> <codeph>columnWidth</codeph>、<codeph>rowHeight</codeph> 和 <codeph>rowCount</codeph> 等属性来计算列宽、行高以及行数和列数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:configureScrollBars"><apiName>configureScrollBars</apiName><shortdesc>
+      根据行数、列数以及可查看的行和列配置 ScrollBar。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      根据行数、列数以及可查看的行和列配置 ScrollBar。更新了行和列之后，将从 <codeph>updateDisplayList()</codeph> 方法调用此方法。此方法应指出向 <codeph>setScrollBarProperties()</codeph> 传入哪些参数来正确设置 ScrollBar。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:copyItemWithUID"><apiName>copyItemWithUID</apiName><shortdesc>
+	  通过调用 ObjectUtil.copy() 方法为此对象制作一个深层副本，然后通过调用 UIDUtil.createUID() 方法用一个新值替代该副本的 uid 属性（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>对象的副本。
+	 
+	  </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要复制的项目。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过调用 <codeph>ObjectUtil.copy()</codeph> 方法为此对象制作一个深层副本，然后通过调用 <codeph>UIDUtil.createUID()</codeph> 方法用一个新值替代该副本的 <codeph>uid</codeph> 属性（如果存在）。
+	 
+	  <p>此方法用于拖放副本。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.ObjectUtil.xml"><linktext>mx.utils.ObjectUtil</linktext></link><link href="" invalidHref="mx.utils.UIDUtil.xml"><linktext>mx.utils.UIDUtil</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:copySelectedItems"><apiName>copySelectedItems</apiName><shortdesc>
+      按所选项目的选择顺序为其制作副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>所选项目的数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>useDataField</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果应使用实际项目填充该数组，则为 <codeph>true</codeph>；如果应使用项目索引填充数组，则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      按所选项目的选择顺序为其制作副本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      创建对象作为此 ListBase 的子对象，在这种情况下为将控制所有项呈示器的 listContent 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建对象作为此 ListBase 的子对象，在这种情况下为将控制所有项呈示器的 <codeph>listContent</codeph> 对象。请注意，项呈示器不会立即创建，而是稍后在 Flex 调用 <codeph>updateDisplayList()</codeph> 方法时创建。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragCompleteHandler"><apiName>dragCompleteHandler</apiName><shortdesc>
+      处理 DragEvent.DRAG_COMPLETE 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 <codeph>DragEvent.DRAG_COMPLETE</codeph> 事件。此方法从数据提供程序中删除项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragDropHandler"><apiName>dragDropHandler</apiName><shortdesc>
+      处理 DragEvent.DRAG_DROP 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 <codeph>DragEvent.DRAG_DROP 事件</codeph>。此方法通过调用 <codeph>hideDropFeedback()</codeph> 方法隐藏 UI 反馈。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragEnterHandler"><apiName>dragEnterHandler</apiName><shortdesc>
+      处理 DragEvent.DRAG_ENTER 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 <codeph>DragEvent.DRAG_ENTER</codeph> 事件。此方法可确定 DragSource 对象是否包含有效的元素，并使用 <codeph>showDropFeedback()</codeph> 方法来设置 UI 反馈。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragExitHandler"><apiName>dragExitHandler</apiName><shortdesc>
+      处理 DragEvent.DRAG_EXIT 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 <codeph>DragEvent.DRAG_EXIT</codeph> 事件。此方法通过调用 <codeph>hideDropFeedback()</codeph> 方法隐藏 UI 反馈。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragOverHandler"><apiName>dragOverHandler</apiName><shortdesc>
+      处理 DragEvent.DRAG_OVER 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 <codeph>DragEvent.DRAG_OVER</codeph> 事件。此方法确定 DragSource 对象是否包含有效元素，并使用 <codeph>showDropFeedback()</codeph> 方法设置 UI 反馈。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragScroll"><apiName>dragScroll</apiName><shortdesc>
+      Interval 函数，用于在鼠标位于列表上方或下方时上下滚动列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Interval 函数，用于在鼠标位于列表上方或下方时上下滚动列表。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragStartHandler"><apiName>dragStartHandler</apiName><shortdesc>
+      dragStart 事件的默认处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>dragStart</codeph> 事件的默认处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawCaretIndicator"><apiName>drawCaretIndicator</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制尖号指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite 对象，其中应该包含图形以使呈示器呈示加亮效果。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>加亮的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制尖号指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawHighlightIndicator"><apiName>drawHighlightIndicator</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制加亮指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite 对象，其中应该包含图形以使呈示器呈示加亮效果。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>加亮的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制加亮指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawItem"><apiName>drawItem</apiName><shortdesc>
+      绘制带有指示符（加亮显示的或选中的）或尖号的呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>呈示器。
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为选中状态，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为加亮状态，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为选择尖号，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应借助效果将选择状态进行淡入处理，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      绘制带有指示符（加亮显示的或选中的）或尖号的呈示器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawRowBackgrounds"><apiName>drawRowBackgrounds</apiName><shortdesc>
+      绘制行中所有交替行的颜色、边框和背景。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      绘制行中所有交替行的颜色、边框和背景。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制选择指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite 对象，其中应该包含图形以使呈示器呈示加亮效果。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>加亮的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制选择指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:findKey"><apiName>findKey</apiName><shortdesc>
+      尝试在数据提供程序中查找下一个以 eventCode 参数中的字符开头的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果找到匹配项，则为 <codeph>true.</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>eventCode</apiItemName><apiType value="int"/><apiDesc>键盘上按下的键。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      尝试在数据提供程序中查找下一个以 <codeph>eventCode</codeph> 参数中的字符开头的项目。您可以覆盖此方法以执行联想式预键入查找。搜索从 <codeph>selectedIndex</codeph> 位置开始；如果到达数据提供程序的末端，则将从起始处开始。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:findString"><apiName>findString</apiName><shortdesc>
+      根据某一字符串在列表中查找项目并选择该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果找到匹配项，则为 <codeph>true.</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要匹配的字符串。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据某一字符串在列表中查找项目并选择该项目。搜索从 <codeph>selectedIndex</codeph> 位置开始；如果到达数据提供程序的末端，则将从起始处开始。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:finishDataChangeEffect"><apiName>finishDataChangeEffect</apiName><shortdesc>
+      在数据更改效果运行完毕后，通过恢复原始集合和迭代器并移除此效果使用的所有缓存值进行清理。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:EffectEvent"/><apiDesc>已运行完毕的效果。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在数据更改效果运行完毕后，通过恢复原始集合和迭代器并移除此效果使用的所有缓存值进行清理。此方法由 Flex 框架调用；您无需从自己的代码中调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      基于 caretIndex 和 anchorIndex 属性设置所选项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基于 <codeph>caretIndex</codeph> 和 <codeph>anchorIndex</codeph> 属性设置所选项目。如果键盘选择处理函数在滚动以获得更多项目时发生页面错误，就会由键盘选择处理函数和 <codeph>updateDisplayList()</codeph> 方法调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:getRendererSemanticValue"><apiName>getRendererSemanticValue</apiName><shortdesc> 
+      返回项呈示器的特定语义属性值；如果尚未定义该属性（尽管数据效果正在运行），则返回 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回项呈示器的特定语义属性值；如果尚未定义该属性（尽管数据效果正在运行），则返回 null。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>项呈示器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>semanticProperty</apiItemName><apiType value="String"/><apiDesc>要返回其值的呈示器的语义属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      返回项呈示器的特定语义属性值；如果尚未定义该属性（尽管数据效果正在运行），则返回 null。此函数将由滤镜应用于数据更改效果中，用以限制与移除或添加的数据项目对应的呈示器效果。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:getReservedOrFreeItemRenderer"><apiName>getReservedOrFreeItemRenderer</apiName><shortdesc>
+      检索已创建但当前未使用的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>当前未使用已创建的项呈示器。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>供项呈示器显示的数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检索已创建但当前未使用的项呈示器。如果正在运行某个数据效果，则将首先尝试从 reservedItemRenderers 映射中检索。否则（或如果未找到保留的呈示器），将从 freeItemRenderers 堆栈中检索。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:hideDropFeedback"><apiName>hideDropFeedback</apiName><shortdesc>
+      在鼠标指针下方隐藏指示允许执行拖放操作的拖放指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>包含鼠标位置信息的 DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在鼠标指针下方隐藏指示允许执行拖放操作的拖放指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:indexToColumn"><apiName>indexToColumn</apiName><shortdesc>
+      给定索引处数据提供程序项目所在的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>组件中用于显示项目的列。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>数据提供程序中的偏移量。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      给定索引处数据提供程序项目所在的列。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:indexToItemRenderer"><apiName>indexToItemRenderer</apiName><shortdesc>
+      针对数据提供程序中某个项目的索引获取项呈示器（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>用于显示项目的项呈示器；如果当前未显示此项目，则为 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>某个项目的数据提供程序中的偏移量。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      针对数据提供程序中某个项目的索引获取项呈示器（如果存在）。因为只有可查看行项目组中的项目才有项呈示器，所以无法对不可见的项目使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:indexToRow"><apiName>indexToRow</apiName><shortdesc>
+      给定索引处数据提供程序项目所在的行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>组件中用于显示项目的行。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>数据提供程序中的偏移量。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      给定索引处数据提供程序项目所在的行。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:indicesToIndex"><apiName>indicesToIndex</apiName><shortdesc>
+      计算 colIndex 和 rowIndex 处项目的数据提供程序中的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>数据提供程序中的偏移量。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>行从零开始的索引，包括从顶部滚离的行。因此，如果 <codeph>verticalScrollPosition</codeph> 为 2，则第一个可见行的 rowIndex 为 2。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>列从零开始的索引，包括滚离左侧的列。如果 <codeph>horizontalScrollPosition</codeph> 为 2，则左侧第一列的 columnIndex 为 2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      计算 colIndex 和 rowIndex 处项目的数据提供程序中的偏移量。根据平铺布局的方向以及 TileList 中的行数和列数，TileList 中第 3 列第 9 行的项目可能与数据提供程序中对应位置的项目不同。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:initiateDataChangeEffect"><apiName>initiateDataChangeEffect</apiName><shortdesc>
+      当数据提供程序中发生更改时应用数据更改效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当数据提供程序中发生更改时应用数据更改效果。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:invalidateList"><apiName>invalidateList</apiName><shortdesc>
+      在下次更新时刷新所有行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在下次更新时刷新所有行。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemHighlighted"><apiName>isItemHighlighted</apiName><shortdesc>
+      确定是否加亮显示数据提供程序项目的项呈示器（当鼠标滑过它，或者通过键盘导航使它位于尖号下方时）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果项目加亮显示，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定是否加亮显示数据提供程序项目的项呈示器（当鼠标滑过它，或者通过键盘导航使它位于尖号下方时）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemSelectable"><apiName>isItemSelectable</apiName><shortdesc>
+      确定数据提供程序项目的项呈示器是否可选。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果可以选择此项目，则返回 <codeph>true</codeph>
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定数据提供程序项目的项呈示器是否可选。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemSelected"><apiName>isItemSelected</apiName><shortdesc>
+      确定是否已选中数据提供程序项目的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果项目加亮显示，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定是否已选中数据提供程序项目的项呈示器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemShowingCaret"><apiName>isItemShowingCaret</apiName><shortdesc>
+	  确定数据提供程序项的项呈示器是否为键盘导航后位于尖号下方的项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果是位于尖号下方的项，则为 <codeph>true</codeph>
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  确定数据提供程序项的项呈示器是否为键盘导航后位于尖号下方的项。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemVisible"><apiName>isItemVisible</apiName><shortdesc>
+      确定呈示器是否显示某个项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果正在显示此项目，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定呈示器是否显示某个项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:isRendererUnconstrained"><apiName>isRendererUnconstrained</apiName><shortdesc>
+      如果项呈示器不再根据列表的布局算法定位，则返回 true，尽管由于调用 unconstrainRenderer() 方法正在运行数据更改效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果项呈示器不再使用列表的布局算法定位，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>项呈示器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果项呈示器不再根据列表的布局算法定位，则返回 <codeph>true</codeph>，尽管由于调用 <codeph>unconstrainRenderer()</codeph> 方法正在运行数据更改效果。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemRendererContains"><apiName>itemRendererContains</apiName><shortdesc>
+      确定呈示器是否包含（或拥有）显示对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果呈示器中包含或拥有显示对象，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>renderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>可能包含或拥有显示对象的呈示器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>object</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>可能与呈示器相关联的显示对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定呈示器是否包含（或拥有）显示对象。所有权表示显示对象实际上并非呈示器的子项，而是在一定程度上与之相关联。呈示器应该包含弹出框，以便弹出框中的活动与呈示器相关联，并且在其它组件中不作为活动显示。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemRendererToIndex"><apiName>itemRendererToIndex</apiName><shortdesc>
+      返回通过此项呈示器呈示的该项目在数据提供程序中的项目索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>数据提供程序中项目的索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>项呈示器，其中显示了您希望获知其数据提供程序索引的项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回通过此项呈示器呈示的该项目在数据提供程序中的项目索引。因为只有可查看行组中的项目才有项呈示器，所以无法对不可见的项目使用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      返回包含项呈示器的列索引和行索引的 Point 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Point 实例。<codeph>x</codeph> 属性包含列索引，<codeph>y</codeph> 属性包含行索引。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>项呈示器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回包含项呈示器的列索引和行索引的 Point 实例。由于只为可查看行组中的项目创建项呈示器，所以您无法使用此方法获得不可见项目的索引。另请注意，项呈示器可循环使用。因此当重用某个项呈示器来显示其他项目时，您获得的项目索引可能会发生变化。通常，在使用鼠标和键盘执行处理期间项呈示器显示的数据集未更改的情况下调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      返回呈示器根据 dataTipField 和 dataTipFunction 属性显示给定数据对象的数据提示字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>String，基于数据的可显示字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要呈示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回呈示器根据 dataTipField 和 dataTipFunction 属性显示给定数据对象的数据提示字符串。如果该方法无法将参数转换为字符串，则会返回一个空格。
+      <p>仅供创建 ListBase 子类或其子项的开发人员使用，而不适用于应用程序开发人员。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToIcon"><apiName>itemToIcon</apiName><shortdesc>
+      根据 iconField 和 iconFunction 属性返回表示数据项目图标的类（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项目的图标，采用类引用的形式；如果不存在，则返回 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>从中提取图标类的项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据 iconField 和 iconFunction 属性返回表示数据项目图标的类（如果存在）。项目中的字段可以返回一个字符串，前提是该字符串表示应用程序中某个类的名称。项目中的字段还可以是表示包含图标类的文档中某个变量名称的字符串。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToItemRenderer"><apiName>itemToItemRenderer</apiName><shortdesc>
+      返回数据提供程序中给定项目的项呈示器（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项呈示器；如果当前未显示项目，则为 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回数据提供程序中给定项目的项呈示器（如果存在）。因为只有可查看行组中的项目才有项呈示器，所以当项目不可见时，此方法将返回 <codeph>null</codeph>。对于数据网格，此方法返回第一列的呈示器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      返回呈示器根据 labelField 和 labelFunction 属性显示给定数据对象的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>根据数据要显示的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要呈示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回呈示器根据 labelField 和 labelFunction 属性显示给定数据对象的字符串。如果该方法无法将参数转换为字符串，则会返回一个空格。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:itemToUID"><apiName>itemToUID</apiName><shortdesc>
+      确定数据提供程序项目的 UID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>字符串形式的 UID.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>数据提供程序项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定数据提供程序项目的 UID。数据提供程序中的所有项目都必须具有唯一的 ID (UID)，或生成一个与之相关的 ID。这意味着您无法在数据提供程序中两次显示对象或标量值。 
+      
+      <p>例如，不支持以下数据提供者，因为“foo”值出现了两次，而且字符串的 UID 是字符串本身。</p>
+     
+      <pre>
+      var sampleDP:Array = ["foo", "bar", "foo"]
+      </pre>
+     
+      <p>如果简单动态对象是两个不同的实例，则可以显示两次。支持以下数据提供者，原因是由于每个实例都是不同的对象，因此将向每个实例提供不同的 UID：</p>
+     
+      <pre>
+      var sampleDP:Array = [{label: "foo"}, {label: "foo"}]
+      </pre>
+     
+      <p>请注意，不支持以下数据提供者，因为同一实例出现了两次：</p>
+     
+      <pre>
+      var foo:Object = {label: "foo"};
+      sampleDP:Array = [foo, foo];
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:measureHeightOfItems"><apiName>measureHeightOfItems</apiName><shortdesc>
+      使用当前项呈示器测量数据提供程序中的一组项目，并返回这些项目的高度之和。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>所测量项目的高度之和。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>第一个进行高度测量的数据提供程序项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>计算高度时需要测量的项目数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用当前项呈示器测量数据提供程序中的一组项目，并返回这些项目的高度之和。
+     
+      <p>此方法无法在 AdvancedListBase 类中实现，而必须在子类中实现。</p>
+     
+      <p>如果 <codeph>index</codeph> 值为负，则指定在计算高度时包含所有标题。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:measureWidthOfItems"><apiName>measureWidthOfItems</apiName><shortdesc>
+      使用当前项呈示器测量数据提供程序中的一组项目，并返回找到的最大宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>所测量项目的最大宽度。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>第一个进行宽度测量的数据提供程序项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>计算宽度时需要测量的项目数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用当前项呈示器测量数据提供程序中的一组项目，并返回找到的最大宽度。此方法用于计算组件的宽度。各种 ListBase-derived 类的实现之间存在细微差异。DataGrid 将测量其列而非数据提供程序项目，而 TileList 只测量第一个项目并假定所有项目大小相同。
+     
+      <p>此方法无法在 AdvancedListBase 类中实现，而必须在子类中实现。</p>
+     
+      <p>如果 <codeph>index</codeph> 值为负，则指定在计算宽度时包含所有标题。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:measure"><apiName>measure</apiName><shortdesc>
+      根据 rowCount、columnCount、rowHeight 和 columnWidth 属性计算组件的度量宽度和高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      根据 <codeph>rowCount</codeph>、<codeph>columnCount</codeph>、<codeph>rowHeight</codeph> 和 <codeph>columnWidth</codeph> 属性计算组件的度量宽度和高度。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseClickHandler"><apiName>mouseClickHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_CLICK 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_CLICK</codeph> 事件。此方法确定单击了哪个呈示器，并分派 <codeph>ListEvent.ITEM_CLICK</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseDoubleClickHandler"><apiName>mouseDoubleClickHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_DOUBLE_CLICK 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_DOUBLE_CLICK</codeph> 事件。此方法确定单击了哪个呈示器，并分派 <codeph>ListEvent.ITEM_DOUBLE_CLICK</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_DOWN 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_DOWN</codeph> 事件。此方法查找被按下的呈示器，并准备接收 <codeph>MouseEvent.MOUSE_UP</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseEventToItemRenderer"><apiName>mouseEventToItemRenderer</apiName><shortdesc>
+      确定哪种项呈示器位于鼠标下方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>位于鼠标下方的项呈示器；如果不存在，则为 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>包含鼠标位置及其下方对象的 MouseEvent。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定哪种项呈示器位于鼠标下方。项呈示器可由多个鼠标目标组成，也可以包含鼠标目标范围之外的可见区域。此方法既检查鼠标目标又检查鼠标位置，以便从用户角度确定鼠标下方是哪种项呈示器，这可能与鼠标事件提供的信息有所不同。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseMoveHandler"><apiName>mouseMoveHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_MOVE 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_MOVE</codeph> 事件。此方法监视导致开始拖放并发送 <codeph>DragEvent.DRAG_START</codeph> 事件的动作。它还检查鼠标是否位于呈示器的非目标区域，以便 Flex 尽量使呈示器看起来像目标一样。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseOutHandler"><apiName>mouseOutHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_OUT 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_OUT</codeph> 事件。此方法查找鼠标离开的呈示器并删除其加亮效果。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseOverHandler"><apiName>mouseOverHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_OVER 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_OVER</codeph> 事件。此方法查找鼠标到达的呈示器并加亮该呈示器。
+     
+      <p>列表类还会从 <codeph>MouseEvent.MOUSE_MOVE</codeph> 事件调用此方法。此事件用于检测呈示器中非目标区域以及呈示器周围填充区域中的移动。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseUpHandler"><apiName>mouseUpHandler</apiName><shortdesc>
+      处理列表中所有鼠标目标（包括呈示器）的 MouseEvent.MOUSE_DOWN 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理列表中所有鼠标目标（包括呈示器）的 <codeph>MouseEvent.MOUSE_DOWN</codeph> 事件。此方法查找被按下的呈示器，并准备接收 <codeph>MouseEvent.MOUSE_UP</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseWheelHandler"><apiName>mouseWheelHandler</apiName><shortdesc>
+      通过更改滚动位置处理 mouseWheel 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过更改滚动位置处理 <codeph>mouseWheel</codeph> 事件。这是 ScrollControlBase 类中的版本副本，可以对其进行修改以便水平运行目标时更改 <codeph>horizontalScrollPosition</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ScrollControlBase/mouseWheelHandler()"><linktext>mx.core.ScrollControlBase.mouseWheelHandler()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveIndicatorsHorizontally"><apiName>moveIndicatorsHorizontally</apiName><shortdesc conref="mx.controls.listClasses.ListBase#moveIndicatorsHorizontally()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>moveBlockDistance</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.controls.listClasses.ListBase#moveIndicatorsHorizontally()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveIndicatorsVertically"><apiName>moveIndicatorsVertically</apiName><shortdesc conref="mx.controls.listClasses.ListBase#moveIndicatorsVertically()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>moveBlockDistance</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.controls.listClasses.ListBase#moveIndicatorsVertically()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveSelectionHorizontally"><apiName>moveSelectionHorizontally</apiName><shortdesc>
+      沿水平方向移动所选项目，以响应用户使用向左箭头或向右箭键头以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>按下的键（如 Keyboard.LEFT）
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按下键盘键的同时按住 Shift 键，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按下键盘键的同时按住 Ctrl 键，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      沿水平方向移动所选项目，以响应用户使用向左箭头或向右箭键头以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。这种方法可能会更改 <codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> 和 <codeph>caretIndex</codeph> 属性，并调用 <codeph>finishKeySelection()</codeph> 方法来更新选项。
+     
+      <p>未在 AdvancedListBase 中实现，原因是默认列表仅包含一列，因此无法水平滚动。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      沿垂直方向移动所选项目，以响应用户使用向上箭头或向下箭头键以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>按下的键（如 Keyboard.DOWN）
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按下键盘键的同时按住 Shift 键，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按下键盘键的同时按住 Ctrl 键，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      沿垂直方向移动所选项目，以响应用户使用向上箭头或向下箭头键以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。此方法可以更改 <codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> 和 <codeph>caretIndex</codeph> 属性，并调用 <codeph>finishKeySelection()</codeph> 方法更新所选内容
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:removeDataEffectItem"><apiName>removeDataEffectItem</apiName><shortdesc>
+      如果正在运行数据更改效果，则移除项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要从控件布局中删除的项呈示器。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果正在运行数据更改效果，则移除项呈示器。项呈示器必须与从数据提供程序集合中移除的数据对应。此函数将作为数据更改效果的一部分由 <codeph>RemoveItemAction</codeph> 效果调用，用以指定使用项呈示器的控件停止显示数据项目的时间点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:removeIndicators"><apiName>removeIndicators</apiName><shortdesc>
+      清理数据提供程序中给定项目的选项亮显及其他关联图形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>数据提供程序项目的 UID.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      清理数据提供程序中给定项目的选项亮显及其他关联图形。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollHorizontally"><apiName>scrollHorizontally</apiName><shortdesc>
+      调整呈示器以响应滚动位置的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pos</apiItemName><apiType value="int"/><apiDesc>新的滚动位置。
+      </apiDesc></apiParam><apiParam><apiItemName>deltaPos</apiItemName><apiType value="int"/><apiDesc>位置的变化。该值始终为正数。
+      </apiDesc></apiParam><apiParam><apiItemName>scrollUp</apiItemName><apiType value="Boolean"/><apiDesc>如果滚动位置正在逐渐缩小，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调整呈示器以响应滚动位置的更改。
+     
+      <p>当滚动位置的更改量低于可见行数时，列表类将尝试优化滚动。此时，一些行只需进行移动即可而无需进行其它更改，另一些行则需要删除，然后添加新行。如果滚动位置更改量过大，将删除所有旧行，并调用 <codeph>makeRowsAndColumns()</codeph> 方法在整个可查看区域添加新行。</p>
+     
+      <p>未在 AdvancedListBase 中实现，原因是默认列表仅包含一列，因此无法水平滚动。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollPositionToIndex"><apiName>scrollPositionToIndex</apiName><shortdesc>
+      返回给定滚动位置第一个可见行和列处的项目的数据提供程序索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>数据提供程序索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>horizontalScrollPosition</apiItemName><apiType value="int"/><apiDesc>与滚动位置相对应的 <codeph>horizontalScrollPosition</codeph> 属性值。
+      </apiDesc></apiParam><apiParam><apiItemName>verticalScrollPosition</apiItemName><apiType value="int"/><apiDesc>与滚动位置相对应的 <codeph>verticalScrollPosition</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回给定滚动位置第一个可见行和列处的项目的数据提供程序索引。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:scrollToIndex"><apiName>scrollToIndex</apiName><shortdesc>
+      确保给定索引处的数据提供程序项目可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果更改了 <codeph>verticalScrollPosition</codeph>，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>数据提供程序中项目的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确保给定索引处的数据提供程序项目可见。如果此项目可见，则 <codeph>verticalScrollPosition</codeph> 属性将保持不变，即使该项目并非第一个可见项目也不例外。如果此项目当前不可见，则会更改 <codeph>verticalScrollPosition</codeph> 属性以将该项目设为第一个可见项目；但行数不足时除外，因为 <codeph>verticalScrollPosition</codeph> 值受 <codeph>maxVerticalScrollPosition</codeph> 属性限制。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollVertically"><apiName>scrollVertically</apiName><shortdesc>
+      调整呈示器以响应滚动位置的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pos</apiItemName><apiType value="int"/><apiDesc>新的滚动位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>deltaPos</apiItemName><apiType value="int"/><apiDesc>位置的变化。该值始终为正数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scrollUp</apiItemName><apiType value="Boolean"/><apiDesc>如果滚动位置正在逐渐缩小，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调整呈示器以响应滚动位置的更改。
+     
+      <p>当滚动位置的更改量低于可见行数时，列表类将尝试优化滚动。在这种情况下，一些行将保持不变，只需对其进行移动即可，并且将删除其它行，然后添加新行。如果滚动位置更改量过大，将删除所有旧行，并调用 <codeph>makeRowsAndColumns()</codeph> 方法在整个可查看区域添加新行。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/makeRowsAndColumns()"><linktext>mx.controls.listClasses.ListBase.makeRowsAndColumns()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:seekPendingFailureHandler"><apiName>seekPendingFailureHandler</apiName><shortdesc>
+      当由于页面错误而导致寻找失败时的默认故障处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>导致该错误的数据。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>info</apiItemName><apiType value="mx.controls.listClasses:ListBaseSeekPending"/><apiDesc>有关由于 ItemPendingError 错误而中断的搜索操作的数据。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当由于页面错误而导致寻找失败时的默认故障处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:seekPendingResultHandler"><apiName>seekPendingResultHandler</apiName><shortdesc>
+      当由于页面错误而导致寻找失败时的默认结果处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>导致该错误的数据。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>info</apiItemName><apiType value="mx.controls.listClasses:ListBaseSeekPending"/><apiDesc>有关由于 ItemPendingError 错误而中断的搜索操作的数据。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当由于页面错误而导致寻找失败时的默认结果处理函数。此方法将检查是否存在最新页面的错误结果：如果没有，则退出；如果有，则将迭代器设置到正确的位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:selectItem"><apiName>selectItem</apiName><shortdesc>
+      如果使用鼠标单击提供的项呈示器，并且键盘功能键处于给定状态，则更新所选项目组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果所选项目组发生更改，则返回 <codeph>true</codeph>。单击已选项目通常不会更改所选项目组。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>单击的项呈示器。
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在单击鼠标的同时按下 Shift 键，则返回 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在单击鼠标的同时按下 Ctrl 键，则返回 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果在使用某种效果时，处于选定状态的图形应该显示淡入效果，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果使用鼠标单击提供的项呈示器，并且键盘功能键处于给定状态，则更新所选项目组。此方法也可以根据项呈示器更新后的选定状态更新其显示。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:setRowCount"><apiName>setRowCount</apiName><shortdesc>
+      设置 rowCount 属性不会导致 invalidation，也不会设置将永久锁定行数的 explicitRowCount 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>v</apiItemName><apiType value="int"/><apiDesc>行计数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置 <codeph>rowCount</codeph> 属性不会导致 invalidation，也不会设置将永久锁定行数的 <codeph>explicitRowCount</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:setRowHeight"><apiName>setRowHeight</apiName><shortdesc>
+      设置 rowHeight 属性不会导致 invalidation，也不会设置将永久锁定行高的 explicitRowHeight。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>v</apiItemName><apiType value="Number"/><apiDesc>行高（以像素为单位）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置 <codeph>rowHeight</codeph> 属性不会导致 invalidation，也不会设置将永久锁定行高的 <codeph>explicitRowHeight</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:showDropFeedback"><apiName>showDropFeedback</apiName><shortdesc>
+      在鼠标指针下方显示拖放指示符表示允许拖放操作以及项目的放置位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>包含鼠标位置相关信息的 DragEvent 对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在鼠标指针下方显示拖放指示符表示允许拖放操作以及项目的放置位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:unconstrainRenderer"><apiName>unconstrainRenderer</apiName><shortdesc>
+      暂时停止使用控件的布局算法定位项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>项呈示器的数据。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      暂时停止使用控件的布局算法定位项呈示器。如果对应于特定数据项目的项呈示器需要移至控件中项呈示器的正常位置之外，则此函数将作为数据更改效果的一部分调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      当可显示的项目数发生更改时添加或移除项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当可显示的项目数发生更改时添加或移除项呈示器。如果项呈示器可能已发生更改，请刷新它们。如果是以编程方式进行的更改，请应用此选项。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:updateList"><apiName>updateList</apiName><shortdesc>
+      立即刷新所有行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      立即刷新所有行。调用此方法可能需要后续处理，因为完全重绘列表中所有的呈示器代价非常高，而且直到完成后才能够返回。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:actualCollection"><apiName>actualCollection</apiName><shortdesc>
+      通常存储于运行数据更改效果时使用的 collection 属性中的值副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc>
+      通常存储于运行数据更改效果时使用的 <codeph>collection</codeph> 属性中的值副本。当数据更改效果未运行时，此值应为空。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:actualIterator"><apiName>actualIterator</apiName><shortdesc>
+      通常存储于运行数据更改效果时使用的 iterator 属性中的值副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:IViewCursor"/></apiValueDef><apiDesc>
+      通常存储于运行数据更改效果时使用的 <codeph>iterator</codeph> 属性中的值副本。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:allowDragSelection"><apiName>allowDragSelection</apiName><shortdesc>
+      一个标志，指示是否启用拖动选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否启用拖动选择。拖动选择能够通过拖动至某个项目来选中该项目；而在普通选择中，当鼠标悬停在要选择的项目上方时，不能按下鼠标按键。此功能适用于 ComboBox 下拉项，支持以下操作：当鼠标悬停在下拉按钮上方时按下鼠标按键，然后将鼠标拖动至下拉项选择一个项目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:anchorBookmark"><apiName>anchorBookmark</apiName><shortdesc>
+      作为锚点的项目的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      作为锚点的项目的书签。借助书签，该组件可快速搜索项目集合中的某个位置。当选择锚点与尖号或加亮显示的项目之间的一组项目时，或在应用 Sort 或 Filter 后查找所选项目时，使用此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:anchorIndex"><apiName>anchorIndex</apiName><shortdesc>
+      作为选择锚点的数据提供程序中项目的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      作为选择锚点的数据提供程序中项目的偏移量。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/caretItemRenderer"><linktext>mx.controls.listClasses.ListBase.caretItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:cachedDataChangeEffect"><apiName>cachedDataChangeEffect</apiName><shortdesc>
+      当控件的数据提供程序中发生更改时播放的效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>null</apiData><apiType value="mx.effects:Effect"/></apiValueDef><apiDesc>
+      当控件的数据提供程序中发生更改时播放的效果。通过设置 <codeph>dataChangeEffect</codeph> 样式设置效果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretBookmark"><apiName>caretBookmark</apiName><shortdesc>
+      尖号下方项目的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      尖号下方项目的书签。借助书签，该组件可快速搜索项目集合中的某个位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretIndex"><apiName>caretIndex</apiName><shortdesc>
+      位于选择尖号点处的数据提供程序中项目的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      位于选择尖号点处的数据提供程序中项目的偏移量。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/caretItemRenderer"><linktext>mx.controls.listClasses.ListBase.caretItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretIndicator"><apiName>caretIndicator</apiName><shortdesc>
+      包含图形的 DisplayObject，该图形指示哪个呈示器是尖号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      包含图形的 DisplayObject，该图形指示哪个呈示器是尖号。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretItemRenderer"><apiName>caretItemRenderer</apiName><shortdesc>
+      尖号下方项目的呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      尖号下方项目的呈示器。选择模型中包含一个锚点、一个尖号和一个加亮显示的项目。如果正在使用鼠标进行选择，则当鼠标滚过时，鼠标下方的项目将加亮显示。如果单击鼠标时不使用功能键（Shift 或 Ctrl），将清除所选项目组，加亮显示的项目将被选中并变为锚点。使用鼠标选择时不使用尖号。  
+     
+      <p>如果已存在一个锚点并使用 Shift 键选中了另一个项目，则将清除旧的所选项目组，并选中此项目与锚点之间的所有项目。当按住 Ctrl 键单击项目时，可切换单个项目的选择但不移动锚点。</p>
+     
+      <p>使用键盘选择项目时，如果箭头键未与功能键配合使用，则将清除旧选择并选择新项目，新项目将成为锚点和尖号，同时在加亮显示的选中内容周围显示尖号指示符。  </p>
+     
+      <p>如果用户结合使用箭头键和 Shift 键，将清除旧的选择并选择锚点与新项目之间的项目。此时尖号将移至新项目。  </p>
+     
+      <p>如果结合使用箭头键和 Ctrl 键，则只移动尖号。用户可以使用空格键切换尖号下的项目的选择。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretUID"><apiName>caretUID</apiName><shortdesc>
+      尖号下方项目的 UID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      尖号下方项目的 UID。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:collection"><apiName>collection</apiName><shortdesc>
+      用于提供数据提供程序的 ICollectionView。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc>
+      用于提供数据提供程序的 ICollectionView。当设置 <codeph>dataProvider</codeph> 属性时，Flex 将根据需要包装数据提供程序以支持 ICollectionView 接口，并将此属性设置为该结果。然后，AdvancedListBase 类使用此属性访问提供程序中的数据。获取 <codeph>dataProvider</codeph> 属性后，Flex 将返回此值。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dataEffectCompleted"><apiName>dataEffectCompleted</apiName><shortdesc>
+      一个标志，指示数据更改效果已完成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示数据更改效果已完成。组件的响应方式通常是在下次调用 <codeph>updateDisplayList()</codeph> 时清除各种内部数据结构。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dataItemWrappersByRenderer"><apiName>dataItemWrappersByRenderer</apiName><shortdesc>
+      将项呈示器映射到 ItemWrappers（用于提供其数据）的 dictionary。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      将项呈示器映射到 ItemWrappers（用于提供其数据）的 dictionary。仅当运行数据效果时才适用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:defaultColumnCount"><apiName>defaultColumnCount</apiName><shortdesc>
+      要显示的默认列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>4</apiData><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要显示的默认列数。当尝试根据大小或内容计算列计数时，如果计算所得的列数值小于 1，则使用此值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:defaultRowCount"><apiName>defaultRowCount</apiName><shortdesc>
+      要显示的默认行数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>4</apiData><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要显示的默认行数。当尝试根据大小或内容计算行计数时，如果计算所得的列数值小于 1，则使用此值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitColumnCount"><apiName>explicitColumnCount</apiName><shortdesc>
+      显式设置 columnCount 属性时需要的列计数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      显式设置 <codeph>columnCount</codeph> 属性时需要的列计数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitColumnWidth"><apiName>explicitColumnWidth</apiName><shortdesc>
+      显式设置 columnWidth 时需要的列宽。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      显式设置 <codeph>columnWidth</codeph> 时需要的列宽。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitRowCount"><apiName>explicitRowCount</apiName><shortdesc>
+      显式设置 rowCount 时需要的行计数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      显式设置 <codeph>rowCount</codeph> 时需要的行计数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitRowHeight"><apiName>explicitRowHeight</apiName><shortdesc>
+      显式设置 rowHeight 时需要的行高。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      显式设置 <codeph>rowHeight</codeph> 时需要的行高。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:freeItemRenderers"><apiName>freeItemRenderers</apiName><shortdesc>
+      闲置项呈示器的堆栈。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      闲置项呈示器的堆栈。多数列表类都会在滚动出可显示区域时回收已创建的呈示器；这样可在滚动期间节省时间。重复使用的呈示器都存储在该位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightIndicator"><apiName>highlightIndicator</apiName><shortdesc>
+      包含图形的 DisplayObject，用以指示加亮哪个呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      包含图形的 DisplayObject，用以指示加亮哪个呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightItemRenderer"><apiName>highlightItemRenderer</apiName><shortdesc>
+      当前滚动到尖号上方或下方的呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      当前滚动到尖号上方或下方的呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightUID"><apiName>highlightUID</apiName><shortdesc>
+      当前滚动到尖号上方或下方的项目的 UID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      当前滚动到尖号上方或下方的项目的 UID。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:itemsNeedMeasurement"><apiName>itemsNeedMeasurement</apiName><shortdesc>
+      一个标志，指示是否需要计算 columnWidth 和 rowHeight 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示是否需要计算 <codeph>columnWidth</codeph> 和 <codeph>rowHeight</codeph> 属性。如果样式更改可影响呈示器的度量，或数据提供程序发生更改，则将此属性设置为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:itemsSizeChanged"><apiName>itemsSizeChanged</apiName><shortdesc>
+      一个标志，指示呈示器的大小可能已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示呈示器的大小可能已更改。组件的响应方式通常是在下次调用 <codeph>updateDisplayList()</codeph> 时，对所有呈示器重新应用数据项目。假定重新应用项目将使项呈示器失效并重新进行测量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:iteratorValid"><apiName>iteratorValid</apiName><shortdesc>
+      一个标志，指示发生页面错误和迭代器位置无效（未放置在所显示的最上方项目处）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示发生页面错误和迭代器位置无效（未放置在所显示的最上方项目处）。如果组件出现页面错误（ItemPending 错误），它会将 <codeph>iteratorValid</codeph> 设置为 <codeph>false</codeph>。通常用于处理项目呈示问题的代码将检查此标志，并且直到从服务器传来数据页面才运行。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:iterator"><apiName>iterator</apiName><shortdesc>
+      用于从数据提供程序中获取项目并将这些项目传递给呈示器的主 IViewCursor 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:IViewCursor"/></apiValueDef><apiDesc>
+      用于从数据提供程序中获取项目并将这些项目传递给呈示器的主 IViewCursor 实例。在任何代码顺序的结尾，都必须始终将其放置在所显示的最上方可视项目处。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:keySelectionPending"><apiName>keySelectionPending</apiName><shortdesc>
+      一个标志，指示键盘选择是否由于页面错误而中断。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示键盘选择是否由于页面错误而中断。组件的响应方式是暂停呈示项目，直到数据页面显示。显示分页的数据时，将调用 <codeph>finishKeySelection()</codeph> 方法
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:lastDropIndex"><apiName>lastDropIndex</apiName><shortdesc>
+      最近计算出的索引，这是拖动项目在放置目标中的添加位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      最近计算出的索引，这是拖动项目在放置目标中的添加位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:lastSeekPending"><apiName>lastSeekPending</apiName><shortdesc>
+      导致页面错误的最新一次搜索。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:ListBaseSeekPending"/></apiValueDef><apiDesc>
+      导致页面错误的最新一次搜索。如果存在多个页面错误，则只考虑最近的页面错误，因为这是迭代器所处的位置，还是重新呈示行的开始位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:listContent"><apiName>listContent</apiName><shortdesc>
+      一个内部显示对象，是所有项呈示器、选择内容、亮显指示符以及其它支持图形的父级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:AdvancedListBaseContentHolder"/></apiValueDef><apiDesc>
+      一个内部显示对象，是所有项呈示器、选择内容、亮显指示符以及其它支持图形的父级。它大致与 Container 类中的 <codeph>contentPane</codeph> 相等，用于管理滚动。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:listItems"><apiName>listItems</apiName><shortdesc>
+      一个由数组组成的 Array，其中包含用于呈示各个数据提供程序项目的项呈示器实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      一个由数组组成的 Array，其中包含用于呈示各个数据提供程序项目的项呈示器实例。这是一个以行为主的二维 Array（行 Array，其中的行是由列组成的 Array）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:menuSelectionMode"><apiName>menuSelectionMode</apiName><shortdesc>
+      一个标志，指示是否应使用菜单样式选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示是否应使用菜单样式选择。在 Menu 中，从一个呈示器拖动到另一个呈示器将选择新呈示器并取消选择旧呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:modifiedCollectionView"><apiName>modifiedCollectionView</apiName><shortdesc>
+      集合视图，用于暂时保留上次的数据提供程序状态，以方便运行数据更改效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ModifiedCollectionView"/></apiValueDef><apiDesc>
+      集合视图，用于暂时保留上次的数据提供程序状态，以方便运行数据更改效果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraColumnsLeft"><apiName>offscreenExtraColumnsLeft</apiName><shortdesc>
+      控件左侧当前不可见的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控件左侧当前不可见的列数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraColumnsRight"><apiName>offscreenExtraColumnsRight</apiName><shortdesc>
+      控件右侧当前不可见的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控件右侧当前不可见的列数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:offscreenExtraColumns"><apiName>offscreenExtraColumns</apiName><shortdesc>
+      当前不可见的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当前不可见的列数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraRowsBottom"><apiName>offscreenExtraRowsBottom</apiName><shortdesc>
+      当前位于最底部的可视呈示器下方的屏幕外项目数。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      当前位于最底部的可视呈示器下方的屏幕外项目数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraRowsTop"><apiName>offscreenExtraRowsTop</apiName><shortdesc>
+      当前位于最顶部的可视呈示器上方的屏幕外项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      当前位于最顶部的可视呈示器上方的屏幕外项目数。此数目将是 &lt;= offscreenExtraRows / 2。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:offscreenExtraRows"><apiName>offscreenExtraRows</apiName><shortdesc>
+      布局算法为数据效果构建动画时可使用的额外项呈示器数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      布局算法为数据效果构建动画时可使用的额外项呈示器数目。数据提供程序中发生的更改（这些更改针对屏幕上的可视项目，或者地屏幕项目之前或之后此数量的项目）将受到完全效果处理。这些效果可能不会对此范围之外的项目进行完全动画处理。
+     
+      <p>此属性的合理值与屏幕上可视行的数目近似。如果将此属性值设置得过大，则当与包含许多项目的 dataProvider 一起使用时，可能会导致性能问题。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rendererChanged"><apiName>rendererChanged</apiName><shortdesc>
+      一个标志，指示呈示器已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示呈示器已更改。组件的响应方式通常是在下次调用 <codeph>updateDisplayList()</codeph> 时破坏所有现有呈示器并重新绘制所有呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:reservedItemRenderers"><apiName>reservedItemRenderers</apiName><shortdesc>
+      当前闲置但近期可能会用到的项呈示器的哈希映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      当前闲置但近期可能会用到的项呈示器的哈希映射。当运行数据效果时使用。此映射按数据提供程序项目的 UID 编制索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rowInfo"><apiName>rowInfo</apiName><shortdesc>
+      ListRowInfo 对象数组，用于缓存行高和 listItems 属性中行的其它跟踪信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      ListRowInfo 对象数组，用于缓存行高和 <codeph>listItems</codeph> 属性中行的其它跟踪信息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rowMap"><apiName>rowMap</apiName><shortdesc>
+      项呈示器与其各自 ListRowInfo 对象的哈希映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      项呈示器与其各自 ListRowInfo 对象的哈希映射。ListRowInfo 对象按项呈示器的 DisplayObject 名称编制索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:runDataEffectNextUpdate"><apiName>runDataEffectNextUpdate</apiName><shortdesc>
+      一个标志，指示下次更新显示时是否应该启动数据效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示下次更新显示时是否应该启动数据效果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:runningDataEffect"><apiName>runningDataEffect</apiName><shortdesc>
+      一个标志，指示当前是否正在运行数据更改效果
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示当前是否正在运行数据更改效果
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectedData"><apiName>selectedData</apiName><shortdesc>
+      用于跟踪当前所选项目的 ListBaseSelectionData 对象的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      用于跟踪当前所选项目的 ListBaseSelectionData 对象的哈希表。此表按项目的 UID 编制索引。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.ListBaseSelectionData.xml"><linktext>mx.controls.listClasses.ListBaseSelectionData</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionIndicators"><apiName>selectionIndicators</apiName><shortdesc>
+      所选指示符的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      所选指示符的哈希表。当清除所选项目组后，此表允许组件快速查找和移除指示符。此表按项目的 UID 编制索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionLayer"><apiName>selectionLayer</apiName><shortdesc>
+      listContent 中的图层，用于绘制所有选择内容和加亮指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      <codeph>listContent</codeph> 中的图层，用于绘制所有选择内容和加亮指示符。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionTweens"><apiName>selectionTweens</apiName><shortdesc>
+      所选内容补间的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      所选内容补间的哈希表。清除所选项目组后，此表允许组件快速查找和清除正在处理的任何补间。此表按项目的 UID 编制索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:showCaret"><apiName>showCaret</apiName><shortdesc>
+      一个标志，指示是否显示尖号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示是否显示尖号。通常，当检测到鼠标活动时，此属性设置为 <codeph>false</codeph>；当使用键盘进行选择时，将重新设置为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:unconstrainedRenderers"><apiName>unconstrainedRenderers</apiName><shortdesc>
+      不受列表布局算法影响的项呈示器的哈希映射
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      不受列表布局算法影响的项呈示器的哈希映射
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:visibleData"><apiName>visibleData</apiName><shortdesc>
+      视图中当前使用的数据提供程序项呈示器的哈希表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      视图中当前使用的数据提供程序项呈示器的哈希表。此表根据数据提供程序项目的 UID 编入索引，可从中快速获得显示特定项目所使用的呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:wordWrapChanged"><apiName>wordWrapChanged</apiName><shortdesc>
+      一个标志，指示自上次更新显示列表后 wordWrap 属性值是否已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示自上次更新显示列表后 <codeph>wordWrap</codeph> 属性值是否已更改。更改 <codeph>wordWrap</codeph> 属性值时将设置此属性，并可通过 <codeph>updateDisplayList()</codeph> 方法将属性重置为 <codeph>false</codeph>。组件的响应方式通常是在下次调用 <codeph>updateDisplayList()</codeph> 时，对所有呈示器重新应用数据项目。这与 itemsSizeChanged 不同，它可以进一步指示将数据项目重新应用到呈示器不会使其失效，因为唯一发生变化的是，计算呈示器大小时是否应计入 wordWrap
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:allowMultipleSelection:get"><apiName>allowMultipleSelection</apiName><shortdesc>
+      一个标志，指示是否允许您同时选择多个项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否允许您同时选择多个项目。如果为 <codeph>true</codeph>，则用户可以选择多个项目。没有禁止不连续选择的选项。标准的复杂选择选项始终有效（按住 Shift 单击，按住 Ctrl 单击）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      在 TileList 控件中显示的列数，或在 HorizontalList 控件中显示的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在 TileList 控件中显示的列数，或在 HorizontalList 控件中显示的项目数。对于数据网格，指定可见的列数。
+     
+      <p><b>注意</b>：设置此属性对 DataGrid 控件不起任何作用，此控件基于控件的宽度和各列的宽度来确定列数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      控件中列的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>50
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控件中列的宽度。此属性用于 TileList 和 HorizontalList 控件；该属性对用于设置各列宽度的数据网格控件不起作用。
+      
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+      要查看的数据集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要查看的数据集。此属性允许您将大多数类型的对象用作数据提供程序。如果将 <codeph>dataProvider</codeph> 属性设置为 Array，则会将其转换为 ArrayCollection。如果将该属性设置为 XML 对象，则会将其转换为仅包含一个项目的 XMLListCollection。如果将该属性设置为 XMLList，则会将其转换为 XMLListCollection。如果将该属性设置为实现 IList 或 ICollectionView 接口的对象，则可直接应用此对象。
+     
+      <p>受转换操作的影响，在您获取 <codeph>dataProvider</codeph> 属性时，该属性值将始终为 ICollectionView，所以此值不一定是您设置的对象类型。如果要修改数据提供程序中的数据，则了解以下行为非常重要：可能不会检测对原始数据所做的更改，但将检测对从 <codeph>dataProvider</codeph> 属性获取的 ICollectionView 对象所做的更改。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      数据提供程序项目中作为数据提示显示的字段名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序项目中作为数据提示显示的字段名称。默认情况下，该列表将在每个项目上查找 <codeph>label</codeph> 属性并将其显示出来。但是，如果数据对象中不包含 <codeph>label</codeph> 属性，则可以将 <codeph>dataTipField</codeph> 属性设置为使用数据对象中的其它属性。例如，在查看从数据库中检索的一组人名时，可以使用“FullName”。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      用户提供的函数，在各个项目上运行以确定其数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用户提供的函数，在各个项目上运行以确定其数据提示。默认情况下，该列表将在每个数据提供程序项目上查找 <codeph>label</codeph> 属性并将其显示出来。但是，一些项目不包含 <codeph>label</codeph> 属性，也不包含可供在行中显示的其它属性。例如，数据集中包含 lastName 和 firstName 字段，但您希望显示全名。您可以提供一个 <codeph>dataTipFunction</codeph>，用于查找合适的字段并返回可显示的字符串。<codeph>dataTipFunction</codeph> 还非常适用于处理格式设置和本地化。
+     
+      <p>dataTipFunction 仅使用数据提供程序中的某个项目作为唯一参数，并返回一个 String：</p>
+     
+      <blockquote>
+      <codeph>myDataTipFunction(item:Object):String</codeph>
+      </blockquote>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:data:get"><apiName>data</apiName><shortdesc>
+      将此组件用作项呈示器或项目编辑器时，此组件应呈示的数据提供程序中的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      将此组件用作项呈示器或项目编辑器时，此组件应呈示的数据提供程序中的项目。列表类将在各个呈示器或编辑器上设置此属性，并且组件将显示数据。ListBase-derived 类支持将此属性用于复杂情况，例如存在 DataGrid 列表或者 DataGrid（其中一列就是一个 List）的情况。
+     
+      <p>除了 <codeph>data</codeph> 属性外，列表类还使用 <codeph>listData</codeph> 属性，用以确定显示内容。如果列表类位于 DataGrid 中，则它需要将列的 <codeph>dataField</codeph> 属性映射到数据中的某个属性，并为该属性设置 <codeph>selectedItem</codeph> 值。如果列表类位于 List 或 TileList 控件中，则它需要将列表的 <codeph>labelField</codeph> 属性映射到数据中的某个属性，并为该属性设置 <codeph>selectedItem</codeph> 值。否则，它会将 <codeph>selectedItem</codeph> 设置为数据本身。</p>
+     
+      <p>此属性使用数据提供程序，但不对其进行设置。在任何情况下，都必须以其它方式设置数据提供程序。</p>
+     
+      <p>不要以 MXML 方式设置此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dragEnabled:get"><apiName>dragEnabled</apiName><shortdesc>
+      一个标志，指示是否可以将项目拖出此控件并放到其它控件上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否可以将项目拖出此控件并放到其它控件上。如果设置为 <codeph>true</codeph>，则表示可以在该控件中进行拖动。如果 <codeph>dropEnabled</codeph> 属性同样设置为 <codeph>true</codeph>，您就可以在该控件中拖放项目进行重新排序。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dragImageOffsets:get"><apiName>dragImageOffsets</apiName><shortdesc>
+      拖动图像的拖放偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      拖动图像的拖放偏移量。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dragImage:get"><apiName>dragImage</apiName><shortdesc>
+      在拖放操作期间显示可视化元素的类的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>mx.controls.listClasses.ListItemDragProxy
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在拖放操作期间显示可视化元素的类的实例。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dragMoveEnabled:get"><apiName>dragMoveEnabled</apiName><shortdesc>
+      一个标志，指示在拖放操作过程中是否可以移动控件中的项目，而不只是从控件中复制这些项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示在拖放操作过程中是否可以移动控件中的项目，而不只是从控件中复制这些项目。如果此属性设置为 <codeph>true</codeph>，<codeph>dragEnabled</codeph> 属性设置为 <codeph>true</codeph>，就可以移动项目。通常情况下，不能或不应移除数据提供程序中的项目，因此在拖放过程中不应允许移动操作。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dropEnabled:get"><apiName>dropEnabled</apiName><shortdesc>
+      一个标志，指示是否可以将所拖动的项目放到此控件上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否可以将所拖动的项目放到此控件上。
+     
+      <p>如果将此属性设置为 <codeph>true</codeph>，则该控件将接受所有数据格式，并假定所拖动的数据与数据提供程序中数据的格式相匹配。如果要显式检查正在拖动的数据的数据格式，您必须处理一个或多个拖动事件（如 <codeph>dragOver</codeph>），并调用 DragEvent 的 <codeph>preventDefault()</codeph> 方法来自定义列表类接受拖放数据的方式。</p>
+     
+      <p>将 <codeph>dropEnabled</codeph> 设置为 <codeph>true</codeph> 时，Flex 会自动调用 <codeph>showDropFeedback()</codeph> 和 <codeph>hideDropFeedback()</codeph> 方法来显示拖放指示符。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:iconField:get"><apiName>iconField</apiName><shortdesc>
+      数据提供程序对象中字段的名称，该字段用于确定显示为图标的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序对象中字段的名称，该字段用于确定显示为图标的对象。默认情况下，列表类不会尝试将图标与行中的文本一起显示。但是，您可以通过指定图标字段来指定一个图形，将其作为图标创建并显示在行中。DataGrid 将忽略此属性。
+     
+      <p>呈示器将在数据提供程序对象中查找名为 iconField 的属性。如果该属性的值是类，将对此类进行实例化并使其成为 IFlexDisplayObject 实例。如果该属性的值是 String，将从应用程序中查找是否存在同名的类；如果没有，还将从文档中查找同名的属性，并将该属性映射到某个类中。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:iconFunction:get"><apiName>iconFunction</apiName><shortdesc>
+      用户提供的函数，在每个项目上运行以确定其图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用户提供的函数，在每个项目上运行以确定其图标。默认情况下，列表类不会尝试将图标与行中的文本一起显示。但是，通过指定图标函数，您可以为将创建并显示为行中的一个图标的图形指定一个类。  
+     
+      <p><codeph>iconFunction</codeph> 采用一个参数，该参数是数据提供程序中的项目，返回一个类。如下所示是函数的签名：</p>
+     
+      <pre>iconFunction(item:Object):Class</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      控件的自定义项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      控件的自定义项呈示器。您可以指定嵌入式、内嵌或自定义项呈示器。
+     
+      <p>默认的项呈示器取决于组件类。例如，AdvancedDataGrid 类使用 AdvancedDataGridItemRenderer。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:labelField:get"><apiName>labelField</apiName><shortdesc>
+      数据提供程序项目中作为标签显示的字段名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"label"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序项目中作为标签显示的字段名称。默认情况下，列表将在每个项目上查找 <codeph>label</codeph> 属性并将其显示出来。但是，如果该数据对象不包含 <codeph>label</codeph> 属性，则可以将 <codeph>labelField</codeph> 属性设置为使用数据对象中的其它属性。例如，在查看从数据库中提取的一组人名时，可以使用“FullName”。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      用户提供的函数，在每个项目上运行以确定其标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用户提供的函数，在每个项目上运行以确定其标签。默认情况下，该列表将在每个数据提供程序项目上查找 <codeph>label</codeph> 属性并将其显示出来。但是，一些数据集不包含 <codeph>label</codeph> 属性，也不包含可用于显示的其它属性。例如，数据集中包含 lastName 和 firstName 字段，但您希望显示全名。
+     
+      <p>您可以提供一个 <codeph>labelFunction</codeph>，用于查找合适的字段并返回可显示的字符串。<codeph>labelFunction</codeph> 还非常适用于处理格式设置和本地化。 </p>
+     
+      <p>对于大多数组件而言，此标签函数仅使用数据提供程序中的某个项目作为唯一参数，并返回一个 String。</p>
+      <pre>
+      myLabelFunction(item:Object):String</pre>
+     
+      <p>数据网格类的方法签名为：</p>
+      <pre>
+      myLabelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>其中，<codeph>item</codeph> 包含 DataGrid 项目对象，并且 <codeph>column</codeph> 指定 DataGrid 列。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:listData:get"><apiName>listData</apiName><shortdesc>
+      
+      如果使用组件作为嵌入式项呈示器或嵌入式项目编辑器，则 Flex 将使用 list 控件中的其它数据初始化组件的 listData 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      
+      如果使用组件作为嵌入式项呈示器或嵌入式项目编辑器，则 Flex 将使用 list 控件中的其它数据初始化组件的 <codeph>listData</codeph> 属性。然后，该组件可以使用 <codeph>listData</codeph> 属性和 <codeph>data</codeph> 属性显示作为嵌入式项呈示器或嵌入式项目编辑器的相应信息。
+     
+      <p>您无需在 MXML 或 ActionScript 中设置此属性；将组件用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 会对其进行设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      滚动控件中第一列的索引，其中第一列位于索引 0 处。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滚动控件中第一列的索引，其中第一列位于索引 0 处。索引低于此值的列在视图中保持固定。并非所有列表类都支持此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      滚动控件中第一行的索引，其中第一行位于索引 0 处。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滚动控件中第一行的索引，其中第一行位于索引 0 处。此行上方的行在视图中保持固定。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      要显示的行数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要显示的行数。如果已经显式设置该组件的高度，则此属性可能不会产生任何效果。
+     
+      <p>对于数据网格控件，<codeph>rowCount</codeph> 属性包括标题行。因此，对于包含 3 个表体行和一个标题行的数据网格控件，<codeph>rowCount</codeph> 属性为 4。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      行高（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      行高（以像素为单位）。只有在 <codeph>variableRowHeight</codeph> 属性设置为 <codeph>true</codeph> 时，所有的行高才相等。如果未指定此属性，则行高基于字体大小和呈示器的其它属性而定。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectable:get"><apiName>selectable</apiName><shortdesc>
+      一个标志，指示列表是否将所选项目显示为选中状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示列表是否将所选项目显示为选中状态。如果设置为 <codeph>true</codeph>，则控件支持选项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedIndex:get"><apiName>selectedIndex</apiName><shortdesc>
+      所选项目的数据提供程序中的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      所选项目的数据提供程序中的索引。
+     
+      <p>默认值是 -1（无选中项目）。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedIndices:get"><apiName>selectedIndices</apiName><shortdesc>
+      数据提供程序中所选项目的索引的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[ ]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序中所选项目的索引的数组。这些项目的顺序与用户选择项目的顺序相反。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedItem:get"><apiName>selectedItem</apiName><shortdesc>
+      对数据提供程序中所选项目的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对数据提供程序中所选项目的引用。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedItems:get"><apiName>selectedItems</apiName><shortdesc>
+      对数据提供程序中所选项目的引用的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[ ]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对数据提供程序中所选项目的引用的数组。这些项目的顺序与用户选择项目的顺序相反。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      一个标志，指示是否为行中的文本显示数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否为行中的文本显示数据提示。如果为 <codeph>true</codeph>，则显示数据提示。数据提示是一些工具提示，用于显示对行而言过长的文本。如果设置了 dataTipFunction，则无论文本对行而言是否过长都会显示数据提示。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:value:get"><apiName>value</apiName><shortdesc>
+      所选项目，或者所选项目的数据或标签字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      所选项目，或者所选项目的数据或标签字段。如果所选项目是 Number 或 String，则其值为此项目。如果所选项目是对象，则该值为 data 属性（如果存在）或 label 属性（如果存在）。
+     
+      <p>注意：通常首选使用 <codeph>selectedItem</codeph>。此属性可实现与旧应用程序的向后兼容性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      一个标志，指示各行是否可以采用不同的高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示各行是否可以采用不同的高度。TileList 和 HorizontalList 将忽略此属性。如果设置为 <codeph>true</codeph>，则各行可以具有不同的高度值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      一个标志，指示行中的文本是否应自动换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示行中的文本是否应自动换行。如果设置为 <codeph>true</codeph>，则对行中文本启用自动换行。仅当 <codeph>variableRowHeight</codeph> 也为 <codeph>true</codeph> 时才能生效。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

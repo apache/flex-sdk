@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging"><apiName>mx.logging</apiName><apiDetail/><apiClassifier id="mx.logging:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+  Представляет информацию регистрации для отдельного события регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию регистрации для отдельного события регистрации. Каждый раз при запросе информации, подлежащей регистрации, в регистрирующей системе передается отдельное событие. Это событие может быть получено любым объектом для хранения или форматирования.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogEvent:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiData/><apiDesc>Строка, содержащая данные регистрации.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Уровень события регистрации. Допустимые значения:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения</li>
+	 
+        <li><codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</li>
+	 
+        <li><codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.</li>
+	 
+        <li><codeph>LogEventLevel.ALL</codeph> предназначен для вызова обработки всех сообщений адресатом.</li>
+      </ul>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogEvent:getLevelString"><apiName>getLevelString</apiName><shortdesc>
+      Возвращает строковое значение, представляющее указанный уровень.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Уровень, указанный на английском языке.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="uint"/><apiDesc>уровень, для которого требуется строка.
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает строковое значение, представляющее указанный уровень.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogEvent:LOG"><apiName>LOG</apiName><shortdesc>
+      Константа типа события; определяет событие регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>log</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа типа события; определяет событие регистрации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:level"><apiName>level</apiName><shortdesc>
+      Предоставляет доступ к уровню для события регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к уровню для события регистрации. Допустимые значения:
+        <ul>
+          <li><codeph>LogEventLogEventLevel.INFO</codeph> обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.</li>
+     
+          <li><codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+          <li><codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения.</li>
+     
+          <li><codeph>LogEventLevel.FATAL</codeph> указывает на события, которые приводят к отказу приложения.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:message"><apiName>message</apiName><shortdesc>
+      Предоставляет доступ к зарегистрированному сообщению.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к зарегистрированному сообщению.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+  Этот класс предоставляет базовые функциональные возможности, требуемые инфраструктурой регистрации для целевой реализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILoggingTarget</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс предоставляет базовые функциональные возможности, требуемые инфраструктурой регистрации для целевой реализации. Он обрабатывает проверку правильности выражений фильтра и обеспечивает свойство уровня по умолчанию. Реализация метода <codeph>logEvent()</codeph> не предоставляется.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:AbstractTarget:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:AbstractTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Устанавливает адресат с указанным средством регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>ILogger, который адресат должен прослушивать.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает адресат с указанным средством регистрации. Это позволяет адресату получать события журнала из указанного средства регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:initialized"><apiName>initialized</apiName><shortdesc>
+      Вызывается после создания объекта реализации и присвоения всех свойств, указанных в теге.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Документ MXML, создавший объект.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Используется документом для ссылки на объект. Если объект представлен как свойство документа, то идентификатор является нулевым.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается после создания объекта реализации и присвоения всех свойств, указанных в теге.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      Этот метод обрабатывает LogEvent из связанного средства регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>Событие из соответствующего средства регистрации.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод обрабатывает <codeph>LogEvent</codeph> из связанного средства регистрации. Этот метод используется целью для преобразования события в соответствующий формат для передачи, хранения или отображения. Этот метод вызывается только в том случае, если уровень события находится в диапазоне уровня адресата.
+     
+      <p><b><i>ПРИМЕЧАНИЕ. Для удобства использования нижестоящие элементы должны заменить этот метод.</i></b></p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Препятствует получению адресатом событий из указанного средства регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>ILogger, который адресат должен игнорировать.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Препятствует получению адресатом событий из указанного средства регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:AbstractTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Кроме установки level, фильтры предоставляют псевдоиерархическое отображение для обработки событий только определенной категории.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Кроме установки <codeph>level</codeph>, фильтры предоставляют псевдоиерархическое отображение для обработки событий только определенной категории.
+      <p>
+      Каждое средство регистрации принадлежит определенной категории. В соответствии с соглашением эти категории соотносятся с полным именем класса, в котором используется средство регистрации. Например, средство регистрации сообщений для класса <codeph>mx.rpc.soap.WebService</codeph> использует mx.rpc.soap.WebService как параметр в вызове метода <codeph>Log.getLogger()</codeph>. При отправке сообщений в этой категории уведомление о событиях получают только адресаты, имеющие фильтр, соответствующий данной категории. Выражения фильтра могут включать подстановочные символы, обозначаемые звездочкой. Подстановочный символ должен занимать крайнюю правую позицию в выражении. Например: rpc ~~, mx. ~~ или ~~. Если указано недопустимое выражение, возвращается <codeph>InvalidFilterError</codeph>. Если указано <codeph>null</codeph> или [], для фильтров устанавливается значение по умолчанию ["~~"].
+      </p>
+      <p>Например:
+         <pre>
+               var traceLogger:ILoggingTarget = new TraceTarget();
+               traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
+               Log.addTarget(traceLogger);
+         </pre>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:id:get"><apiName>id</apiName><shortdesc>
+       Предоставляет доступ к идентификатору адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+       Предоставляет доступ к идентификатору адресата. Во время выполнения идентификатор присваивается компилятором mxml, если используется как тег mxml, или внутренне, если используется в блоке сценария
+       
+       </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:level:get"><apiName>level</apiName><shortdesc>
+      Предоставляет доступ к уровню, на котором в настоящее время установлен адресат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к уровню, на котором в настоящее время установлен адресат. Значимые значения:
+        <ul>
+          <li><codeph>LogEventLevel.FATAL (1000)</codeph> указывает на события, которые приводят к сбою в работе приложения</li>
+     
+          <li><codeph>LogEventLevel.ERROR (8)</codeph>указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+          <li><codeph>LogEventLevel.WARN (6)</codeph> указывает на события, которые могут привести к сбою в работе приложения</li>
+     
+          <li><codeph>LogEventLevel.INFO (4)</codeph> обозначает информационные сообщения, отображающие процесс выполнения приложения на уровне крупных фрагментов.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG (2)</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые при отладке приложения.</li>
+     
+          <li><codeph>LogEventLevel.ALL(0)</codeph> предназначен для вызова обработки всех сообщений адресатом.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:LogEventLevel"><apiName>LogEventLevel</apiName><shortdesc>
+  Статический класс, содержащий константы для использования в свойстве level.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Статический класс, содержащий константы для использования в свойстве <codeph>level</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.logging:LogEventLevel:ALL"><apiName>ALL</apiName><shortdesc>
+      Задает обработку всех сообщений адресатом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Задает обработку всех сообщений адресатом.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:DEBUG"><apiName>DEBUG</apiName><shortdesc>
+      Обозначает информационные сообщения на уровне небольших фрагментов, необходимые при отладке приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Обозначает информационные сообщения на уровне небольших фрагментов, необходимые при отладке приложения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:ERROR"><apiName>ERROR</apiName><shortdesc>
+      Обозначает события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Обозначает события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:FATAL"><apiName>FATAL</apiName><shortdesc>
+      Обозначает события, которые приводят к сбою в работе приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Обозначает события, которые приводят к сбою в работе приложения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:INFO"><apiName>INFO</apiName><shortdesc>
+      Обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:WARN"><apiName>WARN</apiName><shortdesc>
+      Обозначает события, которые могут привести к сбою в работе приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>6</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Обозначает события, которые могут привести к сбою в работе приложения.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILoggingTarget"><apiName>ILoggingTarget</apiName><shortdesc>
+  Этот интерфейс должны реализовывать все целевые реализации средства регистрации внутри регистрирующей инфраструктуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс должны реализовывать все целевые реализации средства регистрации внутри регистрирующей инфраструктуры.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Устанавливает адресат с указанным средством регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>ILogger, прослушиваемый адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает адресат с указанным средством регистрации. Это позволяет адресату получать события журнала из указанного средства регистрации.
+      
+      <p><b>Примечание.</b> Этот метод вызывается инфраструктурой и не должен вызываться непосредственно пользователем.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Препятствует получению адресатом событий из указанного средства регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>ILogger, игнорируемый адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Препятствует получению адресатом событий из указанного средства регистрации.
+      
+      <p><b>Примечание.</b> Этот метод вызывается инфраструктурой и не должен вызываться непосредственно пользователем.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Кроме установки level, фильтры предоставляют псевдоиерархическое отображение для обработки событий только определенной категории.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Кроме установки <codeph>level</codeph>, фильтры предоставляют псевдоиерархическое отображение для обработки событий только определенной категории.
+      
+      <p>Каждое средство регистрации принадлежит определенной категории. В соответствии с соглашением эти категории соотносятся с полным именем класса, в котором используется средство регистрации. Например, средство регистрации сообщений для класса <codeph>mx.rpc.soap.WebService</codeph> использует <codeph>mx.rpc.soap.WebService</codeph> как параметр в вызове <codeph>Log.getLogger()</codeph>. При отправке сообщений в этой категории уведомление о событиях получают только адресаты, имеющие фильтр, соответствующий данной категории. Выражения фильтра могут включать подстановочные символы, обозначаемые звездочкой. Подстановочный символ должен занимать крайнюю правую позицию в выражении. Например: rpc ~~, mx. ~~ или ~~. Если указано недопустимое выражение, возвращается <codeph>InvalidFilterError</codeph>. В выражении фильтра недопустимы пробелы и следующие символы: []~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@.</p>
+      
+      </apiDesc><example>
+      <pre>
+      var traceLogger:ILoggingTarget = new TraceTarget();
+      traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
+      Log.addTarget(traceLogger);
+      </pre>
+      
+      </example></apiValueDetail></apiValue><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:level:get"><apiName>level</apiName><shortdesc>
+      Предоставляет доступ к уровню, на котором в настоящее время установлен адресат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к уровню, на котором в настоящее время установлен адресат. Значимые значения:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.</li>
+     
+        <li><codeph>LogEventLevel.ALL</codeph> предназначен для вызова обработки всех сообщений адресатом.</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILogger"><apiName>ILogger</apiName><shortdesc>
+  Этот интерфейс должны реализовывать все средства регистрации в регистрирующей инфраструктуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс должны реализовывать все средства регистрации в регистрирующей инфраструктуре.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:debug"><apiName>debug</apiName><shortdesc>
+      Регистрирует указанные данные с использованием уровня LogEventLevel.DEBUG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные с использованием уровня <codeph> LogEventLevel.DEBUG</codeph>. <codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.debug("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:error"><apiName>error</apiName><shortdesc>
+      Регистрирует указанные данные с использованием уровня LogEventLevel.ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.ERROR</codeph>. <codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.error("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:fatal"><apiName>fatal</apiName><shortdesc>
+      Регистрирует указанные данные с использованием уровня LogEventLevel.FATAL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.FATAL</codeph>. <codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения
+     
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.fatal("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:info"><apiName>info</apiName><shortdesc>
+      Регистрирует указанные данные с использованием уровня LogEvent.INFO.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные с использованием уровня <codeph> LogEvent.INFO</codeph>. <codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.info("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:log"><apiName>log</apiName><shortdesc>
+      Регистрирует указанные данные на заданном уровне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Уровень, на котором должна регистрироваться эта информация. Допустимые значения:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные на заданном уровне.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр –{0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.log(LogEventLevel.DEBUG, "here is some channel info {0} and {1}", LogEventLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:warn"><apiName>warn</apiName><shortdesc>
+      Регистрирует указанные данные с использованием уровня LogEventLevel.WARN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.WARN</codeph>. <codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения.
+          
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.warn("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILogger:mx.logging:ILogger:category:get"><apiName>category</apiName><shortdesc>
+      Значение категории для средства регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Значение категории для средства регистрации.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:Log"><apiName>Log</apiName><shortdesc>
+  Предоставляет возможности псевдо-иерархической регистрации с различными параметрами форматирования и вывода.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Предоставляет возможности псевдоиерархической регистрации с различными параметрами форматирования и вывода. Система регистрации состоит из двух главных компонентов: средства регистрации и адресата. Средство регистрации используется для передачи информации адресату. Адресат предназначен для форматирования и общего вывода данных регистрации.
+  <p>
+  Средства регистрации представляют собой единичные экземпляры, созданные для определенной категории информации. Как правило, категория является именем пакета компонента, для которого требуется зарегистрировать информацию. Категория позволяет пользователям определить представляющую интерес информацию журнала. Можно выбрать различные категории и объединить их с регулярными выражениями. Это позволяет обрабатывать как подробную, так и краткую информацию журнала. Например, требуется получить всю информацию журнала для пакетов mx.messaging и mx.rpc, а также вывести данные из этих пакетов в формате XML. Для получения всей информации журнала в категории mx.messaging, включая подпакеты и компоненты, необходимо использовать выражение с подстановочным символом, например mx.messaging. ~~". Для получения дополнительной информации см. приведенный ниже пример кода.
+  </p>
+  <p>Адресаты обеспечивают механизм вывода зарегистрированных данных. Как правило, этот механизм включает форматирование, передачу или хранение данных, а также все, что может предоставить виртуальная машина. Существует два адресата: <codeph>MiniDebugTarget</codeph> и <codeph>TraceTarget</codeph>. Каждая из этих программ записи принимает текущую информацию журнала и «отправляет» ее для отображения и/или хранения. Адресаты также предоставляют спецификацию данных журнала для вывода.
+  </p>
+ 
+  </apiDesc><example>
+  <pre>
+  ... 
+  import mx.logging.targets.
+  import mx.logging.
+ 
+  private function initLogging():void {
+      // Create a target.
+      var logTarget:TraceTarget = new TraceTarget();
+ 
+      // Log only messages for the classes in the mx.rpc.and 
+      // mx.messaging packages.
+      logTarget.filters=["mx.rpc.,"mx.messaging.];
+ 
+      // Log all log levels.
+      logTarget.level = LogEventLevel.ALL;
+ 
+      // Add date, time, category, and log level to the output.
+      logTarget.includeDate = true;
+      logTarget.includeTime = true;
+      logTarget.includeCategory = true;
+      logTarget.includeLevel = true;
+ 
+      // Begin logging.
+      Log.addTarget(logTarget);
+  } 
+  ...
+  </pre>
+  
+  </example></apiClassifierDetail><apiOperation id="mx.logging:Log:addTarget"><apiName>addTarget</apiName><shortdesc>
+      Позволяет указанному адресату начать получение уведомления о событиях регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>определенный адресат, который должен получать события регистрации.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Позволяет указанному адресату начать получение уведомления о событиях регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:flush"><apiName>flush</apiName><shortdesc>
+      С помощью этого метода удаляются все текущие средства регистрации из кэша.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      С помощью этого метода удаляются все текущие средства регистрации из кэша. Последующие вызовы метода <codeph>getLogger()</codeph> возвращают новые экземпляры средств регистрации, а не предыдущие экземпляры этой категории. Метод предназначен только для отладки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:getLogger"><apiName>getLogger</apiName><shortdesc>
+      Возвращает средство регистрации, соответствующее указанной категории.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Экземпляр объекта средства регистрации для указанного имени. Если имя не существует, возвращается новый экземпляр с указанным именем.
+      
+      </apiDesc><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier></apiReturn><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Категория средства регистрации, которое должно быть возвращено.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает средство регистрации, соответствующее указанной категории. Если данная категория не существует, то возвращается новый экземпляр средства регистрации, связанный с этой категорией. Длина имени категории должна быть минимум один символ, имя не может содержать пробелы и следующие символы: []~$^&amp;\/(){}&lt;>+=`! #%?,:;'"@ Если указана неправильная категория, метод возвращает <codeph>InvalidCategoryError</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:hasIllegalCharacters"><apiName>hasIllegalCharacters</apiName><shortdesc>
+      Метод проверяет указанное строковое значение на наличие запрещенных символов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если найден какой-либо недопустимый символ, <codeph>false</codeph> в противном случае
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Строка для проверки на недопустимые символы. Недопустимы следующие символы: []~$^&amp;\/(){}&lt;>+=`! #%?,:;'"@
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод проверяет указанное строковое значение на наличие запрещенных символов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isDebug"><apiName>isDebug</apiName><shortdesc>
+      Указывает, будет ли событие журнала отладки обрабатываться адресатом регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если событие журнала отладки будет зарегистрировано; false в противном случае.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Указывает, будет ли событие журнала отладки обрабатываться адресатом регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isError"><apiName>isError</apiName><shortdesc>
+      Указывает, будет ли событие журнала ошибок обработано адресатом регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если событие ошибки будет зарегистрировано; false в противном случае.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Указывает, будет ли событие журнала ошибок обработано адресатом регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isFatal"><apiName>isFatal</apiName><shortdesc>
+      Указывает, будет ли событие журнала неустранимых ошибок обработано адресатом регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если событие журнала неустранимых ошибок будет зарегистрировано; false в противном случае.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Указывает, будет ли событие журнала неустранимых ошибок обработано адресатом регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isInfo"><apiName>isInfo</apiName><shortdesc>
+      Указывает, будет ли событие журнала информации обработано адресатом регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если событие журнала информации будет зарегистрировано; false в противном случае.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Указывает, будет ли событие журнала информации обработано адресатом регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isWarn"><apiName>isWarn</apiName><shortdesc>
+      Указывает, будет ли событие журнала предупреждений обработано адресатом регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true, если событие журнала предупреждений будет зарегистрировано; false в противном случае.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Указывает, будет ли событие журнала предупреждений обработано адресатом регистрации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:removeTarget"><apiName>removeTarget</apiName><shortdesc>
+      Препятствует получению указанным адресатом уведомления о событиях журнала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>определенный адресат, который должен получать события регистрации.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Препятствует получению указанным адресатом уведомления о событиях журнала.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+  Средство регистрации, используемое в инфраструктуре регистрации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILogger</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Средство регистрации, используемое в инфраструктуре регистрации. Этот класс передает события для каждого зарегистрированного сообщения с помощью метода <codeph>log()</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogLogger:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Категория, для которой этот журнал отправляет сообщения.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogLogger:debug"><apiName>debug</apiName><shortdesc>
+	  
+      Регистрирует указанные данные с использованием уровня LogEventLevel.DEBUG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные с использованием уровня <codeph> LogEventLevel.DEBUG</codeph>. <codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:error"><apiName>error</apiName><shortdesc>
+	  
+      Регистрирует указанные данные с использованием уровня LogEventLevel.ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.ERROR</codeph>. <codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:fatal"><apiName>fatal</apiName><shortdesc>
+	  
+      Регистрирует указанные данные с использованием уровня LogEventLevel.FATAL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.FATAL</codeph>. <codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения
+     
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:info"><apiName>info</apiName><shortdesc>
+	  
+      Регистрирует указанные данные с использованием уровня LogEvent.INFO.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные с использованием уровня <codeph> LogEvent.INFO</codeph>. <codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:log"><apiName>log</apiName><shortdesc>
+	  
+      Регистрирует указанные данные на заданном уровне.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Уровень, на котором должна регистрироваться эта информация. Допустимые значения:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> обозначает события, которые приводят к отказу приложения</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> указывает на события ошибок, которые могут не препятствовать дальнейшему выполнению приложения.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph>обозначает информационные сообщения, отображающие выполнение приложения на уровне крупных фрагментов.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> обозначает информационные сообщения на уровне небольших фрагментов, необходимые для отладки приложения.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные на заданном уровне.
+      
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр –{0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:warn"><apiName>warn</apiName><shortdesc>
+	  
+      Регистрирует указанные данные с использованием уровня LogEventLevel.WARN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Информация для журнала. Эта строка может содержать специальные символы маркера в виде {x}, где x – отсчитываемый от нуля индекс, который будет заменен указанными дополнительными параметрами в соответствии с этим индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре str для каждого {<codeph>x</codeph>}, где <codeph>x</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Регистрирует указанные данные с использованием уровня <codeph>LogEventLevel.WARN</codeph>. <codeph>LogEventLevel.WARN</codeph> указывает на события, которые могут привести к некорректной работе приложения.
+          
+      <p>Указанная для регистрации строка может содержать фигурные скобки с индексом, определяющим дополнительный параметр, который должен быть вставлен в строку перед регистрацией. Например, строка «первый дополнительный параметр – {0}, второй дополнительный параметр – {1}» будет преобразована в строку «первый дополнительный параметр – 10, второй дополнительный параметр – 15», если при вызове в качестве параметров указаны числа 10 и 15.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogLogger:category:get"><apiName>category</apiName><shortdesc>
+	  Категория, для которой средство регистрации передает сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Категория, для которой средство регистрации передает сообщения.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

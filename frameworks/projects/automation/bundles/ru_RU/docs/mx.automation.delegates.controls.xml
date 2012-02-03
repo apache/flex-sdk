@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates.controls"><apiName>mx.automation.delegates.controls</apiName><apiDetail/><apiClassifier id="mx.automation.delegates.controls:CheckBoxAutomationImpl"><apiName>CheckBoxAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ButtonAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления CheckBox.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.CheckBox.xml"><linktext>mx.controls.CheckBox</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:CheckBoxAutomationImpl:CheckBoxAutomationImpl"><apiName>CheckBoxAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:CheckBox"/><apiDesc>Автоматизируемый объект CheckBox.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:CheckBoxAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TreeAutomationImpl"><apiName>TreeAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ListAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Tree.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Tree.xml"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TreeAutomationImpl:TreeAutomationImpl"><apiName>TreeAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:Tree"/><apiDesc>Автоматизируемый объект Tree.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TreeAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:TreeAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Матрица automationValues для каждого элемента в сетке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Матрица automationValues для каждого элемента в сетке. Возвращаемое значение: массив строк, каждая из которых представляет собой массив средств визуализации элементов (по строкам).
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:AlertAutomationImpl"><apiName>AlertAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Alert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.containers:PanelAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Alert. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Alert.xml"><linktext>mx.controls.Alert</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:AlertAutomationImpl:AlertAutomationImpl"><apiName>AlertAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:Alert"/><apiDesc>Автоматизируемый объект Alert.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:AlertAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:MenuBarItemAutomationImpl"><apiName>MenuBarItemAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом MenuBarItem.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.menuClasses.MenuBarItem.xml"><linktext>mx.controls.menuClasses.MenuBarItem</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:MenuBarItemAutomationImpl:MenuBarItemAutomationImpl"><apiName>MenuBarItemAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.menuClasses:MenuBarItem"/><apiDesc>Автоматизируемый объект MenuBarItem.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:MenuBarItemAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ToolTipAutomationImpl"><apiName>ToolTipAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ToolTip.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ToolTip.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ToolTip.xml"><linktext>mx.controls.ToolTip</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ToolTipAutomationImpl:ToolTipAutomationImpl"><apiName>ToolTipAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ToolTip"/><apiDesc>Автоматизируемый объект ToolTip.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ToolTipAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:MenuAutomationImpl"><apiName>MenuAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ListAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Menu.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Menu.xml"><linktext>mx.controls.Menu</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:MenuAutomationImpl:MenuAutomationImpl"><apiName>MenuAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:Menu"/><apiDesc>Автоматизируемый объект Menu.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:MenuAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:MenuAutomationImpl:showHideFromKeys"><apiName>showHideFromKeys</apiName><shortdesc>
+		  Флаг, указывающий на необходимость записи события show.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  Флаг, указывающий на необходимость записи события show. Следует использовать свойство triggerEvent для MenuEvent.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:NavBarAutomationImpl"><apiName>NavBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления NavBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления NavBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.NavBar.xml"><linktext>mx.controls.NavBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:NavBarAutomationImpl:NavBarAutomationImpl"><apiName>NavBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:NavBar"/><apiDesc>Автоматизируемый объект NavBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:NavBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:PopUpButtonAutomationImpl"><apiName>PopUpButtonAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ButtonAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления PopUpButton.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.PopUpButton.xml"><linktext>mx.controls.PopUpButton</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:PopUpButtonAutomationImpl:PopUpButtonAutomationImpl"><apiName>PopUpButtonAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:PopUpButton"/><apiDesc>Автоматизируемый объект PopUpButton.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:PopUpButtonAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TextInputAutomationImpl"><apiName>TextInputAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления TextInput.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления TextInput.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.TextInput.xml"><linktext>mx.controls.TextInput</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TextInputAutomationImpl:TextInputAutomationImpl"><apiName>TextInputAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:TextInput"/><apiDesc>Автоматизируемый объект TextInput.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TextInputAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  Метод, вызываемый после инициализации компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Метод, вызываемый после инициализации компонента. Можно использовать для обращения к любым подкомпонентам и выполнения действий с компонентом.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.controls:TextInputAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ButtonAutomationImpl"><apiName>ButtonAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Button.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Button.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Button.xml"><linktext>mx.controls.Button</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ButtonAutomationImpl:ButtonAutomationImpl"><apiName>ButtonAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:Button"/><apiDesc>Автоматизируемый объект Button.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ButtonAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:NumericStepperAutomationImpl"><apiName>NumericStepperAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления NumericStepper.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.NumericStepper.xml"><linktext>mx.controls.NumericStepper</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:NumericStepperAutomationImpl:NumericStepperAutomationImpl"><apiName>NumericStepperAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:NumericStepper"/><apiDesc>Автоматизируемый объект NumericStepper.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:NumericStepperAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  Метод, вызываемый после инициализации компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Метод, вызываемый после инициализации компонента. Можно использовать для обращения к любым подкомпонентам и выполнения действий с компонентом.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.controls:NumericStepperAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ProgressBarAutomationImpl"><apiName>ProgressBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ProgressBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ProgressBarAutomationImpl:ProgressBarAutomationImpl"><apiName>ProgressBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ProgressBar"/><apiDesc>Автоматизируемый объект ProgressBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ProgressBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ButtonBarAutomationImpl"><apiName>ButtonBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ButtonBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:NavBarAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ButtonBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ButtonBar.xml"><linktext>mx.controls.ButtonBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ButtonBarAutomationImpl:ButtonBarAutomationImpl"><apiName>ButtonBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ButtonBar"/><apiDesc>Автоматизируемый объект ButtonBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ButtonBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ListBaseContentHolderAutomationImpl"><apiName>ListBaseContentHolderAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListBaseContentHolder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListBaseContentHolder.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.ListBaseContentHolder.xml"><linktext>mx.controls.listClasses.ListBaseContentHolder</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ListBaseContentHolderAutomationImpl:ListBaseContentHolderAutomationImpl"><apiName>ListBaseContentHolderAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.listClasses:ListBaseContentHolder"/><apiDesc>Автоматизируемый объект ListBaseContentHolder.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ListBaseContentHolderAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ListItemRendererAutomationImpl"><apiName>ListItemRendererAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListItemRenderer.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.ListItemRenderer.xml"><linktext>mx.controls.listClasses.ListItemRenderer</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ListItemRendererAutomationImpl:ListItemRendererAutomationImpl"><apiName>ListItemRendererAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.listClasses:ListItemRenderer"/><apiDesc>Автоматизируемый объект ListItemRenderer.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ListItemRendererAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:VideoDisplayAutomationImpl"><apiName>VideoDisplayAutomationImpl</apiName><shortdesc>
+		 
+		  Определяет методы и свойства, необходимые для работы с элементом управления VideoDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+		 
+		  Определяет методы и свойства, необходимые для работы с элементом управления VideoDisplay.
+		 
+		  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.VideoDisplay.xml"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:VideoDisplayAutomationImpl:VideoDisplayAutomationImpl"><apiName>VideoDisplayAutomationImpl</apiName><shortdesc>
+			  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:VideoDisplay"/><apiDesc>Автоматизируемый объект VideoDisplay.     
+			  
+			  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+			  Конструктор.
+			 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:VideoDisplayAutomationImpl:init"><apiName>init</apiName><shortdesc>
+			  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+			  
+			  </apiDesc></apiParam></apiOperationDef><apiDesc>
+			  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+			  
+			  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TileListItemRendererAutomationImpl"><apiName>TileListItemRendererAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TileListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TileListItemRenderer.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.TileListItemRenderer.xml"><linktext>mx.controls.listClasses.TileListItemRenderer</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TileListItemRendererAutomationImpl:TileListItemRendererAutomationImpl"><apiName>TileListItemRendererAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.listClasses:TileListItemRenderer"/><apiDesc>Автоматизируемый объект TileList.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TileListItemRendererAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:DataGridAutomationImpl"><apiName>DataGridAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ListBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DataGrid.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:DataGridAutomationImpl:DataGridAutomationImpl"><apiName>DataGridAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:DataGrid"/><apiDesc>Автоматизируемый объект DataGrid.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:DataGridAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:DataGridAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Матрица automationValues для каждого элемента в сетке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Матрица automationValues для каждого элемента в сетке. Возвращаемое значение: массив строк, каждая из которых представляет собой массив средств визуализации элементов (по строкам).
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:DateChooserAutomationImpl"><apiName>DateChooserAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DateChooser.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DateChooser.xml"><linktext>mx.controls.DateChooser</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:DateChooserAutomationImpl:DateChooserAutomationImpl"><apiName>DateChooserAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:DateChooser"/><apiDesc>Автоматизируемый объект DateChooser.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:DateChooserAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.controls:DateChooserAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  Воспроизводит события DateChooserChangeEvent.CHANGE и DateChooserEvent.SCROLL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Воспроизведение было успешным или неуспешным.
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Воспроизводимое событие.
+		 
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Воспроизводит события DateChooserChangeEvent.CHANGE и DateChooserEvent.SCROLL. Воспроизводит изменение путем установки записанного значения для даты. Воспроизводит прокрутку путем выбора кнопок, используемых для перемещения на месяц вперед или назад, в зависимости от направления прокрутки.
+		 
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:MenuBarAutomationImpl"><apiName>MenuBarAutomationImpl</apiName><shortdesc>
+	  Определяет методы и свойства, необходимые для работы с элементом управления MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Определяет методы и свойства, необходимые для работы с элементом управления MenuBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.MenuBar.xml"><linktext>mx.controls.MenuBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:MenuBarAutomationImpl:MenuBarAutomationImpl"><apiName>MenuBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:MenuBar"/><apiDesc>Автоматизируемый объект MenuBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:MenuBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ScrollBarAutomationImpl"><apiName>ScrollBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ScrollBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.scrollClasses.ScrollBar.xml"><linktext>mx.controls.scrollClasses.ScrollBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ScrollBarAutomationImpl:ScrollBarAutomationImpl"><apiName>ScrollBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.scrollClasses:ScrollBar"/><apiDesc>Автоматизируемый объект ScrollBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ScrollBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ListBaseAutomationImpl"><apiName>ListBaseAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ScrollControlBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ListBase.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.ListBase.xml"><linktext>mx.controls.listClasses.ListBase</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ListBaseAutomationImpl:ListBaseAutomationImpl"><apiName>ListBaseAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.listClasses:ListBase"/><apiDesc>Автоматизируемый объект ListBase.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ListBaseAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:ListBaseAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Матрица automationValues для каждого элемента в сетке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Матрица automationValues для каждого элемента в сетке. Возвращаемое значение: массив строк, каждая из которых представляет собой массив средств визуализации элементов (по строкам).
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:LinkBarAutomationImpl"><apiName>LinkBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления LinkBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:NavBarAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления LinkBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.LinkBar.xml"><linktext>mx.controls.LinkBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:LinkBarAutomationImpl:LinkBarAutomationImpl"><apiName>LinkBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:LinkBar"/><apiDesc>Автоматизируемый объект LinkBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:LinkBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ComboBoxAutomationImpl"><apiName>ComboBoxAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ComboBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ComboBox.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ComboBox.xml"><linktext>mx.controls.ComboBox</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ComboBoxAutomationImpl:ComboBoxAutomationImpl"><apiName>ComboBoxAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ComboBox"/><apiDesc>Автоматизируемый ComboBox.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.automation.delegates.controls:DataGridItemRendererAutomationImpl"><apiName>DataGridItemRendererAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом DataGridItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UITextFieldAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом DataGridItemRenderer.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.dataGridClasses.DataGridItemRenderer.xml"><linktext>mx.controls.dataGridClasses.DataGridItemRenderer</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:DataGridItemRendererAutomationImpl:DataGridItemRendererAutomationImpl"><apiName>DataGridItemRendererAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.dataGridClasses:DataGridItemRenderer"/><apiDesc>Автоматизируемый объект DataGridItem.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:DataGridItemRendererAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TextAreaAutomationImpl"><apiName>TextAreaAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления TextArea.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ScrollControlBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления TextArea.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.TextArea.xml"><linktext>mx.controls.TextArea</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TextAreaAutomationImpl:TextAreaAutomationImpl"><apiName>TextAreaAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:TextArea"/><apiDesc>Автоматизируемый объект TextArea.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TextAreaAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:DateFieldAutomationImpl"><apiName>DateFieldAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DateField.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ComboBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления DateField.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DateField.xml"><linktext>mx.controls.DateField</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:DateFieldAutomationImpl:DateFieldAutomationImpl"><apiName>DateFieldAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:DateField"/><apiDesc>Автоматизируемый объект DateField.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:DateFieldAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:SliderAutomationImpl"><apiName>SliderAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом Slider, который является вышестоящим для классов HSlider и VSlider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом Slider, который является вышестоящим для классов HSlider и VSlider.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.sliderClasses.Slider.xml"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="" invalidHref="mx.controls.HSlider.xml"><linktext>mx.controls.HSlider</linktext></link><link href="" invalidHref="mx.controls.VSlider.xml"><linktext>mx.controls.VSlider</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:SliderAutomationImpl:SliderAutomationImpl"><apiName>SliderAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.sliderClasses:Slider"/><apiDesc>Автоматизируемый объект Slider.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:SliderAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:RadioButtonAutomationImpl"><apiName>RadioButtonAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ButtonAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления RadioButton.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.RadioButton.xml"><linktext>mx.controls.RadioButton</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:RadioButtonAutomationImpl:RadioButtonAutomationImpl"><apiName>RadioButtonAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:RadioButton"/><apiDesc>Автоматизируемый объект RadioButton.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:RadioButtonAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:LabelAutomationImpl"><apiName>LabelAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Label.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления Label.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Label.xml"><linktext>mx.controls.Label</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:LabelAutomationImpl:LabelAutomationImpl"><apiName>LabelAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:Label"/><apiDesc>Автоматизируемый объект Label.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:LabelAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:MenuItemRendererAutomationImpl"><apiName>MenuItemRendererAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом MenuItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом MenuItemRenderer.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.menuClasses.MenuItemRenderer.xml"><linktext>mx.controls.menuClasses.MenuItemRenderer</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:MenuItemRendererAutomationImpl:MenuItemRendererAutomationImpl"><apiName>MenuItemRendererAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.menuClasses:MenuItemRenderer"/><apiDesc>Автоматизируемый объект MenuItemRenderer.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:MenuItemRendererAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ListAutomationImpl"><apiName>ListAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления List.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ListBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления List.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.List.xml"><linktext>mx.controls.List</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ListAutomationImpl:ListAutomationImpl"><apiName>ListAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:List"/><apiDesc>Автоматизируемый объект List.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ListAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:ListAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Матрица automationValues для каждого элемента в сетке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Матрица automationValues для каждого элемента в сетке. Возвращаемое значение: массив строк, каждая из которых представляет собой массив средств визуализации элементов (по строкам).
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TreeItemRendererAutomationImpl"><apiName>TreeItemRendererAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TreeItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TreeItemRenderer.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.treeClasses.TreeItemRenderer.xml"><linktext>mx.controls.treeClasses.TreeItemRenderer</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TreeItemRendererAutomationImpl:TreeItemRendererAutomationImpl"><apiName>TreeItemRendererAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.treeClasses:TreeItemRenderer"/><apiDesc>Автоматизируемый объект TreeItemRenderer.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TreeItemRendererAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:AlertFormAutomationImpl"><apiName>AlertFormAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом AlertForm.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом AlertForm. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.alertClasses.AlertForm.xml"><linktext>mx.controls.alertClasses.AlertForm</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:AlertFormAutomationImpl:AlertFormAutomationImpl"><apiName>AlertFormAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.alertClasses:AlertForm"/><apiDesc>Автоматизируемый объект AlertForm.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:AlertFormAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  Метод, вызываемый после инициализации компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Метод, вызываемый после инициализации компонента. Можно использовать для обращения к любым подкомпонентам и выполнения действий с компонентом.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.controls:AlertFormAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ComboBaseAutomationImpl"><apiName>ComboBaseAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ComboBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом ComboBase.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ComboBase.xml"><linktext>mx.controls.ComboBase</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ComboBaseAutomationImpl:ComboBaseAutomationImpl"><apiName>ComboBaseAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ComboBase"/><apiDesc>Автоматизируемый объект ComboBase.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ComboBaseAutomationImpl:init"><apiName>init</apiName><shortdesc> 
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ColorPickerAutomationImpl"><apiName>ColorPickerAutomationImpl</apiName><shortdesc>
+	  Определяет методы и свойства, необходимые для работы с элементом управления ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ComboBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Определяет методы и свойства, необходимые для работы с элементом управления ColorPicker.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ColorPicker.xml"><linktext>mx.controls.ColorPicker</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ColorPickerAutomationImpl:ColorPickerAutomationImpl"><apiName>ColorPickerAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ColorPicker"/><apiDesc>Автоматизируемый объект ColorPicker.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ColorPickerAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:TileBaseAutomationImpl"><apiName>TileBaseAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TileBase, который является вышестоящим для компонента TileList.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ListBaseAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с классом TileBase, который является вышестоящим для компонента TileList.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.TileBase.xml"><linktext>mx.controls.listClasses.TileBase</linktext></link><link href="" invalidHref="mx.controls.TileList.xml"><linktext>mx.controls.TileList</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:TileBaseAutomationImpl:TileBaseAutomationImpl"><apiName>TileBaseAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls.listClasses:TileBase"/><apiDesc>Автоматизируемый объект TileBase.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:TileBaseAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.controls:TileBaseAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Матрица automationValues для каждого элемента в сетке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Матрица automationValues для каждого элемента в сетке. Возвращаемое значение: массив строк, каждая из которых представляет собой массив средств визуализации элементов (по строкам).
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.controls:SWFLoaderAutomationImpl"><apiName>SWFLoaderAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления SWFLoader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления SWFLoader.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.SWFLoader.xml"><linktext>mx.controls.SWFLoader</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:SWFLoaderAutomationImpl:SWFLoaderAutomationImpl"><apiName>SWFLoaderAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:SWFLoader"/><apiDesc>Автоматизируемый объект SWFLoader.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:SWFLoaderAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.controls:ToggleButtonBarAutomationImpl"><apiName>ToggleButtonBarAutomationImpl</apiName><shortdesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ToggleButtonBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.controls:ButtonBarAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Определяет методы и свойства, необходимые для работы с элементом управления ToggleButtonBar.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ToggleButtonBar.xml"><linktext>mx.controls.ToggleButtonBar</linktext></link></related-links><apiConstructor id="mx.automation.delegates.controls:ToggleButtonBarAutomationImpl:ToggleButtonBarAutomationImpl"><apiName>ToggleButtonBarAutomationImpl</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.controls:ToggleButtonBar"/><apiDesc>Автоматизируемый объект ToggleButtonBar.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.controls:ToggleButtonBarAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>SystemManager приложения.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Регистрирует класс-делегат для класса компонента в диспетчере автоматизации.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

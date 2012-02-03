@@ -1,0 +1,2567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core"><apiName>mx.core</apiName><apiDetail/><apiClassifier id="mx.core:LayoutContainer"><apiName>LayoutContainer</apiName><shortdesc>
+  Flex 将定义一个默认容器（或 Application 容器），这样，您无需显式定义其它容器即可开始向模块或应用程序中添加内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="y"/><Exclude kind="property" name="x"/><Exclude kind="property" name="toolTip"/><Exclude kind="property" name="tabIndex"/><Exclude kind="property" name="label"/><Exclude kind="property" name="icon"/><Exclude kind="property" name="direction"/><styles><style format="Length" inherit="no" name="paddingTop" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="Number">
+<description>
+  上边框与其内容区域之间的像素数目。 
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="Number">
+<description>
+  下边框与其内容区域之间的像素数目。  
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="verticalGap" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="Number">
+<description>
+  垂直方向上各子项间的像素数目。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 6。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="horizontalGap" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="Number">
+<description>
+  水平方向上各子代之间的像素数。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 8。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="bottom,middle,top" inherit="no" name="verticalAlign" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="String">
+<description>
+  垂直对齐容器中的子项。可能值包括 <codeph>"top"</codeph>、<codeph>"middle"</codeph> 和 <codeph>"bottom"</codeph>。默认值为 <codeph>"top"</codeph>，但某些容器（如 ButtonBar、ControlBar、LinkBar 和 ToggleButtonBar）具有不同的默认值。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="horizontalAlign" owner="mx.core:LayoutContainer" playerVersion="Flash9" type="String">
+<description>
+  水平对齐容器中的子容器。可能值包括 <codeph>"left"</codeph>、<codeph>"center"</codeph> 和 <codeph>"right"</codeph>。默认值为 <codeph>"left"</codeph>，但某些容器（如 ButtonBar 和 ToggleButtonBar）具有不同的默认值。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Application&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Application
+    <strong>Properties</strong>
+    layout="vertical|horizontal|absolute"
+    xmlns:<i>No default</i>="<i>No default</i>"
+ 
+    <strong>Styles</strong> 
+    horizontalAlign="center|left|right"
+    horizontalGap="8"
+    paddingBottom="0"
+    paddingTop="0"
+    verticalAlign="top|bottom|middle"
+    verticalGap="6"
+  
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.containers.utilityClasses:IConstraintLayout</apiBaseInterface><apiBaseClassifier>mx.core:Container</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Flex 将定义一个默认容器（或 Application 容器），这样，您无需显式定义其他容器即可开始向模块或应用程序中添加内容。Flex 使用 MXML 应用程序文件中的第一个标签 <codeph>&lt;mx:Application></codeph>，或使用 MXML 模块文件中的第一个标签 <codeph>&lt;mx:Module></codeph> 创建此容器。尽管您可能会发现在应用程序中将 Application 或 Module 容器用作仅有的容器非常方便，但大多数情况下，都会先显式定义一个以上的容器，然后再将控件添加到应用程序或模块。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.events.EventDispatcher.xml"><linktext>flash.events.EventDispatcher</linktext></link></related-links><apiConstructor id="mx.core:LayoutContainer:LayoutContainer"><apiName>LayoutContainer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core:LayoutContainer:protected:boxLayoutClass"><apiName>boxLayoutClass</apiName><shortdesc>
+      执行布局的 mx.containers.utilityClasses.Layout 子类
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      执行布局的 mx.containers.utilityClasses.Layout 子类
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:LayoutContainer:protected:canvasLayoutClass"><apiName>canvasLayoutClass</apiName><shortdesc>
+      执行布局的 mx.containers.utilityClasses.Layout 子类
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      执行布局的 mx.containers.utilityClasses.Layout 子类
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:LayoutContainer:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc conref="mx.containers.utilityClasses.IConstraintLayout#constraintColumns">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.containers.utilityClasses.IConstraintLayout#constraintColumns">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:LayoutContainer:constraintRows:get"><apiName>constraintRows</apiName><shortdesc conref="mx.containers.utilityClasses.IConstraintLayout#constraintRows">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.containers.utilityClasses.IConstraintLayout#constraintRows">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:LayoutContainer:layout:get"><apiName>layout</apiName><shortdesc>
+      指定用于此应用程序的布局机制。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="layoutChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"vertical"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定用于此应用程序的布局机制。应用程序可以使用 <codeph>"vertical"</codeph>、<codeph>"horizontal"</codeph> 或者 <codeph>"absolute"</codeph> 定位方式。垂直定位按照指定的顺序从应用程序的顶部到底部垂直排列每个子组件。水平定位按照指定的顺序从应用程序的左侧到右侧水平排列每个子组件。绝对定位不会进行自动布局，它需要您显式定义每个子组件的位置。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:Repeater"><apiName>Repeater</apiName><shortdesc>
+  Repeater 类是对应于 &amp;lt;mx:Repeater&amp;gt; 标签的运行时对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The &lt;Repeater&gt; class has the following properties:</p>
+ 
+  <pre>
+  &lt;mx:Repeater
+    <strong>Properties</strong>
+    id="<i>No default</i>"
+    childDescriptors="<i>No default</i>"
+    count="<i>No default</i>"
+    dataProvider="<i>No default</i>"
+    recycleChildren="false|true"
+    startingIndex="0"
+ 
+    <strong>Events</strong>
+    repeat="<i>No default</i>"
+    repeatEnd="<i>No default</i>"
+    repeatStart="<i>No default</i>"
+  &gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IRepeater</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Repeater 类是对应于 <codeph>&lt;mx:Repeater></codeph> 标签的运行时对象。它根据其 dataProvider 创建其子组件的多个实例。重复的组件可以是任意标准或自定义控件或容器。
+ 
+  <p>您可以在允许使用控件或容器标签（<codeph>&lt;mx:Application></codeph> 容器标签除外）的任何位置使用 <codeph>&lt;mx:Repeater></codeph> 标签。要重复用户界面组件，您需要将其标签放在 <codeph>&lt;mx:Repeater></codeph> 标签中。您可以在 MXML 文档中使用多个 <codeph>&lt;mx:Repeater></codeph> 标签。还可以嵌套 <codeph>&lt;mx:Repeater></codeph> 标签。</p>
+ 
+  <p>不能对不扩展 UIComponent 类的对象使用 <codeph>&lt;mx:Repeater></codeph> 标签。</p>
+ 
+  </apiDesc><example conref="RepeaterExample.mxml"><swfblock conref="examples/RepeaterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.core.xml#Container"><linktext>mx.core.Container</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link><link href="" invalidHref="mx.core.UIComponentDescriptor.xml"><linktext>mx.core.UIComponentDescriptor</linktext></link><link href="" invalidHref="flash.events.EventDispatcher.xml"><linktext>flash.events.EventDispatcher</linktext></link></related-links><adobeApiEvent id="mx.core:Repeater_mx.events.FlexEvent.REPEAT_START_repeatStart"><apiName>repeatStart</apiName><shortdesc>
+  当 Flex 开始处理 dataProvider 属性并开始创建指定的子组件时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.REPEAT_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 Flex 开始处理 <codeph>dataProvider</codeph> 属性并开始创建指定的子组件时分派。即使 <codeph>dataProvider</codeph> 属性为空或 <codeph>null</codeph> 也会触发此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Repeater_mx.events.FlexEvent.REPEAT_END_repeatEnd"><apiName>repeatEnd</apiName><shortdesc>
+  创建了 repeater 的所有子组件后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.REPEAT_END</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  创建了 repeater 的所有子组件后分派。即使 <codeph>dataProvider</codeph> 属性为空或 <codeph>null</codeph> 也会触发此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Repeater_mx.events.FlexEvent.REPEAT_repeat"><apiName>repeat</apiName><shortdesc>
+  每次处理项目或更新 currentIndex 和 currentItem 属性时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.REPEAT</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  每次处理项目或更新 <codeph>currentIndex</codeph> 和 <codeph>currentItem</codeph> 属性时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Repeater:Repeater"><apiName>Repeater</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Repeater:executeChildBindings"><apiName>executeChildBindings</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Repeater:initializeRepeater"><apiName>initializeRepeater</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>container</apiItemName><apiType value="mx.core:IContainer"/></apiParam><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.core:Repeater:childDescriptors"><apiName>childDescriptors</apiName><shortdesc>
+      此 Repeater 的子项的 UIComponentDescriptor 对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      此 Repeater 的子项的 UIComponentDescriptor 对象 Array。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Repeater:container:get"><apiName>container</apiName><shortdesc>
+      包含此 Repeater 的容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IContainer"/></apiValueDef><apiDesc>
+      包含此 Repeater 的容器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Repeater:count:get"><apiName>count</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="countChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Repeater:currentIndex:get"><apiName>currentIndex</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nextRepeaterItem"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Repeater:currentItem:get"><apiName>currentItem</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nextRepeaterItem"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Repeater:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Repeater:recycleChildren:get"><apiName>recycleChildren</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Repeater:startingIndex:get"><apiName>startingIndex</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="startingIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier><apiClassifier id="mx.core:Application"><apiName>Application</apiName><shortdesc>
+  Flex 将定义一个默认容器（或 Application 容器）。这样，您无需显式定义其它容器即可向应用程序中添加内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="y"/><Exclude kind="property" name="x"/><Exclude kind="property" name="toolTip"/><Exclude kind="property" name="tabIndex"/><Exclude kind="property" name="label"/><Exclude kind="property" name="icon"/><Exclude kind="property" name="direction"/><Alternative owner="mx.core:Application" replacement="spark.components.Application" since="4.0">
+	</Alternative><styles><style format="Length" inherit="no" name="paddingTop" owner="mx.core:Application" playerVersion="Flash9" type="Number">
+<description>
+  Application 容器的上边框与其内容区域之间的像素数目。 
+   </description>
+<default>24
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.core:Application" playerVersion="Flash9" type="Number">
+<description>
+  Application 容器的下边框与其内容区域之间的像素数目。  
+   </description>
+<default>24
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="backgroundGradientColors" owner="mx.core:Application" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  指定对 Application 容器的背景渐变填充着色所用的颜色。您应该将此值设置为一个包含两个 uint 值的 Array，这两个值可用于指定 RGB 颜色。元素 0 和元素 1 指定颜色渐变的开始和结束值。对于纯色背景，请为 0 和 1 元素设置相同的颜色值。值为 <codeph>undefined</codeph> 表示背景渐变基于 <codeph>backgroundColor</codeph> 属性而生成。
+   </description>
+<default>undefined 
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="backgroundGradientAlphas" owner="mx.core:Application" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  指定 Application 容器背景渐变填充使用的 Alpha 透明度值。您应该将此值设置为一个包含两个数值的 Array。元素 0 和元素 1 指定 alpha 渐变的开始和结束值。
+   </description>
+<default>[ 1.0, 1.0 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="yes" name="modalTransparencyDuration" owner="mx.core:Application" playerVersion="Flash9" type="Number">
+<description>
+  模式窗口打开或关闭时播放模式透明度效果的持续时间（以毫秒为单位）。
+ 
+  </description>
+<default>100
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="modalTransparencyColor" owner="mx.core:Application" playerVersion="Flash9" type="uint">
+<description>
+  模式叠加层的颜色。此样式与 <codeph>modalTransparency</codeph> 样式结合使用，以确定模式窗口打开时应用于应用程序的色彩效果。
+ 
+  </description>
+<default>#DDDDDD
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="modalTransparencyBlur" owner="mx.core:Application" playerVersion="Flash9" type="Number">
+<description>
+  模式窗口打开时，应用于应用程序的模糊效果。模糊效果可以柔化图像的细节。 
+  
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.filters.BlurFilter.xml"><linktext>flash.filters.BlurFilter</linktext></link></related-links></style><style inherit="yes" name="modalTransparency" owner="mx.core:Application" playerVersion="Flash9" type="Number">
+<description>
+  通过在组件下创建大型半透明叠加层来模拟 PopUp Manager 启动的组件形式。由于半透明对象的呈示方式，您可能会注意到叠加层下的对象略显暗淡。通过将 <codeph>modalTransparency</codeph> 更改为从 0.0（完全透明）到 1.0（完全不透明）之间的值可以设置有效透明度。还可以通过更改 <codeph>modalTransparencyColor</codeph> 样式来设置叠加层的颜色。
+ 
+  </description>
+<default>0.5
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[  <p>The <code>&lt;mx:Application&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;mx:Application
+    <strong>Properties</strong>
+    application="<i>No default</i>"
+    controlBar="null"
+    frameRate="24"
+    historyManagementEnabled="true|false"
+    layout="vertical|horizontal|absolute"
+    pageTitle"<i>No default</i>"
+    preloader="<i>No default</i>"
+    resetHistory="false|true"
+    scriptRecursionLimit="1000"
+    scriptTimeLimit="60"
+    usePreloader="true|false"
+    viewSourceURL=""
+    xmlns:<i>No default</i>="<i>No default</i>"
+ 
+    <strong>Styles</strong> 
+    backgroundGradientAlphas="[ 1.0, 1.0 ]"
+    backgroundGradientColors="undefined"
+    horizontalAlign="center|left|right"
+    horizontalGap="8"
+    modalTransparency="0.5"
+    modalTransparencyBlur="3"
+    modalTransparencyColor="#DDDDDD"
+    modalTransparencyDuration="100"
+    paddingBottom="24"
+    paddingTop="24"
+    verticalAlign="top|bottom|middle"
+    verticalGap="6"
+  
+    <strong>Events</strong>
+    applicationComplete="<i>No default</i>"
+    error="<i>No default</i>"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Flex 将定义一个默认容器（或 Application 容器）。这样，您无需显式定义其他容器即可向应用程序中添加内容。Flex 将基于 <codeph>&lt;mx:Application></codeph> 标签创建此容器，此标签是 MXML 应用程序文件中的第一个标签。您可能会发现，在应用程序中使用 Application 容器作为唯一的容器非常方便，但在大多数情况下，您需要至少另外显式定义一个容器，才能向应用程序中添加任何控件。
+   <p>Application 支持预定义的简约样式，即设置为白色背景、左对齐并删除所有边距。要使用此样式，请执行以下操作：</p>
+   <pre>
+    &lt;mx:Application styleName="plain" />
+  </pre>
+   <p>这等效于设置下列样式属性：</p>
+   <pre>
+    backgroundColor="0xFFFFFF"
+    horizontalAlign="left"
+    paddingLeft="0"
+    paddingTop="0"
+    paddingBottom="0"
+    paddingRight="0"
+  </pre>
+ 
+  </apiDesc><example conref="SimpleApplicationExample.mxml"><swfblock conref="examples/SimpleApplicationExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.CursorManager.xml"><linktext>mx.managers.CursorManager</linktext></link><link href="" invalidHref="mx.managers.LayoutManager.xml"><linktext>mx.managers.LayoutManager</linktext></link><link href="" invalidHref="mx.managers.SystemManager.xml"><linktext>mx.managers.SystemManager</linktext></link><link href="" invalidHref="flash.events.EventDispatcher.xml"><linktext>flash.events.EventDispatcher</linktext></link></related-links><adobeApiEvent id="mx.core:Application_flash.events.ErrorEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  当 HTTPService 调用失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ErrorEvent.ERROR</apiEventType><adobeApiEventClassifier>flash.events.ErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 HTTPService 调用失败时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Application_mx.events.FlexEvent.APPLICATION_COMPLETE_applicationComplete"><apiName>applicationComplete</apiName><shortdesc>
+  在 Application 经过初始化、由 LayoutManager 处理并附加到显示列表后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.APPLICATION_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 Application 经过初始化、由 LayoutManager 处理并附加到显示列表后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Application:Application"><apiName>Application</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Application:addToCreationQueue"><apiName>addToCreationQueue</apiName><shortdesc>
+      向 Application 的创建队列中添加一个容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="Object"/><apiDesc>要添加到队列中的容器 ID，或者指向该容器本身的指针
+           </apiDesc></apiParam><apiParam><apiItemName>preferredIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>（可选）一个正整数，用于确定该容器在队列中相对于同队列中存在的其他容器的位置。
+           </apiDesc></apiParam><apiParam><apiItemName>callbackFunc</apiItemName><apiType value="Function"/><apiData>null</apiData><apiDesc>此参数将被忽略。
+           </apiDesc></apiParam><apiParam><apiItemName>parent</apiItemName><apiType value="mx.core:IFlexDisplayObject"/><apiData>null</apiData><apiDesc>此参数将被忽略。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向 Application 的创建队列中添加一个容器。
+           <p>使用此机制可按固定顺序实例化并绘制容器内容。在调用此函数之前，应该将该容器的 <codeph>creationPolicy</codeph> 属性设置为 <codeph>"none"</codeph>。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:Application:controlBar"><apiName>controlBar</apiName><shortdesc>
+      此 Application 的 ApplicationControlBar。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此 Application 的 ApplicationControlBar。 
+           </apiDesc></apiValueDetail><related-links><link href="mx.containers.xml#ApplicationControlBar"><linktext>mx.containers.ApplicationControlBar</linktext></link></related-links></apiValue><apiValue id="mx.core:Application:frameRate"><apiName>frameRate</apiName><shortdesc>
+        指定应用程序的帧速率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>24
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        指定应用程序的帧速率。
+        <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。</p>
+             </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:historyManagementEnabled"><apiName>historyManagementEnabled</apiName><shortdesc>
+      如果设置为 false，则禁用历史记录管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果设置为 <codeph>false</codeph>，则禁用历史记录管理器。使用 BrowserManager 时，建议设置为 false。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:pageTitle"><apiName>pageTitle</apiName><shortdesc>
+        指定在浏览器的标题栏中显示的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        指定在浏览器的标题栏中显示的字符串。此属性与 HTML<codeph>&lt;title></codeph> 标签提供相同的功能。
+             <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。MXML 代码中设置的值是为了供某个工具使用而设计的，用于更新随 SDK 提供的 HTML 模板。</p>
+             </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:preloaderChromeColor"><apiName>preloaderChromeColor</apiName><shortdesc>
+        指定默认预加载器组件所使用的基本颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+        指定默认预加载器组件所使用的基本颜色。此属性具有与 Spark 外观所用的 <codeph>chromeColor</codeph> 样式相同的效果。通常应将此属性设置为与该应用程序所使用的 <codeph>chromeColor</codeph> 样式相同的值。
+        
+        <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:preloader"><apiName>preloader</apiName><shortdesc>
+      应用程序容器支持应用程序预加载器，该预加载器使用下载进度条来显示应用程序 SWF 文件的下载和初始化进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      应用程序容器支持应用程序预加载器，该预加载器使用下载进度条来显示应用程序 SWF 文件的下载和初始化进度。默认情况下，已启用应用程序预加载器。预加载器跟踪已下载的字节数，并持续更新进度条。 
+           <p>使用此属性指定用于定义自定义进度指示符的组件的路径。要创建自定义进度指示符，通常需要创建 DownloadProgressBar 类的子类，或创建用于实现 mx.preloaders.IPreloaderDisplay 接口的 flash.display.Sprite 类的子类。 </p>
+           <p><b>注意：</b>无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.preloaders.DownloadProgressBar.xml"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="" invalidHref="flash.display.Sprite.xml"><linktext>flash.display.Sprite</linktext></link><link href="" invalidHref="mx.preloaders.IPreloaderDisplay.xml"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link></related-links></apiValue><apiValue id="mx.core:Application:resetHistory"><apiName>resetHistory</apiName><shortdesc>
+      如果设置为 true，则每次重新加载应用程序时都会将该应用程序的历史记录状态重置为其初始状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果设置为 <codeph>true</codeph>，则每次重新加载应用程序时都会将该应用程序的历史记录状态重置为其初始状态。出现下列任一情形时，都将重新加载应用程序：
+      <ul>
+        <li>用户单击浏览器的“刷新”按钮。</li>
+        <li>用户导航到其他 Web 页，然后单击浏览器的“返回”按钮返回到 Flex 应用程序。</li>
+        <li>用户从浏览器的“收藏夹”或“书签”菜单中加载 Flex 应用程序。</li>
+      </ul>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:scriptRecursionLimit"><apiName>scriptRecursionLimit</apiName><shortdesc>
+        指定在播放器停止播放前，Flash Player 或 AIR 调用堆栈的最大深度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/><apiDefaultValue>1000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        指定在播放器停止播放前，Flash Player 或 AIR 调用堆栈的最大深度。这实质上是堆栈溢出限制。
+        <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。</p>
+             </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:scriptTimeLimit"><apiName>scriptTimeLimit</apiName><shortdesc>
+        指定在 Flash Player 或 AIR 假定 ActionScript 事件处理函数是挂起的因而终止该程序之前，该程序可执行的最长持续时间（以秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>60
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        指定在 Flash Player 或 AIR 假定 ActionScript 事件处理函数是挂起的因而终止该程序之前，该程序可执行的最长持续时间（以秒为单位）。您可以设置的最大允许值是 60 秒。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:usePreloader"><apiName>usePreloader</apiName><shortdesc>
+        如果设置为 true，则指定为显示应用程序 preloader。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        如果设置为 <codeph>true</codeph>，则指定为显示应用程序 preloader。
+        <p>注意：无法使用 ActionScript 代码设置此属性；必须使用 MXML 代码进行设置。</p>
+             </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:application:get"><apiName>application</apiName><shortdesc>
+      对顶级应用程序的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="Object"/><apiDeprecated replacement="FlexGlobals.topLevelApplication" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      对顶级应用程序的引用。
+           <p>通常，Application 对象可能存在层次结构，因为 Application 可以使用 SWFLoader 控件动态加载其他 Application。可通过 UIComponent 的 <codeph>parentApplication</codeph> 属性访问 UIComponent 所在的子 Application，并可以在层次结构中向上浏览到顶级 Application。</p>
+      
+      <p>自 Flex 4 起，已弃用此属性。请注意，同之前的版本一样，此属性仍将返回 mx.core.Application 和 mx.core.WindowedApplication 类型的应用程序。自 Flex 4 起，也将返回 spark.components.Application 或 spark.components.WindowedApplication 类型的应用程序。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:parameters:get"><apiName>parameters</apiName><shortdesc>
+      parameters 属性将返回一个包含名称-值对的 Object，代表为此 Application 提供的参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      parameters 属性将返回一个包含名称-值对的 Object，代表为此 Application 提供的参数。
+           <p>可以使用 for-in 循环来提取 parameters Object 中的所有名称和值。</p>
+           <p>参数有两个源：Application 的 URL 中的查询字符串和 FlashVars HTML 参数（仅适用于主 Application）的值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:url:get"><apiName>url</apiName><shortdesc>
+      从中加载此应用程序的 SWF 文件的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      从中加载此应用程序的 SWF 文件的 URL。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Application:viewSourceURL:get"><apiName>viewSourceURL</apiName><shortdesc>
+      可以从中查看应用程序源的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      可以从中查看应用程序源的 URL。通过设置此属性，可以将“查看源”菜单项插入到应用程序的默认上下文菜单中。选择此菜单项将在新窗口中打开 <codeph>viewSourceURL</codeph>。
+           <p>您必须使用 MXML（而非 ActionScript）设置 <codeph>viewSourceURL</codeph> 属性，如以下示例所示：</p>
+           <pre>
+        &lt;mx:Application viewSourceURL="http://path/to/source">
+          ...
+        &lt;/mx:Application></pre>
+           
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:ContainerLayout"><apiName>ContainerLayout</apiName><shortdesc>
+  ContainerLayout 类定义容器类的 layout 属性的常量值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ContainerLayout 类定义容器类的 <codeph>layout</codeph> 属性的常量值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.containers.xml#Panel/layout"><linktext>mx.containers.Panel.layout</linktext></link><link href="mx.core.xml#Application/layout"><linktext>mx.core.Application.layout</linktext></link></related-links><apiValue id="mx.core:ContainerLayout:ABSOLUTE"><apiName>ABSOLUTE</apiName><shortdesc>
+	  对此容器的内容使用绝对布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>absolute</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  对此容器的内容使用绝对布局。您负责显式指定每个子项的位置。
+	 
+	  <p>执行此操作的最简单的方法是指定每个子项的 <codeph>x</codeph>、<codeph>y</codeph>、<codeph>width</codeph> 和 <codeph>height</codeph>。</p>
+	 
+	  <p>在 MXML 中，可以将 <codeph>width</codeph> 和 <codeph>height</codeph> 指定为百分比值。（在 ActionScript 中，您必须设置 <codeph>percentWidth</codeph> 和 <codeph>percentHeight</codeph> 属性。）</p>
+	 
+	  <p>如果未指定子项的 <codeph>width</codeph> 或 <codeph>percentWidth</codeph>，则将使用由其 <codeph>measure()</codeph> 方法自动确定的 <codeph>measuredWidth</codeph>。这同样适用于其高度。</p>
+	 
+	  <p>作为进行布局的一个替代方式，您可以对子项使用锚点样式 <codeph>left</codeph>、<codeph>top</codeph>、<codeph>right </codeph>、<codeph>bottom</codeph>、<codeph>horizontalCenter</codeph> 和 <codeph>verticalCenter</codeph>，将其锚定在容器的边上或中心。</p>
+	 
+	  <p>使用绝对布局时，将忽略容器的 <codeph>paddingLeft</codeph>、<codeph>paddingTop</codeph>、<codeph>paddingRight</codeph>、<codeph>paddingBottom</codeph>、<codeph>horizontalGap</codeph>、<codeph>verticalGap</codeph>、<codeph>horizontalAlign</codeph> 和 <codeph>verticalAlign</codeph> 样式。</p> 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ContainerLayout:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  对此容器的内容使用水平布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  对此容器的内容使用水平布局。容器会自动将其子项放在单行中。
+	 
+	  <p>如果未指定子项的 <codeph>width</codeph> 或 <codeph>percentWidth</codeph>，则将使用由其 <codeph>measure()</codeph> 方法自动确定的 <codeph>measuredWidth</codeph>。这同样适用于其高度。</p>
+	 
+	  <p>您可以使用 <codeph>horizontalGap</codeph> 样式控制子项之间的间距，并使用 <codeph>verticalAlign</codeph> 样式控制子项的对齐方式。<codeph>paddingLeft</codeph>、<codeph>paddingTop</codeph>、<codeph>paddingRight</codeph> 和 <codeph>paddingBottom</codeph> 样式控制容器边框与子项之间的间距。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ContainerLayout:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  对此容器的内容使用垂直布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  对此容器的内容使用垂直布局。容器会自动将其子项放在单列中。
+	 
+	  <p>如果未指定子项的 <codeph>width</codeph> 或 <codeph>percentWidth</codeph>，则将使用由其 <codeph>measure()</codeph> 方法自动确定的 <codeph>measuredWidth</codeph>。这同样适用于其高度。</p>
+	 
+	  <p>您可以使用 <codeph>verticalGap</codeph> 样式控制子项之间的间距，并使用 <codeph>horizontalAlign</codeph> 样式控制子项的对齐方式。<codeph>paddingLeft</codeph>、<codeph>paddingTop</codeph>、<codeph>paddingRight</codeph> 和 <codeph>paddingBottom</codeph> 样式控制容器边框与子项之间的间距。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:Container"><apiName>Container</apiName><shortdesc>
+  Container 类是组件的抽象基类，用于控制子组件的布局特征。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="symbolColor" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的任何元件的颜色。示例包括 CheckBox 的复选标记或 ScrollBar 按钮的箭头。
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingTop" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  容器的上边框与其内容区域顶部之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  容器的下边框与其内容区域底部之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="verticalScrollBarStyleName" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  垂直 scrollbar 样式的名称。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalScrollBarStyleName" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  水平 scrollbar 样式的名称。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件对焦时，对焦环的颜色。
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="disabledOverlayAlpha" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  禁用容器时放置在容器上的叠加层的 alpha 值。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.core:Container" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  组件角的半径。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 0。对于 ApplicationControlBar，默认值为 5。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="contentBackgroundColor" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的内容区域的颜色。
+   
+  </description>
+<default>0xFFFFFF
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="contentBackgroundAlpha" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  组件内容背景的 Alpha。
+ 
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAttachment" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  如果指定了背景图像，则此样式指定它是相对于视域保持固定状态 (<codeph>"fixed"</codeph>) 还是随着内容一起滚动 (<codeph>"scroll"</codeph>)。
+ 
+  </description>
+<default>"scroll"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件外观使用的强调文字颜色。默认按钮外观使用此颜色对背景进行着色。使用此颜色加亮滑块轨道。 
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  文本第一行偏离容器左侧的距离（以像素为单位）。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.core:Container" playerVersion="Flash10" type="Class">
+<description>
+  实现此组件用来呈示文本的 IUITextField 的类。
+ 
+  <p>它可以设置为 mx.core.UITextField 类（以使用 Flash Player 内置经典 TextField 类）或 mx.core.UIFTETextField 类（以使用 Text Layout Framework 改进文本呈示，包括双向布局）。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否加下划线。可能值有：<codeph>"none"</codeph> 和 <codeph>"underline"</codeph>。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  容器内文本的对齐方式。可能值有：<codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>。
+ 
+  <p>大多数组件的默认值为 <codeph>"left"</codeph>。对于 FormItem 组件，默认值为 <codeph>"right"</codeph>。对于 Button、LinkButton 和 AccordionHeader 组件，默认值为 <codeph>"center"</codeph>，且仅当将 <codeph>labelPlacement</codeph> 属性设置为 <codeph>"left"</codeph> 或 <codeph>"right"</codeph> 时，才能识别此属性。如果将 <codeph>labelPlacement</codeph> 设置为 <codeph>"top"</codeph> 或 <codeph>"bottom"</codeph>，将居中文本及所有图标。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.core:Container" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的区域设置。
+ 
+  <p>FTE 和 TLF 使用此区域设置将 Unicode 字符映射到字体字型并查找后备字体。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.core:Container" playerVersion="Flash9" type="Boolean">
+<description>
+  一个布尔值，表示是启用 (<codeph>true</codeph>) 还是禁用 (<codeph>false</codeph>) 字距调整。字距调整会调整某些字符对之间的间隔以提高可读性，并应只在必要时（例如使用大字体标题时）使用。仅嵌入字体支持字距调整。某些字体（如宋体）和等宽字体（如 Courier New）不支持字距调整。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>normal</codeph> 和 <codeph>bold</codeph>。Button 控件的默认值为 <codeph>bold</codeph>。所有其它控件的默认值为 <codeph>normal</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>thickness</codeph> 属性。此属性指定字型边缘的粗细。可能值为从 -200 到 200 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  文本的高度，以像素为单位。在 Halo 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 10。对于 Halo 主题的 ColorPicker 控件，默认值为 11。在 Spark 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 12。对于 Spark 主题的 ColorPicker 控件，默认值为 11。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>sharpness</codeph> 属性。此属性指定字型边缘的清晰度。可能值为从 -400 到 400 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>gridFitType</codeph> 属性。可能值为 <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>)、<codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) 和<codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>)。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。Halo 主题的默认字体为 <codeph>"Verdana"</codeph>。Spark 主题的默认字体为 <codeph>"Arial"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  设置内部 TextField 的 <codeph>antiAliasType</codeph> 属性。可能值为 <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) 和 <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>)。 
+  
+  <p>默认值为 <codeph>"advanced"</codeph>，该值将启用字体的高级消除锯齿功能。设置为 <codeph>"normal"</codeph> 可禁用高级消除锯齿功能。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+  
+  <p>此样式适用于 TextField 子控件中的所有文本；但不能将其应用于部分字符。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.core:Container" playerVersion="Flash9" type="uint">
+<description>
+  禁用时组件中文本的颜色。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.core:Container" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的方向性。
+ 
+  <p>允许的值为<codeph>“ltr”</codeph>（适用于从左到右文本，就像在拉丁样式脚本中一样）和<codeph>“rtl”</codeph>（适用于从右到左文本，就像在阿拉伯语和希伯来语中一样）。</p>
+ 
+  <p>FTE 和 TLF 在其双向文本布局算法中使用此值，该算法会将 Unicode 字符顺序映射到字型顺序。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  <p><codeph>direction</codeph> 还影响在 TLFTextField 的范围内的文本的对齐。但是，它不会影响组件内 TLFTextField 的位置。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.core:Container" playerVersion="Flash9" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  组件右边框与其内容区域右边缘之间的像素数目。
+  <p>默认值为 0。</p>
+  <p>在 Halo 主题中，Button 控件的默认值为 10，在 Spark 主题中，其默认值为 6。</p>
+  <p>ComboBox 控件的默认值为 5。</p>
+  <p>Form 容器的默认值为 16。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.core:Container" playerVersion="Flash9" type="Number">
+<description>
+  组件左边框与其内容区域左边缘之间的像素数目。
+  <p>默认值为 0。</p>
+  <p>在 Halo 主题中，Button 控件的默认值为 10，在 Spark 主题中，其默认值为 6。</p>
+  <p>ComboBox 控件的默认值为 5。</p>
+  <p>Form 容器的默认值为 16。</p>
+  <p>Tree 控件的默认值为 2。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.core:Container" playerVersion="Flash9" theme="halo, spark" type="uint">
+<description>
+  组件的背景色。您可以同时设置 <codeph>backgroundColor</codeph> 和 <codeph>backgroundImage</codeph>。一些组件没有背景。DataGrid 控件会忽略此样式。默认值为 <codeph>undefined</codeph>，即不进行设置。如果此样式和 <codeph>backgroundImage</codeph> 样式都为 <codeph>undefined</codeph>，则控件将采用透明背景。
+ 
+  <p>对于 Application 容器，此样式指定应用程序加载时的背景色以及运行该应用程序时的背景渐变。Flex 计算比指定颜色略深的颜色和比指定颜色略浅的颜色之间的渐变。</p>
+ 
+  <p>大多数 Flex 控件的默认外观为半透明。因此，容器的背景颜色将在某种程度上“渗入”该容器中的控件。通过将控件的 <codeph>fillAlphas</codeph> 属性的 alpha 值设置为 1 可以避免此情况，如以下示例所示：
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="mx.core:Container" playerVersion="Flash9" theme="halo, spark" type="Number">
+<description>
+  <codeph>backgroundColor</codeph> 属性定义的颜色和 <codeph>backgroundImage</codeph> 样式定义的图像或 SWF 文件的 Alpha 级别。有效值范围为从 0.0 到 1.0。对于大多数控件，默认值为 1.0，但 ToolTip 控件的默认值为 0.95，而 Alert 控件的默认值为 0.9。
+  
+  </description>
+<default>1.0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="shadowDistance" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  投影距离。如果将此属性设置为负值，此阴影将出现在组件的上方。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="shadowDirection" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  投影方向。可能值包括 <codeph>"left"</codeph>、<codeph>"center"</codeph> 和 <codeph>"right"</codeph>。
+ 
+  </description>
+<default>"center"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="dropShadowColor" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  投影颜色。
+ 
+  </description>
+<default>0x000000
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowVisible" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  指定组件是否具有可见投影的布尔值属性。默认值为 <codeph>false</codeph>。
+ 
+  <p><b>注意：</b>对于显示在容器上的投影，需设置 <codeph>contentBackgroundColor</codeph> 属性。否则，由于容器的背景默认为透明，阴影将显示在容器后。</p>
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowEnabled" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="Boolean">
+<description>
+  指定组件是否具有可见投影的布尔值属性。此样式与 <codeph>borderStyle="solid"</codeph> 一起使用。默认值为 <codeph>false</codeph>。
+ 
+  <p><b>注意：</b>对于显示在容器上的投影，需设置 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph> 属性。否则，由于容器的背景默认为透明，阴影将显示在容器后。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderVisible" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  边框可视性。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="borderThickness" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  边框厚度。仅在将 <codeph>borderStyle</codeph> 设置为 <codeph>"solid"</codeph> 时使用。
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="inset,outset,solid,none" inherit="no" name="borderStyle" owner="mx.core:Container" playerVersion="Flash9" type="String">
+<description>
+  边框样式。可能值为 <codeph>"none"</codeph>、<codeph>"solid"</codeph>、<codeph>"inset"</codeph> 和 <codeph>"outset"</codeph>。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 <codeph>"inset"</codeph>。大多数容器的默认值为 <codeph>"none"</codeph>。<codeph>"inset"</codeph> 和 <codeph>"outset"</codeph> 值只在 halo 主题中有效。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSkin" owner="mx.core:Container" playerVersion="Flash9" type="Class">
+<description>
+  组件的边框外观类。在未显式设置其自身默认值的所有组件中，Halo 主题的默认值为 <codeph>mx.skins.halo.HaloBorder</codeph>，Spark 主题的默认值为 <codeph>mx.skins.spark.BorderSkin</codeph>。Panel 容器的 Halo 主题默认值为 <codeph>mx.skins.halo.PanelSkin</codeph>，Spark 主题默认值为 <codeph>mx.skins.spark.BorderSkin</codeph>。要确定组件的默认值，请参阅 default.css 文件。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSides" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  边框边。指定要显示的边框边的以空格分隔的 String。此 String 可以任意顺序包含 <codeph>"left"</codeph>、<codeph>"top"</codeph>、<codeph>"right"</codeph> 和 <codeph>"bottom"</codeph>。默认值为 <codeph>"left top right bottom"</codeph>，此值会显示所有四条边。仅当 borderStyle 为 <codeph>"solid"</codeph> 时才使用此样式。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.core:Container" playerVersion="Flash9" theme="halo, spark" type="uint">
+<description>
+  边框颜色。默认值取决于组件类；如果没有覆盖该类的默认值，则 Halo 主题的默认值为 <codeph>0xB7BABC</codeph>，Spark 主题的默认值为 <codeph>0x696969</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderAlpha" owner="mx.core:Container" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  边框 Alpha（透明度）。
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundSize" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  将 <codeph>backgroundImage</codeph> 指定的图像缩放到不同的百分比大小。<codeph>"100%"</codeph> 值将拉抻该图像以适应整个组件。要指定百分比值，您必须输入百分号 (%)。Application 容器的默认值为 <codeph>100%</codeph>。所有其他容器的默认值为 <codeph>auto</codeph>，此值将保持图像的原始大小。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="File" inherit="no" name="backgroundImage" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="Object">
+<description>
+  组件的背景图像。此样式可以是绝对或相对 URL 或类。您既可以设置 <codeph>backgroundColor</codeph>，也可以设置 <codeph>backgroundImage</codeph>。背景图像显示在背景色上面。默认值为 <codeph>undefined</codeph>，表示“未设置”。如果此样式和 <codeph>backgroundColor</codeph> 样式都未定义，则控件将采用透明背景。
+ 
+  <p>大多数 Flex 控件的默认外观为半透明。因此，容器的背景图像将在某种程度上“渗入”该容器中的控件。通过将控件的 <codeph>fillAlphas</codeph> 属性的 alpha 值设置为 1 可以避免此情况，如以下示例所示：
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="backgroundDisabledColor" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  禁用组件时组件的背景色。全局默认值为 <codeph>undefined</codeph>。List 控件的默认值为 <codeph>0xDDDDDD</codeph>（浅灰）。如果禁用了容器，背景将变暗，而暗淡程度由 <codeph>disabledOverlayAlpha</codeph> 样式控制。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="barColor" owner="mx.core:Container" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  确定 ProgressBar 的颜色。将使用此颜色与较明亮的颜色（基于此颜色计算得出）之间的垂直渐变填充 ProgressBar。此样式对其他组件不起作用，但可对某个容器设置此样式，以控制其中所有进度栏的外观。默认值为 <codeph>undefined</codeph>，即不进行设置。此时，将使用 <codeph>themeColor</codeph> 样式属性。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  Flex Framework containers inherit the following attributes from the Container
+  class:</p>
+ 
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    autoLayout="true|false"
+    clipContent="true|false"
+    creationIndex="undefined"
+    creationPolicy="auto|all|queued|none"
+    defaultButton="<i>No default</i>"
+    horizontalLineScrollSize="5"
+    horizontalPageScrollSize="0"
+    horizontalScrollBar="null"
+    horizontalScrollPolicy="auto|on|off"
+    horizontalScrollPosition="0"
+    icon="undefined"
+    label=""
+    verticalLineScrollSize="5"
+    verticalPageScrollSize="0"
+    verticalScrollBar="null"
+    verticalScrollPolicy="auto|on|off"
+    verticalScrollPosition="0"
+ 
+    <strong>Styles</strong>
+    backgroundAlpha="1.0"
+    backgroundAttachment="scroll"
+    backgroundColor="undefined"
+    backgroundDisabledColor="undefined"
+    backgroundImage="undefined"
+    backgroundSize="auto" 
+    <i>    For the Application container only,</i> backgroundSize="100%"
+    barColor="undefined"
+    borderColor="0xAAB3B3"
+    borderSides="left top right bottom"
+    borderSkin="mx.skins.halo.HaloBorder"
+    borderStyle="inset"
+    borderThickness="1"
+    color="0x0B333C"
+    cornerRadius="0"
+    disabledColor="0xAAB3B3"
+    disbledOverlayAlpha="undefined"
+    dropShadowColor="0x000000"
+    dropShadowEnabled="false"
+    fontAntiAliasType="advanced"
+    fontfamily="Verdana"
+    fontGridFitType="pixel"
+    fontSharpness="0""
+    fontSize="10"
+    fontStyle="normal"
+    fontThickness="0"
+    fontWeight="normal"
+    horizontalScrollBarStyleName="undefined"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    shadowDirection="center"
+    shadowDistance="2"
+    textAlign="left"
+    textDecoration="none|underline"
+    textIndent="0"
+    verticalScrollBarStyleName="undefined"
+ 
+    <strong>Events</strong>
+    childAdd="<i>No default</i>"
+    childIndexChange="<i>No default</i>"
+    childRemove="<i>No default</i>"
+    dataChange="<i>No default</i>"
+    scroll="<i>No default</i>"
+    &gt;
+      ...
+      <i>child tags</i>
+      ...
+  &lt;/mx:<i>tagname</i>&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IContainer</apiBaseInterface><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerContainer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IRawChildrenContainer</apiBaseInterface><apiBaseInterface>mx.core:IChildList</apiBaseInterface><apiBaseInterface>mx.core:IVisualElementContainer</apiBaseInterface><apiBaseInterface>mx.core:INavigatorContent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Container 类是组件的抽象基类，用于控制子组件的布局特征。您没有在应用程序中创建 Container 实例，而是创建 Container 子类之一的实例，如 Canvas 或 HBox。
+ 
+  <p>Container 类包含用于滚动、剪裁和动态实例化的逻辑。它包含用于添加和删除子项的方法。它还包含 <codeph>getChildAt()</codeph> 方法和用于绘制容器背景和边框的逻辑。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.core:Container_mx.events.ScrollEvent.SCROLL_scroll"><apiName>scroll</apiName><shortdesc>
+  当用户手动滚动容器时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ScrollEvent.SCROLL</apiEventType><adobeApiEventClassifier>mx.events.ScrollEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户手动滚动容器时分派。
+ 
+  <p>当使用鼠标（例如，单击滚动条的“向下”按钮）或键盘（例如，敲击向下箭头键）更改滚动位置时，分派此事件。但是，如果以编程方式更改滚动位置（例如，设置 <codeph>horizontalScrollPosition</codeph> 属性的值），则不会分派此事件。无论是手动还是以编程方式更改滚动位置，都将传送 <codeph>viewChanged</codeph> 事件。</p>
+ 
+  <p>分派此事件时，scrollbar 已经更新到新的位置，但此时并未移动容器的子对象以反映新的滚动位置。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Container_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当容器在 List 组件或其他组件中用作呈示器时，将使用 <codeph>data</codeph> 属性将要显示的数据传递给该容器。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Container_mx.events.ChildExistenceChangedEvent.CHILD_REMOVE_childRemove"><apiName>childRemove</apiName><shortdesc>
+  删除容器的子项之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ChildExistenceChangedEvent.CHILD_REMOVE</apiEventType><adobeApiEventClassifier>mx.events.ChildExistenceChangedEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  删除容器的子项之前分派。
+ 
+  <p>当调用下列任一方法时传送此事件：<codeph>removeChild()</codeph>、<codeph>removeChildAt()</codeph> 或 <codeph>removeAllChildren()</codeph>。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Container_mx.events.IndexChangedEvent.CHILD_INDEX_CHANGE_childIndexChange"><apiName>childIndexChange</apiName><shortdesc>
+  容器子项的索引（在容器子项中）发生更改后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.IndexChangedEvent.CHILD_INDEX_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.IndexChangedEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  容器子项的索引（在容器子项中）发生更改后分派。仅对指定作为 <codeph>setChildIndex()</codeph> 方法参数的子项分派此事件；而对伴随调用 <codeph>setChildIndex()</codeph> 方法而发生索引更改的其他子项不会分派此事件。
+ 
+  <p>调用 <codeph>setChildIndex()</codeph> 方法时，子项的索引将发生更改。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Container_mx.events.ChildExistenceChangedEvent.CHILD_ADD_childAdd"><apiName>childAdd</apiName><shortdesc>
+  将子项添加到容器后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ChildExistenceChangedEvent.CHILD_ADD</apiEventType><adobeApiEventClassifier>mx.events.ChildExistenceChangedEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  将子项添加到容器后分派。
+ 
+  <p>调用 <codeph>addChild()</codeph> 或 <codeph>addChildAt()</codeph> 方法时分派 childAdd 事件。首次创建容器后，会对在 MXML 文件中声明的每个子组件自动调用 <codeph>addChild()</codeph> 方法。每次 Repeater 对象添加或删除子对象时，都会自动调用 <codeph>addChildAt()</codeph> 方法。应用程序开发人员也可以手动调用这些方法来添加新的子项。</p>
+ 
+  <p>发送此事件时，即已初始化子对象，但尚未计算其宽度和高度，并且尚未在屏幕上绘制子对象。如果希望在完全初始化并呈示子对象时通知您，则注册为子对象的 <codeph>creationComplete</codeph> 事件的侦听器。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Container:Container"><apiName>Container</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Container:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      向此容器添加一个子 DisplayObject 子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>添加的子项将作为 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或所添加组件的类型。
+     
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>要添加为此容器的子项的 DisplayObject。它必须实现 IUIComponent 接口。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要在其中添加子项的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向此容器添加一个子 DisplayObject 子项。该子项将被添加到指定的索引位置。
+     
+      <p><b>注意：</b>尽管已将方法的 <codeph>child</codeph> 参数指定为 DisplayObject 类型，但此参数必须实现 IUIComponent 接口才能添加为容器的子项。所有 Flex 组件都要实现此接口。</p>
+     
+      <p>子项从后向前分层。也就是说，如果子项重叠，则索引为 0 的子项位于最后方，而索引为 <codeph>numChildren - 1</codeph> 的子项位于最前方。这就意味着，新添加的子项的层次将位于现有子项之前。</p>
+     
+      <p>如果要在其中添加新子项的索引已被旧子项占用，则新子项不会替换旧子项；此旧子项及其后的子项将“滑过”此位置，且各子项的索引值将增加 1。例如，假设 Container 包含子项（A、B、C），而您在索引为 1 处添加了 D。此时容器将包含（A、D、B、C）。如果希望替换旧子项，则必须先将其删除，再添加新子项。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.IUIComponent.xml"><linktext>mx.core.IUIComponent</linktext></link></related-links></apiOperation><apiOperation id="mx.core:Container:addChild"><apiName>addChild</apiName><shortdesc>
+      向此容器添加一个子 DisplayObject 子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>添加的子项将作为 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或所添加组件的类型。
+     
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>要添加为此容器的子项的 DisplayObject。它必须实现 IUIComponent 接口。
+     
+      </apiDesc></apiParam><apiTipTexts><apiTipText>向此容器添加一个子项。
+      
+      </apiTipText></apiTipTexts></apiOperationDef><apiDesc>
+      向此容器添加一个子 DisplayObject 子项。一个子项添加到其他现有子项的后面，以便添加的第一个子项使用索引 0，下一个子项使用索引 1，依此类推。
+     
+      <p><b>注意：</b>尽管已将方法的 <codeph>child</codeph> 参数指定为 DisplayObject 类型，但此参数必须实现 IUIComponent 接口才能添加为容器的子项。所有 Flex 组件都要实现此接口。</p>
+     
+      <p>子项从后向前分层。也就是说，如果子项重叠，则索引为 0 的子项位于最后方，而索引为 <codeph>numChildren - 1</codeph> 的子项位于最前方。这就意味着，新添加的子项的层次将位于现有子项之前。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.IUIComponent.xml"><linktext>mx.core.IUIComponent</linktext></link></related-links></apiOperation><apiOperation id="mx.core:Container:addElementAt"><apiName>addElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:addElement"><apiName>addElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:protected:attachOverlay"><apiName>attachOverlay</apiName><shortdesc>
+      供溶解效果在内部用来添加叠加层到容器的镶边。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      供溶解效果在内部用来添加叠加层到容器的镶边。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:contentToGlobal"><apiName>contentToGlobal</apiName><shortdesc conref="mx.core.UIComponent#contentToGlobal()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#contentToGlobal()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:contentToLocal"><apiName>contentToLocal</apiName><shortdesc conref="mx.core.UIComponent#contentToLocal()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#contentToLocal()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:protected:createBorder"><apiName>createBorder</apiName><shortdesc>
+      如果需要容器的边框外观，但却不存在，则创建容器的边框外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果需要容器的边框外观，但却不存在，则创建容器的边框外观。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:createComponentFromDescriptor"><apiName>createComponentFromDescriptor</apiName><shortdesc>
+      提供一个 UIComponentDescriptor，创建相应的组件并将该组件添加为此 Container 的子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已创建的组件。
+     
+      </apiDesc><apiType value="mx.core:IFlexDisplayObject"/></apiReturn><apiParam><apiItemName>descriptor</apiItemName><apiType value="mx.core:ComponentDescriptor"/><apiDesc>要创建的组件的 UIComponentDescriptor。此参数可以是 UIComponentDescriptor 对象，也可以是容器某个子项的索引（介于 0 和 n-1 之间的一个整数，其中 n 是此容器的子项总数）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>false</codeph>，则创建此组件但不创建其子项。如果为 <codeph>true</codeph>，在创建组件后，Flex 将调用 <codeph>createComponentsFromDescriptors()</codeph> 方法创建该组件的所有子项或部分子项，这取决于该组件的 <codeph>creationPolicy</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供一个 UIComponentDescriptor，创建相应的组件并将该组件添加为此 Container 的子项。
+      
+      <p>此方法将实例化新对象，但不将其添加到显示列表，因此默认情况下，屏幕上不显示该对象。要向显示列表添加新对象，请在调用 <codeph>createComponentFromDescriptor()</codeph> 方法后对该容器调用 <codeph>validateNow()</codeph> 方法，如以下示例所示：
+      <pre>
+      myVBox.createComponentFromDescriptor(myVBox.childDescriptors[0],false);
+      myVBox.validateNow();
+      </pre>
+      </p>
+      
+      <p>或者，可以对该容器调用 <codeph>createComponentsFromDescriptors()</codeph> 方法，以一次性创建所有组件。不需要在调用 <codeph>createComponentsFromDescriptors()</codeph> 方法之后调用 <codeph>validateNow()</codeph> 方法。</p>
+      
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.UIComponentDescriptor.xml"><linktext>mx.core.UIComponentDescriptor</linktext></link></related-links></apiOperation><apiOperation id="mx.core:Container:createComponentsFromDescriptors"><apiName>createComponentsFromDescriptors</apiName><shortdesc>
+      循环访问 childDescriptor Array，并对每个元素调用 createComponentFromDescriptor() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果为 <codeph>true</codeph>，将递归创建组件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      循环访问 <codeph>childDescriptors</codeph> Array，并对每个元素调用 <codeph>createComponentFromDescriptor()</codeph> 方法。
+      
+      <p>如果容器的 <codeph>creationPolicy</codeph> 属性的值为 <codeph>ContainerCreationPolicy.ALL</codeph>，则将在初始化序列期间自动调用此方法。</p>
+      
+      <p>如果容器的 <codeph>creationPolicy</codeph> 值为 <codeph>ContainerCreationPolicy.AUTO</codeph>，则在容器的子项将变为可见时自动调用此方法。</p>
+      
+      <p>如果容器的 <codeph>creationPolicy</codeph> 属性的值为 <codeph>ContainerCreationPolicy.NONE</codeph>，则当您希望创建此容器的子项时应调用此函数。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:createDeferredContent"><apiName>createDeferredContent</apiName><shortdesc>
+      为实现 IDeferredContentOwner 接口以支持延迟实例化的容器，执行调用 createComponentsFromDescriptors(true) 方法的等效操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      为实现 IDeferredContentOwner 接口以支持延迟实例化的容器，执行调用 <codeph>createComponentsFromDescriptors(true)</codeph> 方法的等效操作。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#Container/createComponentsFromDescriptors()"><linktext>createComponentsFromDescriptors()</linktext></link></related-links></apiOperation><apiOperation id="mx.core:Container:executeBindings"><apiName>executeBindings</apiName><shortdesc>
+      执行此 Container 上的所有数据绑定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>false</codeph>，则仅对此 Container 执行绑定。如果为 <codeph>true</codeph>，则还对此容器的子级、孙级、曾孙级等执行绑定。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行此 Container 上的所有数据绑定。创建某个 Container 后，Flex 将自动调用此方法以执行其中包含目标的所有数据绑定。MXML 容器/绑定问题 (177074) 的解决方案：覆盖 Container.executeBindings()，以便在调用 BindingManager.executeBindings() 时首选 descriptor.document 而不是 parentDocument。这样，就应始终为使用描述符创建的实例提供正确行为，并将为使用程序创建的实例提供初始行为。（在后一种情况中，可能会出现错误，也可能不出现错误。）可能会针对更新程序 1 提供更完整的修补程序，以保证非 DI 方案和重设父级组件方案中的行为均正确。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:executeChildBindings"><apiName>executeChildBindings</apiName><shortdesc>
+      执行到此 Container 的子 UIComponent 对象的绑定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recurse</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>false</codeph>，则仅对此 Container 的直接子项执行绑定。如果为 <codeph>true</codeph>，则还对此容器的孙项、曾孙项等执行绑定。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行到此 Container 的子 UIComponent 对象的绑定。创建 Container 后，Flex 将立刻自动调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:getChildAt"><apiName>getChildAt</apiName><shortdesc>
+      获取第 n 个子组件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>引用该子项作为 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或特定 Flex 控件（如 ComboBox 或 TextArea）的类型。
+      
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>从 0 到 (numChildren - 1) 的数字。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取第 <i>n</i> 个子组件对象。
+     
+      <p>此方法返回的子项包括在 MXML 中声明的子项，以及使用 <codeph>addChild()</codeph> 或 <codeph>addChildAt()</codeph> 方法添加的子项。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:getChildByName"><apiName>getChildByName</apiName><shortdesc>
+      返回 name 属性为指定 String 的子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>DisplayObject，用于将子项表示为 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或特定 Flex 控件（如 ComboBox 或 TextArea）的类型。如果指定名称的子项不存在，则会引发运行时错误。
+      
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>子项的标识符。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回 <codeph>name</codeph> 属性为指定 String 的子项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:getChildIndex"><apiName>getChildIndex</apiName><shortdesc>
+      获取特定子项的从零开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>从 0 到 (numChildren - 1) 的数字。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>对要获得其索引的子项的引用。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取特定子项的从零开始的索引。
+     
+      <p>容器的第一个子项（即：出现在 MXML 声明中的第一个子标签）使用索引 0，第二个子项使用索引 1，依此类推。容器子项的索引确定了其布置次序。例如，在 VBox 中，索引为 0 的子项位于最上方，索引为 1 的子项位于其下，等等。</p>
+     
+      <p>如果通过调用 <codeph>addChild()</codeph> 方法添加子项，则新子项的索引等于现有子项中的最大索引加 1。您可以使用 <codeph>addChildAt()</codeph> 方法在指定的索引位置插入子项；此时，先前位于该索引位置的子项的索引，以及高于此位置的子项的索引，都将增加 1，以使所有索引都落在 0 到 <codeph>(numChildren - 1)</codeph> 这一范围内。</p>
+     
+      <p>如果通过调用 <codeph>removeChild()</codeph> 或 <codeph>removeChildAt()</codeph> 方法删除子项，将调整剩余子项的索引，以使所有索引都落在 0 到 <codeph>(numChildren - 1)</codeph> 这一范围内。</p>
+     
+      <p>如果 <codeph>myView.getChildIndex(myChild)</codeph> 返回 5，则 <codeph>myView.getChildAt(5)</codeph> 返回 myChild。</p>
+     
+      <p>通过调用 <codeph>setChildIndex()</codeph> 方法可以更改子项的索引。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:getChildren"><apiName>getChildren</apiName><shortdesc>
+      返回由容器的内容子项组成的 DisplayObject 对象的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>由容器的内容子项组成的 DisplayObject 对象的 Array。
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回由容器的内容子项组成的 DisplayObject 对象的 Array。此数组<b>不</b>包括用于实现容器的显示元素（如其边框和背景图像）的 DisplayObject。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#Container/rawChildren"><linktext>rawChildren</linktext></link></related-links></apiOperation><apiOperation id="mx.core:Container:getElementAt"><apiName>getElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:getElementIndex"><apiName>getElementIndex</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:globalToContent"><apiName>globalToContent</apiName><shortdesc conref="mx.core.UIComponent#globalToContent()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#globalToContent()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:protected:layoutChrome"><apiName>layoutChrome</apiName><shortdesc>
+      通过设置此容器边框的位置和大小响应大小更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过设置此容器边框的位置和大小响应大小更改。此方法是一种高级方法，可在创建 Container 的子类时覆盖。
+     
+      <p>使用 <codeph>addChild()</codeph> 方法将容器添加到父容器时，以及调用容器的 <codeph>invalidateDisplayList()</codeph> 方法时，Flex 将调用 <codeph>layoutChrome()</codeph> 方法。</p>
+     
+      <p>无论 <codeph>autoLayout</codeph> 属性的值是什么，都将调用 <codeph>Container.layoutChrome()</codeph> 方法。</p>
+     
+      <p><codeph>Container.layoutChrome()</codeph> 方法可设置 Container 容器边框的位置和大小。在 Container 的每个子类中，子类的 <codeph>layoutChrome()</codeph> 方法应调用 <codeph>super.layoutChrome()</codeph> 方法，以便适当定位边框。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:localToContent"><apiName>localToContent</apiName><shortdesc conref="mx.core.UIComponent#localToContent()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#localToContent()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:removeAllChildren"><apiName>removeAllChildren</apiName><shortdesc>
+      在此容器的子项列表中删除所有子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在此容器的子项列表中删除所有子项。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:removeAllElements"><apiName>removeAllElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      从此容器的子项列表中删除指定索引位置的子 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>删除的子对象是 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或所删除组件的类型。
+      
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要删除的 DisplayObject 的子索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从此容器的子项列表中删除指定索引位置的子 DisplayObject。所删除子项的 <codeph>parent</codeph> 属性将设置为 null。除非受到显式破坏，否则，子项将一直存在。如果将其添加到另一容器，将保留其上次的已知状态。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:removeChild"><apiName>removeChild</apiName><shortdesc>
+      从此容器的子项列表中删除子 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>删除的子对象是 DisplayObject 类型的对象。您通常将返回值转换为 UIComponent 或所删除组件的类型。
+      
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>要删除的 DisplayObject。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从此容器的子项列表中删除子 DisplayObject。所删除子项的 <codeph>parent</codeph> 属性将设置为 null。除非受到显式破坏，否则，子项将一直存在。如果将其添加到另一容器，将保留其上次的已知状态。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:removeElementAt"><apiName>removeElementAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:removeElement"><apiName>removeElement</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.core:IVisualElement"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:protected:scrollChildren"><apiName>scrollChildren</apiName><shortdesc>
+      基于 horizontalScrollPosition 和 verticalScrollPosition 属性，确定容器的内容区域相对于可查看区域的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基于 horizontalScrollPosition 和 verticalScrollPosition 属性，确定容器的内容区域相对于可查看区域的位置。可查看区域中未显示出的内容将被剪掉。此方法应由内容区域中包含滚动镶边的子类覆盖。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:setChildIndex"><apiName>setChildIndex</apiName><shortdesc>
+      设置特定子项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>对要设置其索引的子项的引用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newIndex</apiItemName><apiType value="int"/><apiDesc>指示新索引的数字。必须是介于 0 和 (numChildren - 1) 之间的整数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置特定子项的索引。请参阅 <codeph>getChildIndex()</codeph> 方法了解子项索引的说明。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Container:setElementIndex"><apiName>setElementIndex</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:swapElementsAt"><apiName>swapElementsAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index1</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>index2</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:swapElements"><apiName>swapElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element1</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam><apiParam><apiItemName>element2</apiItemName><apiType value="mx.core:IVisualElement"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.core:Container:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      通过设置此容器子项的位置和大小来响应大小更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过设置此容器子项的位置和大小来响应大小更改。
+     
+      <p>有关 <codeph>updateDisplayList()</codeph> 方法的更多信息，请参阅 <codeph>UIComponent.updateDisplayList()</codeph> 方法。</p>
+     
+      <p><codeph>Container.updateDisplayList()</codeph> 方法可设置 Container 容器边框的位置和大小。在 Container 的每个子类中，子类的 <codeph>updateDisplayList()</codeph> 方法应调用 <codeph>super.updateDisplayList()</codeph> 方法，以便适当定位边框。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links></apiOperation><apiValue id="mx.core:Container:protected:actualCreationPolicy"><apiName>actualCreationPolicy</apiName><shortdesc>
+      此容器的创建策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      此容器的创建策略。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:autoLayout:get"><apiName>autoLayout</apiName><shortdesc>
+      如果为 true，则在更改子项的位置或大小时完成度量和布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则在更改子项的位置或大小时完成度量和布局。如果为 <codeph>false</codeph>，则仅当在容器中添加或删除子项时才能执行度量和布局。
+     
+      <p>使用 Move 效果时，正在移动的组件周围的布局不会为了适合 Move 效果动画而进行重新调整。将容器的 <codeph>autoLayout</codeph> 属性设置为 <codeph>true</codeph> 对此行为没有任何影响。</p>
+     
+      <p>将 <codeph>autoLayout</codeph> 属性设置为 <codeph>false</codeph> 时，Zoom 效果不起作用。</p>
+     
+      <p><codeph>autoLayout</codeph> 属性不适用于 Accordion 或 ViewStack 容器。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+      返回 EdgeMetrics 对象，它具有四个属性：left、top、right 和 bottom。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:EdgeMetrics"/></apiValueDef><apiDesc>
+      返回 EdgeMetrics 对象，它具有四个属性：<codeph>left</codeph>、<codeph>top</codeph>、<codeph>right</codeph> 和 <codeph>bottom</codeph>。各属性值等于边框某一侧的粗细（以像素为单位）。
+     
+      <p>与 <codeph>viewMetrics</codeph> 不同，此属性不会被 Container 的子类覆盖。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:childDescriptors:get"><apiName>childDescriptors</apiName><shortdesc>
+      由 MXML 编译器生成的 UIComponentDescriptor 对象的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      由 MXML 编译器生成的 UIComponentDescriptor 对象的 Array。
+     
+      <p>每个 UIComponentDescriptor 对象都包含在容器的 MXML 标签的某个子 MXML 标签中指定的信息。Array 中 UIComponentDescriptor 对象的顺序与子标签的顺序相同。在初始化期间，子描述符用于创建容器的子 UIComponent 对象及其 Repeater 对象，并赋予它们在 MXML 中指定的初始属性值、事件处理程序、效果等。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.UIComponentDescriptor.xml"><linktext>mx.core.UIComponentDescriptor</linktext></link></related-links></apiValue><apiValue id="mx.core:Container:clipContent:get"><apiName>clipContent</apiName><shortdesc>
+      如果此容器的子项的位置和/或大小扩展到此容器的边框之外，是否应用剪裁遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果此容器的子项的位置和/或大小扩展到此容器的边框之外，是否应用剪裁遮罩。如果为 <codeph>false</codeph>，则在将此容器的子项移动或调整到此容器的边框之外时，这些子项仍然可见。如果为 <codeph>true</codeph>，将剪掉此容器的子项。
+     
+      <p>如果 <codeph>clipContent</codeph> 为 <codeph>false</codeph>，则将对此容器禁用滚动并且不显示滚动条。如果 <codeph>clipContent</codeph> 为 true，则当容器的子项扩展到容器边框之外时通常会显示滚动条。有关控制滚动条外观的其他信息，请参阅 <codeph>horizontalScrollPolicy</codeph> 和 <codeph>verticalScrollPolicy</codeph>。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:contentMouseX:get"><apiName>contentMouseX</apiName><shortdesc conref="mx.core.UIComponent#contentMouseX">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#contentMouseX">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:contentMouseY:get"><apiName>contentMouseY</apiName><shortdesc conref="mx.core.UIComponent#contentMouseY">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#contentMouseY">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:creatingContentPane:get"><apiName>creatingContentPane</apiName><shortdesc>
+      容器使用内部内容窗格控制滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      容器使用内部内容窗格控制滚动。容器创建内容窗格时，<codeph>creatingContentPane</codeph> 为 <codeph>true</codeph>，以便忽略或阻止某些事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:creationIndex:get"><apiName>creationIndex</apiName><shortdesc>
+      指定实例化和绘制容器子项的顺序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue><apiDeprecated><apiDesc>不推荐使用</apiDesc></apiDeprecated></apiValueDef><apiDesc>
+      指定实例化和绘制容器子项的顺序。
+     
+      <p>仅当 <codeph>creationPolicy</codeph> 属性设置为 <codeph>ContainerCreationPolicy.QUEUED</codeph> 时，此属性才可用。否则，将忽略此属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      此 MX Container 的子代创建策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ContainerCreationPolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此 MX Container 的子代创建策略。ActionScript 值可以是 <codeph>ContainerCreationPolicy.AUTO</codeph>、<codeph>ContainerCreationPolicy.ALL</codeph> 或 <codeph>ContainerCreationPolicy.NONE</codeph>。MXML 值可以是 <codeph>auto</codeph>、<codeph>all</codeph> 或 <codeph>none</codeph>。
+     
+      <p>如果没有为容器指定 <codeph>creationPolicy</codeph>，则该容器将继承其父项的 <codeph>creationPolicy</codeph>。如果没有为 Application 指定 <codeph>creationPolicy</codeph>，则默认为 <codeph>ContainerCreationPolicy.AUTO</codeph>。</p>
+     
+      <p><codeph>ContainerCreationPolicy.AUTO</codeph> 的 <codeph>creationPolicy</codeph> 意味着容器将延迟创建部分或全部后代，直到需要它们时为止。此进程称为<i>延迟实例化</i>。此策略能使启动时间达到最佳，因为最初只创建很少的 UIComponent。但是，当用户首次导航到应用程序的其他部分时，这将引入导航延迟。导航器容器（如 Accordion、TabNavigator 和 ViewStack）通过立即创建其所有子项实现 <codeph>ContainerCreationPolicy.AUTO</codeph> 策略，但要等到子项成为导航器容器的所选子项时才创建该子项的更深层的后代。</p>
+     
+      <p><codeph>ContainerCreationPolicy.ALL</codeph> 的 <codeph>creationPolicy</codeph> 意味着导航器容器会立即创建每个子项的更深层的后代，而不必等待选择该子项。对于单一视图容器（如 VBox 容器），<codeph>ContainerCreationPolicy.AUTO</codeph> 和 <codeph>ContainerCreationPolicy.ALL</codeph> 策略没有区别。</p>
+     
+      <p><codeph>ContainerCreationPolicy.NONE</codeph> 的 <codeph>creationPolicy</codeph> 意味着容器不创建其子项。在这种情况下，由 MXML 作者负责通过调用 <codeph>createComponentsFromDescriptors()</codeph> 方法来创建子项。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:data:get"><apiName>data</apiName><shortdesc>
+      当您在项呈示器或项目编辑器中使用某个组件时，可借助 data 属性向该组件传递值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当您在项呈示器或项目编辑器中使用某个组件时，可借助 <codeph>data</codeph> 属性向该组件传递值。您通常使用数据绑定将 <codeph>data</codeph> 属性的字段绑定到此组件的某个属性。
+     
+      <p>不要以 MXML 方式设置此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.core:Container:defaultButton:get"><apiName>defaultButton</apiName><shortdesc>
+      指定为容器的默认按钮的 Button 控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定为容器的默认按钮的 Button 控件。当容器中的控件具有焦点时，按 Enter 键与单击此 Button 控件的效果相同。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:deferredContentCreated:get"><apiName>deferredContentCreated</apiName><shortdesc>
+      IDeferredContentOwner 等效于 processedDescriptors
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      IDeferredContentOwner 等效于 processedDescriptors
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/processedDescriptors"><linktext>UIComponent.processedDescriptors</linktext></link></related-links></apiValue><apiValue id="mx.core:Container:horizontalLineScrollSize:get"><apiName>horizontalLineScrollSize</apiName><shortdesc>
+      按下水平滚动条中的向左或向右箭头按钮时要移动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="horizontalLineScrollSizeChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>5
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下水平滚动条中的向左或向右箭头按钮时要移动的像素数目。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:horizontalPageScrollSize:get"><apiName>horizontalPageScrollSize</apiName><shortdesc>
+      按下水平滚动条中的轨道时要移动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="horizontalPageScrollSizeChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下水平滚动条中的轨道时要移动的像素数目。值 0 表示将页面大小设计为全屏。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:horizontalScrollBar:get"><apiName>horizontalScrollBar</apiName><shortdesc>
+      此容器中使用的水平滚动栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.scrollClasses:ScrollBar</apiValueClassifier></apiValueDef><apiDesc>
+      此容器中使用的水平滚动栏。如果当前未显示水平滚动条，则此属性为 null。通常，无需直接访问此属性。操纵 <codeph>horizontalScrollPolicy</codeph> 和 <codeph>horizontalScrollPosition</codeph> 属性即可很好地控制滚动条。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:horizontalScrollPolicy:get"><apiName>horizontalScrollPolicy</apiName><shortdesc>
+      指定水平滚动条是始终显示、始终不显示，还是在需要时自动添加。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="horizontalScrollPolicyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollPolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定水平滚动条是始终显示、始终不显示，还是在需要时自动添加。ActionScript 值可以是 <codeph>ScrollPolicy.ON</codeph>、<codeph>ScrollPolicy.OFF</codeph> 和 <codeph>ScrollPolicy.AUTO</codeph>。MXML 值可以是 <codeph>"on"</codeph>、<codeph>"off"</codeph> 和 <codeph>"auto"</codeph>。
+     
+      <p>将此属性设置为 <codeph>ScrollPolicy.OFF</codeph> 还可以防止 <codeph>horizontalScrollPosition</codeph> 属性起作用。</p>
+     
+      <p>注意：此属性不适用于 ControlBar 容器。</p>
+     
+      <p>如果 <codeph>horizontalScrollPolicy</codeph> 为 <codeph>ScrollPolicy.AUTO</codeph>，则以下所有条件均满足时将显示水平滚动条：</p>
+      <ul>
+        <li>容器的某个子项扩展到容器的左边缘或右边缘之外。</li>
+        <li><codeph>clipContent</codeph> 属性为 <codeph>true</codeph>。</li>
+        <li>容器的宽度和高度足以容纳滚动条。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      水平滚动条的当前位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="viewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平滚动条的当前位置。此值等于可滚动表面的左边缘和当前可见表面最左侧的片段之间的距离（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:icon:get"><apiName>icon</apiName><shortdesc>
+      由某些导航器容器显示的图标的 Class，用于代表此 Container。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      由某些导航器容器显示的图标的 Class，用于代表此 Container。
+     
+      <p>例如，如果此 Container 是 TabNavigator 的一个子项，则此图标将显示在相应的选项卡中。如果此 Container 是 Accordion 的一个子项，则此图标将显示在相应的标题中。</p>
+     
+      <p>要将图标嵌入到 SWF 文件中，请使用 @Embed() MXML 编译器指令：</p>
+     
+      <pre>
+        icon="@Embed('filepath')"
+      </pre>
+     
+      <p>图像可以是 JPEG、GIF、PNG、SVG 或 SWF 文件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:label:get"><apiName>label</apiName><shortdesc>
+      由某些导航器容器显示的文本，用于代表此 Container。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      由某些导航器容器显示的文本，用于代表此 Container。
+     
+      <p>例如，如果此 Container 是 TabNavigator 的一个子项，则此字符串将显示在相应的选项卡中。如果此 Container 是 Accordion 的一个子项，则此字符串将显示在相应的标题中。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:maxHorizontalScrollPosition:get"><apiName>maxHorizontalScrollPosition</apiName><shortdesc>
+      horizontalScrollPosition 属性的最大可能值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>horizontalScrollPosition</codeph> 属性的最大可能值。如果水平 scrollbar 不存在，则默认值为 0。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:maxVerticalScrollPosition:get"><apiName>maxVerticalScrollPosition</apiName><shortdesc>
+      verticalScrollPosition 属性的最大可能值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>verticalScrollPosition</codeph> 属性的最大可能值。如果垂直 scrollbar 不存在，则默认值为 0。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:numChildren:get"><apiName>numChildren</apiName><shortdesc>
+      此容器中的子组件数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此容器中的子组件数。
+     
+      <p>子组件数最初等于在 MXML 中声明的子项数。在运行时，可以通过调用 <codeph>addChild()</codeph> 或 <codeph>addChildAt()</codeph> 添加新项，也可以通过调用 <codeph>removeChild()</codeph>、<codeph>removeChildAt()</codeph> 或 <codeph>removeAllChildren()</codeph> 删除现有子项。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:numElements:get"><apiName>numElements</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.core:Container:rawChildren:get"><apiName>rawChildren</apiName><shortdesc>
+      容器中通常包含子组件，可以使用 Container.getChildAt() 方法和 Container.numChildren 属性枚举这些子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IChildList"/></apiValueDef><apiDesc>
+      容器中通常包含子组件，可以使用 <codeph>Container.getChildAt()</codeph> 方法和 <codeph>Container.numChildren</codeph> 属性枚举这些子组件。此外，容器可以包含样式元素和外观，如边框和背景。Flash Player 和 AIR 创建的子组件和外观之间没有任何差异。二者均可以使用播放器的 <codeph>getChildAt()</codeph> 方法和 <codeph>numChildren</codeph> 属性进行访问。但是，Container 类通过覆盖 <codeph>getChildAt()</codeph> 方法和 <codeph>numChildren</codeph> 属性（以及其他多个方法）可造成容器的子项是唯一的子组件的错觉。
+     
+      <p>如果您需要访问容器的所有子项（内容子项和外观），则需使用 <codeph>rawChildren</codeph> 属性上的方法和属性，而不是常规 Container 方法。例如，可使用 <codeph>Container.rawChildren.getChildAt())</codeph> 方法。但是，如果容器为其子项创建了 ContentPane Sprite 对象，则 <codeph>rawChildren</codeph> 属性值将只计算 ContentPane，而不计算容器的子项。并非总能够确定容器何时包含 ContentPane。</p>
+     
+      <p><b>注意：</b>如果您调用 <codeph>rawChildren</codeph> 对象的 <codeph>addChild</codeph> 或 <codeph>addChildAt</codeph> 方法，则需在添加的组件上设置 <codeph>tabFocusEnabled = false</codeph>。这可以防止用户跳位到所添加的仅可视组件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:verticalLineScrollSize:get"><apiName>verticalLineScrollSize</apiName><shortdesc>
+      按下垂直滚动条中的向上或向下箭头按钮或使用鼠标滚轮滚动时，要滚动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="verticalLineScrollSizeChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>5
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下垂直滚动条中的向上或向下箭头按钮或使用鼠标滚轮滚动时，要滚动的像素数目。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:verticalPageScrollSize:get"><apiName>verticalPageScrollSize</apiName><shortdesc>
+      按下垂直滚动条中的轨道时要滚动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="verticalPageScrollSizeChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      按下垂直滚动条中的轨道时要滚动的像素数目。值 0 表示将页面大小设计为全屏。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:verticalScrollBar:get"><apiName>verticalScrollBar</apiName><shortdesc>
+      此容器中使用的垂直滚动栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.scrollClasses:ScrollBar</apiValueClassifier></apiValueDef><apiDesc>
+      此容器中使用的垂直滚动栏。如果当前未显示垂直滚动条，则此属性为 null。通常，无需直接访问此属性。操纵 <codeph>verticalScrollPolicy</codeph> 和 <codeph>verticalScrollPosition</codeph> 属性应提供对滚动条的足够控制。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:verticalScrollPolicy:get"><apiName>verticalScrollPolicy</apiName><shortdesc>
+      指定垂直滚动条是始终显示、始终不显示，还是在需要时自动添加。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="verticalScrollPolicyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollPolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定垂直滚动条是始终显示、始终不显示，还是在需要时自动添加。可能的值为 <codeph>ScrollPolicy.ON</codeph>、<codeph>ScrollPolicy.OFF</codeph> 和 <codeph>ScrollPolicy.AUTO</codeph>。MXML 值可以是 <codeph>"on"</codeph>、<codeph>"off"</codeph> 和 <codeph>"auto"</codeph>。
+     
+      <p>将此属性设置为 <codeph>ScrollPolicy.OFF</codeph> 还可以防止 <codeph>verticalScrollPosition</codeph> 属性起作用。</p>
+     
+      <p>注意：此属性不适用于 ControlBar 容器。</p>
+     
+      <p>如果 <codeph>verticalScrollPolicy</codeph> 为 <codeph>ScrollPolicy.AUTO</codeph>，则以下所有条件均满足时将显示垂直滚动条：</p>
+      <ul>
+        <li>容器的某个子项扩展到容器的顶部边缘或底部边缘之外。</li>
+        <li><codeph>clipContent</codeph> 属性为 <codeph>true</codeph>。</li>
+        <li>容器的宽度和高度足以容纳滚动条。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      垂直滚动条的当前位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="viewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直滚动条的当前位置。此值等于可滚动表面的顶部边缘与当前可见表面的最顶部片段之间的距离（以像素为单位）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:viewMetricsAndPadding:get"><apiName>viewMetricsAndPadding</apiName><shortdesc>
+      返回一个对象，该对象具有四个属性：left、top、right 和 bottom。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:EdgeMetrics"/></apiValueDef><apiDesc>
+      返回一个对象，该对象具有四个属性：<codeph>left</codeph>、<codeph>top</codeph>、<codeph>right</codeph> 和 <codeph>bottom</codeph>。每个属性的值分别等于容器边缘四周镶边（可视元素）的粗细与对象边距的粗细之和。
+     
+      <p>镶边包括边框粗细。如果 <codeph>horizontalScrollPolicy</codeph> 或 <codeph>verticalScrollPolicy</codeph> 属性值为 <codeph>ScrollPolicy.ON</codeph>，则镶边还包括相应滚动条的粗细。如果滚动策略为 <codeph>ScrollPolicy.AUTO</codeph>，则即使显示滚动条，镶边度量也不包括滚动条粗细。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Container:viewMetrics:get"><apiName>viewMetrics</apiName><shortdesc>
+      返回一个对象，该对象具有四个属性：left、top、right 和 bottom。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:EdgeMetrics"/></apiValueDef><apiDesc>
+      返回一个对象，该对象具有四个属性：<codeph>left</codeph>、<codeph>top</codeph>、<codeph>right</codeph> 和 <codeph>bottom</codeph>。每个属性的值分别等于容器边缘四周镶边（可视元素）的粗细。 
+     
+      <p>镶边包括边框粗细。如果 <codeph>horizontalScrollPolicy</codeph> 或 <codeph>verticalScrollPolicy</codeph> 属性值为 <codeph>ScrollPolicy.ON</codeph>，则镶边还包括相应滚动条的粗细。如果滚动策略为 <codeph>ScrollPolicy.AUTO</codeph>，则即使显示滚动条，镶边度量也不包括滚动条粗细。</p>
+     
+      <p>Container 的子类应覆盖此方法，以便在定位 Container 的子项时考虑其他镶边。例如，Panel 类的 <codeph>viewMetrics</codeph> 属性应返回一个对象，该对象的 <codeph>top</codeph> 属性包括 Panel 容器的标题栏的粗细。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:ScrollControlBase"><apiName>ScrollControlBase</apiName><shortdesc>
+  ScrollControlBase 类是具有滚动条的控件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="verticalScrollBarStyleName" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  垂直 scrollbar 的样式名称。通过它，可以更精细地控制滚动条的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="symbolColor" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的任何元件的颜色。示例包括 CheckBox 的复选标记或 ScrollBar 按钮的箭头。
+   
+  </description>
+<default>0x000000
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="horizontalScrollBarStyleName" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  水平 scrollbar 的样式名称。通过它，可以更精细地控制滚动条的外观。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件对焦时，对焦环的颜色。
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  组件角的半径。
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="contentBackgroundColor" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的内容区域的颜色。
+   
+  </description>
+<default>0xFFFFFF
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="contentBackgroundAlpha" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  组件内容背景的 Alpha。
+ 
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="chromeColor" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件的主要颜色。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  组件外观使用的强调文字颜色。默认按钮外观使用此颜色对背景进行着色。使用此颜色加亮滑块轨道。 
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  文本第一行偏离容器左侧的距离（以像素为单位）。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.core:ScrollControlBase" playerVersion="Flash10" type="Class">
+<description>
+  实现此组件用来呈示文本的 IUITextField 的类。
+ 
+  <p>它可以设置为 mx.core.UITextField 类（以使用 Flash Player 内置经典 TextField 类）或 mx.core.UIFTETextField 类（以使用 Text Layout Framework 改进文本呈示，包括双向布局）。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否加下划线。可能值有：<codeph>"none"</codeph> 和 <codeph>"underline"</codeph>。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  容器内文本的对齐方式。可能值有：<codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>。
+ 
+  <p>大多数组件的默认值为 <codeph>"left"</codeph>。对于 FormItem 组件，默认值为 <codeph>"right"</codeph>。对于 Button、LinkButton 和 AccordionHeader 组件，默认值为 <codeph>"center"</codeph>，且仅当将 <codeph>labelPlacement</codeph> 属性设置为 <codeph>"left"</codeph> 或 <codeph>"right"</codeph> 时，才能识别此属性。如果将 <codeph>labelPlacement</codeph> 设置为 <codeph>"top"</codeph> 或 <codeph>"bottom"</codeph>，将居中文本及所有图标。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.core:ScrollControlBase" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的区域设置。
+ 
+  <p>FTE 和 TLF 使用此区域设置将 Unicode 字符映射到字体字型并查找后备字体。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Boolean">
+<description>
+  一个布尔值，表示是启用 (<codeph>true</codeph>) 还是禁用 (<codeph>false</codeph>) 字距调整。字距调整会调整某些字符对之间的间隔以提高可读性，并应只在必要时（例如使用大字体标题时）使用。仅嵌入字体支持字距调整。某些字体（如宋体）和等宽字体（如 Courier New）不支持字距调整。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>normal</codeph> 和 <codeph>bold</codeph>。Button 控件的默认值为 <codeph>bold</codeph>。所有其它控件的默认值为 <codeph>normal</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>thickness</codeph> 属性。此属性指定字型边缘的粗细。可能值为从 -200 到 200 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  文本的高度，以像素为单位。在 Halo 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 10。对于 Halo 主题的 ColorPicker 控件，默认值为 11。在 Spark 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 12。对于 Spark 主题的 ColorPicker 控件，默认值为 11。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>sharpness</codeph> 属性。此属性指定字型边缘的清晰度。可能值为从 -400 到 400 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>gridFitType</codeph> 属性。可能值为 <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>)、<codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) 和<codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>)。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。Halo 主题的默认字体为 <codeph>"Verdana"</codeph>。Spark 主题的默认字体为 <codeph>"Arial"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  设置内部 TextField 的 <codeph>antiAliasType</codeph> 属性。可能值为 <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) 和 <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>)。 
+  
+  <p>默认值为 <codeph>"advanced"</codeph>，该值将启用字体的高级消除锯齿功能。设置为 <codeph>"normal"</codeph> 可禁用高级消除锯齿功能。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+  
+  <p>此样式适用于 TextField 子控件中的所有文本；但不能将其应用于部分字符。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="uint">
+<description>
+  禁用时组件中文本的颜色。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.core:ScrollControlBase" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的方向性。
+ 
+  <p>允许的值为<codeph>“ltr”</codeph>（适用于从左到右文本，就像在拉丁样式脚本中一样）和<codeph>“rtl”</codeph>（适用于从右到左文本，就像在阿拉伯语和希伯来语中一样）。</p>
+ 
+  <p>FTE 和 TLF 在其双向文本布局算法中使用此值，该算法会将 Unicode 字符顺序映射到字型顺序。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  <p><codeph>direction</codeph> 还影响在 TLFTextField 的范围内的文本的对齐。但是，它不会影响组件内 TLFTextField 的位置。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  文本行之间附加的垂直空间。
+ 
+  <p>默认值为 2。</p>
+  <p>ComboBox 控件的默认值为 0。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusRoundedCorners" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  指定焦点矩形的哪些角应该是圆角。此值是使用空格分隔的 String，该 String 可以是 <codeph>"tl"</codeph>、<codeph>"tr"</codeph>、<codeph>"bl"</codeph> 和 <codeph>"br"</codeph> 的任意组合。例如，要指定右侧的角为圆角，左侧的角为直角，应使用 <codeph>"tr br"</codeph>。<codeph>cornerRadius</codeph> 样式属性指定圆角的半径。默认值取决于组件类；如果未覆盖该类的默认值，则默认值为 <codeph>"tl tr bl br"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusAlpha" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Number">
+<description>
+  指定焦点外观的 alpha 透明度值。Halo 主题的默认值为 <codeph>0.4</codeph>。Spark 主题的默认值为 <codeph>0.55</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="shadowDistance" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  投影距离。如果将此属性设置为负值，此阴影将出现在组件的上方。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="shadowDirection" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  投影方向。可能值包括 <codeph>"left"</codeph>、<codeph>"center"</codeph> 和 <codeph>"right"</codeph>。
+ 
+  </description>
+<default>"center"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="dropShadowColor" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  投影颜色。
+ 
+  </description>
+<default>0x000000
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowVisible" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  指定组件是否具有可见投影的布尔值属性。默认值为 <codeph>false</codeph>。
+ 
+  <p><b>注意：</b>对于显示在容器上的投影，需设置 <codeph>contentBackgroundColor</codeph> 属性。否则，由于容器的背景默认为透明，阴影将显示在容器后。</p>
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowEnabled" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Boolean">
+<description>
+  指定组件是否具有可见投影的布尔值属性。此样式与 <codeph>borderStyle="solid"</codeph> 一起使用。默认值为 <codeph>false</codeph>。
+ 
+  <p><b>注意：</b>对于显示在容器上的投影，需设置 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph> 属性。否则，由于容器的背景默认为透明，阴影将显示在容器后。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderVisible" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  边框可视性。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="borderThickness" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  边框厚度。仅在将 <codeph>borderStyle</codeph> 设置为 <codeph>"solid"</codeph> 时使用。
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="inset,outset,solid,none" inherit="no" name="borderStyle" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="String">
+<description>
+  边框样式。可能值为 <codeph>"none"</codeph>、<codeph>"solid"</codeph>、<codeph>"inset"</codeph> 和 <codeph>"outset"</codeph>。默认值取决于组件类；如果没有覆盖该类的默认值，则默认值为 <codeph>"inset"</codeph>。大多数容器的默认值为 <codeph>"none"</codeph>。<codeph>"inset"</codeph> 和 <codeph>"outset"</codeph> 值只在 halo 主题中有效。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSkin" owner="mx.core:ScrollControlBase" playerVersion="Flash9" type="Class">
+<description>
+  组件的边框外观类。在未显式设置其自身默认值的所有组件中，Halo 主题的默认值为 <codeph>mx.skins.halo.HaloBorder</codeph>，Spark 主题的默认值为 <codeph>mx.skins.spark.BorderSkin</codeph>。Panel 容器的 Halo 主题默认值为 <codeph>mx.skins.halo.PanelSkin</codeph>，Spark 主题默认值为 <codeph>mx.skins.spark.BorderSkin</codeph>。要确定组件的默认值，请参阅 default.css 文件。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSides" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  边框边。指定要显示的边框边的以空格分隔的 String。此 String 可以任意顺序包含 <codeph>"left"</codeph>、<codeph>"top"</codeph>、<codeph>"right"</codeph> 和 <codeph>"bottom"</codeph>。默认值为 <codeph>"left top right bottom"</codeph>，此值会显示所有四条边。仅当 borderStyle 为 <codeph>"solid"</codeph> 时才使用此样式。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo, spark" type="uint">
+<description>
+  边框颜色。默认值取决于组件类；如果没有覆盖该类的默认值，则 Halo 主题的默认值为 <codeph>0xB7BABC</codeph>，Spark 主题的默认值为 <codeph>0x696969</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderAlpha" owner="mx.core:ScrollControlBase" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  边框 Alpha（透明度）。
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundSize" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  将 <codeph>backgroundImage</codeph> 指定的图像缩放到不同的百分比大小。<codeph>"100%"</codeph> 值将拉抻该图像以适应整个组件。要指定百分比值，您必须输入百分号 (%)。Application 容器的默认值为 <codeph>100%</codeph>。所有其他容器的默认值为 <codeph>auto</codeph>，此值将保持图像的原始大小。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="File" inherit="no" name="backgroundImage" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Object">
+<description>
+  组件的背景图像。此样式可以是绝对或相对 URL 或类。您既可以设置 <codeph>backgroundColor</codeph>，也可以设置 <codeph>backgroundImage</codeph>。背景图像显示在背景色上面。默认值为 <codeph>undefined</codeph>，表示“未设置”。如果此样式和 <codeph>backgroundColor</codeph> 样式都未定义，则控件将采用透明背景。
+ 
+  <p>大多数 Flex 控件的默认外观为半透明。因此，容器的背景图像将在某种程度上“渗入”该容器中的控件。通过将控件的 <codeph>fillAlphas</codeph> 属性的 alpha 值设置为 1 可以避免此情况，如以下示例所示：
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="backgroundDisabledColor" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  禁用组件时组件的背景色。全局默认值为 <codeph>undefined</codeph>。List 控件的默认值为 <codeph>0xDDDDDD</codeph>（浅灰）。如果禁用了容器，背景将变暗，而暗淡程度由 <codeph>disabledOverlayAlpha</codeph> 样式控制。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  组件的背景色。您可以同时设置 <codeph>backgroundColor</codeph> 和 <codeph>backgroundImage</codeph>。一些组件没有背景。DataGrid 控件会忽略此样式。默认值为 <codeph>undefined</codeph>，即不进行设置。如果此样式和 <codeph>backgroundImage</codeph> 样式都为 <codeph>undefined</codeph>，则控件将采用透明背景。
+ 
+  <p>对于 Application 容器，此样式指定应用程序加载时的背景色以及运行该应用程序时的背景渐变。Flex 计算比指定颜色略深的颜色和比指定颜色略浅的颜色之间的渐变。</p>
+ 
+  <p>大多数 Flex 控件的默认外观为半透明。因此，容器的背景颜色将在某种程度上“渗入”该容器中的控件。通过将控件的 <codeph>fillAlphas</codeph> 属性的 alpha 值设置为 1 可以避免此情况，如以下示例所示：
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="mx.core:ScrollControlBase" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  <codeph>backgroundColor</codeph> 属性定义的颜色和 <codeph>backgroundImage</codeph> 样式定义的图像或 SWF 文件的 Alpha 级别。有效值范围为从 0.0 到 1.0。对于大多数控件，默认值为 1.0，但 ToolTip 控件的默认值为 0.95，而 Alert 控件的默认值为 0.9。
+  
+  </description>
+<default>1.0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;ScrollControlBase&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:<i>tagname</i>
+  <b>Properties</b>
+  border="<i>object of border skin style</i>"
+  horizontalScrollPolicy="off|on|auto"
+  horizontalScrollPosition="0"
+  liveScrolling="true|false"
+  maxHorizontalScrollPosition="NaN"
+  maxVerticalScrollPosition="NaN"
+  scrollTipFunction="undefined"
+  showScrollTips="false|true"
+  verticalScrollPolicy="auto|off|on"
+  verticalScrollPosition="0" 
+  <b>Styles</b>
+  backgroundAlpha="1.0"
+  backgroundColor="undefined"
+  backgroundImage="undefined"
+  backgroundSize="auto"
+  borderColor="0xAAB3B3"
+  borderSides="left top right bottom"
+  borderSkin="ClassReference('mx.skins.halo.HaloBorder')"
+  borderStyle="inset"
+  borderThickness="1"
+  color="0x0B333C"
+  cornerRadius="0"
+  disabledColor="0xAAB3B3"
+  dropShadowColor="0x000000"
+  dropShadowEnabled="false"
+  fontFamily="Verdana"
+  fontSize="10"
+  fontStyle="normal|italic"
+  fontWeight="normal|bold"
+  horizontalScrollBarStyleName=""
+  leading="2"
+  shadowDirection="center"
+  shadowDistance="2"
+  textAlign="<i>value; see detail.</i>"
+  textDecoration="none|underline"
+  textIndent="0"
+  verticalScrollBarStyleName=""
+ 
+  <b>Events</b>
+  scroll="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>支持滚动的视图/容器的基类
+  
+  </apiTipText></apiTipTexts><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollControlBase 类是具有滚动条的控件的基类。用户使用滚动条交互，或开发人员访问用于更改可查看区域的方法和属性。ScrollControlBase 通过一个子对象以及该对象的位置、遮罩或大小来显示可查看内容。要滚动的所有项目必须是该内容对象的子项
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.core:ScrollControlBase_mx.events.ScrollEvent.SCROLL_scroll"><apiName>scroll</apiName><shortdesc>
+  当滚动内容时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3269
+  
+  </helpid></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ScrollEvent.SCROLL</apiEventType><adobeApiEventClassifier>mx.events.ScrollEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当滚动内容时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:ScrollControlBase:ScrollControlBase"><apiName>ScrollControlBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:ScrollControlBase:protected:createBorder"><apiName>createBorder</apiName><shortdesc>
+      为此组件创建边框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      为此组件创建边框。通常，边框由 <codeph>borderStyle</codeph> 和 <codeph>borderSkin</codeph> 样式确定。它必须将边框属性设置为边框实例。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      创建对象作为此 ScrollControlBase 的子项。在这种情况下，为边框和遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建对象作为此 ScrollControlBase 的子项。在这种情况下，为边框和遮罩。首次创建 ScrollControlBase 时，Flex 将调用此方法。如果某个子类覆盖了此方法，则该子类应调用 <codeph>super.createChildren()</codeph> 方法，以便执行 <codeph>ScrollControlBase.createChildren()</codeph> 方法中的逻辑。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:layoutChrome"><apiName>layoutChrome</apiName><shortdesc>
+      通过设置此控件边框的位置和大小来响应大小更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过设置此控件边框的位置和大小来响应大小更改。
+     
+      <p><codeph>ScrollControlBase.layoutChrome()</codeph> 方法可设置 ScrollControlBase 边框的位置和大小。在 ScrollControlBase 的每个子类中，子类的 <codeph>layoutChrome()</codeph> 方法应调用 <codeph>super.layoutChrome()</codeph> 方法，以便正确定位边框。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:mouseWheelHandler"><apiName>mouseWheelHandler</apiName><shortdesc>
+      鼠标滚轮 scroll 事件的事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      鼠标滚轮 scroll 事件的事件处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:roomForScrollBar"><apiName>roomForScrollBar</apiName><shortdesc>
+      确定此组件中的空间是否足以显示给定的滚动条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果有足够的空间用于滚动条，则返回 true。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bar</apiItemName><apiOperationClassifier>mx.controls.scrollClasses:ScrollBar</apiOperationClassifier><apiDesc>滚动条
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此组件中的空间是否足以显示给定的滚动条。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:scrollHandler"><apiName>scrollHandler</apiName><shortdesc>
+      scroll 事件的默认事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>scroll</codeph> 事件的默认事件处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:ScrollControlBase:protected:setScrollBarProperties"><apiName>setScrollBarProperties</apiName><shortdesc>
+      使 ScrollControlBase 基于传递的参数显示或隐藏滚动条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>totalColumns</apiItemName><apiType value="int"/><apiDesc>需要显示的水平单位数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>visibleColumns</apiItemName><apiType value="int"/><apiDesc>一次可显示的水平单位数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>totalRows</apiItemName><apiType value="int"/><apiDesc>需要显示的垂直单位数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>visibleRows</apiItemName><apiType value="int"/><apiDesc>一次可显示的垂直单位数
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使 ScrollControlBase 基于传递的参数显示或隐藏滚动条。如果 TextArea 只可显示 100 个像素跨度和 5 行文本，但实际要显示的文本是 200 个像素宽度和 30 行，则将以 <codeph>setScrollBarProperties(200, 100, 30, 5)</codeph> 形式调用 <codeph>setScrollBarProperties()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:ScrollControlBase:protected:border"><apiName>border</apiName><shortdesc>
+      边框对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      边框对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:protected:horizontalScrollBar"><apiName>horizontalScrollBar</apiName><shortdesc>
+      水平滚动条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.scrollClasses:ScrollBar</apiValueClassifier></apiValueDef><apiDesc>
+      水平滚动条。如果当前未显示水平滚动条，则此属性为 null。通常，无需直接访问此属性。操纵 <codeph>horizontalScrollPolicy</codeph> 和 <codeph>horizontalScrollPosition</codeph> 属性即可很好地控制滚动条。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:liveScrolling"><apiName>liveScrolling</apiName><shortdesc>
+      一个标志，指示移动滚动栏滑块时实时滚动视图，还是释放滑块后才更新视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示移动滚动栏滑块时实时滚动视图，还是释放滑块后才更新视图。默认值为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:protected:maskShape"><apiName>maskShape</apiName><shortdesc>
+      遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+      遮罩。如果当前没有显示滚动条，或某些子类中使用不同的遮罩机制，则可能未定义此属性。遮罩用于定义可显示对象的可查看区域。因此，此遮罩用于隐藏部分当前不可查看的内容。通常，无需直接访问此属性。操作 <codeph>horizontalScrollPolicy</codeph>、<codeph>verticalScrollPolicy</codeph>、<codeph>horizontalScrollPosition</codeph> 和 <codeph>verticalScrollPosition</codeph> 属性应可以对遮罩进行充分控制。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:protected:scrollAreaChanged"><apiName>scrollAreaChanged</apiName><shortdesc>
+      一个标志，指示滚动区域随滚动条的出现或消失进行更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示滚动区域随滚动条的出现或消失进行更改。供大多数布局方法用于再次重新调整滚动属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:showScrollTips"><apiName>showScrollTips</apiName><shortdesc>
+      一个标志，指示拖动滚动滑块时是否应在其旁边显示工具提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，指示拖动滚动滑块时是否应在其旁边显示工具提示。默认值为 <codeph>false</codeph>，表示禁用工具提示。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:protected:verticalScrollBar"><apiName>verticalScrollBar</apiName><shortdesc>
+      垂直滚动条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.scrollClasses:ScrollBar</apiValueClassifier></apiValueDef><apiDesc>
+      垂直滚动条。如果当前未显示垂直滚动条，则此属性为 null。通常，无需直接访问此属性。操纵 <codeph>verticalScrollPolicy</codeph> 和 <codeph>verticalScrollPosition</codeph> 属性应提供对滚动条的足够控制。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+      返回 EdgeMetrics 对象，它具有四个属性：left、top、right 和 bottom。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:EdgeMetrics"/></apiValueDef><apiDesc>
+      返回 EdgeMetrics 对象，它具有四个属性：<codeph>left</codeph>、<codeph>top</codeph>、<codeph>right</codeph> 和 <codeph>bottom</codeph>。各属性值等于边框某一侧的粗细（以像素为单位）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:horizontalScrollPolicy:get"><apiName>horizontalScrollPolicy</apiName><shortdesc>
+      指示水平滚动条是始终启用、始终禁用还是自动根据传递到 setScrollBarProperties() 方法的参数进行更改的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="horizontalScrollPolicyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollPolicy.OFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示水平滚动条是始终启用、始终禁用还是自动根据传递到 <codeph>setScrollBarProperties()</codeph> 方法的参数进行更改的属性。允许的值为 <codeph>ScrollPolicy.ON</codeph>、<codeph>ScrollPolicy.OFF</codeph> 和 <codeph>ScrollPolicy.AUTO</codeph>。MXML 值可以是 <codeph>"on"</codeph>、<codeph>"off"</codeph> 和 <codeph>"auto"</codeph>。
+     
+      <p>将 ListBase 子类的此属性设置为 <codeph>ScrollPolicy.OFF</codeph> 不影响 <codeph>horizontalScrollPosition</codeph> 属性；您仍然可以以编程方式滚动内容。</p>
+     
+      <p>请注意，此策略可能会影响组件的度量大小。如果此策略是 <codeph>ScrollPolicy.AUTO</codeph>，则滚动栏将不计入度量大小。这样，可防止显示滚动栏时布局被重新计算。如果您确定用于滚动条的数据足够，则应将此策略设置为 <codeph>ScrollPolicy.ON</codeph>。如果不确定，则可能需要在组件中设置显式宽度或高度以允许稍后显示滚动条。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      内容与左边缘的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="viewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      内容与左边缘的偏移量。这可能是某些子类中的像素偏移，也可能是一些其它度量信息，如 DataGrid 中的列数或者 HorizontalList 或 TileList 中的项目数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:maxHorizontalScrollPosition:get"><apiName>maxHorizontalScrollPosition</apiName><shortdesc>
+      horizontalScrollPosition 属性的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxHorizontalScrollPositionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>horizontalScrollPosition</codeph> 属性的最大值。请注意，这不是内容的宽度，因为 <codeph>maxHorizontalScrollPosition</codeph> 属性为内容宽度与可显示区域宽度之差。
+     
+      <p>在大多数组件中，<codeph>maxHorizontalScrollPosition</codeph> 属性的值基于数据和组件大小计算，而不能使用应用程序代码设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:maxVerticalScrollPosition:get"><apiName>maxVerticalScrollPosition</apiName><shortdesc>
+      verticalScrollPosition 属性的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxVerticalScrollPositionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>verticalScrollPosition</codeph> 属性的最大值。请注意，这不是内容的高度，因为 <codeph>maxVerticalScrollPosition</codeph> 属性为内容高度与可显示区域高度之差。
+     
+      <p><codeph>maxVerticalScrollPosition</codeph> 属性的值基于数据和组件大小计算，而不能使用应用程序代码设置。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:scrollTipFunction:get"><apiName>scrollTipFunction</apiName><shortdesc>
+      将要显示的字符串作为 ScrollTip 计算的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="scrollTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      将要显示的字符串作为 ScrollTip 计算的函数。如果将 <codeph>showScrollTips</codeph> 属性设置为 <codeph>true</codeph>，并拖动滚动滑块，则调用此函数。此函数应返回用作 ScrollTip 的 String。此函数通过两个参数传递。第一个是滚动条的 <codeph>direction</codeph>。第二个是它的 <codeph>scrollPosition</codeph>，如下例所示：
+      
+      <pre>
+      function scrollTipFunction(direction:String, position:Number):String 
+      {
+        if (direction == "vertical") return myToolTips[position];
+        else return "";
+      }</pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:verticalScrollPolicy:get"><apiName>verticalScrollPolicy</apiName><shortdesc>
+      指示垂直滚动条是始终启用、始终禁用还是自动根据传递到 setScrollBarProperties() 方法的参数进行更改的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="verticalScrollPolicyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ScrollPolicy.AUTO
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示垂直滚动条是始终启用、始终禁用还是自动根据传递到 <codeph>setScrollBarProperties()</codeph> 方法的参数进行更改的属性。允许的值为 <codeph>ScrollPolicy.ON</codeph>、<codeph>ScrollPolicy.OFF</codeph> 和 <codeph>ScrollPolicy.AUTO</codeph>。MXML 值可以是 <codeph>"on"</codeph>、<codeph>"off"</codeph> 和 <codeph>"auto"</codeph>。
+     
+      <p>将 ListBase 子类的此属性设置为 <codeph>ScrollPolicy.OFF</codeph> 不影响 <codeph>verticalScrollPosition</codeph> 属性；您仍然可以以编程方式滚动内容。</p>
+     
+      <p>请注意，此策略可能会影响组件的度量大小。如果此策略是 <codeph>ScrollPolicy.AUTO</codeph>，则滚动栏将不计入度量大小。这样，可防止显示滚动栏时布局被重新计算。如果您确定用于滚动条的数据足够，则应将此策略设置为 <codeph>ScrollPolicy.ON</codeph>。如果不确定，则可能需要在组件中设置显式宽度或高度以允许稍后显示滚动条。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      顶边到内容的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="viewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      顶边到内容的偏移量。这可能是某些子类中的像素偏移，也可能是一些其它度量信息，如 List 中的行数或 TileList 中的平铺项目数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:ScrollControlBase:viewMetrics:get"><apiName>viewMetrics</apiName><shortdesc>
+      考虑滚动条（如果可见）的 EdgeMetrics 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:EdgeMetrics"/></apiValueDef><apiDesc>
+      考虑滚动条（如果可见）的 EdgeMetrics 对象。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

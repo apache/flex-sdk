@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+  MXFTETextInput 是 UIComponent，用于在 MX 控件和数据网格呈示器中支持 TLF 文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="text"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:ITextInput</apiBaseInterface><apiBaseClassifier>spark.components:TextInput</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXFTETextInput 是 UIComponent，用于在 MX 控件和数据网格呈示器中支持 TLF 文本。可用于替换 MX TextInput 控件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.TextInput.xml"><linktext>mx.controls.TextInput</linktext></link></related-links><adobeApiEvent id="mx.controls:MXFTETextInput_mx.events.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:MXFTETextInput:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:MXFTETextInput:showBorderAndBackground"><apiName>showBorderAndBackground</apiName><shortdesc>
+      用于确定控件的边框和背景是否可视。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>visible</apiItemName><apiType value="Boolean"/><apiDesc>设置为 <codeph>true</codeph> 时可使边框和背景可见，否则设置为 <codeph>false</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于确定控件的边框和背景是否可视。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:MXFTETextInput:data:get"><apiName>data</apiName><shortdesc>
+      用于在项呈示器或项目编辑器中使用组件时将值传递给该组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于在项呈示器或项目编辑器中使用组件时将值传递给该组件。您通常使用数据绑定将 <codeph>data</codeph> 属性的字段绑定到此组件的某个属性。
+     
+      <p>将控件用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 自动将项目的当前值写入此控件的 <codeph>text</codeph> 属性。</p>
+     
+      <p>不要以 MXML 方式设置此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:listData:get"><apiName>listData</apiName><shortdesc>
+      使用组件作为嵌入式项呈示器或嵌入式项目编辑器时，Flex 将使用 list 控件中的相应数据初始化该组件的 listData 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用组件作为嵌入式项呈示器或嵌入式项目编辑器时，Flex 将使用 list 控件中的相应数据初始化该组件的 <codeph>listData</codeph> 属性。然后，组件可使用 <codeph>listData</codeph> 属性初始化嵌入式项呈示器或嵌入式项目编辑器的 <codeph>data</codeph> 属性。
+     
+      <p>您无需在 MXML 或 ActionScript 中设置此属性；将组件用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 会对其进行设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:parentDrawsFocus:get"><apiName>parentDrawsFocus</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier></apiPackage>

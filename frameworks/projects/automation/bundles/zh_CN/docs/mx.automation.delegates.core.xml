@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates.core"><apiName>mx.automation.delegates.core</apiName><apiDetail/><apiClassifier id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl"><apiName>ScrollControlBaseAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 ScrollControlBase 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 ScrollControlBase 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:ScrollControlBaseAutomationImpl"><apiName>ScrollControlBaseAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:ScrollControlBase"/><apiDesc>要进行自动化的 ScrollControlBase 对象。         
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		 重放 ScrollEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>如果重放成功，则为 <codeph>true</codeph>。否则返回<codeph>false</codeph>。     
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 重放 ScrollEvent。通过在适当的（水平或垂直）scrollBar 上调用 ScrollBar.scrollIt 来重放 ScrollEvent。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.core:ContainerAutomationImpl"><apiName>ContainerAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Container 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Container 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Container.xml"><linktext>mx.core.Container</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:ContainerAutomationImpl:ContainerAutomationImpl"><apiName>ContainerAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Container"/><apiDesc>要进行自动化的 Container 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:ContainerAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.core:UITextFieldAutomationImpl"><apiName>UITextFieldAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 UITextField 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 UITextField 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.UITextField.xml"><linktext>mx.core.UITextField</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:UITextFieldAutomationImpl:UITextFieldAutomationImpl"><apiName>UITextFieldAutomationImpl</apiName><shortdesc>
+		 构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:UITextField"/><apiDesc>要进行自动化的 UITextField 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:UITextFieldAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationOwner:get"><apiName>automationOwner</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationParent:get"><apiName>automationParent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationVisible:get"><apiName>automationVisible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.core:RepeaterAutomationImpl"><apiName>RepeaterAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Repeater 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Repeater 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Repeater.xml"><linktext>mx.core.Repeater</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:RepeaterAutomationImpl:RepeaterAutomationImpl"><apiName>RepeaterAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Repeater"/><apiDesc>要进行自动化的 Repeater 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:RepeaterAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:RepeaterAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  此 repeater 对象中在自动化层次中出现的所有组件的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  此 repeater 对象中在自动化层次中出现的所有组件的数组。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.core:UIComponentAutomationImpl"><apiName>UIComponentAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 UIComponent 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 UIComponent 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:UIComponentAutomationImpl:UIComponentAutomationImpl"><apiName>UIComponentAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>要进行自动化的 UIComponent 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:addLayoutCompleteSynchronization"><apiName>addLayoutCompleteSynchronization</apiName><shortdesc>
+		  设置与布局管理器的 UPDATE_COMPLETE 事件的自动化同步。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  设置与布局管理器的 UPDATE_COMPLETE 事件的自动化同步。重放某些操作时，在重放下一事件前，需要等待一段时间才能进行自动化。这种等待是框架完成该组件请求的操作所必须的。通常，由布局管理器更新 complete 事件指示所有更新均已完成。此方法会添加在收到 update_complete 事件时显示为完成的同步。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:addMouseEvent"><apiName>addMouseEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeekRef</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  初始化组件后调用的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  初始化组件后调用的方法。此方法可用于访问任何子组件并对其执行操作。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>DisplayObject 对象表示应用程序根目录。 
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:removeMouseEvent"><apiName>removeMouseEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationName:get"><apiName>automationName</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationOwner:get"><apiName>automationOwner</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationParent:get"><apiName>automationParent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationVisible:get"><apiName>automationVisible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:uiComponent:get"><apiName>uiComponent</apiName><shortdesc>
+		  返回与此委托实例关联的组件实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+		  返回与此委托实例关联的组件实例。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

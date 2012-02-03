@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.formatters"><apiName>mx.formatters</apiName><apiDetail/><apiClassifier id="mx.formatters:NumberBaseRoundType"><apiName>NumberBaseRoundType</apiName><shortdesc>
+  La classe NumberBaseRoundType définit les valeurs de constante des propriétés des classes de formatage spécifiant un type d’arrondi.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe NumberBaseRoundType définit les valeurs de constante des propriétés des classes de formatage spécifiant un type d’arrondi. Vous pouvez par exemple définir la propriété <codeph>NumberFormatter.rounding</codeph> à l’aide de ces constantes.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link></related-links><apiValue id="mx.formatters:NumberBaseRoundType:DOWN"><apiName>DOWN</apiName><shortdesc>
+	  Arrondit un nombre à l’entier inférieur le plus proche et inférieur ou égal au nombre d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Arrondit un nombre à l’entier inférieur le plus proche et inférieur ou égal au nombre d’entrée.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NEAREST"><apiName>NEAREST</apiName><shortdesc>
+	  Arrondit un nombre à l’entier inférieur ou supérieur le plus proche.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>nearest</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Arrondit un nombre à l’entier inférieur ou supérieur le plus proche.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NONE"><apiName>NONE</apiName><shortdesc>
+	  N’applique aucun arrondi.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  N’applique aucun arrondi.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:UP"><apiName>UP</apiName><shortdesc>
+	  Arrondit un nombre à l’entier supérieur le plus proche et supérieur ou égal au nombre d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Arrondit un nombre à l’entier supérieur le plus proche et supérieur ou égal au nombre d’entrée.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  La classe CurrencyFormatter formate un nombre valide sous forme de valeur monétaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:CurrencyFormatter" replacement="spark.formatters.CurrencyFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:CurrencyFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CurrencyFormatter
+    alignSymbol="left|right" 
+    currencySymbol="$"
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"
+ />  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CurrencyFormatter formate un nombre valide sous forme de valeur monétaire. Elle ajuste l’arrondi et la précision des nombres décimaux, le séparateur des milliers et le signe négatif, et ajoute un symbole de devise. Vous pouvez placer le symbole de devise à gauche ou à droite de la valeur par le biais de la propriété <codeph>alignSymbol</codeph>. Le symbole de devise peut contenir plusieurs caractères, y compris des espaces.
+  
+  <p>Si une erreur se produit, une chaîne vide est retournée et une chaîne décrivant l’erreur est enregistrée dans la propriété <codeph>error</codeph>. La propriété <codeph>error</codeph> peut prendre l’une des valeurs suivantes :</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> signifie qu’une valeur numérique non valide a été transmise à la méthode <codeph>format()</codeph>. La valeur doit être un nombre valide sous forme de nombre ou de chaîne.</li>
+    <li><codeph>"Invalid format"</codeph> signifie que l’un des paramètres contient une valeur inutilisable.</li>
+  </ul>
+  
+  </apiDesc><example conref="CurrencyFormatterExample.mxml"><swfblock conref="examples/CurrencyFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      Formate la valeur sous forme de devise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne formatée. Vide si une erreur se produit.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate la valeur <codeph>value</codeph> sous forme de devise. Si la valeur <codeph>value</codeph> ne peut pas être formatée, une chaîne vide est retournée et une description de l’erreur est écrite dans la propriété <codeph>error</codeph>.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:CurrencyFormatter:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      Place le symbole de devise à gauche ou à droite du nombre formaté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Place le symbole de devise à gauche ou à droite du nombre formaté. Valeurs autorisées: <codeph>"left"</codeph> et <codeph>"right"</codeph>.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      Caractère à utiliser comme symbole de devise pour un nombre formaté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme symbole de devise pour un nombre formaté. Vous pouvez utiliser un ou plusieurs caractères pour représenter le symbole de devise, par exemple « $ » ou « YEN ». Vous pouvez également utiliser des espaces vides pour ajouter des espaces entre le caractère de devise et le nombre mis formaté. Lorsque le nombre est une valeur négative, le symbole de devise est placé entre le nombre et le signe moins, ou entre parenthèses.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      Nombre de décimales à inclure dans la chaîne de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de décimales à inclure dans la chaîne de sortie. Vous pouvez désactiver la précision en utilisant la valeur <codeph>-1</codeph>. La valeur <codeph>-1</codeph> indique que la précision ne doit pas être modifiée. Par exemple, si la valeur d’entrée est 1,453 et que la valeur de <codeph>rounding</codeph> est <codeph>NumberBaseRoundType.NONE</codeph>, la valeur renvoyée est 1,453. Si la valeur de la propriété <codeph>precision</codeph> est -1 et que vous avez défini un arrondi, la valeur renvoyée dépend de ce type d’arrondi.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      Mode d’arrondi.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+ 	 
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Mode d’arrondi. Dans le langage ActionScript, la valeur peut être <codeph>NumberBaseRoundType.NONE</codeph>, <codeph>NumberBaseRoundType.UP</codeph>, <codeph>NumberBaseRoundType.DOWN</codeph> ou <codeph>NumberBaseRoundType.NEAREST</codeph>. Dans le langage MXML, la valeur peut être <codeph>"none"</codeph>, <codeph>"up"</codeph>, <codeph>"down"</codeph> ou <codeph>"nearest"</codeph>.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      Si la valeur est true, un signe « - » est placé devant les nombres négatifs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, un signe « - » est placé devant les nombres négatifs. Si la valeur est <codeph>false</codeph>, des parenthèses sont placées autour du nombre, par exemple (400).
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      Si la valeur est true, le nombre est séparé en incréments de milliers par un caractère de séparation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, le nombre est séparé en incréments de milliers par un caractère de séparation.
+	 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+  La classe SwitchSymbolFormatter est une classe d’utilitaires pouvant être utilisée lors de la création de formateurs personnalisés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><access>private
+  
+  </access></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SwitchSymbolFormatter est une classe d’utilitaires pouvant être utilisée lors de la création de formateurs personnalisés. Cette classe réalise une substitution en remplaçant les caractères d’espace réservé d’une chaîne par des nombres issus d’une autre chaîne.
+  
+  <p>Par exemple, si vous transmettez les informations suivantes à la classe SwitchSymbolFormatter :</p>
+ 
+  <p>Chaîne de format : « Le numéro de sécurité sociale est : ###-##-#### »</p>
+  <p>Chaîne d’entrée : « 123456789 »</p>
+  
+  <p>La classe SwitchSymbolFormatter analyse la chaîne de format et remplace chaque caractère d’espace réservé (par défaut le caractère #), par un nombre issu de la chaîne d’entrée, dans l’ordre dans lequel les nombres sont spécifiés dans la chaîne d’entrée. Vous pouvez définir un autre symbole d’espace réservé en le transmettant au constructeur lorsque vous instanciez un objet SwitchSymbolFormatter.</p>
+  
+  <p>Voici la chaîne de sortie créée par la classe SwitchSymbolFormatter à partir de ces deux chaînes :</p>
+ 
+  <p>« Le numéro de sécurité sociale est : 123-45-6789 »</p>
+  
+  <p>Le modèle peut contenir n’importe quels caractères, à condition qu’ils soient les mêmes pour toutes les valeurs de la partie numérique de la chaîne. En revanche, la valeur de formatage doit être numérique.</p>
+  
+  <p>Le nombre de chiffres indiqués dans la valeur source doit correspondre au nombre de chiffres définis dans la chaîne de modèle. Le script est chargé d’appeler l’objet SwitchSymbolFormatter.</p>
+  
+  </apiDesc><example conref="SwitchSymbolFormatterExample.mxml"><swfblock conref="examples/SwitchSymbolFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#PhoneFormatter"><linktext>mx.formatters.PhoneFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:SwitchSymbolFormatter:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>numberSymbol</apiItemName><apiType value="String"/><apiData>#</apiData><apiDesc>Caractère à utiliser comme caractère de modèle.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:SwitchSymbolFormatter:formatValue"><apiName>formatValue</apiName><shortdesc>
+      Crée une nouvelle chaîne en formatant la chaîne source à l’aide du modèle de formatage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Chaîne formatée.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>format</apiItemName><apiType value="String"/><apiDesc>Chaîne définissant le modèle défini par l’utilisateur, comprenant les éléments suivants :
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>Séquence de nombres valide (les caractères alphanumériques sont autorisés si nécessaire).
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Crée une nouvelle chaîne en formatant la chaîne source à l’aide du modèle de formatage.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  La classe NumberFormatter formate un nombre valide en ajustant l’arrondi et la précision des nombres décimaux, le séparateur des milliers et le signe négatif.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:NumberFormatter" replacement="spark.formatters.NumberFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:NumberFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberFormatter
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"/>  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe NumberFormatter formate un nombre valide en ajustant l’arrondi et la précision des nombres décimaux, le séparateur des milliers et le signe négatif.
+ 
+  <p>Si vous utilisez simultanément les propriétés <codeph>rounding</codeph> et <codeph>precision</codeph>, l’arrondi est appliqué en premier et le nombre de décimales peut ensuite être défini par le biais de la valeur <codeph>precision</codeph>. Vous pouvez ainsi arrondir un nombre et conserver quand même des décimales. Exemple : 303,99 = 304,00.</p>
+ 
+  <p>Si une erreur se produit, une chaîne vide est renvoyée et une chaîne décrivant l’erreur est enregistrée dans la propriété <codeph>error</codeph>. La propriété <codeph>error</codeph> peut prendre l’une des valeurs suivantes :</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> signifie qu’une valeur numérique non valide a été transmise à la méthode <codeph>format()</codeph>. La valeur doit être un nombre valide sous forme de nombre ou de chaîne.</li>
+    <li><codeph>"Invalid format"</codeph> signifie que l’un des paramètres contient une valeur inutilisable.</li>
+  </ul>
+  
+  </apiDesc><example conref="NumberFormatterExample.mxml"><swfblock conref="examples/NumberFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      Formate le nombre sous forme de chaîne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne formatée. Vide si une erreur se produit.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate le nombre sous forme de chaîne. Si la valeur <codeph>value</codeph> ne peut pas être formatée, une chaîne vide est retournée et une description de l’erreur est écrite dans la propriété <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.
+     
+      <p>Lorsque vous définissez la valeur de cette propriété, faites en sorte qu’elle ne soit pas identique à la valeur de la propriété <codeph>thousandsSeparatorFrom</codeph>. Si les valeurs sont identiques, une erreur se produit lors du formatage de la valeur.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.
+     
+      <p>Lorsque vous définissez la valeur de cette propriété, faites en sorte qu’elle ne soit pas identique à la valeur de la propriété <codeph>thousandsSeparatorTo</codeph>. Si les valeurs sont identiques, une erreur se produit lors du formatage de la valeur.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      Nombre de décimales à inclure dans la chaîne de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de décimales à inclure dans la chaîne de sortie. Vous pouvez désactiver la précision en utilisant la valeur <codeph>-1</codeph>. La valeur <codeph>-1</codeph> indique que la précision ne doit pas être modifiée. Par exemple, si la valeur d’entrée est 1.453 et que la valeur de <codeph>rounding</codeph> est <codeph>NumberBaseRoundType.NONE</codeph>, la valeur renvoyée est 1.453. Si la valeur de la propriété <codeph>precision</codeph> est <codeph>-1</codeph> et que vous avez défini un arrondi, la valeur renvoyée dépend de ce type d’arrondi.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      Spécifie comment arrondir le nombre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie comment arrondir le nombre.
+     
+      <p>Dans le langage ActionScript, vous pouvez utiliser les constantes suivantes pour définir cette propriété : <codeph>NumberBaseRoundType.NONE</codeph>, <codeph>NumberBaseRoundType.UP</codeph>, <codeph>NumberBaseRoundType.DOWN</codeph> ou <codeph>NumberBaseRoundType.NEAREST</codeph>. Les valeurs MXML valides sont "down", "nearest", "up" et "none".</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.
+     
+      <p>Lorsque vous définissez la valeur de cette propriété, faites en sorte qu’elle ne soit pas identique à la valeur de la propriété <codeph>decimalSeparatorFrom</codeph>. Si les valeurs sont identiques, une erreur se produit lors du formatage de la valeur.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.
+     
+      <p>Lorsque vous définissez la valeur de cette propriété, faites en sorte qu’elle ne soit pas identique à la valeur de la propriété <codeph>decimalSeparatorTo</codeph>. Si les valeurs sont identiques, une erreur se produit lors du formatage de la valeur.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      Si la valeur est true, un signe « - » est placé devant les nombres négatifs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, un signe « - » est placé devant les nombres négatifs. Si la valeur est <codeph>false</codeph>, des parenthèses sont placées autour du nombre, par exemple (400).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      Si la valeur est true, le nombre est séparé en incréments de milliers par un caractère de séparation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, le nombre est séparé en incréments de milliers par un caractère de séparation.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateBase"><apiName>DateBase</apiName><shortdesc>
+  La classe DateBase contient les informations sur la chaîne localisée utilisées par la classe mx.formatters.DateFormatter, ainsi que la fonction d’analyse rendant le modèle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe DateBase contient les informations sur la chaîne localisée utilisées par la classe mx.formatters.DateFormatter, ainsi que la fonction d’analyse rendant le modèle. Il s’agit d’une classe d’assistance de la classe DateFormatter. Elle n’est généralement pas utilisée seule.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateFormatter"><linktext>mx.formatters.DateFormatter</linktext></link></related-links><apiValue id="mx.formatters:DateBase:dayNamesLong:get"><apiName>dayNamesLong</apiName><shortdesc>
+      Format long des noms des jours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sunday", "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Format long des noms des jours.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:dayNamesShort:get"><apiName>dayNamesShort</apiName><shortdesc>
+      Format court des noms des jours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Format court des noms des jours.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesLong:get"><apiName>monthNamesLong</apiName><shortdesc>
+      Format long des noms des mois.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"].
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Format long des noms des mois.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesShort:get"><apiName>monthNamesShort</apiName><shortdesc>
+      Format court des noms des mois.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct","Nov", "Dec"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Format court des noms des mois.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:timeOfDay:get"><apiName>timeOfDay</apiName><shortdesc>
+      Demi-journée (pour les horloges AM/PM).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["AM", "PM"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Demi-journée (pour les horloges AM/PM).
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+  La classe DateFormatter utilise une chaîne de format pour retourner une chaîne de date et d’heure formatée à partir d’une chaîne d’entrée ou d’un objet Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:DateFormatter" replacement="spark.formatters.DateTimeFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>You use the <code>&lt;mx:DateFormatter&gt;</code> tag
+  to render date and time Strings from a Date object.</p>
+ 
+  <p>The <code>&lt;mx:DateFormatter&gt;</code> tag
+  inherits all of the tag attributes  of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:DateFormatter
+    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
+   /> 
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe DateFormatter utilise une chaîne de format pour renvoyer une chaîne de date et d’heure formatée à partir d’une chaîne d’entrée ou d’un objet Date. Vous pouvez créer facilement de nombreuses variantes, y compris dans des formats internationaux.
+ 
+  <p>Si une erreur se produit, une chaîne vide est renvoyée et une chaîne décrivant l’erreur est enregistrée dans la propriété <codeph>error</codeph>. La propriété <codeph>error</codeph> peut prendre l’une des valeurs suivantes :</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> signifie qu’une valeur qui n’est pas un objet Date ou une chaîne reconnue représentant une date a été transmise à la méthode <codeph>format()</codeph> (argument vide autorisé).</li>
+    <li> <codeph>"Invalid format"</codeph> signifie que la valeur de la propriété <codeph>formatString</codeph> est vide ("") ou que la propriété <codeph>formatString</codeph> contient moins d’une lettre de modèle.</li>
+  </ul>
+ 
+  <p>La méthode <codeph>parseDateString()</codeph> utilise la classe mx.formatters.DateBase pour définir les informations sur la chaîne localisée, nécessaires pour convertir en objet Date une date formatée en tant que chaîne.</p>
+  
+  </apiDesc><example conref="DateFormatterExample.mxml"><swfblock conref="examples/DateFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links><apiConstructor id="mx.formatters:DateFormatter:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:DateFormatter:format"><apiName>format</apiName><shortdesc>
+      Génère une chaîne de date formatée à partir d’une chaîne de date formatée ou d’un objet Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne formatée. Vide si une erreur se produit. Une description de la condition d’erreur est écrite dans la propriété <codeph>error</codeph>.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Date à formater. Il peut s’agir d’un objet Date ou d’une chaîne de date formatée, par exemple « Mardi 22 avril 2004 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Génère une chaîne de date formatée à partir d’une chaîne de date formatée ou d’un objet Date. La propriété <codeph>formatString</codeph> détermine le format de la chaîne de sortie. Si la valeur <codeph>value</codeph> ne peut pas être formatée, une chaîne vide est retournée et une description de l’erreur est écrite dans la propriété <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:DateFormatter:parseDateString"><apiName>parseDateString</apiName><shortdesc>
+      Convertit une date formatée en tant que chaîne en objet Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet Date.
+      
+      </apiDesc><apiType value="Date"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Date formatée en tant que chaîne. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit une date formatée en tant que chaîne en objet Date. Les noms des mois et des jours doivent correspondre aux noms de la classe mx.formatters.DateBase. La valeur hour de la chaîne doit être comprise entre 0 et 23 inclus. Les valeurs minutes et seconds doivent être comprises entre 0 et 59 inclus. L’exemple suivant utilise cette méthode pour créer un objet Date : 
+     
+      <pre>
+      var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links></apiOperation><apiValue id="mx.formatters:DateFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      Modèle de masque.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Modèle de masque.
+      
+      <p>Vous pouvez créer une chaîne de modèle en utilisant des lettres majuscules, par exemple : YYYY/MM.</p>
+     
+      <p>Outre les lettres de modèle, la chaîne de modèle de la classe DateFormatter peut contenir du texte supplémentaire. Une seule lettre de modèle est nécessaire pour créer une chaîne de modèle valide.</p>
+          
+      <p>Le tableau ci-dessous décrit les lettres de modèle valides :</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry>Lettre de modèle</entry><entry>Description</entry></row></thead><tbody><row>
+          <entry>Y</entry>
+          <entry> Année. Si le modèle contient deux lettres, l’année est tronquée à deux chiffres. Sinon, elle est présentée en utilisant quatre chiffres. Il est possible d’ajouter des zéros de remplissage à l’année, comme l’illustre le troisième exemple ci-dessous : 
+            <ul>
+              <li>YY = 05</li>
+              <li>YYYY = 2005</li>
+              <li>YYYYY = 02005</li>
+            </ul></entry>
+        </row><row>
+          <entry>M</entry>
+          <entry> Mois de l’année. Le format dépend des critères suivants :
+            <ul>
+              <li>Si le modèle contient une lettre, le format est interprété en tant que valeur numérique à un ou deux chiffres. </li>
+              <li>Si le modèle contient deux lettres, le format est interprété en tant que valeur numérique à deux chiffres.</li>
+              <li>Si le modèle contient trois lettres, le format est interprété en tant que texte abrégé.</li>
+              <li>Si le modèle contient quatre lettres, le format est interprété en tant que texte complet. </li>
+            </ul>
+              Exemples :
+            <ul>
+              <li>M = 7</li>
+              <li>MM= 07</li>
+              <li>MMM=Juil</li>
+              <li>MMMM= Juillet</li>
+            </ul></entry>
+        </row><row>
+          <entry>D</entry>
+          <entry>Jour du mois. Bien qu’une chaîne de modèle représentant le jour à l’aide d’une seule lettre soit valide, la chaîne de modèle comporte en général deux lettres.
+     
+            <p>Exemples :</p>
+            <ul>
+              <li>D=4</li>
+              <li>DD=04</li>
+              <li>DD=10</li>
+            </ul></entry>
+        </row><row>
+          <entry>E</entry>
+          <entry>Jour de la semaine. Le format dépend des critères suivants :
+            <ul>
+              <li>Si le modèle contient une lettre, le format est interprété en tant que valeur numérique à un ou deux chiffres.</li>
+              <li>Si le modèle contient deux lettres, le format est interprété en tant que valeur numérique à deux chiffres.</li>
+              <li>Si le modèle contient trois lettres, le format est interprété en tant que texte abrégé. </li>
+              <li>Si le modèle contient quatre lettres, le format est interprété en tant que texte complet. </li>
+            </ul>
+              Exemples :
+            <ul>
+              <li>E = 1</li>
+              <li>EE = 01</li>
+              <li>EEE = Lun</li>
+              <li>EEEE = Lundi</li>
+            </ul></entry>
+        </row><row>
+          <entry>A</entry>
+          <entry> Indicateur am/pm.</entry>
+        </row><row>
+          <entry>J</entry>
+          <entry>Heure du jour (0-23).</entry>
+        </row><row>
+          <entry>H</entry>
+          <entry>Heure du jour (1-24).</entry>
+        </row><row>
+          <entry>K</entry>
+          <entry>Heure au format am/pm (0-11).</entry>
+        </row><row>
+          <entry>L</entry>
+          <entry>Heure au format am/pm (1-12).</entry>
+        </row><row>
+          <entry>N</entry>
+          <entry>Minute.
+     
+            <p>Exemples :</p>
+            <ul>
+              <li>N = 3</li>
+              <li>NN = 03</li>
+            </ul></entry>
+        </row><row>
+          <entry>S</entry>
+          <entry>Seconde. 
+     
+            <p>Exemple :</p>
+            <ul>
+              <li>SS = 30</li>
+            </ul></entry>
+        </row><row>
+          <entry>Q</entry>
+          <entry>Milliseconde dans une seconde 
+     
+            <p>Exemple :</p>
+            <ul>
+              <li>QQ = 78 </li>
+              <li>QQQ = 078 </li>
+            </ul></entry>
+        </row><row>
+          <entry>Autre texte</entry>
+          <entry>Vous pouvez ajouter du texte à la chaîne de modèle pour personnaliser le formatage de la chaîne. Vous pouvez ainsi utiliser des signes de ponctuation, des nombres et des minuscules. Evitez d’utiliser des majuscules, car elles risquent d’être interprétées comme des lettres de modèle.
+     
+            <p>Exemple :</p>
+            <ul>
+              <li>EEEE, MMM. D, YYYY à L:NN:QQQ A = Mardi 8 septembre 2005 à 1:26:012 PM</li>
+            </ul></entry>
+        </row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+  La classe PhoneFormatter formate un nombre valide sous forme de numéro de téléphone respectant les différents formats internationaux.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:PhoneFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneFormatter
+    areaCode="-1"
+    areaCodeFormat="(###)"
+    formatString="(###) ###-####"
+    validPatternChars="+()#-. "
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PhoneFormatter formate un nombre valide sous forme de numéro de téléphone respectant les différents formats internationaux.
+ 
+  <p>Un raccourci est disponible pour le format à sept chiffres utilisé couramment aux Etats-Unis. Si la propriété <codeph>areaCode</codeph> contient une valeur et que vous utilisez la chaîne de format à sept chiffres (###-####), l’indicatif régional est ajouté automatiquement à la chaîne renvoyée lorsqu’une valeur à sept chiffres est formatée. Le format par défaut de l’indicatif régional est (###). Vous pouvez modifier ce format par le biais de la propriété <codeph>areaCodeFormat</codeph>. Vous pouvez formater l’indicatif régional de la manière que vous souhaitez, à condition qu’il contienne trois espaces réservés numériques.</p>
+ 
+  <p>Si une erreur se produit, une chaîne vide est retournée et une chaîne décrivant l’erreur est enregistrée dans la propriété <codeph>error</codeph>. La propriété <codeph>error</codeph> peut prendre l’une des valeurs suivantes :</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> signifie qu’une valeur numérique non valide a été transmise à la méthode <codeph>format()</codeph>. La valeur doit être un nombre valide sous forme de nombre ou de chaîne, ou contenir un nombre de chiffres différent de celui spécifié dans la chaîne de format.</li>
+    <li> <codeph>"Invalid format"</codeph> signifie qu’au moins un des caractères de la propriété <codeph>formatString</codeph> ne correspond pas aux caractères autorisés spécifiés dans la propriété <codeph>validPatternChars</codeph> ou que la propriété <codeph>areaCodeFormat</codeph> a été spécifiée, mais qu’elle ne contient pas exactement trois espaces réservés numériques.</li>
+  </ul>
+  
+  </apiDesc><example conref="PhoneFormatterExample.mxml"><swfblock conref="examples/PhoneFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:PhoneFormatter:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:PhoneFormatter:format"><apiName>format</apiName><shortdesc>
+      Formate la chaîne sous forme de numéro de téléphone.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne formatée. Vide si une erreur se produit. Une description de la condition d’erreur est écrite dans la propriété <codeph>error</codeph>.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate la chaîne sous forme de numéro de téléphone. S’il est impossible de formater la valeur, une chaîne vide est renvoyée et une description de l’erreur est écrite dans la propriété <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:PhoneFormatter:areaCodeFormat:get"><apiName>areaCodeFormat</apiName><shortdesc>
+      Format par défaut de l’indicatif régional lorsque la propriété areacode est rendue par un format à sept chiffres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) "
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Format par défaut de l’indicatif régional lorsque la propriété <codeph>areacode</codeph> est rendue par un format à sept chiffres.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:areaCode:get"><apiName>areaCode</apiName><shortdesc>
+      Indicatif régional ajouté à un numéro de téléphone à sept chiffres des Etats-Unis, afin de former un numéro de téléphone à dix chiffres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1  
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indicatif régional ajouté à un numéro de téléphone à sept chiffres des Etats-Unis, afin de former un numéro de téléphone à dix chiffres. La valeur <codeph>-1</codeph> indique que l’indicatif régional ne doit pas être ajouté au début du numéro.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      Chaîne contenant des caractères de modèle représentant un format de numéro de téléphone spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) ###-####"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne contenant des caractères de modèle représentant un format de numéro de téléphone spécifié.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:validPatternChars:get"><apiName>validPatternChars</apiName><shortdesc>
+      Liste des caractères valides pouvant être utilisés dans la propriété formatString.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"+()#- ."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Liste des caractères valides pouvant être utilisés dans la propriété <codeph>formatString</codeph>. Cette propriété est utilisée lors de la validation de la propriété <codeph>formatString</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:IFormatter"><apiName>IFormatter</apiName><shortdesc>
+  Cette interface spécifie la méthode qu’un objet de formateur doit implémenter pour lui permettre d’être utilisée en tant que propriété de formateur pour les contrôles de l’interface utilisateur, tels que l’objet AdvancedDataGridColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface spécifie la méthode qu’un objet de formateur doit implémenter pour lui permettre d’être utilisée en tant que propriété de formateur pour les contrôles de l’interface utilisateur, tels que l’objet <codeph>AdvancedDataGridColumn</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.xml#advancedDataGridClasses/formatter"><linktext>mx.controls.advancedDataGridClasses.formatter</linktext></link></related-links><apiOperation id="mx.formatters:IFormatter:mx.formatters:IFormatter:format"><apiName>format</apiName><shortdesc>
+      Formate une valeur et renvoie un paramètre String contenant la nouvelle valeur formatée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Chaîne formatée.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate une valeur et renvoie un paramètre <codeph>String</codeph> contenant la nouvelle valeur formatée.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+  La classe ZipCodeFormatter formate un nombre valide en utilisant l’un des formats suivants, basés sur une propriété formatString définie par l’utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:ZipCodeFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeFormatter
+    formatString="#####|#####-####|### ###"
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ZipCodeFormatter formate un nombre valide en utilisant l’un des formats suivants, basés sur une propriété <codeph>formatString</codeph> définie par l’utilisateur.
+  
+  <ul>
+    <li>#####-####</li>
+    <li>##### ####</li>
+    <li>#####</li>
+    <li>### ### (Canada)</li>
+  </ul>
+  
+  <p>Un nombre à six chiffres doit être fourni pour un modèle à six chiffres. Si vous utilisez un modèle composé de cinq ou neuf chiffres, vous pouvez utiliser un nombre à cinq ou neuf chiffres pour le formatage.</p>
+ 
+  <p>Si une erreur se produit, une chaîne vide est retournée et une chaîne décrivant l’erreur est enregistrée dans la propriété <codeph>error</codeph>. La propriété <codeph>error</codeph> peut prendre l’une des valeurs suivantes :</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> signifie qu’une valeur numérique non valide a été transmise à la méthode <codeph>format()</codeph>. La valeur doit être un nombre valide sous forme de nombre ou de chaîne (sauf pour les codes postaux canadiens, qui autorisent les valeurs alphanumériques), ou le nombre de chiffres ne correspond pas au nombre de chiffres autorisés par la propriété <codeph>formatString</codeph>.</li>
+    <li> <codeph>"Invalid format"</codeph> signifie qu’au moins un des caractères de la propriété <codeph>formatString</codeph> ne correspond pas aux caractères autorisés spécifiés dans la propriété <codeph>validFormatChars</codeph> ou que le nombre d’espaces réservés numériques est différent de neuf, cinq ou six.</li>
+  </ul>
+  
+  </apiDesc><example conref="ZipCodeFormatterExample.mxml"><swfblock conref="examples/ZipCodeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:ZipCodeFormatter:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:ZipCodeFormatter:format"><apiName>format</apiName><shortdesc>
+	  Formate la chaîne en utilisant le format spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne formatée. Vide si une erreur se produit. Une description de la condition d’erreur est écrite dans la propriété <codeph>error</codeph>.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate la chaîne en utilisant le format spécifié. S’il est impossible de formater la valeur, une chaîne vide est renvoyée et une description de l’erreur est écrite dans la propriété <codeph>error</codeph>.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:ZipCodeFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+	  Modèle de masque.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"#####"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Modèle de masque. Valeurs possibles : <codeph>"#####-####"</codeph>, <codeph>"##### ####"</codeph>, <codeph>"#####"</codeph>, <codeph>"###-###"</codeph> et <codeph>"### ###"</codeph>.
+	  	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:Formatter"><apiName>Formatter</apiName><shortdesc>
+  La classe Formatter est la classe de base de toutes les classes de formatage des données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Formatter class defines the following tag attributes,
+  which all of its subclasses inherit:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    error=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Formatter est la classe de base de toutes les classes de formatage des données. Toutes les sous-classes de la classe Formatter doivent ignorer la méthode <codeph>format()</codeph>.
+ 
+  </apiDesc><example conref="SimpleFormatterExample.mxml"><swfblock conref="examples/SimpleFormatterExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.formatters:Formatter:Formatter"><apiName>Formatter</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:Formatter:format"><apiName>format</apiName><shortdesc>
+	  Formate une valeur et renvoie une chaîne contenant la nouvelle valeur formatée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Chaîne formatée.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Valeur à formater.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate une valeur et renvoie une chaîne contenant la nouvelle valeur formatée. Toutes les sous-classes doivent ignorer cette méthode pour implémenter la classe de formatage.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:Formatter:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+	  Cette méthode est appelée lors de la construction d’une classe Formatter, puis chaque fois que ResourceManager envoie un événement "change" pour indiquer que les ressources localisées ont subi une modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Cette méthode est appelée lors de la construction d’une classe Formatter, puis chaque fois que ResourceManager envoie un événement <codeph>"change"</codeph> pour indiquer que les ressources localisées ont subi une modification.
+	 
+	  <p>Cet événement est distribué lorsque vous définissez la propriété <codeph>localeChain</codeph> de la classe ResourceManager, lorsqu’un module de ressource termine de se charger et lorsque vous appelez la méthode <codeph>update()</codeph> de la classe ResourceManager.</p>
+	 
+	  <p>Les sous-classes doivent remplacer cette méthode et, après avoir appelé la méthode <codeph>super.resourcesChanged()</codeph>, effectuer les tâches appropriées en réponse aux nouvelles valeurs de ressources.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:Formatter:error"><apiName>error</apiName><shortdesc>
+	  Description enregistrée par la classe de formatage lorsqu’une erreur survient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Description enregistrée par la classe de formatage lorsqu’une erreur survient. Pour connaître les valeurs autorisées pour cette propriété, voir la description de chaque classe de formatage.
+	  <p>Les sous-classes doivent définir cette valeur dans la méthode <codeph>format()</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidFormatError:get"><apiName>defaultInvalidFormatError</apiName><shortdesc>
+	  Message d’erreur indiquant qu’une chaîne de format non valide a été transmise à la classe de formatage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid format"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Message d’erreur indiquant qu’une chaîne de format non valide a été transmise à la classe de formatage.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidValueError:get"><apiName>defaultInvalidValueError</apiName><shortdesc>
+	  Messages d’erreur indiquant qu’une valeur non valide a été transmise à la classe de formatage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid value"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Messages d’erreur indiquant qu’une valeur non valide a été transmise à la classe de formatage.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+  La classe NumberBase est une classe d’utilitaires offrant des fonctions générales de formatage des nombres : arrondi, précision, formatage des milliers, formatage du signe négatif.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe NumberBase est une classe d’utilitaires offrant des fonctions générales de formatage des nombres : arrondi, précision, formatage des milliers, formatage du signe négatif. L’implémentation des classes de formatage utilise cette classe.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberBase:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>decimalSeparatorFrom</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorFrom</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>decimalSeparatorTo</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorTo</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberBase:expandExponents"><apiName>expandExponents</apiName><shortdesc>
+      Formate un nombre en exposant en nombre décimal. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Chaîne à traiter en exposant. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Formate un nombre en exposant en nombre décimal. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatDecimal"><apiName>formatDecimal</apiName><shortdesc>
+	  Formate un nombre en remplaçant le séparateur décimal par défaut « . » par le séparateur décimal spécifié par la propriété decimalSeparatorTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Représentation de l’entrée sous forme de chaîne, où « . » est remplacé par le caractère décimal de formatage.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur de chaîne du nombre (format américain ####.##).
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre en remplaçant le séparateur décimal par défaut « . » par le séparateur décimal spécifié par la propriété <codeph>decimalSeparatorTo</codeph>. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatNegative"><apiName>formatNegative</apiName><shortdesc>
+	  Formate un nombre négatif en utilisant soit un signe moins (-), soit des parenthèses ().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur à formater.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>useSign</apiItemName><apiType value="Boolean"/><apiDesc>Si la valeur est <codeph>true</codeph>, un signe moins (-) est utilisé. Si la valeur est <codeph>false</codeph>, des parenthèses sont utilisées.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre négatif en utilisant soit un signe moins (-), soit des parenthèses ().
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatPrecision"><apiName>formatPrecision</apiName><shortdesc>
+	  Formate un nombre en définissant sa précision décimale, en utilisant la propriété decimalSeparatorTo comme séparateur décimal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur à formater.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>Nombre de décimales à utiliser.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre en définissant sa précision décimale, en utilisant la propriété <codeph>decimalSeparatorTo</codeph> comme séparateur décimal.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRoundingWithPrecision"><apiName>formatRoundingWithPrecision</apiName><shortdesc>
+	  Formate un nombre en l’arrondissant et en appliquant la précision décimale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur à arrondir.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>Type d’arrondi à appliquer : NumberBaseRoundType.NONE, NumberBaseRoundType.UP, NumberBaseRoundType.DOWN ou NumberBaseRoundType.NEAREST.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>Nombre entier de décimales à utiliser.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre en l’arrondissant et en appliquant la précision décimale. Les types d’arrondi possibles sont définis par la classe mx.formatters.NumberBaseRoundType.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRounding"><apiName>formatRounding</apiName><shortdesc>
+	  Formate un nombre en l’arrondissant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur à arrondir.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>Type d’arrondi à appliquer : NumberBaseRoundType.NONE, NumberBaseRoundType.UP, NumberBaseRoundType.DOWN ou NumberBaseRoundType.NEAREST.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre en l’arrondissant. Les types d’arrondi possibles sont définis par la classe mx.formatters.NumberBaseRoundType.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatThousands"><apiName>formatThousands</apiName><shortdesc>
+	  Formate un nombre en utilisant la propriété thousandsSeparatorTo comme séparateur des milliers et la propriété decimalSeparatorTo comme séparateur décimal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nombre formaté.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Valeur à formater.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Formate un nombre en utilisant la propriété <codeph>thousandsSeparatorTo</codeph> comme séparateur des milliers et la propriété <codeph>decimalSeparatorTo</codeph> comme séparateur décimal.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:parseNumberString"><apiName>parseNumberString</apiName><shortdesc>
+	  Extrait un nombre d’une chaîne formatée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur entière ou décimale.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Chaîne dans laquelle la valeur numérique doit être recherchée.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Extrait un nombre d’une chaîne formatée. Examine la chaîne de gauche à droite et renvoie la première séquence de nombres. Ignore les séparateurs des milliers et inclut le séparateur décimal et les décimales.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberBase:decimalSeparatorFrom"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de l’analyse d’une chaîne d’entrée.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:decimalSeparatorTo"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Séparateur décimal à utiliser lors de la génération des nombres décimaux formatés.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:isValid"><apiName>isValid</apiName><shortdesc>
+	  Si la valeur est true, le formatage a réussi. La valeur false signifie qu’il a échoué.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Si la valeur est <codeph>true</codeph>, le formatage a réussi. La valeur <codeph>false</codeph> signifie qu’il a échoué.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorFrom"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne d’entrée.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorTo"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Caractère à utiliser comme séparateur des milliers dans la chaîne de sortie.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+  AIREvent 类表示传递给由 Window 和 WindowedApplication 组件分派的多个特定于 AIR 的事件的事件侦听器的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AIREvent 类表示传递给由 Window 和 WindowedApplication 组件分派的多个特定于 AIR 的事件的事件侦听器的事件对象。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:AIREvent:APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AIREvent:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AIREvent:APPLICATION_ACTIVATE"><apiName>APPLICATION_ACTIVATE</apiName><shortdesc>
+      AIREvent.APPLICATION_ACTIVATE 常量可为 applicationActivate 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AIREvent.APPLICATION_ACTIVATE 常量可为 <codeph>applicationActivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:APPLICATION_DEACTIVATE"><apiName>APPLICATION_DEACTIVATE</apiName><shortdesc>
+      AIREvent.APPLICATION_DEACTIVATE 常量可为 applicationDeactivate 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AIREvent.APPLICATION_DEACTIVATE 常量可为 <codeph>applicationDeactivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_ACTIVATE"><apiName>WINDOW_ACTIVATE</apiName><shortdesc>
+      AIREvent.WINDOW_ACTIVATE 常量可为 windowActivate 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AIREvent.WINDOW_ACTIVATE 常量可为 <codeph>windowActivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_COMPLETE"><apiName>WINDOW_COMPLETE</apiName><shortdesc>
+      AIREvent.WINDOW_COMPLETE 常量可为 windowComplete 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AIREvent.WINDOW_COMPLETE 常量可为 <codeph>windowComplete</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_DEACTIVATE"><apiName>WINDOW_DEACTIVATE</apiName><shortdesc>
+      AIREvent.WINDOW_DEACTIVATE 常量可为 windowDeactivate 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AIREvent.WINDOW_DEACTIVATE 常量可为 <codeph>windowDeactivate</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+  当作为 Window 或 WindowedApplication 组件基础的 NativeWindow 的大小或位置发生更改时分派 FlexNativeWindowBoundsEvent 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:NativeWindowBoundsEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  当作为 Window 或 WindowedApplication 组件基础的 NativeWindow 的大小或位置发生更改时分派 FlexNativeWindowBoundsEvent 事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeWindowBoundsEvent:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>beforeBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>调整大小之前的窗口范围。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>afterBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>调整大小之前的窗口范围。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE"><apiName>WINDOW_MOVE</apiName><shortdesc>
+      FlexNativeWindowBoundsEvent.WINDOW_MOVE 常量可为 windowMove 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FlexNativeWindowBoundsEvent.WINDOW_MOVE 常量可为 <codeph>windowMove</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>范围更改之后的窗口范围。</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>范围更改之前的窗口范围。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_MOVE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE"><apiName>WINDOW_RESIZE</apiName><shortdesc>
+      FlexNativeWindowBoundsEvent.WINDOW_RESIZE 常量可为 windowResize 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowResize</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FlexNativeWindowBoundsEvent.WINDOW_RESIZE 常量可为 <codeph>windowResize</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>范围更改之后的窗口范围。</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>范围更改之前的窗口范围。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_RESIZE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+  FileEvent 类表示特定于 FileSystemList、FileSystemDataGrid、FileSystemTree 和 FileSystemComboBox 控件的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileEvent 类表示特定于 FileSystemList、FileSystemDataGrid、FileSystemTree 和 FileSystemComboBox 控件的事件对象。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemComboBox"><linktext>mx.controls.FileSystemComboBox</linktext></link><link href="mx.controls.xml#FileSystemDataGrid"><linktext>mx.controls.FileSystemDataGrid</linktext></link><link href="mx.controls.xml#FileSystemList"><linktext>mx.controls.FileSystemList</linktext></link><link href="mx.controls.xml#FileSystemTree"><linktext>mx.controls.FileSystemTree</linktext></link></related-links><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGING_directoryChanging"><apiName>directoryChanging</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CLOSING_directoryClosing"><apiName>directoryClosing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CLOSING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_OPENING_directoryOpening"><apiName>directoryOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:FILE_CHOOSE_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FileEvent:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>file</apiItemName><apiType value="flash.filesystem:File"/><apiData>null</apiData><apiDesc>与此事件相关联的 File 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGE"><apiName>DIRECTORY_CHANGE</apiName><shortdesc>
+      FileEvent.DIRECTORY_CHANGE 常量可为 directoryChange 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FileEvent.DIRECTORY_CHANGE 常量可为 <codeph>directoryChange</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGING"><apiName>DIRECTORY_CHANGING</apiName><shortdesc>
+      FileEvent.DIRECTORY_CHANGING 常量可为 directoryChanging 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChanging</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FileEvent.DIRECTORY_CHANGING 常量可为 <codeph>directoryChanging</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CLOSING"><apiName>DIRECTORY_CLOSING</apiName><shortdesc>
+      FileEvent.DIRECTORY_CLOSING 常量可为 directoryClosing 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryClosing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FileEvent.DIRECTORY_CLOSING 常量可为 <codeph>directoryClosing</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CLOSING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_OPENING"><apiName>DIRECTORY_OPENING</apiName><shortdesc>
+      FileEvent.DIRECTORY_OPENING 常量可为 directoryOpening 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FileEvent.DIRECTORY_OPENING 常量可为 <codeph>directoryOpening</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_OPENING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:FILE_CHOOSE"><apiName>FILE_CHOOSE</apiName><shortdesc>
+      FileEvent.FILE_CHOOSE 常量可为 fileChoose 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fileChoose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FileEvent.FILE_CHOOSE 常量可为 <codeph>fileChoose</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>file</codeph></entry><entry>与此事件相关联的 File 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.FILE_CHOOSE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:file"><apiName>file</apiName><shortdesc>
+      与此事件相关联的 File 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc>
+      与此事件相关联的 File 实例。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+  FlexNativeMenuEvent 类代表与 FlexNativeMenu 中菜单活动相关联的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexNativeMenuEvent 类代表与 FlexNativeMenu 中菜单活动相关联的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FlexNativeMenu"><linktext>mx.controls.FlexNativeMenu</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeMenuEvent:ITEM_CLICK_itemClick"><apiName>itemClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeMenuEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeMenuEvent:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenu</apiItemName><apiType value="flash.display:NativeMenu"/><apiData>null</apiData><apiDesc>与事件相关联的特定 NativeMenu 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenuItem</apiItemName><apiType value="flash.display:NativeMenuItem"/><apiData>null</apiData><apiDesc>与事件相关联的特定 NativeMenuItem 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>关联菜单项的 dataProvider 中的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>关联菜单项的标签文本。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>关联菜单项在菜单中的索引。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。通常由 FlexNativeMenu 对象调用。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeMenuEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+      FlexNativeMenuEvent.ITEM_CLICK 事件类型常量指示用户已选择菜单项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FlexNativeMenuEvent.ITEM_CLICK 事件类型常量指示用户已选择菜单项。
+     
+      <p>此事件类型的事件对象属性包含以下值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>选定菜单项在菜单中的索引。</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>dataProvider 中选定的项目。</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>选定菜单项的标签文本。</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>与此事件关联的特定 NativeMenu 实例。</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>与此事件关联的特定 NativeMenuItem 实例。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.ITEM_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+      FlexNativeMenuEvent.MENU_SHOW 类型常量指示鼠标指针已滑过菜单或子菜单已打开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FlexNativeMenuEvent.MENU_SHOW 类型常量指示鼠标指针已滑过菜单或子菜单已打开。
+     
+      <p>此事件类型的事件对象属性包含以下值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>-1。对于这种类型的事件未设置此属性。</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>null。对于这种类型的事件未设置此属性。</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>null。对于这种类型的事件未设置此属性。</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>与此事件关联的特定 NativeMenu 实例。</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>null。对于这种类型的事件未设置此属性。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.MENU_SHOW</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:index"><apiName>index</apiName><shortdesc>
+      相关联菜单项在其父菜单或子菜单中的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      相关联菜单项在其父菜单或子菜单中的索引。对于与单个项目不相关的事件，此属性为 -1。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:item"><apiName>item</apiName><shortdesc>
+      dataProvider 中的特定项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      dataProvider 中的特定项目。对于与单个项目不相关的事件，此属性为 null。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:label"><apiName>label</apiName><shortdesc>
+      关联菜单项的标签文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      关联菜单项的标签文本。对于与单个项目不相关的事件，此属性为 null。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenuItem"><apiName>nativeMenuItem</apiName><shortdesc>
+      与事件关联的特定 NativeMenuItem 实例（如单击的项目）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenuItem"/></apiValueDef><apiDesc>
+      与事件关联的特定 NativeMenuItem 实例（如单击的项目）。对于与单个项目不相关的事件，此属性为 null。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenu"><apiName>nativeMenu</apiName><shortdesc>
+      与事件关联的特定 NativeMenu 实例（如显示的菜单）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenu"/></apiValueDef><apiDesc>
+      与事件关联的特定 NativeMenu 实例（如显示的菜单）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

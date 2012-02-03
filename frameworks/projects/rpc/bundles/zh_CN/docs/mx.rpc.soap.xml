@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap"><apiName>mx.rpc.soap</apiName><apiDetail/><apiClassifier id="mx.rpc.soap:Operation"><apiName>Operation</apiName><shortdesc>
+ 专门由 WebServices 使用的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 专门由 WebServices 使用的 Operation。Operation 是服务上的单个方法。可以通过在服务上调用同名函数或在服务上访问作为属性的 Operation 并调用 <codeph>send()</codeph> 方法来调用 Operation。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:Operation_mx.rpc.events.HeaderEvent.HEADER_header"><apiName>header</apiName><shortdesc>
+ 当 Operation 调用返回响应结果中的 SOAP 标头时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.HeaderEvent.HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events.HeaderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当 Operation 调用返回响应结果中的 SOAP 标头时分派。为每个 SOAP 标头调用 HeaderEvent。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>对其调用此 Operation 的 Web 服务。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此操作的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 Operation。当访问未知操作时，该操作通常直接由 MXML 编译器完成或由 WebService 自动完成。建议开发人员不要直接使用此构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:Operation:addHeader"><apiName>addHeader</apiName><shortdesc>
+     添加仅应用于此 Operation 的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>要添加到此 Operation 的 SOAP 标头。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     添加仅应用于此 Operation 的标头。标头可以以预编码形式提供，可以作为 XML 实例，也可以作为 SOAPHeader 实例（将编码留给内部 SOAP 编码器处理）。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     添加仅应用于此 Operation 的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>标头 QName 的 localname
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>标头 QName 的命名空间
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>标头的名称。
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>标头的值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     添加仅应用于此 Operation 的标头。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      取消上次服务调用或具有指定 ID 的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>与被取消的调用关联的 AsyncToken，如果未取消任何调用，则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要取消的调用的 messageId。可选。如果省略，将取消上一次服务调用。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      取消上次服务调用或具有指定 ID 的调用。即使网络操作可能仍在继续，也不分派 result 或 fault 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     清除此单个 Operation 的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     清除此单个 Operation 的标头。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:getHeader"><apiName>getHeader</apiName><shortdesc>
+     如果根据 QName localName 和 URI 找到匹配标头，则返回该标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回 SOAPHeader。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader 的 QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>SOAPHeader 内容中的标头名称（可选）
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     如果根据 QName localName 和 URI 找到匹配标头，则返回该标头。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     从所有操作中删除具有给定 QName 的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader 的 QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>SOAPHeader 内容中的标头名称（可选）
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     从所有操作中删除具有给定 QName 的标头。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:Operation:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     此 Operation 的 WebService 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此 Operation 的 WebService 位置。通常，WSDL 指定服务的位置，但可设置此属性来覆盖该单个 Operation 的位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:forcePartArrays:get"><apiName>forcePartArrays</apiName><shortdesc>
+     确定定义为数组的输出消息部分的单个返回值或空返回值是否应作为包含一个或零个元素的数组返回。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     确定定义为数组的输出消息部分的单个返回值或空返回值是否应作为包含一个或零个元素的数组返回。这适用于文档/文本“wrapped”Web 服务，在采用此方式的服务中，表示“wrapper”序列中各消息部分的一个或多个元素可将 maxOccurs 属性设置为大于 1 的值。这表示：即使响应包含该部分的零个或一个值，相应部分也应被视为一个数组。将 forcePartArrays 设置为 true 将始终为以此方式定义的各部分创建数组，无论返回的值数是多少都是如此。如果将 forcePartArrays 保留为 false，则仅在返回两个或多个元素时才创建数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headerFormat:get"><apiName>headerFormat</apiName><shortdesc>
+     确定如何解码 SOAP 编码的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     确定如何解码 SOAP 编码的标头。值 <codeph>object</codeph> 指定将每个标头 XML 节点解码为一个 SOAPHeader 对象，并且其 <codeph>content</codeph> 属性采用在 WSDL 文档中指定的对象结构。值 <codeph>xml</codeph> 指定 XML 将保留为 XMLNodes。值 <codeph>e4x</codeph> 指定将可使用 ECMAScript for XML (E4X) 表达式访问该 XML。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headers:get"><apiName>headers</apiName><shortdesc>
+     要在每次调用操作时发送的 SOAPHeaders 数组的存取器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     要在每次调用操作时发送的 SOAPHeaders 数组的存取器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     发送到 SOAP 端点的自定义 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     发送到 SOAP 端点的自定义 HTTP 标头。如果需要以相同名称发送多个标头，应将值指定为一个数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:ignoreWhitespace:get"><apiName>ignoreWhitespace</apiName><shortdesc>
+     确定为 SOAP 编码的请求或响应处理 XML 时是否忽略空格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     确定为 SOAP 编码的请求或响应处理 XML 时是否忽略空格。默认值为 <codeph>true</codeph>，即不保留空格。如果 XML Schema 类型定义指定将 <codeph>whiteSpace</codeph> 限制设置为 <codeph>preserve</codeph>，则必须先将 ignoreWhitespace 设置为 false。相反，如果将 <codeph>whiteSpace</codeph> 类型限制设置为 <codeph>replace</codeph> 或 <codeph>collapse</codeph>，则即使 ignoreWhitespace 设置为 false 也保留该设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:multiplePartsFormat:get"><apiName>multiplePartsFormat</apiName><shortdesc>
+     确定调用在输出消息中定义多个部分的 Web 服务的默认结果对象的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     确定调用在输出消息中定义多个部分的 Web 服务的默认结果对象的类型。值“object”指定 lastResult 对象将是具有与各输出部分对应命名属性的 Object。值“array”将使 lastResult 成为一个数组，各部分值按照在 SOAP 消息体中出现的顺序进入数组。文档文本操作的默认值为“object”。RPC 操作的默认值为“array”。仅当 resultFormat 为“object”时 multiplePartsFormat 属性才可用，否则将忽略。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:request:get"><apiName>request</apiName><shortdesc>
+     该 Operation 的请求是对象结构或 XML 结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     该 Operation 的请求是对象结构或 XML 结构。如果指定 XML，则 XML 按原样发送。如果传递一个对象，则该对象将被编码为 SOAP XML 结构。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+     确定如何解码 Operation 结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     确定如何解码 Operation 结果。值 <codeph>object</codeph> 指定将 XML 解码为 WSDL 文档中所指定的对象结构。值 <codeph>xml</codeph> 指定 XML 将保留为 XMLNodes。值 <codeph>e4x</codeph> 指定将可使用 ECMAScript for XML (E4X) 表达式访问该 XML。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultHeaders:get"><apiName>resultHeaders</apiName><shortdesc>
+     上次执行此操作过程中返回的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     上次执行此操作过程中返回的标头。它们与 <codeph>lastResult</codeph> 属性相匹配并且与作为 HeaderEvents 单独分派的标头集合相同。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      指定用于在对任何简单内容编码之前转义 XML 特殊字符的自定义函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      指定用于在对任何简单内容编码之前转义 XML 特殊字符的自定义函数。除非专门在操作级上进行了覆盖，否则对 Web 服务上的所有操作有效。如果未提供函数，则默认为由 IXMLEncoder 的特定实现设置的相应内容。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+  AbstractWebService 是提供对基于 SOAP 的 Web 服务的 RPC 访问的实现的抽象基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractWebService 是提供对基于 SOAP 的 Web 服务的 RPC 访问的实现的抽象基类。此类在运行时不加载 WSDL 说明。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:AbstractWebService:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+     创建一个新的 WebService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>目标。该值应与 services-config.xml 文件中的目标名称匹配。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService 在计算相对 URL 时应使用的 URL。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 WebService。目标（如果已指定）应与 services-config.xml 中的条目匹配。如果未指定，WebService 使用 DefaultHTTP 目标。如果打算使用相对 URL 查找此 WebService 的 WSDL 文档，则 <codeph>rootURL</codeph> 是必需的。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:AbstractWebService:addHeader"><apiName>addHeader</apiName><shortdesc>
+     添加将应用于此 Web 服务所有操作的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>要添加到所有操作的 SOAP 标头。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     添加将应用于此 Web 服务所有操作的标头。标头可以以预编码形式提供，可以作为 XML 实例，也可以作为 SOAPHeader 实例（将编码留给内部 SOAP 编码器处理）。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     添加将应用于此 WebService 所有操作的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>标头 QName 的 localname。
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>标头 QName 的命名空间。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>标头的名称。
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>标头的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     添加将应用于此 WebService 所有操作的标头。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     清除应用于所有操作的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     清除应用于所有操作的标头。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:getHeader"><apiName>getHeader</apiName><shortdesc>
+     如果根据 QName、localName 和 URI 找到匹配项，则返回标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果根据 QName、localName 和 URI 找到匹配项，则返回标头。
+     
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader 的 QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>（可选）SOAPHeader 内容中标头的名称。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     如果根据 QName、localName 和 URI 找到匹配项，则返回标头。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     从所有操作中删除具有给定 QName 的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAPHeader 的 QName。
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>（可选）SOAPHeader 内容中标头的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     从所有操作中删除具有给定 QName 的标头。
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     在访问 webservice 时对用户进行身份验证的用户名和密码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的用户名。
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的密码。
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对远程凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     在访问 webservice 时对用户进行身份验证的用户名和密码。这些将作为 HTTP 身份验证标头的一部分从代理传递到端点。如果 useProxy 为 false，将忽略此属性。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+     通过代理调用 WebService 时，对 HTTPS 连接要使用的默认目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     通过代理调用 WebService 时，对 HTTPS 连接要使用的默认目标。如果不提供目标，并将 <codeph>useProxy</codeph> 属性设置为 <codeph>true</codeph>，则将使用默认目标将请求路由至 WebSerive 端点。 
+     
+     <p>注意，如果使用默认目标，则必须在客户端上指定 WSDL 和 endpointURI。如果使用非默认的代理目标，则可以在目标配置中指定 WSDL 和 endpointURI。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+     通过代理调用 WebService 时，对 HTTP 连接要使用的默认目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     通过代理调用 WebService 时，对 HTTP 连接要使用的默认目标。如果不提供目标，并将 <codeph>useProxy</codeph> 属性设置为 <codeph>true</codeph>，则将使用默认目标将请求路由至 WebSerive 端点。 
+     
+     <p>注意，如果使用默认目标，则必须在客户端上指定 WSDL 和 endpointURI。如果使用非默认的代理目标，则可以在目标配置中指定 WSDL 和 endpointURI。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装用传递给每个 webservice 操作调用的参数进行调用的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装用传递给每个 webservice 操作调用的参数进行调用的函数。该函数接受一个参数数组，并返回可能改变的数组。该函数定义应该如下所示：<codeph> function myParametersFunction(parameters:Array):Array </codeph>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装一个挂钩，以便在通知结果处理程序之前处理操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装一个挂钩，以便在通知结果处理程序之前处理操作的结果。该函数定义应该如下所示：<codeph> function myConvertResultsFunction(result: operation:AbstractOperation)： </codeph>在 makeObjectsBindable 转换完成之后、创建结果事件之前向其传递结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:description:get"><apiName>description</apiName><shortdesc>
+     当前活动端口的服务描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     当前活动端口的服务描述。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:destination:get"><apiName>destination</apiName><shortdesc>
+     
+     服务的目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     
+     服务的目标。该值应与 services-config.xml 文件中的目标条目匹配。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     WebService 的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     WebService 的位置。通常，WSDL 文档指定服务的位置，但可设置此属性来覆盖该位置。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:headers:get"><apiName>headers</apiName><shortdesc>
+     返回为 WebService 注册的 SOAPHeaders 数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     返回为 WebService 注册的 SOAPHeaders 数组。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     发送到 SOAP 端点的自定义 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     发送到 SOAP 端点的自定义 HTTP 标头。如果需要以相同名称发送多个标头，应将值指定为一个数组。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:port:get"><apiName>port</apiName><shortdesc>
+     指定此 WebService 应使用的 WSDL 文档中的端口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指定此 WebService 应使用的 WSDL 文档中的端口。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:ready:get"><apiName>ready</apiName><shortdesc>
+     指定 WebService 是否准备好发送请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     指定 WebService 是否准备好发送请求。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     WebService 在计算相对 URL 时应使用的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     WebService 在计算相对 URL 时应使用的 URL。此属性仅在使用代理时使用。当 <codeph>useProxy</codeph> 属性设置为 <codeph>to false</codeph> 时，将根据运行此应用程序的 SWF 的位置自动计算相对 URL。如果未明确设置，将把 <codeph>rootURL</codeph> 自动设置为 mx.messaging.config.LoaderConfig.url 的 URL。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:service:get"><apiName>service</apiName><shortdesc>
+     指定此 WebService 应使用的 WSDL 文档中的服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     指定此 WebService 应使用的 WSDL 文档中的服务。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+     指定是否使用 Flex 代理服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+     指定是否使用 Flex 代理服务。默认值为 <codeph>false</codeph>。如果没有对通过 Flex 服务器的代理请求指定 <codeph>true</codeph>，则必须确保 Flash Player 可以到达目标 URL。如果 <codeph>useProxy</codeph> 属性设置为 <codeph>false</codeph>，则也不可以使用 services-config.xml 文件中定义的目标。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      用于在对任何简单内容编码之前转义 XML 特殊字符的自定义函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在对任何简单内容编码之前转义 XML 特殊字符的自定义函数。除非专门在操作级上进行了覆盖，否则对 Web 服务上的所有操作有效。如果未提供函数，则默认函数为由 IXMLEncoder 的特定实现设置的相应内容。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+ mx.rpc.Fault 的子类，提供 SOAP 封套 Fault 元素中的 SOAP 特定信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:Fault</apiBaseClassifier></apiClassifierDef><apiDesc>
+ mx.rpc.Fault 的子类，提供 SOAP 封套 Fault 元素中的 SOAP 特定信息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPFault:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+     构造一个新的 SOAPFault。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="QName"/><apiDesc>错误代码的完全限定名称。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>错误的说明。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>detail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>错误的任何其它详细信息。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>element</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>SOAP 错误的原始 XML。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultactor</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>有关 SOAP 错误来源的信息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造一个新的 SOAPFault。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:SOAPFault:toString"><apiName>toString</apiName><shortdesc>
+     返回 String“SOAPFault”以及 faultCode、faultString 和 faultDetail。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>返回 String“SOAPFault”以及 faultCode、faultString 和 faultDetail。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回 String“SOAPFault”以及 faultCode、faultString 和 faultDetail。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:SOAPFault:element"><apiName>element</apiName><shortdesc>
+     此 SOAP Fault 的原始 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     此 SOAP Fault 的原始 XML。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultactor"><apiName>faultactor</apiName><shortdesc>
+     SOAP Fault 可通过 faultactor 属性提供关于导致该错误的源的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     SOAP Fault 可通过 faultactor 属性提供关于导致该错误的源的信息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultcode"><apiName>faultcode</apiName><shortdesc>
+     faultcode 属性与 faultCode 类似，其存在是为了既与 SOAP Fault 中的 faultcode 元素的大小写相匹配又可以提供代码的完全限定名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     faultcode 属性与 faultCode 类似，其存在是为了既与 SOAP Fault 中的 faultcode 元素的大小写相匹配又可以提供代码的完全限定名称。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:detail:get"><apiName>detail</apiName><shortdesc>
+     detail 属性与 faultDetail 相同，其存在是为了与 SOAP Fault 中的 detail 元素的大小写相匹配。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     detail 属性与 faultDetail 相同，其存在是为了与 SOAP Fault 中的 detail 元素的大小写相匹配。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultstring:get"><apiName>faultstring</apiName><shortdesc>
+     faultstring 属性与 faultString 相同，其存在是为了与 SOAP 封套 Fault 中的 faultstring 元素的大小写相匹配。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     faultstring 属性与 faultString 相同，其存在是为了与 SOAP 封套 Fault 中的 faultstring 元素的大小写相匹配。
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultString"><linktext>mx.rpc.Fault.faultString</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:WebService"><apiName>WebService</apiName><shortdesc>
+ WebService 类提供对远程服务器上基于 SOAP 的 Web 服务的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc.soap:AbstractWebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WebService 类提供对远程服务器上基于 SOAP 的 Web 服务的访问。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:WebService_mx.rpc.soap.LoadEvent.LOAD_load"><apiName>load</apiName><shortdesc>
+ 当已成功加载 WSDL 文档时分派 LoadEvent.LOAD。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap.LoadEvent.LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.soap.LoadEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当已成功加载 WSDL 文档时分派 <codeph>LoadEvent.LOAD</codeph>。
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     创建一个新的 WebService。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService 的目标，应与 services-config.xml 文件中的目标名称匹配。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WebService 的根 URL。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 WebService。目标（如果已指定）应与 services-config.xml 中的条目匹配。如果未指定，WebService 使用 DefaultHTTP 目标。如果打算使用相对 URL 查找此 WebService 的 WSDL 文档，则 <codeph>rootURL</codeph> 是必不可少的。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:WebService:canLoadWSDL"><apiName>canLoadWSDL</apiName><shortdesc>
+     返回一个布尔值，指示 WebService 是否准备好加载 WSDL（是否指定了有效的目标或 wsdl）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 WebService 准备好加载 WSDL，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     返回一个布尔值，指示 WebService 是否准备好加载 WSDL（是否指定了有效的目标或 wsdl）。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     返回给定名称的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>为此名称执行的操作。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>操作的名称。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定名称的操作。如果之前没有创建该操作，则将在此调用过程中创建一个新的 <codeph>mx.rpc.soap.Operation</codeph>。通常只需在服务变量之后命名操作即可访问操作 (<codeph>myService.someOperation</codeph>)，但如果 Operation 的名称恰好与服务上所定义的方法（如 <codeph>setCredentials</codeph>）相匹配，则可以改用此方法来获取 Operation。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:protected:initializeOperation"><apiName>initializeOperation</apiName><shortdesc>
+    初始化一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.soap:Operation</apiOperationClassifier><apiDesc>要初始化的 Operation。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+    初始化一个新的 Operation。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:loadWSDL"><apiName>loadWSDL</apiName><shortdesc>
+     指示 WebService 下载 WSDL 文档。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>如果之前没有指定 wsdl，可以在此指定。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指示 WebService 下载 WSDL 文档。当在 WebService MXML 标签中指定时，WebService 自动调用此方法；但是如果在指定 <codeph>destination</codeph> 或 <codeph>wsdl</codeph> 属性值后在 ActionScript 中创建 WebService 对象，则必须手动调用此方法。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:toString"><apiName>toString</apiName><shortdesc>
+     将 WebService 的实例表示为字符串，描述如目标 id 和所分配的通道集等重要属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回 WebService 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     将 WebService 的实例表示为字符串，描述如目标 id 和所分配的通道集等重要属性。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:wsdl:get"><apiName>wsdl</apiName><shortdesc>
+     此 WebService 的 WSDL 文档的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此 WebService 的 WSDL 文档的位置。如果使用相对 URL，请确保已指定 <codeph>rootURL</codeph> 或者是在 MXML 中创建的 WebService。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+ 当已成功加载 WSDL XML 文档时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:WSDLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 当已成功加载 WSDL XML 文档时分派此事件。   
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:LoadEvent:LOAD_load"><apiName>load</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap:LoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.soap:LoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:LoadEvent:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+     创建一个新的 WSDLLoadEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示触发事件的动作。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>包含 WSDL 文档的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>WSDL 文档的 URL。     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 WSDLLoadEvent。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:LoadEvent:clone"><apiName>clone</apiName><shortdesc>
+     返回此 LoadEvent 的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>返回此 LoadEvent 的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+     返回此 LoadEvent 的副本。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:LoadEvent:toString"><apiName>toString</apiName><shortdesc>
+     返回此 LoadEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>返回此 LoadEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回此 LoadEvent 的字符串表示形式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:LoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+    LOAD 常量为 load 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>load</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    <codeph>LOAD</codeph> 常量为 <codeph>load</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+    
+    <p>事件对象的属性有下列值：</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>WSDL 对象。</entry></row><row><entry><codeph>location</codeph></entry><entry>WSDL 文档的 URI</entry></row></tbody></tgroup></adobetable>
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:LoadEvent:document:get"><apiName>document</apiName><shortdesc>
+     保留此 getter，对作为 flash.xml.XMLDocument 的实例加载的文档提供原有的访问方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.xml:XMLDocument"/><apiDeprecated replacement="xml"/></apiValueDef><apiDesc>
+     保留此 getter，对作为 flash.xml.XMLDocument 的实例加载的文档提供原有的访问方式。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+ 基于 SOAP 的远程过程调用的结果的上下文。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 基于 SOAP 的远程过程调用的结果的上下文。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPResult:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+     创建一个新的 SOAPResult。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     创建一个新的 SOAPResult。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPResult:headers"><apiName>headers</apiName><shortdesc>
+     标头对象的集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     标头对象的集合。SOAPDecoder 可以根据解码器的 headerFormat 设置，使用 SOAPHeader、XML 或 XMLDocument 类型的元素填充此数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:isFault"><apiName>isFault</apiName><shortdesc>
+     用于指明此结果对象是否表示 SOAP Fault 消息的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     用于指明此结果对象是否表示 SOAP Fault 消息的标志。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:result"><apiName>result</apiName><shortdesc>
+     SOAP 结果的主体。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+     SOAP 结果的主体。SOAPDecoder 可以根据解码器的 resultFormat 设置填充该值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+ 使用 SOAPHeader 指定需要添加到 WebService Operation 请求的 SOAP 封套的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 使用 SOAPHeader 指定需要添加到 WebService Operation 请求的 SOAP 封套的标头。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPHeader:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+     构造一个新的 SOAPHeader。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>SOAP 标头的限定名称。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>content</apiItemName><apiType value="Object"/><apiDesc>为标头值发送的内容。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造一个新的 SOAPHeader。SOAP 标头的限定名称和内容是必需的。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPHeader:content"><apiName>content</apiName><shortdesc>
+     为标头值发送的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     为标头值发送的内容。如果为标头提供 XML 或 flash.xml.XMLNode 实例，该实例将直接用作预编码内容并作为子项追加到 soap:header 元素。否则，可以提供 String 或 Number 等形式的值，而基础 SOAP 编码器将尝试根据 SOAPHeader 中提供的 QName（如果不存在类型定义，则最终会采用 xsd:anyType）对该值正确地编码。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:mustUnderstand"><apiName>mustUnderstand</apiName><shortdesc>
+     指定标头是否必须由端点识别。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     指定标头是否必须由端点识别。如果处理了标头但标头必须被识别，则端点应返回 SOAP 错误。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:qname"><apiName>qname</apiName><shortdesc>
+     SOAP 标头的限定名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     SOAP 标头的限定名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:role"><apiName>role</apiName><shortdesc>
+     指定该标头在潜在的处理 SOAP 请求的端点链中角色的 URI。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     指定该标头在潜在的处理 SOAP 请求的端点链中角色的 URI。如果定义，则该值用于指定 SOAP 标头的 <codeph>actor</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

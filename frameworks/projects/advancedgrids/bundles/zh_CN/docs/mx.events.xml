@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AdvancedDataGridEventReason"><apiName>AdvancedDataGridEventReason</apiName><shortdesc>
+  AdvancedDataGridEventReason 类定义当 type 属性为 itemEditEnd 时，用于 AdvancedDataGridEvent 对象的 reason 属性的值的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AdvancedDataGridEventReason 类定义当 <codeph>type</codeph> 属性为 <codeph>itemEditEnd</codeph> 时，用于 AdvancedDataGridEvent 对象的 <codeph>reason</codeph> 属性的值的常量。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#AdvancedDataGridEvent"><linktext>mx.events.AdvancedDataGridEvent</linktext></link></related-links><apiValue id="mx.events:AdvancedDataGridEventReason:CANCELLED"><apiName>CANCELLED</apiName><shortdesc>
+      指定用户取消了编辑，并且不希望保存已编辑的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cancelled</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定用户取消了编辑，并且不希望保存已编辑的数据。即使从 <codeph>itemEditEnd</codeph> 事件的事件侦听器中调用 <codeph>preventDefault()</codeph> 方法，Flex 仍通过调用 <codeph>destroyItemEditor()</codeph> 编辑器关闭编辑器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_COLUMN"><apiName>NEW_COLUMN</apiName><shortdesc>
+      指定用户已将焦点移到同一行中的新列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newColumn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定用户已将焦点移到同一行中的新列。在事件侦听器中，可以更改焦点，或者阻止更改焦点。例如，事件侦听器可以检查用户是否为当前编辑的项目输入了有效值。如果输入值无效，可以通过调用 <codeph>preventDefault()</codeph> 方法阻止用户移动到新的项目。在这种情况下，项目编辑器保持打开状态，用户继续编辑当前的项目。如果调用 <codeph>preventDefault()</codeph> 方法并调用 <codeph>destroyItemEditor()</codeph> 方法，则会阻止移动到新的项目，但是项目编辑器关闭。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_ROW"><apiName>NEW_ROW</apiName><shortdesc>
+      指定用户已将焦点移到新行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定用户已将焦点移到新行。处理此原因的方式与处理 <codeph>NEW_COLUMN</codeph> 非常相似。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:OTHER"><apiName>OTHER</apiName><shortdesc>
+      指定 list 控件失去焦点、已滚动，或者由于某种原因处于不允许编辑的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>other</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定 list 控件失去焦点、已滚动，或者由于某种原因处于不允许编辑的状态。即使从 <codeph>itemEditEnd</codeph> 事件的事件侦听器中调用 <codeph>preventDefault()</codeph> 方法，Flex 仍通过调用 <codeph>destroyItemEditor()</codeph> 编辑器关闭编辑器。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+   AdvancedDataGridEvent 类表示特定于 AdvancedDataGrid 控件的事件对象，例如可编辑网格项获得焦点时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+   AdvancedDataGridEvent 类表示特定于 AdvancedDataGrid 控件的事件对象，例如可编辑网格项获得焦点时分派的事件。
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>mx.events.AdvancedDataGridEventReason</linktext></link></related-links><adobeApiEvent id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH_columnStretch"><apiName>columnStretch</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:COLUMN_STRETCH</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE_headerDragOutside"><apiName>headerDragOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE_headerDropOutside"><apiName>headerDropOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE_headerRelease"><apiName>headerRelease</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_RELEASE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE_itemClose"><apiName>itemClose</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_CLOSE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING_itemEditBeginning"><apiName>itemEditBeginning</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN_itemEditBegin"><apiName>itemEditBegin</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END_itemEditEnd"><apiName>itemEditEnd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_END</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN_itemFocusIn"><apiName>itemFocusIn</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT_itemFocusOut"><apiName>itemFocusOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPENING_itemOpening"><apiName>itemOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPENING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPEN_itemOpen"><apiName>itemOpen</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPEN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:SORT_sort"><apiName>sort</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:SORT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AdvancedDataGridEvent:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+           </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+           </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>发生事件的列的索引（从零开始）。
+           </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc> 与列关联的数据中的字段或属性的名称。
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>数据提供者中项目的索引（从零开始）。
+           </apiDesc></apiParam><apiParam><apiItemName>reason</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>发生 <codeph>itemEditEnd</codeph> 事件的原因。
+           </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>正在编辑的项呈示器或单击的标题呈示器。
+           </apiDesc></apiParam><apiParam><apiItemName>localX</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>重播 <codeph>columnStretch</codeph> 事件的 x 列的位置。
+           </apiDesc></apiParam><apiParam><apiItemName>multiColumnSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定一种多列排序。
+           </apiDesc></apiParam><apiParam><apiItemName>removeColumnFromSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定从多列排序中移除此列。
+           </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指定 <codeph>node</codeph> 属性。
+           </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>MouseEvent 或 KeyboardEvent 可触发此事件；如果通过编程方式触发此事件，则返回 <codeph>null</codeph>。
+           </apiDesc></apiParam><apiParam><apiItemName>headerPart</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH"><apiName>COLUMN_STRETCH</apiName><shortdesc>
+      AdvancedDataGridEvent.COLUMN_STRETCH 常量可为 columnStretch 事件定义事件对象的 type 属性的值，指示用户已将列水平展开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columnStretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.COLUMN_STRETCH 常量可为 <codeph>columnStretch</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示用户已将列水平展开。
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>null</entry></row><row><entry><codeph>localX</codeph></entry><entry>鼠标的 x 位置。</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.COLUMN_STRETCH</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE"><apiName>HEADER_DRAG_OUTSIDE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE 常量可为 headerDragOutside 事件定义事件对象的 type 属性的值，指示用户已在列标题上按下和释放鼠标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDragOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE 常量可为 <codeph>headerDragOutside</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示用户已在列标题上按下和释放鼠标。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>要释放的标题呈示器。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE"><apiName>HEADER_DROP_OUTSIDE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_DROP_OUTSIDE 常量可为 headerDropOutside 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDropOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_DROP_OUTSIDE 常量可为 <codeph>headerDropOutside</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>要释放的标题呈示器。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE"><apiName>HEADER_RELEASE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_RELEASE 常量定义 headerRelease 事件的事件对象的 type 属性值，用于指示用户在列标题上按下和释放鼠标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerRelease</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_RELEASE 常量定义 <codeph>headerRelease</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值，用于指示用户在列标题上按下和释放鼠标。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>要释放的标题呈示器。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>undefined</codeph> - 如果希望在多个列上排序，请使用 <codeph>sort</codeph> 事件。 </entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE"><apiName>ITEM_CLOSE</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_CLOSE 事件类型常量指示 AdvancedDataGrid 分支已关闭或已折叠。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_CLOSE 事件类型常量指示 AdvancedDataGrid 分支已关闭或已折叠。
+           <p>此事件类型的事件对象属性包含以下值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>已关闭的节点的 ListItemRenderer。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_CLOSE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING"><apiName>ITEM_EDIT_BEGINNING</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM__EDIT_BEGINNING 常量可为 itemEditBeginning 事件定义事件对象的 type 属性的值，指示用户已准备好编辑项目，例如，通过在项目上释放鼠标按键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBeginning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM__EDIT_BEGINNING 常量可为 <codeph>itemEditBeginning</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示用户已准备好编辑项目，例如，通过在项目上释放鼠标按键。 
+           <p>此事件的默认侦听器将 <codeph>AdvancedDataGrid.editedItemPosition</codeph> 属性设置为具有焦点的项目，这可启动项目编辑会话。</p>
+           <p>您通常可以为此事件编写自己的事件侦听器，以禁止编辑特定项目。在为此事件自己编写的事件侦听器内调用 <codeph>preventDefault()</codeph> 方法可以阻止默认侦听器执行。</p>
+           <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与项目的列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>要编辑的项目的项呈示器。如果此事件由键盘生成，则此属性为 null，因为要编辑的项目可能未在屏幕范围内显示。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGINNING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN"><apiName>ITEM_EDIT_BEGIN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_EDIT_BEGIN 常量可为 itemEditBegin 事件定义事件对象的 type 属性的值，指示项目已准备就绪，可进行编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBegin</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_EDIT_BEGIN 常量可为 <codeph>itemEditBegin</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示项目已准备就绪，可进行编辑。 
+           <p>此事件的默认侦听器执行下列操作：</p>
+     
+      <ul>
+        <li>通过调用 <codeph>createItemEditor()</codeph> 方法创建项目编辑器对象。</li>
+        <li>将 <codeph>data</codeph> 属性从项目复制到编辑器。默认情况下，项目编辑器对象是 TextInput 控件的实例。您可以使用 list 控件的 <codeph>itemEditor</codeph> 属性指定自定义项目编辑器类。</li>
+             <li>设置 list 控件的 <codeph>itemEditorInstance</codeph> 属性来引用项目编辑器实例。</li>
+      </ul>
+           <p>您可以为此事件编写事件侦听器以修改传递到项目编辑器的数据。例如，您可以修改项目编辑器使用的数据、数据格式或其他信息。</p>
+           <p>您还可以创建事件侦听器以指定用于编辑项目的项目编辑器。例如，您可能有两个不同的项目编辑器。在事件侦听器中，您可以检查要编辑的数据或其他信息，并通过执行以下操作打开相应的项目编辑器：</p>
+     
+      <ol>
+         <li>调用 <codeph>preventDefault()</codeph> 以阻止 Flex 在默认事件侦听器中调用 <codeph>createItemEditor()</codeph> 方法。</li>
+         <li>将 <codeph>itemEditor</codeph> 属性设置为相应编辑器。</li>
+         <li>调用 <codeph>createItemEditor()</codeph> 方法。</li>
+      </ol>
+           <p>事件对象的属性有下列值：</p>
+           <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>所编辑的项目的项呈示器。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGIN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END"><apiName>ITEM_EDIT_END</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_EDIT_END 常量可为 itemEditEnd 事件定义事件对象的 type 属性的值，指示编辑会话结束。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditEnd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_EDIT_END 常量可为 <codeph>itemEditEnd</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示编辑会话结束。  
+           <p>列表组件具有针对此事件的默认处理函数，此程序将数据从项目编辑器复制到 list 控件的数据提供程序。默认事件侦听器执行下列操作：</p>
+     
+      <ul>
+        <li>使用与此事件相关联的 AdvancedDataGridColumn 的 <codeph>editorDataField</codeph> 属性确定包含新数据的项目编辑器的属性，并使用这些新数据更新数据提供程序项目。因为默认项目编辑器是 TextInput 控件，所以 <codeph>editorDataField</codeph> 属性的默认值为 <codeph>"text"</codeph>，以指定 TextInput 的 <codeph>text</codeph> 属性包含新项目数据。</li>
+             <li>调用 <codeph>destroyItemEditor()</codeph> 方法以关闭项目编辑器。</li>
+      </ul>
+           <p>通常，您可以为此事件编写事件侦听器，以执行下列操作：</p>
+      <ul>
+        <li>在事件侦听器中，您可以修改编辑器为列表组件返回的数据。例如，您可以在将数据返回到 list 控件之前重新设置其格式。默认情况下，项目编辑器只可以返回一个值。如果希望返回多个值，必须为 <codeph>itemEditEnd</codeph> 事件编写事件侦听器。</li> 
+             <li>在事件侦听器中，您可以检查项目编辑器中输入的数据。如果数据不正确，可以调用 <codeph>preventDefault()</codeph> 方法阻止 Flex 将新数据传递回 list 控件和关闭编辑器。 </li>
+      </ul>
+           <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与项目的列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>所编辑的项目的项呈示器。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>定义事件原因的常量。该值必须是 <codeph>AdvancedDataGridEventReason</codeph> 类的成员。</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_END</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN"><apiName>ITEM_FOCUS_IN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_IN 常量可为 itemFocusIn 事件定义事件对象的 type 属性的值，指示项目已获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusIn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_IN 常量可为 <codeph>itemFocusIn</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示项目已获得焦点。 
+           <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>所编辑的项目的项目编辑器实例。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_IN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT"><apiName>ITEM_FOCUS_OUT</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_OUT 常量可为 itemFocusOut 事件定义事件对象的 type 属性的值，指示项目已失去焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_OUT 常量可为 <codeph>itemFocusOut</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示项目已失去焦点。 
+           <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>关闭的 AdvancedDataGrid 项目（节点）。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>所编辑的项目的项目编辑器实例。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>数据提供者中项目的索引（从零开始）。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_OUT</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPENING"><apiName>ITEM_OPENING</apiName><shortdesc>
+      在 AdvancedDataGrid 打开或关闭之前立即分派 AdvancedDataGridEvent.ITEM_OPENING 事件类型常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      在 AdvancedDataGrid 打开或关闭之前立即分派 AdvancedDataGridEvent.ITEM_OPENING 事件类型常量。
+           <p>此事件类型的事件对象属性包含以下值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>animate</codeph></entry><entry>是否为打开或关闭操作设计动画效果。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。</entry></row><row><entry><codeph>dispatchEvent</codeph></entry><entry>打开或关闭动画完成后，是否分派 <codeph>ITEM_OPEN</codeph> 或 <codeph>ITEM_CLOSE</codeph> 事件。true</entry></row><row><entry><codeph>item</codeph></entry><entry>打开的 AdvancedDataGrid 节点。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>打开的项目（节点）的 ListItemRenderer。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>opening</codeph></entry><entry>此项目处于打开状态时为 <codeph>true</codeph>；处于关闭状态时为 false。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果项目打开以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPENING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPEN"><apiName>ITEM_OPEN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_OPEN 事件类型常量指示 AdvancedDataGrid 分支已打开或已展开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpen</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_OPEN 事件类型常量指示 AdvancedDataGrid 分支已打开或已展开。
+           <p>此事件类型的事件对象属性包含以下值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>item</codeph></entry><entry>打开的 AdvancedDataGrid 节点。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>打开的项目（节点）的 ListItemRenderer。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果项目（节点）打开以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPEN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:SORT"><apiName>SORT</apiName><shortdesc>
+      AdvancedDataGridEvent.SORT 常量可为 sort 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sort</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.SORT 常量可为 <codeph>sort</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。AdvancedDataGrid 控件基于 <codeph>dataField</codeph> 和 <codeph>multiColumnSort</codeph> 属性的值执行排序。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid 对象的 <codeph>columns</codeph> 数组中项目列的从零开始的索引。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>与列关联的数据中的字段或属性的名称。</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry>如果为 <codeph>true</codeph>，则指示无论已使用的是何种排序方式，新的 <codeph>dataField</codeph> 属性应该同已使用的排序方式一起使用，从而进行多列排序。
+     
+           <p>如果为 <codeph>false</codeph>，则应该删除任何存在的排序，并对新的 <codeph>dataField</codeph> 属性重新进行排序。</p>
+           </entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>如果节点关闭以响应用户操作，则确定此操作为键盘操作还是鼠标操作。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.SORT</entry></row></tbody></tgroup></adobetable>
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:animate"><apiName>animate</apiName><shortdesc>
+      如果为 true，则使打开或关闭操作具有动画效果；仅用于 ITEM_OPENING 类型事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则使打开或关闭操作具有动画效果；仅用于 <codeph>ITEM_OPENING</codeph> 类型事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      AdvancedDataGrid 对象的与此事件相关联的列的 columns Array 中的从零开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      AdvancedDataGrid 对象的与此事件相关联的列的 <codeph>columns</codeph> Array 的从零开始的索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:column"><apiName>column</apiName><shortdesc>
+     导致此事件的列的 AdvancedDataGridColumnGroup 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiValueClassifier></apiValueDef><apiDesc>
+     导致此事件的列的 AdvancedDataGridColumnGroup 实例。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dataField"><apiName>dataField</apiName><shortdesc>
+      与列关联的数据中的字段或属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      与列关联的数据中的字段或属性的名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      是否在完成打开或关闭动画之后分派 ITEM_OPEN 或 ITEM_CLOSE 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      打开或关闭动画完成后，是否分派 <codeph>ITEM_OPEN</codeph> 或 <codeph>ITEM_CLOSE</codeph> 事件。仅用于 <codeph>ITEM_OPENING</codeph> 事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:headerPart"><apiName>headerPart</apiName><shortdesc>
+     如果单击了标题中的 HEADER_RELEASE 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     如果单击了标题中的 HEADER_RELEASE 事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+      正在编辑的项目的项呈示器，或者正在单击或拉伸的标题呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      正在编辑的项目的项呈示器，或者正在单击或拉伸的标题呈示器。您可以使用此属性访问数据提供程序。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:item"><apiName>item</apiName><shortdesc>
+      存储 node 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      存储 <codeph>node</codeph> 属性。如果根据 XML 数据填充 AdvancedDataGrid，请访问 <codeph>node</codeph> 属性的 <codeph>label</codeph> 和 <codeph>data</codeph> 属性，将二者作为 <codeph>event.node.attributes.label</codeph> 和 <codeph>event.node.attributes.data</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:localX"><apiName>localX</apiName><shortdesc>
+      列的 x 位置（以像素为单位）；用于重播列拉伸事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      列的 x 位置（以像素为单位）；用于重播列拉伸事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:multiColumnSort"><apiName>multiColumnSort</apiName><shortdesc>
+      如果为 true，则指示无论已使用的是何种排序方式，新的 dataField 属性应该同已使用的排序方式一起使用，从而进行多列排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则指示无论已使用的是何种排序方式，新的 <codeph>dataField</codeph> 属性应该同已使用的排序方式一起使用，从而进行多列排序。
+           <p>如果为 <codeph>false</codeph>，则应该删除任何存在的排序，并对新的 <codeph>dataField</codeph> 属性重新进行排序。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:opening"><apiName>opening</apiName><shortdesc>
+      指示项目处于打开状态 (true) 还是关闭状态 (false)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示项目处于打开状态 (<codeph>true</codeph>) 还是关闭状态 (<codeph>false</codeph>)。仅用于 <codeph>ITEM_OPENING</codeph> 类型事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:reason"><apiName>reason</apiName><shortdesc>
+      分派 itemEditEnd 事件的原因。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      分派 <codeph>itemEditEnd</codeph> 事件的原因。仅对类型为 <codeph>ITEM_EDIT_END</codeph> 的事件有效。这些可能的值是在 AdvancedDataGridEventReason 类中定义的。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>AdvancedDataGridEventReason</linktext></link></related-links></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:removeColumnFromSort"><apiName>removeColumnFromSort</apiName><shortdesc>
+      如果为 true，则从多列排序中删除列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则从多列排序中删除列。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      数据提供者中项目的索引（从零开始）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      数据提供者中项目的索引（从零开始）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+      触发此事件的事件的 MouseEvent 或 KeyboardEvent 对象；如果此事件以编程方式触发，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+      触发此事件的事件的 MouseEvent 或 KeyboardEvent 对象；如果此事件以编程方式触发，则为 <codeph>null</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+  OLAPCube 用于指示其状态的事件类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPCube 用于指示其状态的事件类。CubeEvent 类代表特定于 OLAPCube 类的事件对象，例如可以查询多维数据集时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPCube"><linktext>mx.olap.OLAPCube</linktext></link></related-links><adobeApiEvent id="mx.events:CubeEvent:CUBE_COMPLETE_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:CUBE_PROGRESS_progress"><apiName>progress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:QUERY_PROGRESS_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:QUERY_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:CubeEvent:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:CubeEvent:CUBE_COMPLETE"><apiName>CUBE_COMPLETE</apiName><shortdesc>
+      CubeEvent.CUBE_COMPLETE 常量可为 complete 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>complete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.CUBE_COMPLETE</codeph> 常量可为 <codeph>complete</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>description</codeph></entry><entry>对正在处理的内容的描述。</entry></row><row><entry><codeph>progress</codeph></entry><entry>多维数据集中已更新的元素数。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>total</codeph></entry><entry>多维数据集中需要更新的元素总数。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:CUBE_PROGRESS"><apiName>CUBE_PROGRESS</apiName><shortdesc>
+      CubeEvent.CUBE_PROGRESS 常量可为 progress 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>progress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.CUBE_PROGRESS</codeph> 常量可为 <codeph>progress</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>description</codeph></entry><entry>对正在处理的内容的描述。</entry></row><row><entry><codeph>progress</codeph></entry><entry>多维数据集中已更新的元素数。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>total</codeph></entry><entry>多维数据集中需要更新的元素总数。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:QUERY_PROGRESS"><apiName>QUERY_PROGRESS</apiName><shortdesc>
+      CubeEvent.QUERY_PROGRESS 常量可为 queryProgress 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>queryProgress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.QUERY_PROGRESS</codeph> 常量可为 <codeph>queryProgress</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>description</codeph></entry><entry>对正在处理的内容的描述。</entry></row><row><entry><codeph>progress</codeph></entry><entry>多维数据集中已更新的元素数。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>total</codeph></entry><entry>多维数据集中需要更新的元素总数。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.QUERY_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:message"><apiName>message</apiName><shortdesc>
+      对正在处理的内容的描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      对正在处理的内容的描述。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:progress"><apiName>progress</apiName><shortdesc>
+      多维数据集中已更新的元素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      多维数据集中已更新的元素数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:total"><apiName>total</apiName><shortdesc>
+      多维数据集中需要更新的元素总数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      多维数据集中需要更新的元素总数。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

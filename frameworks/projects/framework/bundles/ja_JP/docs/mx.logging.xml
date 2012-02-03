@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging"><apiName>mx.logging</apiName><apiDetail/><apiClassifier id="mx.logging:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+  単一のログイベントのログ情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  単一のログイベントのログ情報を表します。 ログシステムにより、処理で情報の記録が要求されるたびに 1 つのイベントが送出されます。 このイベントは、任意のオブジェクトでキャプチャして保存またはフォーマットできます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogEvent:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiData/><apiDesc>ログデータを含むストリングです。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>このログイベントのレベルです。 有効な値は次のとおりです。
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+	 
+        <li><codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+	 
+        <li><codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+	 
+        <li><codeph>LogEventLevel.ALL</codeph> は、ターゲットにすべてのメッセージを処理させることを目的としています。</li>
+      </ul>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogEvent:getLevelString"><apiName>getLevelString</apiName><shortdesc>
+      指定されたレベルを表すストリング値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>英語で指定されたレベルです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="uint"/><apiDesc>ストリングに必要なレベルです。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたレベルを表すストリング値を返します。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogEvent:LOG"><apiName>LOG</apiName><shortdesc>
+      イベント型定数。ログイベントを識別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>log</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      イベント型定数。ログイベントを識別します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:level"><apiName>level</apiName><shortdesc>
+      このログイベントのレベルへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      このログイベントのレベルへのアクセスを提供します。 有効な値は次のとおりです。
+        <ul>
+          <li><codeph>LogEventLogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+     
+          <li><codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+     
+          <li><codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+          <li><codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+     
+          <li><codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:message"><apiName>message</apiName><shortdesc>
+      記録されたメッセージへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      記録されたメッセージへのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+  このクラスは、ターゲット実装の Logging フレームワークに必要な基本機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILoggingTarget</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このクラスは、ターゲット実装の Logging フレームワークに必要な基本機能を提供します。 このクラスはフィルター表現を検証し、デフォルトレベルのプロパティを提供します。 <codeph>logEvent()</codeph> メソッドは実装されていません。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:AbstractTarget:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:AbstractTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      指定されたロガーでこのターゲットを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>このターゲットがリッスンする ILogger です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたロガーでこのターゲットを設定します。 これによって、このターゲットは指定されたロガーからログイベントを受け取ることができます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:initialized"><apiName>initialized</apiName><shortdesc>
+      実装オブジェクトが作成され、タグに指定されたすべてのプロパティが割り当てられた後に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>このオブジェクトを作成した MXML ドキュメントです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ドキュメントがこのオブジェクトを参照するために使用します。 オブジェクトがドキュメントの deep プロパティである場合、ID は null になります。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      実装オブジェクトが作成され、タグに指定されたすべてのプロパティが割り当てられた後に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      このメソッドは、関連するロガーの LogEvent を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>関連するロガーのイベントです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、関連するロガーの <codeph>LogEvent</codeph> を処理します。 ターゲットはこのメソッドを使用して、イベントを送信、保存、または表示用の適切なフォーマットに変換します。 このメソッドは、イベントのレベルがターゲットのレベル範囲内にある場合にのみ呼び出されます。
+     
+      <p><b><i>メモ : このメソッドを有効に利用するには、下位要素でオーバーライドする必要があります。</i></b></p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      このターゲットが、指定されたロガーからイベントを受け取らないようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>このターゲットが無視する ILogger です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このターゲットが、指定されたロガーからイベントを受け取らないようにします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:AbstractTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      level 設定に加え、フィルターを使用して、特定のカテゴリのイベントのみを処理するための擬似階層マッピングを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>level</codeph> 設定に加え、フィルターを使用して、特定のカテゴリのイベントのみを処理するための擬似階層マッピングを提供します。
+      <p>
+      ロガーはそれぞれ、1 つのカテゴリに属します。 慣例では、これらのカテゴリは、ロガーが使用される完全修飾クラス名にマッピングされます。 例えば、<codeph>mx.rpc.soap.WebService</codeph> クラスのメッセージを記録するロガーは <codeph>Log.getLogger()</codeph> メソッドの呼び出しに対するパラメーターとして "mx.rpc.soap.WebService" を使用します。 このカテゴリでメッセージが送信される場合、そのカテゴリに一致するフィルターを持つターゲットのみがイベントの通知を受け取ります。 フィルター表現には、アスタリスクをワイルドカードとして使用した一致を含めることができます。 ワイルドカード文字は、表現の右端に指定する必要があります。 次に例を示します。rpc~~、mx.~~、~~。 無効な表現が指定された場合は、<codeph>InvalidFilterError</codeph> がスローされます。 <codeph>null</codeph> または [] が指定されている場合、フィルターはデフォルトの ["~~"] に設定されます。
+      </p>
+      <p>次に実際の使用例を示します。
+         <pre>
+               var traceLogger:ILoggingTarget = new TraceTarget();
+               traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
+               Log.addTarget(traceLogger);
+         </pre>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:id:get"><apiName>id</apiName><shortdesc>
+       このターゲットの ID へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+       このターゲットの ID へのアクセスを提供します。 id は、mxml タグとして使用される場合は実行時に mxml コンパイラーにより割り当てられます。スクリプトブロック内で使用される場合は、内部的に割り当てられます。
+       
+       </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:level:get"><apiName>level</apiName><shortdesc>
+      このターゲットが現在設定されているレベルへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      このターゲットが現在設定されているレベルへのアクセスを提供します。 有効な値は次のとおりです。
+        <ul>
+          <li><codeph>LogEventLevel.FATAL (1000)</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+     
+          <li><codeph>LogEventLevel.ERROR (8)</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+          <li><codeph>LogEventLevel.WARN (6)</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+     
+          <li><codeph>LogEventLevel.INFO (4)</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+     
+          <li><codeph>LogEventLevel.DEBUG (2)</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+     
+          <li><codeph>LogEventLevel.ALL (0)</codeph> は、ターゲットにすべてのメッセージを処理させることを目的としています。</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:LogEventLevel"><apiName>LogEventLevel</apiName><shortdesc>
+  level プロパティで使用する定数を含む静的クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>level</codeph> プロパティで使用する定数を含む静的クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.logging:LogEventLevel:ALL"><apiName>ALL</apiName><shortdesc>
+      ターゲットがすべてのメッセージを処理することを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      ターゲットがすべてのメッセージを処理することを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:DEBUG"><apiName>DEBUG</apiName><shortdesc>
+      アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:ERROR"><apiName>ERROR</apiName><shortdesc>
+      アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:FATAL"><apiName>FATAL</apiName><shortdesc>
+      非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:INFO"><apiName>INFO</apiName><shortdesc>
+      アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:WARN"><apiName>WARN</apiName><shortdesc>
+      アプリケーション操作に影響のあるイベントを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>6</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      アプリケーション操作に影響のあるイベントを指定します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILoggingTarget"><apiName>ILoggingTarget</apiName><shortdesc>
+  Logging フレームワーク内のすべてのロガーターゲット実装は、このインターフェイスを実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Logging フレームワーク内のすべてのロガーターゲット実装は、このインターフェイスを実装する必要があります。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      指定されたロガーでこのターゲットを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>このターゲットがリッスンする ILogger です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたロガーでこのターゲットを設定します。 これによって、このターゲットは指定されたロガーからログイベントを受け取ることができます。
+      
+      <p><b>メモ：</b>これは、フレームワークから呼び出されるメソッドです。このメソッドを直接呼び出さないでください。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      このターゲットが、指定されたロガーからイベントを受け取らないようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>このターゲットが無視する ILogger です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このターゲットが、指定されたロガーからイベントを受け取らないようにします。
+      
+      <p><b>メモ：</b>これは、フレームワークから呼び出されるメソッドです。このメソッドを直接呼び出さないでください。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      level 設定に加え、フィルターを使用して、特定のカテゴリのイベントのみを処理するための擬似階層マッピングを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>level</codeph> 設定に加え、フィルターを使用して、特定のカテゴリのイベントのみを処理するための擬似階層マッピングを提供します。
+      
+      <p>ロガーはそれぞれ、1 つのカテゴリに属します。 慣例では、これらのカテゴリは、ロガーが使用される完全修飾クラス名にマッピングされます。 例えば、<codeph>mx.rpc.soap.WebService</codeph> クラスのメッセージを記録するロガーは <codeph>"mx.rpc.soap.WebService"</codeph> を <codeph>Log.getLogger()</codeph> 呼び出しに対するパラメーターとして使用します。 このカテゴリでメッセージが送信される場合、そのカテゴリに一致するフィルターを持つターゲットのみがイベントの通知を受け取ります。 フィルター表現には、アスタリスクをワイルドカードとして使用した一致を含めることができます。 ワイルドカード文字は、表現の右端に指定する必要があります。 次に例を示します。rpc~~、mx.~~、~~。 無効な表現が指定された場合は、<codeph>InvalidFilterError</codeph> がスローされます。 フィルター表現では、空白および次の文字を使用することはできません。[]~$^&amp;¥/(){}&lt;>+=`!#%?,:;'"@.</p>
+      
+      </apiDesc><example>
+      <pre>
+      var traceLogger:ILoggingTarget = new TraceTarget();
+      traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
+      Log.addTarget(traceLogger);
+      </pre>
+      
+      </example></apiValueDetail></apiValue><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:level:get"><apiName>level</apiName><shortdesc>
+      このターゲットが現在設定されているレベルへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      このターゲットが現在設定されているレベルへのアクセスを提供します。 有効な値は次のとおりです。
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+     
+        <li><codeph>LogEventLevel.ALL</codeph> は、ターゲットにすべてのメッセージを処理させることを目的としています。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILogger"><apiName>ILogger</apiName><shortdesc>
+  Logging フレームワーク内のすべてのロガーは、このインターフェイスを実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Logging フレームワーク内のすべてのロガーは、このインターフェイスを実装する必要があります。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:debug"><apiName>debug</apiName><shortdesc>
+      LogEventLevel.DEBUG レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>LogEventLevel.DEBUG</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.debug("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:error"><apiName>error</apiName><shortdesc>
+      LogEventLevel.ERROR レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>LogEventLevel.ERROR</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.error("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:fatal"><apiName>fatal</apiName><shortdesc>
+      LogEventLevel.FATAL レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>LogEventLevel.FATAL</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。
+     
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.fatal("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:info"><apiName>info</apiName><shortdesc>
+      LogEvent.INFO レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>LogEvent.INFO</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.info("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:log"><apiName>log</apiName><shortdesc>
+      特定レベルの指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>この情報を記録するレベルです。 有効な値は次のとおりです。
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      特定レベルの指定されたデータを記録します。
+      
+      <p>ロギング対象として指定するストリングでは、ロギング前にストリング内に挿入する追加パラメーターを示すインデックスを中括弧（{ }）で囲んで指定することができます。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.log(LogEventLevel.DEBUG, "here is some channel info {0} and {1}", LogEventLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:warn"><apiName>warn</apiName><shortdesc>
+      LogEventLevel.WARN レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>LogEventLevel.WARN</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。
+          
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.warn("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILogger:mx.logging:ILogger:category:get"><apiName>category</apiName><shortdesc>
+      ロガーのカテゴリ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      ロガーのカテゴリ値です。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:Log"><apiName>Log</apiName><shortdesc>
+  複数の書式オプションおよび出力オプションを有する擬似階層構造のロギング機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  複数の書式オプションおよび出力オプションを有する擬似階層構造のロギング機能を提供します。 ログシステムは、ロガーとターゲットという 2 つの主なコンポーネントで構成されています。 ロガーを使用してターゲットに情報を送信することができます。 ターゲットは、ログデータのフォーマットや一般的な出力を行います。
+  <p>
+  ロガーは、特定のカテゴリの情報用に作成されたシングルトンインスタンスです。 通常、カテゴリは、情報を記録する必要があるコンポーネントのパッケージ名です。 カテゴリにより、ユーザーは興味のあるログ情報を指定できます。複数のカテゴリを選択したり、正規表現で組み合わせることができます。 これにより、広範囲なログ情報と絞り込んだログ情報の両方を取得できます。 例えば、mx.messaging パッケージと mx.rpc パッケージ配下のすべてのログ情報を取得し、これらのパッケージの出力を XML でフォーマットしたいとします。 サブパッケージやコンポーネントを含む、mx.messaging カテゴリ配下のすべてのログ情報を取得するには、mx.messaging.~~ などのワイルドカード表現が必要になります。詳細は、以下のコード例を参照してください。
+  </p>
+  <p>ターゲットは、記録対象のデータの出力メカニズムを提供します。 通常このメカニズムには、フォーマット、転送、保存などがありますが、VM 配下の任意のものを使用できます。 次の 2 種類のターゲットが提供されています。<codeph>MiniDebugTarget</codeph> および <codeph>TraceTarget</codeph>。 これらの各ライターは、現在のログ情報を取得し、表示と保存のうちの一方または両方を行うための場所にそれを送信します。 ターゲットは、出力するログデータも指定します。
+  </p>
+ 
+  </apiDesc><example>
+  <pre>
+  ... 
+  import mx.logging.targets.
+  import mx.logging.
+ 
+  private function initLogging():void {
+      // Create a target.
+      var logTarget:TraceTarget = new TraceTarget();
+ 
+      // Log only messages for the classes in the mx.rpc.and 
+      // mx.messaging packages.
+      logTarget.filters=["mx.rpc.,"mx.messaging.];
+ 
+      // Log all log levels.
+      logTarget.level = LogEventLevel.ALL;
+ 
+      // Add date, time, category, and log level to the output.
+      logTarget.includeDate = true;
+      logTarget.includeTime = true;
+      logTarget.includeCategory = true;
+      logTarget.includeLevel = true;
+ 
+      // Begin logging.
+      Log.addTarget(logTarget);
+  } 
+  ...
+  </pre>
+  
+  </example></apiClassifierDetail><apiOperation id="mx.logging:Log:addTarget"><apiName>addTarget</apiName><shortdesc>
+      指定されたターゲットで、ログイベントの通知の受信を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>ログイベントをキャプチャする特定のターゲットです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたターゲットで、ログイベントの通知の受信を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:flush"><apiName>flush</apiName><shortdesc>
+      このメソッドは、キャッシュから現在のロガーをすべて削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドは、キャッシュから現在のロガーをすべて削除します。 <codeph>getLogger()</codeph> メソッドを引き続き呼び出すと、同じカテゴリの前のインスタンスでなく、ロガーの新しいインスタンスが返されます。 このメソッドは、デバッグ専用に使用します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:getLogger"><apiName>getLogger</apiName><shortdesc>
+      指定されたカテゴリに関連付けられたロガーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定された名前のロガーオブジェクトのインスタンスです。 その名前が存在しない場合、指定された名前を持つ新しいインスタンスが返されます。
+      
+      </apiDesc><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier></apiReturn><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>返す必要があるロガーのカテゴリです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたカテゴリに関連付けられたロガーを返します。 指定されたカテゴリが存在しない場合、ロガーの新しいインスタンスが返され、そのカテゴリと関連付けられます。 カテゴリの長さは 1 文字以上で、空白を含む次の文字は使用できません。[]~$^&amp;¥/(){}&lt;>+=`!#%?,:;'"@指定されたカテゴリの形式が正しくない場合は、このメソッドにより <codeph>InvalidCategoryError</codeph> がスローされます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:hasIllegalCharacters"><apiName>hasIllegalCharacters</apiName><shortdesc>
+      このメソッドにより、指定されたストリング値に無効な文字がないかどうかがチェックされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>無効な文字が検出された場合は <codeph>true</codeph> で、それ以外の場合は <codeph>false</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>無効な文字をチェックするストリングです。 次の文字は有効ではありません。[]~$^&amp;¥/(){}&lt;>+=`!#%?,:;'"@
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドにより、指定されたストリング値に無効な文字がないかどうかがチェックされます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isDebug"><apiName>isDebug</apiName><shortdesc>
+      DEBUG レベルのログイベントをログターゲットにより処理するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>DEBUG レベルのログイベントを記録する場合は true で、それ以外の場合は false です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      DEBUG レベルのログイベントをログターゲットにより処理するかどうかを指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isError"><apiName>isError</apiName><shortdesc>
+      ERROR レベルのログイベントをログターゲットにより処理するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ERROR レベルのログイベントを記録する場合は true で、それ以外の場合は false です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      ERROR レベルのログイベントをログターゲットにより処理するかどうかを指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isFatal"><apiName>isFatal</apiName><shortdesc>
+      FATAL レベルのログイベントをログターゲットにより処理するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>FATAL レベルのログイベントを記録する場合は true で、それ以外の場合は false です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      FATAL レベルのログイベントをログターゲットにより処理するかどうかを指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isInfo"><apiName>isInfo</apiName><shortdesc>
+      INFO レベルのログイベントをログターゲットにより処理するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>INFO レベルのログイベントを記録する場合は true で、それ以外の場合は false です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      INFO レベルのログイベントをログターゲットにより処理するかどうかを指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isWarn"><apiName>isWarn</apiName><shortdesc>
+      WARN レベルのログイベントをログターゲットにより処理するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>WARN レベルのログイベントを記録する場合は true で、それ以外の場合は false です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      WARN レベルのログイベントをログターゲットにより処理するかどうかを指定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:removeTarget"><apiName>removeTarget</apiName><shortdesc>
+      指定されたターゲットで、ログイベントの通知の受信を停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>ログイベントをキャプチャする特定のターゲットです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたターゲットで、ログイベントの通知の受信を停止します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+  Logging フレームワーク内で使用されるロガーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILogger</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Logging フレームワーク内で使用されるロガーです。 このクラスにより、<codeph>log()</codeph> メソッドを使用して記録された各メッセージのイベントが送出されます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogLogger:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>このログがメッセージを送信するカテゴリです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogLogger:debug"><apiName>debug</apiName><shortdesc>
+	  
+      LogEventLevel.DEBUG レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      <codeph>LogEventLevel.DEBUG</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:error"><apiName>error</apiName><shortdesc>
+	  
+      LogEventLevel.ERROR レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      <codeph>LogEventLevel.ERROR</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:fatal"><apiName>fatal</apiName><shortdesc>
+	  
+      LogEventLevel.FATAL レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      <codeph>LogEventLevel.FATAL</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。
+     
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:info"><apiName>info</apiName><shortdesc>
+	  
+      LogEvent.INFO レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      <codeph>LogEvent.INFO</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。
+      
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:log"><apiName>log</apiName><shortdesc>
+	  
+      特定レベルの指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>この情報を記録するレベルです。 有効な値は次のとおりです。
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> は、非常に害があり、最終的にアプリケーション障害を発生させるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> は、アプリケーションの動作を続行できる可能性があるエラーイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> は、アプリケーションの進行状態に関する概要を通知する情報メッセージを指定します。</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> は、アプリケーションのデバッグ時に、詳細で非常に役立つ通知レベルのメッセージを指定します。</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      特定レベルの指定されたデータを記録します。
+      
+      <p>ロギング対象として指定するストリングでは、ロギング前にストリング内に挿入する追加パラメーターを示すインデックスを中括弧（{ }）で囲んで指定することができます。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:warn"><apiName>warn</apiName><shortdesc>
+	  
+      LogEventLevel.WARN レベルで指定されたデータを記録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>記録する情報です。 このストリングには、{x} という形式の特殊なマーカー文字を記述できます。x は 0 から始まるインデックスで、追加パラメーターが指定されている場合は、そのインデックスで検出された追加パラメーターに置き換えられます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>"{<codeph>x</codeph>}" 位置のそれぞれにある str パラメーター内で置換可能な追加パラメーターです。ここで <codeph>x</codeph> は、指定された値の配列の（0 から始まる）整数インデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      <codeph>LogEventLevel.WARN</codeph> レベルで指定されたデータを記録します。<codeph>LogEventLevel.WARN</codeph> は、アプリケーション操作に影響のあるイベントを指定します。
+          
+      <p>ログに指定するストリングには、インデックスを持つ中括弧を含めることができます。このインデックスで、記録する前に挿入する追加パラメーターを示します。 例えば、10 と 15 をパラメーターとして呼び出すと、"the first additional parameter was {0} the second was {1}" は "the first additional parameter was 10 the second was 15" に変換されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogLogger:category:get"><apiName>category</apiName><shortdesc>
+	  このロガーがメッセージを送信するカテゴリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+	  このロガーがメッセージを送信するカテゴリです。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

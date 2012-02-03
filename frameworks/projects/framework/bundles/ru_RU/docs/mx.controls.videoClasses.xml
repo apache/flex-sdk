@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.videoClasses"><apiName>mx.controls.videoClasses</apiName><apiDetail/><apiClassifier id="mx.controls.videoClasses:VideoError"><apiName>VideoError</apiName><shortdesc>
+  Класс VideoError представляет коды ошибок для ошибок, связанных с элементом управления «отображение видео».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс VideoError представляет коды ошибок для ошибок, связанных с элементом управления «отображение видео».
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:VideoError:VideoError"><apiName>VideoError</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>errCode</apiItemName><apiType value="uint"/><apiDesc>Код ошибки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Сообщение об ошибке.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.videoClasses:VideoError:DELETE_DEFAULT_PLAYER"><apiName>DELETE_DEFAULT_PLAYER</apiName><shortdesc>
+      Невозможно удалить VideoPlayer по умолчанию.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Невозможно удалить VideoPlayer по умолчанию.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:ILLEGAL_CUE_POINT"><apiName>ILLEGAL_CUE_POINT</apiName><shortdesc>
+      Недопустимая контрольная точка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Недопустимая контрольная точка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_CONTENT_PATH"><apiName>INVALID_CONTENT_PATH</apiName><shortdesc>
+      Недопустимый путь к содержимому.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Недопустимый путь к содержимому.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_SEEK"><apiName>INVALID_SEEK</apiName><shortdesc>
+      Недействительный поиск.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Недействительный поиск.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:INVALID_XML"><apiName>INVALID_XML</apiName><shortdesc>
+      Недействительный XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Недействительный XML.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_BITRATE_MATCH"><apiName>NO_BITRATE_MATCH</apiName><shortdesc>
+      Отсутствует соответствующая скорость передачи.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Отсутствует соответствующая скорость передачи.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CONNECTION"><apiName>NO_CONNECTION</apiName><shortdesc>
+      Невозможно установить соединение с сервером или найти FLV на сервере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Невозможно установить соединение с сервером или найти FLV на сервере.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:NO_CUE_POINT_MATCH"><apiName>NO_CUE_POINT_MATCH</apiName><shortdesc>
+      Не найдена соответствующая контрольная точка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Не найдена соответствующая контрольная точка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.videoClasses:VideoError:code:get"><apiName>code</apiName><shortdesc>
+      Содержит код ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Содержит код ошибки.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.videoClasses:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+  Класс CuePointManager позволяет использовать код ActionScript для управления контрольными точками, связанными с элементом управления «отображение видео».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CuePointManager позволяет использовать код ActionScript для управления контрольными точками, связанными с элементом управления «отображение видео».  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#VideoDisplay"><linktext>mx.controls.VideoDisplay</linktext></link></related-links><apiConstructor id="mx.controls.videoClasses:CuePointManager:CuePointManager"><apiName>CuePointManager</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="mx.controls.videoClasses:VideoPlayer"/><apiDesc>Экземпляр VideoPlayer, который является вышестоящим для данного CuePointManager.
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Этот параметр игнорируется; он предоставляется только для обратной совместимости.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.videoClasses:CuePointManager:addCuePoint"><apiName>addCuePoint</apiName><shortdesc>
+      Добавляет контрольную точку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если аргументы являются недопустимыми.
+      
+      </apiDesc><apiItemName>VideoError</apiItemName><apiOperationClassifier>mx.controls.videoClasses:VideoError</apiOperationClassifier></apiException><apiReturn><apiDesc>Копия добавленной контрольной точки объекта. Эта копия имеет следующие дополнительные свойства:
+     
+      <ul>
+        <li><codeph>array</codeph> – массив всех контрольных точек. Этот массив следует рассматривать как доступный только для чтения, поскольку добавление, удаление или редактирование объектов в пределах массива может привести к ошибкам, связанным с контрольными точками.</li>
+     
+        <li><codeph>index</codeph> – индекс массива для возвращаемой контрольной точки.</li>
+      </ul>
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>Объект предоставляет описание контрольной точки. Он должен содержать свойства <codeph>name:String</codeph> и <codeph>time:Number</codeph> (в секундах). Если объект не соответствует этим условиям, инициируется ошибка <codeph>VideoError</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет контрольную точку.
+     
+      <p>Существует возможность добавления нескольких контрольных точек с одним и тем же именем и временем. Вызов метода <codeph>removeCuePoint()</codeph> с указанным именем и временем приводит к удалению первой соответствующей контрольной точки. Для удаления всех соответствующих контрольных точек необходимо выполнить дополнительные вызовы метода <codeph>removeCuePoint()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePointByName"><apiName>getCuePointByName</apiName><shortdesc>
+      Поиск контрольной точки с указанным именем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение <codeph>null</codeph>, если соответствие не найдено, или копия соответствующего объекта контрольной точки с дополнительными свойствами:
+     
+      <ul>
+        <li><codeph>array</codeph> – массив найденных контрольных точек. Этот массив следует рассматривать как доступный только для чтения, поскольку добавление, удаление или редактирование объектов в пределах этого массива может привести к ошибкам, связанным с контрольными точками.</li>
+     
+        <li><codeph>index</codeph> – индекс массива для возвращаемой контрольной точки.</li>
+      </ul>
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя контрольной точки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Поиск контрольной точки с указанным именем.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:getCuePoints"><apiName>getCuePoints</apiName><shortdesc>
+      Возвращает массив всех контрольных точек.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив объектов контрольных точек. Каждый объект контрольной точки описывает контрольную точку и содержит свойства <codeph>name:String</codeph> и <codeph>time:Number</codeph> (в секундах).  
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает массив всех контрольных точек.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeAllCuePoints"><apiName>removeAllCuePoints</apiName><shortdesc>
+      Удаляет все контрольные точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Удаляет все контрольные точки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:removeCuePoint"><apiName>removeCuePoint</apiName><shortdesc>
+      Удаляет контрольную точку из загружаемого в настоящее время файла FLV.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, представляющий удаленную контрольную точку. При отсутствии соответствующей контрольной точки возвращается значение <codeph>null</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>cuePoint</apiItemName><apiType value="Object"/><apiDesc>Объект, который должен содержать, по крайней мере, одно из свойств <codeph>name:String</codeph> или <codeph>time:Number</codeph>, удаляет контрольную точку, соответствующую указанным свойствам.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет контрольную точку из загружаемого в настоящее время файла FLV. Для определения контрольной точки, подлежащей удалению, используются только свойства <codeph>name</codeph> и <codeph>time</codeph> аргумента <codeph>cuePoint</codeph>.
+     
+      <p>Если критериям поиска соответствует несколько контрольных точек, удалению подлежит только одна из них. Для удаления всех контрольных точек следует создать цикл для многократного вызова этой функции с одними и теми же аргументами, который выполняется до тех пор, пока возвращаемое значение не будет равно <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.videoClasses:CuePointManager:setCuePoints"><apiName>setCuePoints</apiName><shortdesc>
+     Установите массив контрольных точек.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>cuePointArray</apiItemName><apiType value="Array"/><apiDesc>Массив объектов контрольных точек. Каждый объект контрольной точки описывает контрольную точку. Он должен содержать свойства <codeph>name:String</codeph> и <codeph>time:Number</codeph> (в секундах).  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Установите массив контрольных точек.
+     
+     <p>Существует возможность добавления нескольких контрольных точек с одним и тем же именем и временем. Вызов метода <codeph>removeCuePoint()</codeph> с указанным именем приводит к удалению только первой контрольной точки.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

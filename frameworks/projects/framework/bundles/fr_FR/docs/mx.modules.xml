@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.modules"><apiName>mx.modules</apiName><apiDetail/><apiClassifier id="mx.modules:ModuleManager"><apiName>ModuleManager</apiName><shortdesc>
+  La classe ModuleManager gère de manière centrale les modules chargés dynamiquement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ModuleManager gère de manière centrale les modules chargés dynamiquement. Elle maintient un mappage d’URL sur des modules. Un module peut exister dans un état dans lequel il est déjà chargé (et prêt à être utilisé) ou dans un état pas-encore-chargé. La classe ModuleManager distribue des événements qui indiquent l’état du module. Les clients peuvent enregistrer des gestionnaires d’événements, puis appeler la méthode <codeph>load()</codeph>, qui distribue des événements lorsque la fabrique est prête (ou immédiatement, si elle était déjà chargée).
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.modules:ModuleManager:getAssociatedFactory"><apiName>getAssociatedFactory</apiName><shortdesc>
+      Voyez si l’objet référencé est associé à une implémentation IFlexModuleFactory connue (ou s’il se trouve dans la classe ApplicationDomain gérée d’une telle implémentation).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie l’implémentation IFlexModuleFactory ou <codeph>null</codeph> si le type d’objet ne peut pas être créé via la fabrique.
+      
+      </apiDesc><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>Objet que la classe ModuleManager tente de créer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Voyez si l’objet référencé est associé à une implémentation IFlexModuleFactory connue (ou s’il se trouve dans la classe ApplicationDomain gérée d’une telle implémentation).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:ModuleManager:getModule"><apiName>getModule</apiName><shortdesc>
+      Obtient l’interface IModuleInfo associée à une URL particulière.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Interface IModuleInfo associée à une URL particulière.
+      
+      </apiDesc><apiOperationClassifier>mx.modules:IModuleInfo</apiOperationClassifier></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL représentant l’emplacement du module.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient l’interface IModuleInfo associée à une URL particulière. Il n’est pas nécessaire que cette URL soit chargée avec succès, mais la classe ModuleManager retourne un descripteur IModuleInfo unique pour chaque URL unique.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.modules:IModule"><apiName>IModule</apiName><shortdesc>
+      Interface qui marque une classe comme étant un module. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+      Interface qui marque une classe comme étant un module. 
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:ModuleBase"><apiName>ModuleBase</apiName><shortdesc>
+  Classe de base des modules ActionScript pouvant être chargés dynamiquement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base des modules ActionScript pouvant être chargés dynamiquement. Si vous écrivez un module ActionScript uniquement, développez cette classe. Si vous écrivez un module MXML à l’aide de la balise <codeph>&lt;mx:Module></codeph> dans un fichier MXML, vous développez à la place la classe Module
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:IModuleInfo"><apiName>IModuleInfo</apiName><shortdesc>
+  Interface agissant en tant que descripteur pour un module spécifique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Interface agissant en tant que descripteur pour un module spécifique. Depuis cette interface, le statut de module peut être interrogé, sa fabrique interne peut être obtenue et il peut être chargé ou déchargé.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  Distribué par les informations ModuleInfo de support lorsque les données de module sont déchargées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué par les informations ModuleInfo de support lorsque les données de module sont déchargées.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  Distribué par les informations ModuleInfo de support une fois que le module est suffisamment chargé pour appeler les méthodes IModuleInfo.factory() et IFlexModuleFactory.info().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué par les informations ModuleInfo de support une fois que le module est suffisamment chargé pour appeler les méthodes <codeph>IModuleInfo.factory()</codeph> et <codeph>IFlexModuleFactory.info()</codeph>.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  Distribué par les informations ModuleInfo de support une fois que le module est suffisamment chargé pour appeler les méthodes IModuleInfo.factory() et IFlexModuleFactory.create().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué par les informations ModuleInfo de support une fois que le module est suffisamment chargé pour appeler les méthodes <codeph>IModuleInfo.factory()</codeph> et <codeph>IFlexModuleFactory.create()</codeph>.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  Distribué par les informations ModuleInfo de supports à intervalles réguliers pendant que le module est en train d’être chargé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué par les informations ModuleInfo de supports à intervalles réguliers pendant que le module est en train d’être chargé.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  Distribué par les informations ModuleInfo de supports si une erreur s’est produite lors du chargement du module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué par les informations ModuleInfo de supports si une erreur s’est produite lors du chargement du module.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:load"><apiName>load</apiName><shortdesc>
+      Demande que le module soit chargé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Domaine d’application actuel dans lequel votre code s’exécute.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>« sandbox » de sécurité actuel.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>Objet ByteArray. L’objet ByteArray est supposé contenir les octets d’un fichier SWF représentant un module compilé. L’objet ByteArray peut être obtenu via l’utilisation de la classe URLLoader. Si ce paramètre est spécifié, le module est chargé depuis l’objet ByteArray. Si ce paramètre est nul, le module est chargé depuis l’URL spécifiée dans la propriété url.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiData>null</apiData><apiDesc>moduleFactory de l’appelant. Une utilisation de la propriété moduleFactory consiste à déterminer le gestionnaire de style parent du module chargé. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Demande que le module soit chargé. Si le module est déjà chargé, l’appel ne fait rien. Dans le cas contraire, le module commence à se charger et distribue des événements <codeph>progress</codeph> tout au long du chargement.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:publish"><apiName>publish</apiName><shortdesc>
+      Publie une interface dans la classe ModuleManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>factory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>Classe qui implémente l’interface IFlexModuleFactory du module.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Publie une interface dans la classe ModuleManager. Cela permet des abonnements tardifs (ou découplés) à des fabriques avec un descripteur de chaîne. Utilisez une URL qui commence par <codeph>publish://</codeph> pour référencer les fabriques publiées de cette manière.
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:release"><apiName>release</apiName><shortdesc>
+      Publie la référence au module actuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Publie la référence au module actuelle. Cela ne décharge pas le module, sauf s’il n’existe aucune autre référence ouverte au module et que la classe ModuleManager est configurée de manière à ne comporter qu’un nombre limité de modules chargés.
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:unload"><apiName>unload</apiName><shortdesc>
+      Décharge le module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Décharge le module. Flash Player et AIR ne déchargeront pas et ne nettoieront pas entièrement ce module s’il existe des références à des définitions en attente dans le module.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:data:get"><apiName>data</apiName><shortdesc>
+      Données utilisateur pouvant être associées au singleton IModuleInfo pour une URL donnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Données utilisateur pouvant être associées au singleton IModuleInfo pour une URL donnée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:error:get"><apiName>error</apiName><shortdesc>
+      Balise ayant la valeur true si une erreur s’est produite lors du chargement du module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Balise ayant la valeur <codeph>true</codeph> si une erreur s’est produite lors du chargement du module.
+      
+      <p>Cette balise comporte la valeur <codeph>true</codeph> lorsque la classe ModuleManager distribue l’événement <codeph>ModuleEvent.ERROR</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:factory:get"><apiName>factory</apiName><shortdesc>
+      Implémentation IFlexModuleFactory définie dans le module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      Implémentation IFlexModuleFactory définie dans le module. Cela est uniquement non-<codeph>null</codeph> une fois que l’événement <codeph>ModuleEvent.SETUP</codeph> a été distribué (ou que la méthode <codeph>IModuleInfo.setup()</codeph> renvoie <codeph>true</codeph>). A ce stade, la méthode <codeph>IFlexModuleFactory.info()</codeph> peut être appelée. Une fois qu’un événement <codeph>ModuleEvent.READY</codeph> est distribué (ou que la méthode <codeph>IModuleInfo.ready()</codeph> renvoie <codeph>true</codeph>), il est possible d’appeler la méthode <codeph>IFlexModuleFactory.create()</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:loaded:get"><apiName>loaded</apiName><shortdesc>
+      Balise comportant la valeur true si la méthode load() a été appelée sur ce module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Balise comportant la valeur <codeph>true</codeph> si la méthode <codeph>load()</codeph> a été appelée sur ce module.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:ready:get"><apiName>ready</apiName><shortdesc>
+      Balise comportant la valeur true si le module est suffisamment chargé pour obtenir un descripteur de son implémentation IFlexModuleFactory associée et appeler sa méthode create().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Balise comportant la valeur <codeph>true</codeph> si le module est suffisamment chargé pour obtenir un descripteur de son implémentation IFlexModuleFactory associée et appeler sa méthode <codeph>create()</codeph>.
+      
+      <p>Cette balise comporte la valeur <codeph>true</codeph> lorsque la classe ModuleManager distribue l’événement <codeph>ModuleEvent.READY</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:setup:get"><apiName>setup</apiName><shortdesc>
+      Balise comportant la valeur true si le module est suffisamment chargé pour obtenir un descripteur de son implémentation IFlexModuleFactory associée et appeler sa méthode info().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Balise comportant la valeur <codeph>true</codeph> si le module est suffisamment chargé pour obtenir un descripteur de son implémentation IFlexModuleFactory associée et appeler sa méthode <codeph>info()</codeph>.
+      
+      <p>Cette balise comporte la valeur <codeph>true</codeph> lorsque la classe ModuleManager distribue l’événement <codeph>ModuleEvent.SETUP</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:url:get"><apiName>url</apiName><shortdesc>
+      URL associée à ce module (par exemple, « MyImageModule.swf ». ou « http://somedomain.com/modules/MyImageModule.swf ».).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      URL associée à ce module (par exemple, « MyImageModule.swf ». ou « http://somedomain.com/modules/MyImageModule.swf ».). L’URL peut être locale ou distante, mais si elle est distante, vous devez établir une confiance entre le domaine du module et l’application qui le charge.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

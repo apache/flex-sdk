@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.containers.accordionClasses"><apiName>mx.containers.accordionClasses</apiName><apiDetail/><apiClassifier id="mx.containers.accordionClasses:AccordionHeader"><apiName>AccordionHeader</apiName><shortdesc>
+  Die AccordionHeader-Klasse definiert das Aussehen der Navigationsschaltflächen eines Akkordeons.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AccordionHeader-Klasse definiert das Aussehen der Navigationsschaltflächen eines Akkordeons. Sie verwenden die <codeph>getHeaderAt()</codeph>-Methode der Accordion-Klasse, um einen Verweis auf ein einzelnes AccordionHeader-Objekt abzurufen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.containers.xml#Accordion"><linktext>mx.containers.Accordion</linktext></link></related-links><apiConstructor id="mx.containers.accordionClasses:AccordionHeader:AccordionHeader"><apiName>AccordionHeader</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.containers.accordionClasses:AccordionHeader:data:get"><apiName>data</apiName><shortdesc>
+	  Speichert einen Verweis auf den Inhalt, der mit dem Header verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Speichert einen Verweis auf den Inhalt, der mit dem Header verknüpft ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

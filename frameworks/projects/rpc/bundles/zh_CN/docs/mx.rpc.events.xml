@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.events"><apiName>mx.rpc.events</apiName><apiDetail/><apiClassifier id="mx.rpc.events:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+ 该事件指示 RPC 操作（如 WebService SOAP 请求）在响应中返回了标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 该事件指示 RPC 操作（如 WebService SOAP 请求）在响应中返回了标头。将为每个服务标头分派一个新标头事件。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:HeaderEvent:HEADER_header"><apiName>header</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:HeaderEvent:HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events:HeaderEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:HeaderEvent:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+     创建一个新的 HeaderEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。默认为 <codeph>true</codeph>，但是 <codeph>preventDefault()</codeph> 方法不起作用。
+     </apiDesc></apiParam><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>保存调用标头的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>表示方法调用的 AsyncToken。用于异步完成标记模式。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>标头的源 Message。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 HeaderEvent。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:HeaderEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+     用于创建不冒泡且可取消的新 HeaderEvent 的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回不冒泡且可取消的新 HeaderEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:HeaderEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>保存调用标头的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiDesc>表示方法调用的 AsyncToken。用于异步完成标记模式。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>源消息标头。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     用于创建不冒泡且可取消的新 HeaderEvent 的实用程序方法。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:HeaderEvent:toString"><apiName>toString</apiName><shortdesc>
+     返回 HeaderEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>HeaderEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回 HeaderEvent 的字符串表示形式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:HeaderEvent:HEADER"><apiName>HEADER</apiName><shortdesc>
+    HEADER 事件类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>header</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    HEADER 事件类型。
+    
+    <p>事件对象的属性有下列值：</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+           
+        
+        
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry>表示方法调用的标记。用于异步完成标记模式。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true，但 preventDefault() 方法无效。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>header</codeph></entry><entry>RPC 调用在响应中返回的标头。 
+        </entry></row><row><entry><codeph>message</codeph></entry><entry>与此事件相关联的 Message。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:HeaderEvent:header:get"><apiName>header</apiName><shortdesc>
+     RPC 调用在响应中返回的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     RPC 调用在响应中返回的标头。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+ XMLLoadEvent 类是 RPC 服务成功加载 XML 文档时所分派事件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ XMLLoadEvent 类是 RPC 服务成功加载 XML 文档时所分派事件的基类。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:XMLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:XMLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:XMLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:XMLLoadEvent:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示触发事件的动作。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>加载的 XML 文档。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>用于加载文档的路径。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:XMLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      返回此 XMLLoadEvent 对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 XMLLoadEvent 对象的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      返回此 XMLLoadEvent 对象的副本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:XMLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回此 XMLLoadEvent 对象的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 XMLLoadEvent 对象的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回此 XMLLoadEvent 对象的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:XMLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     LOAD 常量定义 xmlLoad 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xmlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     LOAD 常量定义 <codeph>xmlLoad</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+     
+     <p>事件对象的属性有下列值：</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>location</codeph></entry><entry>从中加载文档的位置。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>xml</codeph></entry><entry>原始 XML 文档。</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:location"><apiName>location</apiName><shortdesc>
+     从中加载文档的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     从中加载文档的位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:xml"><apiName>xml</apiName><shortdesc>
+     原始 XML 文档。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     原始 XML 文档。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+ RPC 调用产生错误时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RPC 调用产生错误时分派此事件。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:FaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:FaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:FaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:FaultEvent:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+     创建一个新的 FaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示触发事件的动作。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiData>null</apiData><apiDesc>保存错误详细信息（包括 faultCode 和 faultString）的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>表示方法调用的标记。用于异步完成标记模式。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>错误的源 Message。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 FaultEvent。fault 是必选参数，call 和 message 是可选参数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:FaultEvent:createEventFromMessageFault"><apiName>createEventFromMessageFault</apiName><shortdesc>
+      如果给定一个 MessageFaultEvent，则此方法构造并返回一个 FaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回一个 FaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier><apiDesc>从中提取相应错误信息的 MessageFaultEvent 引用。
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>与此错误关联的 AsyncToken [可选]。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果给定一个 MessageFaultEvent，则此方法构造并返回一个 FaultEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      如果给定一个 Fault，则此方法构造并返回一个 FaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回一个 FaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiDesc>包含 FaultEvent 详细信息的错误。
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>与此错误关联的 AsyncToken [可选]。
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>与此错误关联的 Message [可选]。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果给定一个 Fault，则此方法构造并返回一个 FaultEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回 FaultEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>FaultEvent 的字符串表示形式。
+       
+       </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 FaultEvent 的字符串表示形式。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:FaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+    FAULT 事件类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    FAULT 事件类型。
+    
+    <p>事件对象的属性有下列值：</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+           
+        
+        
+           
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true，通过关联标记的 responder.fault 方法调用 preventDefault() 将防止服务或操作分派此事件。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>fault</codeph></entry><entry>包含导致此事件原因的详细信息的 Fault 对象。</entry></row><row><entry><codeph>message</codeph></entry><entry>与此事件相关联的 Message。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>token</codeph></entry><entry>表示方法调用的标记。用于异步完成标记模式。</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:fault:get"><apiName>fault</apiName><shortdesc>
+     包含导致此事件原因的详细信息的 Fault 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:Fault</apiValueClassifier></apiValueDef><apiDesc>
+     包含导致此事件原因的详细信息的 Fault 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     在某些情况下，标头也可能与错误一起返回以提供失败的更多上下文。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     在某些情况下，标头也可能与错误一起返回以提供失败的更多上下文。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     如果通过 HTTP 发送源消息，则此属性提供对 HTTP 响应状态代码（如果可用）的访问，否则值为 0。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     如果通过 HTTP 发送源消息，则此属性提供对 HTTP 响应状态代码（如果可用）的访问，否则值为 0。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:AbstractEvent"><apiName>AbstractEvent</apiName><shortdesc>
+ RPC 服务分派的事件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RPC 服务分派的事件的基类。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.events:AbstractEvent:token:get"><apiName>token</apiName><shortdesc>
+     表示方法调用的标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+     表示方法调用的标记。用于异步完成标记模式。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+ 该事件指示 RPC 操作已成功返回结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 该事件指示 RPC 操作已成功返回结果。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:ResultEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:ResultEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:ResultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:ResultEvent:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+     创建一个新的 ResultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示触发事件的动作。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>保存调用实际结果的对象。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>表示方法调用的标记。用于异步完成标记模式。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>结果的源 Message。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 ResultEvent。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:ResultEvent:toString"><apiName>toString</apiName><shortdesc>
+     返回 ResultEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ResultEvent 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回 ResultEvent 的字符串表示形式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:ResultEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+    RESULT 事件类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    RESULT 事件类型。
+    
+    <p>事件对象的属性有下列值：</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true，通过关联标记的 responder.result 方法调用 preventDefault() 将防止服务或操作分派此事件。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>message</codeph></entry><entry> 与此事件相关联的 Message。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>result</codeph></entry><entry>RPC 调用返回的结果。</entry></row><row><entry><codeph>token</codeph></entry><entry>表示对方法单独调用的标记。用于异步完成标记模式。</entry></row></tbody></tgroup></adobetable>
+        
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     在某些情况下，返回标头时还会附带一个结果，以便提供更详细的上下文。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     在某些情况下，返回标头时还会附带一个结果，以便提供更详细的上下文。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:result:get"><apiName>result</apiName><shortdesc>
+     RPC 调用返回的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     RPC 调用返回的结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     如果通过 HTTP 发送源消息，则此属性提供对 HTTP 响应状态代码（如果可用）的访问，否则值为 0。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     如果通过 HTTP 发送源消息，则此属性提供对 HTTP 响应状态代码（如果可用）的访问，否则值为 0。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+ 该事件指示已调用 RPC 操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 该事件指示已调用 RPC 操作。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:InvokeEvent:INVOKE_invoke"><apiName>invoke</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:InvokeEvent:INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events:InvokeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:InvokeEvent:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+     创建一个新的 InvokeEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示触发事件的动作。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>表示方法调用的标记。用于异步完成标记模式。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>请求的源 Message。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 InvokeEvent。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:InvokeEvent:toString"><apiName>toString</apiName><shortdesc>
+    返回 InvokeEvent 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>InvokeEvent 的字符串表示形式。
+     
+     </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+    返回 InvokeEvent 的字符串表示形式。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:InvokeEvent:INVOKE"><apiName>INVOKE</apiName><shortdesc>
+     INVOKE 事件类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invoke</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     INVOKE 事件类型。
+     
+     <p>事件对象的属性有下列值：</p>
+     <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry> 表示对方法单独调用的标记。用于异步完成标记模式。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>message</codeph></entry><entry> 与此事件关联的请求 Message。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+ WSDLLoadEvent 类代表成功加载 WSDL XML 文档时所分派事件的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:XMLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WSDLLoadEvent 类代表成功加载 WSDL XML 文档时所分派事件的事件对象。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:WSDLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:WSDLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:WSDLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:WSDLLoadEvent:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>完整的 WSDL 文档。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>用于加载文档的路径。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:WSDLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      返回此 WSDLLoadEvent 对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 WSDLLoadEvent 对象的副本。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      返回此 WSDLLoadEvent 对象的副本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:WSDLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      返回此 WSDLLoadEvent 对象的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>此 WSDLLoadEvent 对象的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回此 WSDLLoadEvent 对象的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:WSDLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     LOAD 常量定义 wsdlLoad 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>wsdlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     LOAD 常量定义 <codeph>wsdlLoad</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+     
+     <p>事件对象的属性有下列值：</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>location</codeph></entry><entry>用于加载文档的路径。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>完整的 WSDL 文档。</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:WSDLLoadEvent:wsdl"><apiName>wsdl</apiName><shortdesc>
+     完整的 WSDL 文档。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.rpc.wsdl:WSDL"/></apiValueDef><apiDesc>
+     完整的 WSDL 文档。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

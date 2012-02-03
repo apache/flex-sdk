@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.codec"><apiName>mx.graphics.codec</apiName><apiDetail/><apiClassifier id="mx.graphics.codec:IImageEncoder"><apiName>IImageEncoder</apiName><shortdesc>
+  IImageEncoder 接口用于定义接口，图像编码器可以通过实现此接口来获取 BitmapData 对象或包含原始 ARGB 像素的 ByteArray 对象，并在输入时将它们转换为常见的图像格式，如 PNG 或 JPEG。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IImageEncoder 接口用于定义接口，图像编码器可以通过实现此接口来获取 BitmapData 对象或包含原始 ARGB 像素的 ByteArray 对象，并在输入时将它们转换为常见的图像格式，如 PNG 或 JPEG。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.codec.xml#PNGEncoder"><linktext>PNGEncoder</linktext></link><link href="mx.graphics.codec.xml#JPEGEncoder"><linktext>JPEGEncoder</linktext></link></related-links><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      将包含 32 位 ARGB （Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象编码为包含编码的图像数据的 ByteArray 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含已编码的图像数据的 ByteArray 对象。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>包含原始像素的 ByteArray 输入对象。此 ByteArray 应包含 <codeph>4 width height</codeph> 字节。每个像素都由 4 个字节表示，顺序依次为 ARGB。前四个字节表示图像左上角的像素。接下来的四个字节表示其右侧的像素，依此类推。每一行与前一行之间没有任何填充。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>输入图像的宽度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>输入图像的高度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果为 <codeph>false</codeph>，则将忽略 Alpha 通道信息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将包含 32 位 ARGB （Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象编码为包含编码的图像数据的 ByteArray 对象。原始的 ByteArray 将保持不变。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encode"><apiName>encode</apiName><shortdesc>
+      将 BitmapData 对象编码为 ByteArray。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含已编码的图像数据的 ByteArray 对象。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>BitmapData 输入对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 BitmapData 对象编码为 ByteArray。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      此编码器生成的图像格式的 MIME 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此编码器生成的图像格式的 MIME 类型。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+  JPEGEncoder 类使用联合图像专家组 (JPEG) 压缩将原始的位图图像转换为编码图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  JPEGEncoder 类使用联合图像专家组 (JPEG) 压缩将原始的位图图像转换为编码图像。有关 JPEG 算法的信息，请参阅 Cristi Cuturicu 撰写的 http://www.opennet.ru/docs/formats/jpeg.txt 文档。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:JPEGEncoder:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>quality</apiItemName><apiType value="Number"/><apiData>50.0</apiData><apiDesc>一个介于 0.0 和 100.0 之间的值。<codeph>quality</codeph> 值越小，生成的图像文件越小。此值不会影响编码的速度。请注意，尽管此值是介于 0.0 和 100.0 之间的数字，但它并不代表百分比。默认值为 50.0。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:JPEGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      将包含 32 位 ARGB（Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象转换为新的 JPEG 编码的 ByteArray 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含按 JPEG 格式编码的图像数据的 ByteArray 对象。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>包含原始像素的 ByteArray 输入对象。此 ByteArray 应包含 <codeph>4 width height</codeph> 字节。每个像素都由 4 个字节表示，顺序依次为 ARGB。前四个字节表示图像左上角的像素。接下来的四个字节表示其右侧的像素，依此类推。每一行与前一行之间没有任何填充。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>输入图像的宽度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>输入图像的高度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果为 <codeph>false</codeph>，则将忽略 Alpha 通道信息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将包含 32 位 ARGB（Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象转换为新的 JPEG 编码的 ByteArray 对象。原始的 ByteArray 将保持不变。不支持透明度；但是您仍然必须使用 ARGB 格式以四个字节表示每个像素。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:JPEGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      将 BitmapData 对象的像素转换为 JPEG 编码的 ByteArray 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含按 JPEG 格式编码的图像数据的 ByteArray 对象。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>BitmapData 输入对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 BitmapData 对象的像素转换为 JPEG 编码的 ByteArray 对象。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:JPEGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      JPEG 编码的图像的 MIME 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      JPEG 编码的图像的 MIME 类型。此值为 <codeph>"image/jpeg"</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+  PNGEncoder 类使用便携网络图形 (PNG) 无损压缩将原始位图图像转换为编码图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PNGEncoder 类使用便携网络图形 (PNG) 无损压缩将原始位图图像转换为编码图像。
+ 
+  <p>有关 PNG 规范，请参见 http://www.w3.org/TR/PNG/</p>。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:PNGEncoder:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:PNGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      将包含 32 位 ARGB（Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象转换为新的 PNG 编码的 ByteArray 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含以 PNG 格式编码的图像数据的 ByteArray 对象。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>包含原始像素的 ByteArray 输入对象。此 ByteArray 应包含 <codeph>4 width height</codeph> 字节。每个像素都由 4 个字节表示，顺序依次为 ARGB。前四个字节表示图像左上角的像素。接下来的四个字节表示其右侧的像素，依此类推。每一行与前一行之间没有任何填充。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>输入图像的宽度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>输入图像的高度（以像素为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果为 <codeph>false</codeph>，则将忽略 Alpha 通道信息，但是您仍必须使用 ARGB 格式以四个字节表示每个像素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将包含 32 位 ARGB（Alpha、红、绿、蓝）格式原始像素的 ByteArray 对象转换为新的 PNG 编码的 ByteArray 对象。原始的 ByteArray 将保持不变。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:PNGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      将 BitmapData 对象的像素转换为 PNG 编码的 ByteArray 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回包含以 PNG 格式编码的图像数据的 ByteArray 对象。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>BitmapData 输入对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 BitmapData 对象的像素转换为 PNG 编码的 ByteArray 对象。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:PNGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      PNG 编码的图像的 MIME 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      PNG 编码的图像的 MIME 类型。此值为 <codeph>"image/png"</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

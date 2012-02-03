@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.errors"><apiName>mx.logging.errors</apiName><apiDetail/><apiClassifier id="mx.logging.errors:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+  Cette erreur est renvoyée lorsqu’une catégorie spécifiée pour un journal contient des caractères non valides ou lorsque sa syntaxe n’est pas correcte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette erreur est renvoyée lorsqu’une catégorie spécifiée pour un journal contient des caractères non valides ou lorsque sa syntaxe n’est pas correcte. Cette erreur est renvoyée par la méthode suivante :
+  <ul>
+    <li><codeph>Log.getLogger()</codeph> lorsque la syntaxe d’une catégorie spécifiée n’est pas correcte.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidCategoryError:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Message décrivant cette erreur.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidCategoryError:toString"><apiName>toString</apiName><shortdesc>
+	  Renvoie le message sous forme de chaîne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Message.
+	  
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  Renvoie le message sous forme de chaîne.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging.errors:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+  Cette erreur est renvoyée lorsqu’une catégorie spécifiée pour un journal contient des caractères non valides ou lorsque sa syntaxe n’est pas correcte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette erreur est renvoyée lorsqu’une catégorie spécifiée pour un journal contient des caractères non valides ou lorsque sa syntaxe n’est pas correcte. Cette erreur est renvoyée par les propriétés/méthodes suivantes :
+  <ul>
+    <li><codeph>ILoggerTarget.filters</codeph> lorsque la syntaxe d’une expression de filtrage de cette liste n’est pas correcte.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidFilterError:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Message décrivant cette erreur.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidFilterError:toString"><apiName>toString</apiName><shortdesc>
+	  Renvoie le message sous forme de chaîne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Message.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  Renvoie le message sous forme de chaîne.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

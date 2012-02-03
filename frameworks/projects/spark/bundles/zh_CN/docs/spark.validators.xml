@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators"><apiName>spark.validators</apiName><apiDetail/><apiClassifier id="spark.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  CurrencyValidator 类确保字符串根据区域设置约定表示有效的货币金额。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CurrencyValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+ <pre>
+  &lt;s:CurrencyValidator
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale specified string or customized by user</i>."
+    currencyStringError="Currency name is repeated or not correct."
+    currencySymbol="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormat="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormatError="The negative format of the input currency is incorrect."
+    positiveCurrencyFormat="<i>locale specified string or customized by user</i>."
+    positiveCurrencyFormatError="The positive format of the input currency is incorrect."
+  /&gt;
+  </pre>
+ 
+    
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>CurrencyValidator</codeph> 类确保字符串根据区域设置约定表示有效的货币金额。该类使用 <codeph>locale</codeph> 样式以指定区域设置 ID。
+ 
+  <p>验证程序可以确保货币字符串属于给定范围（由 <codeph>minValue</codeph> 和 <codeph>maxValue</codeph> 属性指定），是一个整数（由 <codeph>domain</codeph> 属性指定），是一个非负数（由 <codeph>allowNegative</codeph> 属性指定），正确指定负数和正数，具有正确的货币 ISO 代码或货币符号，以及不超过 <codeph>fractionalDigits</codeph> 的指定数字。验证程序通过使用 <codeph>flash.globalization.CurrencyFormatter</codeph> 类设置默认属性值，因此区域设置特定的值由操作系统提供。</p>
+ 
+  <p><codeph>flash.globalization.CurrencyFormatter</codeph> 类使用基础操作系统来提供区域设置特定的数据。如果操作系统未提供货币格式，该类将提供回退功能。</p>
+ 
+  </apiDesc><example conref="CurrencyValidatorExample1.mxml"><swfblock conref="examples/CurrencyValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links><apiConstructor id="spark.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      构造新的 CurrencyValidator 对象以根据给定区域设置的约定验证表示货币金额的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 <codeph>CurrencyValidator</codeph> 对象以根据给定区域设置的约定验证表示货币金额的数字。
+      <p>
+      此类的区域设置由区域设置<codeph/>样式属性提供。可以使用下列方法来设置区域设置<codeph/>样式：
+      </p>
+      <ul>
+      <li>
+      调用 <codeph>UIComponent</codeph> 的 <codeph>addStyleClient</codeph> 方法，从 <codeph>UIComponent</codeph> 继承样式。
+      </li>
+      <li>
+      在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:CurrencyValidator id="cv" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      使用 MXML 声明并在赋值列表中指定区域设置值。
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:CurrencyValidator id="cv_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      调用 setStyle 方法，例如：<codeph>cv.setStyle("locale", "tr-TR")</codeph>
+      </li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>         
+      <p>与货币字符串格式相关的属性会基于区域设置设置为默认值。</p>
+     
+      <p><b>注意：</b>在使用回退区域设置时，货币属性将设置为 en_US 区域设置的默认值，这可能会与验证过程所预期的货币不匹配。在验证货币金额前，最好先检查 <codeph>currencySymbol</codeph> 和 <codeph>currencyISOCode</codeph> 属性值。
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link></related-links></apiConstructor><apiOperation id="spark.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>ValidationResult</codeph> 对象的数组，验证程序检查的每个字段都有一个 <codeph>ValidationResult</codeph> 对象。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的货币数字字符串。除 ascii 减号外，该数字字符串还可以使用 unicode 减号 0x2212、0xFE63、0xFF0D。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.number，则 <codeph>baseField</codeph> 值为“number”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。调用者必须检查在返回的数组中的 <codeph>ValidationResult</codeph> 对象以获取验证状态。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links></apiOperation><apiValue id="spark.validators:CurrencyValidator:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      正在使用的区域设置的三字母 ISO 4217 币种代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      正在使用的区域设置的三字母 ISO 4217 币种代码。
+     
+      <p>该属性用于使用 <codeph>validate()</codeph> 方法验证在输入货币金额中显示的货币字符串或符号。
+      </p>
+     
+      <p>此属性由构造函数基于所使用的实际区域设置进行初始化。当使用回退区域设置时，此属性反映回退区域设置的首选币种代码、默认币种代码。</p>
+     
+      <p>默认值取决于实际区域设置和<codeph>操作系统</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/validate()"><linktext>validate()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:currencyStringError:get"><apiName>currencyStringError</apiName><shortdesc>
+      当货币符号或货币 ISO 代码重复或位于不正确的位置时将显示的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Currency name is repeated or not correct."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当货币符号或货币 ISO 代码重复或位于不正确的位置时将显示的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      正在使用的区域设置的货币符号或字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      正在使用的区域设置的货币符号或字符串。
+     
+      <p>在使用 <codeph>validate()</codeph> 方法验证货币金额时该属性用作货币符号。验证字符串中的货币符号或货币名称必须匹配 <codeph>currencySymbol</codeph> 属性的值或 <codeph>currencyISOCode</codeph> 属性的值。 </p>
+     
+      <p>此属性由构造函数基于所使用的实际区域设置进行初始化。当使用回退区域设置时，此属性反映回退区域设置的首选货币符号、默认货币符号。</p>
+     
+      <p>默认值取决于实际区域设置和<codeph>操作系统</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/setCurrency()"><linktext>setCurrency()</linktext></link><link href="spark.validators.xml#CurrencyValidator/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormatError:get"><apiName>negativeCurrencyFormatError</apiName><shortdesc>
+      当所输入的货币字符串的负数格式不正确时将显示的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当所输入的货币字符串的负数格式不正确时将显示的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+       数值，用于指示负数货币金额的验证模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 15 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+       数值，用于指示负数货币金额的验证模式。该属性定义货币符号和负号或圆括号相对于货币金额的数字部分的位置。该属性用于验证所输入的货币字符串是否符合负数金额的模式。
+     
+       <p>此属性的值必须是在下表中定义的常量之一。
+      </p>
+     
+      <ul>
+       <li>“¤”符号表示 currencyISOCode 或 currencySymbol 在货币字符串中的位置。
+       </li>
+       <li>“-”字符表示 negativeNumberSymbol 的位置。</li>
+       <li>“n”字符表示货币金额。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>负值货币格式类型</entry>
+                <entry>格式化图案</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormatError:get"><apiName>positiveCurrencyFormatError</apiName><shortdesc>
+      当货币金额的正数格式不正确时将显示的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The positive format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当货币金额的正数格式不正确时将显示的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+        数值，用于指示正数货币金额的验证模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 3 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+        数值，用于指示正数货币金额的验证模式。此属性定义货币符号相对于货币金额数值部分的位置。该属性用于验证所输入的货币字符串是否符合正数金额的模式。
+     
+       <p>此属性的值必须是在下表中定义的常量之一。
+      </p>
+     
+      <ul>
+       <li>“¤”符号表示 <codeph>currencyISOCode</codeph> 或 <codeph>currencySymbol</codeph> 在货币字符串中的位置。</li>
+       <li>“n”字符表示 <codeph>currencyISOCode</codeph> 或 <codeph>currencySymbol</codeph> 在货币字符串中的位置。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>正值货币格式类型</entry>
+                <entry>格式化图案</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  NumberValidator 类确保字符串根据区域设置约定表示有效的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidator
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale specified string or customized by user</i>."
+    negativeNumberFormatError="The negative format of the input number is incorrect."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidator 类确保字符串根据区域设置约定表示有效的数字。它可以验证表示 <codeph>int</codeph>、<codeph>uint</codeph> 和 <codeph>Number</codeph> 对象的字符串。
+ 
+  <p>该类使用 <codeph>locale</codeph> 样式以指定请求的区域设置 ID。</p>
+ 
+  <p>验证程序可以确保输入属于给定范围（由 <codeph>minValue</codeph> 和 <codeph>maxValue</codeph> 属性指定），是一个整数（由 <codeph>domain</codeph> 属性指定），是一个非负数（由 <codeph>allowNegative</codeph> 属性指定），正确指定负数和正数，以及不超过 <codeph>fractionalDigits</codeph> 的指定数字。验证程序通过使用 <codeph>flash.globalization.NumberFormatter</codeph> 设置默认属性值，因此区域设置特定的值由操作系统提供。</p>
+ 
+  <p><codeph>NumberValidator</codeph> 类可以在 MXML 声明或 ActionScript 代码中使用。该类使用区域设置样式来指定 <codeph>flash.globalization.NumberFormatter</codeph> 类所需的、请求的区域设置 ID，并且具有可绑定的方法和属性。</p>
+  
+  </apiDesc><example conref="NumberValidatorExample1.mxml"><swfblock conref="examples/NumberValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+      构造新的 NumberValidator 对象以根据给定区域设置的约定验证数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 NumberValidator 对象以根据给定区域设置的约定验证数字。
+      <p>
+      此类的区域设置由区域设置<codeph/>样式提供。可以使用下列方法来设置区域设置<codeph/>样式：
+      </p>
+      <ul>
+      <li>         
+      调用 <codeph>UIComponent</codeph> 的 <codeph>addStyleClient</codeph> 方法，从 <codeph>UIComponent</codeph> 继承样式。
+      </li>
+      <li>
+      在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:NumberValidator id="nv" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      使用 MXML 声明并在赋值列表中指定区域设置值。
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberValidator id="nv_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      调用 <codeph>setStyle</codeph> 方法。例如： <codeph>nv.setStyle("locale", "fr-FR")</codeph>
+      </li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>ValidationResult</codeph> 对象的数组<codeph/>，验证程序检查的每个字段都有一个 <codeph>ValidationResult</codeph> 对象。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的数字字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 对象中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.number，则 <codeph>baseField</codeph> 值为“number”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。调用者必须检查在返回的数组中的 <codeph>ValidationResult</codeph> 对象以获取验证状态。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators:NumberValidator:negativeNumberFormatError:get"><apiName>negativeNumberFormatError</apiName><shortdesc>
+      当所输入的数字的负数格式不符合由 negativeNumberFormat 属性指定的模式时将显示的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input number is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当所输入的数字的负数格式不符合由 negativeNumberFormat 属性指定的模式时将显示的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:NumberValidator:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      数值，用于指示负数的验证模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 4 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      数值，用于指示负数的验证模式。此模式定义负号或圆括号相对于要验证的数值的数字部分的位置。
+     
+      <p>下表总结了可能的负数格式。在负数通过验证之后，负号将表示 <codeph>negativeSymbol</codeph> 属性的值，而“n”字符将表示数字值。</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>负数格式类型</entry>
+                <entry>格式</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      默认值取决于<codeph>实际区域设置</codeph>和<codeph>操作系统</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#NumberValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.validators.xml#NumberValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

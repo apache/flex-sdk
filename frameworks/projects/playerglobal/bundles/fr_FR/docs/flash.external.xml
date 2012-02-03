@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.external" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.external</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.external:ExtensionContext" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ExtensionContext</apiName><shortdesc class="- topic/shortdesc ">
+         La classe ExtensionContext fournit une interface permettant d’appeler des fonctions dans l’implémentation native d’une extension ActionScript.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         La classe ExtensionContext fournit une interface permettant d’appeler des fonctions dans l’implémentation native d’une extension ActionScript. Vous pouvez utiliser cette classe uniquement dans les classes ActionScript qui font partie de l’extension.
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">Prise en charge du profil AIR :</i> cette fonctionnalité est prise en charge uniquement sur les périphériques AIR pour TV dans des applications qui font appel au profil de périphérique <codeph class="+ topic/ph pr-d/codeph ">extendedTV</codeph>.</p>
+	 	 
+         <p class="- topic/p ">Une extension ActionScript est une combinaison de :</p>
+         
+         <p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">Classes ActionScript.</li><li class="- topic/li ">Code natif. Le code natif est le code qui s’exécute sur un périphérique à l’extérieur du moteur d’exécution. Par exemple, le code que vous écrivez dans C est un code natif.</li></ul></p>
+         
+         <p class="- topic/p ">Vous pouvez créer une extension ActionScript pour permettre à une application AIR d’accéder aux fonctions propres au périphérique. Vous pouvez également créer une extension ActionScript pour réutiliser le code natif existant, ou pour fournir un traitement plus efficace à l’aide de code natif que vous pouvez fournir avec du code ActionScript. Pour plus d’informations sur l’écriture, la création et la mise en package d’extensions d’ActionScript, voir le document PDF <xref href="http://www.adobe.com/go/learn_air_as_extensions_en" class="- topic/xref ">Développement d’extensions ActionScript pour Adobe AIR</xref>.
+         </p>
+         
+         <p class="- topic/p ">Utilisez la classe ExtensionContext du côté ActionScript d’une extension ActionScript pour accéder au côté natif de l’extension. Commencez par créer une occurrence de la classe ExtensionContext. Pour ce faire, appelez la méthode statique <codeph class="+ topic/ph pr-d/codeph ">ExtensionContext.createExtensionContext()</codeph>.</p>
+		 
+		 <p class="- topic/p ">Après la création de l’occurrence de la classe ExtensionContext, utilisez la méthode <codeph class="+ topic/ph pr-d/codeph ">call()</codeph> de l’occurrence pour appeler une fonction native.</p>
+		 
+		 <p class="- topic/p ">Lorsque vous avez terminé d’utiliser l’occurrence de la classe ExtensionContext, appelez la méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph> pour libérer toutes les ressources natives associées. Sans un appel explicite à la méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph>, le nettoyeur du moteur d’exécution appelle <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph> lorsqu’il supprime l’occurrence. Un appel explicite à la méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph> se produit généralement beaucoup plus tôt que d’attendre le nettoyeur. </p>
+         
+         <p class="- topic/p ">Une occurrence de la classe ExtensionContext peut écouter les événements StatusEvent que le code natif distribue lorsque certains événements asynchrones se produisent dans l’implémentation native de l’extension. Etant donné que la classe ExtensionContext dérive de EventDispatcher, elle peut à son tour distribuer des événements.</p>
+		  
+		 <p class="- topic/p ">La classe ExtensionContext fournit également une méthode statique, <codeph class="+ topic/ph pr-d/codeph ">getExtensionDirectory()</codeph>, pour accéder au répertoire dans lequel est installée l’extension sur le périphérique. Elle fournit par ailleurs une propriété, <codeph class="+ topic/ph pr-d/codeph ">actionScriptData</codeph>, permettant de partager les données avec l’implémentation native de l’extension.</p>
+		 
+		 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque : </b>les applications AIR ayant recours au profil <codeph class="+ topic/ph pr-d/codeph ">extendedDesktop</codeph> peuvent utiliser la classe NativeProcess pour exécuter des processus natifs.</p>  
+		 
+         </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="http://www.adobe.com/go/learn_air_as_extensions_en" class="- topic/link "><linktext class="- topic/linktext ">Développement d’extensions ActionScript pour Adobe AIR</linktext></link><link href="flash.desktop.xml#NativeProcess" class="- topic/link "><linktext class="- topic/linktext ">flash.desktop.NativeProcess</linktext></link></related-links><apiOperation id="flash.external:ExtensionContext:call" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">call</apiName><shortdesc class="- topic/shortdesc ">
+             Appelle la fonction native spécifiée par functionName.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Aucune fonction ne correspond au nom donné par <codeph class="+ topic/ph pr-d/codeph ">functionName</codeph>.
+             
+             </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">La méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph> a déjà été appelée sur cette occurrence d’ExtensionContext. Cette erreur est également renvoyée si la fonction native renvoie un objet de référence non valide.
+             
+		 	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Valeur renvoyée par la fonction native. La valeur renvoyée est <codeph class="+ topic/ph pr-d/codeph ">null</codeph> si la fonction native ne renvoie aucune valeur ou si elle renvoie une référence d’objet non valide.
+             
+             </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">functionName</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Nom qui représente une fonction dans l’implémentation native. Ce nom n’est pas nécessairement le nom réel de la fonction native, mais tout autre nom convenu entre le côté ActionScript et côté natif de l’extension.
+			 
+			 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">args</apiItemName><apiType value="restParam" name="type" class="- topic/state reference/state apiRef/apiType "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Liste d’arguments associés à la fonction native. Ces arguments peuvent être l’un des objets ActionScript : types de primitives ou objets de classes ActionScript. Les types et de l’ordre des arguments sont convenus entre le côté ActionScript et côté natif de l’extension.
+			 
+			 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+             Appelle la fonction native spécifiée par <codeph class="+ topic/ph pr-d/codeph ">functionName</codeph>. Tout argument supplémentaire est transmis à la fonction native.
+             
+             </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.external:ExtensionContext:createExtensionContext" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createExtensionContext</apiName><shortdesc class="- topic/shortdesc ">
+             Crée une occurrence de ExtensionContext pour l’identifiant d’extension et le type de contexte spécifiés.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Le paramètre <codeph class="+ topic/ph pr-d/codeph ">extensionID</codeph> est <codeph class="+ topic/ph pr-d/codeph ">null</codeph> ou n’est pas un ID d’extension valide.
+			 
+		 	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Nouvelle occurrence de ExtensionContext. Renvoie <codeph class="+ topic/ph pr-d/codeph ">null</codeph> si aucune extension avec la valeur <codeph class="+ topic/ph pr-d/codeph ">extensionID</codeph> donnée n’est disponible.
+             
+             </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.external:ExtensionContext</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">extensionID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Identifiant d’extension de l’extension. Cet identifiant a la même valeur que l’élément <codeph class="+ topic/ph pr-d/codeph ">id</codeph> dans le fichier descripteur de l’extension. Les développeurs d’application utilisent également cette valeur dans l’élément <codeph class="+ topic/ph pr-d/codeph ">extensionID</codeph> du fichier descripteur d’application. Toutes les extensions partagent un espace de noms unique et global. Par conséquent, pour éviter les conflits de noms, utilisez la notation DNS inverse pour l’identifiant d’extension.
+			 
+             </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">contextType</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Type de contexte de l’extension. Selon le type de contexte, l’implémentation native peuvent procéder à différentes initialisations. Ces différences peuvent consister en la spécification, de la part de l’implémentation native, d’un autre jeu de fonctions natives disponibles que le côté ActionScript peut appeler. La valeur du type de contexte correspond à une chaîne convenue entre le côté ActionScript et le côté natif de l’extension. Les extensions simples n’ont souvent pas l’utilisation de plusieurs types de contextes. Dans ces cas, transmettez une chaîne vide, <codeph class="+ topic/ph pr-d/codeph ">""</codeph> ou <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, pour la valeur <codeph class="+ topic/ph pr-d/codeph ">contextType</codeph>.
+			 
+			 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+             Crée une occurrence de ExtensionContext pour l’identifiant d’extension et le type de contexte spécifiés.
+             
+			 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.external:ExtensionContext:dispose" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">dispose</apiName><shortdesc class="- topic/shortdesc ">
+             Supprime cette occurrence de ExtensionContext.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+             Supprime cette occurrence de ExtensionContext. 
+			 
+			 <p class="- topic/p ">Le moteur d’exécution en informe l’implémentation native, qui peut libérer toutes les ressources natives associées. Après l’appel de la méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph>, le code ne peut pas appeler la méthode <codeph class="+ topic/ph pr-d/codeph ">call()</codeph>, et ne peut pas obtenir ou définir la propriété <codeph class="+ topic/ph pr-d/codeph ">actionScriptData</codeph>.</p>
+			 
+		 	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.external:ExtensionContext:getExtensionDirectory" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getExtensionDirectory</apiName><shortdesc class="- topic/shortdesc ">
+			 Renvoie le répertoire dans lequel l’extension est installée sur le périphérique.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Le répertoire de n’existe pas. La raison la plus probable est que l’<codeph class="+ topic/ph pr-d/codeph ">extensionID</codeph> spécifié n’est pas valide.
+			 
+			 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IOError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IOError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Occurrence de File pour le répertoire dans lequel l’extension est installée.
+			 
+			 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.filesystem:File</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">extensionID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Identifiant d’extension de l’extension. Cet identifiant a la même valeur que le paramètre <codeph class="+ topic/ph pr-d/codeph ">extensionID</codeph> dans <codeph class="+ topic/ph pr-d/codeph ">createExtensionContext()</codeph>. 
+			 
+			 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+			 Renvoie le répertoire dans lequel l’extension est installée sur le périphérique.
+			 
+			 <p class="- topic/p ">Il peut arriver qu’une extension comprenne des ressources, notamment des images, auxquelles vous souhaitez accéder à partir du code ActionScript de l’extension. Le code peut également avoir besoin d’informations disponibles dans le fichier descripteur de l’extension, telles que le numéro de version de l’extension. Vous pouvez utiliser cette méthode pour accéder au répertoire de base de l’extension.</p>
+			 
+			 <p class="- topic/p ">Où que se trouve l’extension sur le périphérique, ses fichiers sont toujours au même emplacement par rapport à ce répertoire de base de l’extension. L’occurrence File que cette méthode renvoie permet d’accéder à certains fichiers inclus avec l’extension et de les manipuler.</p>
+			 
+			 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.external:ExtensionContext:actionScriptData:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">actionScriptData</apiName><shortdesc class="- topic/shortdesc "> 
+             Objet ActionScript, s’il existe, associé à ce contexte.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Object</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">La méthode <codeph class="+ topic/ph pr-d/codeph ">dispose()</codeph> a déjà été appelée sur cette occurrence d’ExtensionContext.
+             
+		 	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+             Objet ActionScript, s’il existe, associé à ce contexte.
+			 
+			 <p class="- topic/p ">Vous pouvez associer tout objet ActionScript à une occurrence d’ExtensionContext. L’implémentation native peut également obtenir et définir cet objet ActionScript. Par conséquent, vous pouvez utiliser <codeph class="+ topic/ph pr-d/codeph ">actionScriptData</codeph> pour partager des données entre le côté ActionScript et le côté natif d’une extension.</p>
+			 
+			 <p class="- topic/p ">Vous pouvez également définir la valeur de <codeph class="+ topic/ph pr-d/codeph ">actionScriptData</codeph> sur <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+ 			 
+             
+             </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.external:ExternalInterface" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ExternalInterface</apiName><shortdesc class="- topic/shortdesc ">
+ La classe ExternalInterface est une interface de création d’applications qui permet une communication directe entre ActionScript et le conteneur SWF&amp;#8211 ; par exemple, une page HTML avec JavaScript ou une application de bureau qui utilise Flash Player pour afficher un fichier SWF.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><internal>Verify table is still correct and paragraph below the table still applies.
+ </internal></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Active les communications entre ActionScript et le conteneur.
+ 
+ </apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ La classe ExternalInterface est une interface de création d’applications qui permet une communication directe entre ActionScript et le conteneur SWF&amp; ; par exemple, une page HTML avec JavaScript ou une application de bureau qui utilise Flash Player pour afficher un fichier SWF.
+ 
+ 
+ <p class="- topic/p ">La classe ExternalInterface permet d’appeler une fonction ActionScript dans le moteur d’exécution de Flash à l’aide de JavaScript dans la page HTML. La fonction ActionScript peut renvoyer une valeur que JavaScript reçoit immédiatement comme valeur de renvoi de l’appel.</p>
+ 
+ <p class="- topic/p ">Cette fonctionnalité remplace la méthode <codeph class="+ topic/ph pr-d/codeph ">fscommand()</codeph>.</p>
+ 
+ <p class="- topic/p ">Utilisez la classe ExternalInterface pour les combinaisons suivantes de navigateurs et de systèmes d’exploitation :</p>
+ <adobetable class="innertable"><tgroup cols="3" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">Navigateur</entry><entry class="- topic/entry ">Système d’exploitation</entry><entry class="- topic/entry ">Système d’exploitation</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">Internet Explorer 5.0 et versions ultérieures</entry><entry class="- topic/entry ">Windows</entry><entry class="- topic/entry "> </entry></row><row class="- topic/row "><entry class="- topic/entry ">Netscape 8.0 et versions ultérieures</entry><entry class="- topic/entry ">Windows</entry><entry class="- topic/entry "> MacOS </entry></row><row class="- topic/row "><entry class="- topic/entry ">Mozilla 1.7.5 et versions ultérieures</entry><entry class="- topic/entry ">Windows</entry><entry class="- topic/entry "> MacOS </entry></row><row class="- topic/row "><entry class="- topic/entry ">Firefox 1.0 et versions ultérieures</entry><entry class="- topic/entry ">Windows</entry><entry class="- topic/entry "> MacOS </entry></row><row class="- topic/row "><entry class="- topic/entry ">Safari 1.3 et versions ultérieures</entry><entry class="- topic/entry "> </entry><entry class="- topic/entry "> MacOS </entry></row></tbody></tgroup></adobetable>
+ 
+ <p class="- topic/p ">Flash Player pour Linux version 9.0.31.0 et supérieure prend en charge la classe ExternalInterface dans les navigateurs suivants :</p>
+  <adobetable class="innertable"><tgroup cols="1" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">Navigateur</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">Mozilla 1.7.x et supérieure</entry></row><row class="- topic/row "><entry class="- topic/entry ">Firefox 1.5.0.7 et versions ultérieures</entry></row><row class="- topic/row "><entry class="- topic/entry ">SeaMonkey 1.0.5 et supérieure </entry></row></tbody></tgroup></adobetable>
+ <p class="- topic/p ">La classe ExternalInterface nécessite la prise en charge, par le navigateur Web de l’utilisateur, d’ActiveX<sup class="+ topic/ph hi-d/sup ">®</sup> ou de l’API NPRuntime qui est exposée par certains navigateurs pour les scripts de plug-ins. Même si une combinaison navigateur/système d’exploitation n’apparaît pas dans la liste ci-dessus, elle devrait prendre en charge la classe ExternalInterface si elle gère l’API NPRuntime. Visitez le site <xref href="http://www.mozilla.org/projects/plugins/npruntime.html" scope="external" class="- topic/xref ">http://www.mozilla.org/projects/plugins/npruntime.html</xref>.</p>
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque :</b> lors de l’intégration de fichiers SWF dans une page HTML, vérifiez que l’attribut <codeph class="+ topic/ph pr-d/codeph ">id</codeph> est défini et que les attributs <codeph class="+ topic/ph pr-d/codeph ">id</codeph> et <codeph class="+ topic/ph pr-d/codeph ">name</codeph> des balises <codeph class="+ topic/ph pr-d/codeph ">object</codeph> et <codeph class="+ topic/ph pr-d/codeph ">embed</codeph> ne comportent aucun des caractères suivants : </p>
+ <pre xml:space="preserve" class="- topic/pre ">
+ . - + ~~ / \
+ </pre>
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque concernant les applications de Flash Player :</b> Flash Player 9.0.115.0 et les versions ultérieures autorisent l’utilisation du caractère <codeph class="+ topic/ph pr-d/codeph ">.</codeph> (point) dans les attributs <codeph class="+ topic/ph pr-d/codeph ">id</codeph> et <codeph class="+ topic/ph pr-d/codeph ">name</codeph>.</p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque concernant les applications de Flash Player :</b> dans Flash Player 10 et les versions ultérieures s’exécutant dans un navigateur, il est possible que vous ne puissiez pas utiliser cette classe par programmation pour ouvrir une fenêtre contextuelle. Certains navigateurs (et configurations de navigateur) peuvent bloquer les fenêtres contextuelles ; il n’est donc pas possible de garantir l’ouverture de toutes les fenêtres contextuelles. Toutefois, pour un résultat optimal, utilisez cette classe pour ouvrir une fenêtre contextuelle uniquement dans le code qui s’exécute comme conséquence directe de l’action d’un utilisateur (par exemple, un événement de type clic de souris ou pression de touche).</p>
+ 
+ <p class="- topic/p ">A partir d’ActionScript, vous pouvez effectuer les opérations suivantes sur la page HTML :
+ <ul class="- topic/ul "><li class="- topic/li ">appeler toute fonction JavaScript ;</li><li class="- topic/li ">transmettre un nombre illimité d’arguments, quel que soit leur nom ;</li><li class="- topic/li ">transmettre divers types de données (Boolean, Number, String, etc.) ;</li><li class="- topic/li ">recevoir une valeur renvoyée par la fonction JavaScript.</li></ul>
+ </p>
+ 
+ <p class="- topic/p ">A partir de JavaScript, vous pouvez effectuer les opérations suivantes sur la page HTML :
+ <ul class="- topic/ul "><li class="- topic/li ">appeler une fonction ActionScript ;</li><li class="- topic/li ">transmettre des arguments en utilisant la notation d’appel de fonction standard ;</li><li class="- topic/li ">renvoyer une valeur à la fonction JavaScript.</li></ul>
+ </p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque concernant les applications de Flash Player :</b> Flash Player ne prend actuellement pas en charge les fichiers SWF intégrés à des formulaires HTML.</p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque concernant les applications d’AIR :</b> dans Adobe AIR, la classe ExternalInterface peut être utilisée pour communiquer entre JavaScript dans une page HTML chargée dans un contrôle HTMLLoader et ActionScript dans un contenu SWF incorporé à cette page HTML.</p>
+ 
+ </apiDesc><example conref="examples\ExternalInterfaceExample.as" class="- topic/example "> L’exemple suivant illustre l’envoi des données entre Flash Player et un conteneur HTML.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+
+package {
+    import flash.display.Sprite;
+    import flash.events.*;
+    import flash.external.ExternalInterface;
+    import flash.text.TextField;
+    import flash.utils.Timer;
+    import flash.text.TextFieldType;
+    import flash.text.TextFieldAutoSize;
+
+    public class ExternalInterfaceExample extends Sprite {
+        private var input:TextField;
+        private var output:TextField;
+        private var sendBtn:Sprite;
+
+        public function ExternalInterfaceExample() {
+            input = new TextField();
+            input.type = TextFieldType.INPUT;
+            input.background = true;
+            input.border = true;
+            input.width = 350;
+            input.height = 18;
+            addChild(input);
+
+            sendBtn = new Sprite();
+            sendBtn.mouseEnabled = true;
+            sendBtn.x = input.width + 10;
+            sendBtn.graphics.beginFill(0xCCCCCC);
+            sendBtn.graphics.drawRoundRect(0, 0, 80, 18, 10, 10);
+            sendBtn.graphics.endFill();
+            sendBtn.addEventListener(MouseEvent.CLICK, clickHandler);
+            addChild(sendBtn);
+
+            output = new TextField();
+            output.y = 25;
+            output.width = 450;
+            output.height = 325;
+            output.multiline = true;
+            output.wordWrap = true;
+            output.border = true;
+            output.text = "Initializing...\n";
+            addChild(output);
+
+            if (ExternalInterface.available) {
+                try {
+                    output.appendText("Adding callback...\n");
+                    ExternalInterface.addCallback("sendToActionScript", receivedFromJavaScript);
+                    if (checkJavaScriptReady()) {
+                        output.appendText("JavaScript is ready.\n");
+                    } else {
+                        output.appendText("JavaScript is not ready, creating timer.\n");
+                        var readyTimer:Timer = new Timer(100, 0);
+                        readyTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+                        readyTimer.start();
+                    }
+                } catch (error:SecurityError) {
+                    output.appendText("A SecurityError occurred: " + error.message + "\n");
+                } catch (error:Error) {
+                    output.appendText("An Error occurred: " + error.message + "\n");
+                }
+            } else {
+                output.appendText("External interface is not available for this container.");
+            }
+        }
+        private function receivedFromJavaScript(value:String):void {
+            output.appendText("JavaScript says: " + value + "\n");
+        }
+        private function checkJavaScriptReady():Boolean {
+            var isReady:Boolean = ExternalInterface.call("isReady");
+            return isReady;
+        }
+        private function timerHandler(event:TimerEvent):void {
+            output.appendText("Checking JavaScript status...\n");
+            var isReady:Boolean = checkJavaScriptReady();
+            if (isReady) {
+                output.appendText("JavaScript is ready.\n");
+                Timer(event.target).stop();
+            }
+        }
+        private function clickHandler(event:MouseEvent):void {
+            if (ExternalInterface.available) {
+                ExternalInterface.call("sendToJavaScript", input.text);
+            }
+        }
+    }
+}
+
+
+</codeblock> Afin de tester l’ancien code ActionScript, incorporez le fichier SWF généré à l’aide du modèle HTML suivant :
+ <codeblock rev="2.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ &lt;!-- saved from url=(0014)about:internet -->
+ &lt;html lang="en">
+ &lt;head>
+ &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ &lt;title>ExternalInterfaceExample&lt;/title>
+ &lt;script language="JavaScript">
+     var jsReady = false;
+     function isReady() {
+         return jsReady;
+     }
+     function pageInit() {
+         jsReady = true;
+         document.forms["form1"].output.value += "\n" + "JavaScript is ready.\n";
+     }
+     function thisMovie(movieName) {
+         if (navigator.appName.indexOf("Microsoft") != -1) {
+             return window[movieName];
+         } else {
+             return document[movieName];
+         }
+     }
+     function sendToActionScript(value) {
+         thisMovie("ExternalInterfaceExample").sendToActionScript(value);
+     }
+     function sendToJavaScript(value) {
+         document.forms["form1"].output.value += "ActionScript says: " + value + "\n";
+     }
+ &lt;/script>
+ &lt;/head>
+ &lt;body onload="pageInit();">
+ 
+     &lt;object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+             id="ExternalInterfaceExample" width="500" height="375"
+             codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+         &lt;param name="movie" value="ExternalInterfaceExample.swf" />
+         &lt;param name="quality" value="high" />
+         &lt;param name="bgcolor" value="#869ca7" />
+         &lt;param name="allowScriptAccess" value="sameDomain" />
+         &lt;embed src="ExternalInterfaceExample.swf" quality="high" bgcolor="#869ca7"
+             width="500" height="375" name="ExternalInterfaceExample" align="middle"
+             play="true" loop="false" quality="high" allowScriptAccess="sameDomain"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer">
+         &lt;/embed>
+     &lt;/object>
+ 
+     &lt;form name="form1" onsubmit="return false;">
+         &lt;input type="text" name="input" value="" />
+         &lt;input type="button" value="Send" onclick="sendToActionScript(this.form.input.value);" />&lt;br />
+         &lt;textarea cols="60" rows="20" name="output" readonly="true">Initializing...&lt;/textarea>
+     &lt;/form>
+ 
+ &lt;/body>
+ &lt;/html>
+ </codeblock>
+</example></apiClassifierDetail><related-links class="- topic/related-links "><link href="../../flash/system/package.html#fscommand()" class="- topic/link "><linktext class="- topic/linktext ">fscommand()</linktext></link></related-links><apiOperation id="flash.external:ExternalInterface:addCallback" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">addCallback</apiName><shortdesc class="- topic/shortdesc ">
+     Enregistre une méthode ActionScript comme pouvant être appelée à partir du conteneur.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Le conteneur ne prend pas en charge les appels entrants. Les appels entrants ne sont gérés que dans Internet Explorer pour Windows et les navigateurs qui utilisent l’API NPRuntime, tels que Mozilla 1.7.5 et versions ultérieures, ou Firefox 1.0 et versions ultérieures.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Un rappel avec le nom spécifié a déjà été ajouté par ActionScript dans un sandbox auquel vous n’avez pas accès. Il vous est impossible de le remplacer. Pour contourner ce problème, réécrivez le code ActionScript qui appelait au départ la méthode <codeph class="+ topic/ph pr-d/codeph ">addCallback()</codeph> de sorte qu’il appelle également la méthode <codeph class="+ topic/ph pr-d/codeph ">Security.allowDomain()</codeph>.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">SecurityError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">SecurityError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">L’environnement conteneur appartient à un sandbox de sécurité auquel le code effectuant l’appel n’a pas accès. Pour résoudre ce problème, exécutez la procédure suivante :
+     
+     <ol class="- topic/ol "><li class="- topic/li ">Dans la balise <codeph class="+ topic/ph pr-d/codeph ">object</codeph> associée au fichier SWF intégré à la page HTML, définissez le paramètre suivant :
+     
+      <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">&lt;param name="allowScriptAccess" value="always" /></codeph></p>
+     
+      </li><li class="- topic/li ">Dans le fichier SWF, ajoutez le code ActionScript suivant :
+     
+      <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">flash.system.Security.allowDomain(<i class="+ topic/ph hi-d/i ">sourceDomain</i>)</codeph></p>
+     
+      </li></ol>
+     
+      
+      </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">SecurityError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">SecurityError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">functionName</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Nom utilisé par le conteneur pour appeler la fonction.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">closure</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">La fermeture de fonction à appeler. Il peut s’agir d’une fonction autonome ou d’une méthode de fermeture qui référence une méthode d’occurrence d’objet. En transmettant une fermeture de méthode, vous pouvez dirigez le rappel vers une méthode d’une occurrence d’un objet particulier.
+                    <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque :</b> répéter <codeph class="+ topic/ph pr-d/codeph ">addCallback()</codeph> sur une fonction de rappel avec une valeur de fermeture <codeph class="+ topic/ph pr-d/codeph ">null</codeph> supprime le rappel.</p>
+     
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Enregistre une méthode ActionScript comme pouvant être appelée à partir du conteneur. Lorsque l’appel de <codeph class="+ topic/ph pr-d/codeph ">addCallBack()</codeph> a abouti, la fonction enregistrée dans le lecteur peut être appelée par le code JavaScript ou ActiveX dans le conteneur.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque :</b> pour le contenu <i class="+ topic/ph hi-d/i ">local</i> s’exécutant dans un navigateur, les appels à la méthode <codeph class="+ topic/ph pr-d/codeph ">ExternalInterface.addCallback()</codeph> fonctionnent uniquement si le fichier SWF et la page Web le contenant se trouvent dans le sandbox de sécurité approuvé localement. Pour plus d’informations, voir la rubrique du Pôle de développement Flash Player : <xref href="http://www.adobe.com/go/devnet_security_fr" scope="external" class="- topic/xref ">Sécurité</xref> (disponible en anglais uniquement).</p>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.system.xml#Security/allowDomain()" class="- topic/link "><linktext class="- topic/linktext ">flash.system.Security.allowDomain()</linktext></link></related-links></apiOperation><apiOperation id="flash.external:ExternalInterface:call" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">call</apiName><shortdesc class="- topic/shortdesc "> 
+     Appelle une fonction présentée par le conteneur SWF en transmettant la valeur zéro ou d’autres arguments.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><internal>Should probably provide a link for the 4th paragraph above for info on Netscape.
+     
+     </internal></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Le conteneur ne prend pas en charge les appels sortants. Les appels sortants ne sont gérés que dans Internet Explorer pour Windows et les navigateurs qui utilisent l’API NPRuntime, tels que Mozilla 1.7.5 et versions ultérieures, ou Firefox 1.0 et versions ultérieures.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">L’environnement conteneur appartient à un sandbox de sécurité auquel le code effectuant l’appel n’a pas accès. Pour résoudre ce problème, exécutez la procédure suivante :
+     
+     <ol class="- topic/ol "><li class="- topic/li ">Dans la balise <codeph class="+ topic/ph pr-d/codeph ">object</codeph> associée au fichier SWF intégré à la page HTML, définissez le paramètre suivant :
+     
+      <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">&lt;param name="allowScriptAccess" value="always" /></codeph></p>
+     
+      </li><li class="- topic/li ">Dans le fichier SWF, ajoutez le code ActionScript suivant :
+     
+      <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">flash.system.Security.allowDomain(<i class="+ topic/ph hi-d/i ">sourceDomain</i>)</codeph></p>
+     
+      </li></ol>
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">SecurityError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">SecurityError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Réponse émanant du conteneur. Si l’appel a échoué (imaginons que cette fonction ne figure pas dans le conteneur, qu’un problème de sécurité soit survenu, que l’interface n’est pas disponible ou encore qu’une erreur de récursivité s’est produite avec un navigateur Netscape ou Opera), la valeur <codeph class="+ topic/ph pr-d/codeph ">null</codeph> est renvoyée et une erreur est signalée.
+     
+     </apiDesc><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">functionName</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Nom alphanumérique de la fonction à appeler dans le conteneur. L’utilisation d’un nom de fonction non alphanumérique entraîne une erreur d’exécution (erreur 2155). Vous pouvez utiliser un bloc <codeph class="+ topic/ph pr-d/codeph ">try..catch</codeph> pour gérer cette erreur.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">arguments</apiItemName><apiType value="restParam" name="type" class="- topic/state reference/state apiRef/apiType "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Arguments à transmettre à la fonction dans le conteneur. Vous pouvez ne spécifier aucun paramètre ou en spécifier plusieurs en les séparant par des virgules. Ces paramètres peuvent être de tout type de donnée ActionScript. Si vous faites appel à une fonction JavaScript, les types ActionScript sont automatiquement convertis en types JavaScript. Si l’appel s’adresse à un autre conteneur ActiveX, les paramètres sont encodés dans le message de requête.
+      
+     </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Appelle une fonction dans le conteneur.
+     
+     </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+     Appelle une fonction présentée par le conteneur SWF en transmettant la valeur zéro ou d’autres arguments. Si la fonction n’est pas disponible, l’appel renvoie <codeph class="+ topic/ph pr-d/codeph ">null</codeph> ; sinon, elle renvoie la valeur fournie par la fonction. La récursion n’est <i class="+ topic/ph hi-d/i ">pas</i> autorisée dans les navigateurs Opera et Netscape. Dans ces derniers, un appel récursif produit une réponse <codeph class="+ topic/ph pr-d/codeph ">null</codeph> (la récursion est prise en charge par les navigateurs Internet Explorer et Firefox).
+     
+     <p class="- topic/p ">Si le conteneur correspond à une page HTML, cette méthode appelle une fonction JavaScript dans un élément <codeph class="+ topic/ph pr-d/codeph ">script</codeph>.</p>
+     
+     <p class="- topic/p ">Si le conteneur est un autre conteneur de type ActiveX, cette méthode distribue l’événement FlashCall ActiveX au nom spécifié ; le conteneur traite alors l’événement.</p>
+     
+     <p class="- topic/p ">Si le conteneur renferme le plug-in Netscape, vous pouvez soit écrire le support personnalisé pour la nouvelle interface NPRuntime, soit intégrer un contrôle HTML et intégrer le lecteur au contrôle HTML. Si vous intégrez un contrôle HTML, vous pouvez communiquer avec le lecteur via une interface JavaScript qui dialogue avec l’application conteneur native.</p>
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque :</b> pour le contenu <i class="+ topic/ph hi-d/i ">local</i> s’exécutant dans un navigateur, les appels à la méthode <codeph class="+ topic/ph pr-d/codeph ">ExternalInterface.call()</codeph> ne sont autorisés que si le fichier SWF et la page Web qui le contient (le cas échéant) se trouvent dans le sandbox de sécurité approuvé localement. Vous pouvez également empêcher un fichier SWF d’utiliser cette méthode en définissant le paramètre <codeph class="+ topic/ph pr-d/codeph ">allowNetworking</codeph> des balises <codeph class="+ topic/ph pr-d/codeph ">object</codeph> et <codeph class="+ topic/ph pr-d/codeph ">embed</codeph> dans la page HTML qui stocke le contenu SWF. Pour plus d’informations, voir la rubrique du Pôle de développement Flash Player : <xref href="http://www.adobe.com/go/devnet_security_fr" scope="external" class="- topic/xref ">Sécurité</xref> (disponible en anglais uniquement).</p>
+     
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque concernant les applications de Flash Player :</b> dans Flash Player 10 et Flash Player 9 Mise à jour 5, certains navigateurs Web ne prennent pas en charge cette méthode si un bloqueur de fenêtres publicitaires intempestives est activé. Dans ce cas, l’appel de cette méthode aboutit uniquement en réponse à l’événement d’un utilisateur (notamment lorsque celui-ci clique sur une souris ou appuie sur une touche).</p>
+     
+     </apiDesc><example conref="examples\ExternalInterface_call_alert.as" class="- topic/example "> L’exemple suivant indique comment utiliser la classe ExternalInterface (flash.external.ExternalInterface) pour envoyer une chaîne depuis Flash Player au conteneur HTML dans lequel elle s’affiche à l’aide de la fonction alert() de JavaScript. Exemple fourni par <xref href="http://actionscriptexamples.com/2008/02/28/using-the-externalinterface-class-in-actionscript-20-and-actionscript-30/" scope="_mmexternal" class="- topic/xref ">ActionScriptExamples.com</xref>. 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+//
+// Requires:
+//   - A Flash Professional Label component on the Stage with an instance name of "lbl".
+//   - A Flash Professional Button component on the Stage with an instance name of "button".
+//
+var xmlResponse:String = "&lt;invoke name=\"isReady\" returntype=\"xml\">&lt;arguments>&lt;number>1&lt;/number>&lt;number>" + stage.stageWidth + "&lt;/number>&lt;number>" + stage.stageHeight + "&lt;/number>&lt;/arguments>&lt;/invoke>";
+ 
+lbl.text = "ExternalInterface.available: " + ExternalInterface.available;
+lbl.width = 200;
+button.enabled = ExternalInterface.available;
+button.addEventListener(MouseEvent.CLICK, button_click);
+ 
+function button_click(evt:MouseEvent):void {
+    ExternalInterface.call("alert", xmlResponse);
+}
+</codeblock></example></apiOperationDetail></apiOperation><apiValue id="flash.external:ExternalInterface:marshallExceptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">marshallExceptions</apiName><shortdesc class="- topic/shortdesc ">
+     Indique si l’interface externe doit tenter de transmettre des exceptions ActionScript au navigateur actuel et des exceptions JavaScript au lecteur.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Transfert des exceptions entre AS et JS.     
+     </apiTipText></apiTipTexts></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indique si l’interface externe doit tenter de transmettre des exceptions ActionScript au navigateur actuel et des exceptions JavaScript au lecteur. Vous devez définir explicitement cette propriété sur <codeph class="+ topic/ph pr-d/codeph ">true</codeph> pour récupérer les exceptions JavaScript dans ActionScript et les exceptions ActionScript dans JavaScript.
+     
+     </apiDesc><example conref="examples\ExternalInterface.marshallExceptions.1.as" class="- topic/example "> L’exemple suivant crée une fonction ActionScript et l’enregistre avec le navigateur récepteur à l’aide de la méthode <codeph class="+ topic/ph pr-d/codeph ">addCallback()</codeph>. La nouvelle fonction émet une exception afin que le code JavaScript qui s’exécute dans le navigateur puisse la récupérer. Cet exemple contient également une instruction <codeph class="+ topic/ph pr-d/codeph ">try..catch</codeph> pour récupérer toutes les exceptions émises par le navigateur lors de l’appel de la fonction <codeph class="+ topic/ph pr-d/codeph ">throwit()</codeph>.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+
+package
+{
+    import flash.external.*
+    import flash.net.*;
+    import flash.display.*;
+    import flash.system.System;
+    public class ext_test extends Sprite {
+    function ext_test():void {
+        ExternalInterface.marshallExceptions = true;
+        ExternalInterface.addCallback("g", g);
+
+        try {
+        ExternalInterface.call("throwit");
+        } catch(e:Error) {
+        trace(e)
+        }
+    }
+    function g() { throw new Error("exception from actionscript!!!!") }
+    }
+}
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.external.xml#ExternalInterface/addCallBack()" class="- topic/link "><linktext class="- topic/linktext ">addCallback()</linktext></link><link href="../../statements.html#try..catch..finally" class="- topic/link "><linktext class="- topic/linktext ">try..catch..dernière instruction</linktext></link></related-links></apiValue><apiValue id="flash.external:ExternalInterface:available:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">available</apiName><shortdesc class="- topic/shortdesc ">
+     Indique si ce lecteur se trouve dans un conteneur doté d’une interface externe.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Indique si le lecteur se trouve dans un conteneur doté d’une interface externe.
+     
+     </apiTipText></apiTipTexts></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indique si ce lecteur se trouve dans un conteneur doté d’une interface externe. Si l’interface externe est disponible, cette propriété est <codeph class="+ topic/ph pr-d/codeph ">true</codeph> ; sinon, elle est <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Remarque :</b> si vous utilisez l’API externe avec HTML, assurez-vous toujours que le chargement du code HTML est terminé avant de tenter d’appeler toute méthode JavaScript.</p>
+     
+     </apiDesc><example class="- topic/example ">L’exemple suivant utilise la propriété <codeph class="+ topic/ph pr-d/codeph ">available</codeph> pour déterminer si le lecteur se trouve dans un conteneur doté d’une interface externe.
+     <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     package {
+       import flash.text.TextField;
+       import flash.display.MovieClip;
+       import flash.external.ExternalInterface;
+     
+       public class extint_test extends MovieClip {
+         public function extint_test() {
+           var isAvailable:Boolean = ExternalInterface.available;
+           var availTxt:TextField = new TextField();
+           availTxt.text = isAvailable.toString();
+           addChild(availTxt);
+         }
+       }
+     }
+     </codeblock>
+     
+      
+      </example></apiValueDetail></apiValue><apiValue id="flash.external:ExternalInterface:objectID:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">objectID</apiName><shortdesc class="- topic/shortdesc ">
+     Renvoie l’attribut id de la balise object dans Internet Explorer, ou l’attribut name de la balise embed dans Netscape.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Renvoie l’attribut <codeph class="+ topic/ph pr-d/codeph ">id</codeph> de la balise <codeph class="+ topic/ph pr-d/codeph ">object</codeph> dans Internet Explorer, ou l’attribut <codeph class="+ topic/ph pr-d/codeph ">name</codeph> de la balise <codeph class="+ topic/ph pr-d/codeph ">embed</codeph> dans Netscape.
+     </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

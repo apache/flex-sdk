@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.primitives"><apiName>spark.primitives</apiName><apiDetail/><apiClassifier id="spark.primitives:Graphic"><apiName>Graphic</apiName><shortdesc>
+  Graphic コントロールは、グラフィック描画コマンドのセットを表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="property" name="tabEnabled"/><Exclude kind="property" name="mouseFocusEnabled"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="focusPane"/><Exclude kind="property" name="focusEnabled"/><Exclude kind="method" name="setFocus"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Graphic&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Graphic
+    <b>Properties</b>
+    version
+    viewHeight
+    viewWidth
+    &nbsp;
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Graphic コントロールは、グラフィック描画コマンドのセットを表示します。
+ 
+  <p>Graphic クラスは、すべてのグラフィックエレメントのルートタグです。また、このタグはすべての FXG ドキュメントのルートにもなります。FXG ドキュメント以外の場所には表示できません。</p>
+  
+  <p>グラフィックのコンテンツを定義するには、<codeph>&lt;Rect></codeph>、<codeph>&lt;Path></codeph>、<codeph>&lt;Ellipse></codeph> などの一連のエレメントタグを Graphic のエレメントの Array に追加します。</p>
+ 
+  <p>Graphic コントロールは、背景や境界線を持たず、フォーカスを取得できません。</p>
+  
+  <p>Graphic は、コンテナ内に配置された場合、コンテナの規則によって配置されます。ただし、Graphic コントロール内のグラフィックは常に、Graphic コントロールの左上隅を基準にしてサイズ調整および配置されます。</p>
+  
+  <p>Graphic エレメントには、オプションで <codeph>&lt;Group></codeph> エレメントを含めることができます。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.primitives.xml#Ellipse"><linktext>spark.primitives.Ellipse</linktext></link><link href="spark.primitives.xml#Line"><linktext>spark.primitives.Line</linktext></link><link href="spark.primitives.xml#Path"><linktext>spark.primitives.Path</linktext></link><link href="spark.primitives.xml#Rect"><linktext>spark.primitives.Rect</linktext></link><link href="spark.components.xml#Group"><linktext>spark.components.Group</linktext></link></related-links><apiConstructor id="spark.primitives:Graphic:Graphic"><apiName>Graphic</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Graphic:protected:measure"><apiName>measure</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.primitives:Graphic:version"><apiName>version</apiName><shortdesc>
+        この Graphic タグがターゲットとしている FXG のバージョンを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1.0</apiData><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        この Graphic タグがターゲットとしている FXG のバージョンを指定します。  
+     
+        </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewHeight:get"><apiName>viewHeight</apiName><shortdesc>
+      グラフィックがレイアウト内で使用する垂直の空間を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラフィックがレイアウト内で使用する垂直の空間を定義します。この値を設定した場合、コンテンツは拡大 / 縮小されません。一方、<codeph>height</codeph> プロパティの値を指定した場合、コンテンツは拡大 / 縮小されます。 
+      
+      <p>これが便利である場合が 2 つあります。1) コンテンツのナチュラルサイズよりも大きい <codeph>viewHeight</codeph> を指定する場合。グラフィックが表示サイズよりも多くの空間を占めるようにこのようにする場合があります。2) コンテンツのナチュラルサイズよりも小さい <codeph>viewHeight</codeph> を指定する場合。グラフィックに余分なクロムや、グラフィックの端を超える境界線がある場合に、このようにする場合があります。このシナリオでは、必ずレイアウトでクリッピングを無効にしてください。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewWidth:get"><apiName>viewWidth</apiName><shortdesc>
+      グラフィックがレイアウト内で使用する水平の空間を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラフィックがレイアウト内で使用する水平の空間を定義します。この値を設定した場合、コンテンツは拡大 / 縮小されません。一方、<codeph>width</codeph> プロパティの値を指定した場合、コンテンツは拡大 / 縮小されます。 
+      
+      <p>これが便利である場合が 2 つあります。1) コンテンツのナチュラルサイズよりも大きい <codeph>viewWidth</codeph> を指定する場合。グラフィックが表示サイズよりも多くの空間を占めるようにこのようにする場合があります。2) コンテンツのナチュラルサイズよりも小さい <codeph>viewWidth</codeph> を指定する場合。グラフィックに余分なクロムや、グラフィックの端を超える境界線がある場合に、このようにする場合があります。このシナリオでは、必ずレイアウトでクリッピングを無効にしてください。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Rect"><apiName>Rect</apiName><shortdesc>
+  Rect クラスは矩形を描画する塗りつぶしグラフィックエレメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Rect クラスは矩形を描画する塗りつぶしグラフィックエレメントです。矩形の角は丸くすることができます。<codeph>drawElement()</codeph> メソッドは <codeph>Graphics.drawRect()</codeph> および <codeph>Graphics.drawRoundRect()</codeph> メソッドを呼び出します。
+ 
+  <p><b>メモ：</b>デフォルトでは、境界線の角は丸められます。角を丸めないようにするには、線の <codeph>joints</codeph> プロパティを <codeph>JointStyle.MITER</codeph> に設定します。 </p>
+  
+  </apiDesc><example conref="RectExample.mxml"><swfblock conref="examples/RectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Rect:Rect"><apiName>Rect</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Rect:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      エレメントを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>描画するグラフィックエレメントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      エレメントを描画します。これは描画処理中に行われる 3 つの手順の 2 番目です。描画を実装するにはこのメソッドをオーバーライドします。ストローク（および該当する場合は塗りつぶし）が <codeph>beginDraw()</codeph> メソッドで設定されています。オーバーライドには、<codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> および <codeph>drawRect()</codeph> などの描画メソッドの呼び出しのみが含まれている必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Rect:bottomLeftRadiusX:get"><apiName>bottomLeftRadiusX</apiName><shortdesc>
+      矩形の左下隅の x 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の左下隅の x 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomLeftRadiusY:get"><apiName>bottomLeftRadiusY</apiName><shortdesc>
+      矩形の左下隅の y 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の左下隅の y 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusX:get"><apiName>bottomRightRadiusX</apiName><shortdesc>
+      矩形の右下隅の x 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の右下隅の x 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusY:get"><apiName>bottomRightRadiusY</apiName><shortdesc>
+      矩形の右下隅の y 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の右下隅の y 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusX:get"><apiName>radiusX</apiName><shortdesc>
+      すべての角の x 軸に使用するデフォルトの角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      すべての角の x 軸に使用するデフォルトの角丸の半径です。<codeph>topLeftRadiusX</codeph>、<codeph>topRightRadiusX</codeph>、<codeph>bottomLeftRadiusX</codeph>、および <codeph>bottomRightRadiusX</codeph> プロパティは、このプロパティより優先されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusY:get"><apiName>radiusY</apiName><shortdesc>
+      すべての角の y 軸に使用するデフォルトの角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      すべての角の y 軸に使用するデフォルトの角丸の半径です。<codeph>topLeftRadiusY</codeph>、<codeph>topRightRadiusY</codeph>、<codeph>bottomLeftRadiusY</codeph>、および <codeph>bottomRightRadiusY</codeph> プロパティは、このプロパティより優先されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusX:get"><apiName>topLeftRadiusX</apiName><shortdesc>
+      矩形の左上隅の x 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の左上隅の x 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusY:get"><apiName>topLeftRadiusY</apiName><shortdesc>
+      矩形の左上隅の y 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の左上隅の y 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusX:get"><apiName>topRightRadiusX</apiName><shortdesc>
+      矩形の右上隅の x 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の右上隅の x 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusY:get"><apiName>topRightRadiusY</apiName><shortdesc>
+      矩形の右上隅の y 半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形の右上隅の y 半径です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      このクラスは、一般的なケースでドロップシャドウを最適化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+      <p>このクラスは、一般的なケースでドロップシャドウを最適化します。端がピクセル境界に当たる矩形のオブジェクトにドロップシャドウを適用する場合は、DropShadowFilter を直接使用せずにこのクラスを使用する必要があります。</p>
+     
+      <p>このクラスは、DropShadowFilter に渡される最初の 4 つのパラメーターである <codeph>alpha</codeph>、<codeph>angle</codeph>、<codeph>color</codeph> および <codeph>distance</codeph> を受け入れます。 また、このクラスは影を落としている矩形のオブジェクトの 4 隅の隅半径を受け入れます。</p>
+     
+      <p>これらの 8 つの値が設定されると、このクラスは画面外ビットマップでドロップシャドウをあらかじめ計算します。 <codeph>drawShadow()</codeph> メソッドが呼び出されると、あらかじめ計算されたドロップシャドウが渡された Graphics オブジェクトにコピーされます。</p>
+      
+      </apiDesc><example conref="RectangularDropShadowExample.mxml"><swfblock conref="examples/RectangularDropShadowExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#DropShadowFilter"><linktext>spark.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="spark.primitives:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+          コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          コンストラクターです。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.primitives:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="spark.filters.DropShadowFilter#alpha">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#alpha">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="spark.filters.DropShadowFilter#angle">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#angle">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+          影を落としている角丸矩形の左下隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          影を落としている角丸矩形の左下隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+          水平方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          水平方向のぼかし量。
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+          垂直方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          垂直方向のぼかし量。
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+          影を落としている角丸矩形の右下隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          影を落としている角丸矩形の右下隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="spark.filters.DropShadowFilter#color">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#color">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+          影を落としている角丸矩形の左上隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          影を落としている角丸矩形の左上隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+          影を落としている角丸矩形の右上隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          影を落としている角丸矩形の右上隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Line"><apiName>Line</apiName><shortdesc>
+  Line クラスは、2 つの点の間に線を描画するグラフィックエレメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:StrokedElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Line クラスは、2 つの点の間に線を描画するグラフィックエレメントです。
+  
+  <p>線のデフォルトのストロークは未定義です。そのため、ストロークを指定しないと、線は表示されません。</p>
+  
+  </apiDesc><example conref="LineExample.mxml"><swfblock conref="examples/LineExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.graphics.Stroke.xml"><linktext>mx.graphics.Stroke</linktext></link></related-links><apiConstructor id="spark.primitives:Line:Line"><apiName>Line</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Line:protected:canSkipMeasurement"><apiName>canSkipMeasurement</apiName><shortdesc>
+      
+      measure() メソッドの呼び出しをスキップできるかどうかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc><codeph>measureSizes()</codeph> メソッドが <codeph>measure()</codeph> メソッドの呼び出しをスキップできる場合に <codeph>true</codeph> を返します。例えば、<codeph>explicitWidth</codeph> プロパティと <codeph>explicitHeight</codeph> プロパティの両方が設定されている場合、通常これは <codeph>true</codeph> になります。パスに関しては、パスの境界が変更されていない場合、これは <codeph>true</codeph> になります。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      <codeph>measure()</codeph> メソッドの呼び出しをスキップできるかどうかを決定します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      エレメントを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>描画するグラフィックエレメントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      エレメントを描画します。これは描画処理中に行われる 3 つの手順の 2 番目です。描画を実装するにはこのメソッドをオーバーライドします。ストローク（および該当する場合は塗りつぶし）が <codeph>beginDraw()</codeph> メソッドで設定されています。オーバーライドには、<codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> および <codeph>drawRect()</codeph> などの描画メソッドの呼び出しのみが含まれている必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      エレメントのデフォルトサイズを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エレメントのデフォルトサイズを計算します。これは、GraphicElement のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。 <codeph>measure()</codeph> メソッドは、<codeph>addElement()</codeph> メソッドを使用してエレメントがグループなどの <codeph>IGraphicElementContainer</codeph> コンテナに追加されたとき、およびエレメントの <codeph>invalidateSize()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>デフォルトでは、エレメントの明示的な高さと明示的な幅の両方を設定し、<codeph>invalidateSize()</codeph> メソッドを明示的に呼び出した場合であっても、Flex では <codeph>measure()</codeph> メソッドは呼び出されません。この動作をオーバーライドするには、<codeph>skipMeasure()</codeph> メソッドをオーバーライドします。</p>
+     
+      <p>このメソッドのオーバーライド内で、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティを設定してデフォルトのサイズを定義する必要があります。オプションで <codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティを設定して、エレメントの原点を基準にしたデフォルトの測定境界の左上隅を定義することができます。</p>
+     
+      <p><codeph>measure()</codeph> の概念ポイントは、エレメントの独自の自然な境界、つまり本来の境界をデフォルトとして指定するためのものです。このため、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティは、以下のような要素に基づいて決定されます。</p>
+      <ul>
+         <li>コンポーネントで表示する必要があるテキストの量</li>
+         <li>コンポーネントで表示する JPEG イメージのサイズ</li>
+      </ul>
+     
+      <p>デフォルト値を決めるための固有の方法がない場合もあります。例えば、簡単な GreenCircle エレメントでは単に <codeph>measure()</codeph> メソッドに measuredWidth = 100 と measuredHeight = 100 を設定することで、適切なデフォルトサイズを指定することがあります。また、TextArea などの場合には、適切な計算処理（すべてのテキストを表示でき、黄金の矩形の縦横比を持つ正確な幅と高さを求めるなど）を行うと時間がかかりすぎる場合があります。</p>
+     
+      <p><codeph>measure()</codeph> のデフォルトの実装では、<codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティの値を <codeph>0</codeph> に設定します。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Line:xFrom:get"><apiName>xFrom</apiName><shortdesc>
+     線の開始 x 位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     線の開始 x 位置です。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:xTo:get"><apiName>xTo</apiName><shortdesc>
+     線の終了 x 位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     線の終了 x 位置です。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yFrom:get"><apiName>yFrom</apiName><shortdesc>
+     線の開始 y 位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     線の開始 y 位置です。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yTo:get"><apiName>yTo</apiName><shortdesc>
+     線の終了 y 位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     線の終了 y 位置です。
+    
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+  BitmapImage エレメントは、親エレメントの座標空間で矩形の領域を定義し、ソースファイルまたはソース URL から描画されたビットマップデータで塗りつぶされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.0"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:GraphicElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapImage エレメントは、親エレメントの座標空間で矩形の領域を定義し、ソースファイルまたはソース URL から描画されたビットマップデータで塗りつぶされます。
+   </apiDesc><example conref="BitmapImageExample.mxml"><swfblock conref="examples/BitmapImageExample.swf"/></example></apiClassifierDetail><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  セキュリティエラーが発生したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  セキュリティエラーが発生したときに送出されます。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.SecurityErrorEvent.xml"><linktext>flash.events.SecurityErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_mx.events.FlexEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  コンテンツのロードが完了したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロードが完了したときに送出されます。<codeph>complete</codeph> イベントとは異なり、このイベントは、すべてのソースタイプに送出されます。
+   <p>Loader 経由でロードされるコンテンツの場合は、<codeph>ready</codeph> イベントと <codeph>complete</codeph> イベントの両方が送出されることに注意してください。</p>  embeds などの他のソースタイプの場合は、<codeph>ready</codeph> のみが送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  コンテンツのロード中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロード中に送出されます。
+   <p><b>メモ：</b><codeph>progress</codeph> イベントが送出されることは保証されていません。 <codeph>complete</codeph> イベントを、<codeph>progress</codeph> イベントが 1 つも送出されないまま受け取る場合もあります。 これは、ローカルファイルをロードする場合によく発生します。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  入出力エラーが発生すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  入出力エラーが発生すると送出されます。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  ネットワーク要求が HTTP 上で行われ、Flash Player または AIR が HTTP 状況コードを検出できる場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ネットワーク要求が HTTP 上で行われ、Flash Player または AIR が HTTP 状況コードを検出できる場合に送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  コンテンツのロードが完了したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロードが完了したときに送出されます。このイベントは url および ByteArray に基づくソース（これらのソースには Loader が必要です）に対してのみ送出されます。
+   <p>Loader 経由でロードされるコンテンツの場合は、<codeph>ready</codeph> イベントと <codeph>complete</codeph> イベントの両方が送出されることに注意してください。</p>  embeds などの他のソースタイプの場合は、<codeph>ready</codeph> のみが送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.primitives:BitmapImage:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:BitmapImage:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      
+      エレメントに設定されたプロパティを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エレメントに設定されたプロパティを処理します。これは、サブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。 <codeph>commitProperties()</codeph> メソッドは、<codeph>addElement()</codeph> メソッドを使用してグループなどの <codeph>IGraphicElementContainer</codeph> コンテナにエレメントを追加するとき、またはエレメントの <codeph>invalidateProperties()</codeph> メソッドを呼び出すときに、Flex によって呼び出されます。 <codeph>commitProperties()</codeph> メソッドの呼び出しは、<codeph>measure()</codeph> メソッドの呼び出しの前に実行されます。このため、<codeph>measure()</codeph> メソッドが使用する可能性のあるプロパティの値を設定することができます。</p>
+     
+      <p>一部のエレメントには、相互に作用し合うプロパティがあります。多くの場合、作業の重複を避けるため、起動時にこれらのプロパティを一度に処理することが最善です。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      エレメントのデフォルトサイズを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エレメントのデフォルトサイズを計算します。これは、GraphicElement のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。 <codeph>measure()</codeph> メソッドは、<codeph>addElement()</codeph> メソッドを使用してエレメントがグループなどの <codeph>IGraphicElementContainer</codeph> コンテナに追加されたとき、およびエレメントの <codeph>invalidateSize()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>デフォルトでは、エレメントの明示的な高さと明示的な幅の両方を設定し、<codeph>invalidateSize()</codeph> メソッドを明示的に呼び出した場合であっても、Flex では <codeph>measure()</codeph> メソッドは呼び出されません。この動作をオーバーライドするには、<codeph>skipMeasure()</codeph> メソッドをオーバーライドします。</p>
+     
+      <p>このメソッドのオーバーライド内で、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティを設定してデフォルトのサイズを定義する必要があります。オプションで <codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティを設定して、エレメントの原点を基準にしたデフォルトの測定境界の左上隅を定義することができます。</p>
+     
+      <p><codeph>measure()</codeph> の概念ポイントは、エレメントの独自の自然な境界、つまり本来の境界をデフォルトとして指定するためのものです。このため、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティは、以下のような要素に基づいて決定されます。</p>
+      <ul>
+         <li>コンポーネントで表示する必要があるテキストの量</li>
+         <li>コンポーネントで表示する JPEG イメージのサイズ</li>
+      </ul>
+     
+      <p>デフォルト値を決めるための固有の方法がない場合もあります。例えば、簡単な GreenCircle エレメントでは単に <codeph>measure()</codeph> メソッドに measuredWidth = 100 と measuredHeight = 100 を設定することで、適切なデフォルトサイズを指定することがあります。また、TextArea などの場合には、適切な計算処理（すべてのテキストを表示でき、黄金の矩形の縦横比を持つ正確な幅と高さを求めるなど）を行うと時間がかかりすぎる場合があります。</p>
+     
+      <p><codeph>measure()</codeph> のデフォルトの実装では、<codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティの値を <codeph>0</codeph> に設定します。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      エレメントの描画およびそのコンテンツのサイズや位置の設定を行います。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      エレメントの描画およびそのコンテンツのサイズや位置の設定を行います。これは、GraphicElement のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。 <codeph>updateDisplayList()</codeph> メソッドは、<codeph>addElement()</codeph> メソッドを使用してコンポーネントがグループなどの <codeph>IGraphicElementContainer</codeph> コンテナに追加されたとき、およびエレメントの <codeph>invalidateDisplayList()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>このメソッドでは、<codeph>graphics.drawRect()</codeph> など、エレメントの displayObject に対してメソッドを使用してプログラムによる描画を行います。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:BitmapImage:bitmapData:get"><apiName>bitmapData</apiName><shortdesc>
+      現在ロードされている（伸縮されていない）イメージコンテンツを表す BitmapData オブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      現在ロードされている（伸縮されていない）イメージコンテンツを表す BitmapData オブジェクトのコピーを返します。信頼されていないクロスドメインコンテンツの場合、このプロパティは <codeph>null</codeph> になります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc>
+      既にロードされたイメージのバイト数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      既にロードされたイメージのバイト数です。要求した URL によってロードされたイメージにのみ当てはまります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc>
+      ロード済みまたはロード保留中のイメージデータの総バイト数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      ロード済みまたはロード保留中のイメージデータの総バイト数です。要求した URL によってロードされたイメージにのみ当てはまります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:clearOnLoad:get"><apiName>clearOnLoad</apiName><shortdesc>
+      新しいコンテンツをロードする前に、前のイメージコンテンツをクリアするかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      新しいコンテンツをロードする前に、前のイメージコンテンツをクリアするかどうかを示します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoaderGrouping:get"><apiName>contentLoaderGrouping</apiName><shortdesc>
+      関連付けられた IContentLoader インスタンスの load() メソッドに渡される、オプショナルコンテンツのグループ化識別子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      関連付けられた IContentLoader インスタンスの load() メソッドに渡される、オプショナルコンテンツのグループ化識別子です。このプロパティは、有効な contentLoader が割り当てられている場合にのみ考慮されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoader:get"><apiName>contentLoader</apiName><shortdesc>
+      オプションのカスタムイメージローダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.core:IContentLoader</apiValueClassifier><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      コンテンツローダークライアントに関連付けるオプションのカスタムイメージローダー（イメージキャッシュやキューなど）です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      次元内でのビットマップ塗りつぶしの方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      次元内でのビットマップ塗りつぶしの方法を決定します。タグ内でこのプロパティの値を設定する場合は、（「repeat」などの）ストリングを使用します。ActionScript でこのプロパティの値を設定する場合は、（<codeph>mx.graphics.BitmapFillMode.CLIP</codeph> などの）定数を使用します。 
+           <p><codeph>BitmapFillMode.CLIP</codeph>（"clip"）に設定すると、ビットマップは領域の端で終了します。</p>
+           <p><codeph>BitmapFillMode.REPEAT</codeph>（"repeat"）に設定すると、ビットマップは領域を塗りつぶすために繰り返されます。</p>
+           <p><codeph>BitmapFillMode.SCALE</codeph>（"scale""）に設定すると、ビットマップは領域を塗りつぶすために伸縮されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      縦横比が 1 対 1 でなく、scaleMode が mx.graphics.BitmapScaleMode.LETTERBOX に設定されているときの、コンテンツの水平方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.CENTER&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      縦横比が 1 対 1 でなく、<codeph>scaleMode</codeph> が <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph> に設定されているときの、コンテンツの水平方向の配置です。
+           <p><codeph>HorizontalAlign.LEFT</codeph>（"left"）、<codeph>HorizontalAlign.RIGHT</codeph>（"right"）、<codeph>HorizontalAlign.CENTER</codeph>（"center"）のいずれかです。</p>
+           <p>このプロパティは、<codeph>fillMode</codeph> が <codeph>mx.graphics.BitmapFillMode.SCALE</codeph>（"scale"）に設定されている場合にのみ適用されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryHeight:get"><apiName>preliminaryHeight</apiName><shortdesc>
+      イメージの境界が "measured" となるようレイアウトで要求されているものの、イメージデータのロードがまだ完了していない場合に、高さに使用する予測を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      イメージの境界が "measured" となるようレイアウトで要求されているものの、イメージデータのロードがまだ完了していない場合に、高さに使用する予測を示します。NaN の場合、イメージのロードが完了するまで測定高さは 0 になります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryWidth:get"><apiName>preliminaryWidth</apiName><shortdesc>
+      イメージの境界が "measured" となるようレイアウトで要求されているものの、イメージデータのロードがまだ完了していない場合に、幅に使用する予測を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      イメージの境界が "measured" となるようレイアウトで要求されているものの、イメージデータのロードがまだ完了していない場合に、幅に使用する予測を示します。NaN の場合、イメージのロードが完了するまで測定幅は 0 になります。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      fillMode が mx.graphics.BitmapFillMode.SCALE に設定されている場合にイメージを伸縮する方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapScaleMode.STRETCH&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>fillMode</codeph> が <codeph>mx.graphics.BitmapFillMode.SCALE</codeph> に設定されている場合にイメージを伸縮する方法を指定します。
+           <p><codeph>mx.graphics.BitmapScaleMode.STRETCH</codeph>（"stretch"）に設定されている場合、表示が収まるようにイメージが伸縮されます。</p>
+           <p><codeph>BitmapScaleMode.LETTERBOX</codeph>（"letterbox"）に設定されている場合、イメージは伸縮されていない元のイメージの縦横比を基準に伸縮されます。</p>
+           <p><codeph>BitmapScaleMode.ZOOM</codeph>（"zoom"）に設定されている場合、イメージは伸縮されていない元のイメージの縦横比に合わせて伸縮されます。そのため、1 つの軸がトリミングされます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:sourceHeight:get"><apiName>sourceHeight</apiName><shortdesc>
+      伸縮されていない元のイメージデータの高さを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      伸縮されていない元のイメージデータの高さを示します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:sourceWidth:get"><apiName>sourceWidth</apiName><shortdesc>
+      伸縮されていない元のイメージデータの幅を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      伸縮されていない元のイメージデータの幅を示します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:source:get"><apiName>source</apiName><shortdesc>
+      ビットマップの塗りに使用するソースです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sourceChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ビットマップの塗りに使用するソースです。 塗りは、次のようなさまざまなグラフィックソースからレンダリングできます。
+      <ul>
+       <li>Bitmap インスタンスまたは BitmapData インスタンス。</li>
+       <li>DisplayObject のサブクラスを表すクラス。 BitmapFill によりクラスがインスタンス化され、そのビットマップレンダリングが作成されます。</li>
+       <li>DisplayObject のインスタンス。 BitmapFill は、塗りのためにそのインスタンスを Bitmap にコピーします。</li>
+       <li>外部イメージファイルの名前です。 </li>
+      </ul>
+           <p>ソースにイメージファイルを使用する場合、ファイルの形式には PNG、GIF または JPG を使用できます。</p>
+           <p>埋め込みイメージソースを指定するには、次の例に示すように、@Embed ディレクティブを使用できます。
+      <pre>
+      source="@Embed('&lt;i>image_location&lt;/i>')"
+      </pre>
+      </p>
+           <p>イメージの場所は URL、URLRequest、またはファイル参照で指定できます。 ファイル参照の場合、その位置は、コンパイルされているファイルの位置を基準とします。</p>
+           <p>BitmapImage クラスは、埋め込みイメージまたは実行時にロードされるイメージを処理するように設計されています。</p>
+           <p>ソースが Bitmap または BitmapData のインスタンスである場合、または外部イメージファイルである場合、ソースが不要になったときは、呼び出し元でソースを破棄する必要があります。ImageLoader が BitmapData インスタンスを作成した場合は、ソースが変更されると、ImageLoader が BitmapData を破棄します。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="mx.graphics.BitmapFill.xml"><linktext>mx.graphics.BitmapFill</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:trustedSource:get"><apiName>trustedSource</apiName><shortdesc>
+      現在ロードされているコンテンツを、セキュリティポリシーでクロスドメインのイメージアクセスが許可されているソースからロードされたものと見なすかどうかを示す、読み取り専用のフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      現在ロードされているコンテンツを、セキュリティポリシーでクロスドメインのイメージアクセスが許可されているソースからロードされたものと見なすかどうかを示す、読み取り専用のフラグです。<codeph>false</codeph> の場合、高品質の拡大 / 縮小やタイルなどの高度なビットマップ操作は行えません。 このフラグは、イメージが完全にロードされたときに設定されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      縦横比が 1 対 1 でなく、scaleMode が mx.graphics.BitmapScaleMode.LETTERBOX に設定されているときの、コンテンツの垂直方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.MIDDLE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      縦横比が 1 対 1 でなく、scaleMode が <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph> に設定されているときの、コンテンツの垂直方向の配置です。
+           <p><codeph>VerticalAlign.TOP</codeph>（"top"）、<codeph>VerticalAlign.BOTTOM</codeph>（"bottom"）、<codeph>VerticalAlign.MIDDLE</codeph>（"middle"）のいずれかです。</p>
+           <p>このプロパティは、scaleMode が <codeph>BitmapFillMode.SCALE</codeph>（"scale"）に設定されている場合にのみ適用されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:smooth:set"><apiName>smooth</apiName><shortdesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:smoothingQuality:set"><apiName>smoothingQuality</apiName><shortdesc>
+      イメージの縮小方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapSmoothingQuality.DEFAULT&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      イメージの縮小方法を指定します。<codeph>BitmapSmoothingQuality.HIGH</codeph> に設定されている場合、（信頼されているソースからのデータであれば、）より高品質な結果が得られるようイメージは再サンプルされます。<codeph>BitmapSmoothingQuality.DEFAULT</codeph> に設定されている場合は、拡大縮小されたビットマップで埋めるデフォルトステージの品質が使用されます。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Path"><apiName>Path</apiName><shortdesc>
+  Path クラスは、一連のパスセグメントを描画する塗りつぶしグラフィックエレメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Path クラスは、一連のパスセグメントを描画する塗りつぶしグラフィックエレメントです。ベクターグラフィックでは、パスは直線または曲線セグメントにより接続された一連の点です。線が集まってイメージを形成します。Flex では、Path クラスを使用して、一連の線セグメントから構築される複雑なベクターシェイプを定義します。 
+ 
+  <p>通常、パス定義の最初のエレメントは、グラフィックの開始のペン位置を指定するための Move セグメントです。その後、Line、CubicBezier、および QuadraticBezier セグメントを使用して、グラフィックの線を描画します。これらのクラスを使用する場合は、線の終点の x および y 座標のみを指定します。始点の x および y 座標は、現在のペンの位置によって定義されます。</p>
+  
+  <p>線セグメントを描画した後、現在のペンの位置は線の終点の x および y 座標になります。パス定義で複数の Move セグメントを使用すると、ペンを再配置できます。</p>
+  
+  <p>シェイプを定義するために Path クラスにより使用される構文は SVG パス構文と同じであるため、SVG のパスを Flex のパスに変換するのは容易です。</p>
+  
+  </apiDesc><example conref="ArrowExample.mxml"><swfblock conref="examples/ArrowExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.primitives:Path:Path"><apiName>Path</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Path:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      エレメントを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>描画するグラフィックエレメントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      エレメントを描画します。これは描画処理中に行われる 3 つの手順の 2 番目です。描画を実装するにはこのメソッドをオーバーライドします。ストローク（および該当する場合は塗りつぶし）が <codeph>beginDraw()</codeph> メソッドで設定されています。オーバーライドには、<codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> および <codeph>drawRect()</codeph> などの描画メソッドの呼び出しのみが含まれている必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:endDraw"><apiName>endDraw</apiName><shortdesc>
+     
+      
+      このエレメントの描画を完了させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>描画を終了するグラフィックエレメントです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      
+      このエレメントの描画を完了させます。これは描画処理中に行われる 3 つの手順の最後です。この手順では、塗りつぶしが閉じられます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:invalidateDisplayObjectSharing"><apiName>invalidateDisplayObjectSharing</apiName><shortdesc>
+      
+      このエレメントが変更され、レイヤーを更新する必要があることをホストに通知するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      このエレメントが変更され、レイヤーを更新する必要があることをホストに通知するためのユーティリティメソッドです。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      エレメントのデフォルトサイズを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      エレメントのデフォルトサイズを計算します。これは、GraphicElement のサブクラスを作成するときにオーバーライド可能な高度なメソッドです。
+     
+      <p>このメソッドは直接呼び出さないでください。 <codeph>measure()</codeph> メソッドは、<codeph>addElement()</codeph> メソッドを使用してエレメントがグループなどの <codeph>IGraphicElementContainer</codeph> コンテナに追加されたとき、およびエレメントの <codeph>invalidateSize()</codeph> メソッドが呼び出されたときに、Flex によって呼び出されます。 </p>
+     
+      <p>デフォルトでは、エレメントの明示的な高さと明示的な幅の両方を設定し、<codeph>invalidateSize()</codeph> メソッドを明示的に呼び出した場合であっても、Flex では <codeph>measure()</codeph> メソッドは呼び出されません。この動作をオーバーライドするには、<codeph>skipMeasure()</codeph> メソッドをオーバーライドします。</p>
+     
+      <p>このメソッドのオーバーライド内で、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティを設定してデフォルトのサイズを定義する必要があります。オプションで <codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティを設定して、エレメントの原点を基準にしたデフォルトの測定境界の左上隅を定義することができます。</p>
+     
+      <p><codeph>measure()</codeph> の概念ポイントは、エレメントの独自の自然な境界、つまり本来の境界をデフォルトとして指定するためのものです。このため、<codeph>measuredWidth</codeph> プロパティおよび <codeph>measuredHeight</codeph> プロパティは、以下のような要素に基づいて決定されます。</p>
+      <ul>
+         <li>コンポーネントで表示する必要があるテキストの量</li>
+         <li>コンポーネントで表示する JPEG イメージのサイズ</li>
+      </ul>
+     
+      <p>デフォルト値を決めるための固有の方法がない場合もあります。例えば、簡単な GreenCircle エレメントでは単に <codeph>measure()</codeph> メソッドに measuredWidth = 100 と measuredHeight = 100 を設定することで、適切なデフォルトサイズを指定することがあります。また、TextArea などの場合には、適切な計算処理（すべてのテキストを表示でき、黄金の矩形の縦横比を持つ正確な幅と高さを求めるなど）を行うと時間がかかりすぎる場合があります。</p>
+     
+      <p><codeph>measure()</codeph> のデフォルトの実装では、<codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> および <codeph>measuredY</codeph> プロパティの値を <codeph>0</codeph> に設定します。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Path:data:set"><apiName>data</apiName><shortdesc>
+      パスセグメントのコンパクトな表現を含むストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      パスセグメントのコンパクトな表現を含むストリングです。これは、セグメントのプロパティを設定するための代替手段です。このプロパティを設定すると、セグメントの配列プロパティに格納されているすべての値がオーバーライドされます。
+     
+      <p>値は、各パスセグメントを記述するスペース区切りストリングです。各セグメントエントリには、セグメントの種類を示す 1 文字と、2 つ以上のセグメントパラメーターがあります。</p>
+     
+      <p>セグメントコマンドが大文字である場合、パラメーターは絶対値です。セグメントコマンドが小文字である場合、パラメーターは相対値です。</p>
+     
+      <p>次の表に、セグメントの構文を示します。
+      
+      
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="4"><thead><row><entry>セグメントの種類</entry><entry>コマンド</entry><entry>パラメーター</entry><entry>例</entry></row></thead><tbody><row>
+          <entry>Move</entry>
+          <entry>M/m</entry>
+          <entry>x y</entry>
+          <entry><codeph>M 10 20</codeph> - 線を 10, 20 に移動します。</entry>
+        </row><row>
+          <entry>Line</entry>
+          <entry>L/l</entry>
+          <entry>x y</entry>
+          <entry><codeph>L 50 30</codeph> - 50, 30 まで線を引きます。</entry>
+        </row><row>
+          <entry>Horizontal line</entry>
+          <entry>H/h</entry>
+          <entry>x</entry>
+          <entry><codeph>H 40</codeph> = 40 への水平線です。</entry>
+        </row><row>
+          <entry>Vertical line</entry>
+          <entry>V/v</entry>
+          <entry>y</entry>
+          <entry><codeph>V 100</codeph> - 100 への垂直線です。</entry>
+        </row><row>
+          <entry>QuadraticBezier</entry>
+          <entry>Q/q</entry>
+          <entry>controlX controlY x y</entry>
+          <entry><codeph>Q 110 45 90 30</codeph> - 110, 45 にコントロールポイントがある 90, 30 への曲線です。</entry>
+        </row><row>
+          <entry>CubicBezier</entry>
+          <entry>C/c</entry>
+          <entry>control1X control1Y control2X control2Y x y</entry>
+          <entry><codeph>C 45 50 20 30 10 20</codeph> - 45, 50 に最初のコントロールポイントがあり、20, 30 に 2 番目のコントロールポイントがある、10, 20 への曲線です。</entry>
+        </row><row>
+          <entry>Close path</entry>
+          <entry>Z/z</entry>
+          <entry>該当せず</entry>
+          <entry>パスを閉じます。</entry>
+        </row></tbody></tgroup></adobetable>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Path:winding:set"><apiName>winding</apiName><shortdesc>
+      パスセグメントを交差またはオーバーラップするための塗り規則です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>evenOdd
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      パスセグメントを交差またはオーバーラップするための塗り規則です。有効な値は <codeph>GraphicsPathWinding.EVEN_ODD</codeph> または <codeph>GraphicsPathWinding.NON_ZERO</codeph> です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.GraphicsPathWinding.xml"><linktext>flash.display.GraphicsPathWinding</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.primitives:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+  Ellipse クラスは楕円形を描画する塗りつぶしグラフィックエレメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Ellipse クラスは楕円形を描画する塗りつぶしグラフィックエレメントです。楕円形を描画するため、このクラスは <codeph>Graphics.drawEllipse()</codeph> メソッドを呼び出します。
+  
+  </apiDesc><example conref="EllipseExample.mxml"><swfblock conref="examples/EllipseExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Ellipse:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Ellipse:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      エレメントを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>描画するグラフィックエレメントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      エレメントを描画します。これは描画処理中に行われる 3 つの手順の 2 番目です。描画を実装するにはこのメソッドをオーバーライドします。ストローク（および該当する場合は塗りつぶし）が <codeph>beginDraw()</codeph> メソッドで設定されています。オーバーライドには、<codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> および <codeph>drawRect()</codeph> などの描画メソッドの呼び出しのみが含まれている必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

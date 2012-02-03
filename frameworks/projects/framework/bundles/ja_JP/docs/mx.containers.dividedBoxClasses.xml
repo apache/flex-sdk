@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.containers.dividedBoxClasses"><apiName>mx.containers.dividedBoxClasses</apiName><apiDetail/><apiClassifier id="mx.containers.dividedBoxClasses:BoxDivider"><apiName>BoxDivider</apiName><shortdesc>
+  BoxDivider クラスは、DividedBox コンテナの子同士の間にある仕切りを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="dividerThickness" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="Number">
+<description conref="mx.containers.DividedBox#style:dividerThickness">
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="dividerColor" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="uint">
+<description conref="mx.containers.DividedBox#style:dividerColor">
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dividerAlpha" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="Number">
+<description conref="mx.containers.DividedBox#style:dividerAlpha">
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dividerAffordance" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="Number">
+<description conref="mx.containers.DividedBox#style:dividerAffordance">
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="verticalGap" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="Number">
+<description>
+  子同士の垂直方向の間隔を示すピクセル数です。 デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合は 6 になります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="horizontalGap" owner="mx.containers.dividedBoxClasses:BoxDivider" playerVersion="Flash9" type="Number">
+<description>
+  子同士の水平方向の間隔を示すピクセル数です。デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合は 8 になります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BoxDivider クラスは、DividedBox コンテナの子同士の間にある仕切りを表します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.containers.xml#DividedBox"><linktext>mx.containers.DividedBox</linktext></link></related-links><apiConstructor id="mx.containers.dividedBoxClasses:BoxDivider:BoxDivider"><apiName>BoxDivider</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.animation"><apiName>spark.effects.animation</apiName><apiDetail/><apiClassifier id="spark.effects.animation:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+  Keyframe 类用于定义位于效果过程中某个特定时间的属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Keyframe&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Keyframe 
+    id="ID"
+    easier="Linear"
+    time="val"
+    value="val"
+    valueBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Keyframe 类用于定义位于效果过程中某个特定时间的属性的值。例如，您可以创建三个关键帧，分别定义位于效果的开始处、中点和结束处的属性的值。效果会在其持续时间内逐个关键帧设置目标上的属性更改的动画。
+ 
+  <p>效果的关键帧的集合称为效果的运动路径。运动路径可以定义任何数量的关键帧。这样效果就可以通过在两个关键帧所指定的值之间进行插补来计算属性的值。 </p>
+ 
+  <p>使用 MotionPath 类容纳 Keyframe 对象的集合，这些对象用于表示效果的运动路径。MotionPath 类指定目标上的属性的名称，Keyframe 对象的集合指定效果过程中不同时间的属性的值。</p>
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:Keyframe:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>time</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>以毫秒为单位的时间，此关键帧的效果目标应该在此时间处具有 <codeph>value</codeph> 参数指定的值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>效果目标在给定的 <codeph>time</codeph> 处应该具有的值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>可选参数，如果提供该可选参数，则可以通过将 <codeph>valueBy</codeph> 与 MotionPath 对象的关键帧集合中的前一个关键帧的 <codeph>value</codeph> 相加来动态地计算 <codeph>value</codeph>。如果是序列中的第一个 Keyframe，则会忽略此值。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Keyframe:clone"><apiName>clone</apiName><shortdesc>
+      返回此 Keyframe 对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此 Keyframe 对象的副本。
+     
+      </apiDesc><apiOperationClassifier>spark.effects.animation:Keyframe</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回此 Keyframe 对象的副本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Keyframe:easer"><apiName>easer</apiName><shortdesc>
+      对运动路径中前一个 Keyframe 对象与此 Keyframe 对象之间的运动所应用的缓动行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Linear
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对运动路径中前一个 Keyframe 对象与此 Keyframe 对象之间的运动所应用的缓动行为。默认情况下，缓动是线性的，或者根本就没有缓动。 
+     
+      <p>请注意，父效果可能已经拥有对整个动画所应用的缓动。因此，如果需要缓动每个关键帧的时间间隔，则需要将全局效果缓动器设置为线性缓动 (spark.effects.easing.Linear)，然后根据需要对每个关键帧设置 <codeph>easer</codeph>。</p>
+     
+      <p>由于此属性作用于序列中前一个 Keyframe 对象与此 Keyframe 对象之间的时间间隔，因此会对序列中的第一个 Keyframe 对象，忽略 <codeph>easer</codeph> 属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:time"><apiName>time</apiName><shortdesc>
+      以毫秒为单位的时间，此关键帧的效果目标应该在此时间处具有 value 属性指定的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      以毫秒为单位的时间，此关键帧的效果目标应该在此时间处具有 <codeph>value</codeph> 属性指定的值。此时间与用此关键帧定义的效果的起始时间相关。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:valueBy"><apiName>valueBy</apiName><shortdesc>
+      用于计算此关键帧或前一个关键帧中的 value 的可选参数（如果已指定）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      用于计算此关键帧或前一个关键帧中的 <codeph>value</codeph> 的可选参数（如果已指定）。如果在前一个关键帧中未设置 <codeph>value</codeph>，但此关键帧中同时定义了 <codeph>value</codeph> 和 <codeph>valueBy</codeph>，则前一个关键帧中的 <codeph>value</codeph> 可以通过以此关键帧中的 <codeph>value</codeph> 减去此关键帧中的 <codeph>valueBy</codeph> 来计算。
+     
+      <p>同样，如果此关键帧中的 <codeph>value</codeph> 未定义，但是此关键帧中的 <codeph>valueBy</codeph> 和前一个关键帧中的 <codeph>value</codeph> 都已设置，则此关键帧中的 <codeph>value</codeph> 可以通过前一个关键帧中的 <codeph>value</codeph> 加上此关键帧中的 <codeph>valueBy</codeph> 来计算。</p>
+      
+      <p>因为 <codeph>valueBy</codeph> 仅适用于关键帧之前的时间间隔，而第一个关键帧之前没有时间间隔，所以对于序列中的第一个关键帧，会忽略它。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:value"><apiName>value</apiName><shortdesc>
+      效果目标的属性在 time 属性指定的时间处所应该具有的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      效果目标的属性在 <codeph>time</codeph> 属性指定的时间处所应该具有的值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:IAnimationTarget"><apiName>IAnimationTarget</apiName><shortdesc>
+  IAnimationTarget 接口是由支持某个 Animation 实例的事件的类实现的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IAnimationTarget 接口是由支持某个 Animation 实例的事件的类实现的。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationEnd"><apiName>animationEnd</apiName><shortdesc>
+      Animation 实例结束时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation 实例结束时调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationRepeat"><apiName>animationRepeat</apiName><shortdesc>
+      Animation 实例重复时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation 实例重复时调用。Animation 实例必须有一个等于 0（无限制重复）或一个大于 1 的值的 <codeph>repeatCount</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStart"><apiName>animationStart</apiName><shortdesc>
+      Animation 实例开始时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation 实例开始时调用。如果在 Animation 上存在 <codeph>startDelay</codeph>，则会在该延迟之后调用此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStop"><apiName>animationStop</apiName><shortdesc>
+      Animation 实例停止时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation 实例停止时调用。这与 <codeph>animationEnd()</codeph> 方法不同，后者是在动画结束时调用的，而前者自动设置目标的结束值。动画在它所在的位置处停止时调用 <codeph>animationStop()</codeph> 方法。处理此事件允许中断动画时进行必要的清理。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationUpdate"><apiName>animationUpdate</apiName><shortdesc>
+      在 Animation 实例的每次更新过程中调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation 对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在 Animation 实例的每次更新过程中调用。如果某个实现类正在专门侦听某个 Animation，以能够在为给定时间计算 Animation 值之后执行某些操作，则这是应该使用那些值的函数。此接口中的其他方法富有更多信息。这些方法通知侦听器动画何时开始、停止或重复。已计算值且可以使用它们处理某些事项时调用此方法。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.animation:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+  MotionPath 类定义效果的 Keyframe 对象的集合，以及要设置动画的目标上属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MotionPath&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:MotionPath 
+    id="ID"
+    interpolator="NumberInterpolator"
+    keyframes="val"
+    property="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MotionPath 类定义效果的 Keyframe 对象的集合，以及要设置动画的目标上属性的名称。每个 Keyframe 对象都定义位于效果过程中某个特定时间的属性的值。这样，效果就可以通过在两个关键帧所指定的值之间进行插补来计算目标属性的值。
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link></related-links><apiConstructor id="spark.effects.animation:MotionPath:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要设置动画的目标上属性的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:MotionPath:clone"><apiName>clone</apiName><shortdesc>
+      返回此 MotionPath 对象的副本（包含每个关键帧的副本）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此 MotionPath 对象的副本（包含每个关键帧的副本）。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.animation:MotionPath</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回此 MotionPath 对象的副本（包含每个关键帧的副本）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:MotionPath:getValue"><apiName>getValue</apiName><shortdesc>
+      给定已过去时间部分的情况下，计算并返回一个内插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>效果的总体持续时间部分（从 0.0 到 1.0 之间的值）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      给定已过去时间部分的情况下，计算并返回一个内插值。该函数决定该部分所处于的关键帧时间间隔，然后在该时间间隔内插补该时间间隔的定界关键帧值之间的值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:MotionPath:interpolator"><apiName>interpolator</apiName><shortdesc>
+      插补器决定如何计算动画中的中间值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      插补器决定如何计算动画中的中间值。默认情况下，MotionPath 类会假定这些值的类型为 Number，且 Number 类型的中间值可以自动计算。如果 MotionPath 类是带有非 Number 值的给定关键帧，或者需要的行为必须使用另一种插补方法（如按通道颜色插补），则应该提供插补器。
+     
+      <p>Flex 在 spark.effects.interpolation 包中提供了预定义的插补器。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:MotionPath:keyframes"><apiName>keyframes</apiName><shortdesc>
+      表示属性在动画过程中所采用的时间/值对的 Keyframe 对象序列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:Keyframe"/></apiValueDef><apiDesc>
+      表示属性在动画过程中所采用的时间/值对的 Keyframe 对象序列。每一对连续的关键帧都会控制它们之间的时间间隔内的动画。后一个关键帧的可选 <codeph>easer</codeph> 和 <codeph>valueBy</codeph> 属性用于确定该时间间隔内的行为。关键帧序列必须按时间值的升序排序。
+     
+      <p>动画通常起始于 time=0，持续时长为最后一个关键帧中的 <codeph>time</codeph> 值。如果在 time=0 处没有定义关键帧，则该关键帧是隐式的，它使用的是在动画开始时目标属性的值。 </p>
+     
+      <p>因为关键帧显式定义动画中所涉及的时间，所以使用关键帧的效果的持续时间会根据效果中所有 MotionPath 的最后一个关键帧的最大时间来设置。例如，如果效果拥有位于时间 0、500、1000 和 2000 处的关键帧，则不论在该效果本身上设置何种 <codeph>duration</codeph> 属性，该效果的有效持续时间都为 2000 毫秒。由于最后一个关键帧决定持续时间，因此任何 MotionPath 中都始终必须有最后一个关键帧。即，隐含的意思是，最后一个关键帧中的时间就是 MotionPath 的持续时间。</p>
+     
+      <p>任何关键帧都可以将其 <codeph>value</codeph> 保留为未定义状态（不设置，或者设为 <codeph>null</codeph> 或 <codeph>NaN</codeph>）。在这种情况下，值会在动画开始时动态地确定。任何未定义的值都可以按如下方式确定： </p>
+      <ol>
+        <li>如果它是第一个关键帧，则在下一个关键帧同时设置了 <codeph>value</codeph> 和 <codeph>valueBy</codeph> 属性的情况下，它是从下一个关键帧来计算的（作为这些值的差异）。否则，会获取目标上的属性的当前值。</li>
+        <li>如果这是最后一个关键帧，且动画正在过渡中运行，则会使用过渡的目标视图状态中的值。</li>
+        <li>否则，任何关键帧计算其 <codeph>value</codeph> 的方法都会是使用前一个关键帧的 <codeph>value</codeph> 加上当前关键帧的 <codeph>valueBy</codeph>（如果已设置 <codeph>valueBy</codeph>）。</li>
+      </ol>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:MotionPath:property"><apiName>property</apiName><shortdesc>
+      要设置动画的效果目标上属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      要设置动画的效果目标上属性的名称。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:RepeatBehavior"><apiName>RepeatBehavior</apiName><shortdesc>
+  RepeatBehavior 类定义用于与 Animate 和 Animation 类的 repeatBehavior 属性一起使用的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RepeatBehavior 类定义用于与 Animate 和 Animation 类的 <codeph>repeatBehavior</codeph> 属性一起使用的常量。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate/repeatBehavior"><linktext>spark.effects.Animate.repeatBehavior</linktext></link><link href="spark.effects.animation.xml#Animation/repeatBehavior"><linktext>Animation.repeatBehavior</linktext></link></related-links><apiValue id="spark.effects.animation:RepeatBehavior:LOOP"><apiName>LOOP</apiName><shortdesc>
+     指定在每个迭代上重复的动画在前进方向上的进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>loop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指定在每个迭代上重复的动画在前进方向上的进度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:RepeatBehavior:REVERSE"><apiName>REVERSE</apiName><shortdesc>
+     指定重复动画应该在每个迭代上倒转方向。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>reverse</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指定重复动画应该在每个迭代上倒转方向。例如，反向动画在偶数迭代上向前播放，而在奇数迭代上反向播放。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+  SimpleMotionPath 类指定属性名称以及该属性随时间变化而采用的值，例如 Animate 效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.animation:MotionPath</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SimpleMotionPath 类指定属性名称以及该属性随时间变化而采用的值，例如 Animate 效果。 
+ 
+  <p>此类是 MotionPath 的一个简单子类，用于定义包含 <codeph>valueFrom</codeph>、<codeph>valueTo</codeph> 和 <codeph>valueBy</codeph> 属性的两个关键帧。MotionPath 类自身可以定义任意数量的关键帧。</p>
+ 
+  </apiDesc><example conref="SimpleMotionPathEffectExample.mxml"><swfblock conref="examples/SimpleMotionPathEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:SimpleMotionPath:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>正在设置动画的属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFrom</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>属性的初始值。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueTo</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>属性的最终值。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>用于指定 delta 的可选参数，该 delta 用于计算 from 或 to 值（如果其中一个值被忽略）。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。您可以同时指定 <codeph>valueFrom</codeph> 和 <codeph>valueTo</codeph> 参数，也可以在指定 <codeph>valueBy</codeph> 参数的同时指定 <codeph>valueFrom</codeph> 或 <codeph>valueTo</codeph> 参数。如果忽略这些参数，则 Flex 会从效果目标计算它们。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.animation:SimpleMotionPath:valueBy:get"><apiName>valueBy</apiName><shortdesc>
+      可指定用于计算 valueFrom 或 valueTo 值的 delta 的可选属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      可指定用于计算 <codeph>valueFrom</codeph> 或 <codeph>valueTo</codeph> 值的 delta 的可选属性。如果未提供必需的 from/to 值，或者这些值是在动画开始时以动态方式确定的，则提供此可选属性使该效果可以计算这些值。
+     
+      <p><codeph>valueBy</codeph> 值的使用方式取决于设置的是其他值中的哪一个值。如果这两个值都没有设置，则 <codeph>valueFrom</codeph> 值是通过目标中的当前属性值确定的，而 <codeph>valueTo</codeph> 值则为 <codeph>valueFrom + valueBy</codeph>。如果两个值没有同时设置，只设置了其中一个，则未设置的值可通过另一个来计算：<codeph>valueTo = valueFrom + valueBy</codeph> 或 <codeph>valueFrom = valueTo - valueBy</codeph>。如果同时设置了这两个值，则会忽略 <codeph>valueBy</codeph> 属性。</p>
+     
+      <p>请注意，由于 <codeph>valueBy</codeph> 的类型为 Object，效果无法直接通过它计算其他值。它通过调用插补器的 <codeph>increment()</codeph> 和 <codeph>decrement()</codeph> 方法，使用效果的插补器来计算这些值。如果未设置插补器，则默认情况下它将使用 NumberInterpolator。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueFrom:get"><apiName>valueFrom</apiName><shortdesc>
+      动画过程中属性的起始值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      动画过程中属性的起始值。
+     
+      <p>值为 Null 或 NaN（对于 Number）表明值必须在运行时以动态方式确定，方法是直接从目标属性获取值，或者在其他值有效且还提供了一个有效的 <codeph>valueBy</codeph> 值的情况下计算该值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueTo:get"><apiName>valueTo</apiName><shortdesc>
+      已命名的属性将要设置动画的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      已命名的属性将要设置动画的值。
+     
+      <p>值为 Null 或 NaN（对于 Number）的元素表明值必须在运行时以动态方式确定，方法是直接从目标属性获取值，或者在其他值有效且还提供了一个有效的 <codeph>valueBy</codeph> 值的情况下计算该值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:Animation"><apiName>Animation</apiName><shortdesc>
+  Animation 类定义在指定的时间段上在属性的开始值和结束值之间发生的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Animation 类定义在指定的时间段上在属性的开始值和结束值之间发生的动画。该动画可以是位置的改变，就像 Move 效果所执行的那样；大小的改变，就像 Resize 效果执行的那样；可见性的改变，就像 Fade 效果所执行的那样；或者效果所使用的其他类型的动画，或者直接在 Animation 类内运行的其他类型的动画。
+ 
+  <p>此类定义动画的计时部分和值部分。其他代码（在效果中或在应用程序代码中）使动画与目标对象和属性相关联，这样接着可以将由 Animation 类产生的动画值应用到目标对象和属性，以实际使这些对象设置动画。</p>
+ 
+  <p>定义动画效果时，您通常会创建 Animate 类的一个实例，或者创建 Animate 子类的一个实例。这会使用 <codeph>play()</codeph> 方法创建一个 Animation 实例。Animation 实例接受开始和结束值、一个持续时间和可选参数（如 easer 和 interpolator 对象）。</p>
+ 
+  <p>在动画开始和结束时，当动画重复时，以及在动画播放过程中的定期更新时间间隔处，Animation 对象会调用事件侦听器。这些调用传递 Animation 实例从开始和结束值以及 easer 和 interpolator 对象计算出来的值。接着可以将这些值用于在目标对象上设置属性值。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate"><linktext>spark.effects.Animate</linktext></link><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><apiConstructor id="spark.effects.animation:Animation:Animation"><apiName>Animation</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>500</apiData><apiDesc>动画的长度（以毫秒为单位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要设置动画的属性。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>属性的初始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>属性的最终值。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。可选 <codeph>property</codeph>、<codeph>startValue</codeph> 和 <codeph>endValue</codeph> 参数使用有两个 Keyframe 的单个 MotionPath 对象定义一个简单的动画。任一值为非 null 时，<codeph>startValue</codeph> 在 time=0 处成为第一个关键帧的 <codeph>value</codeph>，而 <codeph>endValue</codeph> 在动画的结尾成为第二个关键帧的 <codeph>value</codeph>。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Animation:end"><apiName>end</apiName><shortdesc>
+      中断动画，立即跳到动画的结尾，并对 animationTarget 调用 animationEnd() 函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      中断动画，立即跳到动画的结尾，并对 <codeph>animationTarget</codeph> 调用 animationEnd() 函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:pause"><apiName>pause</apiName><shortdesc>
+      在调用 resume() 方法之前暂停该效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在调用 <codeph>resume()</codeph> 方法之前暂停该效果。如果在 <codeph>resume()</codeph> 之前调用 <codeph>stop()</codeph>，则无法继续该动画。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:play"><apiName>play</apiName><shortdesc>
+      开始动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      开始动画。如果动画已在播放，则会首先停止它，然后播放它。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:resume"><apiName>resume</apiName><shortdesc>
+      在效果由 pause() 方法暂停后继续播放效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在效果由 <codeph>pause()</codeph> 方法暂停后继续播放效果。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:stop"><apiName>stop</apiName><shortdesc>
+      停止播放动画，且结束时不调用 end() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      停止播放动画，且结束时不调用 <codeph>end()</codeph> 方法。将对 <codeph>animationTarget</codeph> 调用 animationStop() 函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Animation:currentValue"><apiName>currentValue</apiName><shortdesc>
+      直到 Animation 的当前帧，包含计算的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      直到 Animation 的当前帧，包含计算的值的对象。会使用属性名作为键，将这些值存储为 map 值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:duration"><apiName>duration</apiName><shortdesc>
+      动画的时长（以毫秒为单位），不计算由 repeatCount 属性定义的任何重复。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>500</apiData><apiType value="Number"/><apiDefaultValue>500
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      动画的时长（以毫秒为单位），不计算由 <codeph>repeatCount</codeph> 属性定义的任何重复。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:interpolator"><apiName>interpolator</apiName><shortdesc>
+      Animation 实例所用的插补器，用于计算属性的开始值和结束值之间的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      Animation 实例所用的插补器，用于计算属性的开始值和结束值之间的值。默认情况下，该类使用 NumberInterpolator 类，或者在开始值和结束值为数组或 Vector 的情况下，该类使用 NumberInterpolator 类。其他数据类型的插值，或者应该以不同的方式插补的 Number（如包含颜色通道信息的 <codeph>uint</codeph> 值）的插值，可以通过提供不同的插补器来处理。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:motionPaths"><apiName>motionPaths</apiName><shortdesc>
+      MotionPath 对象集，它定义随着时间的推移 Animation 将设置动画的属性和值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+      MotionPath 对象集，它定义随着时间的推移 Animation 将设置动画的属性和值。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>spark.effects.animation.MotionPath</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:animationTarget:get"><apiName>animationTarget</apiName><shortdesc>
+      使用此动画的所有 start、end、repeat 和 update 事件通知的 IAnimationTarget 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.animation:IAnimationTarget</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用此动画的所有 start、end、repeat 和 update 事件通知的 IAnimationTarget 对象。值 <codeph>null</codeph> 指示不存在要通知的目标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleFraction:get"><apiName>cycleFraction</apiName><shortdesc>
+      在已应用缓动之后，在动画中已过去的当前部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在已应用缓动之后，在动画中已过去的当前部分。此值在 0 和 1 之间。动画的“周期”被定义为动画的单一重复，其中 <codeph>repeatCount</codeph> 属性用于定义将播放的周期数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleTime:get"><apiName>cycleTime</apiName><shortdesc>
+      在当前周期动画中的当前毫秒位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      在当前周期动画中的当前毫秒位置。该值介于 0 和 <codeph>duration</codeph> 之间。动画的“周期”被定义为动画的单一重复，其中 <codeph>repeatCount</codeph> 属性用于定义将播放的周期数。使用 <codeph>seek()</codeph> 方法更改动画的位置。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:easer:get"><apiName>easer</apiName><shortdesc>
+      此效果的缓动行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Sine(.5)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此效果的缓动行为。此 IEaser 对象用于将动画的已过去部分转换为缓动部分，随后缓动部分将用于计算该缓动的已过去部分的值。 
+     
+      <p>值 <codeph>null</codeph> 意味着不使用缓动，这等同于使用一种 Linear 缓动，或者 <codeph>animation.easer = Linear.getInstance();</codeph>。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:isPlaying:get"><apiName>isPlaying</apiName><shortdesc>
+      如果为 true，则表示当前正在播放动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则表示当前正在播放动画。除非已播放动画且尚未停止（以编程方式或自动）或暂停它，否则该值为 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playReversed:get"><apiName>playReversed</apiName><shortdesc>
+      如果为 true，则反向播放动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则反向播放动画。如果当前播放动画的方向与 <codeph>playReversed</codeph> 的指定值相反，则动画将以动态方式更改方向。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      动画的总计已过去时间，包括任何开始延迟和重复。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      动画的总计已过去时间，包括任何开始延迟和重复。对于播放了第一个循环的动画，此值将等于 <codeph>cycleTime</codeph> 的值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+      设置重复动画的行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置重复动画的行为。重复动画已将 <codeph>repeatCount</codeph> 属性设置为 0 或某个大于 1 的值。此值应该为 <codeph>RepeatBehavior.LOOP</codeph>（意味着每次动画按相同的顺序重复）或 <codeph>RepeatBehavior.REVERSE</codeph>（意味着对于每个迭代，动画都倒转方向）。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#RepeatBehavior"><linktext>spark.effects.animation.RepeatBehavior</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:repeatCount:set"><apiName>repeatCount</apiName><shortdesc>
+      此动画重复的次数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此动画重复的次数。值为 0 意味着它会无限期地重复。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatDelay:set"><apiName>repeatDelay</apiName><shortdesc>
+      在每次重复循环开始之前延迟的时间数量（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在每次重复循环开始之前延迟的时间数量（以毫秒为单位）。将此值设置为一个非零数字会恰好在其结束值处结束上一个动画循环。但是，不延迟的重复可能会完全跳过该值，因为动画会从在一个循环的结尾附近平滑地过渡到越过下一个循环的开始处。必须将此属性设置为大于等于 0 的一个值。
+     
+      <p>此属性用于在第一次动画循环之后的第一次重复。要延迟动画的第一次循环，请使用 <codeph>startDelay</codeph> 属性。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Animation/startDelay"><linktext>startDelay</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:startDelay:set"><apiName>startDelay</apiName><shortdesc>
+      在动画开始之前等待的时间数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在动画开始之前等待的时间数量。必须将此属性设置为大于等于 0 的一个值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

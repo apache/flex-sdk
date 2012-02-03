@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.items"><apiName>mx.charts.series.items</apiName><apiDetail/><apiClassifier id="mx.charts.series.items:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части AreaSeries. При отображении класс AreaSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:AreaSeriesItem:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:AreaSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Это значение установлено на <codeph>NaN</codeph>, если значение находится вне шкалы оси. Значение этого поля <codeph>undefined</codeph>, если AreaSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными. Значение этого поля <codeph>undefined</codeph>, если AreaSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Минимальное значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента. Значение этого поля <codeph>undefined</codeph>, если AreaSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана. Значение этого поля <codeph>undefined</codeph>, если AreaSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Это значение установлено на <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в числовое представление по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в числовое представление по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Это значение установлено на <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в числовое представление по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в числовое представление по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части BubbleSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части BubbleSeries. При отображении класс BubbleSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BubbleSeriesItem:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BubbleSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BubbleSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Это значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zFilter"><apiName>zFilter</apiName><shortdesc>
+      Значение этого элемента по оси z, отфильтрованное по отношению к оси радиуса диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси z, отфильтрованное по отношению к оси радиуса диаграммы с данными. Это значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zNumber"><apiName>zNumber</apiName><shortdesc>
+      Значение этого элемента по оси z, преобразованное в число по оси радиуса диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси z, преобразованное в число по оси радиуса диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zValue"><apiName>zValue</apiName><shortdesc>
+      Значение этого элемента по оси z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси z.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:z"><apiName>z</apiName><shortdesc>
+      Значение этого элемента по оси z, преобразованное в радиус на основе пикселей.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси z, преобразованное в радиус на основе пикселей.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части HLOCSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части HLOCSeries. При отображении класс HLOCSeries передает эти элементы в свое средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:HLOCSeriesItem:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.chartClasses:HLOCSeriesBase</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeFilter"><apiName>closeFilter</apiName><shortdesc>
+      Закрывающее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Закрывающее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeNumber"><apiName>closeNumber</apiName><shortdesc>
+      Закрывающее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Закрывающее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeValue"><apiName>closeValue</apiName><shortdesc>
+      Закрывающее значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Закрывающее значение этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:close"><apiName>close</apiName><shortdesc>
+      Закрывающее значение этого элемента по оси, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Закрывающее значение этого элемента по оси, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+     Содержит цвет заливки этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+     Содержит цвет заливки этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highFilter"><apiName>highFilter</apiName><shortdesc>
+      Верхнее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Верхнее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highNumber"><apiName>highNumber</apiName><shortdesc>
+      Верхнее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Верхнее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highValue"><apiName>highValue</apiName><shortdesc>
+      Верхнее значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Верхнее значение этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:high"><apiName>high</apiName><shortdesc>
+      Верхнее значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Верхнее значение этого элемента, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowFilter"><apiName>lowFilter</apiName><shortdesc>
+      Нижнее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Нижнее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowNumber"><apiName>lowNumber</apiName><shortdesc>
+      Нижнее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Нижнее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowValue"><apiName>lowValue</apiName><shortdesc>
+      Нижнее значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Нижнее значение этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:low"><apiName>low</apiName><shortdesc>
+      Нижнее значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Нижнее значение этого элемента, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openFilter"><apiName>openFilter</apiName><shortdesc>
+      Открывающее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Открывающее значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openNumber"><apiName>openNumber</apiName><shortdesc>
+      Открывающее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Открывающее значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openValue"><apiName>openValue</apiName><shortdesc>
+      Открывающее значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Открывающее значение этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:open"><apiName>open</apiName><shortdesc>
+      Открывающее значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Открывающее значение этого элемента, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для визуализации элемента как части LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для визуализации элемента как части LineSeries. При визуализации класс LineSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesItem:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:LineSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части ColumnSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части ColumnSeries. При визуализации класс ColumnSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:ColumnSeriesItem:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:ColumnSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:ColumnSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Это значение <codeph>NaN</codeph>, если значение находится вне шкалы оси. Значение этого поля <codeph>undefined</codeph>, если ColumnSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в число по вертикальной оси диаграммы с данными. Значение этого поля <codeph>undefined</codeph>, если ColumnSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Минимальное значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента. Значение этого поля <codeph>undefined</codeph>, если ColumnSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана. Значение этого поля <codeph>undefined</codeph>, если ColumnSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части BarSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части BarSeries. При отображении класс BarSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BarSeriesItem:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BarSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BarSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Это значение <codeph>NaN</codeph>, если значение находится вне шкалы оси. Значение этого поля <codeph>undefined</codeph>, если BarSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в число по горизонтальной оси диаграммы с данными. Значение этого поля <codeph>undefined</codeph>, если BarSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      Минимальное значение этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента. Значение этого поля <codeph>undefined</codeph>, если BarSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:min"><apiName>min</apiName><shortdesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Минимальное значение этого элемента, преобразованное в координаты экрана. Значение этого поля <codeph>undefined</codeph>, если BarSeries не находится в стеке, и не установлено его свойство <codeph>minField</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части PlotSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части PlotSeries. При отображении класс PlotSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PlotSeriesItem:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PlotSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Элемент из dataProvider, представляющий этот элемент ChartItem.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PlotSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Содержит цвет заливки элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Содержит цвет заливки элемента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:radius"><apiName>radius</apiName><shortdesc>
+      Радиус этого элемента в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус этого элемента в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, отфильтрованное по отношению к горизонтальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в число по горизонтальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      Значение этого элемента по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:x"><apiName>x</apiName><shortdesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси x, преобразованное в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, отфильтрованное по отношению к вертикальной оси диаграммы с данными. Значение <codeph>NaN</codeph>, если значение находится вне шкалы оси.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в число по вертикальной оси диаграммы с данными.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      Значение этого элемента по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:y"><apiName>y</apiName><shortdesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение этого элемента по оси y, преобразованное в координаты экрана
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения сегмента в классе LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения сегмента в классе LineSeries. При визуализации класс LineSeries передает LineSeriesSegment в собственное средство визуализации lineRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesSegment:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiDesc>Серия-владелец.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>Индекс сегмента в массиве сегментов, представляющий серии линий.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>Массив LineSeriesItems, представляющий все серии линий.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>start</apiItemName><apiType value="uint"/><apiDesc>Индекс в массиве элементов для первого элемента в сегменте.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>end</apiItemName><apiType value="uint"/><apiDesc>Индекс в массиве элементов для последнего элемента в этом сегменте включительно.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.series.items:LineSeriesSegment:clone"><apiName>clone</apiName><shortdesc>
+      Возвращает копию сегмента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Копия этого сегмента.
+     
+      </apiDesc><apiOperationClassifier>mx.charts.series.items:LineSeriesSegment</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает копию сегмента.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.charts.series.items:LineSeriesSegment:element"><apiName>element</apiName><shortdesc>
+      Серии элементов, содержащиеся в этом сегменте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:LineSeries</apiValueClassifier></apiValueDef><apiDesc>
+      Серии элементов, содержащиеся в этом сегменте.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:end"><apiName>end</apiName><shortdesc>
+      Индекс в массиве элементов для последнего элемента в этом массиве включительно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Индекс в массиве элементов для последнего элемента в этом массиве включительно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:index"><apiName>index</apiName><shortdesc>
+      Индекс этого сегмента в массиве сегментов, представляющий серии линий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Индекс этого сегмента в массиве сегментов, представляющий серии линий.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:items"><apiName>items</apiName><shortdesc>
+      Массив chartItems, представляющий все серии линий, принадлежащие сегменту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив chartItems, представляющий все серии линий, принадлежащие сегменту.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:start"><apiName>start</apiName><shortdesc>
+      Индекс в массиве элементов для первого элемента в этом сегменте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Индекс в массиве элементов для первого элемента в этом сегменте.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+  Представляет информацию, требуемую для отображения элемента как части PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Представляет информацию, требуемую для отображения элемента как части PieSeries. При визуализации класс PieSeries передает эти элементы в собственное средство визуализации itemRenderer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PieSeriesItem:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PieSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>Серия-владелец.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Элемент из dataProvider, представляющий этот элемент ChartItem.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Индекс элемента из dataProvider серии.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PieSeriesItem:angle"><apiName>angle</apiName><shortdesc>
+      Угол в радианах, которому противолежит этот сектор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Угол в радианах, которому противолежит этот сектор.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      Значение заполнения, связанное с сектором элемента управления PieChart.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      Значение заполнения, связанное с сектором элемента управления PieChart.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:innerRadius"><apiName>innerRadius</apiName><shortdesc>
+      Расстояние внутренней границы этого сектора от его основы, измеряемое в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние внутренней границы этого сектора от его основы, измеряемое в пикселях. Если значение равно нулю, сектор должен представлять собой точку основы.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:labelAngle"><apiName>labelAngle</apiName><shortdesc>
+      Угол метки для этого сектора в радианах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Угол метки для этого сектора в радианах.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:number"><apiName>number</apiName><shortdesc>
+      Значение, представляемое этим сектором, которое преобразовано в координаты экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение, представляемое этим сектором, которое преобразовано в координаты экрана.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:origin"><apiName>origin</apiName><shortdesc>
+      Основа сектора относительно системы координат PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      Основа сектора относительно системы координат PieSeries.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:outerRadius"><apiName>outerRadius</apiName><shortdesc>
+      Расстояние внешнего угла этого сектора от его основы, измеряемое в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние внешнего угла этого сектора от его основы, измеряемое в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:percentValue"><apiName>percentValue</apiName><shortdesc>
+      Процент, представляемый значением всего круга диаграммы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Процент, представляемый значением всего круга диаграммы.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:startAngle"><apiName>startAngle</apiName><shortdesc>
+      Начальный угол этого сектора в радианах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Начальный угол этого сектора в радианах.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:value"><apiName>value</apiName><shortdesc>
+      Значение, представляемое этим сектором из dataProvider класса PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение, представляемое этим сектором из dataProvider класса PieSeries.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

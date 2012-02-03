@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting"><apiName>mx.rpc.remoting</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting:Operation"><apiName>Operation</apiName><shortdesc>
+ RemoteObjects 専用の Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RemoteObjects 専用の Operation です。 Operation は、サービスに対する個々のメソッドです。 Operation は、サービスに対して同じ名前の関数を呼び出すか、サービスのプロパティとして Operation にアクセスして <codeph>send()</codeph> メソッドを呼び出すことによって、呼び出すことができます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     新しい Operation を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>remoteObject</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>サービスを定義する RemoteObject オブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サービスの名前です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい Operation を作成します。不明な処理にアクセスした場合、通常は RemoteObject によって直接、自動的に作成されます。 開発者がこのコンストラクターを直接使用することはお勧めしません。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>キャンセルされた呼び出しに関連付けられた AsyncToken、または呼び出しがキャンセルされなかった場合は null です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>キャンセルする呼び出しの messageId です。オプションです。省略した場合、最後のサービス呼び出しがキャンセルされます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      最後のサービス呼び出しまたは指定された ID を持つ呼び出しをキャンセルします。ネットワーク処理が続行する場合でも、result イベントや fault イベントは送出されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:Operation:send"><apiName>send</apiName><shortdesc>
+     
+     メソッドを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>AsyncToken オブジェクトです。<codeph>result</codeph> イベントおよび <codeph>fault</codeph> イベント（<codeph>token</codeph> プロパティ）で、同じオブジェクトを使用できます。
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>メソッドの呼び出しの一部として渡される省略可能なパラメーターです。パラメーターが渡されていない場合、パラメーターオブジェクトがパラメーターのソースとして使用されます。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     メソッドを実行します。渡されたパラメーターはすべて、メソッド呼び出しの一部として渡されます。 パラメーターが渡されていない場合、パラメーターオブジェクトがパラメーターのソースとして使用されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:Operation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     メソッドの呼び出しに渡されるパラメーターの名前が順に列挙されたリストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     メソッドの呼び出しに渡されるパラメーターの名前が順に列挙されたリストです。 arguments オブジェクトは順序が保証されていないハッシュマップであるため、この配列はすべてのものを正しく配置するのに役立ちます。 これは、Operation がタグ形式で使用される場合に、必要に応じて MXML コンパイラーで自動的に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     この Operation の concurrency です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     この Operation の concurrency です。 明示的に設定されていない場合は、RemoteObject の設定が使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     この処理の実行中にビジーカーソルを表示するかどうか。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この処理の実行中にビジーカーソルを表示するかどうか。 明示的に設定されていない場合は、RemoteObject の設定が使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.remoting:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+ RemoteObject クラスにより、リモートアプリケーションサーバー上のクラスにアクセスすることができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RemoteObject クラスにより、リモートアプリケーションサーバー上のクラスにアクセスすることができます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     新しい RemoteObject を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>[オプション] RemoteObject の宛先。services-config.xml ファイル内の宛先名と一致する必要があります。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい RemoteObject を作成します。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     指定された名前の Operation を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この名前に対して実行される Operation です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Operation の名前です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された名前の Operation を返します。Operation が事前に作成されなかった場合、新しい <codeph>mx.rpc.remoting.Operation</codeph> がこの呼び出し中に作成されます。 Operation は通常、その名前をサービス変数（<codeph>myService.someOperation</codeph>）の後に指定するだけでアクセスすることができますが、Operation 名がサービスに対して定義されているメソッドと一致している場合（例えば <codeph>setCredentials</codeph>）、代わりにこのメソッドを使って Operation を取得することができます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     リモートオブジェクトが ColdFusion Component（CFC）などの外部サービスで管理されている場合、そのリモートサービスの認証メカニズムに対するユーザー名とパスワードを設定することができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すユーザー名です。
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>リモートエンドポイントに渡すパスワードです。
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>リモート資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     リモートオブジェクトが ColdFusion Component（CFC）などの外部サービスで管理されている場合、そのリモートサービスの認証メカニズムに対するユーザー名とパスワードを設定することができます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:toString"><apiName>toString</apiName><shortdesc>
+     RemoteObject のインスタンスを、宛先 ID や割り当てられたチャネルのセットなどの重要なプロパティを記述するストリングとして表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>RemoteObject のインスタンスを表すストリングを返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     RemoteObject のインスタンスを、宛先 ID や割り当てられたチャネルのセットなどの重要なプロパティを記述するストリングとして表します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:RemoteObject:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     フレームワーク開発者には、各リモートオブジェクト起動で渡すパラメーターを指定して呼び出す関数をインストールする必要がある場合があります。そのような開発者を主な対象としたオプション関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     フレームワーク開発者には、各リモートオブジェクト起動で渡すパラメーターを指定して呼び出す関数をインストールする必要がある場合があります。そのような開発者を主な対象としたオプション関数です。関数はパラメーターの配列を取り、変更されている可能性のある配列を返します。関数の定義は <codeph>function myParametersFunction(parameters:Array):Array</codeph> のようになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     フレームワーク開発者には、操作の結果を処理するフックをインストールしてから結果ハンドラーを通知する必要がある場合があります。そのような開発者を主な対象としたオプション関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     フレームワーク開発者には、操作の結果を処理するフックをインストールしてから結果ハンドラーを通知する必要がある場合があります。そのような開発者を主な対象としたオプション関数です。関数の定義は <codeph> function myConvertResultsFunction(result: operation:AbstractOperation):</codeph> のようになります。これに結果が返されるのは、makeObjectsBindable 変換が行われた直後、結果イベントが作成される前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+    同一サービスに対する複数の呼び出しの処理方法を示す値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+    同一サービスに対する複数の呼び出しの処理方法を示す値です。 デフォルト値は multiple です。 使用できる値は次のとおりです。
+    <ul>
+    <li>multiple：既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。これはデフォルトの設定です。</li>
+    <li>single：メソッドでは一度に 1 つの要求しか作成できません。要求が未解決の間にさらに要求を作成すると、それらの要求はクライアントでただちにフォルトになり、サーバーに送信されません。</li>
+    <li>last：要求を作成すると、クライアントが現在の未処理の要求に関する結果またはフォルトを無視することになります。最も新しい要求についての結果またはフォルトのみがクライアントで送出されます。これによってクライアントアプリケーションでのイベント処理が簡単になる可能性があります。しかし、要求の結果またはフォルトを無視しても安全なときにのみこのモードを使用するよう注意してください。</li>
+    </ul>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+     このプロパティを使用すると、開発者はコンパイル時にサービス設定ファイルを参照したり、プログラムで ChannelSet を作成したりすることなしに、RemoteObject 宛先のエンドポイントを簡単に指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     このプロパティを使用すると、開発者はコンパイル時にサービス設定ファイルを参照したり、プログラムで ChannelSet を作成したりすることなしに、RemoteObject 宛先のエンドポイントを簡単に指定できます。 また、既存の ChannelSet が RemoteObject サービスに設定されている場合、このプロパティはその ChannelSet をオーバーライドします。
+     
+     <p>エンドポイント URL が "https" で始まっている場合、SecureAMFChannel が使用されます。それ以外の場合は、AMFChannel が使用されます。 エンドポイント URL で 2 つの特別なトークン、{server.name} と {server.port} を使用すると、SWF のロードに使用されたサーバー名とポートをチャネルが使用するように指定できます。 </p>
+     
+     <p><b>メモ：</b>このプロパティは、AIR アプリケーションを作成するときに必要です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     この値が true の場合、返された匿名オブジェクトは強制的にバインド可能オブジェクトにされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    true の場合、サービスの実行中にビジーカーソルが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    <codeph>true</codeph> の場合、サービスの実行中にビジーカーソルが表示されます。 デフォルト値は <codeph>false</codeph> です。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:source:get"><apiName>source</apiName><shortdesc>
+     クライアント上のソース値を指定することができます。JavaAdapter を使用する宛先にはサポートされていません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     クライアント上のソース値を指定することができます。JavaAdapter を使用する宛先にはサポートされていません。 これにより、サーバー上の単一の宛先から複数のソースにアクセスすることができます。 
+         
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

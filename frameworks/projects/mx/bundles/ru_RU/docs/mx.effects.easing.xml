@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.easing"><apiName>mx.effects.easing</apiName><apiDetail/><apiClassifier id="mx.effects.easing:Quartic"><apiName>Quartic</apiName><shortdesc>
+  Класс Quartic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quartic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Quartic, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для достижения той же самой функциональности класса Quartic создайте экземпляр Power с <codeph>exponent</codeph> 4 и выполните соответствующую настройку <codeph>easeInFraction</codeph>, обеспечивающую получение требуемого результата.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Quartic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex. Ускорение движения в случае уравнения замедления четвертой степени выполняется быстрее, чем при уравнении замедления второй или третьей степени. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quartic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Класс Linear определяет три функции замедления, реализующие движение с использованием классов эффектов Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Linear" replacement="spark.effects.easing.Linear" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Linear, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для достижения функциональности, предоставляемой старым классом Linear, создайте новый экземпляр spark.effects.easing.Linear или вызовите spark.effects.easing.Linear.getInstance() для получения экземпляра одного класса.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Linear определяет три функции замедления, реализующие движение с использованием классов эффектов Flex. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Linear:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, а затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, а затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeNone"><apiName>easeNone</apiName><shortdesc>
+      Метод easeNone() определяет постоянное движение без ускорения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeNone()</codeph> определяет постоянное движение без ускорения. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quintic"><apiName>Quintic</apiName><shortdesc>
+  Класс Quintic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quintic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Quintic, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для достижения той же самой функциональности класса Quintic создайте экземпляр Power с <codeph>exponent</codeph> 5 и выполните соответствующую настройку <codeph>easeInFraction</codeph>, обеспечивающую получение требуемого результата.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Quintic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex. Ускорение движения в случае уравнения замедления пятой степени выполняется быстрее, чем при уравнении замедления четвертой, третьей или второй степени. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quintic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Cubic"><apiName>Cubic</apiName><shortdesc>
+  Класс Cubic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Cubic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Cubic, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для получения функциональных возможностей, предоставляемых классом Cubic, создайте экземпляр Power с <codeph>exponent</codeph> 3 и выполните соответствующую настройку <codeph>easeInFraction</codeph> для достижения требуемого результата.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Cubic определяет три функции замедления, реализующие движение с использованием классов эффектов Flex. Ускорение движения при синусоидальном уравнении плавности выполняется медленнее, чем при квадратичном уравнении плавности. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Cubic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, а затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, а затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quadratic"><apiName>Quadratic</apiName><shortdesc>
+  Класс Quadratic определяет три функции замедления, реализующие движение по квадратичной кривой с использованием классов эффектов Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quadratic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Quadratic, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для достижения той же самой функциональности класса Quadratic создайте экземпляр Power с <codeph>exponent</codeph> 2 и выполните соответствующую настройку <codeph>easeInFraction</codeph>, обеспечивающую получение требуемого результата.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Quadratic определяет три функции замедления, реализующие движение по квадратичной кривой с использованием классов эффектов Flex. Ускорение движения в случае квадратного уравнения замедления выполняется медленнее, чем при уравнении замедления третьей или четвертой степени. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quadratic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Класс Sine определяет три функции замедления, реализующие движение с использованием классов эффектов Flex, в которых движение происходит по синусоиде.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Sine" replacement="spark.effects.easing.Sine" since="4.0">
+<description>
+  Эффекты Spark, предоставляемые Flex 4, используют классы, которые реализуют интерфейс IEaser вместо функций замедления в таких классах, как Sine, использующихся для воспроизведения эффектов в более ранней версии Flex 3. Для достижения функциональности, предоставляемой старым классом Sine, создайте экземпляр spark.effects.Sine с соответствующим <codeph>easeInFraction</codeph>, обеспечивающим получение требуемого результата.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Sine определяет три функции замедления, реализующие движение с использованием классов эффектов Flex, в которых движение происходит по синусоиде. Дополнительные сведения см. на странице http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Sine:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Метод easeInOut() сочетает движение методов easeIn() и easeOut(). Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeInOut()</codeph> сочетает движение методов <codeph>easeIn()</codeph> и <codeph>easeOut()</codeph>. Данный метод начинает движение с нулевой скоростью, ускоряет его, затем уменьшает скорость до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Метод easeIn() начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeIn()</codeph> начинает движение с нулевой скоростью, а затем постепенно увеличивает скорость. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Метод easeOut() начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Число, соответствующее расположению компонента.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Указывает время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Задает начальную позицию компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Задает общее изменение в позиции компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Задает продолжительность эффекта в миллисекундах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод <codeph>easeOut()</codeph> начинает движение с высокой скоростью, а затем постепенно уменьшает ее до нуля. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

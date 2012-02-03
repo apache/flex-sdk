@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+  MXFTETextInput est un composant UIComponent utilisé pour prendre en charge du texte TLF dans les contrôles MX et les rendus de grille de données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="text"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:ITextInput</apiBaseInterface><apiBaseClassifier>spark.components:TextInput</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXFTETextInput est un composant UIComponent utilisé pour prendre en charge du texte TLF dans les contrôles MX et les rendus de grille de données. Il peut être utilisé à la place d’un contrôle MX TextInput. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.TextInput.xml"><linktext>mx.controls.TextInput</linktext></link></related-links><adobeApiEvent id="mx.controls:MXFTETextInput_mx.events.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Distribué lorsque la propriété data change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>data</codeph> change.
+ 
+  <p>Lorsque vous utilisez un composant comme rendu d’élément, la propriété <codeph>data</codeph> contient les données à afficher. Vous pouvez écouter cet événement et mettre à jour le composant lorsque la propriété <codeph>data</codeph> change.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:MXFTETextInput:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:MXFTETextInput:showBorderAndBackground"><apiName>showBorderAndBackground</apiName><shortdesc>
+      Utilisé pour déterminer si la bordure et l’arrière-plan du contrôle sont visibles. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>visible</apiItemName><apiType value="Boolean"/><apiDesc>Défini sur <codeph>true</codeph> pour rendre la bordure et l’arrière-plan visibles. Dans le cas contraire, défini sur <codeph>false</codeph>. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Utilisé pour déterminer si la bordure et l’arrière-plan du contrôle sont visibles. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:MXFTETextInput:data:get"><apiName>data</apiName><shortdesc>
+      Permet de transmettre une valeur au composant lorsque vous l’utilisez dans un rendu d’élément ou un éditeur d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Permet de transmettre une valeur au composant lorsque vous l’utilisez dans un rendu d’élément ou un éditeur d’élément. Vous utilisez généralement la liaison des données pour lier un champ de la propriété <codeph>data</codeph> à une propriété de ce composant.
+     
+      <p>Lorsque vous utilisez le contrôle comme rendu d’élément supplémentaire ou éditeur d’élément supplémentaire, Flex écrit automatiquement la valeur actuelle de l’élément dans la propriété <codeph>text</codeph> de ce contrôle.</p>
+     
+      <p>Vous ne pouvez pas définir cette propriété dans MXML.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:listData:get"><apiName>listData</apiName><shortdesc>
+      Lorsqu’un composant est utilisé en tant que rendu d’élément supplémentaire ou éditeur d’élément supplémentaire, Flex initialise la propriété listData du composant avec les données appropriées du contrôle List.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Lorsqu’un composant est utilisé en tant que rendu d’élément supplémentaire ou éditeur d’élément supplémentaire, Flex initialise la propriété <codeph>listData</codeph> du composant avec les données appropriées du contrôle List. Le composant peut ensuite utiliser la propriété <codeph>listData</codeph> pour initialiser la propriété <codeph>data</codeph> du rendu d’élément supplémentaire ou de l’éditeur d’élément supplémentaire.
+     
+      <p>Vous ne définissez pas cette propriété dans MXML ou ActionScript. Flex la définit lorsque le composant est utilisé comme rendu d’élément supplémentaire ou éditeur d’élément supplémentaire.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:parentDrawsFocus:get"><apiName>parentDrawsFocus</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier></apiPackage>

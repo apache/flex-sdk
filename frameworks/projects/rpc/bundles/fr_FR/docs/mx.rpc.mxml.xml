@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.mxml"><apiName>mx.rpc.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.mxml:IMXMLSupport"><apiName>IMXMLSupport</apiName><shortdesc>
+  L’implémentation de cette interface signifie qu’un service RPC peut être utilisé dans un document MXML à l’aide de balises MXML. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’implémentation de cette interface signifie qu’un service RPC peut être utilisé dans un document MXML à l’aide de balises MXML. 
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+      Paramètre d’accès simultané de l’opération RPC ou du service HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Paramètre d’accès simultané de l’opération RPC ou du service HTTPService. Une valeur parmi « multiple », « last » ou « single ».
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      Indique si l’opération RPC ou le service HTTPService doit afficher le curseur occupé pendant qu’elle s’exécute.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si l’opération RPC ou le service HTTPService doit afficher le curseur occupé pendant qu’elle s’exécute.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.mxml:Concurrency"><apiName>Concurrency</apiName><shortdesc>
+ L’accès simultané est défini via un accès MXML aux services RPC pour indiquer comment traiter plusieurs appels au même service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ L’accès simultané est défini via un accès MXML aux services RPC pour indiquer comment traiter plusieurs appels au même service. La valeur d’accès simultané par défaut est <codeph>multiple</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:Concurrency:LAST"><apiName>LAST</apiName><shortdesc>
+     Si une demande est effectuée, le client ignore un résultat ou une erreur pour une demande en attente actuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Si une demande est effectuée, le client ignore un résultat ou une erreur pour une demande en attente actuelle. Seul le résultat ou seule l’erreur pour la demande la plus récente sera distribuée au client. Cela peut simplifier la gestion des événements dans l’application client, mais prenez soin de n’utiliser ce mode que si les résultats ou erreurs des demandes peuvent être ignorés sans risque.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:MULTIPLE"><apiName>MULTIPLE</apiName><shortdesc>
+     Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiple</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données retournées en gérant avec soin le flux d’événements.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:SINGLE"><apiName>SINGLE</apiName><shortdesc>
+     N’effectuer qu’une demande à la fois est autorisé sur la méthode ; les demandes supplémentaires effectuées alors qu’une demande est en attente génèrent immédiatement une erreur sur le client et ne sont pas envoyées au serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>single</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     N’effectuer qu’une demande à la fois est autorisé sur la méthode ; les demandes supplémentaires effectuées alors qu’une demande est en attente génèrent immédiatement une erreur sur le client et ne sont pas envoyées au serveur.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

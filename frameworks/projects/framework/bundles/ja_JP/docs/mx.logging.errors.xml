@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.errors"><apiName>mx.logging.errors</apiName><apiDetail/><apiClassifier id="mx.logging.errors:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+  このエラーは、ロガーに指定されたカテゴリに無効な文字が含まれていたり、カテゴリの形式が正しくない場合にスローされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このエラーは、ロガーに指定されたカテゴリに無効な文字が含まれていたり、カテゴリの形式が正しくない場合にスローされます。 このエラーは次のメソッドでスローされます。
+  <ul>
+    <li>指定されたカテゴリの形式が正しくない場合、<codeph>Log.getLogger()</codeph> によりスローされます。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidCategoryError:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>このエラーを説明するメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidCategoryError:toString"><apiName>toString</apiName><shortdesc>
+	  メッセージをストリングとして返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>メッセージです。
+	  
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  メッセージをストリングとして返します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging.errors:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+  このエラーは、ターゲットに指定されたフィルターに無効な文字が含まれていたり、フィルターの形式が正しくない場合にスローされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このエラーは、ターゲットに指定されたフィルターに無効な文字が含まれていたり、フィルターの形式が正しくない場合にスローされます。 このエラーは次のメソッドまたはプロパティでスローされます。
+  <ul>
+    <li>このリストのフィルター表現の形式が正しくない場合、<codeph>ILoggerTarget.filters</codeph> によりスローされます。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidFilterError:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>このエラーを説明するメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidFilterError:toString"><apiName>toString</apiName><shortdesc>
+	  メッセージをストリングとして返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>メッセージです。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  メッセージをストリングとして返します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

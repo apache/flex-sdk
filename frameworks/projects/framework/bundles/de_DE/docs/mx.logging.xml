@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging"><apiName>mx.logging</apiName><apiDetail/><apiClassifier id="mx.logging:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+  Stellt die Protokollinformationen für ein einzelnes Protokollereignis dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Stellt die Protokollinformationen für ein einzelnes Protokollereignis dar. Das Protokollsystem löst ein einzelnes Ereignis aus, wenn ein Prozess zu protokollierende Informationen anfordert. Dieses Ereignis kann von einem beliebigen Objekt zur Speicherung und Formatierung erfasst werden.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogEvent:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiData/><apiDesc>String, der die Protokolldaten enthält.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Stufe dieses Protokollereignisses. Gültige Werte sind:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+	 
+        <li><codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+	 
+        <li><codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+	 
+        <li><codeph>LogEventLevel.ALL</codeph> zwingt ein Ziel zur Verarbeitung aller Meldungen.</li>
+      </ul>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogEvent:getLevelString"><apiName>getLevelString</apiName><shortdesc>
+      Gibt einen Stringwert zurück, der die angegebene Stufe darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die auf Englisch angegebene Stufe.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="uint"/><apiDesc>Stufe, für die ein String verwendet werden soll.
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen Stringwert zurück, der die angegebene Stufe darstellt.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogEvent:LOG"><apiName>LOG</apiName><shortdesc>
+      Ereignistyp Konstante; stellt ein Protokollereignis dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>log</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Ereignistyp Konstante; stellt ein Protokollereignis dar.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:level"><apiName>level</apiName><shortdesc>
+      Bietet Zugriff auf die Stufe für dieses Protokollereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Bietet Zugriff auf die Stufe für dieses Protokollereignis. Gültige Werte sind:
+        <ul>
+          <li><codeph>LogEventLogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+     
+          <li><codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+          <li><codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+     
+          <li><codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:message"><apiName>message</apiName><shortdesc>
+      Bietet Zugriff auf die protokollierte Meldung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Bietet Zugriff auf die protokollierte Meldung.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+  Diese Klasse bietet grundlegende Funktionen, die von einer Protokollarchitektur für eine Zielimplementierung erforderlich sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILoggingTarget</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse bietet grundlegende Funktionen, die von einer Protokollarchitektur für eine Zielimplementierung erforderlich sind. Sie verarbeitet die Überprüfung von Filterausdrücken und bietet eine Standardstufeneigenschaft. Es ist keine Implementierung der Methode <codeph>logEvent()</codeph> vorgesehen.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:AbstractTarget:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:AbstractTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Richtet dieses Ziel mit der angegebenen Protokollfunktion ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Die ILogger, auf die dieses Ziel warten soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Richtet dieses Ziel mit der angegebenen Protokollfunktion ein. Dadurch kann dieses Ziel Protokollereignisse von der angegebenen Protokollfunktion erhalten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:initialized"><apiName>initialized</apiName><shortdesc>
+      Wird aufgerufen, nachdem das implementierende Objekt erstellt wurde und alle für das Tag angegebenen Eigenschaften zugewiesen wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Das MXML-Dokument, durch das dieses Objekt erstellt wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Wird von dem Dokument verwendet, um auf dieses Objekt zu verweisen. Wenn das Objekt eine tiefe Eigenschaft im Dokument ist, ist die ID null.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird aufgerufen, nachdem das implementierende Objekt erstellt wurde und alle für das Tag angegebenen Eigenschaften zugewiesen wurden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      Diese Methode verarbeitet ein LogEvent von einer verknüpften Protokollfunktion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>Ein Ereignis von einer verknüpften Protokollfunktion.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Diese Methode verarbeitet ein <codeph>LogEvent</codeph> von einer verknüpften Protokollfunktion. Ein Ziel verwendet diese Methode, um das Ereignis in ein geeignetes Format für die Übertragung, Speicherung oder Anzeige zu übersetzen. Diese Methode wird nur aufgerufen, wenn die Stufe des Ereignisses sich im Bereich der Stufe des Ziels befindet.
+     
+      <p><b><i>HINWEIS: Untergeordnete Elemente müssen diese Methode überschreiben, damit sie verwendet werden kann.</i></b></p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Verhindert, dass dieses Ziel Ereignisse von der angegebenen Protokollfunktion erhält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Die ILogger, die dieses Ziel ignorieren soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Verhindert, dass dieses Ziel Ereignisse von der angegebenen Protokollfunktion erhält.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:AbstractTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Zusätzlich zur level-Einstellung werden Filter verwendet, um eine pseudo-hierarchische Zuordnung zu bieten, die zur Verarbeitung nur der Ereignisse einer bestimmten Kategorie dient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Zusätzlich zur <codeph>level</codeph>-Einstellung werden Filter verwendet, um eine pseudo-hierarchische Zuordnung zu bieten, die zur Verarbeitung nur der Ereignisse einer bestimmten Kategorie dient.
+      <p>
+      Jede Protokollfunktion gehört zu einer Kategorie. Gemäß den Konventionen werden diese Kategorien dem vollständig qualifizierten Klassennamen zugeordnet, in dem die Protokollfunktion verwendet wird. Beispiel: Eine Protokollfunktion, die Meldungen für die <codeph>mx.rpc.soap.WebService</codeph>-Klasse protokolliert, verwendet mx.rpc.soap.WebService als Parameter für den <codeph>Log.getLogger()</codeph>-Methodenaufruf. Wenn Meldungen unter dieser Kategorie gesendet werden, erhalten nur die Ziele, die einem dieser Kategorie entsprechenden Filter enthalten, eine Benachrichtigung zu den Ereignissen. Filterausdrücke können eine Platzhaltersuche enthalten, die durch ein Sternchen gekennzeichnet ist. Der Platzhalter muss das äußerst rechte Zeichen im Ausdruck sein. Beispiel: rpc~~, mx.~~ oder ~~. Wenn ein ungültiger Ausdruck angegeben ist, wird ein <codeph>InvalidFilterError</codeph> ausgegeben. Wurde <codeph>null</codeph> oder [] angegeben, werden die Filter standardmäßig auf ["~~"] gesetzt.
+      </p>
+      <p>Beispiel:
+         <pre>
+               var traceLogger:ILoggingTarget = new TraceTarget();
+               traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
+               Log.addTarget(traceLogger);
+         </pre>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:id:get"><apiName>id</apiName><shortdesc>
+       Bietet Zugriff auf die ID dieses Ziels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+       Bietet Zugriff auf die ID dieses Ziels. Die ID wird während der Laufzeit durch den mxml-Compiler zugewiesen, falls sie als ein mxml-Tag verwendet wird, oder intern, falls sie in einem Skriptblock verwendet wird.
+       
+       </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:level:get"><apiName>level</apiName><shortdesc>
+      Bietet Zugriff auf die Stufe, auf der dieses Ziel derzeit festgelegt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Bietet Zugriff auf die Stufe, auf der dieses Ziel derzeit festgelegt ist. Gültige Werte sind:
+        <ul>
+          <li><codeph>LogEventLevel.FATAL (1000)</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+     
+          <li><codeph>LogEventLevel.ERROR (8)</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+          <li><codeph>LogEventLevel.WARN (6)</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+     
+          <li><codeph>LogEventLevel.INFO (4)</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG (2)</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+     
+          <li><codeph>LogEventLevel.ALL (0)</codeph> zwingt ein Ziel zur Verarbeitung aller Meldungen.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:LogEventLevel"><apiName>LogEventLevel</apiName><shortdesc>
+  Statische Klasse, die Konstanten zur Verwendung in der level-Eigenschaft enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Statische Klasse, die Konstanten zur Verwendung in der <codeph>level</codeph>-Eigenschaft enthält.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.logging:LogEventLevel:ALL"><apiName>ALL</apiName><shortdesc>
+      Weist ein Ziel zur Verarbeitung aller Meldungen an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Weist ein Ziel zur Verarbeitung aller Meldungen an.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:DEBUG"><apiName>DEBUG</apiName><shortdesc>
+      Gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:ERROR"><apiName>ERROR</apiName><shortdesc>
+      Gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:FATAL"><apiName>FATAL</apiName><shortdesc>
+      Gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:INFO"><apiName>INFO</apiName><shortdesc>
+      Gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:WARN"><apiName>WARN</apiName><shortdesc>
+      Gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>6</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILoggingTarget"><apiName>ILoggingTarget</apiName><shortdesc>
+  Alle Protokollzielimplementierungen in der Protokollarchitektur müssen diese Schnittstelle implementieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Alle Protokollzielimplementierungen in der Protokollarchitektur müssen diese Schnittstelle implementieren.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Richtet dieses Ziel mit der angegebenen Protokollfunktion ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Die ILogger, auf die dieses Ziel wartet.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Richtet dieses Ziel mit der angegebenen Protokollfunktion ein. Dadurch kann dieses Ziel Protokollereignisse von der angegebenen Protokollfunktion erhalten.
+      
+      <p><b>Hinweis:</b> Diese Methode wird von der Architektur aufgerufen. Rufen Sie sie daher nicht direkt auf.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Verhindert, dass dieses Ziel Ereignisse von der angegebenen Protokollfunktion erhält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Die ILogger, die dieses Ziel ignoriert.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Verhindert, dass dieses Ziel Ereignisse von der angegebenen Protokollfunktion erhält.
+      
+      <p><b>Hinweis:</b> Diese Methode wird von der Architektur aufgerufen. Rufen Sie sie daher nicht direkt auf.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Zusätzlich zur level-Einstellung werden Filter verwendet, um eine pseudo-hierarchische Zuordnung zu bieten, die zur Verarbeitung nur der Ereignisse einer bestimmten Kategorie dient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Zusätzlich zur <codeph>level</codeph>-Einstellung werden Filter verwendet, um eine pseudo-hierarchische Zuordnung zu bieten, die zur Verarbeitung nur der Ereignisse einer bestimmten Kategorie dient.
+      
+      <p>Jede Protokollfunktion gehört zu einer Kategorie. Gemäß den Konventionen werden diese Kategorien dem vollständig qualifizierten Klassennamen zugeordnet, in dem die Protokollfunktion verwendet wird. Beispiel: Eine Protokollfunktion, die Meldungen für die <codeph>mx.rpc.soap.WebService</codeph>-Klasse protokolliert, verwendet <codeph>"mx.rpc.soap.WebService"</codeph> als Parameter für den <codeph>Log.getLogger()</codeph>-Aufruf. Wenn Meldungen unter dieser Kategorie gesendet werden, erhalten nur die Ziele, die einem dieser Kategorie entsprechenden Filter enthalten, eine Benachrichtigung zu den Ereignissen. Filterausdrücke können eine Platzhaltersuche enthalten, die durch ein Sternchen gekennzeichnet ist. Der Platzhalter muss das äußerst rechte Zeichen im Ausdruck sein. Beispiel: rpc~~, mx.~~ oder ~~. Wenn ein ungültiger Ausdruck angegeben ist, wird ein <codeph>InvalidFilterError</codeph> ausgegeben. In einem Filterausdruck sind keine Leerzeichen oder eines der folgenden Zeichen zulässig: []~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@.</p>
+      
+      </apiDesc><example>
+      <pre>
+      var traceLogger:ILoggingTarget = new TraceTarget();
+      traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
+      Log.addTarget(traceLogger);
+      </pre>
+      
+      </example></apiValueDetail></apiValue><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:level:get"><apiName>level</apiName><shortdesc>
+      Bietet Zugriff auf die Stufe, auf der dieses Ziel derzeit festgelegt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Bietet Zugriff auf die Stufe, auf der dieses Ziel derzeit festgelegt ist. Gültige Werte sind:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+     
+        <li><codeph>LogEventLevel.ALL</codeph> zwingt ein Ziel zur Verarbeitung aller Meldungen.</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILogger"><apiName>ILogger</apiName><shortdesc>
+  Alle Protokollfunktionen in der Protokollarchitektur müssen diese Schnittstelle implementieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Alle Protokollfunktionen in der Protokollarchitektur müssen diese Schnittstelle implementieren.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:debug"><apiName>debug</apiName><shortdesc>
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.DEBUG-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.DEBUG</codeph>-Stufe. <codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.debug("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:error"><apiName>error</apiName><shortdesc>
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.ERROR-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.ERROR</codeph>-Stufe. <codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.error("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:fatal"><apiName>fatal</apiName><shortdesc>
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.FATAL-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.FATAL</codeph>-Stufe. <codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.
+     
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.fatal("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:info"><apiName>info</apiName><shortdesc>
+      Protokolliert die angegebenen Daten mithilfe der LogEvent.INFO-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEvent.INFO</codeph>-Stufe. <codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.info("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:log"><apiName>log</apiName><shortdesc>
+      Protokolliert die angegebenen Daten an der angegebenen Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Die Stufe, an der diese Informationen protokolliert werden sollen. Gültige Werte sind:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten an der angegebenen Stufe.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.log(LogEventLevel.DEBUG, "here is some channel info {0} and {1}", LogEventLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:warn"><apiName>warn</apiName><shortdesc>
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.WARN-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.WARN</codeph>-Stufe. <codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.
+          
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.warn("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILogger:mx.logging:ILogger:category:get"><apiName>category</apiName><shortdesc>
+      Der Kategoriewert für die Protokollfunktion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Kategoriewert für die Protokollfunktion.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:Log"><apiName>Log</apiName><shortdesc>
+  Bietet pseudo-hierarchische Protokollfunktionen mit verschiedenen Optionen für Format und Ausgabe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Bietet pseudo-hierarchische Protokollfunktionen mit verschiedenen Optionen für Format und Ausgabe. Das Protokollsystem besteht aus zwei Hauptkomponenten: der Protokollfunktion und einem Ziel. Mithilfe der Protokollfunktion können Sie Informationen an ein Ziel senden. Das Ziel ist für die Formatierung und die allgemeinen Ausgabe der Protokolldaten verantwortlich.
+  <p>
+  Protokollfunktionen sind Singleton-Instanzen, die für eine bestimmte Kategorie von Informationen erstellt wurden. Normalerweise ist die Kategorie der Paketname der Komponente, die Informationen protokollieren möchte. Mithilfe der Kategorie können Benutzer angeben, welche Protokollinformationen sie interessieren. Es können verschiedene Kategorien ausgewählt und mit regulären Ausdrücken kombiniert werden. Dadurch können weit- als auch engmaschige Protokollinformationen erhalten werden. Beispielsweise können Sie an allen Protokollinformationen unter den Paketen „mx.messaging“ und „mx.rpc“ interessiert sein und möchten die Ausgabe aus diesen Paketen als XML formatieren. Um alle Protokollinformationen unter der Kategorie „mx.messaging“ einschließlich untergeordneter Pakete und Komponenten zu erhalten, ist ein Platzhalterausdruck (z. B. „mx.messaging.~~“) erforderlich.~~". Ausführliche Informationen finden Sie im folgenden Codebeispiel.
+  </p>
+  <p>Ziele bieten den Ausgabemechanismus der zu protokollierenden Daten. Dieser Mechanismus enthält normalerweise Formatierung, Übertragung oder Speicherung, kann jedoch ein beliebiger Vorgang auf VM sein. Zwei Ziele werden zur Verfügung gestellt: <codeph>MiniDebugTarget</codeph> und <codeph>TraceTarget</codeph>. Jede dieser Schreibefunktionen nimmt die aktuellen Protokollinformationen und sendet sie zur Anzeige und/oder Speicherung. Ziele bieten auch die Spezifikation, welche Protokolldaten ausgegeben werden sollen.
+  </p>
+ 
+  </apiDesc><example>
+  <pre>
+  ... 
+  import mx.logging.targets.
+  import mx.logging.
+ 
+  private function initLogging():void {
+      // Create a target.
+      var logTarget:TraceTarget = new TraceTarget();
+ 
+      // Log only messages for the classes in the mx.rpc.and 
+      // mx.messaging packages.
+      logTarget.filters=["mx.rpc.,"mx.messaging.];
+ 
+      // Log all log levels.
+      logTarget.level = LogEventLevel.ALL;
+ 
+      // Add date, time, category, and log level to the output.
+      logTarget.includeDate = true;
+      logTarget.includeTime = true;
+      logTarget.includeCategory = true;
+      logTarget.includeLevel = true;
+ 
+      // Begin logging.
+      Log.addTarget(logTarget);
+  } 
+  ...
+  </pre>
+  
+  </example></apiClassifierDetail><apiOperation id="mx.logging:Log:addTarget"><apiName>addTarget</apiName><shortdesc>
+      Ermöglicht dem angegeben Ziel das Empfangen von Benachrichtigungen zu Protokollereignissen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>Bestimmtes Ziel, das Protokollereignisse erfassen soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ermöglicht dem angegeben Ziel das Empfangen von Benachrichtigungen zu Protokollereignissen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:flush"><apiName>flush</apiName><shortdesc>
+      Diese Methode entfernt alle aktuellen Protokollfunktionen aus dem Cache.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Diese Methode entfernt alle aktuellen Protokollfunktionen aus dem Cache. Nachfolgende Aufrufe der <codeph>getLogger()</codeph>-Methode geben neue Instanzen von Protokollfunktionen anstatt frühere Instanzen mit der gleichen Kategorie zurück. Diese Methode ist nur zur Verwendung beim Debugging gedacht.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:getLogger"><apiName>getLogger</apiName><shortdesc>
+      Gibt die Protokollfunktion zurück, die mit der angegebenen Kategorie verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine Instanz eines Protokollobjeks für den angegebenen Namen. Wenn der Name nicht vorhanden ist, wird eine neue Instanz mit dem angegebenen Namen zurückgegeben.
+      
+      </apiDesc><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier></apiReturn><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Die Kategorie der Protokollfunktion, die zurückgegeben werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Protokollfunktion zurück, die mit der angegebenen Kategorie verknüpft ist. Wenn die angegebene Kategorie nicht vorhanden ist, wird eine neue Instanz einer Protokollfunktion zurückgegeben und mit dieser Kategorie verknüpft. Kategorien müssen die Länge von mindestens einem Zeichen aufweisen und dürfen keine Leerzeichen oder eines der folgenden Zeichen enthalten: []~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@ Diese Methode gibt einen <codeph>InvalidCategoryError</codeph> zurück, wenn die angegebenen Kategorie falsch formatiert ist.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:hasIllegalCharacters"><apiName>hasIllegalCharacters</apiName><shortdesc>
+      Diese Methode überprüft den angegebenen Stringwert auf unzulässige Zeichen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert <codeph>true</codeph>, wenn unzulässige Zeichen gefunden wurden, andernfalls Wert <codeph>false</codeph>. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Der String, der auf unzulässige Zeichen überprüft werden soll. Die folgenden Zeichen sind nicht gültig: []~$^&amp;\/(){}&lt;>+=`!#%?,:;'"@
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Diese Methode überprüft den angegebenen Stringwert auf unzulässige Zeichen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isDebug"><apiName>isDebug</apiName><shortdesc>
+      Gibt an, ob das Protokollereignis einer Debug-Stufe von einem Protokollziel verarbeitet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert „true“, wenn das Protokollereignis einer Debug-Stufe protokolliert werden soll, andernfalls „false“.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt an, ob das Protokollereignis einer Debug-Stufe von einem Protokollziel verarbeitet werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isError"><apiName>isError</apiName><shortdesc>
+      Gibt an, ob das Protokollereignis einer Fehlerstufe von einem Protokollziel verarbeitet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert „true“, wenn das Protokollereignis einer Fehlerstufe protokolliert werden soll, andernfalls „false“.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt an, ob das Protokollereignis einer Fehlerstufe von einem Protokollziel verarbeitet werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isFatal"><apiName>isFatal</apiName><shortdesc>
+      Gibt an, ob das Protokollereignis einer Fehlerstufe von einem Protokollziel verarbeitet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert „true“, wenn das Protokollereignis einer schwerwiegenden Stufe protokolliert werden soll, andernfalls „false“.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt an, ob das Protokollereignis einer Fehlerstufe von einem Protokollziel verarbeitet werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isInfo"><apiName>isInfo</apiName><shortdesc>
+      Gibt an, ob das Protokollereignis einer Informationsstufe von einem Protokollziel verarbeitet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert „true“, wenn das Protokollereignis einer Informationsstufe protokolliert werden soll, andernfalls „false“.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt an, ob das Protokollereignis einer Informationsstufe von einem Protokollziel verarbeitet werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isWarn"><apiName>isWarn</apiName><shortdesc>
+      Gibt an, ob das Protokollereignis einer Warnstufe von einem Protokollziel verarbeitet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Wert „true“, wenn das Protokollereignis einer Warnstufe protokolliert werden soll, andernfalls „false“.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt an, ob das Protokollereignis einer Warnstufe von einem Protokollziel verarbeitet werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:removeTarget"><apiName>removeTarget</apiName><shortdesc>
+      Beendet beim angegebenen Ziel das Empfangen von Benachrichtigungen zu Protokollereignissen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>Bestimmtes Ziel, das Protokollereignisse erfassen soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Beendet beim angegebenen Ziel das Empfangen von Benachrichtigungen zu Protokollereignissen.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+  Die Protokollfunktion, die in der Protokollarchitektur verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILogger</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Protokollfunktion, die in der Protokollarchitektur verwendet wird. Diese Klasse löst Ereignisse für jede Meldung aus, die mithilfe der <codeph>log()</codeph>-Methode protokolliert wird.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogLogger:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Die Kategorie, für die dieses Protokoll Meldungen sendet.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogLogger:debug"><apiName>debug</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.DEBUG-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.DEBUG</codeph>-Stufe. <codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:error"><apiName>error</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.ERROR-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.ERROR</codeph>-Stufe. <codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:fatal"><apiName>fatal</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.FATAL-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.FATAL</codeph>-Stufe. <codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.
+     
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:info"><apiName>info</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der LogEvent.INFO-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEvent.INFO</codeph>-Stufe. <codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:log"><apiName>log</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten an der angegebenen Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Die Stufe, an der diese Informationen protokolliert werden sollen. Gültige Werte sind:
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> gibt Ereignisse an, die äußerst schädlich sind und schließlich zu einem Anwendungsfehler führen.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> gibt Fehlerereignisse an, bei denen die Anwendung möglicherweise weiterhin ausgeführt werden kann.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> gibt Informationsmeldungen an, die den Fortschritt der Anwendung auf einer grobkörnigen Stufe hervorheben.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> gibt Informationsstufenmeldungen an, die feinkörnig und äußerst hilfreich beim Debugging einer Anwendung sind.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten an der angegebenen Stufe.
+      
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:warn"><apiName>warn</apiName><shortdesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der LogEventLevel.WARN-Stufe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Die zu protokollierenden Informationen. Dieser String kann bestimmte Markierungszeichen im Format {x} enthalten, wobei x eine auf null basierende Indexposition ist, die durch die zusätzlichen Parameter dieser Indexposition (falls angegeben) ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Zusätzliche Parameter, die im Parameter „str“ an jeder Position "{<codeph>x</codeph>}" ersetzt werden können, wobei <codeph>x</codeph> eine Ganzzahl (auf null basierend) für den Wert der Indexposition im Array der angegebenen Werte ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Protokolliert die angegebenen Daten mithilfe der <codeph>LogEventLevel.WARN</codeph>-Stufe. <codeph>LogEventLevel.WARN</codeph> gibt Ereignisse an, die für einen Vorgang der Anwendung schädlich sein können.
+          
+      <p>Der für die Protokollierung angegebene String kann geschweifte Klammern mit einer Indexposition enthalten, die angibt, welche zusätzlichen Parameter vor der Protokollierung in den String eingefügt werden sollen. Beispiel: „the first additional parameter was {0} the second was {1}“ wird zu „the first additional parameter was 10 the second was 15“, wenn ein Aufruf mit 10 und 15 als Parameter erfolgt.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogLogger:category:get"><apiName>category</apiName><shortdesc>
+	  Die Kategorie, für die diese Protokollfunktion Meldungen sendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Die Kategorie, für die diese Protokollfunktion Meldungen sendet.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

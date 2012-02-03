@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.skins"><apiName>spark.skins</apiName><apiDetail/><apiClassifier id="spark.skins:IHighlightBitmapCaptureClient"><apiName>IHighlightBitmapCaptureClient</apiName><shortdesc>
+  L’interface IHighlightBitmapCaptureClient définit l’interface pour les habillages qui prennent en charge l’acquisition des images bitmap de mise en surbrillance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IHighlightBitmapCaptureClient définit l’interface pour les habillages qui prennent en charge l’acquisition des images bitmap de mise en surbrillance.
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:beginHighlightBitmapCapture"><apiName>beginHighlightBitmapCapture</apiName><shortdesc>
+	  Appelé avant l’acquisition d’une image bitmap pour cet habillage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  Appelé avant l’acquisition d’une image bitmap pour cet habillage. Renvoie la valeur true si l’habillage doit être mis à jour avant l’acquisition de l’image bitmap.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:endHighlightBitmapCapture"><apiName>endHighlightBitmapCapture</apiName><shortdesc>
+	  Appelé après l’acquisition d’une image bitmap pour cet habillage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  Appelé après l’acquisition d’une image bitmap pour cet habillage. Renvoie la valeur true si l’habillage doit être mis à jour.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  Validez l’habillage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Validez l’habillage.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.skins:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+      Classe de base des habillages de bouton Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.skins:SparkSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Classe de base des habillages de bouton Spark. Principalement utilisée pour la gestion des icônes par répartition.
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkButtonSkin:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+         Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         Constructeur.
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkButtonSkin:autoIconManagement:get"><apiName>autoIconManagement</apiName><shortdesc>
+          S’il est activé, il créera automatiquement les constructions nécessaires pour présenter et mettre en page une partie iconDisplay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          S’il est activé, il créera automatiquement les constructions nécessaires pour présenter et mettre en page une partie iconDisplay.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:gap:get"><apiName>gap</apiName><shortdesc>
+          Nombre de pixels entre l’icône et l’étiquette des boutons.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Nombre de pixels entre l’icône et l’étiquette des boutons.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconDisplay:get"><apiName>iconDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.primitives:BitmapImage</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingBottom:get"><apiName>iconGroupPaddingBottom</apiName><shortdesc>
+          Nombre de pixels entre le bord inférieur du bouton et le bord inférieur de l’icône ou de l’étiquette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Nombre de pixels entre le bord inférieur du bouton et le bord inférieur de l’icône ou de l’étiquette.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingLeft:get"><apiName>iconGroupPaddingLeft</apiName><shortdesc>
+          Nombre minimal de pixels entre le bord gauche du bouton et le bord gauche de l’icône ou de l’étiquette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Nombre minimal de pixels entre le bord gauche du bouton et le bord gauche de l’icône ou de l’étiquette.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingRight:get"><apiName>iconGroupPaddingRight</apiName><shortdesc>
+          Nombre minimal de pixels entre le bord droit du bouton et le bord droit de l’icône ou de l’étiquette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Nombre minimal de pixels entre le bord droit du bouton et le bord droit de l’icône ou de l’étiquette.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingTop:get"><apiName>iconGroupPaddingTop</apiName><shortdesc>
+          Nombre de pixels entre le bord supérieur du bouton et le bord supérieur de la première icône ou étiquette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Nombre de pixels entre le bord supérieur du bouton et le bord supérieur de la première icône ou étiquette.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.core:IDisplayText</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.skins:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+  Classe de base des habillages Spark. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:Skin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base des habillages Spark. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkSkin:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkSkin:protected:useChromeColor"><apiName>useChromeColor</apiName><shortdesc>
+      Spécifie si cet habillage doit être affecté par le style chromeColor. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si cet habillage doit être affecté par le style <codeph>chromeColor</codeph>. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:colorizeExclusions:get"><apiName>colorizeExclusions</apiName><shortdesc>
+      Noms des éléments qui ne doivent pas être colorés par le style chromeColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Noms des éléments qui ne doivent pas être colorés par le style<codeph>chromeColor</codeph>. Seuls les éléments de type DisplayObject ou GraphicElement doivent être exclus. Les autres types d’éléments seront ignorés. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:contentItems:get"><apiName>contentItems</apiName><shortdesc>
+     Noms des éléments dont la propriété color doit être définie par le style contentBackgroundColor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Noms des éléments dont la propriété <codeph>color</codeph> doit être définie par le style <codeph>contentBackgroundColor</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:symbolItems:get"><apiName>symbolItems</apiName><shortdesc>
+     Noms des éléments dont la propriété color doit être définie par le style symbolColor. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Noms des éléments dont la propriété <codeph>color</codeph> doit être définie par le style <codeph>symbolColor</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

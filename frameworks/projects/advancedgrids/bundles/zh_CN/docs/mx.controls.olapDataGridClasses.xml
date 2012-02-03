@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.olapDataGridClasses"><apiName>mx.controls.olapDataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider"><apiName>OLAPDataGridItemRendererProvider</apiName><shortdesc>
+  OLAPDataGridItemRendererProvider 实例使您可以为 OLAPDataGrid 控件中的项目指定 formatter。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridItemRendererProvider 实例使您可以为 OLAPDataGrid 控件中的项目指定 formatter。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.formatters.Formatter.xml"><linktext>mx.formatters.Formatter</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider:formatter"><apiName>formatter</apiName><shortdesc>
+      Formatter 类的实例或 Formatter 类的子类的实例，该实例已应用于关联 IOLAPElement 的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.formatters:Formatter"/></apiValueDef><apiDesc>
+      Formatter 类的实例或 Formatter 类的子类的实例，该实例已应用于关联 IOLAPElement 的文本。
+     
+      <p>例如，对 OLAPDataGrid 控件应用 CurrencyFormatter formatter，如以下示例所示：</p>
+     
+      <pre>
+      &lt;mx:CurrencyFormatter id="usdFormatter" precision="2" 
+          currencySymbol="$" decimalSeparatorFrom="."
+          decimalSeparatorTo="." useNegativeSign="true" 
+          useThousandsSeparator="true" alignSymbol="left"/>
+      
+      ...
+      
+      &lt;mx:OLAPDataGrid id="myOLAPDG" 
+          width="100%" height="100%">
+      
+          &lt;mx:itemRendererProviders>
+              &lt;mx:OLAPDataGridItemRendererProvider 
+                  uniqueName="[QuarterDim].[Quarter]"
+                  type="{OLAPDataGrid.OLAP_HIERARCHY}"
+                  formatter="{usdFormatter}"/>
+          &lt;/mx:itemRendererProviders>
+      &lt;/mx:OLAPDataGrid></pre>
+     
+      <p>在此示例中，<codeph>uniqueName</codeph> 和 <codeph>type</codeph> 属性指定 Quarter 是 QuarterDim 尺寸的层次结构。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+  OLAPDataGridGroupRenderer 类为 OLAPDataGrid 控件的组呈示器定义默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="horizontalAlign" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="String">
+<description>
+  组件禁用时的颜色。默认值为 <codeph>0xAAB3B3</codeph>。
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  组件禁用时的颜色。默认值为 <codeph>0xAAB3B3</codeph>。
+ 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer" playerVersion="Flash9" type="uint">
+<description>
+  组件标签的文本颜色。默认值为 <codeph>0x0B333C</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridGroupRenderer 类为 OLAPDataGrid 控件的组呈示器定义默认项呈示器。此类的实例是 <codeph>OLAPDataGrid.groupItemRenderer</codeph> 属性的默认值。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:OLAPDataGridGroupRenderer"><apiName>OLAPDataGridGroupRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      在此呈示器中显示文本的内部 UITextField。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      在此呈示器中显示文本的内部 UITextField。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:data:get"><apiName>data</apiName><shortdesc>
+      由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridGroupRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider"><apiName>OLAPDataGridRendererProvider</apiName><shortdesc>
+  OLAPDataGridRendererProvider 类定义用于分配由 OLAPDataGrid 控件使用的项呈示器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPDataGridRendererProvider 类定义用于分配由 OLAPDataGrid 控件使用的项呈示器的基类。使用 OLAPDataGridRendererProvider 类的属性配置项呈示器在 OLAPDataGrid 控件中的使用位置。
+ 
+  <p>OLAPDataGrid 控件中的各单元格是由沿行排列的成员和沿列排列的成员相交而成的。但是，为 OLAPDataGrid 控件分配项呈示器时，您仅为其中一个维度（行或列）指定 <codeph>uniqueName</codeph> 和 <codeph>type</codeph> 属性。因此，您可以创建一种情形，在这种情形中，将两个不同的项呈示器分配到控件的同一单元格中。</p>
+  
+  <p>为了避免两个或多个项呈示器之间发生冲突，OLAPDataGrid 控件将根据下列优先顺序应用项呈示器： </p>
+ 
+  <ol>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_MEMBER</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> </li>
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph></li> 
+    <li><codeph>type</codeph> = <codeph>OLAPDataGrid.OLAP_DIMENSION</codeph></li> 
+  </ol>
+  
+  <p>因此，如果将类型值为 <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> 的项呈示器和类型值为 <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph> 的项呈示器应用于同一单元格，则 OLAPDataGrid 控件将应用类型值为 <codeph>OLAPDataGrid.OLAP_LEVEL</codeph> 的项呈示器。</p>
+ 
+  <p>如果两个项呈示器的类型属性值相同，OLAPDataGrid 控件将确定与该项目最匹配的项呈示器并使用它。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:styleName"><apiName>styleName</apiName><shortdesc>
+      控制单元格外观的 CSS 样式声明的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      控制单元格外观的 CSS 样式声明的名称。
+     
+      <p>例如，在应用程序中定义以下样式，然后使用 <codeph>styleName</codeph> 属性将该样式与 OLAP 架构中的特定层次结构关联起来：</p>
+     
+      <pre>
+      &lt;Style>
+        .monthStyle
+          {
+            color:0x755762
+            fontSize:14
+          }
+      &lt;/Style>
+     
+      &lt;mx:ODGHeaderRendererProvider 
+        type="OLAPDataGrid.OLAP_HIERARCHY" 
+        uniqueName="[Time][Month]" styleName="monthStyle"/> </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:renderer:get"><apiName>renderer</apiName><shortdesc>
+      用于自定义 OLAPDataGrid 控件的呈示器对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      用于自定义 OLAPDataGrid 控件的呈示器对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:type:get"><apiName>type</apiName><shortdesc>
+      指定是否将呈示器应用于轴的维度 (OLAPDataGrid.OLAP_DIMENSION)、层次结构 (OLAPDataGrid.OLAP_HIERARCHY)、级别 (OLAPDataGrid.OLAP_LEVEL) 或成员 (OLAPDataGrid.OLAP_MEMBER)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      指定是否将呈示器应用于轴的维度 (<codeph>OLAPDataGrid.OLAP_DIMENSION</codeph>)、层次结构 (<codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>)、级别 (<codeph>OLAPDataGrid.OLAP_LEVEL</codeph>) 或成员 (<codeph>OLAPDataGrid.OLAP_MEMBER</codeph>)。
+     
+      <p>根据 <codeph>uniqueName</codeph> 属性的设置来设置此属性。例如，如果 <codeph>uniqueName</codeph> 属性引用 OLAP 架构的层次结构，请将此属性设置为 <codeph>OLAPDataGrid.OLAP_HIERARCHY</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider:uniqueName:get"><apiName>uniqueName</apiName><shortdesc>
+      对其应用呈示器的 IOLAPElement 的唯一名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      对其应用呈示器的 IOLAPElement 的唯一名称。例如，“[TimeDim][YearHier][2007]”是一个唯一的名称，其中级别“2007”属于“TimeDim”尺寸的“YearHier”层次结构。
+     
+      <p><codeph>uniqueName</codeph> 属性和 <codeph>type</codeph> 属性共同指定项呈示器的目标。由于“[TimeDim][YearHier][2007]”的唯一名称指定 OLAP 架构的级别，因此请将 <codeph>type</codeph> 属性设置为 <codeph>OLAPDataGrid.OLAP_LEVEL</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider"><apiName>OLAPDataGridHeaderRendererProvider</apiName><shortdesc>
+  通过 OLAPDataGridHeaderRendererProvider 类，您可以为 OLAPDataGrid 控件中的列指定自定义标题呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.olapDataGridClasses:OLAPDataGridRendererProvider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  通过 OLAPDataGridHeaderRendererProvider 类，您可以为 OLAPDataGrid 控件中的列指定自定义标题呈示器。 
+ 
+  <p>若要为 OLAPDataGrid 控件指定自定义标题呈示器，请创建您的用户标题呈示器作为 OLAPDataGridHeaderRenderer 类的子类，创建 OLAPDataGridHeaderRendererProvider 实例，为您的用户标题呈示器设置 <codeph>OLAPDataGridHeaderRendererProvider.renderer</codeph> 属性，然后通过设置 <codeph>OLAPDataGrid.headerRendererProviders</codeph> 属性将 OLAPDataGridHeaderRendererProvider 实例传递到 OLAPDATAGrid 控件。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link><link href="" invalidHref="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer.xml"><linktext>mx.controls.olapDataGridClasses.OLAPDataGridHeaderRenderer</linktext></link></related-links><apiValue id="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider:headerWordWrap"><apiName>headerWordWrap</apiName><shortdesc>
+      将其设置为 true 以使列标题中的文本换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      将其设置为 <codeph>true</codeph> 以使列标题中的文本换行。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

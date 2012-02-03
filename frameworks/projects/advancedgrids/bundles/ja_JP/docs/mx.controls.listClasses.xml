@@ -1,0 +1,1475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:AdvancedListBase"><apiName>AdvancedListBase</apiName><shortdesc>
+  AdvancedListBase クラスは、アイテムのリストを表すコントロール（AdvancedDataGrid コントロールや OLAPDataGrid コントロールなど）の基本クラスです。アイテムリストでは、1 つまたは複数のアイテムを選択したり、アイテムをスクロールしたりできます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="dataChangeEffect" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Object">
+<description>
+ コントロールのデータプロバイダーで変更が発生したときに使用されるエフェクトです。 これには、（エフェクトのサブクラスへの）クラス参照または Effect オブジェクトインスタンスを指定できます。 前者は CSS に適しており、後者はコンポーネント内のインライン定義に適しています。
+ 
+ </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="bottom,middle,top" inherit="no" name="verticalAlign" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="String">
+<description>
+  行内のレンダラーの垂直方向の配置です。 指定できる値は、<codeph>"top"</codeph>、<codeph>"middle"</codeph> および <codeph>"bottom"</codeph> です。 DataGrid では、行の各列内のアイテムの高さが異なる場合に、このスタイル、および <codeph>paddingTop</codeph> スタイルと <codeph>paddingBottom</codeph> スタイルに基づいてレンダラーを行に配置します。他のリストクラスでは <codeph>verticalAlign</codeph> を使用しませんが、アイテムレンダラーでこのスタイルプロパティを調べ、このプロパティに基づいてレイアウトを調整できます。
+ 
+  </description>
+<default>"top"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="useRollOver" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Boolean">
+<description>
+  アイテムの上にマウスを置いたときに、そのアイテムをハイライト表示するかどうかを制御するフラグです。 <codeph>true</codeph> の場合、行の上にマウスポインターを置いたときに行がハイライト表示されます。 <codeph>false</codeph> の場合、行を選択した場合にのみハイライト表示されます。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textSelectedColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  ユーザーがレンダラーを選択したときのレンダラーのテキストの色です。
+ 
+  </description>
+<default>0x2B333C
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="textRollOverColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  ユーザーがレンダラーの上にマウスを置いたときのレンダラーのテキストの色です。
+ 
+  </description>
+<default>0x2B333C
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="selectionEasingFunction" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Function">
+<description>
+  選択エフェクトの easingFunction です。 アイテムを選択すると、背景色の描画に伴ってエフェクトが再生されます。 デフォルトは、色の直線的なフェードインです。 easingFunction を使用して選択エフェクトを制御できます。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="selectionDuration" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  選択エフェクトの継続時間です。 アイテムを選択すると、背景色の描画に伴ってエフェクトが再生されます。 0 に設定すると、エフェクトが無効になります。
+  
+  </description>
+<default>250
+  
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionDisabledColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効になっているときのレンダラーの背景色です。
+ 
+  </description>
+<default>0xDDDDDD
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="selectionColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  ユーザーがレンダラーを選択したときのレンダラーの背景色です。
+ 
+  </description>
+<default>0x7FCEFF
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="rollOverColor" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="uint">
+<description>
+  ユーザーがレンダラーの上にマウスを置いたときのレンダラーの背景色です。
+ 
+  </description>
+<default>0xEEFEE6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingTop" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  行の上端と行内のレンダラーの上端との間のピクセル数です。
+  
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  行の下端と行内のレンダラーの下端との間のピクセル数です。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropIndicatorSkin" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Class">
+<description>
+  ドラッグしたアイテムをドロップできる場所を示すために使用するスキンです。 AdvancedListBase から派生したコンポーネントがドラッグ &amp; ドロップ操作のドロップターゲットになる可能性がある場合、<codeph>showDropFeedback()</codeph> メソッドの呼び出しによってこのクラスのインスタンスが作成され、ドロップ位置のアイテムのアイテムレンダラーの 1 ピクセル上に配置されます。ここでアイテムをドロップすると、ドロップしたアイテムはこのアイテムの 1 つ上になります。
+ 
+  </description>
+<default>mx.controls.listClasses.ListDropIndicator
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="alternatingItemColors" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Array">
+<description>
+  リスト内のアイテムの背景に使用する色です。 値は複数の色の配列です。 リストアイテムの背景には、この配列内の色が交替で使用されます。 
+ 
+  <p>DataGrid コントロールの場合、1 つの行内のアイテムはすべて同じ背景色となり、各行の背景色は色の配列の中から決定されます。</p>
+ 
+  <p>単一のリストを使用して 2 次元表示を設定する TileList コントロールでは、スタイルはリストの列数と行数および指定した色の数に基づいて、格子縞模様やストライプなどのさまざまなパターンになります。 TileList では、レイアウトの方向に従って個々のアイテムの背景色を配置することで色が周期的に切り替わります。 色数と列数が偶数である TileList を水平方向にレイアウトすると、ストライプになります。 列数が奇数の場合は、格子縞模様になります。
+  </p>
+ 
+  <p><codeph>backgroundColor</codeph> が指定されていない場合にのみ有効になります。</p>
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  コントロールの右の境界とコンテンツ領域の右端との間のピクセル数です。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  コントロールの左の境界とコンテンツ領域の左端との間のピクセル数です。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusRoundedCorners" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="String">
+<description>
+  フォーカス矩形のどの角を丸くするかを指定します。 この値は、スペースで区切られた String です。<codeph>"tl"</codeph>、<codeph>"tr"</codeph>、<codeph>"bl"</codeph> および <codeph>"br"</codeph> の任意の組み合わせを含めることができます。 例えば、右の角を丸くし、左の角を直角にするように指定するには、<codeph>"tr br"</codeph> とします。 <codeph>cornerRadius</codeph> スタイルプロパティは、角の丸みの半径を指定します。 デフォルト値は、コンポーネントのクラスによって異なります。クラスでオーバーライドされていない場合、デフォルト値は <codeph>"tl tr bl br"</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="focusAlpha" owner="mx.controls.listClasses:AdvancedListBase" playerVersion="Flash9" type="Number">
+<description>
+  フォーカススキンのアルファ透明度値を指定します。
+  
+  </description>
+<default>0.4
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The AdvancedListBase class inherits all of the tag properties of its superclasses,
+  and adds the following tag properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    allowDragSelection="false|true"
+    allowMultipleSelection="false|true"
+    columnCount="4"
+    columnWidth="NaN"
+    dataProvider="null"
+    dataTipField="label"
+    dataTipFunction="null"
+    dragEnabled="false|true"
+    dragMoveEnabled="false|true"
+    dropEnabled="false|true"
+    iconField="null"
+    iconFunction="null"
+    itemRenderer="null"
+    labelField="label"
+    labelFunction="null"
+    lockedColumnCount=0
+    lockedRowCount=0
+    menuSelectionMode="false|true"
+    rowCount="-1"
+    rowHeight="NaN"
+    selectable="true|false"
+    selectedIndex="-1"
+    selectedIndices="null"
+    selectedItem="null"
+    selectedItems="null"
+    showDataTips="false|true"
+    variableRowHeight="false|true"
+    wordWrap="false|true"
+ 
+    <b>Styles</b>
+    alternatingItemColors="undefined"
+    dataChangeEffect="undefined"
+    dropIndicatorSkin="ListDropIndicator"
+    focusAlpha="0.5"
+    focusRoundedCorners="tl tr bl br"
+    paddingBottom="2"
+    paddingLeft="2"
+    paddingRight="0"
+    paddingTop="2"
+    rollOverColor="0xEEFEE6"
+    selectionColor="0x7FCEFF"
+    selectionDisabledColor="0xDDDDDD"
+    selectionDuration="250"
+    selectionEasingFunction="undefined"
+    textRollOverColor="0x2B333C"
+    textSelectedColor="0x2B333C"
+    useRollOver="true|false"
+    verticalAlign="top|middle|bottom"
+ 
+    <b>Events</b>
+    change="<i>No default</i>"
+    dataChange="<i>No default</i>"
+    itemClick="<i>No default</i>"
+    itemDoubleClick="<i>No default</i>"
+    itemRollOut="<i>No default</i>"
+    itemRollOver="<i>No default</i>"
+    itemClick="<i>No default</i>"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.effects:IEffectTargetHost</apiBaseInterface><apiBaseClassifier>mx.core:ScrollControlBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AdvancedListBase クラスは、アイテムのリストを表すコントロール（AdvancedDataGrid コントロールや OLAPDataGrid コントロールなど）の基本クラスです。アイテムリストでは、1 つまたは複数のアイテムを選択したり、アイテムをスクロールしたりできます。 アイテムは、<codeph>dataProvider</codeph> プロパティを使用して指定され、アイテムレンダラーによって表示されます。
+ 
+  <p>モデルとビューのアーキテクチャでは、AdvancedListBase サブクラスはビューを表し、データプロバイダーはモデルを表します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.controls.xml#OLAPDataGrid"><linktext>mx.controls.OLAPDataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_DOUBLE_CLICK_itemDoubleClick"><apiName>itemDoubleClick</apiName><shortdesc>
+  ユーザーがコントロール内のアイテムをダブルクリックしたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_DOUBLE_CLICK</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがコントロール内のアイテムをダブルクリックしたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_CLICK_itemClick"><apiName>itemClick</apiName><shortdesc>
+  ユーザーがコントロール内のアイテムをクリックしたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがコントロール内のアイテムをクリックしたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_ROLL_OUT_itemRollOut"><apiName>itemRollOut</apiName><shortdesc>
+  ユーザーがコントロール内のアイテムの外にマウスポインターを移動したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_ROLL_OUT</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがコントロール内のアイテムの外にマウスポインターを移動したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.ITEM_ROLL_OVER_itemRollOver"><apiName>itemRollOver</apiName><shortdesc>
+  ユーザーがコントロール内のアイテムの上にマウスポインターを置いたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.ITEM_ROLL_OVER</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがコントロール内のアイテムの上にマウスポインターを置いたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.listClasses:AdvancedListBase_mx.events.ListEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  ユーザーの操作によって、selectedIndex プロパティまたは selectedItem プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ListEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.ListEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーの操作によって、<codeph>selectedIndex</codeph> プロパティまたは <codeph>selectedItem</codeph> プロパティが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.listClasses:AdvancedListBase:AdvancedListBase"><apiName>AdvancedListBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.listClasses:AdvancedListBase:addDataEffectItem"><apiName>addDataEffectItem</apiName><shortdesc>
+      データ変更エフェクトが実行されている場合に、アイテムレンダラーを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>コントロールのレイアウトに追加するアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データ変更エフェクトが実行されている場合、アイテムレンダラーを追加します。 このアイテムレンダラーは、データプロバイダーのコレクションにまだ表示されていない最近追加されたデータアイテムに対応する必要があります。 この関数は、データ変更エフェクトの一部として <codeph>AddItemAction</codeph> エフェクトによって呼び出されます。この関数により、コントロールでアイテムレンダラーを使用して、コレクションに追加されたデータアイテムの表示を開始するポイントが指定されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:addDragData"><apiName>addDragData</apiName><shortdesc>
+      ドラッグ &amp; ドロップ操作の一部として、選択されたアイテムを DragSource オブジェクトに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dragSource</apiItemName><apiType value="Object"/><apiDesc>データの追加先となる DragSource オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ &amp; ドロップ操作の一部として、選択されたアイテムを DragSource オブジェクトに追加します。 他のデータをドラッグソースに追加するには、このメソッドをオーバーライドします。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:addToFreeItemRenderers"><apiName>addToFreeItemRenderers</apiName><shortdesc>
+      レンダラーを非表示にし、レンダラーへの参照をクリーンアップして、レンダラーをリサイクルレンダラーリストに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>追加する IListItemRenderer です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを非表示にし、レンダラーへの参照をクリーンアップして、レンダラーをリサイクルレンダラーリストに追加します。 データエフェクトが実行されている場合、レンダラーはそのデータに今後使用するために予約されます。 それ以外の場合は、通常の freeItemRenderers スタックに追加されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:adjustListContent"><apiName>adjustListContent</apiName><shortdesc>
+      リストの内容のサイズと位置を調整するために、updateDisplayList() メソッドから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>コンポーネントの座標内で、コンポーネントの幅をピクセル単位で指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>コンポーネントの座標内で、コンポーネントの高さをピクセル単位で指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リストの内容のサイズと位置を調整するために、<codeph>updateDisplayList()</codeph> メソッドから呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:applySelectionEffect"><apiName>applySelectionEffect</apiName><shortdesc>
+      選択インジケーターを適用するためのエフェクトを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>選択を表すグラフィックを格納する Sprite です。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>選択しているアイテムの UID です。この UID をテーブルへのインデックスとして使用し、複数の選択エフェクトを追跡できます。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>選択状態で表示されているアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      選択インジケーターを適用するためのエフェクトを設定します。 デフォルトは基本アルファトゥイーンです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      ドロップされたアイテムをドロップターゲットに追加する位置のインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ドロップされたアイテムを追加する位置のインデックスです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiData>null</apiData><apiDesc>マウスの位置に関する情報を格納している DragEvent です。 <codeph>null</codeph> の場合、メソッドは有効な最後のイベントから <codeph>dropIndex</codeph> 値を返す必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドロップされたアイテムをドロップターゲットに追加する位置のインデックスを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:calculateDropIndicatorY"><apiName>calculateDropIndicatorY</apiName><shortdesc>
+      ドラッグ &amp; ドロップ操作の実行時に、ドロップインジケーターの y 位置を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ドロップインジケーターの y 軸座標です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>rowCount</apiItemName><apiType value="Number"/><apiDesc>コントロールに表示される行の数です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>ドロップインジケーターを表示するコントロール内の行番号です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ &amp; ドロップ操作の実行時に、ドロップインジケーターの y 位置を計算します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:clearIndicators"><apiName>clearIndicators</apiName><shortdesc>
+      選択、ハイライトおよびキャレットの各インジケーターをすべて削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      選択、ハイライトおよびキャレットの各インジケーターをすべて削除します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:clearSelected"><apiName>clearSelected</apiName><shortdesc>
+      選択されたアイテムのセットをクリアし、それらのアイテムの選択状態を表すすべてのグラフィックを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>グラフィックにフェードアウトエフェクトが必要な場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      選択されたアイテムのセットをクリアし、それらのアイテムの選択状態を表すすべてのグラフィックを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:collectionChangeHandler"><apiName>collectionChangeHandler</apiName><shortdesc>
+      データの変更時にデータプロバイダーから送出される CollectionEvents を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>CollectionEvent です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データの変更時にデータプロバイダーから送出される CollectionEvents を処理します。 必要に応じて、レンダラー、選択されたインデックス、およびスクロールバーを更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      columnCount、columnWidth、rowHeight、rowCount などのプロパティが明示的に設定されているかどうかに基づいて、列幅、行の高さ、行数および列数を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>columnCount</codeph>、<codeph>columnWidth</codeph>、<codeph>rowHeight</codeph>、<codeph>rowCount</codeph> などのプロパティが明示的に設定されているかどうかに基づいて、列幅、行の高さ、行数および列数を計算します。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:configureScrollBars"><apiName>configureScrollBars</apiName><shortdesc>
+      行数、列数、表示可能な行数および表示可能な列数に基づいて、ScrollBars を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      行数、列数、表示可能な行数および表示可能な列数に基づいて、ScrollBars を設定します。 このメソッドは、行と列が更新された後に <codeph>updateDisplayList()</codeph> メソッドから呼び出されます。 このメソッドは、ScrollBars を適切に設定するために <codeph>setScrollBarProperties()</codeph> に渡す必要があるパラメーターを判別します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:copyItemWithUID"><apiName>copyItemWithUID</apiName><shortdesc>
+	  ObjectUtil.copy() メソッドを呼び出してオブジェクトのディープコピーを作成し、UIDUtil.createUID() メソッドを呼び出してそのコピーの uid プロパティ（存在する場合）を新しい値に置き換えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>オブジェクトのコピーです。
+	 
+	  </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>コピーするアイテムです。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>ObjectUtil.copy()</codeph> メソッドを呼び出してオブジェクトのディープコピーを作成し、そのコピーの <codeph>uid</codeph> プロパティ (存在する場合) を新しい値に置き換えます。これは、<codeph>UIDUtil.createUID()</codeph> メソッドを呼び出すことによって行われます。
+	 
+	  <p>このメソッドは、ドラッグ &amp; ドロップによるコピー作成で使用されます。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.ObjectUtil.xml"><linktext>mx.utils.ObjectUtil</linktext></link><link href="" invalidHref="mx.utils.UIDUtil.xml"><linktext>mx.utils.UIDUtil</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:copySelectedItems"><apiName>copySelectedItems</apiName><shortdesc>
+      選択されたアイテムのコピーを選択順に作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>選択されたアイテムの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>useDataField</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>配列に実際のアイテムを設定する場合は <codeph>true</codeph> です。配列にアイテムのインデックスを設定する場合は <codeph>false</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      選択されたアイテムのコピーを選択順に作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      この ListBase の子となるオブジェクトを作成します。この場合、すべてのアイテムレンダラーを保持する listContent オブジェクトになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      この ListBase の子となるオブジェクトを作成します。この場合、すべてのアイテムレンダラーを保持する <codeph>listContent</codeph> オブジェクトになります。 アイテムレンダラーはすぐに作成されるわけではありません。後で Flex が <codeph>updateDisplayList()</codeph> メソッドを呼び出したときに作成されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragCompleteHandler"><apiName>dragCompleteHandler</apiName><shortdesc>
+      DragEvent.DRAG_COMPLETE イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_COMPLETE</codeph> イベントを処理します。 このメソッドは、データプロバイダーからアイテムを削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragDropHandler"><apiName>dragDropHandler</apiName><shortdesc>
+      DragEvent.DRAG_DROP イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_DROP</codeph> イベントを処理します。 このメソッドは、<codeph>hideDropFeedback()</codeph> メソッドを呼び出して、UI フィードバックを非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragEnterHandler"><apiName>dragEnterHandler</apiName><shortdesc>
+      DragEvent.DRAG_ENTER イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_ENTER</codeph> イベントを処理します。 このメソッドは、DragSource オブジェクトに有効なエレメントが格納されているかどうかを判別し、<codeph>showDropFeedback()</codeph> メソッドを使用して UI フィードバックを設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragExitHandler"><apiName>dragExitHandler</apiName><shortdesc>
+      DragEvent.DRAG_EXIT イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_EXIT</codeph> イベントを処理します。 このメソッドは、<codeph>hideDropFeedback()</codeph> メソッドを呼び出して、UI フィードバックを非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragOverHandler"><apiName>dragOverHandler</apiName><shortdesc>
+      DragEvent.DRAG_OVER イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>DragEvent.DRAG_OVER</codeph> イベントを処理します。 このメソッドは、DragSource オブジェクトに有効なエレメントが格納されているかどうかを判別し、<codeph>showDropFeedback()</codeph> メソッドを使用して UI フィードバックを設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragScroll"><apiName>dragScroll</apiName><shortdesc>
+      マウスをリストの上または下に移動した場合に、リストを上または下にスクロールするインターバル関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      マウスをリストの上または下に移動した場合に、リストを上または下にスクロールするインターバル関数です。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:dragStartHandler"><apiName>dragStartHandler</apiName><shortdesc>
+      dragStart イベントのデフォルトハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>dragStart</codeph> イベントのデフォルトハンドラーです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawCaretIndicator"><apiName>drawCaretIndicator</apiName><shortdesc>
+      指定の Sprite に、指定された位置、幅、高さおよび色でキャレットのインジケーターを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>レンダラーをハイライト表示にするためのグラフィックを格納する Sprite です。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>ハイライト表示されるアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定の Sprite に、指定された位置、幅、高さおよび色でキャレットのインジケーターを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawHighlightIndicator"><apiName>drawHighlightIndicator</apiName><shortdesc>
+      指定された Sprite に、指定された位置、幅、高さ、色でハイライトのインジケーターを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>レンダラーをハイライト表示にするためのグラフィックを格納する Sprite です。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>ハイライト表示されるアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された Sprite に、指定された位置、幅、高さ、色でハイライトのインジケーターを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawItem"><apiName>drawItem</apiName><shortdesc>
+      ハイライト、選択、またはキャレットの各インジケーターと共にレンダラーを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>レンダラーです。
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーを選択状態で描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーをハイライト状態で描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>レンダラーを選択キャレットと同様に描画する場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>エフェクトを使用して選択状態をフェードインする場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ハイライト、選択、またはキャレットの各インジケーターと共にレンダラーを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawRowBackgrounds"><apiName>drawRowBackgrounds</apiName><shortdesc>
+      行の色、境界線および背景が交互に異なるように描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      行の色、境界線および背景が交互に異なるように描画します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      指定の Sprite に、指定された位置、幅、高さおよび色で選択のインジケーターを描画します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>レンダラーをハイライト表示にするためのグラフィックを格納する Sprite です。
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>インジケーターの x 方向位置の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>インジケーターの幅の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>インジケーターの高さの候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>インジケーターの色の候補です。
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>ハイライト表示されるアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定の Sprite に、指定された位置、幅、高さおよび色で選択のインジケーターを描画します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:findKey"><apiName>findKey</apiName><shortdesc>
+      eventCode パラメーターの文字で始まる次のアイテムをデータプロバイダー内で検索します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>一致するものが見つかった場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>eventCode</apiItemName><apiType value="int"/><apiDesc>キーボード上で押されたキーです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>eventCode</codeph> パラメーターの文字で始まる次のアイテムをデータプロバイダー内で検索します。 このメソッドをオーバーライドすると、より高度な先読み検索を実行できます。 検索は、<codeph>selectedIndex</codeph> の位置から開始されます。データプロバイダーの末尾に達すると、先頭から再開されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:findString"><apiName>findString</apiName><shortdesc>
+      ストリングに基づいてリスト内のアイテムを検索し、選択をそのアイテムに移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一致するものが見つかった場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>照合するストリングです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングに基づいてリスト内のアイテムを検索し、選択をそのアイテムに移動します。 検索は、<codeph>selectedIndex</codeph> の位置から開始されます。データプロバイダーの末尾に達すると、先頭から再開されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:finishDataChangeEffect"><apiName>finishDataChangeEffect</apiName><shortdesc>
+      データ変更エフェクトの実行終了後に、元のコレクションとイテレータを復元し、エフェクトで使用したキャッシュされたすべての値を削除することによってクリーンアップします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:EffectEvent"/><apiDesc>実行が終了したエフェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データ変更エフェクトの実行終了後に、元のコレクションとイテレータを復元し、エフェクトで使用したキャッシュされたすべての値を削除することによってクリーンアップします。 このメソッドは、Flex フレームワークによって呼び出されます。コードから呼び出す必要はありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      caretIndex プロパティと anchorIndex プロパティに基づいて、選択されたアイテムを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>caretIndex</codeph> プロパティと <codeph>anchorIndex</codeph> プロパティに基づいて、選択されたアイテムを設定します。 スクロールによってさらに多くのアイテムを取得している間に、キーボード選択ハンドラーでページフォルトが発生した場合に、キーボード選択ハンドラーと <codeph>updateDisplayList()</codeph> メソッドによって呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:getRendererSemanticValue"><apiName>getRendererSemanticValue</apiName><shortdesc> 
+      データエフェクトが実行されているときに、アイテムレンダラーの特定のセマンティックプロパティの値を返します。該当のプロパティが定義されていない場合は null を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データエフェクトが実行されているときのアイテムレンダラーの特定のセマンティックプロパティの値です。該当のプロパティが定義されていない場合は null です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>アイテムレンダラーです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>semanticProperty</apiItemName><apiType value="String"/><apiDesc>レンダラーのセマンティックプロパティです。このプロパティの値が返されることになります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      データエフェクトが実行されているときに、アイテムレンダラーの特定のセマンティックプロパティの値を返します。該当のプロパティが定義されていない場合は null を返します。 この関数は、削除または追加されたデータアイテムに対応するレンダラーにエフェクトを制限するために、データ変更エフェクトのフィルターで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:getReservedOrFreeItemRenderer"><apiName>getReservedOrFreeItemRenderer</apiName><shortdesc>
+      現在使用されていない作成済みのアイテムレンダラーを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>現在使用されていない作成済みのアイテムレンダラーです。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>アイテムレンダラーによって表示されるデータです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在使用されていない作成済みのアイテムレンダラーを取得します。 データエフェクトが実行されている場合、まず reservedItemRenderers マップから取得することを試みます。 それ以外の場合（または予約されたレンダラーが見つからない場合）は、freeItemRenderers スタックから取得します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:hideDropFeedback"><apiName>hideDropFeedback</apiName><shortdesc>
+      ドラッグ &amp; ドロップ操作が可能であることを示す、マウスポインターの下のドロップインジケーターを非表示にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>マウスの位置に関する情報を格納している DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ &amp; ドロップ操作が可能であることを示す、マウスポインターの下のドロップインジケーターを非表示にします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:indexToColumn"><apiName>indexToColumn</apiName><shortdesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムの列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アイテムを表示するコンポーネント内の列です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>データプロバイダーへのオフセットです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムの列です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:indexToItemRenderer"><apiName>indexToItemRenderer</apiName><shortdesc>
+      データプロバイダー内のアイテムのインデックスに対応するアイテムレンダラーを取得します（存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムを表示しているアイテムレンダラーです。アイテムが現在表示されていない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>アイテムのデータプロバイダーへのオフセットです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダー内のアイテムのインデックスに対応するアイテムレンダラーを取得します (存在する場合)。アイテムレンダラーは表示されている行アイテムのセットに含まれるアイテムに対してのみ存在します。そのため、表示されていないアイテムに対してこのメソッドを使用することはできません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:indexToRow"><apiName>indexToRow</apiName><shortdesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムの行です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アイテムを表示するコンポーネント内の行です。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>データプロバイダーへのオフセットです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムの行です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:indicesToIndex"><apiName>indicesToIndex</apiName><shortdesc>
+      colIndex、rowIndex 位置にあるアイテムのデータプロバイダーへのオフセットを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データプロバイダーへのオフセットです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>スクロールによって見えなくなっている上部の行を含む、行の 0 から始まるインデックスです。 したがって、<codeph>verticalScrollPosition</codeph> が 2 の場合、最初に表示される行の rowIndex は 2 になります。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colIndex</apiItemName><apiType value="int"/><apiDesc>スクロールによって見えなくなっている左側の列を含む、列の 0 から始まるインデックスです。 <codeph>horizontalScrollPosition</codeph> が 2 の場合、左側にある最初の列の columnIndex は 2 になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      colIndex、rowIndex 位置にあるアイテムのデータプロバイダーへのオフセットを計算します。 タイルのレイアウト方向、および TileList 内の行数と列数によっては、TileList の第 9 行、第 3 列はデータプロバイダーでは異なるアイテムである可能性があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:initiateDataChangeEffect"><apiName>initiateDataChangeEffect</apiName><shortdesc>
+      データプロバイダーで変更が発生したときに、データ変更エフェクトを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダーで変更が発生したときに、データ変更エフェクトを開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:invalidateList"><apiName>invalidateList</apiName><shortdesc>
+      次回の更新ですべての行を更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      次回の更新ですべての行を更新します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemHighlighted"><apiName>isItemHighlighted</apiName><shortdesc>
+      データプロバイダーアイテムのアイテムレンダラーがハイライト表示されているかどうか（アイテムレンダラーがマウスの位置にあるかどうか、またはキーボード操作によりキャレットの位置にあるかどうか）を判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムがハイライト表示されている場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダーアイテムのアイテムレンダラーがハイライト表示されているかどうか（アイテムレンダラーがマウスの位置にあるかどうか、またはキーボード操作によりキャレットの位置にあるかどうか）を判別します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemSelectable"><apiName>isItemSelectable</apiName><shortdesc>
+      データプロバイダーアイテムのアイテムレンダラーが選択可能かどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムが選択可能な場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダーアイテムのアイテムレンダラーが選択可能かどうかを判別します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemSelected"><apiName>isItemSelected</apiName><shortdesc>
+      データプロバイダーアイテムのアイテムレンダラーが選択されているかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムがハイライト表示されている場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダーアイテムのアイテムレンダラーが選択されているかどうかを判別します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemShowingCaret"><apiName>isItemShowingCaret</apiName><shortdesc>
+	  データプロバイダーアイテムのアイテムレンダラーが、キーボード操作によりキャレットの位置にあるアイテムかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムがキャレットの位置にあれば、<codeph>true</codeph> になります。
+	  
+	  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  データプロバイダーアイテムのアイテムレンダラーが、キーボード操作によりキャレットの位置にあるアイテムかどうかを判別します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:isItemVisible"><apiName>isItemVisible</apiName><shortdesc>
+      レンダラーによってアイテムが表示されているかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムが表示されている場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーによってアイテムが表示されているかどうかを判別します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:isRendererUnconstrained"><apiName>isRendererUnconstrained</apiName><shortdesc>
+      アイテムレンダラーがリストのレイアウトアルゴリズムによって配置されなくなっている場合は true を返します (unconstrainRenderer() メソッドを呼び出したデータ変更エフェクトの実行中)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アイテムレンダラーがリストのレイアウトアルゴリズムによって配置されなくなっている場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>アイテムレンダラーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アイテムレンダラーがリストのレイアウトアルゴリズムによって配置されなくなっている場合は <codeph>true</codeph> を返します (<codeph>unconstrainRenderer()</codeph> メソッドを呼び出したデータ変更エフェクトの実行中)。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemRendererContains"><apiName>itemRendererContains</apiName><shortdesc>
+      レンダラーが表示オブジェクトを含んでいる（または所有している）かどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示オブジェクトがレンダラーに含まれているか、所有されている場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>renderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>表示オブジェクトを含んでいるか、所有している可能性のあるレンダラーです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>object</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>レンダラーに関連付けられている可能性のある表示オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーが表示オブジェクトを含んでいる（または所有している）かどうかを判別します。 所有権は、表示オブジェクトが実際にはレンダラーの子ではなく、何らかの方法でレンダラーに関連付けられていることを意味します。 通常、ポップアップはレンダラーによって所有されます。そのため、ポップアップ内のアクティビティはレンダラーに関連付けられ、別のコンポーネント内のアクティビティとして表示されることはありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemRendererToIndex"><apiName>itemRendererToIndex</apiName><shortdesc>
+      このアイテムレンダラーによってレンダリングされているアイテムのデータプロバイダー内のインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データプロバイダー内のアイテムのインデックスです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>データプロバイダーインデックスを調べる必要のあるアイテムを表示しているアイテムレンダラーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このアイテムレンダラーによってレンダリングされているアイテムのデータプロバイダー内のインデックスを返します。 アイテムレンダラーは表示されている行のセット内のアイテムに対してのみ存在します。そのため、表示されていないアイテムに対してこのメソッドを使用することはできません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      アイテムレンダラーの列インデックスと行インデックスを格納する Point インスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Point インスタンスです。 <codeph>x</codeph> プロパティに列インデックスが格納され、<codeph>y</codeph> プロパティに行インデックスが格納されます。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>アイテムレンダラーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アイテムレンダラーの列インデックスと行インデックスを格納する Point インスタンスを返します。 アイテムレンダラーは表示されている行のセット内にあるアイテムに対してのみ作成されます。そのため、このメソッドを使用して、表示されていないアイテムのインデックスを取得することはできません。 また、アイテムレンダラーはリサイクルされるので、そのアイテムレンダラーが別のアイテムの表示に再使用された場合、アイテムに対して取得するインデックスが変更されることがあります。 通常、このメソッドは、アイテムレンダラーによって表示されているデータのセットがまだ変更されていないときに、マウスおよびキーボードの処理の中で呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      dataTipField プロパティと dataTipFunction プロパティに基づいて、レンダラーが指定のデータオブジェクトに対して表示する dataTip ストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データに基づいた表示可能なストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>レンダリングされるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      dataTipField プロパティと dataTipFunction プロパティに基づいて、レンダラーが指定のデータオブジェクトに対して表示する dataTip ストリングを返します。 このメソッドは、パラメーターをストリングに変換できない場合にスペースを 1 つ返します。
+      <p>ListBase またはその子のサブクラスを作成する開発者が使用します。 アプリケーション開発者が使用することはありません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToIcon"><apiName>itemToIcon</apiName><shortdesc>
+      iconField プロパティと iconFunction プロパティに基づいて、データアイテムのアイコンのクラスを返します（アイコンが存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>クラス参照としてのアイテムのアイコンです。アイコンがない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>アイコンクラスの抽出元であるアイテムです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      iconField プロパティと iconFunction プロパティに基づいて、データアイテムのアイコンのクラスを返します（アイコンが存在する場合）。 ストリングがアプリケーション内のクラスの名前を表している限り、アイテム内のフィールドはそのストリングを返すことができます。 アイテム内のフィールドは、アイコンのクラスを保持するドキュメント内の変数の名前を表すストリングにすることもできます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToItemRenderer"><apiName>itemToItemRenderer</apiName><shortdesc>
+      データプロバイダー内の指定のアイテムに対応するアイテムレンダラーを返します（存在する場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アイテムレンダラーです。アイテムが現在表示されていない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダー内の指定のアイテムに対応するアイテムレンダラーを返します（存在する場合）。 アイテムレンダラーは表示されている行のセット内にあるアイテムに対してのみ存在します。そのため、アイテムが表示されていない場合、このメソッドは <codeph>null</codeph> を返します。 データグリッドの場合は、最初の列のレンダラーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      labelField プロパティと labelFunction プロパティに基づいて、レンダラーが指定のデータオブジェクトに対して表示するストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>データに応じて表示されるストリングです。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>レンダリングされるオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      labelField プロパティと labelFunction プロパティに基づいて、レンダラーが指定のデータオブジェクトに対して表示するストリングを返します。 このメソッドは、パラメーターをストリングに変換できない場合にスペースを 1 つ返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:itemToUID"><apiName>itemToUID</apiName><shortdesc>
+      データプロバイダーアイテムの UID を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ストリングとしての UID です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>データプロバイダーアイテムです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダーアイテムの UID を決定します。 データプロバイダー内のすべてのアイテムは必ず一意の ID（UID）を持ちます。または、UID が生成され、アイテムに関連付けられます。 このため、データプロバイダー内でオブジェクトまたはスカラー値を 2 回出現させることはできません。 
+      
+      <p>例えば、次のデータプロバイダーは無効です。これは、値 "foo" が 2 回出現しており、ストリングの UID がストリング自体であるためです。</p>
+     
+      <pre>
+      var sampleDP:Array = ["foo", "bar", "foo"]
+      </pre>
+     
+      <p>単純な動的オブジェクトの場合、2 つの別々のインスタンスであれば 2 回出現してかまいません。次の例は、それぞれのインスタンスが異なるオブジェクトであり、異なる UID が与えられているので有効です。</p>
+     
+      <pre>
+      var sampleDP:Array = [{label: "foo"}, {label: "foo"}]
+      </pre>
+     
+      <p>次の例は同じインスタンスが 2 回出現しているため無効です。</p>
+     
+      <pre>
+      var foo:Object = {label: "foo"};
+      sampleDP:Array = [foo, foo];
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:measureHeightOfItems"><apiName>measureHeightOfItems</apiName><shortdesc>
+      現在のアイテムレンダラーを使用して、データプロバイダーのアイテムのセットを測定し、それらのアイテムの高さの合計を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>測定されたアイテムの高さの合計です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>高さの計算の開始点となるデータプロバイダーアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>高さの計算で使用するアイテムの数です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在のアイテムレンダラーを使用して、データプロバイダーのアイテムのセットを測定し、それらのアイテムの高さの合計を返します。
+     
+      <p>このメソッドは AdvancedListBase クラスでは実装されないため、子クラスで実装する必要があります。</p>
+     
+      <p>負の <codeph>index</codeph> 値を使用すると、高さの計算にヘッダーを含めることを指定できます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:measureWidthOfItems"><apiName>measureWidthOfItems</apiName><shortdesc>
+      現在のアイテムレンダラーを使用して、データプロバイダーのアイテムのセットを測定し、見つかった最大幅を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>測定されたアイテムのうち最も幅の広いものです。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>幅の測定の開始点となるデータプロバイダーアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>幅の計算で測定するアイテムの数です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在のアイテムレンダラーを使用して、データプロバイダーのアイテムのセットを測定し、見つかった最大幅を返します。 このメソッドは、コンポーネントの幅を計算するときに使用します。 ListBase から派生した各種クラスは、それぞれ実装が少し異なります。 DataGrid は、データプロバイダーアイテムではなく自身の列を測定します。TileList は、最初のアイテムだけを測定し、すべてのアイテムが同じサイズであると見なします。
+     
+      <p>このメソッドは AdvancedListBase クラスでは実装されないため、子クラスで実装する必要があります。</p>
+     
+      <p>負の <codeph>index</codeph> 値を使用すると、幅の計算にヘッダーを含めることを指定できます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:measure"><apiName>measure</apiName><shortdesc>
+      rowCount、columnCount、rowHeight および columnWidth の各プロパティに基づいて、コンポーネントの幅と高さの測定値を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>rowCount</codeph>、<codeph>columnCount</codeph>、<codeph>rowHeight</codeph> および <codeph>columnWidth</codeph> の各プロパティに基づいて、コンポーネントの幅と高さの測定値を計算します。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseClickHandler"><apiName>mouseClickHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_CLICK イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_CLICK</codeph> イベントを処理します。 このメソッドは、クリックされたレンダラーを判別し、<codeph>ListEvent.ITEM_CLICK</codeph> イベントを送出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseDoubleClickHandler"><apiName>mouseDoubleClickHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_DOUBLE_CLICK イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_DOUBLE_CLICK</codeph> イベントを処理します。 このメソッドは、クリックされたレンダラーを判別し、<codeph>ListEvent.ITEM_DOUBLE_CLICK</codeph> イベントを送出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_DOWN イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_DOWN</codeph> イベントを処理します。 このメソッドは、押されたレンダラーを検索し、<codeph>MouseEvent.MOUSE_UP</codeph> イベントを受信する準備を行います。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseEventToItemRenderer"><apiName>mouseEventToItemRenderer</apiName><shortdesc>
+      マウスの位置にあるアイテムレンダラーを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>マウスの位置にあるアイテムレンダラーです。アイテムレンダラーがない場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>マウスの位置と、マウスの位置にあるオブジェクトを格納している MouseEvent です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      マウスの位置にあるアイテムレンダラーを判別します。 アイテムレンダラーは、複数のマウスターゲットから作成されることもあれば、マウスターゲットではない可視領域を持つこともあります。 このメソッドは、ターゲットと位置の両方を確認して、マウスの位置にあるアイテムレンダラーをユーザーの視点から判別します。この情報は、マウスイベントによって提供される情報とは異なる場合があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseMoveHandler"><apiName>mouseMoveHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_MOVE イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_MOVE</codeph> イベントを処理します。 このメソッドは、ドラッグ &amp; ドロップ操作の開始に相当する動作を監視し、<codeph>DragEvent.DRAG_START</codeph> イベントを送信します。 また、マウスがレンダラーの非ターゲット領域上にあるかどうかも調べます。これにより、Flex はそのレンダラーがターゲットであったように表示することを試みることができます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseOutHandler"><apiName>mouseOutHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_OUT イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_OUT</codeph> イベントを処理します。 このメソッドは、マウスが離れたレンダラーを検出し、ハイライト表示を解除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseOverHandler"><apiName>mouseOverHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_OVER イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_OVER</codeph> イベントを処理します。 このメソッドは、マウスが置かれているレンダラーを検出し、ハイライト表示します。
+     
+      <p>リストクラスでも、<codeph>MouseEvent.MOUSE_MOVE</codeph> イベントからこのメソッドを呼び出します。 このイベントを使用して、レンダラーの非ターゲット領域内とレンダラー周囲のスペース領域内の動きを検出します。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseUpHandler"><apiName>mouseUpHandler</apiName><shortdesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの MouseEvent.MOUSE_DOWN イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レンダラーを含め、リストに含まれている任意のマウスターゲットの <codeph>MouseEvent.MOUSE_DOWN</codeph> イベントを処理します。 このメソッドは、押されたレンダラーを検索し、<codeph>MouseEvent.MOUSE_UP</codeph> イベントを受信する準備を行います。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:mouseWheelHandler"><apiName>mouseWheelHandler</apiName><shortdesc>
+      スクロール位置を変更して mouseWheel イベントを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>MouseEvent オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スクロール位置を変更して、<codeph>mouseWheel</codeph> イベントを処理します。 このメソッドは、ScrollControlBase クラスのバージョンのコピーです。ターゲットが水平方向に実行された場合に、<codeph>horizontalScrollPosition</codeph> プロパティを変更するように修正されています。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ScrollControlBase/mouseWheelHandler()"><linktext>mx.core.ScrollControlBase.mouseWheelHandler()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveIndicatorsHorizontally"><apiName>moveIndicatorsHorizontally</apiName><shortdesc conref="mx.controls.listClasses.ListBase#moveIndicatorsHorizontally()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>moveBlockDistance</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.controls.listClasses.ListBase#moveIndicatorsHorizontally()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveIndicatorsVertically"><apiName>moveIndicatorsVertically</apiName><shortdesc conref="mx.controls.listClasses.ListBase#moveIndicatorsVertically()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>moveBlockDistance</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc conref="mx.controls.listClasses.ListBase#moveIndicatorsVertically()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveSelectionHorizontally"><apiName>moveSelectionHorizontally</apiName><shortdesc>
+      左矢印キーまたは右矢印キーと修飾子（Shift キーや Ctrl キーなど）を使用してアイテムを選択するユーザー操作に応答して、選択を水平方向に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>押されたキーです（Keyboard.LEFT など）。
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Shift キーが押されていた場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Ctrl キーが押されていた場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      左矢印キーまたは右矢印キーと修飾子（Shift キーや Ctrl キーなど）を使用してアイテムを選択するユーザー操作に応答して、選択を水平方向に移動します。 このメソッドによって、<codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> および <codeph>caretIndex</codeph> の各プロパティが変更され、選択を更新するために <codeph>finishKeySelection()</codeph> メソッドが呼び出されることがあります。
+     
+      <p>AdvancedListBase の場合、デフォルトのリストが単一列であり、水平方向にスクロールされることはないので、AdvancedListBase では実装されていません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      上矢印キーまたは下矢印キーと修飾子（Shift キーや Ctrl キーなど）を使用してアイテムを選択するユーザー操作に応答して、選択を垂直方向に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>押されたキーです（Keyboard.DOWN など）。
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Shift キーが押されていた場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>キーボードのキーが押されたときに Ctrl キーが押されていた場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      上矢印キーまたは下矢印キーと修飾子（Shift キーや Ctrl キーなど）を使用してアイテムを選択するユーザー操作に応答して、選択を垂直方向に移動します。 このメソッドによって、<codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> および <codeph>caretIndex</codeph> の各プロパティが変更され、選択を更新するために <codeph>finishKeySelection()</codeph> メソッドが呼び出されることがあります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:removeDataEffectItem"><apiName>removeDataEffectItem</apiName><shortdesc>
+      データ変更エフェクトが実行されている場合に、アイテムレンダラーを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>コントロールのレイアウトから削除するアイテムレンダラーです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データ変更エフェクトが実行されている場合に、アイテムレンダラーを削除します。 このアイテムレンダラーは、データプロバイダーのコレクションから既に削除されているデータに対応している必要があります。 この関数は、データ変更エフェクトの一部として <codeph>RemoveItemAction</codeph> エフェクトによって呼び出されます。この関数により、コントロールでアイテムレンダラーを使用してデータアイテムを表示することを中止するポイントが指定されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:removeIndicators"><apiName>removeIndicators</apiName><shortdesc>
+      データプロバイダー内の指定のアイテムについて、選択ハイライトおよびその他の関連グラフィックをクリーンアップします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>データプロバイダーアイテムの UID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      データプロバイダー内の指定のアイテムについて、選択ハイライトおよびその他の関連グラフィックをクリーンアップします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollHorizontally"><apiName>scrollHorizontally</apiName><shortdesc>
+      スクロール位置の変化に応じてレンダラーを調整します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pos</apiItemName><apiType value="int"/><apiDesc>新しいスクロール位置を示します。
+      </apiDesc></apiParam><apiParam><apiItemName>deltaPos</apiItemName><apiType value="int"/><apiDesc>位置の変化です。 常に正の数値です。
+      </apiDesc></apiParam><apiParam><apiItemName>scrollUp</apiItemName><apiType value="Boolean"/><apiDesc>スクロール位置が小さくなりつつある場合は <codeph>true</codeph> です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スクロール位置の変化に応じてレンダラーを調整します。
+     
+      <p>リストクラスでは、スクロール位置の変化幅が表示されている行の数より少なかった場合にスクロールの最適化を試みます。 変更は行わず、移動だけが必要な行がある場合は、他の行が削除され、新しい行が追加されます。 スクロール位置の変化が大きすぎる場合は、古い行がすべて削除され、可視領域全体に対して <codeph>makeRowsAndColumns()</codeph> メソッドを呼び出すことにより新しい行が追加されます。</p>
+     
+      <p>AdvancedListBase の場合、デフォルトのリストが単一列であり、水平方向にスクロールされることはないので、AdvancedListBase では実装されていません。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollPositionToIndex"><apiName>scrollPositionToIndex</apiName><shortdesc>
+      指定のスクロール位置で最初に表示される行と列のアイテムに対応するデータプロバイダーインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>データプロバイダーインデックスです。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>horizontalScrollPosition</apiItemName><apiType value="int"/><apiDesc>スクロール位置に対応する <codeph>horizontalScrollPosition</codeph> プロパティ値です。
+      </apiDesc></apiParam><apiParam><apiItemName>verticalScrollPosition</apiItemName><apiType value="int"/><apiDesc>スクロール位置に対応する <codeph>verticalScrollPosition</codeph> プロパティ値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定のスクロール位置で最初に表示される行と列のアイテムに対応するデータプロバイダーインデックスを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:scrollToIndex"><apiName>scrollToIndex</apiName><shortdesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムを表示状態にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> は、<codeph>verticalScrollPosition</codeph> が変更された場合です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>データプロバイダー内のアイテムのインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定のインデックス位置にあるデータプロバイダーアイテムを表示状態にします。 該当のアイテムが表示されている場合は、そのアイテムが最初に表示されているアイテムではなくても、<codeph>verticalScrollPosition</codeph> プロパティは変更されないままになります。 アイテムが現在表示されていない場合は、<codeph>verticalScrollPosition</codeph> プロパティが変更され、そのアイテムが最初に表示されるアイテムになります。ただし、<codeph>verticalScrollPosition</codeph> 値が <codeph>maxVerticalScrollPosition</codeph> プロパティによって制限されているために、アイテムを最初に表示されるアイテムにするには行が足りない場合は除きます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:scrollVertically"><apiName>scrollVertically</apiName><shortdesc>
+      スクロール位置の変化に応じてレンダラーを調整します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>pos</apiItemName><apiType value="int"/><apiDesc>新しいスクロール位置を示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>deltaPos</apiItemName><apiType value="int"/><apiDesc>位置の変化です。 常に正の数値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scrollUp</apiItemName><apiType value="Boolean"/><apiDesc>スクロール位置が小さくなりつつある場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スクロール位置の変化に応じてレンダラーを調整します。
+     
+      <p>リストクラスでは、スクロール位置の変化幅が表示されている行の数より少なかった場合にスクロールの最適化を試みます。 変更は行わず、移動だけが必要な行がある場合は、他の行が削除され、新しい行が追加されます。 スクロール位置の変化が大きすぎる場合は、古い行がすべて削除され、可視領域全体に対して <codeph>makeRowsAndColumns()</codeph> メソッドを呼び出すことにより新しい行が追加されます。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/makeRowsAndColumns()"><linktext>mx.controls.listClasses.ListBase.makeRowsAndColumns()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:seekPendingFailureHandler"><apiName>seekPendingFailureHandler</apiName><shortdesc>
+      ページフォルトが原因でシークが失敗したときに使用されるデフォルトの失敗ハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>エラーの原因となったデータです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>info</apiItemName><apiType value="mx.controls.listClasses:ListBaseSeekPending"/><apiDesc>ItemPendingError エラーによって中断されたシーク操作に関するデータです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ページフォルトが原因でシークが失敗したときに使用されるデフォルトの失敗ハンドラーです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:seekPendingResultHandler"><apiName>seekPendingResultHandler</apiName><shortdesc>
+      ページフォルトが原因でシークが失敗したときに使用されるデフォルトの結果ハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>エラーの原因となったデータです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>info</apiItemName><apiType value="mx.controls.listClasses:ListBaseSeekPending"/><apiDesc>ItemPendingError エラーによって中断されたシーク操作に関するデータです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ページフォルトが原因でシークが失敗したときに使用されるデフォルトの結果ハンドラーです。 このメソッドは、最新のページフォルト結果がハンドラーにあるかどうかを確認します。結果がない場合は、そのまま終了します。結果がある場合は、イテレータを正しい位置に設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:selectItem"><apiName>selectItem</apiName><shortdesc>
+      提供されているアイテムレンダラーがマウスで既にクリックされており、キーボード修飾子が指定の状態になっていれば、選択されたアイテムのセットを更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>選択されているアイテムのセットが変更された場合は <codeph>true</codeph> です。既に選択されているアイテムをクリックした場合、必ずしも選択されたアイテムのセットが変更されるとは限りません。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>クリックされたアイテムレンダラーです。
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>マウスがクリックされたときに Shift キーが押されていた場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>マウスがクリックされたときに Ctrl キーが押されていた場合は <codeph>true</codeph> です。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>選択状態のグラフィックでフェードインエフェクトを使用する必要がある場合は <codeph>true</codeph> です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供されているアイテムレンダラーがマウスで既にクリックされており、キーボード修飾子が指定の状態になっていれば、選択されたアイテムのセットを更新します。 また、このメソッドは、更新後の選択状態に基づいてアイテムレンダラーの表示を更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:setRowCount"><apiName>setRowCount</apiName><shortdesc>
+      rowCount プロパティを設定します。この場合、無効化は行われず、行数を永続的に固定する explicitRowCount プロパティも設定されません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>v</apiItemName><apiType value="int"/><apiDesc>行数です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>rowCount</codeph> プロパティを設定します。この場合、無効化は行われず、行数を永続的に固定する <codeph>explicitRowCount</codeph> プロパティも設定されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:setRowHeight"><apiName>setRowHeight</apiName><shortdesc>
+      rowHeight プロパティを設定します。この場合、無効化は行われず、行の高さを永続的に固定する explicitRowHeight プロパティも設定されません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>v</apiItemName><apiType value="Number"/><apiDesc>ピクセル単位で表した行の高さです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>rowHeight</codeph> プロパティを設定します。この場合、無効化は行われず、行の高さを永続的に固定する <codeph>explicitRowHeight</codeph> プロパティも設定されません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:showDropFeedback"><apiName>showDropFeedback</apiName><shortdesc>
+      マウスポインターの下にドロップインジケーターを表示して、ドラッグ &amp; ドロップ操作が可能であること、およびアイテムのドロップ先を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>マウスの位置に関する情報を格納している DragEvent オブジェクトです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      マウスポインターの下にドロップインジケーターを表示して、ドラッグ &amp; ドロップ操作が可能であること、およびアイテムのドロップ先を示します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:unconstrainRenderer"><apiName>unconstrainRenderer</apiName><shortdesc>
+      コントロールのレイアウトアルゴリズムによってアイテムレンダラーが配置されるのを一時的に中止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>アイテムレンダラーのデータです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コントロールのレイアウトアルゴリズムによってアイテムレンダラーが配置されるのを一時的に中止します。 この関数は、特定のデータアイテムに対応するアイテムレンダラーを、コントロール内でのアイテムレンダラーの標準的な位置の外に移動する必要がある場合に、データ変更エフェクトの一部として呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      表示可能なアイテムの数が変更された場合に、アイテムレンダラーを追加または削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      表示可能なアイテムの数が変更された場合に、アイテムレンダラーを追加または削除します。 アイテムレンダラーが変更されている可能性がある場合は、それらのレンダラーを更新します。 選択がプログラムを通じて変更された場合は、その選択を適用します。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.listClasses:AdvancedListBase:protected:updateList"><apiName>updateList</apiName><shortdesc>
+      すべての行を今すぐ更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      すべての行を今すぐ更新します。 このメソッドを呼び出すと、大量の処理が必要になる可能性があります。このメソッドは、リスト内のすべてのレンダラーを完全に再描画し、処理が完了するまで制御を戻さないので、このメソッドを呼び出すと負荷がかかる場合があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:actualCollection"><apiName>actualCollection</apiName><shortdesc>
+      データ変更エフェクトの実行中に使用する collection プロパティに通常格納される値のコピーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc>
+      データ変更エフェクトの実行中に使用する <codeph>collection</codeph> プロパティに通常格納される値のコピーです。 データ変更エフェクトが実行されていない場合、この値は null である必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:actualIterator"><apiName>actualIterator</apiName><shortdesc>
+      データ変更エフェクトの実行中に使用する iterator プロパティに通常格納される値のコピーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:IViewCursor"/></apiValueDef><apiDesc>
+      データ変更エフェクトの実行中に使用する <codeph>iterator</codeph> プロパティに通常格納される値のコピーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:allowDragSelection"><apiName>allowDragSelection</apiName><shortdesc>
+      ドラッグによる選択が有効かどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ドラッグによる選択が有効かどうかを示すフラグです。 通常の選択では、選択するアイテムの上にマウスを置いてもマウスボタンを押すことはできませんが、ドラッグによる選択では、アイテムにドラッグすることによってそのアイテムを選択できます。 この機能は、ComboBox のドロップダウンで使用され、マウスをドロップダウンボタンの上に置き、マウスをドロップダウンにドラッグしてアイテムを選択するときのマウスボタンの押下をサポートします。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:anchorBookmark"><apiName>anchorBookmark</apiName><shortdesc>
+      アンカーであるアイテムのブックマークです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      アンカーであるアイテムのブックマークです。 ブックマークにより、コンポーネントはアイテムのコレクション内の位置をすばやくシークすることができます。 このプロパティは、キャレットまたはハイライト表示されたアイテムとアンカーの間にあるアイテムのセットを選択する場合や、ソートまたはフィルターを適用した後に選択されているアイテムを検索する場合に使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:anchorIndex"><apiName>anchorIndex</apiName><shortdesc>
+      選択アンカーポイントとなるデータプロバイダー内のアイテムのオフセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      選択アンカーポイントとなるデータプロバイダー内のアイテムのオフセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/caretItemRenderer"><linktext>mx.controls.listClasses.ListBase.caretItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:cachedDataChangeEffect"><apiName>cachedDataChangeEffect</apiName><shortdesc>
+      コントロールのデータプロバイダー内で変更が発生したときに再生するエフェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>null</apiData><apiType value="mx.effects:Effect"/></apiValueDef><apiDesc>
+      コントロールのデータプロバイダー内で変更が発生したときに再生するエフェクトです。 <codeph>dataChangeEffect</codeph> スタイルを設定して、エフェクトを設定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretBookmark"><apiName>caretBookmark</apiName><shortdesc>
+      キャレットの位置にあるアイテムのブックマークです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      キャレットの位置にあるアイテムのブックマークです。 ブックマークにより、コンポーネントはアイテムのコレクション内の位置をすばやくシークすることができます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretIndex"><apiName>caretIndex</apiName><shortdesc>
+      選択キャレットポイントとなるデータプロバイダー内のアイテムのオフセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      選択キャレットポイントとなるデータプロバイダー内のアイテムのオフセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/caretItemRenderer"><linktext>mx.controls.listClasses.ListBase.caretItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretIndicator"><apiName>caretIndicator</apiName><shortdesc>
+      どのレンダラーがキャレットであるかを示すグラフィックを格納する DisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      どのレンダラーがキャレットであるかを示すグラフィックを格納する DisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretItemRenderer"><apiName>caretItemRenderer</apiName><shortdesc>
+      キャレットの位置にあるアイテムのレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      キャレットの位置にあるアイテムのレンダラーです。 選択モデルには、アンカー、キャレットおよびハイライト表示されたアイテムが存在します。 マウスを使用して選択する場合、アイテムの上にマウスを置くとマウスの下のアイテムがハイライト表示されます。 修飾キー（Shift キーまたは Ctrl キー）を使用せずにマウスをクリックすると、選択されているアイテムのセットがクリアされ、ハイライト表示されているアイテムが選択されてアンカーになります。 マウスによる選択では、キャレットは使用されません。  
+     
+      <p>アンカーが存在し、Shift キーを使用した状態で別のアイテムを選択した場合、以前に選択されていたアイテムのセットがクリアされ、アイテムとアンカーの間にあるすべてのアイテムが選択されます。Ctrl キーを使用した状態でアイテムをクリックすると、個々のアイテムの選択が切り替わります。アンカーは移動しません。</p>
+     
+      <p>キーボードを使用してアイテムを選択する場合、修飾キーを使用せずに矢印キーを使用すると、以前の選択がクリアされ、新しいアイテムが選択されてアンカーおよびキャレットになり、キャレットのインジケーターが選択ハイライトの周囲に表示されます。  </p>
+     
+      <p>ユーザーが Shift キーと共に矢印キーを使用した場合、以前の選択がクリアされ、アンカーと新しいアイテムの間にあるアイテムが選択されます。 キャレットは新しいアイテムに移動します。  </p>
+     
+      <p>Ctrl キーと共に矢印キーを使用した場合は、キャレットが移動するだけです。 ユーザーは、スペースキーを使用してキャレットの位置にあるアイテムの選択を切り替えることができます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:caretUID"><apiName>caretUID</apiName><shortdesc>
+      キャレットの位置にあるアイテムの UID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      キャレットの位置にあるアイテムの UID です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:collection"><apiName>collection</apiName><shortdesc>
+      データプロバイダーを表す ICollectionView です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc>
+      データプロバイダーを表す ICollectionView です。 <codeph>dataProvider</codeph> プロパティを設定すると、ICollectionView インターフェイスをサポートし、このプロパティを結果に設定するために、Flex によって必要に応じてデータプロバイダーがラップされます。 AdvancedListBase クラスは、このプロパティを使用してプロバイダー内のデータにアクセスします。 <codeph>dataProvider</codeph> プロパティを取得すると、Flex からこの値が返されます。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dataEffectCompleted"><apiName>dataEffectCompleted</apiName><shortdesc>
+      データ変更エフェクトが完了したことを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      データ変更エフェクトが完了したことを示すフラグです。 通常、コンポーネントは、<codeph>updateDisplayList()</codeph> を次回呼び出したときに、様々な内部データ構造をクリーンアップすることによって応答します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dataItemWrappersByRenderer"><apiName>dataItemWrappersByRenderer</apiName><shortdesc>
+      ItemWrappers にアイテムレンダラーをマッピングする辞書です。ItemWrappers は、アイテムレンダラーのデータを提供するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      ItemWrappers にアイテムレンダラーをマッピングする辞書です。ItemWrappers は、アイテムレンダラーのデータを提供するために使用されます。 データエフェクトが実行されている場合にのみ適用できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:defaultColumnCount"><apiName>defaultColumnCount</apiName><shortdesc>
+      デフォルトで表示する列の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>4</apiData><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      デフォルトで表示する列の数です。 この値は、サイズまたは内容に基づいて列数の計算を試みたときに、列数の計算結果が 1 未満の値になった場合に使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:defaultRowCount"><apiName>defaultRowCount</apiName><shortdesc>
+      デフォルトで表示する行の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>4</apiData><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      デフォルトで表示する行の数です。 この値は、サイズまたは内容に基づいて行数の計算を試みたときに、行数の計算結果が 1 未満の値になった場合に使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitColumnCount"><apiName>explicitColumnCount</apiName><shortdesc>
+      columnCount プロパティを明示的に設定することによって要求された列数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      <codeph>columnCount</codeph> プロパティを明示的に設定することによって要求された列数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitColumnWidth"><apiName>explicitColumnWidth</apiName><shortdesc>
+      columnWidth を明示的に設定することによって要求された列幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>columnWidth</codeph> を明示的に設定することによって要求された列幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitRowCount"><apiName>explicitRowCount</apiName><shortdesc>
+      rowCount を明示的に設定することによって要求された行数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      <codeph>rowCount</codeph> を明示的に設定することによって要求された行数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:explicitRowHeight"><apiName>explicitRowHeight</apiName><shortdesc>
+      rowHeight を明示的に設定することによって要求された行の高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>rowHeight</codeph> を明示的に設定することによって要求された行の高さです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:freeItemRenderers"><apiName>freeItemRenderers</apiName><shortdesc>
+      未使用のアイテムレンダラーのスタックです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      未使用のアイテムレンダラーのスタックです。 ほとんどのリストクラスでは、表示可能な領域からスクロールアウトされた作成済みのレンダラーをリサイクルします。そのため、スクロールの時間が短縮されます。 リサイクルされるレンダラーは、ここに格納されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightIndicator"><apiName>highlightIndicator</apiName><shortdesc>
+      ハイライト表示されているレンダラーを示すグラフィックを格納している DisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      ハイライト表示されているレンダラーを示すグラフィックを格納している DisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightItemRenderer"><apiName>highlightItemRenderer</apiName><shortdesc>
+      現在マウスが置かれているか、キャレットの位置にあるレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      現在マウスが置かれているか、キャレットの位置にあるレンダラーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:highlightUID"><apiName>highlightUID</apiName><shortdesc>
+      現在マウスが置かれているか、キャレットの位置にあるアイテムの UID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      現在マウスが置かれているか、キャレットの位置にあるアイテムの UID です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:itemsNeedMeasurement"><apiName>itemsNeedMeasurement</apiName><shortdesc>
+      columnWidth プロパティと rowHeight プロパティを計算する必要があるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>columnWidth</codeph> プロパティと <codeph>rowHeight</codeph> プロパティを計算する必要があるかどうかを示すフラグです。 このプロパティは、レンダラーの測定に影響を及ぼす可能性のあるスタイルが変更された場合、またはデータプロバイダーが変更された場合に、<codeph>true</codeph> に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:itemsSizeChanged"><apiName>itemsSizeChanged</apiName><shortdesc>
+      レンダラーのサイズが変更されている可能性があることを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      レンダラーのサイズが変更された可能性があることを示すフラグです。 通常、コンポーネントは、<codeph>updateDisplayList()</codeph> を次回呼び出したときに、すべてのレンダラーにデータアイテムを再適用することによって応答します。 アイテムの再適用によってアイテムレンダラーが無効化され、その結果それらのレンダラーが再測定されることが前提となります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:iteratorValid"><apiName>iteratorValid</apiName><shortdesc>
+      ページフォルトが発生したこと、およびイテレータの位置が有効でないこと（一番上に表示されているアイテムに配置されていないこと）を示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ページフォルトが発生したこと、およびイテレータの位置が有効でないこと（一番上に表示されているアイテムに配置されていないこと）を示すフラグです。 コンポーネントでページフォルト（ItemPending エラー）が発生すると、<codeph>iteratorValid</codeph> が <codeph>false</codeph> に設定されます。 アイテムのレンダリングを標準的に処理するコードは、このフラグをチェックし、データのページがサーバーから到着するまで実行されません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:iterator"><apiName>iterator</apiName><shortdesc>
+      データプロバイダーからアイテムを取得し、そのアイテムをレンダラーに渡すために使用されるメイン IViewCursor インスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:IViewCursor"/></apiValueDef><apiDesc>
+      データプロバイダーからアイテムを取得し、そのアイテムをレンダラーに渡すために使用されるメイン IViewCursor インスタンスです。 コードシーケンスの末尾で、メイン IViewCursor を一番上に表示されるアイテムに必ず配置する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:keySelectionPending"><apiName>keySelectionPending</apiName><shortdesc>
+      キーボードによる選択がページフォルトによって中断されたかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      キーボードによる選択がページフォルトによって中断されたかどうかを示すフラグです。 コンポーネントは、データのページが到着するまでアイテムのレンダリングを一時的に停止することによって応答します。 ページングデータが到着すると、<codeph>finishKeySelection()</codeph> メソッドが呼び出されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:lastDropIndex"><apiName>lastDropIndex</apiName><shortdesc>
+      ドロップターゲットに追加するドラッグアイテムの位置を示す、最新の計算済みインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      ドロップターゲットに追加するドラッグアイテムの位置を示す、最新の計算済みインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:lastSeekPending"><apiName>lastSeekPending</apiName><shortdesc>
+      ページフォルトの原因となった最後のシークです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:ListBaseSeekPending"/></apiValueDef><apiDesc>
+      ページフォルトの原因となった最後のシークです。 ページフォルトが複数ある場合、重要なのは最新のページフォルトだけです。これは、最新のページフォルトにイテレータを配置し、行のレンダリングをもう一度開始するためです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:listContent"><apiName>listContent</apiName><shortdesc>
+      すべてのアイテムレンダラー、選択およびハイライトの各インジケーター、および他のサポートグラフィックの親となる内部表示オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.controls.listClasses:AdvancedListBaseContentHolder"/></apiValueDef><apiDesc>
+      すべてのアイテムレンダラー、選択およびハイライトの各インジケーター、および他のサポートグラフィックの親となる内部表示オブジェクトです。 このオブジェクトは、Container クラスの <codeph>contentPane</codeph> とほぼ等価であり、スクロールの管理に使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:listItems"><apiName>listItems</apiName><shortdesc>
+      各データプロバイダーアイテムをレンダリングするアイテムレンダラーインスタンスを格納する配列の配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      各データプロバイダーアイテムをレンダリングするアイテムレンダラーインスタンスを格納する配列の配列です。 これは、2 次元の行優先配列（列の配列である行の配列）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:menuSelectionMode"><apiName>menuSelectionMode</apiName><shortdesc>
+      メニュー選択方式を使用するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      メニュー選択方式を使用するかどうかを示すフラグです。 Menu では、あるレンダラーから別のレンダラーにドラッグすると、新しい項目が選択され、古い項目の選択が解除されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:modifiedCollectionView"><apiName>modifiedCollectionView</apiName><shortdesc>
+      データプロバイダーの以前の状態を一時的に保存して、データ変更エフェクトの実行を容易にするコレクションビューです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.collections:ModifiedCollectionView"/></apiValueDef><apiDesc>
+      データプロバイダーの以前の状態を一時的に保存して、データ変更エフェクトの実行を容易にするコレクションビューです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraColumnsLeft"><apiName>offscreenExtraColumnsLeft</apiName><shortdesc>
+      コントロールの左側にある、現在表示されていない列の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールの左側にある、現在表示されていない列の数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraColumnsRight"><apiName>offscreenExtraColumnsRight</apiName><shortdesc>
+      コントロールの右側にある、現在表示されていない列の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールの右側にある、現在表示されていない列の数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:offscreenExtraColumns"><apiName>offscreenExtraColumns</apiName><shortdesc>
+      現在表示されていない列の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      現在表示されていない列の数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraRowsBottom"><apiName>offscreenExtraRowsBottom</apiName><shortdesc>
+      一番下に表示されたアイテムレンダラーの下に現在ある画面外のアイテムの数です。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      一番下に表示されたアイテムレンダラーの下に現在ある画面外のアイテムの数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:offscreenExtraRowsTop"><apiName>offscreenExtraRowsTop</apiName><shortdesc>
+      一番上に表示されたレンダラーの上に現在ある画面外のアイテムの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      一番上に表示されたレンダラーの上に現在ある画面外のアイテムの数です。 この数は、offscreenExtraRows / 2 以下になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:offscreenExtraRows"><apiName>offscreenExtraRows</apiName><shortdesc>
+      データエフェクトのアニメーションを作成するときに、レイアウトアルゴリズムで使用できる追加のアイテムレンダラーの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データエフェクトのアニメーションを作成するときに、レイアウトアルゴリズムで使用できる追加のアイテムレンダラーの数です。 画面上に表示されているアイテム、または画面上のアイテムの前または後にある指定された数のアイテムに対応するデータプロバイダー内で発生した変更は、完全なエフェクト処理の対象となります。 この範囲外のアイテムは、エフェクトによって完全にはアニメーション化されない場合があります。
+     
+      <p>このプロパティの妥当な値は、画面上に表示される行の概数です。 このプロパティを非常に大きな値に設定すると、多数のアイテムを含む dataProvider で使用するときに、パフォーマンスの問題が発生することがあります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rendererChanged"><apiName>rendererChanged</apiName><shortdesc>
+      レンダラーが変更されたことを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      レンダラーが変更されたことを示すフラグです。 通常、コンポーネントは、<codeph>updateDisplayList()</codeph> を次回呼び出したときに、既存のすべてのレンダラーを破棄し、すべてのレンダラーを再描画することによって応答します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:reservedItemRenderers"><apiName>reservedItemRenderers</apiName><shortdesc>
+      近いうちに再び使用される可能性のある現在未使用のアイテムレンダラーのハッシュマップです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      近いうちに再び使用される可能性のある現在未使用のアイテムレンダラーのハッシュマップです。 データエフェクトの実行時に使用されます。 このマップは、データプロバイダーアイテムの UID でインデックス付けされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rowInfo"><apiName>rowInfo</apiName><shortdesc>
+      listItems プロパティの行について、行の高さとその他のトラッキング情報をキャッシュする ListRowInfo オブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>listItems</codeph> プロパティの行について、行の高さとその他のトラッキング情報をキャッシュする ListRowInfo オブジェクトの配列です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:rowMap"><apiName>rowMap</apiName><shortdesc>
+      アイテムレンダラーをそれぞれの ListRowInfo オブジェクトに対応付けるハッシュマップです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      アイテムレンダラーをそれぞれの ListRowInfo オブジェクトに対応付けるハッシュマップです。 ListRowInfo オブジェクトは、アイテムレンダラーの DisplayObject 名でインデックス付けされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:runDataEffectNextUpdate"><apiName>runDataEffectNextUpdate</apiName><shortdesc>
+      次回表示を更新するときに、データエフェクトを開始するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      次回表示を更新するときに、データエフェクトを開始するかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:runningDataEffect"><apiName>runningDataEffect</apiName><shortdesc>
+      データ変更エフェクトが現在実行されているかどうかを示すフラグです。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      データ変更エフェクトが現在実行されているかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectedData"><apiName>selectedData</apiName><shortdesc>
+      どのアイテムが現在選択されているかを追跡する ListBaseSelectionData オブジェクトのハッシュテーブルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      どのアイテムが現在選択されているかを追跡する ListBaseSelectionData オブジェクトのハッシュテーブルです。 このテーブルは、アイテムの UID でインデックス付けされます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.ListBaseSelectionData.xml"><linktext>mx.controls.listClasses.ListBaseSelectionData</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionIndicators"><apiName>selectionIndicators</apiName><shortdesc>
+      選択のインジケーターのハッシュテーブルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      選択のインジケーターのハッシュテーブルです。 選択されているアイテムのセットがクリアされた場合に、コンポーネントはこのテーブルを使用してインジケーターをすばやく検索し、削除することができます。 このテーブルは、アイテムの UID でインデックス付けされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionLayer"><apiName>selectionLayer</apiName><shortdesc>
+      選択およびハイライトのすべてのインジケーターが描画される listContent 内のレイヤーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      選択およびハイライトのすべてのインジケーターが描画される <codeph>listContent</codeph> 内のレイヤーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:selectionTweens"><apiName>selectionTweens</apiName><shortdesc>
+      選択のトゥイーンのハッシュテーブルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      選択のトゥイーンのハッシュテーブルです。 選択されているアイテムのセットがクリアされた場合に、コンポーネントはこのテーブルを使用して処理中のすべてのトゥイーンをすばやく検索し、クリーンアップすることができます。 このテーブルは、アイテムの UID でインデックス付けされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:showCaret"><apiName>showCaret</apiName><shortdesc>
+      キャレットを表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      キャレットを表示するかどうかを示すフラグです。 通常、このプロパティは、マウス操作が検出されたときに <codeph>false</codeph> に設定され、キーボードを使用して選択が行われたときに <codeph>true</codeph> に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:unconstrainedRenderers"><apiName>unconstrainedRenderers</apiName><shortdesc>
+      リストのレイアウトアルゴリズムの対象ではないアイテムレンダラーのハッシュマップです。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      リストのレイアウトアルゴリズムの対象ではないアイテムレンダラーのハッシュマップです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:visibleData"><apiName>visibleData</apiName><shortdesc>
+      ビューに現在含まれているデータプロバイダーアイテムレンダラーのハッシュテーブルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      ビューに現在含まれているデータプロバイダーアイテムレンダラーのハッシュテーブルです。 このテーブルは、データプロバイダーアイテムの UID でインデックス付けされます。このテーブルは、特定のアイテムの表示に使用するレンダラーをすばやく取得するために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:wordWrapChanged"><apiName>wordWrapChanged</apiName><shortdesc>
+      表示リストの前回の更新以降に、wordWrap プロパティの値が変更されているかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      表示リストの前回の更新以降に、<codeph>wordWrap</codeph> プロパティの値が変更されているかどうかを示すフラグです。 このプロパティは、<codeph>wordWrap</codeph> プロパティ値を変更したときに設定され、<codeph>false</codeph> にリセットされます。これは、<codeph>updateDisplayList()</codeph> メソッドによって行われます。 通常、コンポーネントは、<codeph>updateDisplayList()</codeph> を次回呼び出したときに、すべてのレンダラーにデータアイテムを再適用することによって応答します。 これは itemsSizeChanged とは異なります。itemsSizeChanged は、レンダラーのサイズ計算で wordWrap を考慮する必要があるかどうかが変更されただけなので、レンダラーにデータアイテムを再適用してもレンダラーが無効化されない可能性があることも示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:allowMultipleSelection:get"><apiName>allowMultipleSelection</apiName><shortdesc>
+      複数のアイテムを同時に選択できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      複数のアイテムを同時に選択できるかどうかを示すフラグです。 <codeph>true</codeph> の場合、ユーザーは複数のアイテムを選択できます。 不連続選択を許可しないようにするオプションはありません。 標準の複合選択操作（Shift キーを押しながらクリック、または Ctrl キーを押しながらクリック）は常に有効です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      TileList コントロールに表示する列の数、または HorizontalList コントロール内のアイテムの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      TileList コントロールに表示する列の数、または HorizontalList コントロール内のアイテムの数です。 データグリッドの場合、表示する列の数を指定します。
+     
+      <p><b>メモ</b>：このプロパティを設定しても、DataGrid コントロールには影響はありません。このコントロールの列数は、コントロールの幅と個々の列幅に基づきます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      コントロールの列の幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>50
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールの列の幅です。 このプロパティは、TileList コントロールと HorizontalList コントロールで使用されます。このプロパティは、個々の列幅を設定したデータグリッドコントロールには影響しません。
+      
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+      表示するデータのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示するデータのセットです。 このプロパティにより、ほとんどのタイプのオブジェクトをデータプロバイダーとして使用できるようになります。 <codeph>dataProvider</codeph> プロパティを Array に設定した場合は、ArrayCollection に変換されます。 このプロパティを XML オブジェクトに設定した場合は、アイテムを 1 つだけ持つ XMLListCollection に変換されます。 このプロパティを XMLList に設定した場合は、XMLListCollection に変換されます。 このプロパティを IList インターフェイスまたは ICollectionView インターフェイスを実装するオブジェクトに設定した場合は、そのオブジェクトが直接使用されます。
+     
+      <p>変換の結果、<codeph>dataProvider</codeph> プロパティを取得すると、常に ICollectionView になります。したがって、必ずしもプロパティの設定時に使用したオブジェクトのタイプになるとは限りません。 データプロバイダーでデータを変更する場合は、この動作を認識しておくことが重要です。元のデータへの変更は検出されない場合がありますが、<codeph>dataProvider</codeph> プロパティから取得した ICollectionView オブジェクトへの変更は検出されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      データヒントとして表示するデータプロバイダーアイテム内のフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データヒントとして表示するデータプロバイダーアイテム内のフィールドの名前です。 デフォルトでは、各アイテムの <codeph>label</codeph> という名前のプロパティが検索され、リストに表示されます。 ただし、データオブジェクトに <codeph>label</codeph> プロパティが含まれていない場合は、データオブジェクト内の別のプロパティを使用するように <codeph>dataTipField</codeph> プロパティを設定できます。 この一例として、データベースから取得した人名のセットを表示する場合の "FullName" があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      dataTip を決定するために各アイテムで実行されるユーザー指定の関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      dataTip を決定するために各アイテムで実行されるユーザー指定の関数です。 デフォルトでは、各データプロバイダーアイテムの <codeph>label</codeph> という名前のプロパティが検索され、リストに表示されます。 ただし、<codeph>label</codeph> プロパティを持たず、行内での表示に使用できる別のプロパティも持たないアイテムもあります。 例えば、lastName フィールドと firstName フィールドを持つデータセットがあるときに、フルネームを表示したいとします。 このような場合に、適切なフィールドを検索し、表示可能なストリングを返す <codeph>dataTipFunction</codeph> を指定できます。 また、<codeph>dataTipFunction</codeph> はフォーマット処理やローカライズにも使用できます。
+     
+      <p>dataTipFunction は、次のようにデータプロバイダー内のアイテムである引数を 1 つ受け取り、String を返します。</p>
+     
+      <blockquote>
+      <codeph>myDataTipFunction(item:Object):String</codeph>
+      </blockquote>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:data:get"><apiName>data</apiName><shortdesc>
+      このコンポーネントをアイテムレンダラーまたはアイテムエディターとして使用したときに、このコンポーネントによってレンダリングされるデータプロバイダー内のアイテムです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      このコンポーネントをアイテムレンダラーまたはアイテムエディターとして使用したときに、このコンポーネントによってレンダリングされるデータプロバイダー内のアイテムです。 リストクラスでは、レンダラーまたはエディターごとにこのプロパティが設定され、コンポーネントによってデータが表示されます。 ListBase から派生したクラスでは、DataGrid の List や列の 1 つが List である DataGrid を使用している場合などの複雑な状況に対応するために、このプロパティがサポートされています。
+     
+      <p>リストクラスでは、<codeph>listData</codeph> プロパティを使用することで、表示内容が決定されます。<codeph>data</codeph> プロパティでも表示内容が決定されます。 リストクラスが DataGrid 内にある場合、リストクラスは列の <codeph>dataField</codeph> プロパティがデータ内のプロパティにマッピングされていると想定し、<codeph>selectedItem</codeph> 値をそのプロパティに設定します。 List コントロールまたは TileList コントロール内にある場合は、リストの <codeph>labelField</codeph> プロパティがデータ内のプロパティにマッピングされていると想定し、<codeph>selectedItem</codeph> 値をそのプロパティに設定します。 それ以外の場合は、<codeph>selectedItem</codeph> をデータ自体に設定します。</p>
+     
+      <p>このプロパティはデータプロバイダーを使用しますが、データプロバイダーの設定は行いません。 どのような場合でも、何らかの方法でデータプロバイダーを設定する必要があります。</p>
+     
+      <p>MXML でこのプロパティを設定することはありません。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dragEnabled:get"><apiName>dragEnabled</apiName><shortdesc>
+      このコントロールの外にアイテムをドラッグし、他のコントロールにドロップできるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このコントロールの外にアイテムをドラッグし、他のコントロールにドロップできるかどうかを示すフラグです。 <codeph>true</codeph> の場合、コントロールのドラッグ操作は有効です。 <codeph>dropEnabled</codeph> プロパティも <codeph>true</codeph> の場合には、アイテムをドラッグし、このコントロール内にドロップしてアイテムの順序を変更することができます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dragImageOffsets:get"><apiName>dragImageOffsets</apiName><shortdesc>
+      ドラッグ &amp; ドロップのドラッグイメージのオフセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      ドラッグ &amp; ドロップのドラッグイメージのオフセットです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:protected:dragImage:get"><apiName>dragImage</apiName><shortdesc>
+      ドラッグ &amp; ドロップ操作中にビジュアルオブジェクトを表示するクラスのインスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>mx.controls.listClasses.ListItemDragProxy
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ドラッグ &amp; ドロップ操作中にビジュアルオブジェクトを表示するクラスのインスタンスです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dragMoveEnabled:get"><apiName>dragMoveEnabled</apiName><shortdesc>
+      ドラッグ &amp; ドロップ操作でコントロールからアイテムを単にコピーするのではなく、移動できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ドラッグ &amp; ドロップ操作でコントロールからアイテムを単にコピーするのではなく、移動できるかどうかを示すフラグです。 このフラグが <codeph>true</codeph> であり、<codeph>dragEnabled</codeph> プロパティも <codeph>true</codeph> の場合は、アイテムを移動できます。 データプロバイダーからアイテムを削除できないか、削除しないことが望ましい場合が多いので、ドラッグ &amp; ドロップ中に MOVE 操作を許可しないようにすることをお勧めします。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:dropEnabled:get"><apiName>dropEnabled</apiName><shortdesc>
+      ドラッグしたアイテムをコントロールにドロップできるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ドラッグしたアイテムをコントロールにドロップできるかどうかを示すフラグです。
+     
+      <p>このプロパティを <codeph>true</codeph> に設定した場合、コントロールはすべてのデータ形式を受け入れ、ドラッグされたデータがデータプロバイダー内のデータの形式と一致するものと見なします。 ドラッグされたデータの形式を明示的にチェックする場合は、1 つまたは複数のドラッグイベント（<codeph>dragOver</codeph> など）を処理し、リストクラスがドロップされたデータを受け入れる方法をカスタマイズするために、DragEvent の <codeph>preventDefault()</codeph> メソッドを呼び出す必要があります。</p>
+     
+      <p><codeph>dropEnabled</codeph> を <codeph>true</codeph> に設定すると、<codeph>showDropFeedback()</codeph> メソッドと <codeph>hideDropFeedback()</codeph> メソッドが自動的に呼び出されてドロップインジケーターが表示されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:iconField:get"><apiName>iconField</apiName><shortdesc>
+      アイコンとして表示するものを決定する、データプロバイダーオブジェクト内のフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイコンとして表示するものを決定する、データプロバイダーオブジェクト内のフィールドの名前です。 デフォルトでは、リストクラスの行内のテキストにはアイコンは表示されません。 ただし、アイコンフィールドを指定することにより、アイコンとして作成して行に表示するグラフィックを指定できます。 DataGrid では、このプロパティは無視されます。
+     
+      <p>レンダラーは、iconField として指定された名前のプロパティをデータプロバイダーオブジェクトで探します。 このプロパティの値が Class の場合、そのクラスをインスタンス化し、IFlexDisplayObject のインスタンスと想定します。 このプロパティの値が String の場合は、その名前を持つ Class がアプリケーションに存在するかどうかを確認します。該当する Class が見つからない場合には、その名前を持つプロパティをドキュメントで検索し、該当のプロパティが Class にマッピングされていると想定します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:iconFunction:get"><apiName>iconFunction</apiName><shortdesc>
+      アイコンを決定するために各アイテムで実行されるユーザー指定の関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイコンを決定するために各アイテムで実行されるユーザー指定の関数です。 デフォルトでは、リストの行内のテキストにはアイコンは表示されません。 ただし、アイコン関数を指定することにより、アイコンとして作成して行に表示するグラフィックの Class を指定できます。   
+     
+      <p><codeph>iconFunction</codeph> は、データプロバイダー内のアイテムである引数を 1 つ受け取り、Class を返します。 関数のシグネチャは次のとおりです。</p>
+     
+      <pre>iconFunction(item:Object):Class</pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      コントロールのカスタムアイテムレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      コントロールのカスタムアイテムレンダラーです。 ドロップイン、インラインまたはカスタムのアイテムレンダラーを指定できます。
+     
+      <p>デフォルトのアイテムレンダラーは、コンポーネントクラスによって異なります。 例えば、AdvancedDataGrid クラスでは AdvancedDataGridItemRenderer を使用します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:labelField:get"><apiName>labelField</apiName><shortdesc>
+      ラベルとして表示するデータプロバイダーアイテム内のフィールドの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"label"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ラベルとして表示するデータプロバイダーアイテム内のフィールドの名前です。 デフォルトでは、各アイテムの <codeph>label</codeph> という名前のプロパティが検索され、リストに表示されます。 ただし、データオブジェクトに <codeph>label</codeph> プロパティが含まれていない場合は、データオブジェクト内の別のプロパティを使用するように <codeph>labelField</codeph> プロパティを設定できます。 この一例として、データベースから取得した人名のセットを表示する場合の "FullName" があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      ラベルを決定するために各アイテムで実行されるユーザー指定の関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ラベルを決定するために各アイテムで実行されるユーザー指定の関数です。 デフォルトでは、各データプロバイダーアイテムの <codeph>label</codeph> という名前のプロパティが検索され、リストに表示されます。 ただし、<codeph>label</codeph> プロパティを持たず、表示に使用できる別のプロパティも持たないデータセットもあります。 例えば、lastName フィールドと firstName フィールドを持つデータセットがあるときに、フルネームを表示したいとします。
+     
+      <p>このような場合に、適切なフィールドを検索して表示可能なストリングを返す <codeph>labelFunction</codeph> を指定できます。 また、<codeph>labelFunction</codeph> はフォーマット処理やローカライズにも使用できます。 </p>
+     
+      <p>ほとんどのコンポーネントでは、ラベル関数はデータプロバイダー内のアイテムである引数を 1 つ受け取り、String を返します。</p>
+      <pre>
+      myLabelFunction(item:Object):String</pre>
+     
+      <p>データグリッドクラスのメソッドシグネチャは次のとおりです。</p>
+      <pre>
+      myLabelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>ここで、<codeph>item</codeph> は DataGrid アイテムオブジェクトを格納し、<codeph>column</codeph> は DataGrid 列を指定します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:listData:get"><apiName>listData</apiName><shortdesc>
+      
+      コンポーネントをドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用すると、コンポーネントの listData プロパティがリストコントロールの追加データで初期化されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      
+      コンポーネントをドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用すると、コンポーネントの <codeph>listData</codeph> プロパティがリストコントロールの追加データで初期化されます。 コンポーネントは、この初期化された <codeph>listData</codeph> プロパティと <codeph>data</codeph> プロパティを使用することで、ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして適切な情報を表示できます。
+     
+      <p>MXML および ActionScript でこのプロパティを設定することはありません。このコンポーネントがドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用されるときに、Flex でプロパティが設定されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      スクロールするコントロール内の最初の列のインデックスです。最初の列のインデックス位置は 0 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スクロールするコントロール内の最初の列のインデックスです。最初の列のインデックス位置は 0 です。この値より小さいインデックスを持つ列は、ビュー内で固定されたままになります。 このプロパティは、すべてのリストクラスでサポートされているわけではありません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      スクロールするコントロール内の最初の行のインデックスです。最初の行のインデックス位置は 0 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スクロールするコントロール内の最初の行のインデックスです。最初の行のインデックス位置は 0 です。これより上の行は、ビュー内で固定されたままになります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      表示する行の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示する行の数です。 コンポーネントの高さが明示的に設定されている場合、このプロパティは無効になることがあります。
+     
+      <p>データグリッドコントロールの場合、<codeph>rowCount</codeph> プロパティにはヘッダー行が含まれます。 したがって、本文が 3 行とヘッダー行が 1 行含まれるデータグリッドコントロールの場合、<codeph>rowCount</codeph> プロパティは 4 になります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      ピクセル単位で表した行の高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ピクセル単位で表した行の高さです。 <codeph>variableRowHeight</codeph> プロパティが <codeph>true</codeph> でない場合は、すべての行が同じ高さになります。 このプロパティを指定しない場合、行の高さはレンダラーのフォントサイズその他のプロパティに基づきます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectable:get"><apiName>selectable</apiName><shortdesc>
+      選択されたアイテムを選択状態でリストに表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      選択されたアイテムを選択状態でリストに表示するかどうかを示すフラグです。 <codeph>true</codeph> の場合、コントロールで選択がサポートされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedIndex:get"><apiName>selectedIndex</apiName><shortdesc>
+      選択されたアイテムのデータプロバイダー内のインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      選択されたアイテムのデータプロバイダー内のインデックスです。
+     
+      <p>デフォルト値は -1 です（アイテムは選択されていません）。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedIndices:get"><apiName>selectedIndices</apiName><shortdesc>
+      選択されたアイテムのデータプロバイダー内のインデックスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[ ]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      選択されたアイテムのデータプロバイダー内のインデックスの配列です。 アイテムの順序は、ユーザーがアイテムを選択した順序と逆の順序になります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedItem:get"><apiName>selectedItem</apiName><shortdesc>
+      データプロバイダー内の選択されたアイテムへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダー内の選択されたアイテムへの参照です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:selectedItems:get"><apiName>selectedItems</apiName><shortdesc>
+      データプロバイダー内の選択されたアイテムへの参照の配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[ ]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データプロバイダー内の選択されたアイテムへの参照の配列です。 アイテムの順序は、ユーザーがアイテムを選択した順序と逆の順序になります。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      行内のテキストに対して dataTips を表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行内のテキストに対して dataTips を表示するかどうかを示すフラグです。 <codeph>true</codeph> の場合、dataTips が表示されます。 dataTips は、行に表示するには長すぎるテキストを表示するためのツールヒントです。 dataTipFunction を設定すると、行に対してテキストが長すぎるかどうかに関係なく、dataTips が表示されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:value:get"><apiName>value</apiName><shortdesc>
+      選択されたアイテム、または選択されたアイテムのデータフィールドまたはラベルフィールドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      選択されたアイテム、または選択されたアイテムのデータフィールドまたはラベルフィールドです。 選択されたアイテムが Number または String の場合、値はアイテムです。 アイテムがオブジェクトの場合、値はデータプロパティ（存在する場合）またはラベルプロパティ（存在する場合）です。
+     
+      <p>メモ： 多くの場合、<codeph>selectedItem</codeph> を使用することをお勧めします。 このプロパティは、以前のアプリケーションとの下位互換性を保つために用意されています。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      行ごとに異なる高さを設定できるかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行ごとに異なる高さを設定できるかどうかを示すフラグです。 TileList および HorizontalList では、このプロパティは無視されます。 <codeph>true</codeph> の場合、行ごとに異なる高さの値を設定できます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:AdvancedListBase:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      行内のテキストを折り返すかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行内のテキストを折り返すかどうかを示すフラグです。 <codeph>true</codeph> の場合、行内のテキストの折り返しが有効になります。 <codeph>variableRowHeight</codeph> も <codeph>true</codeph> である場合にのみ有効になります。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

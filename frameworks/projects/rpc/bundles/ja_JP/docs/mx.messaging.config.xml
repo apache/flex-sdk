@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.config"><apiName>mx.messaging.config</apiName><apiDetail/><apiClassifier id="mx.messaging.config:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+  ConfigMap クラスは、サーバーから返されたプロパティを、プロパティの順序を維持した状態で保存するためのメカニズムを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConfigMap クラスは、サーバーから返されたプロパティを、プロパティの順序を維持した状態で保存するためのメカニズムを提供します。 
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.config:ConfigMap:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>名前と値のペアを持つオブジェクトです。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>呼び出したメソッドの戻り値です。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>呼び出されるメソッドの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>呼び出されるメソッドの引数を指定する配列です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定された名前のメソッドの値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      プロキシになるオブジェクトで指定されたプロパティを削除し、削除通知をハンドラーに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティが削除されたかどうかを示すブール値です。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトで指定されたプロパティを削除し、削除通知をハンドラーに送信します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの値です。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常は、プロパティの名前を含むストリングです。<codeph>localName</codeph> プロパティの検証でプロパティ名が検出された場合は、QName になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトについて、指定されたプロパティ値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>パラメーターが存在する場合は <codeph>true</codeph>、それ以外は <codeph>false</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>存在するかどうかをテストするプロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>次のプロパティを示す、0 から始まるインデックスです。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>オブジェクトのプロパティを示す、0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの名前です。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>オブジェクトのプロパティを示す、0 から始まるインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>プロパティの値です。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>オブジェクトのプロパティを示す、0 から始まるインデックス値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      これは、flash.utils.Proxy のサブクラスにより実装する必要がある内部関数です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      プロキシになるオブジェクトで指定されたプロパティを更新し、更新通知をハンドラーに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトで更新するプロパティの名前を含むオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>プロキシになるオブジェクトに設定する値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プロキシになるオブジェクトで指定されたプロパティを更新し、更新通知をハンドラーに送信します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ConfigMap:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      プロキシになるオブジェクトのプロパティ名すべてのリストが含まれています。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.config:ServerConfig"><apiName>ServerConfig</apiName><shortdesc>
+  このクラスは、サーバーのメッセージング設定情報へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このクラスは、サーバーのメッセージング設定情報へのアクセスを提供します。 このクラスはクライアントの services-config.xml ファイルからの情報をカプセル化します。このクラスは、メッセージングシステムが設定済みの ChannelSet および Channel をメッセージングフレームワークに提供する際に使用されます。
+ 
+  <p>コンパイル時には XML ソースが提供されます。 ただし現在、ネットワーク、ローカルファイルシステム、実行時の共有オブジェクトなどという他の方法によるこの XML データの取得を防止する内部制約はありません。</p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.config:ServerConfig:checkChannelConsistency"><apiName>checkChannelConsistency</apiName><shortdesc>
+      このメソッドは、指定された 2 つの宛先が、同一のチャンネル定義を持つことを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><throw>ArgumentError if the channel definitions of the specified
+               destinations aren't identical.
+      
+      </throw></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>destinationA</apiItemName><apiType value="String"/><apiDesc>比較する最初の宛先です。
+      </apiDesc></apiParam><apiParam><apiItemName>destinationB</apiItemName><apiType value="String"/><apiDesc>チャンネルを比較する 2 番目の宛先です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、指定された 2 つの宛先が、同一のチャンネル定義を持つことを確認します。 指定された 2 つの宛先のチャンネル定義が同一でない場合、このメソッドは ArgumentError をスローします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannelSet"><apiName>getChannelSet</apiName><shortdesc>
+      指定されたメッセージタイプを処理するサービスに属する、指定された宛先に使用する共有 ChannelSet を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>指定された宛先にチャンネルがない場合、およびアプリケーションでデフォルトチャンネルが定義されていなかった場合。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>ChannelSet です。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>ターゲット宛先の ID です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたメッセージタイプを処理するサービスに属する、指定された宛先に使用する共有 ChannelSet を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannel"><apiName>getChannel</apiName><shortdesc>
+      設定された Channel の共有インスタンスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>指定された id  を持つ Channel がない場合。
+      
+      </apiDesc><apiItemName>InvalidChannelError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidChannelError</apiOperationClassifier></apiException><apiReturn><apiDesc>Channel インスタンスです。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>目的の Channel の id です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clustered</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Channel がクラスタ化されて使用される場合は true、そうでない場合は false。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      設定された Channel の共有インスタンスを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getProperties"><apiName>getProperties</apiName><shortdesc>
+      指定された宛先のプロパティ情報を返します。
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>指定された宛先が見つからない場合。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>&lt;property> タグ情報を含む XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>目的の宛先の ID です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定された宛先のプロパティ情報を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ServerConfig:xml:get"><apiName>xml</apiName><shortdesc>
+      XML の設定です。この値には、services-config.xml ファイル内の &amp;lt;services&amp;gt; タグのうち、該当する部分が含まれている必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="XML"/></apiValueDef><apiDesc>
+      XML の設定です。この値には、services-config.xml ファイル内の &lt;services> タグのうち、該当する部分が含まれている必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

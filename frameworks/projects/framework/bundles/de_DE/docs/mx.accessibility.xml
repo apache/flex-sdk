@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:AccConst"><apiName>AccConst</apiName><shortdesc>
+  Die AccConst-Klasse definiert Konstanten, die in der Microsoft Active Accessibility (MSAA)-Spezifikation festgelegt sind</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AccConst-Klasse definiert Konstanten, die in der Microsoft Active Accessibility (MSAA)-Spezifikation festgelegt sind Mit ihrer Hilfe werden AccessibilityImplementation-Unterklassen implementiert.
+ 
+  <p>Da Flash Player Barrierefreiheit (Accessibility) mithilfe von MSAA bereitstellt, wurden die Namen der Konstanten in dieser Datei wörtlich aus dem MSAA-SDK von Microsoft übernommen. Ihre Beschreibungen wurden nur geringfügig geändert. Berücksichtigen Sie beim Lesen, dass unter der „MSAA-Serveranwendung“ Flash Player zu verstehen ist, da bei SWF-Dateien die DisplayObjects die MSAA-Informationen über eine COM-Schnittstelle namens IAccessible an die MSAA-Clients (z. B. Bildschirmleseprogramme) liefern.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_ACCELERATORCHANGE"><apiName>EVENT_OBJECT_ACCELERATORCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA KeyboardShortcut-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA KeyboardShortcut-Eigenschaft geändert hat.
+     
+      <p>MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CONTENTSCROLLED"><apiName>EVENT_OBJECT_CONTENTSCROLLED</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf eines Fensterobjekts beendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf eines Fensterobjekts beendet wurde. (MSAA 2.0)
+     
+      <p>Anders als das ähnliche Ereignis EVENT_SYSTEM_SCROLLEND wird dieses Ereignis mit dem Bildlauffenster selbst verknüpft. Es besteht kein Unterschied zwischen horizontalem und vertikalem Bildlauf.</p>
+     
+      <p>Dieses Ereignis sollte immer gesendet werden, wenn ein Bildlaufvorgang beendet wurde, gleichgültig, ob er beispielsweise per Bildlaufleiste, Mausrad oder Tastaturnavigation erfolgte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CREATE"><apiName>EVENT_OBJECT_CREATE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt erstellt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt erstellt wurde.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Einfügemarke, Steuerelemente „Kopfzeile“, „Listenansicht“, „Registerkarte“, „Symbolleiste“ und „Strukturansicht“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Server müssen dieses Ereignis zuerst für alle untergeordneten Objekte eines Objekts senden und erst danach das Ereignis für das übergeordnete Objekt. Server müssen sicherstellen, dass alle untergeordneten Objekte fertig erstellt wurden und bereit sind, IAccessible-Aufrufe von Clients anzunehmen, wenn das übergeordnete Objekt dieses Ereignis sendet.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DEFACTIONCHANGE"><apiName>EVENT_OBJECT_DEFACTIONCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA DefaultAction-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA DefaultAction-Eigenschaft geändert hat.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Dialogfelder. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESCRIPTIONCHANGE"><apiName>EVENT_OBJECT_DESCRIPTIONCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Description-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Description-Eigenschaft geändert hat.
+     
+      <p>MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESTROY"><apiName>EVENT_OBJECT_DESTROY</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt zerstört wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt zerstört wurde.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Einfügemarke, Steuerelemente „Kopfzeile“, „Listenansicht“, „Registerkarte“, „Symbolleiste“ und „Strukturansicht“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Bezüglich untergeordneter Objekte wird dieses Ereignis eventuell gesendet. Wenn das übergeordnete Objekt dieses Ereignis sendet, können Clients jedoch davon ausgehen, dass alle untergeordneten Objekte eines Objekts zerstört wurden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_FOCUS"><apiName>EVENT_OBJECT_FOCUS</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt den Tastaturfokus erhalten hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt den Tastaturfokus erhalten hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Steuerelemente „Listenansicht“, „Menüleiste“, „Popupmenü“, „Fensterwechsel“, „Registerkarte“ und „Strukturansicht“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HELPCHANGE"><apiName>EVENT_OBJECT_HELPCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Help-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Help-Eigenschaft geändert hat.
+     
+      <p>MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HIDE"><apiName>EVENT_OBJECT_HIDE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt ausgeblendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt ausgeblendet wurde.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Einfügemarke und Cursor. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Wenn dieses Ereignis für ein übergeordnetes Objekt generiert wird, wurden bereits sämtliche untergeordneten Objekte ausgeblendet. Bezüglich untergeordneter Objekte brauchen Serveranwendungen dieses Ereignis daher nicht zu senden. Ausgeblendete Objekte enthalten das Flag STATE_SYSTEM_INVISIBLE (Objekte, die angezeigt werden, dagegen nicht). Das EVENT_OBJECT_HIDE-Ereignis gibt auch an, dass das STATE_SYSTEM_INVISIBLE-Flag gesetzt wurde. Deshalb brauchen Server in diesem Fall das EVENT_STATE_CHANGE-Ereignis nicht zu senden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_INVOKED"><apiName>EVENT_OBJECT_INVOKED</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt aufgerufen wurde, z. B., wenn der Benutzer auf eine Schaltfläche geklickt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt aufgerufen wurde, z. B., wenn der Benutzer auf eine Schaltfläche geklickt hat. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_LOCATIONCHANGE"><apiName>EVENT_OBJECT_LOCATIONCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Position, Form oder Größe eines Objekts geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Position, Form oder Größe eines Objekts geändert hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Einfügemarke und Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Dieses Ereignis wird als Antwort auf eine Änderung des Objekts auf der obersten Ebene der Objekthierarchie generiert, jedoch nicht für eventuell im Objekt befindliche untergeordnete Objekte. Beispiel: Wenn der Benutzer die Größe eines Fensters ändert, sendet das System diese Benachrichtigung bezüglich des Fensters, nicht jedoch bezüglich der Menüleiste, der Titelleiste, der Bildlaufleisten oder sonstiger Objekte, die sich ebenfalls geändert haben. Wenn das übergeordnete Fenster verschoben wird, sendet das System kein solches Ereignis bezüglich sämtlicher untergeordneten verankerten Fenster. Wenn eine Anwendung jedoch als Folge der eigenen Größenänderung explizit die Größe der untergeordneten Fenster ändert, sendet das System mehrere Ereignisse bezüglich der Größenänderung der untergeordneten Fenster. Wenn die State-Eigenschaft eines Objekts auf STATE_SYSTEM_FLOATING gesetzt wurde, müssen Server EVENT_OBJECT_LOCATIONCHANGE senden, wenn sich die Position des Objekts ändert. Verfügt ein Objekt nicht über diesen Status, dürfen Server dieses Ereignis nur auslösen, wenn das Objekt relativ zu seinem übergeordneten Objekt verschoben wurde.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_NAMECHANGE"><apiName>EVENT_OBJECT_NAMECHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Name-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Name-Eigenschaft geändert hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Kontrollkästchen, Cursor, Steuerelemente „Listenansicht“, „Schaltfläche“, „Optionsfeld“, „Statusleiste“ und „Strukturansicht“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_PARENTCHANGE"><apiName>EVENT_OBJECT_PARENTCHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt ein neues übergeordnetes Objekt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Objekt ein neues übergeordnetes Objekt hat.
+     
+      <p>MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_REORDER"><apiName>EVENT_OBJECT_REORDER</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Containerobjekt untergeordnete Objekte hinzugefügt, entfernt oder neu angeordnet hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Containerobjekt untergeordnete Objekte hinzugefügt, entfernt oder neu angeordnet hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Steuerelemente „Kopfzeile“, „Listenansicht“ und „Symbolleiste“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis wie für ihre barrierefreien Objekte erforderlich. Beispiel: Dieses Ereignis wird von einem Listenansichtsobjekt generiert, wenn sich die Anzahl oder Reihenfolge der untergeordneten Elemente geändert hat. Dieses Ereignis wird von einem übergeordneten Fenster auch dann gesendet, wenn sich die z-Anordnung der untergeordneten Fenster geändert hat.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONADD"><apiName>EVENT_OBJECT_SELECTIONADD</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts der Auswahl ein Objekt hinzugefügt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts der Auswahl ein Objekt hinzugefügt wurde.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Steuerelemente „Listenfeld“, „Listenansicht“ und „Symbolleiste“. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Dieses Ereignis weist darauf hin, dass der vorhandenen Auswahl ein untergeordnetes Objekt hinzugefügt wurde.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONREMOVE"><apiName>EVENT_OBJECT_SELECTIONREMOVE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts ein Objekt aus der Auswahl entfernt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts ein Objekt aus der Auswahl entfernt wurde.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Steuerelemente „Listenfeld“, „Listenansicht“ und „Symbolleiste“. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Dieses Ereignis weist darauf hin, dass aus der vorhandenen Auswahl ein untergeordnetes Objekt entfernt wurde.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONWITHIN"><apiName>EVENT_OBJECT_SELECTIONWITHIN</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts zahlreiche Auswahländerungen stattgefunden haben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass innerhalb eines Containerobjekts zahlreiche Auswahländerungen stattgefunden haben.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Listenfelder. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Dieses Ereignis kann gesendet werden, wenn sich die innerhalb eines Steuerelements ausgewählten Objekte beträchtlich verändert haben. Statt mehrere EVENT_OBJECT_SELECTIONADD- oder EVENT_OBJECT_SELECTIONREMOVE-Ereignisse zu senden, informiert dieses Ereignis den Client darüber, dass innerhalb eines Steuerelements zahlreiche Auswahländerungen stattgefunden haben. Der Client kann die ausgewählten Objekte abfragen, indem er die IAccessible::get_accSelection-Methode des Containerobjekts aufruft und die ausgewählten Objekt aufzählt.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTION"><apiName>EVENT_OBJECT_SELECTION</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Auswahl innerhalb eines Containerobjekts verändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Auswahl innerhalb eines Containerobjekts verändert hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Steuerelemente „Listenansicht“, „Registerkarte“ und „Strukturansicht“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Dieses Ereignis weist auf eine einzelne Auswahl hin. Dabei kann es sich um ein untergeordnetes Objekt handeln, das in einem Container ohne zuvor ausgewählte untergeordnete Objekte ausgewählt wurde, oder die Auswahl wechselte von einem untergeordneten Objekt zu einem anderen.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SHOW"><apiName>EVENT_OBJECT_SHOW</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein ausgeblendetes Objekt angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein ausgeblendetes Objekt angezeigt wird.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Einfügemarke, Cursor und Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Clients können von Folgendem ausgehen: Wenn dieses Ereignis von einem übergeordneten Objekt gesendet wird, wurden bereits sämtliche untergeordneten Objekte angezeigt. Bezüglich untergeordneter Objekte brauchen Serveranwendungen dieses Ereignis daher nicht zu senden. Ausgeblendete Objekte enthalten das Flag STATE_SYSTEM_INVISIBLE (Objekte, die angezeigt werden, dagegen nicht). Das EVENT_OBJECT_SHOW-Ereignis gibt auch an, dass das STATE_SYSTEM_INVISIBLE-Flag gelöscht wurde. Deshalb brauchen Server in diesem Fall das EVENT_STATE_CHANGE-Ereignis nicht zu senden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_STATECHANGE"><apiName>EVENT_OBJECT_STATECHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich der Status eines Objekts geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich der Status eines Objekts geändert hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Kontrollkästchen, Kombinationsfeld, Steuerelemente „Kopfzeile“, „Schaltfläche“, „Optionsfeld“, „Bildlaufleiste, “, „Symbolleiste“ „Strukturansicht“ und „Nach oben - Nach unten“ sowie Fensterobjekt. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte. Beispiel: Eine Statusänderung tritt ein, wenn ein Schaltflächenobjekt gedrückt oder freigegeben wird oder wenn ein Objekt aktiviert oder deaktiviert wird.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_TEXTSELECTIONCHANGED"><apiName>EVENT_OBJECT_TEXTSELECTIONCHANGED</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Textauswahl eines Objekts geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die Textauswahl eines Objekts geändert hat. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_VALUECHANGE"><apiName>EVENT_OBJECT_VALUECHANGE</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Value-Eigenschaft geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich die MSAA Value-Eigenschaft geändert hat.
+     
+      <p>Das System sendet dieses Ereignis bezüglich der folgenden Benutzeroberflächenelemente: Eingabefeld, Steuerelemente „Kopfzeile“, „Hotkey“, „Statusanzeige“, „Bildlaufleiste“, „Schiebereglerleiste“ und „Nach oben - Nach unten“. MSAA-Serveranwendungen senden dieses Ereignis bezüglich ihrer barrierefreien Objekte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_ALERT"><apiName>EVENT_SYSTEM_ALERT</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Warnung generiert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Warnung generiert wurde.
+     
+      <p>MSAA-Serveranwendungen senden dieses Ereignis, wenn auf der Benutzeroberfläche eine wichtige Änderung eingetreten ist, über die der Benutzer informiert werden sollte.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTUREEND"><apiName>EVENT_SYSTEM_CAPTUREEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster die Mauserfassung verloren hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster die Mauserfassung verloren hat.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTURESTART"><apiName>EVENT_SYSTEM_CAPTURESTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster die Mauserfassung erhalten hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster die Mauserfassung erhalten hat.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPEND"><apiName>EVENT_SYSTEM_CONTEXTHELPEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster den kontextsensitiven Hilfemodus beendet hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster den kontextsensitiven Hilfemodus beendet hat.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPSTART"><apiName>EVENT_SYSTEM_CONTEXTHELPSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster in den kontextsensitiven Hilfemodus eingetreten ist.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster in den kontextsensitiven Hilfemodus eingetreten ist.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGEND"><apiName>EVENT_SYSTEM_DIALOGEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Dialogfeld geschlossen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Dialogfeld geschlossen wurde.
+     
+      <p>Dieses Ereignis wird vom System für Standarddialogfelder gesendet. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Dialogfelder.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGSTART"><apiName>EVENT_SYSTEM_DIALOGSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Dialogfeld angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Dialogfeld angezeigt wurde.
+     
+      <p>Dieses Ereignis wird vom System für Standarddialogfelder gesendet. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Dialogfelder (Fenster, die als Dialogfelder fungieren, jedoch nicht standardgemäß erstellt werden).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPEND"><apiName>EVENT_SYSTEM_DRAGDROPEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Anwendung gleich den Drag &amp; Drop-Modus beendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Anwendung gleich den Drag &amp; Drop-Modus beendet.
+     
+      <p>Anwendungen, die Drag &amp; Drop-Vorgänge unterstützen, müssen dieses Ereignis senden, das System hingegen nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPSTART"><apiName>EVENT_SYSTEM_DRAGDROPSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Anwendung gleich in den Drag &amp; Drop-Modus eintritt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass eine Anwendung gleich in den Drag &amp; Drop-Modus eintritt.
+     
+      <p>Anwendungen, die Drag &amp; Drop-Vorgänge unterstützen, müssen dieses Ereignis senden, das System hingegen nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_FOREGROUND"><apiName>EVENT_SYSTEM_FOREGROUND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass sich der Status des Fensters im Vordergrund geändert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass sich der Status des Fensters im Vordergrund geändert hat.
+     
+      <p>Das System sendet dieses Ereignis selbst dann, wenn das Vordergrundfenster in ein anderes Fenster desselben Thread geändert wird. MSAA-Serveranwendungen senden dieses Ereignis nie.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUEND"><apiName>EVENT_SYSTEM_MENUEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Menü der Menüleiste geschlossen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Menü der Menüleiste geschlossen wurde.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Standardmenüs. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Menüs.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPEND"><apiName>EVENT_SYSTEM_MENUPOPUPEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Popupmenü geschlossen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Popupmenü geschlossen wurde.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Standardmenüs. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Menüs. Wenn ein Popupmenü geschlossen wird, erhält der Client diese Meldung, auf die fast sofort das Ereignis EVENT_SYSTEM_MENUEND folgt.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPSTART"><apiName>EVENT_SYSTEM_MENUPOPUPSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Popupmenü angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Popupmenü angezeigt wurde.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Standardmenüs. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Menüs (Benutzeroberflächenelemente, die als Menüs fungieren, jedoch nicht standardgemäß erstellt werden).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUSTART"><apiName>EVENT_SYSTEM_MENUSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass in der Menüleiste ein Menüelement gewählt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass in der Menüleiste ein Menüelement gewählt wurde.
+     
+      <p>Das System sendet dieses Ereignis in Bezug auf Standardmenüs. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Menüs (Benutzeroberflächenelemente, die als Menüs fungieren, jedoch nicht standardgemäß erstellt werden). Das System löst eventuell mehr als ein EVENT_SYSTEM_MENUSTART-Ereignis aus, zu dem gegebenenfalls ein entsprechendes EVENT_SYSTEM_MENUEND-Ereignis gehört.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZEEND"><apiName>EVENT_SYSTEM_MINIMIZEEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fensterobjekt minimiert oder maximiert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0017</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fensterobjekt minimiert oder maximiert wurde.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZESTART"><apiName>EVENT_SYSTEM_MINIMIZESTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fensterobjekt gleich minimiert oder maximiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0016</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fensterobjekt gleich minimiert oder maximiert wird.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZEEND"><apiName>EVENT_SYSTEM_MOVESIZEEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass die Bewegung oder die Größenänderung eines Fensters beendet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass die Bewegung oder die Größenänderung eines Fensters beendet ist.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZESTART"><apiName>EVENT_SYSTEM_MOVESIZESTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster verschoben oder in der Größe verändert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Fenster verschoben oder in der Größe verändert wurde.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGEND"><apiName>EVENT_SYSTEM_SCROLLINGEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf einer Bildlaufleiste beendet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf einer Bildlaufleiste beendet wurde.
+     
+      <p>Dieses Ereignis wird vom System für mit einem Fenster verbundene Bildlaufleisten sowie für standardmäßige Bildlaufleisten gesendet. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Bildlaufleisten.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGSTART"><apiName>EVENT_SYSTEM_SCROLLINGSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf einer Bildlaufleiste begonnen hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass der Bildlauf einer Bildlaufleiste begonnen hat.
+     
+      <p>Dieses Ereignis wird vom System für mit einem Fenster verbundene Bildlaufleisten sowie für standardmäßige Bildlaufleisten gesendet. MSAA-Serveranwendungen senden dieses Ereignis bezüglich benutzerdefinierter Bildlaufleisten (Benutzeroberflächenelemente, die als Bildlaufleisten fungieren, jedoch nicht standardgemäß erstellt werden).</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SOUND"><apiName>EVENT_SYSTEM_SOUND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Sound abgespielt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass ein Sound abgespielt wurde.
+     
+      <p>Das System sendet dieses Ereignis, wenn ein Systemsound (z. B. für Menüs) abgespielt wird, selbst wenn kein Sound hörbar ist (z. B., da keine Sounddatei oder keine Soundkarte vorhanden ist). MSAA-Serveranwendungen senden dieses Ereignis, wenn ein benutzerdefiniertes Benutzeroberflächenelement einen Sound generiert.</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHEND"><apiName>EVENT_SYSTEM_SWITCHEND</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass der Benutzer die Tasten Alt+Tab freigegeben hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass der Benutzer die Tasten Alt+Tab freigegeben hat.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht. Wenn beim Drücken von Alt+Tab nur eine Anwendung ausgeführt wird, sendet das System dieses Ereignis ohne das entsprechende EVENT_SYSTEM_SWITCHSTART-Ereignis.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHSTART"><apiName>EVENT_SYSTEM_SWITCHSTART</apiName><shortdesc>
+      Ein MSAA-Ereignis, das angibt, dass der Benutzer die Tasten Alt+Tab gedrückt und dadurch den Fensterwechsel aktiviert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Ereignis, das angibt, dass der Benutzer die Tasten Alt+Tab gedrückt und dadurch den Fensterwechsel aktiviert hat.
+     
+      <p>Dieses Ereignis wird vom System gesendet; MSAA-Server senden dieses Ereignis nicht. Wenn beim Drücken von Alt+Tab nur eine Anwendung ausgeführt wird, sendet das System ein EVENT_SYSTEM_SWITCHEND-Ereignis ohne das entsprechende EVENT_SYSTEM_SWITCHSTART-Ereignis.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ALERT"><apiName>ROLE_SYSTEM_ALERT</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Warnung darstellt oder eine Bedingung, über die der Benutzer zu benachrichtigen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Warnung darstellt oder eine Bedingung, über die der Benutzer zu benachrichtigen ist.
+     
+      <p>Diese Rolle ist nur für Objekte zu verwenden, die eine Warnung darstellen, aber nicht mit einem anderen Benutzeroberflächenelement wie z. B. einem Meldungsfeld, einer Grafik, einem Text oder einem Sound verknüpft sind.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ANIMATION"><apiName>ROLE_SYSTEM_ANIMATION</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Animationssteuerelement darstellt, dessen Inhalt sich im Laufe der Zeit ändert, z. B. ein Steuerelement, das eine Reihe von Bitmapbildern, ähnlich einem Filmstreifen, enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x36</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Animationssteuerelement darstellt, dessen Inhalt sich im Laufe der Zeit ändert, z. B. ein Steuerelement, das eine Reihe von Bitmapbildern, ähnlich einem Filmstreifen, enthält.
+     
+      <p>Normalerweise werden Animationssteuerelemente angezeigt, wenn Dateien kopiert werden oder eine sonstige zeitaufwendige Aufgabe ausgeführt wird.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_APPLICATION"><apiName>ROLE_SYSTEM_APPLICATION</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt das Hauptfenster einer Anwendung darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xE</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt das Hauptfenster einer Anwendung darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BORDER"><apiName>ROLE_SYSTEM_BORDER</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Rahmen eines Fensters darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Rahmen eines Fensters darstellt.
+     
+      <p>Der gesamte Rahmen wird durch ein einziges Objekt dargestellt und nicht durch separate Objekte für die einzelnen Seiten.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWNGRID"><apiName>ROLE_SYSTEM_BUTTONDROPDOWNGRID</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown eines Rasters bewirkt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown eines Rasters bewirkt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWN"><apiName>ROLE_SYSTEM_BUTTONDROPDOWN</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown einer Elementliste bewirkt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x38</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown einer Elementliste bewirkt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONMENU"><apiName>ROLE_SYSTEM_BUTTONMENU</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown eines Menüs bewirkt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x39</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt, die das Dropdown eines Menüs bewirkt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CARET"><apiName>ROLE_SYSTEM_CARET</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Systemeinfügemarke darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Systemeinfügemarke darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CELL"><apiName>ROLE_SYSTEM_CELL</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Zelle einer Tabelle darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Zelle einer Tabelle darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHARACTER"><apiName>ROLE_SYSTEM_CHARACTER</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Cartoon-ähnliches Grafikobjekt darstellt, z. B. den Microsoft Office Assistant, der normalerweise angezeigt wird, um den Benutzern Hilfestellung für eine Anwendung zu geben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Cartoon-ähnliches Grafikobjekt darstellt, z. B. den Microsoft Office Assistant, der normalerweise angezeigt wird, um den Benutzern Hilfestellung für eine Anwendung zu geben.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHART"><apiName>ROLE_SYSTEM_CHART</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Grafik zur Darstellung von Daten ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Grafik zur Darstellung von Daten ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHECKBUTTON"><apiName>ROLE_SYSTEM_CHECKBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Kontrollkästchen darstellt, d. h., eine Option, die unabhängig von anderen Optionen aktiviert und deaktiviert werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Kontrollkästchen darstellt, d. h., eine Option, die unabhängig von anderen Optionen aktiviert und deaktiviert werden kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLIENT"><apiName>ROLE_SYSTEM_CLIENT</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Clientbereich eines Fensters darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xA</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Clientbereich eines Fensters darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLOCK"><apiName>ROLE_SYSTEM_CLOCK</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Steuerelement zur Zeitanzeige darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Steuerelement zur Zeitanzeige darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMNHEADER"><apiName>ROLE_SYSTEM_COLUMNHEADER</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Kopfzeile einer Spalte darstellt und damit die Beschriftung einer Tabellenspalte bereitstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x19</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Kopfzeile einer Spalte darstellt und damit die Beschriftung einer Tabellenspalte bereitstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMN"><apiName>ROLE_SYSTEM_COLUMN</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Spalte von Zellen in einer Tabelle darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Spalte von Zellen in einer Tabelle darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COMBOBOX"><apiName>ROLE_SYSTEM_COMBOBOX</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Kombinationsfeld darstellt, d. h. ein Eingabefeld mit zugehörigem Listenfeld, das eine Reihe vordefinierter Auswahlmöglichkeiten bereitstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Kombinationsfeld darstellt, d. h. ein Eingabefeld mit zugehörigem Listenfeld, das eine Reihe vordefinierter Auswahlmöglichkeiten bereitstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CURSOR"><apiName>ROLE_SYSTEM_CURSOR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Systemmauszeiger darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x6</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Systemmauszeiger darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAGRAM"><apiName>ROLE_SYSTEM_DIAGRAM</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Grafik zur Darstellung von Datendiagrammen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x35</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Grafik zur Darstellung von Datendiagrammen ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIALOG"><apiName>ROLE_SYSTEM_DIALOG</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dialogfeld oder ein Meldungsfeld darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dialogfeld oder ein Meldungsfeld darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAL"><apiName>ROLE_SYSTEM_DIAL</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Drehknopf darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x31</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Skala oder einen Knopf darstellt.
+     
+      <p>Dies kann auch ein schreibgeschütztes Objekt sein, ähnlich einem Geschwindigkeitsmesser.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DOCUMENT"><apiName>ROLE_SYSTEM_DOCUMENT</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dokumentfenster darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dokumentfenster darstellt.
+     
+      <p>Ein Dokumentfenster befindet sich stets innerhalb eines Anwendungsfensters. Diese Rollte gilt nur für Multiple Document Interface-(MDI-)Fenster und bezieht sich auf das Objekt, das die MDI-Titelleiste enthält.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DROPLIST"><apiName>ROLE_SYSTEM_DROPLIST</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dropdownlistenfeld darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Dropdownlistenfeld darstellt.
+     
+      <p>Es zeigt ein Objekt an und der Benutzer kann aus einer Liste von Alternativen einen anderen Wert auswählen und anzeigen.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_EQUATION"><apiName>ROLE_SYSTEM_EQUATION</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine mathematische Gleichung darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x37</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine mathematische Gleichung darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRAPHIC"><apiName>ROLE_SYSTEM_GRAPHIC</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Bild darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x28</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Bild darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRIP"><apiName>ROLE_SYSTEM_GRIP</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Spezialmauszeiger darstellt, mit dem Benutzer Elemente der Benutzeroberfläche, z. B. Fenster verändern können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Spezialmauszeiger darstellt, mit dem Benutzer Elemente der Benutzeroberfläche, z. B. Fenster verändern können.
+     
+      <p>Beispiel: Der Benutzer kann in der rechten unteren Ecke auf einen Griff zur Größenänderung klicken und ihn ziehen, um die Fenstergröße zu ändern.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GROUPING"><apiName>ROLE_SYSTEM_GROUPING</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt andere Objekte logisch zusammenfasst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x14</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt andere Objekte logisch zusammenfasst.
+     
+      <p>Dabei können das gruppierende Objekt und die in ihm befindlichen Objekte im Verhältnis eines übergeordneten Objekts zu untergeordneten Objekten stehen. Dies muss aber nicht der Fall sein.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HELPBALLOON"><apiName>ROLE_SYSTEM_HELPBALLOON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt Hilfen in Form von QuickInfos oder einer Hilfesprechblase anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt Hilfen in Form von QuickInfos oder einer Hilfesprechblase anzeigt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HOTKEYFIELD"><apiName>ROLE_SYSTEM_HOTKEYFIELD</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Hotkey-Feld darstellt, in das der Benutzer eine Kombination oder Abfolge von Tastatureingaben eingeben kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x32</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Hotkey-Feld darstellt, in das der Benutzer eine Kombination oder Abfolge von Tastatureingaben eingeben kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_INDICATOR"><apiName>ROLE_SYSTEM_INDICATOR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Zeiger darstellt, z. B. eine Zeigergrafik, die auf das aktuelle Objekt zeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x27</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Zeiger darstellt, z. B. eine Zeigergrafik, die auf das aktuelle Objekt zeigt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_IPADDRESS"><apiName>ROLE_SYSTEM_IPADDRESS</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Eingabefeld für eine IP-Adresse darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Eingabefeld für eine IP-Adresse darstellt. Das Eingabefeld ist in Abschnitte für die verschiedenen Teile der IP-Adresse unterteilt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LINK"><apiName>ROLE_SYSTEM_LINK</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Hyperlink darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Hyperlink darstellt.
+     
+      <p>Dieses Objekt kann wie ein Text oder eine Grafik aussehen, verhält sich jedoch wie eine Schaltfläche.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LISTITEM"><apiName>ROLE_SYSTEM_LISTITEM</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Element in einem Listenfeld oder dem Listenteil eines Kombinationsfelds, eines Dropdownlistenfelds oder eines Dropdownkombinationsfelds darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x22</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Element in einem Listenfeld oder dem Listenteil eines Kombinationsfelds, eines Dropdownlistenfelds oder eines Dropdownkombinationsfelds darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LIST"><apiName>ROLE_SYSTEM_LIST</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Listenfeld darstellt, in dem der Benutzer ein oder mehrere Elemente auswählen kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x21</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Listenfeld darstellt, in dem der Benutzer ein oder mehrere Elemente auswählen kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUBAR"><apiName>ROLE_SYSTEM_MENUBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Menüleiste darstellt, die normalerweise auf die Titelleiste des Fensters (unterhalb) folgt, und in der die Benutzer die Menüs wählen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Menüleiste darstellt, die normalerweise auf die Titelleiste des Fensters (unterhalb) folgt, und in der die Benutzer die Menüs wählen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUITEM"><apiName>ROLE_SYSTEM_MENUITEM</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Menüelement darstellt, einen Eintrag in einem Menü, den der Benutzer wählen kann, damit ein Befehl ausgeführt, eine Option ausgewählt oder ein anderes Menü angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xC</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Menüelement darstellt, einen Eintrag in einem Menü, den der Benutzer wählen kann, damit ein Befehl ausgeführt, eine Option ausgewählt oder ein anderes Menü angezeigt wird.
+     
+      <p>In funktionaler Hinsicht kann das Menüelement einer Schaltfläche, einem Optionsfeld, einem Kontrollkästchen oder einem Menü entsprechen.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUPOPUP"><apiName>ROLE_SYSTEM_MENUPOPUP</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Menü darstellt, das eine Liste von Optionen präsentiert, aus denen der Benutzer eine Auswahl treffen kann, um eine Aktion durchzuführen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xB</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Menü darstellt, das eine Liste von Optionen präsentiert, aus denen der Benutzer eine Auswahl treffen kann, um eine Aktion durchzuführen.
+     
+      <p>Alle Menütypen müssen über diese Rolle verfügen, einschließlich Dropdownmenüs, die per Auswahl aus einer Menüleiste angezeigt werden, sowie Kontextmenüs, die angezeigt werden, wenn die rechte Maustaste betätigt wird.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEBUTTON"><apiName>ROLE_SYSTEM_OUTLINEBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt Elemente darstellt, bei denen die Navigation wie bei einem Gliederungsobjekt erfolgt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt Elemente darstellt, bei denen die Navigation wie bei einem Gliederungsobjekt erfolgt. Sie können sich mit den Nach-oben- und Nach-unten-Tasten durch die Gliederungsstruktur bewegen. Jedoch werden die Menüs nicht mithilfe der Nach-rechts- und Nach-links-Tasten erweitert und zusammengeklappt, sondern dies erfolgt, wenn das Objekt den Fokus hat und die Leertaste oder die Eingabetaste gedrückt wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEITEM"><apiName>ROLE_SYSTEM_OUTLINEITEM</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Element in einer Gliederungs- oder Baumstruktur darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x24</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Element in einer Gliederungs- oder Baumstruktur darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINE"><apiName>ROLE_SYSTEM_OUTLINE</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Gliederungs- oder Baumstruktur darstellt, z. B. das Steuerelement „Strukturansicht“, das eine hierarchisch geordnete Liste anzeigt, die vom Benutzer normalerweise erweitert und zusammengeklappt werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x23</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Gliederungs- oder Baumstruktur darstellt, z. B. das Steuerelement „Strukturansicht“, das eine hierarchisch geordnete Liste anzeigt, die vom Benutzer normalerweise erweitert und zusammengeklappt werden kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETABLIST"><apiName>ROLE_SYSTEM_PAGETABLIST</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Container für Seitentab-Steuerelemente darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Container für Seitentab-Steuerelemente darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETAB"><apiName>ROLE_SYSTEM_PAGETAB</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Seitentab darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x25</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Seitentab darstellt. Normalerweise ist das einzige untergeordnete Element des Steuerelements „Seitentab“ ein ROLE_SYSTEM_GROUPING-Objekt, das den Inhalt der verknüpften Seite enthält.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PANE"><apiName>ROLE_SYSTEM_PANE</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Bereich innerhalb eines Frames oder eines Dokumentfensters darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Bereich innerhalb eines Frames oder eines Dokumentfensters darstellt.
+     
+      <p>Die Benutzer können zwischen den Bereichen (Panes) und innerhalb des Inhalts des aktuellen Bereichs navigieren, das Navigieren zwischen Elementen in unterschiedlichen Bereichen ist jedoch nicht möglich. So stellen Bereiche eine Gruppierungsstufe dar, die unterhalb von Frame-Fenstern oder Dokumenten liegt, jedoch oberhalb einzelner Steuerelemente. Normalerweise navigiert der Benutzer zwischen Bereichen, indem er je nach Kontext die Tabulatortaste, F6 oder Strg+Tabulatortaste drückt.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROGRESSBAR"><apiName>ROLE_SYSTEM_PROGRESSBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Statusanzeige darstellt, die für den Benutzer eine dynamische Fortschrittsanzeige darüber bereitstellt, wie viel Prozent eines Vorgangs bereits abgeschlossen sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x30</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Statusanzeige darstellt, die für den Benutzer eine dynamische Fortschrittsanzeige darüber bereitstellt, wie viel Prozent eines Vorgang bereits abgeschlossen sind.
+     
+      <p>Dieses Steuerelement nimmt normalerweise keine Benutzereingaben an.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROPERTYPAGE"><apiName>ROLE_SYSTEM_PROPERTYPAGE</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Eigenschaftsblatt darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x26</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Eigenschaftsblatt darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PUSHBUTTON"><apiName>ROLE_SYSTEM_PUSHBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_RADIOBUTTON"><apiName>ROLE_SYSTEM_RADIOBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Optionsfeld darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Optionsfeld darstellt.
+     
+      <p>Es handelt sich um eine Gruppe sich gegenseitig ausschließender Optionen. Alle Objekte, die ein gemeinsames übergeordnetes Objekt und dieses Attribut haben, gelten als Angehörige einer Gruppe sich gegenseitig ausschließender Optionen. Mithilfe von ROLE_SYSTEM_GROUPING-Objekten können Sie sie bei Bedarf in separate Gruppen aufteilen.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROWHEADER"><apiName>ROLE_SYSTEM_ROWHEADER</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Kopf einer Zeile darstellt und damit die Beschriftung einer Tabellenzeile bereitstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Kopf einer Zeile darstellt und damit die Beschriftung einer Tabellenzeile bereitstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROW"><apiName>ROLE_SYSTEM_ROW</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Zeile von Zellen in einer Tabelle darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Zeile von Zellen in einer Tabelle darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SCROLLBAR"><apiName>ROLE_SYSTEM_SCROLLBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine vertikale oder horizontale Bildlaufleiste darstellt, die entweder Teil des Clientbereichs sein kann oder in einem Steuerelement verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine vertikale oder horizontale Bildlaufleiste darstellt, die entweder Teil des Clientbereichs sein kann oder in einem Steuerelement verwendet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SEPARATOR"><apiName>ROLE_SYSTEM_SEPARATOR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt für die visuelle Teilung eines Bereichs in zwei Unterbereiche verwendet wird. Beispiel: Trennzeichen bei Menüelementen oder Balken, der die Teilung von Fensterbereichen kennzeichnet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x15</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt für die visuelle Teilung eines Bereichs in zwei Unterbereiche verwendet wird. Beispiel: Trennzeichen bei Menüelementen oder Balken, der die Teilung von Fensterbereichen kennzeichnet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SLIDER"><apiName>ROLE_SYSTEM_SLIDER</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schiebereglerleiste darstellt, mit deren Hilfe Benutzer eine Einstellung in vorgegebenen Inkrementen zwischen min.- und max.-Werten vornehmen können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x33</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schiebereglerleiste darstellt, mit deren Hilfe Benutzer eine Einstellung in vorgegebenen Inkrementen zwischen min.- und max.-Werten vornehmen können.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SOUND"><apiName>ROLE_SYSTEM_SOUND</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Systemsound darstellt, der mit verschiedenen Systemereignissen verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Systemsound darstellt, der mit verschiedenen Systemereignissen verknüpft ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPINBUTTON"><apiName>ROLE_SYSTEM_SPINBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Drehfeld ist. Dies ist ein Steuerelement, mit dessen Hilfe Benutzer die in einem mit dem Drehfeld verknüpften separaten Steuerelement angezeigten Werte erhöhen bzw. verringern können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x34</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt ein Drehfeld ist. Dies ist ein Steuerelement, mit dessen Hilfe Benutzer die in einem mit dem Drehfeld verknüpften separaten Steuerelement angezeigten Werte erhöhen bzw. verringern können.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPLITBUTTON"><apiName>ROLE_SYSTEM_SPLITBUTTON</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche auf einer Symbolleiste darstellt, wobei sich unmittelbar neben der Schaltfläche ein Dropdownlistensymbol befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Schaltfläche auf einer Symbolleiste darstellt, wobei sich unmittelbar neben der Schaltfläche ein Dropdownlistensymbol befindet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATICTEXT"><apiName>ROLE_SYSTEM_STATICTEXT</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen schreibgeschützten Text darstellt, beispielsweise Beschriftungen weiterer Steuerelemente oder Anweisungen in einem Dialogfeld.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x29</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen schreibgeschützten Text darstellt, beispielsweise Beschriftungen weiterer Steuerelemente oder Anweisungen in einem Dialogfeld.
+     
+      <p>Statischer Text kann nicht geändert oder entfernt werden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATUSBAR"><apiName>ROLE_SYSTEM_STATUSBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Statusleiste darstellt. Dies ist ein normalerweise unten im Fenster befindlicher Bereich, in dem Informationen zum aktuellen Vorgang, zum Status der Anwendung oder zum ausgewählten Objekt angezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x17</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Statusleiste darstellt. Dies ist ein normalerweise unten im Fenster befindlicher Bereich, in dem Informationen zum aktuellen Vorgang, zum Status der Anwendung oder zum ausgewählten Objekt angezeigt werden.
+     
+      <p>Die Statusleiste kann mehrere Felder zur Darstellung verschiedener Informationen enthalten.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TABLE"><apiName>ROLE_SYSTEM_TABLE</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Tabelle darstellt mit Zeilen und Spalten von Zellen, sowie optional mit Kopfzeilen für die Zeilen und Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x18</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Tabelle darstellt mit Zeilen und Spalten von Zellen, sowie optional mit Kopfzeilen für die Zeilen und Spalten.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TEXT"><apiName>ROLE_SYSTEM_TEXT</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt auswählbaren Text darstellt, der bearbeitbar oder schreibgeschützt sein kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt auswählbaren Text darstellt, der bearbeitbar oder schreibgeschützt sein kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TITLEBAR"><apiName>ROLE_SYSTEM_TITLEBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Titelleiste eines Fensters darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt die Titelleiste eines Fensters darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLBAR"><apiName>ROLE_SYSTEM_TOOLBAR</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Symbolleiste darstellt. Dies ist eine Gruppe von Steuerelementen, die den einfachen Zugriff auf häufig verwendete Funktionen ermöglichen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x16</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine Symbolleiste darstellt. Dies ist eine Gruppe von Steuerelementen, die den einfachen Zugriff auf häufig verwendete Funktionen ermöglichen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLTIP"><apiName>ROLE_SYSTEM_TOOLTIP</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine QuickInfo mit nützlichen Hinweisen darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xD</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt eine QuickInfo mit nützlichen Hinweisen darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WHITESPACE"><apiName>ROLE_SYSTEM_WHITESPACE</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Leerraum zwischen anderen Objekten darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt einen Leerraum zwischen anderen Objekten darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WINDOW"><apiName>ROLE_SYSTEM_WINDOW</apiName><shortdesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Frame für das Fenster darstellt. Normalerweise enthält er untergeordnete Objekte wie Titelleiste, Client und weitere gewöhnlich in Fenstern enthaltene Objekte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine MSAA-Rolle, die angibt, dass das Objekt den Frame für das Fenster darstellt. Normalerweise enthält er untergeordnete Objekte wie Titelleiste, Client und weitere gewöhnlich in Fenstern enthaltene Objekte.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_ADDSELECTION"><apiName>SELFLAG_ADDSELECTION</apiName><shortdesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt zur aktuellen Auswahl hinzufügt. Dies führt möglicherweise dazu, dass die Auswahl nicht mehr durchgängig ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt zur aktuellen Auswahl hinzufügt. Dies führt möglicherweise dazu, dass die Auswahl nicht mehr durchgängig ist.
+     
+      <p>Dieses Flag ändert den Fokus oder den Auswahlanker nur in Kombination mit SELFLAG_TAKEFOCUS. Das Verhalten von SELFLAG_ADDSELECTION | SELFLAG_TAKEFOCUS entspricht im Windows Explorer dem manuellen Hinzufügen eines Objekts zur Auswahl durch Gedrückthalten der Strg-Taste und Klicken auf ein nicht ausgewähltes Objekt.</p>
+     
+      <p>Dieses Flag darf nicht mit SELFLAG_REMOVESELECTION oder SELFLAG_TAKESELECTION kombiniert werden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_EXTENDSELECTION"><apiName>SELFLAG_EXTENDSELECTION</apiName><shortdesc>
+      Ein MSAA-Auswahl-Flag, das die Auswahl so ändert, dass alle Objekte zwischen dem Auswahlanker und diesem Objekt den Auswahlstatus des Ankerobjekts annehmen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Auswahl-Flag, das die Auswahl so ändert, dass alle Objekte zwischen dem Auswahlanker und diesem Objekt den Auswahlstatus des Ankerobjekts annehmen.
+     
+      <p>Folglich werden die Objekte aus der Auswahl entfernt, wenn das Ankerobjekt nicht ausgewählt ist. Wenn das Ankerobjekt dagegen ausgewählt ist, wird die Auswahl auf dieses Objekt und alle dazwischen befindlichen Objekte erweitert. Sie können den Auswahlstatus festlegen, indem Sie dieses Flag mit SELFLAG_ADDSELECTION oder SELFLAG_REMOVESELECTION kombinieren.</p>
+     
+      <p>Dieses Flag ändert den Fokus oder den Auswahlanker nur in Kombination mit SELFLAG_TAKEFOCUS. Das Verhalten von SELFLAG_EXTENDSELECTION | SELFLAG_TAKEFOCUS entspricht im Windows Explorer dem manuellen Hinzufügen eines Objekts zur Auswahl durch Gedrückthalten der Umschalttaste und Klicken auf ein nicht ausgewähltes Objekt.</p>
+     
+      <p>Dieses Flag darf nicht mit SELFLAG_TAKESELECTION kombiniert werden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_NONE"><apiName>SELFLAG_NONE</apiName><shortdesc>
+      Eine Konstante, die die Abwesenheit von MSAA-Auswahl-Flags darstellt.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine Konstante, die die Abwesenheit von MSAA-Auswahl-Flags darstellt.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_REMOVESELECTION"><apiName>SELFLAG_REMOVESELECTION</apiName><shortdesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt aus der aktuellen Auswahl entfernt. Dies führt möglicherweise dazu, dass die Auswahl nicht mehr durchgängig ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt aus der aktuellen Auswahl entfernt. Dies führt möglicherweise dazu, dass die Auswahl nicht mehr durchgängig ist.
+     
+      <p>Dieses Flag ändert den Fokus oder den Auswahlanker nur in Kombination mit SELFLAG_TAKEFOCUS. Das Verhalten von SELFLAG_REMOVESELECTION | SELFLAG_TAKEFOCUS entspricht im Windows Explorer dem manuellen Entfernen eines Objekts aus der Auswahl durch Gedrückthalten der Strg-Taste und Klicken auf ein ausgewähltes Objekt.</p>
+     
+      <p>Dieses Flag darf nicht mit SELFLAG_ADDSELECTION oder SELFLAG_TAKESELECTION kombiniert werden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKEFOCUS"><apiName>SELFLAG_TAKEFOCUS</apiName><shortdesc>
+      Ein MSAA-Auswahl-Flag, das den Fokus auf das Objekt setzt und es zum Auswahlanker macht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Auswahl-Flag, das den Fokus auf das Objekt setzt und es zum Auswahlanker macht.
+     
+      <p>Wird dieses Flag alleine verwendet, dann ändert es die Auswahl nicht und sein Verhalten ähnelt dem manuellen Verschieben des Fokus im Windows Explorer oder in Mehrfachauswahl-Listenfeldern durch Drücken der Pfeiltasten bei gedrückt gehaltener Strg-Taste.</p>
+     
+      <p>Bei Objekten mit dem Status STATE_SYSTEM_MULTISELECTABLE kann SELFLAG_TAKEFOCUS mit den folgenden Werten kombiniert werden:
+      <ul>
+        <li>SELFLAG_TAKESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKESELECTION"><apiName>SELFLAG_TAKESELECTION</apiName><shortdesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt auswählt sowie die Auswahl von allen anderen Objekten im Container entfernt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Auswahl-Flag, das das Objekt auswählt sowie die Auswahl von allen anderen Objekten im Container entfernt.
+     
+      <p>Dieses Flag ändert den Fokus oder den Auswahlanker nur in Kombination mit SELFLAG_TAKEFOCUS. Das Verhalten von SELFLAG_TAKESELECTION | SELFLAG_TAKEFOCUS entspricht in Windows Explorer einem einfachen Klick auf ein Objekt.</p>
+     
+      <p>Dieses Flag darf nicht mit den folgenden Flags kombiniert werden:
+      <ul>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_VALID"><apiName>SELFLAG_VALID</apiName><shortdesc>
+      Eine Bitmaske, die alle gültigen MSAA-Auswahl-Flags darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine Bitmaske, die alle gültigen MSAA-Auswahl-Flags darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_HIGH"><apiName>STATE_SYSTEM_ALERT_HIGH</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt wichtige, dem Benutzer sofort zu übermittelnde Informationen anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt wichtige, dem Benutzer sofort zu übermittelnde Informationen anzeigt.
+     
+      <p>Beispiel: Eine Batteriestandsanzeige, die auf einen bedenklich niedrigen Ladezustand hinweist, könnte diesen Status annehmen. In diesem Fall würde ein Dienstprogramm für Blinde diese Informationen sofort dem Benutzer mitteilen und ein Bildschirmvergrößerungsprogramm würde einen Bildlauf zur Batteriestandsanzeige durchführen, um sie anzuzeigen. Dieser Status eignet sich außerdem für alle Eingabeaufforderungen oder Vorgänge, die abgeschlossen sein müssen, bevor der Benutzer fortfahren kann.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_LOW"><apiName>STATE_SYSTEM_ALERT_LOW</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt Informationen niedriger Priorität anzeigt, die für den Benutzer wahrscheinlich unwichtig sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt Informationen anzeigt, die für den Benutzer wahrscheinlich unwichtig sind.
+     
+      <p>Dieser Status kann beispielsweise verwendet werden, wenn Word in der Symbolleiste das Aussehen der Schaltfläche „Tipp-Assistent“ ändert, um anzuzeigen, dass ein Tipp für den Benutzer verfügbar ist.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_MEDIUM"><apiName>STATE_SYSTEM_ALERT_MEDIUM</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt wichtige, aber dem Benutzer nicht sofort zu übermittelnde Informationen anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt wichtige, aber dem Benutzer nicht sofort zu übermittelnde Informationen anzeigt.
+     
+      <p>Beispiel: Wenn eine Batteriestandsanzeige gerade in den niedrigen Bereich eintritt, könnte eine Warnung mittlerer Stärke generiert werden. Dienstprogramme für Blinde würden dann einen Sound generieren, um den Benutzer darauf hinzuweisen, dass wichtige Informationen verfügbar sind, den Benutzer jedoch nicht in seiner Arbeit unterbrechen. Der Benutzer kann die Warnungsinformationen dann zu einem ihm passenden Zeitpunkt abrufen.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ANIMATED"><apiName>STATE_SYSTEM_ANIMATED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Aussehen des Objekts schnell oder ständig ändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Aussehen des Objekts schnell oder ständig ändert.
+     
+      <p>Grafiken, die gelegentlich, jedoch nicht immer animiert sind, sind als ROLE_SYSTEM_GRAPHIC zu beschreiben. Dabei ist die Statuseigenschaft auf STATE_SYSTEM_ANIMATED zu setzen. Verwenden Sie diesen Status nicht um anzugeben, dass sich die Position des Objekts gerade ändert.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_BUSY"><apiName>STATE_SYSTEM_BUSY</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit keine Eingaben akzeptieren kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit keine Eingaben akzeptieren kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_CHECKED"><apiName>STATE_SYSTEM_CHECKED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Kontrollkästchen des Objekts ausgewählt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Kontrollkästchen des Objekts ausgewählt ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_COLLAPSED"><apiName>STATE_SYSTEM_COLLAPSED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass untergeordnete Objekte dieses Objekts, die die ROLE_SYSTEM_OUTLINEITEM-Rolle innehaben, ausgeblendet sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass untergeordnete Objekte dieses Objekts, die die ROLE_SYSTEM_OUTLINEITEM-Rolle innehaben, ausgeblendet sind.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_DEFAULT"><apiName>STATE_SYSTEM_DEFAULT</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das die Standardschaltfläche oder das Standardmenüelement angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das die Standardschaltfläche oder das Standardmenüelement angibt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXPANDED"><apiName>STATE_SYSTEM_EXPANDED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass untergeordnete Objekte dieses Objekts, die die ROLE_SYSTEM_OUTLINEITEM-Rolle innehaben, angezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass untergeordnete Objekte dieses Objekts, die die ROLE_SYSTEM_OUTLINEITEM-Rolle innehaben, angezeigt werden.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXTSELECTABLE"><apiName>STATE_SYSTEM_EXTSELECTABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt seine Auswahl mithilfe von SELFLAG_EXTENDSELECTION in der IAccessible::accSelect-Methode erweitern kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt seine Auswahl mithilfe von SELFLAG_EXTENDSELECTION in der IAccessible::accSelect-Methode erweitern kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FLOATING"><apiName>STATE_SYSTEM_FLOATING</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt nicht auf die Grenzen des übergeordneten Objekts zugeschnitten wurde und beim Verschieben des übergeordneten Objekts nicht automatisch mit verschoben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt nicht auf die Grenzen des übergeordneten Objekts zugeschnitten wurde und beim Verschieben des übergeordneten Objekts nicht automatisch mit verschoben wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSABLE"><apiName>STATE_SYSTEM_FOCUSABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Objekt im aktiven Fenster befindet und den Tastaturfokus erhalten kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Objekt im aktiven Fenster befindet und den Tastaturfokus erhalten kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSED"><apiName>STATE_SYSTEM_FOCUSED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit den Tastaturfokus hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit den Tastaturfokus hat.
+     
+      <p>Beachten Sie den Unterschied zwischen Objektfokus und Objektauswahl.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HASPOPUP"><apiName>STATE_SYSTEM_HASPOPUP</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ein Popupmenü hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ein Popupmenü hat. (MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HOTTRACKED"><apiName>STATE_SYSTEM_HOTTRACKED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit von der Maus verfolgt wird, d. h., sein Aussehen weist darauf hin, dass sich der Mauszeiger gerade auf ihm befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt derzeit von der Maus verfolgt wird, d. h., dass sein Aussehen gerade darauf hinweist, dass sich der Mauszeiger auf ihm befindet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_INVISIBLE"><apiName>STATE_SYSTEM_INVISIBLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ausgeblendet bzw. nicht sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ausgeblendet bzw. nicht sichtbar ist.
+     
+      <p>In einem Listenfeld kann eine Liste mit Dateinamen mehrere hundert Namen enthalten, davon sind jedoch nur wenige für den Benutzer sichtbar. Die übrigen werden vom übergeordneten Objekt beschnitten. Für sie sollte STATE_SYSTEM_INVISIBLE festgelegt sein.</p>
+      <p>Für Objekte, die niemals sichtbar sind, ist STATE_SYSTEM_OFFSCREEN festzulegen. Objekte können als sichtbar betrachtet werden (d. h., das STATE_SYSTEM_INVISIBLE-Flag wurde nicht gesetzt) und dennoch durch eine andere Anwendung verdeckt sein, also für den Benutzer nicht sichtbar sein. Beispiel: Objekte gelten als sichtbar, wenn sie im Hauptfenster einer Anwendung sichtbar sind, auch wenn sie von einem Dialogfeld verdeckt werden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_LINKED"><apiName>STATE_SYSTEM_LINKED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt verlinkt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt verlinkt ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MARQUEED"><apiName>STATE_SYSTEM_MARQUEED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt Bildlauftext oder -grafiken anzeigt oder sich bewegenden Text bzw. Grafiken.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt Bildlauftext oder -grafiken anzeigt oder sich bewegenden Text bzw. Grafiken.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MIXED"><apiName>STATE_SYSTEM_MIXED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass ein Kontrollkästchen oder eine Symbolleistenschaltfläche mit drei Status sich im unbestimmten Status befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass ein Kontrollkästchen oder eine Symbolleistenschaltfläche mit drei Status sich im unbestimmten Status befindet.
+     
+      <p>Das Kontrollkästchen ist weder aktiviert noch deaktiviert und befindet sich deshalb im dritten oder gemischten Status.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MOVEABLE"><apiName>STATE_SYSTEM_MOVEABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt verschoben werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt verschoben werden kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MULTISELECTABLE"><apiName>STATE_SYSTEM_MULTISELECTABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt die Auswahl mehrerer Objekte akzeptieren kann (d. h. SELFLAG_ADDSELECTION ist für die IAccessible::accSelect-Methode gültig).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt die Auswahl mehrerer Objekte akzeptieren kann (d. h. SELFLAG_ADDSELECTION ist für die IAccessible::accSelect-Methode gültig).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_NORMAL"><apiName>STATE_SYSTEM_NORMAL</apiName><shortdesc>
+      Eine Konstante, die die Abwesenheit von MSAA-Status-Flags darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine Konstante, die die Abwesenheit von MSAA-Status-Flags darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_OFFSCREEN"><apiName>STATE_SYSTEM_OFFSCREEN</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt auf dem Bildschirm nicht dargestellt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt auf dem Bildschirm nicht dargestellt wird.
+     
+      <p>Ein Sound- oder Warnungsobjekt hat diesen Status oder ein ausgeblendetes Fenster, das niemals sichtbar wird.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PRESSED"><apiName>STATE_SYSTEM_PRESSED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt gedrückt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt gedrückt wurde.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PROTECTED"><apiName>STATE_SYSTEM_PROTECTED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ein kennwortgeschütztes Eingabefeld ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ein kennwortgeschütztes Eingabefeld ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_READONLY"><apiName>STATE_SYSTEM_READONLY</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt schreibgeschützt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt schreibgeschützt ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTABLE"><apiName>STATE_SYSTEM_SELECTABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt eine Auswahl akzeptieren kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt eine Auswahl akzeptieren kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTED"><apiName>STATE_SYSTEM_SELECTED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ausgewählt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt ausgewählt ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELFVOICING"><apiName>STATE_SYSTEM_SELFVOICING</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Objekt mithilfe von Text-to-speech (TTS) selbst beschreiben kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass sich das Objekt über Text-to-speech (TTS) selbst beschreiben kann.
+     
+      <p>Eine sprachbasierte Hilfe zur Barrierefreiheit sollte keine Informationen ausgeben, wenn sich ein Objekt mit diesem Status im Fokus befindet, da das Objekt automatisch Informationen über sich bekannt gibt.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SIZEABLE"><apiName>STATE_SYSTEM_SIZEABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass die Größe des Objekts geändert werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass die Größe des Objekts geändert werden kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_TRAVERSED"><apiName>STATE_SYSTEM_TRAVERSED</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt durchsucht wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt durchsucht wurde.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_UNAVAILABLE"><apiName>STATE_SYSTEM_UNAVAILABLE</apiName><shortdesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt nicht verfügbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Ein MSAA-Status-Flag, das angibt, dass das Objekt nicht verfügbar ist. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_VALID"><apiName>STATE_SYSTEM_VALID</apiName><shortdesc>
+      Eine Bitmaske, die alle gültigen MSAA-Status-Flags darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7FFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Eine Bitmaske, die alle gültigen MSAA-Status-Flags darstellt.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+  UIComponentAccProps ist eine Unterklasse von AccessibilityProperties, die von verschiedenen UIComponents verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityProperties</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIComponentAccProps ist eine Unterklasse von AccessibilityProperties, die von verschiedenen UIComponents verwendet wird. Damit wird die Barrierefreiheit für Formulare, QuickInfos und Fehler-QuickInfos bereitgestellt.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:UIComponentAccProps:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Die UIComponent-Instanz, die durch diese AccessibilityProperties-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:UIComponentAccProps:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der UIComponent-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der UIComponent-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend UIComponent-Instanzen initialisiert werden, wird deren <codeph>accessibilityProperties</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:UIComponentAccProps:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      Generische Ereignisprozedur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      Generische Ereignisprozedur. Alle UIComponentAccProps-Unterklassen müssen sie implementieren, um auf Ereignisse der Master-Komponente warten zu können. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:UIComponentAccProps:protected:master"><apiName>master</apiName><shortdesc>
+      Ein Verweis auf die UIComponent selbst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ein Verweis auf die UIComponent selbst.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+  In Flex stellt AccImpl die grundlegendste Implementierungsklasse für Barrierefreiheitsfunktionen der MX- und Spark-Komponenten dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityImplementation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  In Flex stellt AccImpl die grundlegendste Implementierungsklasse für Barrierefreiheitsfunktionen der MX- und Spark-Komponenten dar.
+ 
+  <p>Sie ist eine Unterklasse der AccessibilityImplementation-Klasse von Flash Player.</p>
+ 
+  <p>Wenn eine MX- oder Spark-Komponente erstellt wird, wird ihre <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz einer Unterklasse dieser Klasse gesetzt. Der Flash Player lässt dann mithilfe dieses Objekts zu, dass MSAA-Clients, wie z. B. Bildschirmleseprogramme, Komponenten erkennen und ändern dürfen. Weitere Informationen über Accessibility-Implementierungsklassen und MSAA finden Sie unter der flash.accessibility.AccessibilityImplementation-Klasse.</p>
+ 
+  <p><b>Untergeordnete Elemente</b></p>
+ 
+  <p>Flash Player unterstützt keine echte Hierarchie barrierefreier Objekte. Wenn ein DisplayObject über ein <codeph>accessibilityImplementation</codeph>-Objekt verfügt, dann werden die <codeph>accessibilityImplementation</codeph>-Objekte seiner untergeordneten Elemente ignoriert. Der Player lässt jedoch zu, dass die Accessibility-Implementierungsklasse MSAA-Informationen über die internen Teile einer Komponente bereitstellt. (Zum Beispiel werden bei einer Liste MSAA-Informationen über ihre Elemente zugänglich.)</p>
+ 
+  <p>Die Anzahl der untergeordneten Elemente (interne Teile) sowie die Child-IDs, über die sie identifiziert werden, werden durch die <codeph>getChildIDArray()</codeph>-Methode bestimmt. In der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einfach <codeph>null</codeph> zurück. Die AccImpl-Klasse von Flex überschreibt dies und gibt ein leeres Array zurück. Es wird auch eine geschützte Dienstmethode bereitgestellt, <codeph>createChildIDArray()</codeph>, die Unterklassen mit internen Teilen für das Überschreiben nutzen können.</p>
+ 
+  <p><b>Rolle</b></p>
+ 
+  <p>Die MSAA-Rolle einer Komponente und ihrer internen Teile wird mithilfe der <codeph>get_accRole()</codeph>-Methode bestimmt. Bei der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einen Laufzeitfehler aus, da erwartet wird, dass sie von Unterklassen überschrieben wird. Die AccImpl-Klasse von Flex hat eine geschützte <codeph>role</codeph>-Eigenschaft, die im Allgemeinen durch den Konstruktor von Unterklassen festgelegt wird. Sie überschreibt <codeph>get_accRole()</codeph>, um diese Eigenschaft zurückzugeben.</p>
+ 
+  <p><b>Name</b></p>
+ 
+  <p>Der MSAA-Name einer Komponente und ihrer internen Teile wird mithilfe der <codeph>get_accName()</codeph>-Methode bestimmt. In der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einfach <codeph>null</codeph> zurück. Die AccImpl-Klasse von Flex überschreibt diesen Wert und erstellt einen Namen, beginnend mit einem leeren String, dessen hinzugefügte Teile jeweils durch eine Leerstelle abgetrennt werden. Hierbei wird folgendermaßen vorgegangen:
+  <ul>
+    <li>Wenn ein einfaches untergeordnetes Element angefordert wird (z. B. ein Kombinationsfeld oder ein Listenfeld), wird nur der Standardname des untergeordneten Elements zurückgegeben. Die übrigen Schritte beziehen sich nur auf die Komponente selbst (childID 0).</li>
+   <li>Wenn sich die Komponente in einem Formular befindet : 
+     <ul>
+       <li>Wenn das Formular über eine FormHeading verfügt und sich die Komponente in einem FormItem befindet, wird der Überschrifttext hinzugefügt. Um dies zu verhindern, setzen Sie den <codeph>accessibilityName</codeph> der FormHeading auf ein Leerzeichen („ “).</li>
+       <li>Wenn dieses Feld erforderlich ist, wird der gebietsschemaabhängige String „Erforderliches Feld“ (required field) hinzugefügt.</li>
+       <li>Wenn sich die Komponente in einem FormItem befindet, wird der FormItem-Beschriftungstext hinzugefügt. Um dies zu verhindern, setzen Sie den <codeph>accessibilityName</codeph> des FormItem auf ein Leerzeichen („ “).</li>
+    </ul></li>
+  <li>Der Name der Komponente wird dann folgendermaßen bestimmt:
+    <ul>
+      <li>Wenn der <codeph>accessibilityName</codeph> der Komponente (d. h. <codeph>accessibilityProperties.name</codeph>) ein Leerzeichen ist, wird kein Komponentenname hinzugefügt.</li>
+      <li>Ansonsten, wenn der Komponentenname angegeben ist (d. h. nicht null und nicht leer ist), wird er hinzugefügt.</li>
+      <li>Andernfalls wird eine geschützte <codeph>getName()</codeph>-Methode, die von AccImpl definiert und allen Unterklassen implementiert wird, aufgerufen, um einen Standardnamen anzugeben. (Beispiel: ButtonAccImpl implementiert <codeph>getName()</codeph>, um anzugeben, dass der Standardname eines Button seiner Beschriftung entspricht.) Wenn der Rückgabewert von <codeph>getName()</codeph> nicht leer ist, wird der Rückgabewert hinzugefügt.</li>
+      <li>Andernfalls (wenn <codeph>getName()</codeph> einen leeren Wert zurückgab) wird dieser String hinzugefügt, wenn die <codeph>toolTip</codeph>-Eigenschaft der Komponente festgelegt ist.</li>
+      <li>Wenn die <codeph>errorString</codeph>-Eigenschaft der Komponente festgelegt ist, wird dieser String hinzugefügt.</li>
+    </ul></li>
+  </ul></p>
+ 
+  <p><b>Beschreibung</b></p>
+ 
+  <p>Die MSAA-Beschreibung wird ausschließlich durch das <codeph>accessibilityProperties</codeph>-Objekt einer Komponente bestimmt und nicht durch ihr <codeph>accessibilityImplementation</codeph>-Objekt. Deshalb enthalten AccessibilityImplementation, AccImpl und gegebenenfalls vorhandene Unterklassen von AccImpl keine Logik, die sich auf die Beschreibung bezieht. Üblicherweise wird die Beschreibung in Flex über die <codeph>accessibilityDescription</codeph>-Eigenschaft der UIComponent mit <codeph>accessibilityProperties.description</codeph> festgelegt.</p>
+ 
+  <p><b>Status</b></p>
+ 
+  <p>Der MSAA-Status einer Komponente und ihrer internen Teile wird mithilfe der <codeph>get_accState()</codeph>-Methode bestimmt. Bei der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einen Laufzeitfehler aus, da erwartet wird, dass sie von Unterklassen überschrieben wird. Die AccImpl-Klasse von Flex überschreibt sie nicht, sondern stellt eine geschützte Dienstmethode bereit, <codeph>getState()</codeph>, die Unterklassen für das Überschreiben verwenden können. Die <codeph>getState()</codeph>-Methode bestimmt den Status als Kombination von
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE (wenn bei dieser Komponente oder irgendeinem Vorgänger „false“ aktiviert ist)</li>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED (wenn die Komponente selbst im Fokus dargestellt wird; wird nicht für mögliche Unterteile der Komponente festgelegt)</li>
+  </ul>
+  Standardmäßig wird davon ausgegangen, dass alle Komponenten den Fokus erhalten können. Deshalb müssen die Accessibility-Implementierungsklassen für Komponenten, die nicht fokusfähig sind (z. B. „Label“), dieses Statusflag löschen. Wenn eine Komponente den Status „nicht verfügbar“ hat, wird der fokusfähige Status durch die Accessibility-Implementierungsklasse entfernt.</p>
+ 
+  <p><b>Wert</b></p>
+ 
+  <p>Der MSAA-Wert einer Komponente und ihrer internen Teile wird mithilfe der <codeph>get_accValue()</codeph>-Methode bestimmt. In der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einfach <codeph>null</codeph> zurück. Dies wird von der Flex-AccImpl-Klasse nicht überschrieben, aber von Unterklassen für Komponenten wie TextInput.</p>
+ 
+  <p><b>Speicherort</b></p>
+ 
+  <p>Die MSAA-Position der internen Teile einer Komponente, aber nicht die Komponente selbst, wird durch die <codeph>get_accLocation()</codeph>-Methode bestimmt. Diese Methode wird bei einer childID von 0 nicht aufgerufen; Flash Player bestimmt stattdessen die MSAA-Position einer Komponente anhand ihres Begrenzungsrechtecks mithilfe von <codeph>getBounds()</codeph>. Diese Methode wird von der Flex-AccImpl-Klasse nicht überschrieben, aber von Unterklassen für Komponenten mit internen Teilen.</p>
+ 
+  <p><b>Standardaktion</b></p>
+ 
+  <p>Die MSAA-Standardaktion einer Komponente und ihrer internen Teile wird durch die <codeph>get_accDefaultAction()</codeph>-Methode bestimmt. In der AccessibilityImplementation-Basisklasse des Players gibt diese Methode einfach <codeph>null</codeph> zurück. Dies wird von der Flex-AccImpl-Klasse nicht überschrieben, aber von Unterklassen mit Standardaktionen. Diese Unterklassen überschreiben auch die AccessibilityImplementation-<codeph>accDoDefaultAction()</codeph>-Methode, um die angegebene Standardaktion auszuführen.</p>
+ 
+  <p><b>Sonstiges</b></p>
+ 
+  <p>Die MSAA-Ereignisse EVENT_OBJECT_SHOW und EVENT_OBJECT_HIDE werden gesendet, wenn das Objekt eingeblendet oder ausgeblendet wird. Der jeweils entsprechende Status wird von Flash Player berücksichtigt; er gibt keine MSAA-Komponenten wieder, die ausgeblendet sind. Wenn die Komponente angezeigt wird, werden die für AccImpl erwähnten Status verwendet.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccImpl:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccImpl:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      Generische Ereignisprozedur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      Generische Ereignisprozedur. Alle AccImpl-Unterklassen müssen sie implementieren, um auf Ereignisse der Master-Komponente warten zu können. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:getFormName"><apiName>getFormName</apiName><shortdesc>
+      Methode, mit der die Barrierefreiheit von Formularen unterstützt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+      Methode, mit der die Barrierefreiheit von Formularen unterstützt wird. Wird aus get_accName() in dieser AccImpl-Klasse aufgerufen. Wird auch aus dem UIComponentAccProps-Konstruktor aufgerufen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getName"><apiName>getName</apiName><shortdesc>
+      Gibt den Namen der barrierefreien Komponente zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      Gibt den Namen der barrierefreien Komponente zurück. Von allen Unterklassen anstelle von get_accName() zu implementieren.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+      Dienstmethode, die den Status der barrierefreien Komponente bestimmt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      Dienstmethode, die den Status der barrierefreien Komponente bestimmt.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:isAncestorDisabled"><apiName>isAncestorDisabled</apiName><shortdesc>
+      Gibt „true“ zurück, wenn bei einem Vorgänger der Komponente der aktive Status den Wert „false“ hat.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>„true“, wenn die Komponente über ein deaktiviertes übergeordnetes Element verfügt.
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Die auf ein deaktiviertes übergeordnetes Element zu überprüfende UIComponent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt „true“ zurück, wenn bei einem Vorgänger der Komponente der aktive Status den Wert „false“ hat. Die angegebene Komponente selbst wird nicht überprüft.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:AccImpl:protected:master"><apiName>master</apiName><shortdesc>
+      Ein Verweis auf die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ein Verweis auf die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:role"><apiName>role</apiName><shortdesc>
+      Accessibility-Rolle der Komponente, die barrierefrei gemacht wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Accessibility-Rolle der Komponente, die barrierefrei gemacht wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:eventsToHandle:get"><apiName>eventsToHandle</apiName><shortdesc>
+      Alle Unterklassen müssen diese Funktion überschreiben, indem sie ein Array von Strings der Ereignisse, auf die gewartet wird, zurückgeben.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Alle Unterklassen müssen diese Funktion überschreiben, indem sie ein Array von Strings der Ereignisse, auf die gewartet wird, zurückgeben.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

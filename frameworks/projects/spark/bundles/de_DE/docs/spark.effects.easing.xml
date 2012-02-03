@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.easing"><apiName>spark.effects.easing</apiName><apiDetail/><apiClassifier id="spark.effects.easing:IEaser"><apiName>IEaser</apiName><shortdesc>
+  Die IEaser-Schnittstelle wird von Klassen implementiert, die Beschleunigungsfunktionen für die Animation-Klasse bietet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die IEaser-Schnittstelle wird von Klassen implementiert, die Beschleunigungsfunktionen für die Animation-Klasse bietet. Implementoren sind nur für die <codeph>ease()</codeph>-Funktion verantwortlich, die entsprechend dem gewünschten Beschleunigungsverhalten einen Bruchteil übernimmt und zurückgibt. Hier ein einfaches Beispiel: LinearEase gibt einfach denselben Eingabebruchteil zurück, da von diesem Beschleuniger keine Beschleunigung ausgeführt wird. In einem anderen Beispiel könnte ein umkehrender Beschleuniger geschrieben werden, der den Kehrwert (1 - <codeph>fraction</codeph>) zurückgibt.
+ 
+  <p>Indem Sie die Bruchwerte der verstrichenen Zeit in einer Animation beschleunigen, beschleunigen diese Klassen die resultierenden Werte der Animation. Sie müssen jedoch nur den Bruchteil der Zeit verarbeiten und keine spezifischen Objekttypen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.easing:IEaser:spark.effects.easing:IEaser:ease"><apiName>ease</apiName><shortdesc>
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der beschleunigte Wert für die verstrichene Zeit. Dieser Wert sollte normalerweise darauf beschränkt sein, zwischen 0,0 und 1,0 zu liegen, während es möglich ist, dass Werte außerhalb dieses Bereichs zurückgegeben werden. Beachten Sie, dass die Ergebnisse für die Rückgabe dieser Werte nicht definiert sind und davon abhängen, welche Effektarten diese beschleunigten Werte verwenden. So können beispielsweise für ein Objekt, das in linearer Weise bewegt wird, problemlos Positionen außerhalb des Start- und Endpunkts berechnet werden, während andere Wertetypen (z. B. die Farbe) möglicherweise nicht zu den gewünschten Effekten führen, wenn Zeitwerte verwendet werden, mit denen ihre Endpunktwerte übertroffen werden.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil einer Animation, von 0,0 bis 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück. Dieser Wert wird für die Berechnung der animierten Eigenschaftswerte verwendet. Indem Sie den Wert des verstrichenen Teils ändern, ändern Sie auch auf effektive Weise die Animation der Eigenschaft.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  Die Bounce-Klasse implementiert die Beschleunigungsfunktion. Dabei simuliert sie die Schwerkraft, indem sie das Zielobjekt anzieht und abstößt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Bounce-Klasse implementiert die Beschleunigungsfunktion. Dabei simuliert sie die Schwerkraft, indem sie das Zielobjekt anzieht und abstößt. Die Bewegung des Effektziels wird auf den Endwert zu beschleunigt und prallt dann mehrmals gegen den Endwert. 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Bounce:Bounce"><apiName>Bounce</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Bounce:ease"><apiName>ease</apiName><shortdesc>
+      
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der beschleunigte Wert für die verstrichene Zeit. Dieser Wert sollte normalerweise darauf beschränkt sein, zwischen 0,0 und 1,0 zu liegen, während es möglich ist, dass Werte außerhalb dieses Bereichs zurückgegeben werden. Beachten Sie, dass die Ergebnisse für die Rückgabe dieser Werte nicht definiert sind und davon abhängen, welche Effektarten diese beschleunigten Werte verwenden. So können beispielsweise für ein Objekt, das in linearer Weise bewegt wird, problemlos Positionen außerhalb des Start- und Endpunkts berechnet werden, während andere Wertetypen (z. B. die Farbe) möglicherweise nicht zu den gewünschten Effekten führen, wenn Zeitwerte verwendet werden, mit denen ihre Endpunktwerte übertroffen werden.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil einer Animation, von 0,0 bis 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück. Dieser Wert wird für die Berechnung der animierten Eigenschaftswerte verwendet. Indem Sie den Wert des verstrichenen Teils ändern, ändern Sie auch auf effektive Weise die Animation der Eigenschaft.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Die Linear-Klasse definiert eine Beschleunigung mit drei Phasen: Beschleunigung, gleichmäßige Bewegung und Abbremsung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Linear&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Linear
+    id="ID"
+    easeInFraction="0" 
+    easeOutFraction="0"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Linear-Klasse definiert eine Beschleunigung mit drei Phasen: Beschleunigung, gleichmäßige Bewegung und Abbremsung. Nachdem eine Animation gestartet wurde, wird sie über den durch die <codeph>easeInFraction</codeph>-Eigenschaft angegebenen Zeitraum beschleunigt. In der nächsten Phase verwendet sie die gleichmäßige (lineare) Bewegung, um schließlich in dem durch die <codeph>easeOutFraction</codeph>-Eigenschaft festgelegten Zeitraum abgebremst zu werden.
+ 
+  <p>Die Beschleunigungswerte für die drei Phasen werden so berechnet, dass das Verhalten der konstanten Beschleunigung, linearen Bewegung und konstanten Abbremsung innerhalb der angegebenen Dauer der Animation auftreten.</p>
+  
+  <p>Eine streng lineare Bewegung kann erzielt werden, indem <codeph>easeInFraction</codeph> und <codeph>easeOutFraction</codeph> auf 0,0 eingestellt werden. Wenn die Beschleunigung oder Abbremsung ungleich 0,0 ist, weist die Bewegung während der mittleren Phase nicht dieselbe Geschwindigkeit wie bei einer rein linearen Bewegung auf. Die mittlere Phase umfasst die gleichmäßige Bewegung, wobei die Geschwindigkeit dieser Bewegung durch die Größe dieser Phase relativ zur Gesamtanimation bestimmt wird.</p>
+  
+  </apiDesc><example conref="LinearEffectExample.mxml"><swfblock conref="examples/LinearEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Linear:Linear"><apiName>Linear</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Der Bruchteil der Gesamtdauer in der Beschleunigungsphase zwischen 0,0 und 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>easeOutFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Der Bruchteil der Gesamtdauer in der Abbremsphase zwischen 0,0 und 1,0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Linear:ease"><apiName>ease</apiName><shortdesc>
+      Berechnet den beschleunigten Teil auf Grundlage der Eigenschaften easeInFraction und easeOutFraction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der beschleunigte Teil der Animation.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil der Animation, zwischen 0,0 und 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Berechnet den beschleunigten Teil auf Grundlage der Eigenschaften <codeph>easeInFraction</codeph> und <codeph>easeOutFraction</codeph>. Wenn der Wert für <codeph>fraction</codeph> geringer ist als <codeph>easeInFraction</codeph>, wird ein Wert berechnet, der auf der Beschleunigung bis zum Erreichen der Phase der linearen Bewegung basiert. Wenn <codeph>fraction</codeph> größer als <codeph>easeInFraction</codeph> und kleiner als <codeph>(1- easeOutFraction)</codeph> ist, wird ein Wert berechnet, der auf der Phase der linearen Bewegung zwischen der Beschleunigungs- und der Abbremsphase basiert. Andernfalls wird ein Wert berechnet, der auf einer konstanten Abbremsung zwischen der Phase der linearen Bewegung und 0,0 basiert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:Linear:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Der Bruchteil, über den eine Animation beschleunigt wurde (zwischen 0,0 und 1,0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Bruchteil, über den eine Animation beschleunigt wurde (zwischen 0,0 und 1,0). Die Werte der Eigenschaften <codeph>easeOutFraction</codeph> und <codeph>easeInFraction</codeph> müssen die Gleichung <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph> erfüllen, wobei jegliche verbleibende Zeit zur Phase der linearen Bewegung hinzugefügt wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:Linear:easeOutFraction:get"><apiName>easeOutFraction</apiName><shortdesc>
+      Der Prozentsatz, über den eine Animation abgebremst wird (zwischen 0,0 und 1,0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Prozentsatz, über den eine Animation abgebremst wird (zwischen 0,0 und 1,0). Die Werte der Eigenschaften <codeph>easeOutFraction</codeph> und <codeph>easeInFraction</codeph> müssen die Gleichung <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph> erfüllen, wobei jegliche verbleibende Zeit zur Phase der linearen Bewegung hinzugefügt wird.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Power"><apiName>Power</apiName><shortdesc>
+  Die Power-Klasse definiert die Beschleunigungsfunktion mit einem polynomischen Ausdruck.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Power&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Power
+    id="ID"
+    exponent="2"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Power-Klasse definiert die Beschleunigungsfunktion mit einem polynomischen Ausdruck. Die Beschleunigung umfasst zwei Phasen: die Beschleunigungsphase gefolgt von der Abbremsphase. Wie stark beschleunigt bzw. abgebremst wird, hängt von der <codeph>exponent</codeph>-Eigenschaft ab. Je höher der Wert der <codeph>exponent</codeph>-Eigenschaft ist, desto stärker wird beschleunigt bzw. abgebremst. Verwenden Sie die <codeph>easeInFraction</codeph>-Eigenschaft, um den Prozentsatz für die Beschleunigung einer Animation anzugeben.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Power:Power"><apiName>Power</apiName><shortdesc>
+     Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Der Bruchteil der Gesamtdauer in der Beschleunigungsphase zwischen 0,0 und 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exponent</apiItemName><apiType value="Number"/><apiData>2</apiData><apiDesc>Der Exponent, der für die Beschleunigungsgleichung verwendet wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.easing:Power:exponent:get"><apiName>exponent</apiName><shortdesc>
+      Der Exponent, der für die Beschleunigungsgleichung verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Exponent, der für die Beschleunigungsgleichung verwendet wird. Je höher der Wert der <codeph>exponent</codeph>-Eigenschaft ist, desto stärker wird beschleunigt bzw. abgebremst. Um beispielsweise ein quadratisches Verhalten zu erzielen, setzen Sie <codeph>exponent</codeph> auf 2. Um ein kubisches Verhalten zu erzielen, setzen Sie <codeph>exponent</codeph> auf 3.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  Die Elastic-Klasse implementiert die Beschleunigungsfunktion, wenn die Bewegung des Zielobjekts durch eine exponentiell abfallende Sinuswelle definiert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Elastic-Klasse implementiert die Beschleunigungsfunktion, wenn die Bewegung des Zielobjekts durch eine exponentiell abfallende Sinuswelle definiert ist. Das Effektziel wird auf den Endwert zu verlangsamt und über den Endwert hinaus fortgesetzt. Es oszilliert dann um den Endwert herum in immer kleineren Inkrementen bis es den Endwert erreicht. 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Elastic:Elastic"><apiName>Elastic</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Elastic:ease"><apiName>ease</apiName><shortdesc>
+      
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der beschleunigte Wert für die verstrichene Zeit. Dieser Wert sollte normalerweise darauf beschränkt sein, zwischen 0,0 und 1,0 zu liegen, während es möglich ist, dass Werte außerhalb dieses Bereichs zurückgegeben werden. Beachten Sie, dass die Ergebnisse für die Rückgabe dieser Werte nicht definiert sind und davon abhängen, welche Effektarten diese beschleunigten Werte verwenden. So können beispielsweise für ein Objekt, das in linearer Weise bewegt wird, problemlos Positionen außerhalb des Start- und Endpunkts berechnet werden, während andere Wertetypen (z. B. die Farbe) möglicherweise nicht zu den gewünschten Effekten führen, wenn Zeitwerte verwendet werden, mit denen ihre Endpunktwerte übertroffen werden.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil einer Animation, von 0,0 bis 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück. Dieser Wert wird für die Berechnung der animierten Eigenschaftswerte verwendet. Indem Sie den Wert des verstrichenen Teils ändern, ändern Sie auch auf effektive Weise die Animation der Eigenschaft.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:EasingFraction"><apiName>EasingFraction</apiName><shortdesc>
+  Die EasingFraction-Klasse definiert Konstanten für die easeInFraction-Eigenschaft der EaseInOutBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die EasingFraction-Klasse definiert Konstanten für die <codeph>easeInFraction</codeph>-Eigenschaft der EaseInOutBase-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.easing.xml#EaseInOutBase"><linktext>EaseInOutBase</linktext></link><link href="spark.effects.easing.xml#EaseInOutBase/easeInFraction"><linktext>EaseInOutBase.easeInFraction</linktext></link></related-links><apiValue id="spark.effects.easing:EasingFraction:IN_OUT"><apiName>IN_OUT</apiName><shortdesc>
+      Gibt eine Beschleunigungsinstanz an, die während der ersten Hälfte beschleunigt und während der zweiten Hälfte abgebremst wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0.5</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Gibt eine Beschleunigungsinstanz an, die während der ersten Hälfte beschleunigt und während der zweiten Hälfte abgebremst wird. Dies entspricht dem Einstellen der <codeph>easeInFraction</codeph>-Eigenschaft auf 0,5.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:IN"><apiName>IN</apiName><shortdesc>
+      Gibt an, dass die Beschleunigungsinstanz die gesamte Animation über beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Gibt an, dass die Beschleunigungsinstanz die gesamte Animation über beschleunigt. Dies entspricht dem Einstellen der <codeph>easeInFraction</codeph>-Eigenschaft auf 1,0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:OUT"><apiName>OUT</apiName><shortdesc>
+      Gibt an, dass die Beschleunigungsinstanz die gesamte Animation über abbremst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Gibt an, dass die Beschleunigungsinstanz die gesamte Animation über abbremst. Dies entspricht dem Einstellen der <codeph>easeInFraction</codeph>-Eigenschaft auf 0,0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Die Sine-Klasse definiert die Beschleunigungsfunktion mit einer Sinusfunktion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sine&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Sine
+    id="ID"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Sine-Klasse definiert die Beschleunigungsfunktion mit einer Sinusfunktion. Die Beschleunigung umfasst zwei Phasen: die Beschleunigungsphase gefolgt von der Abbremsphase. Verwenden Sie die <codeph>easeInFraction</codeph>-Eigenschaft, um den Prozentsatz für die Beschleunigung einer Animation anzugeben.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Sine:Sine"><apiName>Sine</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Legt den Wert der <codeph>easeInFraction</codeph>-Eigenschaft fest. Der Standardwert ist <codeph>EasingFraction.IN_OUT</codeph>, der besagt, dass in der ersten Hälfte des Zeitraums beschleunigt und in der restlichen Zeit abgebremst wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.easing:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+  Die EaseInOutBase-Klasse ist die Basisklasse, die Beschleunigungsfunktionen bietet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:EaseInOutBase
+    id="ID"
+    easeInFraction="0.5"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die EaseInOutBase-Klasse ist die Basisklasse, die Beschleunigungsfunktionen bietet. Die EaseInOutBase-Klasse legt für die Beschleunigung fest, dass sie zwei Phasen umfasst: die Beschleunigungsphase gefolgt von der Abbremsphase. Das Standardverhalten dieser Klasse gibt eine lineare Interpolation für beide Beschleunigungsphasen zurück. Sie können die Unterklasse EaseInOutBase erstellen, um ein interessanteres Verhalten zu erzielen.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.easing:EaseInOutBase:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Legt den Wert der <codeph>easeInFraction</codeph>-Eigenschaft fest. Der Standardwert ist <codeph>EasingFraction.IN_OUT</codeph>, der besagt, dass in der ersten Hälfte des Zeitraums beschleunigt und in der restlichen Zeit abgebremst wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Gibt einen Wert zurück, der den beschleunigten Teil während der Beschleunigungsphase der Animation darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Ein Wert, der den beschleunigten Teil in dieser Phase der Animation angibt.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil in der Beschleunigungsphase der Animation, zwischen 0,0 und 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen Wert zurück, der den beschleunigten Teil während der Beschleunigungsphase der Animation darstellt. Der Wert, der von dieser Klasse zurückgegeben wird, entspricht einfach dem Bruchteil, der eine lineare Interpolation des Teils darstellt. Ein interessanteres Verhalten wird von Unterklassen von EaseInOutBase implementiert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Gibt einen Wert zurück, der den beschleunigten Teil während der Abbremsphase der Animation darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Ein Wert, der den beschleunigten Teil in dieser Phase der Animation angibt.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil in der Abbremsphase der Animation, zwischen 0,0 und 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen Wert zurück, der den beschleunigten Teil während der Abbremsphase der Animation darstellt. Der Wert, der von dieser Klasse zurückgegeben wird, entspricht einfach dem Bruchteil, der eine lineare Interpolation des Teils darstellt. Ein interessanteres Verhalten wird von Unterklassen von EaseInOutBase implementiert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:ease"><apiName>ease</apiName><shortdesc>
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der beschleunigte Teil der Animation.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Der verstrichene Teil der Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Übernimmt den Teil, der die verstrichene Dauer einer Animation angibt (ein Wert zwischen 0,0 und 1,0), und gibt einen neuen verstrichenen Wert zurück. Dieser Wert wird für die Berechnung der animierten Eigenschaftswerte verwendet. Indem Sie den Wert des verstrichenen Teils ändern, ändern Sie auch auf effektive Weise die Animation der Eigenschaft. Für EaseInOutBase berechnet diese Methode den Wert für den beschleunigten Teil auf Grundlage der <codeph>easeInFraction</codeph>-Eigenschaft. Wenn <codeph>fraction</codeph> kleiner als <codeph>easeInFraction</codeph> ist, ruft diese Methode die <codeph>easeIn()</codeph>-Methode auf. Andernfalls ruft sie die <codeph>easeOut()</codeph>-Methode auf. Es wird erwartet, dass diese Funktionen in einer Unterklasse überschrieben werden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:EaseInOutBase:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Der Prozentsatz einer Animation, der mit der Beschleunigung verbracht wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.5
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Prozentsatz einer Animation, der mit der Beschleunigung verbracht wird. Dieser Faktor legt einen impliziten „easeOut“-Parameter fest, der (1 - <codeph>easeIn</codeph>) entspricht, sodass in dem Zeitraum, in dem nicht beschleunigt wird, abgebremst wird. Um beispielsweise eine Beschleunigungsgleichung zu erhalten, durch die in der Hälfte der Zeit beschleunigt und in der anderen Hälfte abgebremst wird, setzen Sie <codeph>easeIn</codeph> auf „0,5“.
+     
+      <p>Zulässige Werte liegen zwischen 0,0 und 1,0.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

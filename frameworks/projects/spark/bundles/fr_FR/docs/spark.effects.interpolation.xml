@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.interpolation"><apiName>spark.effects.interpolation</apiName><apiDetail/><apiClassifier id="spark.effects.interpolation:IInterpolator"><apiName>IInterpolator</apiName><shortdesc>
+  L’interface IInterpolator est implémentée par les classes qui calculent des valeurs pour la classe Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IInterpolator est implémentée par les classes qui calculent des valeurs pour la classe Animation. La classe Animation peut traiter une interpolation paramétrique entre des valeurs numériques et des tableaux de valeurs numériques, mais elle ne peut pas traiter des types d’interpolations différents, ni des interpolations entre différents types de valeurs. Les implémenteurs de cette interface peuvent fournir des fonctions d’interpolation arbitraires permettant la création d’animations entre des valeurs arbitraires.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Cette fonction est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de fin et d’une valeur « by » à soustraire de la valeur de fin. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Cette méthode est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de départ et d’une valeur « by » à ajouter à la valeur de départ. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      A partir d’une fraction écoulée d’une animation, comprise entre 0.0 et 1.0, et de valeurs de début et de fin à interpoler, renvoie la valeur interpolée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de fin de l’interpolation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      A partir d’une fraction écoulée d’une animation, comprise entre 0.0 et 1.0, et de valeurs de début et de fin à interpoler, renvoie la valeur interpolée.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+  La classe MultiValueInterpolator interpole séparément chaque élément d’un tableau d’éléments de début et fin, en utilisant un autre interpolateur pour procéder à l’interpolation de chaque élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MultiValueInterpolator interpole séparément chaque élément d’un tableau d’éléments de début et fin, en utilisant un autre interpolateur pour procéder à l’interpolation de chaque élément. Par défaut, l’interpolation de chaque élément utilise la classe NumberInterpolator, mais vous pouvez créer une occurrence MultiValueInterpolator à l’aide d’un autre interpolateur.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href=""><linktext/></link></related-links><apiConstructor id="spark.effects.interpolation:MultiValueInterpolator:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>elementInterpolator</apiItemName><apiOperationClassifier>spark.effects.interpolation:IInterpolator</apiOperationClassifier><apiData>null</apiData><apiDesc>Interpolateur de chaque élément du tableau. Si aucun interpolateur n’est spécifié, utilisez la classe NumberInterpolator.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+     
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Cette fonction est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de fin et d’une valeur « by » à soustraire de la valeur de fin. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:increment"><apiName>increment</apiName><shortdesc>
+     
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Cette méthode est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de départ et d’une valeur « by » à ajouter à la valeur de départ. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      A partir d’une fraction écoulée d’une animation, comprise entre 0.0 et 1.0, et de valeurs de début et de fin à interpoler, renvoie la valeur interpolée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de fin de l’interpolation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      A partir d’une fraction écoulée d’une animation, comprise entre 0.0 et 1.0, et de valeurs de début et de fin à interpoler, renvoie la valeur interpolée. L’interpolation pour MultiValueInterpolator consiste à exécuter une interpolation distincte sur chaque élément des tableaux ou vecteurs startValue et endValue, renvoyant un nouveau Array ou Vector contenant ces valeurs interpolées. L’objet renvoyé est un tableau si startValue et endValue sont de type Array ; sinon l’objet renvoyé sera de type Vector. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.interpolation:MultiValueInterpolator:elementInterpolator:get"><apiName>elementInterpolator</apiName><shortdesc>
+      Interpolateur de chaque élément du tableau d’entrée ou vecteur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier><apiDefaultValue>NumberInterpolator
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Interpolateur de chaque élément du tableau d’entrée ou vecteur. La valeur null spécifie que la classe NumberInterpolator doit être utilisée.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.interpolation:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+ La classe NumberInterpolator fournit une interpolation entre des valeurs de début et de fin représentées sous forme d’occurrences Number.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe NumberInterpolator fournit une interpolation entre des valeurs de début et de fin représentées sous forme d’occurrences Number.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:NumberInterpolator:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:NumberInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      A partir d’une valeur de base et d’une valeur à soustraire à cette valeur de base, renvoie le résultat de l’opération de décrémentation. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) - Number(incrementValue)</codeph>. Cette fonction est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de fin et d’une valeur « by » à soustraire de la valeur de fin. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Renvoie l’occurrence singleton de la classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Occurrence singleton de la classe.
+     
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:NumberInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie l’occurrence singleton de la classe. Toutes les classes NumberInterpolator se comportant de la même manière, il est inutile d’utiliser plusieurs occurrences.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      A partir d’une valeur de base et d’une valeur à ajouter à cette valeur de base, renvoie le résultat de l’opération. Par exemple, si les objets sont des valeurs Number simples, le résultat est <codeph>Number(baseValue) + Number(incrementValue)</codeph>. Cette méthode est appelée par le système d’animation lorsqu’il doit calculer de façon dynamique une valeur à partir d’une valeur de départ et d’une valeur « by » à ajouter à la valeur de départ. Les deux arguments sont de type Object et ne peuvent pas être simplement ajoutés.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Pour la classe NumberInterpolator, l’interpolation correspond à un calcul paramétrique simple entre des valeurs startValue et endValue, en utilisant fraction comme étant la durée écoulée entre le début et la fin de l’interpolation : renvoie startValue + fraction (endValue - startValue) ;
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de fin de l’interpolation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Pour la classe NumberInterpolator, l’interpolation correspond à un calcul paramétrique simple entre des valeurs <codeph>startValue</codeph> et <codeph>endValue</codeph>, en utilisant <codeph>fraction</codeph> comme durée écoulée entre le début et la fin de l’interpolation :
+     
+      <pre>return startValue + fraction (endValue - startValue);</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+  La classe RGBInterpolator fournit une interpolation entre des valeurs uint de début et de fin représentant des couleurs RVB.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe RGBInterpolator fournit une interpolation entre des valeurs <codeph>uint</codeph> de début et de fin représentant des couleurs RVB. L’interpolation est réalisée en traitant les valeurs de début et de fin comme des entiers contenant des informations de canal de couleur dans les trois octets de poids faible, puis en interpolant séparément chaque canal.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:RGBInterpolator:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:RGBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      Renvoie le résultat des deux valeurs soustraites, canal par canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le résultat des deux valeurs soustraites, canal par canal. La valeur minimale de chaque canal est 0, ce qui permet d’éviter des problèmes de dépassement de précision.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Renvoie l’occurrence singleton de la classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Occurrence singleton de la classe.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:RGBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie l’occurrence singleton de la classe. Toutes les classes RGBInterpolator se comportant de la même manière, il est inutile d’utiliser plusieurs occurrences.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      Renvoie le résultat des deux valeurs ajoutées, canal par canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le résultat des deux valeurs ajoutées, canal par canal. La valeur maximale de chaque canal est 255, ce qui permet d’éviter des problèmes de débordement.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Pour la classe RGBInterpolator, l’interpolation prend la forme de calculs paramétriques sur chacun des trois octets de poids faible des valeurs startValue et endValue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de fin de l’interpolation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Pour la classe RGBInterpolator, l’interpolation prend la forme de calculs paramétriques sur chacun des trois octets de poids faible des valeurs <codeph>startValue</codeph> et <codeph>endValue</codeph>. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+  La classe HSBInterpolator fournit une interpolation de couleurs TSL (teinte, saturation, luminosité) entre des valeurs uint RVB de début et de fin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe HSBInterpolator fournit une interpolation de couleurs TSL (teinte, saturation, luminosité) entre des valeurs <codeph>uint</codeph> RVB de début et de fin. L’interpolation est réalisée en traitant les valeurs de début et de fin comme des entiers contenant des informations de canal de couleur RVB dans les trois octets de poids faible, en convertissant ces entiers en valeurs TSL, puis en effectuant une interpolation linéaire pour chacun de ces paramètres t (teinte), s (saturation) et l (luminosité).
+ 
+  <p>Cet interpolateur étant capable d’effectuer plus de calculs qu’un interpolateur standard interpolant un seul type de données, il offre la possibilité de fournir des valeurs de début et de fin au constructeur, notamment pour convertir les valeurs RVB de début et de fin. Si vous spécifiez les valeurs RVB de début et de fin, la conversion de ces valeurs est calculée une seule fois et il n’est pas nécessaire de la recalculer à chaque fois que la méthode <codeph>interpolate()</codeph> est appelée au cours de l’animation.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:HSBInterpolator:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>startRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>Couleur de départ, sous forme de valeur RVB entière non signée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>Couleur d’arrivée, sous forme de valeur RVB entière non signée.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. Les paramètres facultatifs <codeph>startRGB</codeph> and <codeph>endRGB</codeph> contribuent à optimiser les performances d’exécution en réalisant des conversions RVB vers TSL au moment de la construction, et non de manière dynamique à chaque appel de la méthode <codeph>interpolate()</codeph>.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:HSBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      Renvoie le résultat des deux valeurs RVB ajoutées sous forme de couleurs TSL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le résultat des deux valeurs RVB ajoutées sous forme de couleurs TSL. Chaque valeur est tout d’abord convertie en couleur TSL, puis chaque composant (teinte, saturation et luminosité) est traité séparément. Les valeurs de saturation et de luminosité doivent être comprises entre 0 et 1. La teinte peut être modulée sur 360 degrés pour être comprise entre 0 et 360. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Renvoie l’occurrence singleton de la classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Singleton de la classe HSBInterpolator.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:HSBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie l’occurrence singleton de la classe. 
+     
+      <p>Le singleton de la classe HSBInterpolator est parfois moins utile que des occurrences séparées de la classe, car ces dernières peuvent exploiter les conversions RVB vers TSL précalculées, réalisées pour les couleurs de début et de fin.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      Renvoie le résultat des deux valeurs RVB ajoutées sous forme de couleurs TSL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>Modification à appliquer à la valeur <codeph>baseValue</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le résultat des deux valeurs RVB ajoutées sous forme de couleurs TSL. Chaque valeur est tout d’abord convertie en couleur TSL, puis chaque composant (teinte, saturation et luminosité) est traité séparément. Les valeurs de saturation et de luminosité doivent être comprises entre 0 et 1. La teinte peut être modulée sur 360 degrés pour être comprise entre 0 et 360. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      Pour la classe HSBInterpolator, l’interpolation prend la forme de calculs paramétriques sur chacune des trois valeurs t (teinte), s (saturation) et l (luminosité) des couleurs TSL dérivées des valeurs RVB de début et de fin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction écoulée de l’animation, comprise entre 0.0 et 1.0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de début de l’interpolation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Valeur de fin de l’interpolation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Pour la classe HSBInterpolator, l’interpolation prend la forme de calculs paramétriques sur chacune des trois valeurs t (teinte), s (saturation) et l (luminosité) des couleurs TSL dérivées des valeurs RVB de début et de fin.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

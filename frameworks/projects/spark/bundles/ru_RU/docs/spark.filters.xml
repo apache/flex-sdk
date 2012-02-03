@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.filters"><apiName>spark.filters</apiName><apiDetail/><apiClassifier id="spark.filters:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+ Класс GradientBevelFilter позволяет применять эффект градиентного наклона к экранным объектам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientBevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientBevelFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс GradientBevelFilter позволяет применять эффект градиентного наклона к экранным объектам. Градиентный наклон представляет собой скошенный край с цветовым градиентом на внешней или внутренней стороне или поверх всего объекта. Скошенные края придают объектам эффект трехмерности. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Применить фильтр к экранным объектам можно с помощью свойства <codeph>filters</codeph>. При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к визуализируемому объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p> 
+ 
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, общее масштабирование, вращение и искажение не поддерживается. Если сам объект увеличен или уменьшен (т.е. если <codeph>scaleX</codeph> и <codeph>scaleY</codeph> имеют значение, отличное от 1,0), эффект фильтра не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="GradientBevelFilterExample.mxml"><swfblock conref="examples/GradientBevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#BevelFilter"><linktext>spark.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.filters.GradientBevelFilter.xml"><linktext>flash.filters.GradientBevelFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter/ratios"><linktext>GradientBevelFilter.ratios</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:GradientBevelFilter:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Расстояние смещения. Действительны значения от 0 до 8. 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Угол в градусах. Действительны значения от 0 до 360. 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив шестнадцатеричных значений цвета RGB для применения в градиенте. Например, красный задается значением 0xFF0000, голубой — значением 0x0000FF и т.д.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений альфа-прозрачности для соответствующих цветов в массиве <codeph>colors</codeph>. Действительные значения для каждого из элементов массива — от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений распределения цветов; действительными являются значения от 0 до 255.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по горизонтали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т.е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по вертикали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между наклоном и фоном. Действительны значения от 0 до 255. Значение 0 означает, что фильтр не применяется. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Качество фильтра. Используйте константы BitmapFilterQuality:
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Подробные сведения см. в описании свойства <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>Местоположение эффекта «Наклон». Возможные значения констант BitmapFilterType:
+     <ul><li><codeph>BitmapFilterType.OUTER</codeph> — наклон по внешнему краю объекта.</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> — наклон по внутреннему краю объекта.</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> — наклон по всему объекту.</li>
+     </ul>
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, применяется ли эффект выбивки. Значение <codeph>true</codeph> делает заливку объекта прозрачной и делает видимым цвет фона документа.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientBevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр GradientBevelFilter с теми же свойствами, что и оригинальный экземпляр GradientBevelFilter.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+ Класс DropShadowFilter позволяет добавить эффект падающей тени к экранным объектам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:DropShadowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DropShadowFilter 
+    <strong>Properties</strong>
+    alpha="1"
+    angle="45"
+    color="0xFF0000"
+    distance="4"
+    hideObject="false"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс DropShadowFilter позволяет добавить эффект падающей тени к экранным объектам. Алгоритм теней основан на том же блоковом фильтре, который используется в фильтре размытия. При формировании отбрасываемой тени существует несколько вариантов выбора ее стиля, включая внешнюю или внутреннюю тень и режим выбивки. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Применить фильтры к визуализируемым объектам можно с помощью свойства <codeph>filters</codeph> (наследуемого от DisplayObject). При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к экранному объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, он не поддерживает общее масштабирование, повороты и искажение. Если сам объект увеличен или уменьшен (т. е. если свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> принимают значение, отличное от 1,0), фильтр не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="DropShadowFilterExample.mxml"><swfblock conref="examples/DropShadowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link></related-links><apiConstructor id="spark.filters:DropShadowFilter:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Расстояние смещения для тени (в пикселях). 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Угол падения тени, от 0 до 360 (плавающая запятая). 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Цвет тени в шестнадцатеричном формате <i>0xRRGGBB</i>. Значение по умолчанию равно 0x000000.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Значение альфа-прозрачности для цвета тени. Действительны значения от 0.0 до 1.0. Например, при 0,25 устанавливается 25-процентная прозрачность. 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по горизонтали. Действительны значения от 0 до 255,0 (плавающая запятая). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по вертикали. Действительны значения от 0 до 255,0 (плавающая запятая). 
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между тенью и фоном. Действительны значения от 0 до 255,0. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Заданное число применений фильтра. Используйте константы BitmapFilterQuality:
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Дополнительные сведения об этих значениях см. в описании свойства <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, является ли тень внутренней тенью. Значение <codeph>true</codeph> задает внутреннюю тень. Значение <codeph>false</codeph> задает внешнюю тень (тень вокруг внешнего контура объекта).
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Применяет эффект выбивки (<codeph>true</codeph>), который фактически делает заливку объекта прозрачной и выявляет цвет фона документа. 
+     </apiDesc></apiParam><apiParam><apiItemName>hideObject</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, является ли объект скрытым. Значение <codeph>true</codeph> указывает на то, что сам объект не нарисован, видна только его день. 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DropShadowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр DropShadowFilter со всеми свойствами оригинального экземпляра DropShadowFilter.
+     
+      </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DropShadowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Значение альфа-прозрачности цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение альфа-прозрачности цвета. Действительны значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       Угол наклона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       Угол наклона. Действительны значения от 0 до 360°. Значение угла представляет угол, под которым падает свет из предполагаемого источника, и определяет расположение эффекта относительно объекта. Если свойство distance имеет значение 0, эффект не смещается относительно объекта и, следовательно, свойство angle никак не влияет на результат.
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:color:get"><apiName>color</apiName><shortdesc>
+      Цвет свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет свечения. Действительны значения в шестнадцатеричном формате 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      Расстояние смещения наклона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расстояние смещения наклона. Действительные значения заданы в пикселях (плавающая точка). 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:hideObject:get"><apiName>hideObject</apiName><shortdesc>
+      Определяет, является ли объект скрытым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, является ли объект скрытым. Значение <codeph>true</codeph> указывает на то, что сам объект не нарисован, видна только его тень. Значение по умолчанию – <codeph>false</codeph>, что предполагает отображение объекта.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      Определяет, является ли свечение внутренним свечением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, является ли свечение внутренним свечением. Значение <codeph> true</codeph> говорит о том, что свечение внутреннее. Значением по умолчанию является <codeph>false</codeph>, что предполагает внешнее свечение (свечение вокруг внешнего контура объекта).
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+Класс ConvolutionFilter применяет эффект фильтра матричного свертывания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:ConvolutionFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:ConvolutionFilter 
+   <strong>Properties</strong>
+   alpha="1"
+   clamp="true"
+   color="0xFF0000"
+   divisor="1.0"
+   matrix="[]"
+   matrixX="0"
+   matrixY="0"
+   preserveAlpha="true"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+Класс ConvolutionFilter применяет эффект фильтра матричного свертывания. Свертывание объединяет пиксели во входном изображении с соседними пикселями для создания изображения. С помощью свертывания можно выполнять множество различных операций по обработке изображений, включая размытие, определение краев, регулировку резкости, тиснение и наклон. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+
+<p>Создать фильтр «Свертывание» можно с помощью синтаксиса <codeph>new ConvolutionFilter()</codeph>. Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+<ul><li>Если фильтр применяется к фрагментам ролика, текстовым полям, кнопкам или видео, следует использовать свойство <codeph>filters</codeph> (наследуемое от класса DisplayObject). При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+
+<li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+</ul>
+
+<p>При применении фильтра к экранному объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+
+<p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+
+ </apiDesc><example conref="ConvolutionFilterExample.mxml"><swfblock conref="examples/ConvolutionFilterExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.filters:ConvolutionFilter:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrixX</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Размер <i>x</i> матрицы (число столбцов в матрице). Значением по умолчанию является 0.
+     </apiDesc></apiParam><apiParam><apiItemName>matrixY</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Размер <i>y</i> матрицы (число столбцов в матрице). Значением по умолчанию является 0.
+     </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений, используемых для матричных преобразований. Число элементов массива должно равняться <codeph>matrixX ~~ matrixY</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>divisor</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Делитель, используемый при проведении преобразования матрицы. Значением по умолчанию является 1. Делитель, являющийся суммой всех значений матрицы, выравнивает интенсивность цвета получаемого изображения. Значение 0 игнорируется, а вместо него используется значение по умолчанию. 
+     </apiDesc></apiParam><apiParam><apiItemName>bias</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Степень смещения, добавляемого к результату преобразования матрицы. Значением по умолчанию является 0.
+     </apiDesc></apiParam><apiParam><apiItemName>preserveAlpha</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Значение <codeph>false</codeph> указывает, что значение альфа-канала не сохранено, а свертывание применяется ко всем каналам, включая альфа-канал. Значение <codeph>true</codeph> указывает, что свертывание применяется только к цветовым каналам. По умолчанию используется значение <codeph>true</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>clamp</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Для пикселей, лежащих за пределами исходного изображения, значение <codeph>true</codeph> указывает на то, что входное изображение растянуто по каждой из границ методом дублирования значений цветов на данном крае входного изображения. Значение <codeph>false</codeph> указывает на то, что следует использовать другой цвет, согласно значениям свойств <codeph>color</codeph> и <codeph>alpha</codeph>. Значение по умолчанию — <codeph>true</codeph>. 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Шестнадцатеричный цвет для замены пикселей, отсутствующих в исходном изображении.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Значение альфа-канала для цвета замены.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ConvolutionFilter:clone"><apiName>clone</apiName><shortdesc> 
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр ConvolutionFilter с теми же свойствами, что и оригинальный экземпляр ConvolutionFilter.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc> 
+     Возвращает копию данного объекта фильтра.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ConvolutionFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Значение альфа-прозрачности цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение альфа-прозрачности цвета. Действительны значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:bias:get"><apiName>bias</apiName><shortdesc>
+      Степень смещения, добавляемого к результату преобразования матрицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень смещения, добавляемого к результату преобразования матрицы. Смещение увеличивает значение цвета в каждом канале, так что темные цвета кажутся светлее. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:clamp:get"><apiName>clamp</apiName><shortdesc>
+      Определяет, зафиксировано ли изображение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, зафиксировано ли изображение. Для пикселей, лежащих за пределами исходного изображения, значение true указывает, что входное изображение растянуто по каждой из границ методом дублирования значений цветов на соответствующем крае входного изображения. Значение false указывает на то, что следует использовать другой цвет, согласно значениям свойств color и alpha.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:color:get"><apiName>color</apiName><shortdesc>
+      Цвет свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет свечения. Действительны значения в шестнадцатеричном формате 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:divisor:get"><apiName>divisor</apiName><shortdesc>
+      Делитель, используемый при проведении преобразования матрицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Делитель, используемый при проведении преобразования матрицы. Значением по умолчанию является 1. Делитель, являющийся суммой всех значений матрицы, смягчает интенсивность цвета получаемого изображения. Значение 0 игнорируется, а вместо него используется значение по умолчанию.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixX:get"><apiName>matrixX</apiName><shortdesc>
+     Измерение х матрицы (число строк в матрице).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Измерение х матрицы (число строк в матрице). 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixY:get"><apiName>matrixY</apiName><shortdesc>
+     Измерение y матрицы (число столбцов в матрице).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Измерение y матрицы (число столбцов в матрице). 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень размытия по горизонтали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:preserveAlpha:get"><apiName>preserveAlpha</apiName><shortdesc>
+      Определяет, сохраняется ли альфа-канал без эффекта фильтра или фильтр свертывания применяется к альфа-каналу так же, как и к цветовым каналам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, сохраняется ли альфа-канал без эффекта фильтра или фильтр свертывания применяется к альфа-каналу так же, как и к цветовым каналам. Значение false указывает, что свертывание применяется ко всем каналам, включая альфа-канал. Значение true указывает, что свертывание применяется только к цветовым каналам.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+ Класс BlurFilter позволяет применять визуальный эффект размывки к экранным объектам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BlurFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BlurFilter
+    <strong>Properties</strong>
+    blurX="4.0"
+    blurY="4.0"
+    quality="low"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс BlurFilter позволяет применять визуальный эффект размывки к экранным объектам. Эффект размытия смягчает детали изображения. Можно создавать различные размытия: от мягкого и расфокусированного до размытия по Гауссу — дымчатого изображения, которое зритель видит будто бы через полупрозрачное стекло. При значении low свойства <codeph>quality</codeph> этого фильтра результатом будет слегка расфокусированное изображение. Если же свойству <codeph>quality</codeph> присвоено значение high, то изображение будет ближе к размытию по Гауссу. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Новый фильтр можно создать с помощью конструктора <codeph>new BlurFilter()</codeph>. Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Если фильтр применяется к фрагментам ролика, текстовым полям, кнопкам или видео, следует использовать свойство <codeph>filters</codeph> (наследуемое от класса DisplayObject). При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к визуализируемому объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+ 
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, он не поддерживает общее масштабирование, повороты и искажение. Если сам объект увеличен или уменьшен (т. е. если свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> не равны 100%), эффект фильтр не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="BlurFilterExample.mxml"><swfblock conref="examples/BlurFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BlurFilter.xml"><linktext>flash.filters.BlurFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BlurFilter:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Величина размытия по горизонтали. Действительны значения от 0 до 255,0 (значение с плавающей точкой). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Величина размытия по вертикали. Действительны значения от 0 до 255,0 (значение с плавающей точкой). 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Заданное число применений фильтра. Для указания качества можно использовать константы flash.filters.BitmapFilterQuality:
+     <ul>
+     <li><codeph>flash.filters.BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>При высоком качестве (high) изображение похоже на размытие по Гауссу. Для большинства приложений этих значений достаточно. Хотя можно использовать дополнительные числовые значения до 15 для получения разнообразных эффектов, более высокие значения выполняются дольше.</p>
+     </apiDesc></apiParam><apiTipTexts><apiTipText>Инициализирует фильтр.
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     Конструктор. Значения по умолчанию дают мягкое, расфокусированное изображение.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:BlurFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр BlurFilter с теми же свойствами, что и оригинальный экземпляр BlurFilter.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BlurFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень размытия по горизонтали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень размытия по вертикали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      Заданное число применений фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>"low"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Заданное число применений фильтра. Значение по умолчанию — <codeph>BitmapFilterQuality.LOW</codeph>, что эквивалентно однократному применению фильтра. Значение <codeph>BitmapFilterQuality.MEDIUM</codeph> применяет фильтр дважды; значение <codeph>BitmapFilterQuality.HIGH</codeph> — трижды. Фильтры с более низкими значениями выполняются быстрее. 
+     
+      <p>Для большинства приложений достаточно значений качества low (низкое), medium (среднее) или high (высокое). Хотя можно использовать дополнительные числовые значения до 15 для получения разнообразных эффектов, более высокие значения выполняются дольше. Вместо увеличения значения quality можно просто увеличить значения свойств <codeph>blurX</codeph> и <codeph>blurY</codeph>. Это даст похожий эффект, а выполнение будет происходить быстрее.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+  Класс ColorMatrixFilter позволяет применить матричное преобразование 4 x 5 в цветовой схеме RGBA с альфа-каналом к каждому пикселю входного изображения для получения результата с новым набором значений в схеме RGBA и альфа-канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ColorMatrixFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ColorMatrixFilter
+    <strong>Properties</strong>
+    matrix="[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ColorMatrixFilter позволяет применить матричное преобразование 4 x 5 в цветовой схеме RGBA с альфа-каналом к каждому пикселю входного изображения для получения результата с новым набором значений в схеме RGBA и альфа-канала. Благодаря этому можно изменять насыщенность, оттенок и яркость альфа-канала и применять другие эффекты. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+  </apiDesc><example conref="ColorMatrixFilterExample.mxml"><swfblock conref="examples/ColorMatrixFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.ColorMatrixFilter.xml"><linktext>flash.filters.ColorMatrixFilter</linktext></link></related-links><apiConstructor id="spark.filters:ColorMatrixFilter:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив из 20 элементов, формирующий матрицу размером 4 x 5.
+     
+     </apiDesc></apiParam><apiTipTexts><apiTipText>Инициализирует новый экземпляр ColorMatrixFilter.
+     
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ColorMatrixFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр ColorMatrixFilter с теми же свойствами, что и оригинал.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ColorMatrixFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Список из 20 чисел с двойной точностью, разделенных запятой, которые составляют матрицу 4x5, применяемую к визуализируемому элементу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Список из 20 чисел с двойной точностью, разделенных запятой, которые составляют матрицу 4x5, применяемую к визуализируемому элементу. Матрица имеет построчный порядок, т. е. первые пять элементов умножаются на вектор [srcR,srcG,srcB,srcA,1] для определения выходного значения красного, вторые пять элементов определяют выходное значение зеленого и т. д. 
+     
+      <p>Значение должно быть массивом или строкой из 20 чисел, разделенных запятой. </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+ Базовый класс для фильтров, обеспечивающих визуальные эффекты градиента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientFilter
+    <strong>Properties</strong>
+    angle="45"
+    distance="4.0"
+    entries="[]"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Базовый класс для фильтров, обеспечивающих визуальные эффекты градиента.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.filters.xml#GradientGlowFilter"><linktext>spark.filters.GradientGlowFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter"><linktext>spark.filters.GradientBevelFilter</linktext></link></related-links><apiConstructor id="spark.filters:GradientFilter:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив шестнадцатеричных значений цвета RGB для применения в градиенте. Например, красный задается значением 0xFF0000, голубой — значением 0x0000FF и т.д.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений альфа-прозрачности для соответствующих цветов в массиве <codeph>colors</codeph>. Действительные значения для каждого из элементов массива — от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений распределения цветов; действительными являются значения от 0 до 255.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:GradientFilter:angle:get"><apiName>angle</apiName><shortdesc>
+      Угол в градусах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Угол в градусах. Действительны значения от 0 до 360. Значение угла представляет угол, под которым падает свет из предполагаемого источника, и определяет расположение эффекта относительно объекта. Если distance равно 0, эффект не смещается относительно объекта и, следовательно, свойство angle никак не влияет на объект.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      Расстояние смещения свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расстояние смещения свечения. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:entries:get"><apiName>entries</apiName><shortdesc>
+      Массив объектов GradientEntry, определяющий узор градиентной заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Массив объектов GradientEntry, определяющий узор градиентной заливки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:type:get"><apiName>type</apiName><shortdesc>
+      Расположение эффекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расположение эффекта фильтра. Возможными значениями являются константы flash.filters.BitmapFilterType:
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> – свечение по внешнему краю объекта.</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> – свечение по внутреннему краю объекта.</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> — свечение по всему объекту.</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:BevelFilter"><apiName>BevelFilter</apiName><shortdesc> 
+ Класс BevelFilter позволяет добавлять эффект наклона в экранные объекты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BevelFilter 
+    <strong>Properties</strong>
+    angle="45"
+    distance="4"
+    highlightAlpha="1"
+    highlightColor="0xFFFFFF"
+    shadowAlpha="1"
+    shadowColor="0x000000"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc> 
+ Класс BevelFilter позволяет добавлять эффект наклона в экранные объекты. Эффект наклона позволяет сделать объекты, например кнопки, трехмерными. Вид наклона можно изменять с помощью различных цветов подсветок и теней, силы размытия на наклоне, угла и расположения наклона, а также эффекта выбивки. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Новый фильтр можно создать с помощью конструктора <codeph>new BevelFilter()</codeph>. Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Если фильтр применяется к фрагментам ролика, текстовым полям, кнопкам или видео, следует использовать свойство <codeph>filters</codeph> (наследуемое от класса DisplayObject). При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к экранному объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+ 
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, он не поддерживает общее масштабирование, повороты и искажение. Если сам объект увеличен или уменьшен (т. е. если свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> не равны 100%), фильтр не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="BevelFilterExample.mxml"><swfblock conref="examples/BevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BevelFilter.xml"><linktext>flash.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BevelFilter:BevelFilter"><apiName>BevelFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Расстояние смещения наклона в пикселах (плавающая запятая). 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Угол скоса, от 0 до 360 градусов. 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightColor</apiItemName><apiType value="uint"/><apiData>0xFFFFFF</apiData><apiDesc>Цвет подсветки скоса, <i>0xRRGGBB</i>. 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Значение альфа-прозрачности цвета выделения. Действительны значения от 0.0 до 1.0. Например, при 0,25 устанавливается 25-процентная прозрачность. 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowColor</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Цвет подсветки скоса, <i>0xRRGGBB</i>. 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Значение альфа-прозрачности цвета тени. Действительны значения от 0.0 до 1.0. Например, при 0,25 устанавливается 25-процентная прозрачность. 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по горизонтали в пикселях. Действительны значения от 0 до 255,0 (плавающая запятая). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по вертикали в пикселях. Действительны значения от 0 до 255,0 (плавающая запятая).
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между наклоном и фоном. Действительны значения от 0 до 255,0. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Качество наклона. Действительны значения от 0 до 15, но для большинства приложений можно использовать константы <codeph>flash.filters.BitmapFilterQuality</codeph>:
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Фильтры с более низкими значениями выполняются быстрее. Для достижения нужных эффектов можно использовать и другие числовые значения.</p>
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>Тип скоса. Действительные значения констант <codeph>flash.filters.BitmapFilterType</codeph>: <codeph>BitmapFilterType.INNER</codeph>, <codeph>BitmapFilterType.OUTER</codeph> или <codeph>BitmapFilterType.FULL</codeph>. 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Применяет эффект выбивки (<codeph>true</codeph>), который фактически делает заливку объекта прозрачной и выявляет цвет фона документа.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:BevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр BevelFilter с теми же свойствами, что и оригинальный экземпляр BevelFilter.
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BevelFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       Угол фаски в градусах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       Угол фаски в градусах. Действительны значения от 0 до 360. Значение угла представляет угол, под которым падает свет из предполагаемого источника, и определяет расположение эффекта относительно объекта. Если свойство distance имеет значение 0, эффект не смещается относительно объекта и, следовательно, свойство angle никак не влияет на результат.
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      Расстояние смещения наклона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расстояние смещения наклона. Действительные значения заданы в пикселях (плавающая точка). 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightAlpha:get"><apiName>highlightAlpha</apiName><shortdesc>
+      Значение альфа-прозрачности цвета выделения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение альфа-прозрачности цвета выделения. Значение указано в виде нормализованного значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightColor:get"><apiName>highlightColor</apiName><shortdesc>
+      Цвет подсветки наклона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет подсветки наклона. Действительны значения в шестнадцатеричном формате, 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowAlpha:get"><apiName>shadowAlpha</apiName><shortdesc>
+      Значение альфа-прозрачности цвета тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение альфа-прозрачности цвета тени. Данное значение указано в виде нормализованного значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowColor:get"><apiName>shadowColor</apiName><shortdesc>
+      Цвет тени для наклона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет тени для наклона. Действительны значения в шестнадцатеричном формате, 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:type:get"><apiName>type</apiName><shortdesc>
+      Расположение эффекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Расположение эффекта фильтра. Возможными значениями являются константы flash.filters.BitmapFilterType:
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> – свечение по внешнему краю объекта.</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> — свечение по внутреннему краю объекта.</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> — свечение по всему объекту.</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+ Класс GradientGlowFilter позволяет применять эффект градиентного свечения к экранным объектам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientGlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientGlowFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс GradientGlowFilter позволяет применять эффект градиентного свечения к экранным объектам. Градиентное свечение — это реалистичное свечение с цветовым градиентом, которым можно управлять. Можно накладывать градиентное свечение по внутреннему или внешнему краю объекта или поверх объекта. Фильтр можно применять к любому экранному объекту (т.е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Применить фильтр к экранным объектам можно с помощью свойства <codeph>filters</codeph>. При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к визуализируемому объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p> 
+ 
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, общее масштабирование, вращение и искажение не поддерживается. Если сам объект увеличен или уменьшен (т.е. если <codeph>scaleX</codeph> и <codeph>scaleY</codeph> имеют значение, отличное от 1,0), эффект фильтра не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="GradientGlowFilterExample.mxml"><swfblock conref="examples/GradientGlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#GlowFilter"><linktext>spark.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.filters.GradientGlowFilter.xml"><linktext>flash.filters.GradientGlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link></related-links><apiConstructor id="spark.filters:GradientGlowFilter:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Расстояние смещения свечения. 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Угол в градусах. Действительны значения от 0 до 360. 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив цветов, задающий градиент. Например, красный задается значением 0xFF0000, голубой — значением 0x0000FF и т.д.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений альфа-прозрачности для соответствующих цветов в массиве <codeph>colors</codeph>. Действительные значения для каждого из элементов массива — от 0 до 1. Например, при задании значения 0,25 устанавливается 25% альфа-прозрачность.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив значений распределения цветов. Действительны значения от 0 до 255. Это значение определяет процент ширины, на которой цвет представлен на 100%.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по горизонтали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по вертикали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между свечением и фоном. Действительны значения от 0 до 255. Чем больше значение, тем более насыщен цвет. Значение 0 означает, что фильтр не применяется.
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Заданное число применений фильтра. Используйте константы flash.filters.BitmapFilterQuality:
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Подробные сведения см. в описании свойства <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>outer</apiData><apiDesc>Расположение эффекта фильтра. Возможными значениями являются константы flash.filters.BitmapFilterType:
+     <ul>
+     <li><codeph>BitmapFilterType.OUTER</codeph> — свечение по внешнему краю объекта.; по умолчанию.</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> – свечение по внутреннему краю объекта.</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> — свечение по всему объекту.</li>
+     </ul>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, применяется ли к объекту эффект выбивки. Эффект выбивки делает заливку объекта прозрачной и выявляет цвет фона документа. Значение <codeph>true</codeph> указывает на наличие эффекта выбивки. По умолчанию задано значение <codeph>false</codeph> (без эффекта выбивки).
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientGlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр GradientGlowFilter с теми же свойствами, что и оригинальный экземпляр GradientGlowFilter.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+Класс DisplacementMapFilter использует значения пикселей заданного объекта BitmapData (так называемого изображения схемы искривления) для искривления замещения объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:DisplacementMapFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:DisplacementMapFilter 
+   <strong>Properties</strong>
+   alpha="0"
+   color="0x000000"
+   componentX="0"
+   componentY="0"
+   mapBitmap="null"
+   mapPoint="null"
+   mode="wrap"
+   scaleX="0"
+   scaleY="0"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+Класс DisplacementMapFilter использует значения пикселей заданного объекта BitmapData (так называемого <i>изображения схемы искривления</i>) для искривления замещения объекта. Этот фильтр можно использовать для применения эффекта деформации или крапинок к любому объекту, наследуемому от класса DisplayObject, например MovieClip, SimpleButton, TextField и Video, а также к объектам BitmapData.
+
+<p>Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+<ul><li>Применить фильтры к экранному объекту можно с помощью свойства <codeph>filters</codeph> этого объекта. При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+
+<li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта filter формируется изображение с применением фильтра.</li>
+</ul>
+
+<p>При применении фильтра к экранному объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+
+<p>В фильтре используется следующая формула:</p>
+
+<codeblock>
+dstPixel[x, y] = srcPixel[x + ((componentX(x, y) - 128) ~~ scaleX) / 256, y + ((componentY(x, y) - 128) ~~scaleY) / 256)
+</codeblock>
+
+<p>где <codeph>componentX(x, y)</codeph> получает значение цвета свойства <codeph>componentX</codeph> от свойства <codeph>mapBitmap</codeph> при <codeph>(x — mapPoint.x ,y — mapPoint.y)</codeph>.</p>
+
+<p>Изображение карты, используемое фильтром, масштабируется по размеру сцены. Оно не масштабируется при масштабировании самого объекта.</p>
+
+<p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, общее масштабирование, повороты и искажение не поддерживаются. Если сам объект увеличен или уменьшен (т. е. если свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> принимают значение, отличное от 1,0), фильтр не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:DisplacementMapFilter:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>mapBitmap</apiItemName><apiType value="flash.display:BitmapData"/><apiData>null</apiData><apiDesc>Объект BitmapData, содержащий данные карты замещения.
+     </apiDesc></apiParam><apiParam><apiItemName>mapPoint</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>Значение, содержащее смещение левого верхнего угла целевого экранного объекта из левого верхнего угла изображения карты.
+     </apiDesc></apiParam><apiParam><apiItemName>componentX</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Указывает цветовой канал, который следует использовать в изображении карты для замещения результата <i>x</i>. Возможными значениями являются константы BitmapDataChannel: 
+     </apiDesc></apiParam><apiParam><apiItemName>componentY</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Указывает цветовой канал, который следует использовать в изображении схемы для замещения результата <i>y</i>. Возможными значениями являются константы BitmapDataChannel: 
+     </apiDesc></apiParam><apiParam><apiItemName>scaleX</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Множитель, с помощью которого масштабируется результат замещения <i>x</i>, полученного в ходе вычисления схемы.
+     </apiDesc></apiParam><apiParam><apiItemName>scaleY</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Множитель, с помощью которого масштабируется результат <i>y</i> замещения, полученного в ходе вычисления карты.
+     </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiData>wrap</apiData><apiDesc>Режим фильтра. Возможными значениями являются константы DisplacementMapFilterMode:
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Задает цвет, используемый при смещениях, выходящих за пределы границ. Допустимый диапазон смещений — от 0,0 до 1,0. Этот параметр используется, если для <codeph>mode</codeph> установлено значение <codeph>DisplacementMapFilterMode.COLOR</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Задает альфа-значение, используемое при смещениях, выходящих за пределы границ. Указывается в виде нормализованного значения от 0,0 до 1,0. Например, при 0,25 устанавливается 25-процентная прозрачность. Этот параметр используется, если для <codeph>mode</codeph> установлено значение <codeph>DisplacementMapFilterMode.COLOR</codeph>.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link><link href="" invalidHref="flash.filters.DisplacementMapFilterMode.xml"><linktext>flash.filters.DisplacementMapFilterMode</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DisplacementMapFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр DisplacementMapFilter с теми же свойствами, что и оригинальный экземпляр.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DisplacementMapFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Задает значение альфа-прозрачности, применяемое для замещения «вне пределов».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Задает значение альфа-прозрачности, применяемое для замещения «вне пределов». Указывается в виде нормализованного значения от 0,0 до 1,0. Например, при 0,25 устанавливается 25-процентная прозрачность. Значением по умолчанию является 0. Это свойство используется, если свойство mode принимает значение DisplacementMapFilterMode.COLOR.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:color:get"><apiName>color</apiName><shortdesc>
+      Задает цвет, используемый при смещениях, выходящих за пределы границ.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Задает цвет, используемый при смещениях, выходящих за пределы границ. Допустимый диапазон смещений – от 0,0 до 1,0. Значения приводятся в шестнадцатеричном формате. Значение color по умолчанию равно 0. Это свойство используется, если свойство mode принимает значение DisplacementMapFilterMode.COLOR. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentX:get"><apiName>componentX</apiName><shortdesc>
+      Указывает цветовой канал, который следует использовать в изображении карты для замещения результата x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает цветовой канал, который следует использовать в изображении карты для замещения результата x. Возможные значения являются константами BitmapDataChannel:
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link></related-links></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentY:get"><apiName>componentY</apiName><shortdesc>
+      Указывает цветовой канал, который следует использовать в изображении карты для замещения результата y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает цветовой канал, который следует использовать в изображении карты для замещения результата y. Возможные значения являются константами BitmapDataChannel:
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapBitmap:get"><apiName>mapBitmap</apiName><shortdesc>
+      Объект BitmapData, содержащий данные карты замещения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Объект BitmapData, содержащий данные карты замещения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapPoint:get"><apiName>mapPoint</apiName><shortdesc>
+      Значение, содержащее смещение левого верхнего угла целевого экранного объекта из левого верхнего угла изображения карты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Point"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение, содержащее смещение левого верхнего угла целевого экранного объекта из левого верхнего угла изображения карты.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mode:get"><apiName>mode</apiName><shortdesc>
+      Режим для фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>DisplacementMapFilterMode.WRAP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Режим для фильтра. Возможные значения являются константами DisplacementMapFilterMode:
+      <ul>
+        <li><codeph>DisplacementMapFilterMode.WRAP</codeph> – переносит значение замещения на другую сторону исходного изображения.</li>
+        <li><codeph>DisplacementMapFilterMode.CLAMP</codeph> — фиксирует значение замещения по краю исходного изображения.</li>
+        <li><codeph>DisplacementMapFilterMode.IGNORE</codeph> — если значение замещения находится вне диапазона, игнорирует замещение и использует исходный пиксель.</li>
+        <li><codeph>DisplacementMapFilterMode.COLOR</codeph> — если значение замещения находится вне изображения, заменяет значения свойств color и alpha.</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Множитель, с помощью которого масштабируется результат x замещения, полученного в ходе вычисления карты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Множитель, с помощью которого масштабируется результат x замещения, полученного в ходе вычисления карты.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Множитель, с помощью которого масштабируется результат y замещения, полученного в ходе вычисления карты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Множитель, с помощью которого масштабируется результат y замещения, полученного в ходе вычисления карты.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+ Класс Flex ShaderFilter обеспечивает удаление многих подробных данных об использовании классов ShaderFilter, Shader и ShaderData Flash для применения затенения Pixel Bender в качестве фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ShaderFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ShaderFilter
+    <strong>Properties</strong>
+    bottomExtension="0"
+    leftExtension="0"
+    precisionHint="full"
+    rightExtension="0"
+    shader="[]"
+    topExtension="0"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс Flex ShaderFilter обеспечивает удаление многих подробных данных об использовании классов ShaderFilter, Shader и ShaderData Flash для применения затенения Pixel Bender в качестве фильтра.
+ 
+ <p>Класс ShaderFilter должен быть инициализирован с экземпляром объекта Shader или элементом Class, представляющим Shader (например, из Embed). После этого класс ShaderFilter используется в качестве прокси для основного элемента Shader, обеспечивая удобный механизм непосредственного доступа к обоим скалярным и многомерным входным параметрам шейдера как к простым именованным свойствам.</p>
+ 
+ <p>Для установки простого скалярного входного параметра затенения, такого как тип FLOAT или INT, можно напрямую обратиться к свойству, например <codeph>myFilter.radius</codeph>.</p>
+ 
+ <p>Для установки или анимации отдельного компонента многомерного входного параметра затенения, например FLOAT2, можно использовать соглашение о суффиксах свойств, позволяющих обращаться непосредственно к отдельным значениям. В приведенном ниже коде показаны два пути для первого и второго компонента свойства <codeph>center</codeph>: FLOAT2: <codeph><pre>
+     // 'center' is an input parameter of type FLOAT2.
+     shader.center = [10,20];
+ </pre></codeph>
+ <codeph><pre>
+     // Use property suffix convention to access the first and second component of 'center'. 
+     shader.center_x = 10;
+     shader.center_y = 20;
+ </pre></codeph></p>
+ 
+ <p>Ниже приведен полный набор суффиксов, которые можно использовать: </p>
+ 
+ <ul>
+ <li>Для входных параметров затенения типа BOOL2, BOOL3, BOOL4, FLOAT2, FLOAT3, FLOAT4, INT2, INT3 или INT4 для обращения к первому, второму, третьему и четвертому компонентам соответственно можно использовать значения «r g b a», «x y z w» или «s t p q».</li>
+ 
+ <li>Для входных параметров затенения типа MATRIX2x2, MATRIX3x3 или MATRIX4x4 для обращения к 1-16 компонентам заданной матрицы, можно использовать значения «a b c d e f g h i j k l m n o p».</li>
+ </ul>
+ 
+ <p>При изменении свойств ShaderFilter (например, в ходе анимации), элемент ShaderFilter автоматически повторно применяется к массиву фильтров визуального компонента, к которому он применяется.</p>
+ 
+  </apiDesc><example>Простой пример ShaderFilter:
+ <codeblock rev="3.0">
+ &lt;?xml version="1.0"?>
+ &lt;s:Application 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009">
+ 
+     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
+          with the following attributes:
+ 
+          parameter 'center' ==&lt;
+              type: float2
+              minValue: float2(-200,-200)
+              maxValue: float2(800,500)
+              defaultValue: float2(400,250)
+              description: "displacement center"
+  
+          parameter 'radius' ==&lt;
+              type: float
+              minValue: float(.1)
+              maxValue: float(400)
+              defaultValue: float(200)
+              description: "radius"
+     -->
+  
+     &lt;s:Label text="ABCDEF">
+         &lt;s:filters>
+             &lt;s:ShaderFilter shader="@Embed(source='shaders/spherize.pbj')"
+                 radius="25" center_x="50" center_y="15" />
+        &lt;/s:filters>
+     &lt;/s:Label>
+   
+ &lt;/s:Application> 
+ </codeblock>
+  
+  </example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateFilter"><linktext>spark.effects.AnimateFilter</linktext></link></related-links><apiConstructor id="spark.filters:ShaderFilter:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>shader</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Полностью реализованный экземпляр flash.display.Shader или элемент Class, представляющий Shader (например, из Embed).
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:ShaderFilter:bottomExtension:get"><apiName>bottomExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:leftExtension:get"><apiName>leftExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#leftExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#leftExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:precisionHint:get"><apiName>precisionHint</apiName><shortdesc>
+      Точность вычисления математических операций, выполняемых основным затенением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ShaderPrecision.FULL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Точность вычисления математических операций, выполняемых основным затенением. Набор возможных значений свойства precisionHint определяется константами класса ShaderPrecision.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link><link href="" invalidHref="flash.display.ShaderPrecision.xml"><linktext>flash.display.ShaderPrecision</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:rightExtension:get"><apiName>rightExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#rightExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#rightExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:shader:get"><apiName>shader</apiName><shortdesc>
+     Экземпляр flash.display.Shader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Shader"/></apiValueDef><apiDesc>
+     Экземпляр flash.display.Shader.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:topExtension:get"><apiName>topExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#topExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#topExtension">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+ Класс GlowFilter позволяет применять эффект свечения к экранным объектам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlowFilter
+    <strong>Properties</strong>
+    alpha="1"
+    color="0xFF0000"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс GlowFilter позволяет применять эффект свечения к экранным объектам. Существует несколько вариантов выбора стиля свечения, включая внутреннее и внешнее свечения и эффект выбивки. Фильтр свечения похож на фильтр тени, у которого свойствам <codeph>distance</codeph> и <codeph>angle</codeph> присвоено значение 0. Фильтр можно применять к любому экранному объекту (т. е. объекту, наследуемому от класса DisplayObject), например MovieClip, SimpleButton, TextField, Video, а также объектам BitmapData.
+ 
+ <p>Выбор фильтра зависит от объекта, к которому требуется его применить:</p>
+ <ul><li>Применить фильтр к экранным объектам можно с помощью свойства <codeph>filters</codeph> (наследуется от DisplayObject). При задании объекту свойства <codeph>filters</codeph> сам объект не изменяется, а фильтр можно удалить через свойство <codeph>filters</codeph>. </li>
+ 
+ <li>Для применения фильтров к объектам BitmapData следует пользоваться методом <codeph>BitmapData.applyFilter()</codeph>. При вызове <codeph>applyFilter()</codeph> для объекта BitmapData из исходного объекта BitmapData и объекта фильтра формируется изображение с применением фильтра.</li>
+ </ul>
+ 
+ <p>При применении фильтра к визуализируемому объекту свойство <codeph>cacheAsBitmap</codeph> этого объекта принимает значение <codeph>true</codeph>. Если удалить все фильтры, будет восстановлено исходное значение <codeph>cacheAsBitmap</codeph>.</p>
+ 
+ <p>Этот фильтр поддерживает масштабирование сцены. Тем не менее, он не поддерживает общее масштабирование, повороты и искажение. Если сам объект увеличен или уменьшен (т. е. если свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> принимают значение, отличное от 1,0), фильтр не масштабируется. Он масштабируется, только когда пользователь применяет увеличение к самой сцене.</p>
+ 
+ <p>Фильтр не применяется, если полученное изображение превышает максимальные размеры. В AIR 1.5 и Flash Player 10 максимальный размер изображения составляет 8 191 пикселей в ширину или высоту, а общее количество пикселей не может превышать 16 777 215. (Т. е. если ширина изображения составляет 8 191 пикселя, его высота не может быть больше 2 048 пикселей.) Например, при масштабировании большого фрагмента ролика, к которому применен фильтр, фильтр будет снят, если получившееся изображение превысит максимальные размеры.</p>
+ 
+  </apiDesc><example conref="GlowFilterExample.mxml"><swfblock conref="examples/GlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleX"><linktext>flash.display.DisplayObject.scaleX</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleY"><linktext>flash.display.DisplayObject.scaleY</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/distance"><linktext>flash.filters.DropShadowFilter.distance</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/angle"><linktext>flash.filters.DropShadowFilter.angle</linktext></link></related-links><apiConstructor id="spark.filters:GlowFilter:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0xFF0000</apiData><apiDesc>Цвет свечения в шестнадцатеричном формате 0x<i>RRGGBB</i>. Значение по умолчанию — 0xFF0000.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Значение альфа-прозрачности цвета. Действительны значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по горизонтали. Действительны значения от 0 до 255 (плавающая запятая). Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Степень размытия по вертикали. Действительны значения от 0 до 255 (плавающая запятая). Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между свечением и фоном. Действительны значения от 0 до 255. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Заданное число применений фильтра. Используйте константы BitmapFilterQuality:
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Подробные сведения см. в описании свойства <codeph>quality</codeph>.</p>
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, является ли свечение внутренним свечением. Значение <codeph> true</codeph> говорит о том, что свечение внутреннее. Значение <codeph>false</codeph> задает внешнее свечение (свечение вокруг внешнего контура объекта). 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, применяется ли к объекту эффект выбивки. Значение <codeph>true</codeph> делает заливку объекта прозрачной и делает видимым цвет фона документа. 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="spark.filters.BitmapFilterQuality.xml"><linktext>BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:GlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Возвращает копию данного объекта фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр GlowFilter со всеми свойствами оригинального экземпляра GlowFilter.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Возвращает копию данного объекта фильтра.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:GlowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Значение альфа-прозрачности цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение альфа-прозрачности цвета. Действительны значения от 0 до 1. Например, при 0,25 устанавливается 25-процентная прозрачность.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:color:get"><apiName>color</apiName><shortdesc>
+      Цвет свечения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет свечения. Действительны значения в шестнадцатеричном формате 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      Определяет, является ли свечение внутренним свечением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, является ли свечение внутренним свечением. Значение true говорит о том, что свечение внутреннее. Значением по умолчанию является false, что предполагает внешнее свечение (свечение вокруг внешнего контура объекта).
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

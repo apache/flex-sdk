@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor"><apiName>ITreeDataDescriptor</apiName><shortdesc>
+  Интерфейс, предоставляющий методы для анализа и добавления узлов в коллекцию данных, отображаемых в древовидной структуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс, предоставляющий методы для анализа и добавления узлов в коллекцию данных, отображаемых в древовидной структуре.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Добавляет нижестоящий узел к узлу в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> в случае выполнения.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект узла, который будет вышестоящим для данного нижестоящего элемента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект узла, для которого этот узел является вышестоящим.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс местоположения, в котором размещается нижестоящий узел.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет нижестоящий узел к узлу в указанной позиции индекса.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Предоставляет доступ к нижестоящим элементам узла и возвращает отображение коллекции нижестоящих элементов, если они существуют.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отображение коллекции, включающей нижестоящие узлы.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Предоставляет доступ к нижестоящим элементам узла и возвращает отображение коллекции нижестоящих элементов, если они существуют. Узел может возвратить любой объект в коллекции в качестве нижестоящего элемента; нижестоящие элементы не обязательно должны быть вложенными. Как правило, для определенного узла возвращается одно и то же представление коллекции.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Обеспечивает получение данных из узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Запрашиваемые данные.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, из которого извлекаются данные.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, содержащая узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает получение данных из узла.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Выполняет проверку существования нижестоящих элементов в узле, не являющемся конечным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Если узел имеет, по крайней мере, один нижестоящий элемент, свойство имеет значение <codeph>true</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Текущий узел.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет проверку существования нижестоящих элементов в узле, не являющемся конечным.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Выполняет проверку того, является ли узел конечным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Логическое значение, указывающее на то, что этот узел не является конечным.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет проверку того, является ли узел конечным. Ветви не являются конечными, они не обязательно должны иметь конечные узлы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> в случае выполнения.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект узла, который является вышестоящим для данного нижестоящего элемента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Объект узла, подлежащий удалению.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс узла, подлежащего удалению.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor2"><apiName>ITreeDataDescriptor2</apiName><shortdesc>
+  Интерфейс ITreeDataDescriptor2 определяет методы для анализа и добавления узлов в коллекцию данных, отображаемых в древовидной структуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс ITreeDataDescriptor2 определяет методы для анализа и добавления узлов в коллекцию данных, отображаемых в древовидной структуре.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      Возвращает экземпляр ICollectionView, в котором иерархические данные отображаются таким же образом, как и в линейном экземпляре ICollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр ICollectionView.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Иерархические данные.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Функция, принимающая объект и возвращающая UID в виде строки. Этот параметр обычно является методом <codeph>Tree.itemToUID()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Элементы, которые были открыты или установлены как открытые.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает экземпляр ICollectionView, в котором иерархические данные отображаются таким же образом, как и в линейном экземпляре ICollectionView.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      Возвращает глубину узла, означающую количество предшествующих элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Глубина узла, где 0 соответствует верхнему уровню, а -1 указывает на невозможность вычисления глубины.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Экземпляр IViewCursor, который может использоваться для выполнения вычисления.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает глубину узла, означающую количество предшествующих элементов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getParent"><apiName>getParent</apiName><shortdesc>
+      Возвращает вышестоящий элемент узла. Для вышестоящего элемента узла верхнего уровня используется значение null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел в качестве нижестоящего, для узла верхнего уровня используется значение <codeph>null</codeph>, и <codeph>undefined</codeph>, если вышестоящий элемент определить невозможно.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Экземпляр ICollectionView, который может использоваться для выполнения вычисления.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает вышестоящий элемент узла. Для вышестоящего элемента узла верхнего уровня используется значение <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+  Класс TreeListData определяет тип данных свойства listData, реализованного с помощью средств визуализации или редакторов вставных элементов, для элемента управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TreeListData определяет тип данных свойства <codeph>listData</codeph>, реализованного с помощью средств визуализации или редакторов вставных элементов, для элемента управления Tree. Все средства визуализации вставных элементов или редакторы вставных элементов должны реализовать интерфейс IDropInListItemRenderer, определяющий свойство <codeph>listData</codeph>.
+ 
+  <p>Несмотря на то что свойства этого класса являются перезаписываемыми, их необходимо рассматривать как доступные только для чтения. Они инициализируются классом Tree и считываются с помощью средства визуализации или редактора элементов. Это может привести к непредвиденным результатам.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:TreeListData:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Текстовое представление данных элемента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для элемента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Ссылка на элемент управления Tree.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс элемента в поставщике данных для элемента управления Tree.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс столбца в видимых в настоящий момент столбцах элемента управления.
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeListData:depth"><apiName>depth</apiName><shortdesc>
+	  Уровень элемента в древовидной структуре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Уровень элемента в древовидной структуре. Верхний уровень – 1.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+	  Класс, представляющий значок раскрытия для позиции в элементе управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Класс, представляющий значок раскрытия для позиции в элементе управления Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+	  Содержит значение true, если узел имеет нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Содержит значение <codeph>true</codeph>, если узел имеет нижестоящие элементы.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:icon"><apiName>icon</apiName><shortdesc>
+	  Класс, представляющий значок для позиции в элементе управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Класс, представляющий значок для позиции в элементе управления Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:indent"><apiName>indent</apiName><shortdesc>
+	  Отступ по умолчанию для этой строки элемента управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Отступ по умолчанию для этой строки элемента управления Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:item"><apiName>item</apiName><shortdesc>
+	  Данные для этого элемента управления Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Данные для этого элемента управления Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:open"><apiName>open</apiName><shortdesc>
+	  Содержит значение true, если узел является открытым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Содержит значение <codeph>true</codeph>, если узел является открытым.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.treeClasses:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+  Класс DefaultDataDescriptor обеспечивает реализацию по умолчанию для получения и обработки данных, используемых в элементах управления, таких как Tree и Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor2</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuDataDescriptor</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DefaultDataDescriptor обеспечивает реализацию по умолчанию для получения и обработки данных, используемых в элементах управления, таких как Tree и Menu. Эта реализация позволяет выполнять обработку узлов e4x XML и узлов объекта похожими, но несколько отличающимися способами. Подробная информация относительно способов, используемых методом для получения доступа к значениям в узлах различных типов, содержится в описании соответствующего метода. Этот класс является значением по умолчанию для свойств <codeph>dataDescriptor</codeph> элементов управления Tree, Menu, MenuBar и PopUpMenuButton.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.treeClasses.xml#ITreeDataDescriptor"><linktext>mx.controls.treeClasses.ITreeDataDescriptor</linktext></link><link href="" invalidHref="mx.controls.menuClasses.IMenuDataDescriptor.xml"><linktext>mx.controls.menuClasses.IMenuDataDescriptor</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#PopUpMenuButton"><linktext>mx.controls.PopUpMenuButton</linktext></link><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:DefaultDataDescriptor:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Добавление нижестоящего узла к узлу в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> в случае выполнения.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект узла, который будет вышестоящим для данного нижестоящего элемента.
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Объект узла, для которого этот узел является вышестоящим.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс местоположения, в котором размещается нижестоящий узел, по отношению к вышестоящему узлу.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавление нижестоящего узла к узлу в указанной позиции индекса. Эта реализация позволяет выполнять следующее:
+     
+      <ul>
+          <li>Если параметр <codeph>parent</codeph> имеет значение null или undefined, параметр <codeph>child</codeph> вставляется в указанный индекс в коллекции, определенной с помощью параметра <codeph>model</codeph>.
+          </li>
+          <li>Если параметр <codeph>parent</codeph> имеет поле или свойство <codeph>children</codeph>, этот метод добавляет к нему параметр <codeph>child</codeph> в местоположении параметра <codeph>index</codeph>. В этом случае параметр <codeph>model</codeph> не требуется.
+         </li>
+         <li>Если параметр <codeph>parent</codeph> не имеет поля или свойства <codeph>children</codeph>, этот метод добавляет свойство <codeph>children</codeph> в <codeph>parent</codeph>. Затем метод добавляет параметр <codeph>child</codeph> в вышестоящий элемент в местоположении параметра <codeph>index</codeph>. В этом случае параметр <codeph>model</codeph> не требуется.
+         </li>
+         <li>Если значение <codeph>index</codeph> превышает длину коллекции или количество нижестоящих элементов в вышестоящем узле, объект добавляется в качестве последнего нижестоящего элемента.
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Предоставляет доступ к нижестоящим элементам узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, содержащий узлы нижестоящих элементов.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, содержащая узел; игнорируется этим классом.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Предоставляет доступ к нижестоящим элементам узла. Возвращает коллекцию нижестоящих элементов (при их наличии). Если узел является объектом, метод возвращает содержимое поля <codeph>children</codeph> объекта в виде ArrayCollection. Если узел является узлом XML, метод возвращает XMLListCollection, содержащую нижестоящие элементы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Возвращает данные узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Узел.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, содержащая узел; игнорируется этим классом.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает данные узла. В настоящее время возвращает весь узел.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getGroupName"><apiName>getGroupName</apiName><shortdesc>
+      Возвращает имя группы переключателей, к которой принадлежит узел (при наличии).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение атрибута узла или поля <codeph>groupName</codeph> или пустая строка при отсутствии указанной записи.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Узел, для которого требуется получить имя группы.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает имя группы переключателей, к которой принадлежит узел (при наличии). Этот метод используется элементами управления на основе меню.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      
+      Возвращает экземпляр ICollectionView, в котором иерархические данные отображаются таким же образом, как и в линейном экземпляре ICollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Экземпляр ICollectionView.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Иерархические данные.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Функция, принимающая объект и возвращающая UID в виде строки. Этот параметр обычно является методом <codeph>Tree.itemToUID()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Элементы, которые были открыты или установлены как открытые.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает экземпляр ICollectionView, в котором иерархические данные отображаются таким же образом, как и в линейном экземпляре ICollectionView.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      
+      Возвращает глубину узла, означающую количество предшествующих элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Глубина узла, где 0 соответствует верхнему уровню, а -1 указывает на невозможность вычисления глубины.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Экземпляр IViewCursor, который может использоваться для выполнения вычисления.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает глубину узла, означающую количество предшествующих элементов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getParent"><apiName>getParent</apiName><shortdesc>
+      
+      Возвращает вышестоящий элемент узла. Для вышестоящего элемента узла верхнего уровня используется значение null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Вышестоящий узел, содержащий данный узел в качестве нижестоящего, для узла верхнего уровня используется значение <codeph>null</codeph>, и <codeph>undefined</codeph>, если вышестоящий элемент определить невозможно.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Object, определяющий узел. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Экземпляр ICollectionView, который может использоваться для выполнения вычисления.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, которой принадлежит этот узел.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает вышестоящий элемент узла. Для вышестоящего элемента узла верхнего уровня используется значение <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getType"><apiName>getType</apiName><shortdesc>
+      Возвращает идентификатор типа узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение атрибута или поля <codeph>type</codeph> или пустая строка при отсутствии указанного поля.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, для которого требуется получить тип.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает идентификатор типа узла. Этот метод используется элементами управления на основе меню в целях определения того, является ли узел разделителем, переключателем, флажком или обычным элементом.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Определяет, содержит ли узел нижестоящие элементы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если в настоящее время этот узел имеет нижестоящие элементы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, содержащая узел; игнорируется этим классом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет, содержит ли узел нижестоящие элементы. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Выполняет проверку того, является ли узел конечным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если этот узел не является конечным.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Объект узла, анализируемый в данное время.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Коллекция, содержащая узел; игнорируется этим классом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет проверку того, является ли узел конечным. Ветви не являются конечными, они не обязательно должны иметь конечные узлы. Если узел является узлом XML, при наличии в узле нижестоящих элементов или атрибута <codeph>true isBranch</codeph> возвращается значение <codeph>true</codeph>. Если узел является объектом, метод возвращает значение <codeph> true</codeph>, если узел имеет (возможно, пустое) поле <codeph>children</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isEnabled"><apiName>isEnabled</apiName><shortdesc>
+      Возвращает признак того, активирован ли узел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение узла атрибута или поля <codeph>enabled</codeph> или <codeph>true</codeph> при отсутствии указанной записи или если значение не <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Узел, для которого требуется получить статус.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает признак того, активирован ли узел. Этот метод используется элементами управления на основе меню.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isToggled"><apiName>isToggled</apiName><shortdesc>
+      Возвращает признак изменения состояния узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение узла атрибута или поля <codeph>toggled</codeph> атрибут или поле или <codeph>false</codeph> при отсутствии указанной записи.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Узел, для которого требуется получить статус.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает признак изменения состояния узла. Этот метод используется элементами управления на основе меню.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> в случае выполнения.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Объект узла, который в данный момент является вышестоящим для нижестоящего узла.
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Удаляемый узел.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Отсчитываемый от нуля индекс нижестоящего узла, подлежащего удалению, по отношению к вышестоящему узлу.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Вся коллекция, частью которой является этот узел.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет нижестоящий узел из узла в указанной позиции индекса. Если параметр <codeph>parent</codeph> имеет значение null или undefined, этот метод использует параметр <codeph>model</codeph> для получения доступа к нижестоящему элементу; в противном случае используется параметр <codeph>parent</codeph>, а параметр <codeph>model</codeph> игнорируется.
+    
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setEnabled"><apiName>setEnabled</apiName><shortdesc>
+      Устанавливает значение поля или атрибута в поставщике данных для определения активации узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Узел, для которого требуется установить статус.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Идентифицирует активацию узла.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает значение поля или атрибута в поставщике данных для определения активации узла. Этот метод устанавливает значение атрибута или поля <codeph>enabled</codeph> узла. Этот метод используется элементами управления на основе меню.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setToggled"><apiName>setToggled</apiName><shortdesc>
+      Устанавливает значение поля или атрибута в поставщике данных для идентификации изменения состояния узла.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Узел, для которого требуется установить статус.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Идентифицирует изменение состояния узла.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает значение поля или атрибута в поставщике данных для идентификации изменения состояния узла. Этот метод устанавливает значение атрибута или поля <codeph>toggled</codeph> узла. Этот метод используется элементами управления на основе меню.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+  Класс TreeItemRenderer определяет элемент рендеринга по умолчанию для элемента управления «древовидная структура».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет компонента при его деактивации. Значение по умолчанию: <codeph>0xAAB3B3</codeph>.
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста для метки компонента. Значением по умолчанию для темы Halo является <codeph>0x0B333C</codeph>. Значение по умолчанию для темы Spark - <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TreeItemRenderer определяет элемент визуализации по умолчанию для элемента управления «древовидная структура». По умолчанию средство визуализации элементов отображает текст, связанный с каждым элементом в дереве, необязательным значком и необязательным значком раскрытия.
+ 
+  <p>Можно перезаписать средство визуализации элементов по умолчанию путем создания пользовательского средства визуализации элементов.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.treeClasses:TreeItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Передается при изменении свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства<codeph>data</codeph>.
+ 
+  <p>При использовании компонента как средства визуализации элементов свойство <codeph>data</codeph> содержит данные для отображения. Прослушиватель события может использовать это событие и обновить компонент при изменении свойства <codeph>data</codeph>.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.treeClasses:TreeItemRenderer:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок раскрытия в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок раскрытия в этом средстве визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:icon"><apiName>icon</apiName><shortdesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Внутренний объект IFlexDisplayObject, отображающий значок в этом средстве визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      Внутренний класс UITextField, отображающий текст в этом средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Внутренний класс UITextField, отображающий текст в этом средстве визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Реализация свойства data, как определено интерфейсом IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>data</codeph>, как определено интерфейсом IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Реализация свойства listData, как определено интерфейсом IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>listData</codeph>, как определено интерфейсом IDropInListItemRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

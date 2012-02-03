@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+  ButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 Button 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 Button 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ButtonAccImpl:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Button 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Button 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Button 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+  DateChooserAccImpl 是 AccessibilityImplementation 的子类，可以实现 DateChooser 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooserAccImpl 是 AccessibilityImplementation 的子类，可以实现 DateChooser 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateChooserAccImpl:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateChooserAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 DateChooser 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 DateChooser 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 DateChooser 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl 是 AccessibilityImplementation 的子类，可以实现 TabBar 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl 是 AccessibilityImplementation 的子类，可以实现 TabBar 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 TabBar 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 TabBar 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 TabBar 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+  LabelAccImpl 是 AccessibilityImplementation 的子类，可以实现 Label 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LabelAccImpl 是 AccessibilityImplementation 的子类，可以实现 Label 类的辅助功能。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LabelAccImpl:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LabelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 Label 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 Label 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Label 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl 是 AccessibilityImplementation 的子类，可以实现 ListBase 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl 是 AccessibilityImplementation 的子类，可以实现 ListBase 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 ListBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 ListBase 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ListBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+  ComboBaseAccImpl 是 AccessibilityImplementation 的子类，可以实现 ComboBase 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBaseAccImpl 是 AccessibilityImplementation 的子类，可以实现 ComboBase 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBaseAccImpl:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 ComboBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 ComboBase 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ComboBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+  MenuBarAccImpl 是 AccessibilityImplementation 的子类，可以实现 MenuBar 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarAccImpl 是 AccessibilityImplementation 的子类，可以实现 MenuBar 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuBarAccImpl:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 MenuBar 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 MenuBar 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 MenuBar 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:MenuBarAccImpl:get_accRole"><apiName>get_accRole</apiName><shortdesc>
+	  获取该组件的角色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/><apiDesc>uint
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  获取该组件的角色。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+  LinkButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 LinkButton 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 LinkButton 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LinkButtonAccImpl:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LinkButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 LinkButton 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 LinkButton 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 LinkButton 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl 是 AccessibilityImplementation 的子类，可以实现 TitleWindow 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl 是 AccessibilityImplementation 的子类，可以实现 TitleWindow 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 TitleWindow 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 TitleWindow 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 TitleWindow 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+  AlertAccImpl 是 AccessibilityImplementation 的子类，可以实现 Alert 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:TitleWindowAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AlertAccImpl 是 AccessibilityImplementation 的子类，可以实现 Alert 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AlertAccImpl:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AlertAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Alert 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Alert 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Alert 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+  SliderAccImpl 是 AccessibilityImplementation 的子类，可以实现 Slider 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderAccImpl 是 AccessibilityImplementation 的子类，可以实现 Slider 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:SliderAccImpl:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:SliderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Slider 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Slider 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Slider 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:SliderAccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+	  实用程序方法，用于确定具有辅助功能的组件的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+	  实用程序方法，用于确定具有辅助功能的组件的状态。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl 是 AccessibilityImplementation 的子类，可以实现 ComboBox 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl 是 AccessibilityImplementation 的子类，可以实现 ComboBox 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 ComboBox 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 ComboBox 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ComboBox 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+  AccordionHeaderAccImpl 是 AccessibilityImplementation 的子类，可以实现 AccordionHeader 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccordionHeaderAccImpl 是 AccessibilityImplementation 的子类，可以实现 AccordionHeader 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccordionHeaderAccImpl:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccordionHeaderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 AccordionHeader 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 AccordionHeader 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 AccordionHeader 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 RadioButton 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl 是 AccessibilityImplementation 的子类，可以实现 RadioButton 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 RadioButton 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 RadioButton 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 RadioButton 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl 是 AccessibilityImplementation 的子类，可以实现 List 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl 是 AccessibilityImplementation 的子类，可以实现 List 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 List 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 List 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 List 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+  ColorPickerAccImpl 是 AccessibilityImplementation 的子类，可以实现 ColorPicker 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPickerAccImpl 是 AccessibilityImplementation 的子类，可以实现 ColorPicker 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ColorPickerAccImpl:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ColorPickerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 ColorPicker 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 ColorPicker 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ColorPicker 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  DataGridAccImpl 是 AccessibilityImplementation 的子类，可以实现 DataGrid 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridAccImpl 是 AccessibilityImplementation 的子类，可以实现 DataGrid 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 DataGrid 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 DataGrid 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 DataGrid 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl 是 AccessibilityImplementation 的子类，可以实现 CheckBox 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl 是 AccessibilityImplementation 的子类，可以实现 CheckBox 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 CheckBox 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 CheckBox 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 CheckBox 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+  DateFieldAccImpl 是 AccessibilityImplementation 的子类，可以实现 DateField 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFieldAccImpl 是 AccessibilityImplementation 的子类，可以实现 DateField 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateFieldAccImpl:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateFieldAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 DateField 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 DateField 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 DateField 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+  TreeAccImpl 是 AccessibilityImplementation 的子类，可以实现 Tree 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeAccImpl 是 AccessibilityImplementation 的子类，可以实现 Tree 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TreeAccImpl:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TreeAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Tree 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Tree 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Tree 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl 是 AccessibilityImplementation 的子类，可以实现 Panel 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl 是 AccessibilityImplementation 的子类，可以实现 Panel 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Panel 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Panel 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Panel 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+  MenuAccImpl 是 AccessibilityImplementation 的子类，可以实现 Menu 类的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuAccImpl 是 AccessibilityImplementation 的子类，可以实现 Menu 类的辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuAccImpl:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 Menu 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 Menu 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Menu 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

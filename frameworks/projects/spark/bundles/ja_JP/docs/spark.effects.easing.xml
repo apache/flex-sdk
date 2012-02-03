@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.easing"><apiName>spark.effects.easing</apiName><apiDetail/><apiClassifier id="spark.effects.easing:IEaser"><apiName>IEaser</apiName><shortdesc>
+  IEaser インターフェイスは、Animation クラスの時間イージング機能を提供するクラスによって実装されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IEaser インターフェイスは、Animation クラスの時間イージング機能を提供するクラスによって実装されます。インプリメンターは、目的のイージングビヘイビアーに従って割合を受け取ったり返したりする、<codeph>ease()</codeph> という単一の関数を管理する必要があります。単純な例として、LinearEase は、そのイーザーによって実行されるイージングがないため、単に同じ入力割合を返します。別の例として、逆の割合（1 - <codeph>fraction</codeph>）を返す、反転イーザーを記述することもできます。
+ 
+  <p>アニメーションで経過時間の小数値をイージングすることによって、これらのクラスはアニメーションの結果の値をイージングしますが、これらのクラスは特定のオブジェクト型ではなく時間の小数値のみを処理する必要があります。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.easing:IEaser:spark.effects.easing:IEaser:ease"><apiName>ease</apiName><shortdesc>
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>経過時間のイージング値です。通常、この値は 0.0 ～ 1.0 の間になるように制約されますが、この範囲に収まらない値を返すこともできます。そのような値を返した場合の結果は未定義であり、どの種類のエフェクトでこのイージング値を使用するかによっても変わることに注意してください。例えば、直線的に移動するオブジェクトの場合は、その開始点と終了点の外でも問題なく位置を計算できますが、他の値のタイプ（カラーなど）の場合は、それらの終了点の値を超えるような時間の値を使用していると、目的のエフェクトが得られない可能性があります。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。この値は、アニメーション化されたプロパティ値を計算するために使用されます。経過割合の値を変更することによって、プロパティのアニメーションを効果的に変更します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  Bounce クラスは、ターゲットオブジェクトが重力によって引かれてからバウンドする動きをシミュレートするイージング機能を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Bounce クラスは、ターゲットオブジェクトが重力によって引かれてからバウンドする動きをシミュレートするイージング機能を実装します。エフェクトターゲットの動きは、終了値に向かって加速した後、終了値に反して数回バウンドします。 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Bounce:Bounce"><apiName>Bounce</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Bounce:ease"><apiName>ease</apiName><shortdesc>
+      
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>経過時間のイージング値です。通常、この値は 0.0 ～ 1.0 の間になるように制約されますが、この範囲に収まらない値を返すこともできます。そのような値を返した場合の結果は未定義であり、どの種類のエフェクトでこのイージング値を使用するかによっても変わることに注意してください。例えば、直線的に移動するオブジェクトの場合は、その開始点と終了点の外でも問題なく位置を計算できますが、他の値のタイプ（カラーなど）の場合は、それらの終了点の値を超えるような時間の値を使用していると、目的のエフェクトが得られない可能性があります。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。この値は、アニメーション化されたプロパティ値を計算するために使用されます。経過割合の値を変更することによって、プロパティのアニメーションを効果的に変更します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Linear クラスは、加速、等速モーション、減速という 3 つの段階でイージングを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Linear&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Linear
+    id="ID"
+    easeInFraction="0" 
+    easeOutFraction="0"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Linear クラスは、加速、等速モーション、減速という 3 つの段階でイージングを定義します。アニメーションが開始されると、そのアニメーションは、<codeph>easeInFraction</codeph> プロパティで指定された期間にわたって加速し、その後、次の段階にわたって等速（線形）モーションを行い、最後に、<codeph>easeOutFraction</codeph> プロパティで指定された期間にわたって、終了するまで減速します。
+ 
+  <p>3 つの段階のイージング値は、等加速、線形モーションおよび等減速のビヘイビアーがすべて、指定されたアニメーションの継続時間内に発生するように計算されます。</p>
+  
+  <p><codeph>easeInFraction</codeph> と <codeph>easeOutFraction</codeph> を 0.0 に設定すると、厳密な線形モーションを実現できます。加速または減速が 0.0 ではない場合、中間段階のモーションが、純粋な線形モーションの速度と同じにならないことに注意してください。中間段階は等速モーションで構成されますが、そのモーションの速度は、アニメーション全体を基準としたその段階のサイズによって決定されます。</p>
+  
+  </apiDesc><example conref="LinearEffectExample.mxml"><swfblock conref="examples/LinearEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Linear:Linear"><apiName>Linear</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>加速段階にある、継続時間全体のうちの割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>easeOutFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>減速段階にある、継続時間全体のうちの割合です。0.0 ～ 1.0 で示されます。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Linear:ease"><apiName>ease</apiName><shortdesc>
+      easeInFraction プロパティと easeOutFraction プロパティに基づいて、イージング割合の値を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アニメーションのイージング割合です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInFraction</codeph> プロパティと <codeph>easeOutFraction</codeph> プロパティに基づいて、イージング割合の値を計算します。<codeph>fraction</codeph> が <codeph>easeInFraction</codeph> よりも小さい場合、線形モーション段階までの加速に基づいて値を計算します。<codeph>fraction</codeph> が <codeph>easeInFraction</codeph> よりも大きく <codeph>(1-easeOutFraction)</codeph> よりも小さい場合、イージングイン段階とイージングアウト段階の間の線形モーション段階に基づいて値を計算します。それ以外の場合は、線形モーション段階と 0.0 の間の等減速に基づいて値を計算します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:Linear:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      アニメーションの加速に費やす割合です。0.0 ～ 1.0 で示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アニメーションの加速に費やす割合です。0.0 ～ 1.0 で示されます。<codeph>easeOutFraction</codeph> プロパティと <codeph>easeInFraction</codeph> プロパティの値は、<codeph>easeOutFraction + easeInFraction &lt;= 1</codeph> という式を満たす必要があり、残りの時間は線形モーション段階に費やされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:Linear:easeOutFraction:get"><apiName>easeOutFraction</apiName><shortdesc>
+      アニメーションの減速に費やす比率です。0.0 ～ 1.0 で示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アニメーションの減速に費やす比率です。0.0 ～ 1.0 で示されます。<codeph>easeOutFraction</codeph> プロパティと <codeph>easeInFraction</codeph> プロパティの値は、<codeph>easeOutFraction + easeInFraction &lt;= 1</codeph> という式を満たす必要があり、残りの時間は線形モーション段階に費やされます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Power"><apiName>Power</apiName><shortdesc>
+  Power クラスは、多項式を使用してイージング機能を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Power&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Power
+    id="ID"
+    exponent="2"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Power クラスは、多項式を使用してイージング機能を定義します。イージングは、加速（イージングイン段階）とそれに続く減速（イージングアウト段階）という 2 つの段階で構成されます。加速と減速の割合は、<codeph>exponent</codeph> プロパティに基づいています。<codeph>exponent</codeph> プロパティの値が高ければ高いほど、加速と減速は大きくなります。アニメーションを加速させる比率を指定するには、<codeph>easeInFraction</codeph> プロパティを使用します。
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Power:Power"><apiName>Power</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>加速段階にある、継続時間全体のうちの割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exponent</apiItemName><apiType value="Number"/><apiData>2</apiData><apiDesc>イージング計算で使用される指数です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.easing:Power:exponent:get"><apiName>exponent</apiName><shortdesc>
+      イージング計算で使用される指数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イージング計算で使用される指数です。<codeph>exponent</codeph> プロパティの値が高ければ高いほど、加速と減速は大きくなります。例えば、二次のビヘイビアーを得るには、<codeph>exponent</codeph> を 2 に設定します。三次のビヘイビアーを得るには、<codeph>exponent</codeph> を 3 に設定します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  Elastic クラスは、ターゲットオブジェクトの動きが指数関数的に減衰する正弦波により定義されるイージング機能を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Elastic クラスは、ターゲットオブジェクトの動きが指数関数的に減衰する正弦波により定義されるイージング機能を実装します。エフェクトターゲットは、減速しながら終了値に接近し、そのまま終了値を通過します。その後、終了値を中心にして徐々に幅を小さくしながら振動し、最終的に終了値に達します。 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Elastic:Elastic"><apiName>Elastic</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Elastic:ease"><apiName>ease</apiName><shortdesc>
+      
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>経過時間のイージング値です。通常、この値は 0.0 ～ 1.0 の間になるように制約されますが、この範囲に収まらない値を返すこともできます。そのような値を返した場合の結果は未定義であり、どの種類のエフェクトでこのイージング値を使用するかによっても変わることに注意してください。例えば、直線的に移動するオブジェクトの場合は、その開始点と終了点の外でも問題なく位置を計算できますが、他の値のタイプ（カラーなど）の場合は、それらの終了点の値を超えるような時間の値を使用していると、目的のエフェクトが得られない可能性があります。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。この値は、アニメーション化されたプロパティ値を計算するために使用されます。経過割合の値を変更することによって、プロパティのアニメーションを効果的に変更します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:EasingFraction"><apiName>EasingFraction</apiName><shortdesc>
+  EasingFraction クラスは、EaseInOutBase クラスの easeInFraction プロパティの定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EasingFraction クラスは、EaseInOutBase クラスの <codeph>easeInFraction</codeph> プロパティの定数を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.easing.xml#EaseInOutBase"><linktext>EaseInOutBase</linktext></link><link href="spark.effects.easing.xml#EaseInOutBase/easeInFraction"><linktext>EaseInOutBase.easeInFraction</linktext></link></related-links><apiValue id="spark.effects.easing:EasingFraction:IN_OUT"><apiName>IN_OUT</apiName><shortdesc>
+      イージングインスタンスが最初の半分をイージングインし、残りをイージングアウトするように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0.5</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      イージングインスタンスが最初の半分をイージングインし、残りをイージングアウトするように指定します。これは、<codeph>easeInFraction</codeph> プロパティを 0.5 に設定することと同じです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:IN"><apiName>IN</apiName><shortdesc>
+      イージングインスタンスがアニメーション全体をイージングインに費やすように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      イージングインスタンスがアニメーション全体をイージングインに費やすように指定します。これは、<codeph>easeInFraction</codeph> プロパティを 1.0 に設定することと同じです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:OUT"><apiName>OUT</apiName><shortdesc>
+      イージングインスタンスがアニメーション全体をイージングアウトに費やすように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      イージングインスタンスがアニメーション全体をイージングアウトに費やすように指定します。これは、<codeph>easeInFraction</codeph> プロパティを 0.0 に設定することと同じです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Sine クラスは、Sine 関数を使用してイージング機能を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sine&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Sine
+    id="ID"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Sine クラスは、Sine 関数を使用してイージング機能を定義します。イージングは、加速（イージングイン段階）とそれに続く減速（イージングアウト段階）という 2 つの段階で構成されます。アニメーションを加速させる比率を指定するには、<codeph>easeInFraction</codeph> プロパティを使用します。
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Sine:Sine"><apiName>Sine</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc><codeph>easeInFraction</codeph> プロパティの値を設定します。デフォルト値は <codeph>EasingFraction.IN_OUT</codeph> です。この場合、最初の半分の時間をイージングインし、残りをイージングアウトします。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.easing:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+  EaseInOutBase クラスは、イージング機能を提供する基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:EaseInOutBase
+    id="ID"
+    easeInFraction="0.5"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EaseInOutBase クラスは、イージング機能を提供する基本クラスです。EaseInOutBase クラスは、加速（イージングイン段階）とそれに続く減速（イージングアウト段階）という 2 つの段階で構成されたイージングを定義します。このクラスのデフォルトビヘイビアーでは、両方のイージング段階で線形補間を返します。EaseInOutBase のサブクラスを作成すると、さらに興味深いビヘイビアーを得ることができます。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.easing:EaseInOutBase:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc><codeph>easeInFraction</codeph> プロパティの値を設定します。デフォルト値は <codeph>EasingFraction.IN_OUT</codeph> です。この場合、最初の半分の時間をイージングインし、残りをイージングアウトします。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeIn"><apiName>easeIn</apiName><shortdesc>
+      アニメーションのイージングイン段階におけるイージング割合を表す値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アニメーションのこの段階に対するイージング値を表す値です。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションのイージングイン段階の経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションのイージングイン段階におけるイージング割合を表す値を返します。このクラスによって返される値は、単に割合そのものであり、これは割合の線形補間を表します。さらに興味深いビヘイビアーは、EaseInOutBase のサブクラスによって実装されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeOut"><apiName>easeOut</apiName><shortdesc>
+      アニメーションのイージングアウト段階におけるイージング割合を表す値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アニメーションのこの段階に対するイージング値を表す値です。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションのイージングアウト段階の経過割合です。0.0 ～ 1.0 で示されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションのイージングアウト段階におけるイージング割合を表す値を返します。このクラスによって返される値は、単に割合そのものであり、これは割合の線形補間を表します。さらに興味深いビヘイビアーは、EaseInOutBase のサブクラスによって実装されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:ease"><apiName>ease</apiName><shortdesc>
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>アニメーションのイージング割合です。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>アニメーションの経過割合です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アニメーションの経過継続時間を表す割合（0.0 ～ 1.0 の値）を受け取り、新しい経過値を返します。この値は、アニメーション化されたプロパティ値を計算するために使用されます。経過割合の値を変更することによって、プロパティのアニメーションを効果的に変更します。EaseInOutBase の場合、このメソッドは、<codeph>easeInFraction</codeph> プロパティに基づいてイージング割合の値を計算します。<codeph>fraction</codeph> が <codeph>easeInFraction</codeph> よりも小さい場合、このメソッドは <codeph>easeIn()</codeph> メソッドを呼び出します。それ以外の場合は、<codeph>easeOut()</codeph> メソッドを呼び出します。これらの関数は、サブクラスでオーバーライドされることが想定されています。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:EaseInOutBase:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      加速に費やす必要があるアニメーションの比率です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.5
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      加速に費やす必要があるアニメーションの比率です。この率は、（1 - <codeph>easeIn</codeph>）に等しい暗黙の「easeOut」パラメーターを設定します。これにより、イージングインに費やされない時間がイージングアウトに費やされるようになります。例えば、時間の半分をイージングイン、半分をイージングアウトに費やすイージング式を使用するには、<codeph>easeIn</codeph> を .5 に設定します。
+     
+      <p>有効な値の範囲は 0.0 ～ 1.0 です。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

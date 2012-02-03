@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation"><apiName>mx.automation</apiName><apiDetail/><apiClassifier id="mx.automation:IAutomationObject"><apiName>IAutomationObject</apiName><shortdesc>
+ IAutomationObject インターフェイスは、コンポーネントのオートメーションを実装する委譲オブジェクトのインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ IAutomationObject インターフェイスは、コンポーネントのオートメーションを実装する委譲オブジェクトのインターフェイスを定義します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      このコンテナの子を識別するプロパティのセットをオートメーション ID として返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>コンポーネントを解決するために後に使用できる、子を記述するプロパティのセットです。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>ID を提供する対象の子です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/><apiDesc>ID の形成時に考慮されるものです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンテナの子を識別するプロパティのセットをオートメーション ID として返します。アプリケーションの存続中は、これらの値を変更しないでください。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      このコンテナの子を識別するプロパティのセットを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>コンポーネントを解決するために後に使用できる、子を記述するプロパティのセットです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>ID を提供する対象の子です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このコンテナの子を識別するプロパティのセットを返します。 アプリケーションの存続中は、これらの値を変更しないでください。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc> 
+      指定されたインデックス位置でオートメーションオブジェクトを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定されたインデックス位置にある子です。
+      
+      </apiDesc><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>返される子のインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      指定されたインデックス位置でオートメーションオブジェクトを提供します。 このリストには、組み合わされた子を入れないでください。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      オートメーションオブジェクトリストを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>オートメーションの子です。
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      オートメーションオブジェクトリストを提供します。このリストには、組み合わされた子は含まれません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      指定されたイベントを再生します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>再生が正常に完了した場合は、<codeph>true</codeph> です。  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>再生するイベントです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたイベントを再生します。 デフォルトの再生動作がスーパークラスで定義されている場合、コンポーネント作成者は super.replayAutomatableEvent を呼び出すはずです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      提供された ID を使用して子を解決します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>条件と照合できる子の配列です。すべての子が解決できる場合は <codeph>null</codeph> です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/><apiDesc>子を記述するプロパティのセットです。 条件には、正規表現の値を入れられるので、複数の子を条件に一致させられます。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供された ID を使用して子を解決します。 この ID は、<codeph>createAutomationIDPart()</codeph> メソッドが提供するプロパティのセットです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      オートメーション関連機能を処理する委譲オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      オートメーション関連機能を処理する委譲オブジェクトです。 オートメーションがこれを設定するのは、委譲オブジェクトを作成するときです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      このコンポーネントがオートメーション用に有効である場合は true、それ以外の場合は false です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このコンポーネントがオートメーション用に有効である場合は true、それ以外の場合は false です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IUIComponent/enabled"><linktext>mx.core.IUIComponent.enabled</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationName:get"><apiName>automationName</apiName><shortdesc>
+      このオブジェクトの識別子として使用できる名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このオブジェクトの識別子として使用できる名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      オートメーション目的で使用するこのコンポーネントのオーナーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      オートメーション目的で使用するこのコンポーネントのオーナーです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/owner"><linktext>mx.core.IVisualElement.owner</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      オートメーション目的で使用するこのコンポーネントの親です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      オートメーション目的で使用するこのコンポーネントの親です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/parent"><linktext>mx.core.IVisualElement.parent</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      データ検索に使用できる IAutomationTabularData インターフェイスの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      データ検索に使用できる <codeph>IAutomationTabularData</codeph> インターフェイスの実装です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+      この値はオブジェクトのレンダリング表示に対応しています。また、アプリケーションでの視覚表示と同じにするために、識別子とオブジェクトを関連付けるのに使用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      この値はオブジェクトのレンダリング表示に対応しています。また、アプリケーションでの視覚表示と同じにするために、識別子とオブジェクトを関連付けるのに使用できます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      このコンポーネントがオートメーション用に可視である場合は true、それ以外の場合は false です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このコンポーネントがオートメーション用に可視である場合は true、それ以外の場合は false です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/visible"><linktext>flash.display.DisplayObject.visible</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      このコンテナに含まれるオートメーションの子の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      このコンテナに含まれるオートメーションの子の数です。 この合計には、オートメーション階層で重要でない子は含まれますが、組み合わされた子が含まれることはありません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc> 
+      オートメーションオブジェクトがオートメーション階層に表示されているかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      オートメーションオブジェクトがオートメーション階層に表示されているかどうかを示すフラグです。 階層に表示されないコンテナの子は、次に高いレベルで表示される親の子として表示されます。 通常、ボックスや Canvas のようなレイアウトに使用されるコンテナは階層に表示されません。
+     
+      <p>必要に応じて子を階層に表示させるコントロールもあります。 例えば、List は、ボックスなどのアイテムレンダラーを必ず階層に表示させます。 インプリメンタでは、このプロパティを <codeph>true</codeph> に設定することをサポートする必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

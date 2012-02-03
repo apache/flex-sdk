@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.easing"><apiName>mx.effects.easing</apiName><apiDetail/><apiClassifier id="mx.effects.easing:Quartic"><apiName>Quartic</apiName><shortdesc>
+  Die Quartic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quartic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Quartic für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei der Quartic-Klasse zu erzielen, erstellen Sie eine Power-Instanz mit einem <codeph>exponent</codeph>-Wert von 4 und setzen <codeph>easeInFraction</codeph> auf einen geeigneten Wert, um das gewünschte Ergebnis zu erzielen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Quartic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen. Die Beschleunigung der Bewegung für eine Quartic-Beschleunigungsgleichung ist größer als für eine Quadratic- oder Cubic-Beschleunigungsgleichung. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quartic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei einer Geschwindigkeit von 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell und wird dann auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell und wird dann auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Die Linear-Klasse definiert Beschleunigungsfunktionen zum Implementieren von linearer Bewegungen in Flex-Effektklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Linear" replacement="spark.effects.easing.Linear" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Linear für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei den älteren Linear-Klassen zu erzielen, erstellen Sie eine neue Instanz von spark.effects.easing.Linear oder rufen Sie spark.effects.easing.Linear.getInstance() auf, um eine Singleton-Instanz abzurufen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Linear-Klasse definiert Beschleunigungsfunktionen zum Implementieren von linearer Bewegungen in Flex-Effektklassen. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Linear:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeNone"><apiName>easeNone</apiName><shortdesc>
+      Die easeNone()-Methode definiert eine konstante Bewegung ohne Beschleunigung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die <codeph>easeNone()</codeph>-Methode definiert eine konstante Bewegung ohne Beschleunigung. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quintic"><apiName>Quintic</apiName><shortdesc>
+  Die Quintic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quintic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Quintic für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei der Quintic-Klasse zu erzielen, erstellen Sie eine Power-Instanz mit einem <codeph>exponent</codeph>-Wert von 5 und setzen <codeph>easeInFraction</codeph> auf einen geeigneten Wert, um das gewünschte Ergebnis zu erzielen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Quintic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen. Die Beschleunigung der Bewegung für eine Quintic-Beschleunigungsgleichung ist größer als für eine Quadratic-, Cubic- oder Quartic-Beschleunigungsgleichung. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quintic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Cubic"><apiName>Cubic</apiName><shortdesc>
+  Die Cubic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Cubic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Cubic für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei der Cubic-Klasse zu erzielen, erstellen Sie eine Power-Instanz mit einem <codeph>exponent</codeph>-Wert von 3 und setzen <codeph>easeInFraction</codeph> auf einen geeigneten Wert, um das gewünschte Ergebnis zu erzielen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Cubic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen. Die Beschleunigung der Bewegung für eine Cubic-Beschleunigungsgleichung ist größer als für eine Quadratic-Beschleunigungsgleichung. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Cubic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quadratic"><apiName>Quadratic</apiName><shortdesc>
+  Die Quadratic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quadratic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Quadratic für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei der Quadratic-Klasse zu erzielen, erstellen Sie eine Power-Instanz mit einem <codeph>exponent</codeph>-Wert von 2 und setzen <codeph>easeInFraction</codeph> auf einen geeigneten Wert, um das gewünschte Ergebnis zu erzielen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Quadratic-Klasse definiert drei Beschleunigungsfunktionen zum Implementieren von Bewegungen in Flex-Effektklassen. Die Beschleunigung der Bewegung für eine Quadratic-Beschleunigungsgleichung ist niedriger als für eine Cubic- oder Quartic-Beschleunigungsgleichung. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quadratic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei einer Geschwindigkeit von 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Die Sine-Klasse definiert drei Beschleunigungsfunktionen zur Implementierung von Bewegungen in Flex-Effektklassen. Hierbei wird die Bewegung durch eine Sinus-Kurve definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Sine" replacement="spark.effects.easing.Sine" since="4.0">
+<description>
+  Die Spark-Effekte ab Flex 4 verwenden Klassen, die die IEaser-Schnittstelle implementieren, statt der Beschleunigungfunktionen, die in Klassen wie Sine für die früheren Flex 3-Effekte benutzt wurden. Um die gleiche Funktionalität wie bei der früheren Sine-Klasse zu erzielen, erstellen Sie eine spark.effects.Sine-Instanz mit einem geeigneten <codeph>easeInFraction</codeph>-Wert, um das gewünschte Ergebnis zu erzielen.
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Sine-Klasse definiert drei Beschleunigungsfunktionen zur Implementierung von Bewegungen in Flex-Effektklassen. Hierbei wird die Bewegung durch eine Sinus-Kurve definiert. Weitere Informationen finden Sie unter http://www.robertpenner.com/profmx.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Sine:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      Bei der easeInOut()-Methode wird die Bewegung der easeIn()- und easeOut()-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeInOut()</codeph>-Methode wird die Bewegung der <codeph>easeIn()</codeph>- und <codeph>easeOut()</codeph>-Methoden kombiniert, um die Bewegung mit einer Geschwindigkeit von 0 zu beginnen, sie anschließend zu beschleunigen und wieder auf 0 zu reduzieren. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Bei der easeIn()-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bei der <codeph>easeIn()</codeph>-Methode beginnt die Bewegung bei der Geschwindigkeit 0 und wird während der Ausführung beschleunigt. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Die Bewegung bei der easeOut()-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die der Position der Komponente entsprechende Nummer.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Gibt die Zeit an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Gibt die ursprüngliche Position einer Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Gibt die Gesamtänderung der Position der Komponente an.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Gibt die Dauer des Effekts in Millisekunden an.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Bewegung bei der <codeph>easeOut()</codeph>-Methode ist zu Beginn schnell. Sie wird während der Ausführung auf eine Geschwindigkeit von 0 reduziert. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

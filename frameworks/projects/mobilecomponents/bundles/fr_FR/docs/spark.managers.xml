@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.managers"><apiName>spark.managers</apiName><apiDetail/><apiClassifier id="spark.managers:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+  La classe PersistenceManager est un gestionnaire de persistance de base qui est soutenu par un objet partagé local nommé FxAppCache.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.managers:IPersistenceManager</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PersistenceManager est un gestionnaire de persistance de base qui est soutenu par un objet partagé local nommé FxAppCache. Lorsqu’elle est initialisée, elle charge un objet partagé local qui correspond à son ID. Si un objet partagé local est introuvable, il est créé.
+ 
+  <p>Lors du stockage de valeurs à l'aide du gestionnaire, il est important que toutes les valeurs puissent être correctement écrites dans un objet partagé. Les objets complexes qui stockent des classes ou des primitives flash non standard doivent implémenter l’interface flash.net.IExternalizable pour fonctionner correctement. L'enregistrement des objets incompatibles n'entraîne pas un RTE, mais crée un comportement non défini lorsque les données sont relues.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.utils.IExternalizable.xml"><linktext>flash.utils.IExternalizable</linktext></link></related-links><apiConstructor id="spark.managers:PersistenceManager:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.managers:PersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      
+      Efface toutes les données en cours de stockage par le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Efface toutes les données en cours de stockage par le gestionnaire de persistance.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      
+      Renvoie la valeur d’une propriété stockée dans le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur d’une propriété stockée dans le gestionnaire de persistance.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>La clé de propriété.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie la valeur d’une propriété stockée dans le gestionnaire de persistance. Les propriétés sont enregistrées en tant que clé:value paires.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:load"><apiName>load</apiName><shortdesc>
+      
+      Initialise le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Initialise le gestionnaire de persistance.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:save"><apiName>save</apiName><shortdesc>
+      
+      Vide les données actuellement gérées par le gestionnaire de persistance, sur le disque ou dans un autre fichier de stockage externe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Vide les données actuellement gérées par le gestionnaire de persistance, sur le disque ou dans un autre fichier de stockage externe.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      
+      Stocke une valeur dans le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>La clé à utiliser pour stocker la valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>L’objet de valeur à stocker.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Stocke une valeur dans le gestionnaire de persistance. Les propriétés sont enregistrées en tant que clé:value paires.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.managers:IPersistenceManager"><apiName>IPersistenceManager</apiName><shortdesc>
+  IPersistenceManager définit l’interface que tous les gestionnaires de persistance doivent mettre en œuvre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IPersistenceManager définit l’interface que tous les gestionnaires de persistance doivent mettre en œuvre. Ces objets sont chargés de conserver les données entre les sessions de l’application.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      Efface toutes les données en cours de stockage par le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Efface toutes les données en cours de stockage par le gestionnaire de persistance.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Renvoie la valeur d’une propriété stockée dans le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur d’une propriété stockée dans le gestionnaire de persistance.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>La clé de propriété.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la valeur d’une propriété stockée dans le gestionnaire de persistance. Les propriétés sont enregistrées en tant que clé:value paires.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:load"><apiName>load</apiName><shortdesc>
+      Initialise le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Initialise le gestionnaire de persistance.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:save"><apiName>save</apiName><shortdesc>
+      Vide les données actuellement gérées par le gestionnaire de persistance, sur le disque ou dans un autre fichier de stockage externe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Vide les données actuellement gérées par le gestionnaire de persistance, sur le disque ou dans un autre fichier de stockage externe.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Stocke une valeur dans le gestionnaire de persistance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>La clé à utiliser pour stocker la valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>L’objet de valeur à stocker.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stocke une valeur dans le gestionnaire de persistance. Les propriétés sont enregistrées en tant que clé:value paires.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

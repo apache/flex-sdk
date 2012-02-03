@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.transitions"><apiName>spark.transitions</apiName><apiDetail/><apiClassifier id="spark.transitions:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+  CrossFadeViewTransition 类用于视图的简单交叉淡入淡出过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CrossFadeViewTransition 类用于视图的简单交叉淡入淡出过渡。它通过淡出现有视图以显示新视图来执行其过渡。交叉淡入淡出会将控件栏与视图内容一起过渡为一个项。  
+   <p><b>注意：</b>在 ActionScript 中创建并配置视图过渡。您无法在 MXML 中创建这些视图过渡。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.transitions:CrossFadeViewTransition:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+  SlideViewTransition 类执行视图的简单滑动过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SlideViewTransition 类执行视图的简单滑动过渡。新视图滑入时现有视图滑出。滑动过渡支持若干模式（推送、覆盖和揭开），以及一个可选的方向（上、下、左或右）。
+   <p><b>注意：</b>在 ActionScript 中创建并配置视图过渡。您无法在 MXML 中创建这些视图过渡。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransitionMode"><linktext>SlideViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:SlideViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      指定滑动过渡的方向。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定滑动过渡的方向。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      指定要执行的滑动过渡类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SlideViewTransitionMode.PUSH
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定要执行的滑动过渡类型。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransitionMode"><apiName>SlideViewTransitionMode</apiName><shortdesc>
+  SlideViewTransitionMode 类提供用于指定滑动过渡类型的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SlideViewTransitionMode 类提供用于指定滑动过渡类型的常量。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransition"><linktext>SlideViewTransition</linktext></link></related-links><apiValue id="spark.transitions:SlideViewTransitionMode:COVER"><apiName>COVER</apiName><shortdesc>
+     新视图滑入以覆盖上一视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     新视图滑入以覆盖上一视图。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:PUSH"><apiName>PUSH</apiName><shortdesc>
+     新视图滑入时上一视图滑出。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     新视图滑入时上一视图滑出。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:UNCOVER"><apiName>UNCOVER</apiName><shortdesc>
+     上一视图滑出以显示新视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>uncover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     上一视图滑出以显示新视图。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+  ZoomViewTransition 类执行视图的放大或缩小过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomViewTransition 类执行视图的放大或缩小过渡。通过缩小现有视图以显示新视图，或通过放大新视图以覆盖现有视图，来执行其过渡。 
+ 
+  <p>ZoomViewTransition 的默认持续时间为 350 毫秒。此外，默认情况下，它将控件栏和视图内容过渡为一个项，好像 <codeph>transitionControlsWithContent</codeph> 是 <codeph>true</codeph>。 </p>
+   <p><b>注意：</b>在 ActionScript 中创建并配置视图过渡。您无法在 MXML 中创建这些视图过渡。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransitionMode"><linktext>ZoomViewTransitionMode</linktext></link></related-links><apiConstructor id="spark.transitions:ZoomViewTransition:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:ZoomViewTransition:minimumScale:get"><apiName>minimumScale</apiName><shortdesc>
+      指定缩放的视图的最小比例（代表放大时视图为第一个可见视图或者缩小时视图为最后一个可见视图的情况）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.25
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定缩放的视图的最小比例（代表放大时视图为第一个可见视图或者缩小时视图为最后一个可见视图的情况）。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      指定要执行的缩放过渡类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZoomTransitionMode.OUT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定要执行的缩放过渡类型。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionDirection"><apiName>ViewTransitionDirection</apiName><shortdesc>
+  ViewTransitionDirection 类提供在提示滑动过渡方向时所使用的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewTransitionDirection 类提供在提示滑动过渡方向时所使用的常量。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.transitions:ViewTransitionDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      向下过渡动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      向下过渡动画。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      向左过渡动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      向左过渡动画。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      向右过渡动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      向右过渡动画。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:UP"><apiName>UP</apiName><shortdesc>
+      向上过渡动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      向上过渡动画。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+  FlipViewTransition 类执行视图的简单翻转过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlipViewTransition 类执行视图的简单翻转过渡。翻转过渡支持两种模式（卡片和立方体），以及一个可选的方向（上、下、左或右）。
+ 
+  <p>FlipViewTransition 的默认持续时间为 400 毫秒。</p>
+   <p><b>注意：</b>在 ActionScript 中创建并配置视图过渡。您无法在 MXML 中创建这些视图过渡。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:FlipViewTransition:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:FlipViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      指定翻转过渡的方向。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指定翻转过渡的方向。
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links></apiValue><apiValue id="spark.transitions:FlipViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      指定要执行的翻转过渡类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FlipViewTransitionMode.CARD
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指定要执行的翻转过渡类型。
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransitionMode"><apiName>ZoomViewTransitionMode</apiName><shortdesc>
+  ZoomTransitionMode 类定义用于设置缩放过渡的样式模式的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomTransitionMode 类定义用于设置缩放过渡的样式模式的常量。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransition"><linktext>ZoomViewTransition</linktext></link></related-links><apiValue id="spark.transitions:ZoomViewTransitionMode:IN"><apiName>IN</apiName><shortdesc>
+      新视图放大以覆盖上一视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      新视图放大以覆盖上一视图。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransitionMode:OUT"><apiName>OUT</apiName><shortdesc>
+     上一视图缩小以显示新视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     上一视图缩小以显示新视图。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+  ViewTransitionBase 类是所有视图过渡的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewTransitionBase 类是所有视图过渡的基类。并不是有意将其用于过渡的。除了提供公共便利以及视图过渡所使用的 helper 方法之外，该类同样提供了默认的操作栏过渡序列。
+ 
+  <p>初始化视图过渡时，所属的视图导航器将 <codeph>startView</codeph> 和 <codeph>endView</codeph> 属性设置为过渡设置动画的视图。<codeph>navigator</codeph> 属性设置为视图导航器。</p>
+ 
+  <p>过渡的生命周期如下所示：</p>
+    <ul>
+      <li>过渡以 <codeph>captureStartValues()</codeph> 方法开始。调用此方法时，导航器当前处于开始状态。此时，过渡应捕获所需的所有开始值或位图。 </li>
+      <li>针对暂挂视图执行了验证通过，且调用了 <codeph>captureEndValues()</codeph> 方法。此时，过渡从暂挂视图中捕获所有属性或位图表示。</li>
+      <li>之后会调用 <codeph>prepareForPlay()</codeph> 方法，来允许过渡执行进一步的准备（例如准备 Spark 效果序列，或在显示列表中定位瞬态元素）。</li>
+      <li>在最终验证通过（如果需要）后，导航器将调用 <codeph>play()</codeph> 方法来执行实际的过渡。</li>
+      <li>在任一动画开始前，将先分派 <codeph>start</codeph> 事件。</li>
+      <li>过渡完成时，会分派 <codeph>end</codeph> 事件。</li>
+    </ul>
+   <p><b>注意：</b>在 ActionScript 中创建并配置视图过渡。您无法在 MXML 中创建这些视图过渡。</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionEnd"><apiName>transitionEnd</apiName><shortdesc>
+  在过渡完成时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在过渡完成时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionStart"><apiName>transitionStart</apiName><shortdesc>
+  在开始过渡时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在开始过渡时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.transitions:ViewTransitionBase:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.transitions:ViewTransitionBase:protected:canTransitionControlBarContent"><apiName>canTransitionControlBarContent</apiName><shortdesc>
+      确定 Flex 是否可以针对视图的操作栏或选项卡栏内容独立执行过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果 Flex 确定视图之间的控制栏在某些方面不兼容，则为 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      确定 Flex 是否可以针对视图的操作栏或选项卡栏内容独立执行过渡。
+     
+      <p>Flex 在以下情况下无法针对控制栏独立执行过渡：</p>
+      <ul>
+          <li>如果包含的视图导航器是 TabbedViewNavigator 且其选项卡栏的可见性在视图之间发生变化。</li>
+          <li>如果视图导航器的 <codeph>overlayControls</codeph> 属性值在视图之间发生变化。</li>
+          <li>如果操作栏的大小或可见性在视图之间发生变化。</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureEndValues"><apiName>captureEndValues</apiName><shortdesc>
+      在过渡的准备阶段由 ViewNavigator 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在过渡的准备阶段由 ViewNavigator 调用。在新视图已经完全实现并经过验证，而且操作栏与选项卡栏内容能够反应新视图的状态时，将调用该方法。过渡就是在此时从暂挂的视图中可以捕获任意所需的值。此外，反映新视图、选项卡栏或操作栏的状态的任意位图都应根据动画的需要来捕获。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      在过渡的准备阶段由 ViewNavigator 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在过渡的准备阶段由 ViewNavigator 调用。在新视图已经完全实现并经过验证，而且操作栏与选项卡栏内容能够反应新视图的状态时，将调用该方法。过渡可以使用该方法从暂挂的视图中捕获所需的任意值。反映新视图、选项卡栏或操作栏的状态的任意位图都应根据动画的需要来捕获。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:cleanUp"><apiName>cleanUp</apiName><shortdesc>
+      过渡完成后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      过渡完成后调用。该方法用于发布任何由过渡使用的引用和临时构造。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createActionBarEffect"><apiName>createActionBarEffect</apiName><shortdesc>
+      由默认的 prepareForPlay() 实现调用，该方法用于创建在过渡开始时针对操作栏进行播放的 Spark 效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>用作操作栏效果的 IEffect 实例。该效果由默认的 <codeph>play()</codeph> 方法实现播放。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      由默认的 <codeph>prepareForPlay()</codeph> 实现调用，该方法用于创建在过渡开始时针对操作栏进行播放的 Spark 效果。如果需要自定义的操作栏效果，该方法应由子类重写。默认情况下，该方法返回基本的操作栏效果。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createConsolidatedEffect"><apiName>createConsolidatedEffect</apiName><shortdesc>
+      由默认的 prepareForPlay() 实现调用，该方法用于创建用来过渡整个导航器（包括控件栏内容）而进行播放的 Spark 效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>用作视图过渡的 IEffect 实例。该效果由默认的 <codeph>play()</codeph> 方法实现播放。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      由默认的 <codeph>prepareForPlay()</codeph> 实现调用，该方法用于创建用来过渡整个导航器（包括控件栏内容）而进行播放的 Spark 效果。该方法应由子类覆盖。默认情况下，该方法将返回 null。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createTabBarEffect"><apiName>createTabBarEffect</apiName><shortdesc>
+      由默认的 prepareForPlay() 实现调用，该方法用于创建在过渡开始时针对选项卡栏进行播放的 Spark 效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>用作选项卡栏过渡的 IEffect 实例。该效果由默认的 <codeph>play()</codeph> 方法实现播放。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      由默认的 <codeph>prepareForPlay()</codeph> 实现调用，该方法用于创建在过渡开始时针对选项卡栏进行播放的 Spark 效果。该方法应由子类覆盖。默认情况下，将返回 null。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createViewEffect"><apiName>createViewEffect</apiName><shortdesc>
+      由默认的 prepareForPlay() 实现调用，该方法用于创建在过渡开始时针对当前和下一视图进行播放的 Spark 效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>用作视图过渡的 IEffect 实例。该效果由默认的 <codeph>play()</codeph> 方法实现播放。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      由默认的 <codeph>prepareForPlay()</codeph> 实现调用，该方法用于创建在过渡开始时针对当前和下一视图进行播放的 Spark 效果。该方法应由子类覆盖。默认情况下，该方法将返回 null。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      用于呈示准备过渡时屏幕上的元素的快照。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>代表目标的 BitmapImage 对象。
+     
+      </apiDesc><apiType value="spark.primitives:BitmapImage"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>显示要捕获的对象。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>要在 BitmapImage 对象中包含的对象周围的内边距。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>globalPosition</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>非 null 时，将使用 BitmapImage 在全局坐标中的原点更新 <codeph>globalPosition</codeph>。移动至其它坐标空间时，此值可用于调整快照位置，使其在屏幕上的全局位置不会改变。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于呈示准备过渡时屏幕上的元素的快照。位图以 BitmapImage 对象的形式返回。
+       
+      <p>BitmapImage 在目标的父代坐标空间中 - 如果链接至相同父代，则它正好重叠目标。移动至其它父代时，请确保调整 BitmapImage 的转换以正确说明坐标空间中的更改。<codeph>globalPosition</codeph> 参数的更新值可用于此。</p> 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:play"><apiName>play</apiName><shortdesc>
+      在过渡应开始设置动画时由 ViewNavigator 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在过渡应开始设置动画时由 ViewNavigator 调用。此时，过渡应分派 <codeph>start</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:prepareForPlay"><apiName>prepareForPlay</apiName><shortdesc>
+      在过渡的准备阶段由 ViewNavigator 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在过渡的准备阶段由 ViewNavigator 调用。该方法给过渡创建和配置基础 IEffect 实例的机会，或者给过渡将任意瞬态元素添加至显示列表的机会。示例瞬态元素包含位图占位符、过渡期间所需的临时容器，以及其它元素。若有需要，最终验证通过发生在 <codeph>play()</codeph> 方法调用之前。
+     
+      <p>如果确定可以启动标准过渡，说明可以从视图中单独过渡控件栏，该方法的默认实现会构造单独的 Parallel 效果，用于包装视图过渡、操作栏过渡和选项卡栏过渡的各个效果序列。该方法使用方法：<codeph>createActionBarEffect()</codeph>、<codeph>createTabBarEffect()</codeph> 和 <codeph>createViewEffect()</codeph>。</p>
+     
+      <p>如果将 <codeph>transitionControlsWithContent</codeph> 设置为 <codeph>true</codeph>，或确定控件栏无法单独过渡，将创建一个单独的效果来对导航器进行完整过渡。在这种情况下，仅调用 <codeph>createConsolidatedEffect()</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      由过渡调用以指示过渡已完成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      由过渡调用以指示过渡已完成。该方法分派 <codeph>end</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.transitions:ViewTransitionBase:duration:get"><apiName>duration</apiName><shortdesc>
+      过渡的持续时间（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      过渡的持续时间（以毫秒为单位）。默认值可能会有所不同，具体取决于相应的过渡，但在 ViewTransitionBase 中定义为 250 毫秒。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:easer:get"><apiName>easer</apiName><shortdesc>
+      此过渡的缓动行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>Sine(.5);
+           </apiDefaultValue></apiValueDef><apiDesc>
+      此过渡的缓动行为。IEaser 对象通常传播到管理实际过渡动画的 IEffect 实例中。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.xml"><linktext>spark.effects.easing</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:endView:get"><apiName>endView</apiName><shortdesc>
+      导航器正在过渡到的视图，由所属的 ViewNavigator 对象设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      导航器正在过渡到的视图，由所属的 ViewNavigator 对象设置。此属性可能为 null。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:navigator:get"><apiName>navigator</apiName><shortdesc>
+      对所属的 ViewNavigator 实例的引用，由所属的 ViewNavigator 设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:ViewNavigator</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对所属的 ViewNavigator 实例的引用，由所属的 ViewNavigator 设置。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:startView:get"><apiName>startView</apiName><shortdesc>
+      视图导航器的当前活动视图，由所属的视图导航器设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier></apiValueDef><apiDesc>
+      视图导航器的当前活动视图，由所属的视图导航器设置。此属性可能为 null。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:suspendBackgroundProcessing:get"><apiName>suspendBackgroundProcessing</apiName><shortdesc>
+      设置为 true 时，会在过渡播放前调用 UIComponent.suspendBackgroundProcessing() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc>
+      设置为 <codeph>true</codeph> 时，会在过渡播放前调用 <codeph>UIComponent.suspendBackgroundProcessing()</codeph> 方法。这禁用了 Flex 的布局管理器,从而提高了性能。在完成过渡时，布局管理器功能通过调用 <codeph>UIComponent.resumeBackgroundProcessing()</codeph> 方法得到恢复。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/suspendBackgroundProcessing()"><linktext>mx.core.UIComponent.suspendBackgroundProcessing()</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/resumeBackgroundProcessing()"><linktext>mx.core.UIComponent.resumeBackgroundProcessing()</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:transitionControlsWithContent:get"><apiName>transitionControlsWithContent</apiName><shortdesc>
+      设置为 true 时，主视图过渡用于对视图导航器进行完整过渡，包含操作栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置为 <codeph>true</codeph> 时，主视图过渡用于对视图导航器进行完整过渡，包含操作栏。不会执行操作栏的特定过渡。因为选项卡栏与整个应用程序相关联，而不是与某一视图关联，所以视图过渡不影响该栏。
+           <p>请注意，即使设置为 <codeph>false</codeph> 时，仍会出现过渡操作栏不可行的情况。例如，操作栏不出现在两个视图之一中时，或如果操作栏更改大小。</p>
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransitionMode"><apiName>FlipViewTransitionMode</apiName><shortdesc>
+  FlipViewTransitionMode 类定义在提示翻转过渡实例的样式模式时使用的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlipViewTransitionMode 类定义在提示翻转过渡实例的样式模式时使用的常量。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransition"><linktext>FlipViewTransition</linktext></link></related-links><apiValue id="spark.transitions:FlipViewTransitionMode:CARD"><apiName>CARD</apiName><shortdesc>
+      新视图在另一侧显示时，上一个视图在其中心点翻转。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>card</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      新视图在另一侧显示时，上一个视图在其中心点翻转。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:FlipViewTransitionMode:CUBE"><apiName>CUBE</apiName><shortdesc>
+     新视图显示为立方体的相邻面时，上一个视图会过渡至与旋转立方体上的面一样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cube</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     新视图显示为立方体的相邻面时，上一个视图会过渡至与旋转立方体上的面一样。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

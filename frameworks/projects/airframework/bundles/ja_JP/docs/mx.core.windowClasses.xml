@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core.windowClasses"><apiName>mx.core.windowClasses</apiName><apiDetail/><apiClassifier id="mx.core.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  WindowedApplication または Window 用のデフォルトのタイトルバーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication または Window 用のデフォルトのタイトルバーです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeButtons"><apiName>placeButtons</apiName><shortdesc>
+      タイトルバー内のボタンの位置を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>align</apiItemName><apiType value="String"/><apiDesc>ボタンの配置です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>タイトルバーの幅です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>タイトルバーの高さです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>コーナーなどで左側に挿入するスペースを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>コーナーなどで右側に挿入するスペースを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cornerOffset</apiItemName><apiType value="Number"/><apiDesc>コーナーの半径を考慮したインデントを指定します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      タイトルバー内のボタンの位置を決定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeTitle"><apiName>placeTitle</apiName><shortdesc>
+      タイトルバー内のタイトルの配置を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>titleAlign</apiItemName><apiType value="String"/><apiDesc>タイトルの配置方法です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>コーナーなどで左側に挿入するスペースを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>コーナーなどで右側に挿入するスペースを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonAlign</apiItemName><apiType value="String"/><apiDesc>ボタンの配置方法です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      タイトルバー内のタイトルの配置を決定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      スタイルが変更されたときに StyleManager によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>変更されるスタイルの名前を表します。 null の場合もありますが、これは通常、グローバルなスタイルや styleName を変更したときです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      スタイルが変更されたときに StyleManager によって呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core.windowClasses:TitleBar:closeButton"><apiName>closeButton</apiName><shortdesc>
+      閉じるボタンを定義する Button オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      閉じるボタンを定義する Button オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:maximizeButton"><apiName>maximizeButton</apiName><shortdesc>
+      最大化ボタンを定義する Button オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      最大化ボタンを定義する Button オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:minimizeButton"><apiName>minimizeButton</apiName><shortdesc>
+      最小化ボタンを定義する Button オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      最小化ボタンを定義する Button オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleTextField"><apiName>titleTextField</apiName><shortdesc>
+      アプリケーションのタイトルを表示するタイトルバー内の UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      アプリケーションのタイトルを表示するタイトルバー内の UITextField です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーに表示されるアイコンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーに表示されるアイコンです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーと、ドッキングバーまたはタスクバーに表示されるタイトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーと、ドッキングバーまたはタスクバーに表示されるタイトルです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core.windowClasses:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+  WindowedApplication または Window 用のデフォルトのステータスバーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication または Window 用のデフォルトのステータスバーです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:StatusBar:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core.windowClasses:StatusBar:statusTextField"><apiName>statusTextField</apiName><shortdesc>
+      ステータスバーのテキストが表示される UITextField への参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      ステータスバーのテキストが表示される UITextField への参照です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:StatusBar:status:get"><apiName>status</apiName><shortdesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ステータスバー（表示されている場合）に表示されるストリングです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

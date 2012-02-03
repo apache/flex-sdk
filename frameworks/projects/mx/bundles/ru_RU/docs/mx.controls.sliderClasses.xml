@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.sliderClasses"><apiName>mx.controls.sliderClasses</apiName><apiDetail/><apiClassifier id="mx.controls.sliderClasses:Slider"><apiName>Slider</apiName><shortdesc>
+  Класс Slider является базовым классом для элементов управления-ползунков Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="trackSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для полосы прокрутки.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackHighlightSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для полосы прокрутки в случае ее выбора.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDisabledSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для ползунка в отключенном состоянии.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для ползунка в нажатом состоянии.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для ползунка в состоянии наведения.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для ползунка в отпущенном состоянии.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Тема оформления для ползунка по умолчанию.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipPrecision" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="int">
+<description>
+  Число десятичных разрядов, используемых для текста всплывающей подсказки текущего значения. Нулевое значение соответствует округлению всех значений до целого числа.
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dataTipOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Смещение всплывающей подсказки текущего значения относительно ползунка (в пикселях). Используется в комбинации со свойством стиля <codeph>dataTipPlacement</codeph> элементов управления HSlider и VSlider.
+ 
+  </description>
+<default>16
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля, используемое для всплывающей подсказки текущего значения.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="trackMargin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Размер полей полосы прокрутки в пикселях. В случае значения <codeph>undefined</codeph> поля полосы прокрутки определяются по длине от первой до последней метки. При наличии значения Flex осуществляет попытку размещения меток в доступном пространстве.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showTrackHighlight" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Указывает на необходимость включения выделения полосы прокрутки между ползунками (или отдельным ползунком и началом полосы прокрутки).
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Цвета полосы прокрутки в виде двухцветного массива. Можно использовать один цвет для получения чистого цвета полосы прокрутки.
+ 
+  <p>Это свойство используется в сочетании со свойством <codeph>fillAlphas</codeph>. Обычно при настройке <codeph>trackColors</codeph> для <codeph>fillAlphas</codeph> устанавливается набор значений [ 1.0, 1.0 ].</p>
+ 
+  </description>
+<default>[ 0xE7E7E7, 0xE7E7E7 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickThickness" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Толщина делений в пикселях. Если направление является горизонтальным, регулируется ширина делений. Если направление является вертикальным, регулируется высота делений.
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Смещение координаты Y (если направление является горизонтальным) или смещение координаты Х (если направление является вертикальным) по делениям относительно полосы прокрутки.
+ 
+  </description>
+<default>-6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickLength" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Длина делений в пикселях. Если <codeph>direction</codeph> имеет значение <codeph>Direction.HORIZONTAL</codeph>, необходимо отрегулировать высоту делений. Если <codeph>direction</codeph> имеет значение <codeph>Direction.VERTICAL</codeph>, регулируется ширина делений.
+ 
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="tickColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="uint">
+<description>
+  Цвет делений. Может представлять собой шестнадцатеричное значение цвета или имя строки известного цвета.
+ 
+  </description>
+<default>0x6F7777.
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="thumbOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Смещение координаты Y (если направление является горизонтальным) или смещение координаты Х ползунка (если направление является вертикальным) относительно полосы прокрутки.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="slideEasingFunction" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Function">
+<description>
+  Функция создания промежуточных кадров для скользящей анимации при выборе полосы прокрутки для перемещения ползунка.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="slideDuration" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Продолжительность в миллисекундах для скользящей анимации при выборе полосы прокрутки для перемещения ползунка.
+ 
+  </description>
+<default>300
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="labelStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Имя стиля, используемое для метки ползунка.  
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="labelOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Смещение координаты Y (если направление является горизонтальным) или смещение координаты Х (если направление является вертикальным) по меткам относительно полосы прокрутки.
+ 
+   </description>
+<default>-10
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="invertThumbDirection" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Инвертировать направление ползунков. Если <codeph>true</codeph>, ползунки будут инвертированы.
+  
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Цвет кольца фокуса, если компонент находится в фокусе
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Цвет выделения полосы прокрутки.
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Цвет черного раздела границы. 
+  
+  </description>
+<default>0x919999
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Указывает цвета, используемые для определения оттенка заливки фона компонента. Данный параметр следует установить для массива из двух или четырех значений, определяющих цвета RGB. Элементы 0 и 1 указывают начальное и конечное значения для цветового градиента. Элементы 2 и 3, если они существуют, используются вместо элементов 0 и 1, когда компонент находится в состоянии наведения указателя мыши. В случае плоского элемента управления для элементов 0 и 1 и для элементов 2 и 3 устанавливается один и тот же цвет, значением по умолчанию является <codeph>[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE]</codeph>.
+  <p>Некоторые компоненты, такие как контейнер ApplicationControlBar, имеют другое значение по умолчанию. Для контейнера ApplicationControlBar значением по умолчанию является <codeph>[0xFFFFFF, 0xFFFFFF]</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Определяет значения прозрачности альфа-канала, используемые для заливки фона компонентов. Следует установить массив из двух или четырех чисел. Элементы 0 и 1 определяют начальное и конечное значения для градиента альфа-канала. Элементы 2 и 3, если они существуют, используются вместо элементов 0 и 1, когда компонент находится в состоянии наведения указателя мыши. Глобальным значением по умолчанию является <codeph>[ 0.60, 0.40, 0.75, 0.65 ]</codeph>. Некоторые компоненты, такие как контейнер ApplicationControlBar, имеют другое значение по умолчанию. Для контейнера ApplicationControlBar значением по умолчанию является <codeph>[ 0.0, 0.0 ]</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The Slider class cannot be used as an MXML tag. Use the <code>&lt;mx:HSlider&gt;</code> 
+  and <code>&lt;mx:VSlider&gt;</code> tags instead. However, the Slider class does define tag 
+  attributes used by the <code>&lt;mx:HSlider&gt;</code> and <code>&lt;mx:VSlider&gt;</code> tags. </p>
+ 
+  <p>The Slider class inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    allowThumbOverlap="false|true"
+    allowTrackClick="true|false"
+    dataTipFormatFunction="undefined"
+    direction="horizontal|vertical"
+    labels="undefined"
+    liveDragging="false|true"
+    maximum="10"
+    minimum="0"
+    showDataTip="true|false"
+    sliderDataTipClass="sliderDataTip"
+    sliderThumbClass="SliderThumb"
+    snapInterval="0"
+    thumbCount="1"
+    tickInterval="0"
+    tickValues="undefined"
+    value="<i>The value of the minimum property.</i>"
+ 
+    <strong>Styles</strong>
+    borderColor="0x919999"
+    dataTipOffset="16"
+    dataTipPrecision="2"
+    dataTipStyleName="undefined"
+    fillAlphas="[0.6, 0.4, 0.75, 0.65]"
+    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE;]"
+    labelOffset="-10"
+    labelStyleName="undefined"
+    showTrackHighlight="false"
+    slideDuration="300"
+    slideEasingFunction="undefined"
+    thumbDisabledSkin="SliderThumbSkin"
+    thumbDownSkin="SliderThumbSkin"
+    thumbOffset="0"
+    thumbOverSkin="SliderThumbSkin"
+    thumbUpSkin="SliderThumbSkin"
+    tickColor="0x6F7777"
+    tickLength="3"
+    tickOffset="-6"
+    tickThickness="1"
+    trackColors="[ 0xEEEEEE, 0xFFFFFF ]"
+    tracHighlightSkin="SliderHighlightSkin"
+    trackMargin="undefined"
+    trackSkin="SliderTrackSkin"
+  
+    <strong>Events</strong>
+    change="<i>No default</i>"
+    thumbDrag="<i>No default</i>"
+    thumbPress="<i>No default</i>"
+    thumbRelease="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Slider является базовым классом для элементов управления-ползунков Flex. Элементы управления прокруткой позволяют пользователям выбирать значения путем перемещения ползунка между конечными точками полосы прокрутки. Текущее значение ползунка определяется относительным местоположением ползунка между конечными точками, соответствующими минимальному и максимальному значениям ползунка. Класс Slider подразделяется на подчиненные классы HSlider и VSlider.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><shortdesc>
+  Отправляется при освобождении ползунка (когда пользователь отпускает кнопку мыши после выполнения события thumbPress).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при освобождении ползунка (когда пользователь отпускает кнопку мыши после выполнения события <codeph>thumbPress</codeph>).
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><shortdesc>
+  Отправляется при нажатии ползунка (когда пользователь нажимает кнопку мыши при наведении на ползунок).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_PRESS</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при нажатии ползунка (когда пользователь нажимает кнопку мыши при наведении на ползунок).
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><shortdesc>
+  Вызывается при нажатии ползунка и его перемещении при помощи мыши.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_DRAG</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Вызывается при нажатии ползунка и его перемещении при помощи мыши. Этому событию всегда предшествует событие <codeph>thumbPress</codeph>.
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  Вызывается при изменении значения ползунка с использованием мыши или клавиатуры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Вызывается при изменении значения ползунка с использованием мыши или клавиатуры.
+ 
+  <p>Если свойство <codeph>liveDragging</codeph> имеет значение <codeph>true</codeph>, событие отправляется непрерывно, поскольку пользователь перемещает ползунок. Если <codeph>liveDragging</codeph> имеет значение <codeph>false</codeph>, событие отправляется, когда пользователь освобождает ползунок.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.sliderClasses:Slider:Slider"><apiName>Slider</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.sliderClasses:Slider:getThumbAt"><apiName>getThumbAt</apiName><shortdesc>
+      Возвращает объект ползунка в указанном индексе.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ссылка на объект SliderThumb.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.sliderClasses:SliderThumb</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Номер индекса ползунка, отсчитываемый от нуля.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает объект ползунка в указанном индексе. Этот метод применим для определения стиля и настройки отдельных ползунков в элементе управления прокруткой.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:measure"><apiName>measure</apiName><shortdesc>
+      Вычисляет размер пространства, занимаемый компонентом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вычисляет размер пространства, занимаемый компонентом. Горизонтальный элемент управления прокруткой вычисляет высоту на основе позиций соответствующих меток, делений и ползунков относительно полосы прокрутки. Высота элемента управления определяется в результате вычитания значения позиции нижней части самого нижнего элемента из значения позиции верхней части самого верхнего элемента. Ширина горизонтального элемента управления прокруткой по умолчанию составляет 250 пикселей. Для вертикального элемента управления прокруткой измерения ширины и длины инвертируются.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:setThumbValueAt"><apiName>setThumbValueAt</apiName><shortdesc>
+      Этот метод позволяет определять значение ползунка и обновлять его отображение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Номер индекса ползунка, отсчитываемый от нуля, для определения его значения, где нулевое значение соответствует первому ползунку.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Number"/><apiDesc>Значение, присваиваемое ползунку
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Этот метод позволяет определять значение ползунка и обновлять его отображение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Позиционирует элементы управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Указывает ширину компонента в пикселях в координатах компонента вне зависимости от значения свойства <codeph>scaleX</codeph> компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Указывает высоту компонента в пикселях в координатах компонента вне зависимости от значения свойства <codeph>scaleY</codeph> компонента.   
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Позиционирует элементы управления. Этот метод позволяет устанавливать полосу прокрутки, ползунки, метки и деления, а также задавать их размер. Размер полосы прокрутки определяется на основе длины меток и полей полосы прокрутки. Если указано значение <codeph>trackMargin</codeph>, то размер полосы прокрутки определяется путем вычитания из значения доступной ширины значения<codeph>trackMargin</codeph>, умноженного на 2.
+     
+      <p>Деления располагаются вдоль полосы прокрутки через равные промежутки с начала полосы прокрутки. Дополнительное деление помещается в конце полосы прокрутки в том случае, если оно еще не существует (если интервал деления не является фактором максимального значения). Координата деления по оси Y зависит от значения <codeph>tickOffset</codeph>. При нулевом смещении нижняя часть деления располагается в верхней части полосы прокрутки. Отрицательные смещения используются для перемещения делений вверх, в то время как положительные смещения – для перемещения делений вниз относительно полосы прокрутки.</p>
+     
+      <p>Метки устанавливаются вдоль полосы прокрутки через равные промежутки. Если значение <codeph>trackMargin</codeph> не является слишком маленьким, метки всегда располагаются точно по центру над соответствующими интервалами. Если указано значение <codeph>trackMargin</codeph>, то положение первой и последней меток совпадает с левой и правой границей элемента управления соответственно. При наложении метки не отсекаются и не изменяют свои размеры, поэтому следует убедиться в том, что на полосе прокрутки имеется необходимое для их размещения пространство. Координата по оси Y определяется на основе значения свойства <codeph>labelOffset</codeph>. При нулевом смещении нижняя часть метки располагается в верхней части полосы прокрутки. В отличие от делений, метки не могут размещаться с наложением на полосу прокрутки. Если смещение является положительным числом, то верхняя часть метки размещается под нижней частью полосы прокрутки.</p>
+     
+      <p>Ползунки размещаются с наложением на полосу прокрутки. Положение ползунков на оси Х определяется их значением. Положение на оси Y зависит от значения свойства <codeph>thumbOffset</codeph>. При нулевом смещении центр ползунка размещается точно в центре полосы прокрутки. При отрицательном смещении ползунки перемещаются вверх, а при положительном смещении – вниз.</p>
+     
+      <p>Размещение делений, меток и ползунков является взаимно независимым. В случае их наложения повторные попытки размещения не осуществляются.</p>
+     
+      <p>В отношении вертикального элемента управления прокруткой применяются те же самые правила. В приведенном выше описании следует заменить высоту шириной, ширину – высотой, левую позицию – верхней, правую часть – нижней частью, координату по оси Х – координатой по оси Y и координату по оси Y – координатой по оси Х.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.sliderClasses:Slider:allowThumbOverlap"><apiName>allowThumbOverlap</apiName><shortdesc>
+      Если установлено значение false, каждый ползунок может перемещаться только до границы смежного ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>false</codeph>, каждый ползунок может перемещаться только до границы смежного ползунка. Если установлено значение <codeph>true</codeph>, каждый ползунок может перемещаться в любую позицию на полосе прокрутки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:allowTrackClick"><apiName>allowTrackClick</apiName><shortdesc>
+      Указывает, приводит ли щелчок по дорожке к перемещению ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, приводит ли щелчок по дорожке к перемещению ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:liveDragging"><apiName>liveDragging</apiName><shortdesc>
+      Определяет допустимость «живой» прокрутки для ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет допустимость «живой» прокрутки для ползунка. Если задано значение <codeph>false</codeph>, Flex устанавливает свойства <codeph>value</codeph> и <codeph>values</codeph> и отправляет событие <codeph>change</codeph> в момент, когда пользователь прекращает выполнять «живую» прокрутку ползунка Если задано значение <codeph>true</codeph>, Flex устанавливает свойства <codeph>value</codeph> и <codeph>values</codeph> и непрерывно отправляет событие <codeph>change</codeph>, пока пользователь перемещает ползунок.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:showDataTip"><apiName>showDataTip</apiName><shortdesc>
+      Если задано значение true, в процессе действий пользователя отображается всплывающая подсказка текущего значения, содержащая значение ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если задано значение <codeph>true</codeph>, в процессе действий пользователя отображается всплывающая подсказка текущего значения, содержащая значение ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:dataTipFormatFunction:get"><apiName>dataTipFormatFunction</apiName><shortdesc>
+      Функция обратного вызова, используемая для форматирования текста всплывающей подсказки текущего значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>undefined   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Функция обратного вызова, используемая для форматирования текста всплывающей подсказки текущего значения. Функция принимает одно число в качестве аргумента и возвращает отформатированную строку.
+     
+      <p>Функция имеет следующую подпись:</p>
+      <pre>
+      funcName(value:Number):String
+      </pre>
+     
+      <p>В следующем примере к тексту всплывающей подсказки текущего значения добавляется символ доллара, а затем текст форматируется с использованием свойства <codeph>dataTipPrecision</codeph> элемента управления прокруткой с именем slide: </p>
+     
+      <pre>
+      import mx.formatters.NumberBase;
+      function myDataTipFormatter(value:Number):String { 
+          var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+          return   "$ " + dataFormatter.formatPrecision(String(value), slide.getStyle("dataTipPrecision")); 
+      }
+      </pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:direction:get"><apiName>direction</apiName><shortdesc>
+      Ориентация элемента управления-ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SliderDirection.HORIZONTAL
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ориентация элемента управления-ползунка. Допустимыми значениями в MXML являются <codeph>horizontal</codeph> или <codeph>vertical</codeph>.
+     
+      <p>В ActionScript для установки значений этого свойства используются следующие константы: <codeph>SliderDirection.VERTICAL</codeph> и <codeph>SliderDirection.HORIZONTAL</codeph>.</p>
+     
+      Это свойство для элементов управления HSlider и VSlider устанавливается автоматически, поэтому при использовании этих элементов управления настройка данного свойства не требуется.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.sliderClasses.xml#SliderDirection"><linktext>mx.controls.sliderClasses.SliderDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:labels:get"><apiName>labels</apiName><shortdesc>
+      Массив строк, используемый для меток ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Массив строк, используемый для меток ползунка. Flex устанавливает метки в начале и в конце полосы прокрутки, а также через равные интервалы между ее началом и концом.
+     
+      <p>Например, если массив содержит три элемента, первый элемент устанавливается в начале, второй элемент – в середине, а последний элемент – в конце полосы прокрутки.</p>
+     
+      <p>Если указана единственная метка, она устанавливается в начале полосы прокрутки. По умолчанию метки размещаются над делениями (при их наличии) или над полосой прокрутки. Для выравнивания меток относительно делений следует убедиться, что количество делений совпадает с количеством меток.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      Наибольшее допустимое значение для ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Наибольшее допустимое значение для ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      Наименьшее допустимое значение для ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Наименьшее допустимое значение для ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderDataTipClass:get"><apiName>sliderDataTipClass</apiName><shortdesc>
+      Ссылка на класс, используемая для всплывающей подсказки текущего значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderDataTip
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ссылка на класс, используемая для всплывающей подсказки текущего значения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderThumbClass:get"><apiName>sliderThumbClass</apiName><shortdesc>
+      Ссылка на класс, используемая для каждого ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderThumb
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ссылка на класс, используемая для каждого ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:snapInterval:get"><apiName>snapInterval</apiName><shortdesc>
+      Указывает значение приращения для ползунка при перемещении ползунка пользователем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает значение приращения для ползунка при перемещении ползунка пользователем. Например, если <codeph>snapInterval</codeph> имеет значение 2, значение <codeph>minimum</codeph> равно 0, а значение <codeph>maximum</codeph> равно 10, ползунок перемещается между значениями 0, 2, 4, 6, 8 и 10. Нулевое значение соответствует непрерывному перемещению ползунка между значениями <codeph>minimum</codeph> и <codeph>maximum</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:thumbCount:get"><apiName>thumbCount</apiName><shortdesc>
+      Количество ползунков, допустимое для элемента управления-ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество ползунков, допустимое для элемента управления-ползунка. Возможные значения: 1 или 2. Если задано значение 1, то свойство <codeph>value</codeph> содержит текущее значение ползунка. Если задано значение 2, то свойство <codeph>values</codeph> содержит массив значений, включающий значение для каждого ползунка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Набор стилей для перехода от элемента управления-ползунка к ползункам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Набор стилей для перехода от элемента управления-ползунка к ползункам.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickInterval:get"><apiName>tickInterval</apiName><shortdesc>
+      Интервал между делениями относительно значения maximum элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Интервал между делениями относительно значения <codeph>maximum</codeph> элемента управления. Flex отображает деления, если для свойства <codeph>tickInterval</codeph> установлено значение, отличное от нуля.
+     
+      <p>Например, если <codeph>tickInterval</codeph> равно 1, и значение <codeph>maximum</codeph> равно 10, то деления размещаются вдоль ползунка с интервалом 1/10. При нулевом значении деления на ползунке не отображаются. Если в качестве значения свойства <codeph>tickValues</codeph> установлен непустой массив, это свойство игнорируется.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickValues:get"><apiName>tickValues</apiName><shortdesc>
+      Позиции делений на ползунке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Позиции делений на ползунке. Эти позиции соответствуют значениям на ползунке и находятся между значениями <codeph>minimum</codeph> и <codeph>maximum</codeph>. Например, если свойство <codeph>tickValues</codeph> имеет набор значений [0, 2.5, 7.5, 10], и <codeph>maximum</codeph> равно 10, деления размещаются вдоль ползунка в следующих позициях: начало ползунка, 1/4 расстояния слева направо, 3/4 расстояния слева направо и конец ползунка. 
+      
+      <p>Если в качестве значения этого свойства установлен непустой массив, то свойство <codeph>tickInterval</codeph> игнорируется.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:value:get"><apiName>value</apiName><shortdesc>
+      Это свойство содержит позицию ползунка и является числом в диапазоне между свойствами minimum и maximum.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Это свойство содержит позицию ползунка и является числом в диапазоне между свойствами <codeph>minimum</codeph> и <codeph>maximum</codeph>. Если значение <codeph>thumbCount</codeph> равно 1, используется свойство <codeph>value</codeph>. Если значение <codeph>thumbCount</codeph> больше 1, используется свойство <codeph>values</codeph>. Значение по умолчанию равно значению свойства minimum.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:values:get"><apiName>values</apiName><shortdesc>
+      Массив значений для каждого ползунка, если значение thumbCount больше 1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив значений для каждого ползунка, если значение <codeph>thumbCount</codeph> больше 1.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDirection"><apiName>SliderDirection</apiName><shortdesc>
+  Класс SliderDirection определяет значения констант для свойства direction класса Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SliderDirection определяет значения констант для свойства <codeph>direction</codeph> класса Slider.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link></related-links><apiValue id="mx.controls.sliderClasses:SliderDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Определяет необходимость отображения горизонтального ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Определяет необходимость отображения горизонтального ползунка. Эта константа используется элементом управления HSlider.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:SliderDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Определяет необходимость отображения вертикального ползунка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Определяет необходимость отображения вертикального ползунка. Эта константа используется элементом управления VSlider.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+  Класс SliderDataTip определяет всплывающую подсказку, используемую в элементе управления mx.controls.Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ToolTip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SliderDataTip определяет всплывающую подсказку, используемую в элементе управления mx.controls.Slider. Этот класс не добавляет дополнительные функциональные возможности в mx.controls.ToolTip. Он используется только для применения стиля селектора типа.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderDataTip:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+  Класс SliderLabel определяет метку, используемую в компоненте mx.controls.Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Label</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SliderLabel определяет метку, используемую в компоненте mx.controls.Slider. Этот класс не добавляет дополнительные функциональные возможности в mx.controls.Label. Он используется для применения стиля селектора типа.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderLabel:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+  Класс SliderThumb представляет ползунок элемента управления Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SliderThumb представляет ползунок элемента управления Slider. Класс SliderThumb может использоваться только в пределах контекста элемента управления прокруткой. Можно создать подкласс класса SliderThumb и использовать его с элементом управления прокруткой путем настройки свойства <codeph>sliderThumbClass</codeph> элемента управления прокруткой для этого подкласса. 
+  		
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderThumb:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.sliderClasses:SliderThumb:xPosition:get"><apiName>xPosition</apiName><shortdesc>
+	  Указывает положение центра ползунка на оси X.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Указывает положение центра ползунка на оси X.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

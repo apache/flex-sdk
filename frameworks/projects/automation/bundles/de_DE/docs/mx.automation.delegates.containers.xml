@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates.containers"><apiName>mx.automation.delegates.containers</apiName><apiDetail/><apiClassifier id="mx.automation.delegates.containers:ViewStackAutomationImpl"><apiName>ViewStackAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der ViewStack-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der ViewStack-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.ViewStack.xml"><linktext>mx.containers.ViewStack</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:ViewStackAutomationImpl:ViewStackAutomationImpl"><apiName>ViewStackAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:ViewStack"/><apiDesc>Zu automatisierendes ViewStack-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:ViewStackAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:BoxAutomationImpl"><apiName>BoxAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Boxklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Boxklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Box.xml"><linktext>mx.containers.Box</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:BoxAutomationImpl:BoxAutomationImpl"><apiName>BoxAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Box"/><apiDesc>Zu automatisierendes Boxebjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:BoxAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:CanvasAutomationImpl"><apiName>CanvasAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Canvas-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Canvas-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Canvas.xml"><linktext>mx.containers.Canvas</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:CanvasAutomationImpl:CanvasAutomationImpl"><apiName>CanvasAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Canvas"/><apiDesc>Zu automatisierendes Canvas-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:CanvasAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:TabNavigatorAutomationImpl"><apiName>TabNavigatorAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der TabNavigator-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.containers:ViewStackAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der TabNavigator-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.TabNavigator.xml"><linktext>mx.containers.TabNavigator</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:TabNavigatorAutomationImpl"><apiName>TabNavigatorAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:TabNavigator"/><apiDesc>Zu automatisierendes TabNavigator-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  Methode, die aufgerufen wird, nachdem die Komponente initialisiert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Methode, die aufgerufen wird, nachdem die Komponente initialisiert wurde. Damit kann auf Subkomponenten zugegriffen und die Komponente beeinflusst werden.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  Wiederholt ItemClickEvents durch Senden eines MouseEvent an das angeklickte Element.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, wenn die Wiederholung erfolgreich war. Wenn nicht <codeph>false</codeph>.
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das zu wiederholende Ereignis.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Wiederholt ItemClickEvents durch Senden eines MouseEvent an das angeklickte Element.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:PanelAutomationImpl"><apiName>PanelAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Panelklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Panelklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Panel.xml"><linktext>mx.containers.Panel</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:PanelAutomationImpl:PanelAutomationImpl"><apiName>PanelAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Panel"/><apiDesc>Zu automatisierendes Panelobjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:PanelAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:DividedBoxAutomationImpl"><apiName>DividedBoxAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der DividedBox-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der DividedBox-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.DividedBox.xml"><linktext>mx.containers.DividedBox</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:DividedBoxAutomationImpl:DividedBoxAutomationImpl"><apiName>DividedBoxAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:DividedBox"/><apiDesc>Zu automatisierendes DividedBox-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:DividedBoxAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:DividedBoxAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  Wiederholt DIVIDER_RELEASE-Ereignisse durch Auslösen eines DIVIDER_PRESS-Ereignisses, welches den betreffenden Teiler verschiebt und ein DIVIDER_RELEASE-Ereignis auslöst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, wenn die Wiederholung erfolgreich war. Wenn nicht <codeph>false</codeph>.     
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das zu wiederholende Ereignis.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Wiederholt <codeph>DIVIDER_RELEASE</codeph>-Ereignisse durch Auslösen eines <codeph>DIVIDER_PRESS</codeph>-Ereignisses, welches den betreffenden Teiler verschiebt und ein <codeph>DIVIDER_RELEASE</codeph>-Ereignis auslöst.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:FormItemAutomationImpl"><apiName>FormItemAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der FormItem-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der FormItem-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.FormItem.xml"><linktext>mx.containers.FormItem</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:FormItemAutomationImpl:FormItemAutomationImpl"><apiName>FormItemAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:FormItem"/><apiDesc>Zu automatisierendes FormItem-Objekt.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:FormItemAutomationImpl:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:FormItemAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:AccordionAutomationImpl"><apiName>AccordionAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Accordionklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Accordionklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Accordion.xml"><linktext>mx.containers.Accordion</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:AccordionAutomationImpl:AccordionAutomationImpl"><apiName>AccordionAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Accordion"/><apiDesc>Zu automatisierendes Accordionobjekt.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:AccordionAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:AccordionAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		 Wiederholt ein IndexChangedEvent-Ereignis durch Senden eines MouseEvent an die angeklickte Überschrift.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, wenn die Wiederholung erfolgreich war. Wenn nicht <codeph>false</codeph>.
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das zu wiederholende Ereignis.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Wiederholt ein <codeph>IndexChangedEvent</codeph>-Ereignis, durch Senden eines <codeph>MouseEvent</codeph> an die angeklickte Überschrift.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:ApplicationAutomationImpl"><apiName>ApplicationAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Applicationklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Applicationklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:ApplicationAutomationImpl:ApplicationAutomationImpl"><apiName>ApplicationAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Application"/><apiDesc>Zu automatisierendes Applicationobjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="mx.automation:IAutomationObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.containers:ApplicationAutomationImpl:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.containers:FormAutomationImpl"><apiName>FormAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Formklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Formklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Form.xml"><linktext>mx.containers.Form</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:FormAutomationImpl:FormAutomationImpl"><apiName>FormAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Form"/><apiDesc>Zu automatisierendes Formobjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:FormAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

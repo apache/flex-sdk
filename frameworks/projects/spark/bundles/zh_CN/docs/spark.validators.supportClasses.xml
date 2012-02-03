@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators.supportClasses"><apiName>spark.validators.supportClasses</apiName><apiDetail/><apiClassifier id="spark.validators.supportClasses:NumberValidatorBase"><apiName>NumberValidatorBase</apiName><shortdesc>
+  NumberValidatorBase 类包含 NumberValidator 和 CurrencyValidator 类需要的所有常用功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidatorBase
+    <strong>Properties</strong>
+    allowNegative="true"
+    decimalPointCountError="The decimal separator can only occur once."
+    decimalSeparator="<i>locale specified string or customized by user</i>."
+    digitsType="<i>locale specified string or customized by user</i>."
+    domain="real"
+    fractionalDigits="<i>locale specified string or customized by user</i>."
+    fractionalDigitsError="The amount entered has too many digits beyond the decimal point."
+    greaterThanMaxError="The number entered is too large."
+    groupingSeparator="<i>locale specified string or customized by user</i>."
+    invalidCharError="The input contains invalid characters."
+    invalidFormatCharsError="One of the formatting parameters is invalid."
+    lessThanMinError="The amount entered is too small."
+    localeUndefinedError="Locale is undefined."
+    maxValue="NaN"
+    minValue="NaN"
+    negativeError="The amount may not be negative."
+    negativeSymbolError="The negative symbol is repeated or not in right place."
+    notAnIntegerError="The number must be an integer."
+    parseError="The input string could not be parsed."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:GlobalizationValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>NumberValidatorBase</codeph> 类包含 <codeph>NumberValidator</codeph> 和 <codeph>CurrencyValidator</codeph> 类需要的所有常用功能。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase"><linktext>spark.formatters.supportClasses.NumberFormatterBase</linktext></link></related-links><apiConstructor id="spark.validators.supportClasses:NumberValidatorBase:NumberValidatorBase"><apiName>NumberValidatorBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.validators.supportClasses:NumberValidatorBase:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      指定是否允许为负数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否允许为负数。有效值为 <codeph>true</codeph> 或 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      多次出现小数分隔符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can occur only once."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      多次出现小数分隔符时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      小数分隔符，用于验证包含小数部分的数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      小数分隔符，用于验证包含小数部分的数字。
+     
+      <p>该属性最初基于验证程序对象的区域设置样式而设置。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      定义验证数字时使用的数字字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      定义验证数字时使用的数字字符集。
+     
+      <p>不同语言和区域使用不同的字符集表示数字 0 到 9。此属性定义要使用的数字集。</p>
+     
+      <p>此属性值表示十进制数字集中数字 0 的 Unicode 值。在 <codeph>NationalDigitsType</codeph> 类中定义此属性的有效值。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:domain:get"><apiName>domain</apiName><shortdesc>
+      要验证的数字类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"real"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要验证的数字类型。允许的值为 <codeph>"real"</codeph> 和 <codeph>"int"</codeph>。
+     
+      <p>在 ActionScript 中，您可以使用下列常量来设置此属性：<codeph>NumberValidatorDomainType.REAL</codeph> 或 <codeph>NumberValidatorDomainType.INT</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/NumberValidatorDomainType"><linktext>NumberValidatorDomainType</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:fractionalDigitsError:get"><apiName>fractionalDigitsError</apiName><shortdesc>
+      分数位数超过了 fractionalDigits 属性指定的值时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond the decimal
+      point."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      分数位数超过了 fractionalDigits 属性指定的值时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      小数分隔符后可以显示的最大位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      小数分隔符后可以显示的最大位数。
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:greaterThanMaxError:get"><apiName>greaterThanMaxError</apiName><shortdesc>
+      值超过 maxValue 属性时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number entered is too large."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值超过 <codeph>maxValue</codeph> 属性时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      用于分组分隔符的字符或字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      用于分组分隔符的字符或字符串。
+     
+      <p>此属性的值在验证数字时用作分组分隔符。基于在构造验证程序对象时选择的区域设置对此属性进行最初设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link><link href="spark.validators.supportClasses.xml#NumberValidatorBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      值包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input contains invalid characters."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值包含无效字符时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      值包含无效格式字符（这意味着它包含数字或负号 (-) 作为分隔符，或者它包含两个或多个连续分隔符）时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值包含无效格式字符（这意味着它包含数字或负号 (-) 作为分隔符，或者它包含两个或多个连续分隔符）时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.Globalization.LastOperationStatus.xml"><linktext>spark.Globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:lessThanMinError:get"><apiName>lessThanMinError</apiName><shortdesc>
+      值小于 minValue 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值小于 <codeph>minValue</codeph> 时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:localeUndefinedError:get"><apiName>localeUndefinedError</apiName><shortdesc>
+      区域设置未定义或不可用时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Locale is undefined."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      区域设置未定义或不可用时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      有效数字的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最大值。值为 NaN 表示没有最大值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:minValue:get"><apiName>minValue</apiName><shortdesc>
+      有效数字的最小值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最小值。值为 NaN 表示没有最小值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      值为负且 allowNegative 属性为 false 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值为负且 <codeph>allowNegative</codeph> 属性为 <codeph>false</codeph> 时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeSymbolError:get"><apiName>negativeSymbolError</apiName><shortdesc>
+      负号重复或位于错误位置时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative symbol is repeated or not in right place."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      负号重复或位于错误位置时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      验证负值时要使用的负号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      验证负值时要使用的负号。
+     
+      <p>验证负数时使用此符号。这是只读属性，因为不是所有操作系统允许自定义此属性。</p>
+     
+      <p>此属性设置为区域设置指定的默认值。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.supportClasses.xml#NumberValidatorBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.validators.supportClasses.xml#NumberValidatorBase/validate()"><linktext>validate()</linktext></link></related-links></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:notAnIntegerError:get"><apiName>notAnIntegerError</apiName><shortdesc>
+      数字必须为整数（如 domain 属性所定义）时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number must be an integer."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数字必须为整数（如 <codeph>domain</codeph> 属性所定义）时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:NumberValidatorBase:parseError:get"><apiName>parseError</apiName><shortdesc>
+      无法分析数字时的错误信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input string could not be parsed."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      无法分析数字时的错误信息。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.validators.supportClasses:GlobalizationUtils"><apiName>GlobalizationUtils</apiName><shortdesc>
+  GlobalizationUtils 是包含 Unicode 相关功能但在 Flex 或 ActionScript 中不直接支持的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GlobalizationUtils 是包含 Unicode 相关功能但在 Flex 或 ActionScript 中不直接支持的类。
+ 
+  <p>此类包含所有验证程序所需的实用程序例程。典型例程的示例正在检查 unicode 空格，并在开头和结尾的字符串中修剪所有空格。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isDigit"><apiName>isDigit</apiName><shortdesc>
+      若代码点为一个数字，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><returns><code>Boolean</code> <code>true</code> if a codepoint
+      is a numeric digit, and <code>false</code> if not.
+     
+      </returns></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果代码点为一个数字，则为 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>输入代码点
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      若代码点为一个数字，则返回 <codeph>true</codeph>。支持的数字列在 <codeph>flash.globalization.NationalDigitsType</codeph> 中。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isLeadingSurrogate"><apiName>isLeadingSurrogate</apiName><shortdesc>
+      若代码点为前导代理，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>若代码点为前导代理，则返回 <codeph>true</codeph>，否则，返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>输入代码点。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      若代码点为前导代理，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isTrailingSurrogate"><apiName>isTrailingSurrogate</apiName><shortdesc>
+      若代码点为结尾代理，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>若代码点为结尾代理，则返回 <codeph>true</codeph>，否则，返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>输入代码点。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      若代码点为结尾代理，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:isWhiteSpace"><apiName>isWhiteSpace</apiName><shortdesc>
+      若代码点为空格字符，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>若代码点为空格字符，则返回 <codeph>true</codeph>，否则，返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>ccode</apiItemName><apiType value="uint"/><apiDesc>输入代码点。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      若代码点为空格字符，则返回 <codeph>true</codeph>。支持所有 unicode 空格字符。 
+     
+      <p>unicode 支持的空格为：
+      <pre>
+      ASCII_SPACE (0x20)
+      NO_BREAK_SPACE (0xA0)
+      UNICODE_OGHAM_SPACE_MARK (0x1680)
+      Unicode spaces 0x2000 - 0x200B
+      UNICODE_NARROW_NOBREAK_SPACE (0x202F)
+      UNICODE_MEDIUM_MATHEMATICAL_SPACE (0x205F)
+      UNICODE_IDEOGRAPHIC_SPACE (0x3000)
+      UNICODE_ZEROWIDTH_NOBREAK_SPACE (0xFEFF)
+      </pre>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:surrogateToUTF32"><apiName>surrogateToUTF32</apiName><shortdesc>
+      将代理对转换为 UTF32.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UTF32 等同。
+     
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>c0</apiItemName><apiType value="uint"/><apiDesc>高代理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c1</apiItemName><apiType value="uint"/><apiDesc>低代理。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将代理对转换为 UTF32.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationUtils:trim"><apiName>trim</apiName><shortdesc>
+      删除前导空格字符和结尾空格字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>在删除前导空格字符和结尾空格字符后的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>input</apiItemName><apiType value="String"/><apiDesc>要处理的输入字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除前导空格字符和结尾空格字符。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.validators.supportClasses:GlobalizationValidatorBase"><apiName>GlobalizationValidatorBase</apiName><shortdesc>
+  GlobalizationValidatorBase 类是所有 Spark 验证程序的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:GlobalizationValidatorBase&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlobalizationValidatorBase
+    <strong>Properties</strong>
+    enabled="true"
+    listener="<i>Value of the source property</i>"
+    property="<i>No default</i>"
+    required="true"
+    requiredFieldError="This field is required."
+    source="<i>No default</i>"
+    trigger="<i>Value of the source property</i>"
+    triggerEvent="valueCommit"
+ 
+    <b>Events</b>
+    invalid="<i>No default</i>"
+    valid="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.validators:IValidator</apiBaseInterface><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GlobalizationValidatorBase 类是所有 Spark 验证程序的基类。此类实现使验证程序生成必填字段的功能，必填字段是指用户必须在该字段中输入值，否则验证会失败。该类还启用或禁用验证程序。 
+ 
+  </apiDesc><example conref="SimpleValidatorExample.mxml"><swfblock conref="examples/SimpleValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.events.ValidationResultEvent.xml"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="mx.validators.RegExpValidationResult.xml"><linktext>mx.validators.RegExpValidationResult</linktext></link></related-links><adobeApiEvent id="spark.validators.supportClasses:GlobalizationValidatorBase_mx.events.ValidationResultEvent.INVALID_invalid"><apiName>invalid</apiName><shortdesc>
+  在验证失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.INVALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在验证失败时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.validators.supportClasses:GlobalizationValidatorBase_mx.events.ValidationResultEvent.VALID_valid"><apiName>valid</apiName><shortdesc>
+  在验证成功时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.VALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在验证成功时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.validators.supportClasses:GlobalizationValidatorBase:GlobalizationValidatorBase"><apiName>GlobalizationValidatorBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:addListenerHandler"><apiName>addListenerHandler</apiName><shortdesc>
+      为从验证程序分派的有效和无效事件设置所有侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      为从验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件设置所有侦听器。如果这些侦听器或源之一的值发生更改，则 GlobalizationValidatorBase 类的子类应先调用 <codeph>removeListenerHandler()</codeph> 方法，然后再调用 <codeph>addListenerHandler()</codeph> 方法。CreditCardValidator 和 DateValidator 类在内部使用此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      执行此验证程序的验证逻辑，包括验证缺少值或空值是否会导致如 required 属性的值所定义的验证错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>对于无效结果，为 ValidationResult 对象的数组，其中包含验证程序所检查的每个验证失败的字段的一个 ValidationResult 对象。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行此验证程序的验证逻辑，包括验证缺少值或空值是否会导致如 <codeph>required</codeph> 属性的值所定义的验证错误。
+     
+      <p>如果创建 validator 类的子类，则必须覆盖此方法。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:getValueFromSource"><apiName>getValueFromSource</apiName><shortdesc>
+      返回要验证的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>要验证的对象。
+     
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      返回要验证的对象。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:handleResults"><apiName>handleResults</apiName><shortdesc>
+      从错误结果数组返回 ValidationResultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>validate()</codeph> 方法返回的 ValidationResultEvent。
+     
+      </apiDesc><apiType value="mx.events:ValidationResultEvent"/></apiReturn><apiParam><apiItemName>errorResults</apiItemName><apiType value="Array"/><apiDesc>ValidationResult 对象的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从错误结果数组返回 ValidationResultEvent。在内部，此函数从 <codeph>doValidation()</codeph> 方法获取结果，并将其置于 ValidationResultEvent 对象中。永远不要直接调用此函数，并且应该极少覆盖它。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:isRealValue"><apiName>isRealValue</apiName><shortdesc>
+      如果值不为 null，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果 <codeph>value</codeph> 不为 null，则返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要测试的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 <codeph>value</codeph> 不为 null，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:removeListenerHandler"><apiName>removeListenerHandler</apiName><shortdesc>
+      断开从验证程序分派的有效和无效事件的所有侦听器的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开从验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件的所有侦听器的连接。如果这些侦听器或资源之一的值发生更改，则子类应先调用 <codeph>removeListenerHandler()</codeph> 方法，然后再调用 <codeph>addListenerHandler</codeph> 方法。CreditCardValidator 和 DateValidator 类在内部使用此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+      构造 GlobalizationValidatorBase 时将调用此方法，并且每当 ResourceManager 分派 "change" 事件用于指示本地化资源已经过某种更改时，都会再次调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      构造 GlobalizationValidatorBase 时将调用此方法，并且每当 ResourceManager 分派 <codeph>"change"</codeph> 事件用于指示本地化资源已经过某种更改时，都会再次调用此方法。
+     
+      <p>在下列情形中分派此事件：设置 ResourceManager 的 <codeph>localeChain</codeph> 属性时，资源模块完成加载时，以及调用 ResourceManager 的 <codeph>update()</codeph> 方法时。</p>
+     
+      <p>子类应覆盖此方法，并在调用 <codeph>super.resourcesChanged()</codeph> 后，执行任何适当的操作以响应新资源值。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:validateAll"><apiName>validateAll</apiName><shortdesc>
+      调用验证程序数组中的所有验证程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResultEvent 对象的数组，其中数组包含每个失败验证程序的一个 ValidationResultEvent 对象。如果所有验证程序都成功，则数组为空。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validators</apiItemName><apiType value="Array"/><apiDesc>包含要执行的 GlobalizationValidatorBase 对象的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调用 <codeph>validators</codeph> 数组中的所有验证程序。返回一个数组，其中包含每个失败验证程序的一个 ValidationResultEvent 对象。如果所有验证程序都成功，则返回空数组。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.validators.supportClasses:GlobalizationValidatorBase:validate"><apiName>validate</apiName><shortdesc>
+      执行验证并（可选）将结果通知给侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含验证结果的 ValidationResultEvent 对象。如果验证成功，则 <codeph>ValidationResultEvent.results</codeph> 数组属性为空。如果验证失败，则 <codeph>ValidationResultEvent.results</codeph> 数组属性包含验证程序所检查的每个字段的一个 ValidationResult 对象，对于验证失败的字段和通过验证的字段都是如此。检查 <codeph>ValidationResult.isError</codeph> 属性以确定字段的验证是通过还是失败。
+     
+      </apiDesc><apiType value="mx.events:ValidationResultEvent"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要验证的可选值。如果为 null，则验证程序使用 <codeph>source</codeph> 和 <codeph>property</codeph> 属性确定值。如果指定此参数，则还应设置 <codeph>listener</codeph> 属性以指定验证错误消息的目标组件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>false</codeph>，则在验证后，验证程序会将结果通知给侦听器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行验证并（可选）将结果通知给侦听器。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.events.ValidationResultEvent.xml"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:required"><apiName>required</apiName><shortdesc>
+      如果为 true，则指定缺少值或空值将导致验证错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则指定缺少值或空值将导致验证错误。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:subFields"><apiName>subFields</apiName><shortdesc>
+      一个字符串数组，其中包含传递到 validate() 方法的 value 对象中所含属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      一个字符串数组，其中包含传递到 <codeph>validate()</codeph> 方法的 <codeph>value</codeph> 对象中所含属性的名称。例如，CreditCardValidator 将此属性设置为 <codeph>[ "cardNumber", "cardType" ]</codeph>。此值表示传递到 <codeph>validate()</codeph> 方法的 <codeph>value</codeph> 对象应该包含 <codeph>cardNumber</codeph> 和 <codeph>cardType</codeph> 属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:actualListeners:get"><apiName>actualListeners</apiName><shortdesc>
+      包含侦听器对象（如果有）的数组或源对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含侦听器对象（如果有）的数组或源对象。用于确定向哪个对象通知验证结果。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:actualTrigger:get"><apiName>actualTrigger</apiName><shortdesc>
+      包含触发器对象（如果有）或源对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      包含触发器对象（如果有）或源对象。用于确定 <codeph>triggerEvent</codeph> 的侦听器对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:enabled:get"><apiName>enabled</apiName><shortdesc>
+      将此值设置为 false 将停止验证程序执行验证操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将此值设置为 <codeph>false</codeph> 将停止验证程序执行验证操作。禁用验证程序时，它将不分派任何事件，且 <codeph>validate()</codeph> 方法返回 null。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:listener:get"><apiName>listener</apiName><shortdesc>
+      指定验证侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      指定验证侦听器。
+     
+      <p>如果不指定侦听器，则 Flex 使用 <codeph>source</codeph> 属性的值。Flex 确定源组件后，它将更改组件的边框颜色，显示错误消息（如果验证失败）或者隐藏任何现有错误消息（如果验证成功）。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:property:get"><apiName>property</apiName><shortdesc>
+      一个字符串，用于指定包含要验证的值的 source 对象的属性名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个字符串，用于指定包含要验证的值的 <codeph>source</codeph> 对象的属性名称。该属性为可选项，但如果指定 <codeph>source</codeph>，则应同时设置此属性的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:requiredFieldError:get"><apiName>requiredFieldError</apiName><shortdesc>
+      缺少值和 required 属性为 true 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This field is required."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      缺少值和 <codeph>required</codeph> 属性为 <codeph>true</codeph> 时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.resources:IResourceManager"/></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:source:get"><apiName>source</apiName><shortdesc>
+      指定包含要验证的属性的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定包含要验证的属性的对象。将此设置为组件或数据模型的实例。使用 MXML 中的数据绑定语法指定该值。此属性支持使用句点分隔的字符串指定嵌套属性。如果为 <codeph>source</codeph> 属性指定值，则应该同时为 <codeph>property</codeph> 属性指定值。<codeph>source</codeph> 属性是可选的。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:triggerEvent:get"><apiName>triggerEvent</apiName><shortdesc>
+      指定触发验证的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定触发验证的事件。如果省略，则 Flex 使用 <codeph>valueCommit</codeph> 事件。当用户完成在控件中输入数据时，Flex 分派 <codeph>valueCommit</codeph> 事件。通常，当用户从组件删除焦点或者以编程方式更改属性值时发生此操作。如果希望验证程序忽略所有事件，则将 <codeph>triggerEvent</codeph> 设置为空字符串 ("")。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators.supportClasses:GlobalizationValidatorBase:trigger:get"><apiName>trigger</apiName><shortdesc>
+      指定生成触发验证程序的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      指定生成触发验证程序的组件。如果省略，则在默认情况下，Flex 使用 <codeph>source</codeph> 属性的值。当 <codeph>trigger</codeph> 分派 <codeph>triggerEvent</codeph> 时，执行验证。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

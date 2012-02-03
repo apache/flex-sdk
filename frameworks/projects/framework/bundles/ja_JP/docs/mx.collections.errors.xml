@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections.errors"><apiName>mx.collections.errors</apiName><apiDetail/><apiClassifier id="mx.collections.errors:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+  このエラーがスローされるのは、コレクションビューからアイテムを取得するときに非同期呼び出しが必要な場合です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このエラーがスローされるのは、コレクションビューからアイテムを取得するときに非同期呼び出しが必要な場合です。 このエラーが発生するのは、バッキングデータがリモートソースから提供されているにもかかわらず、このデータがローカルではまだ利用できないときです。
+ 
+  <p>このエラーの受信側は、要求されたアイテムが利用可能になった時点で（つまり、非同期呼び出しが完了した時点で）通知を必要とする場合、アイテムが利用可能になった時点で応答するために、<codeph>addResponder()</codeph> メソッドを使用し、<codeph>mx.rpc.IResponder</codeph> インターフェイスをサポートするオブジェクトを指定する必要があります。 <codeph>mx.collections.ItemResponder</codeph> クラスは、IResponder インターフェイスを実装し、<codeph>data</codeph> プロパティをサポートします。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links><apiConstructor id="mx.collections.errors:ItemPendingError:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>エラーの原因についての情報を示すメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  <p>ローカルでないアイテムが要求された場合に、Flex Framework によって呼び出されます。</p>
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections.errors:ItemPendingError:addResponder"><apiName>addResponder</apiName><shortdesc>
+	  addResponder は、応答側の配列に応答側を追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>非同期要求が完了すると呼び出されるハンドラーです。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>addResponder</codeph> は、応答側の配列に応答側を追加します。 応答側のパラメーターに割り当てられたオブジェクトは、mx.rpc.IResponder インターフェイスを実装する必要があります。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link></related-links></apiOperation><apiValue id="mx.collections.errors:ItemPendingError:responders:get"><apiName>responders</apiName><shortdesc>
+      非同期要求が完了すると呼び出される IResponder ハンドラーの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      非同期要求が完了すると呼び出される IResponder ハンドラーの配列です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections.errors:SortError"><apiName>SortError</apiName><shortdesc>
+  このエラーがスローされるのは、Sort クラスが適切に設定されていない場合です。例えば、検索条件が無効な場合などです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このエラーがスローされるのは、Sort クラスが適切に設定されていない場合です。例えば、検索条件が無効な場合などです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:SortError:SortError"><apiName>SortError</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>エラーの原因についての情報を示すメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CursorError"><apiName>CursorError</apiName><shortdesc>
+  このエラーはコレクションの Cursor によってスローされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  このエラーはコレクションの Cursor によってスローされます。 このクラスのエラーは、IViewCursor インターフェイスを実装したクラスによってスローされます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CursorError:CursorError"><apiName>CursorError</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>エラーの原因についての情報を示すメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+  CollectionViewError クラスは、Cursor シークなどの特定のアクティビティに関連していないコレクション内の一般エラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>CollectionViewError</codeph> クラスは、Cursor シークなどの特定のアクティビティに関連していないコレクション内の一般エラーを表します。 このクラスのエラーは、ListCollectionView クラスによってスローされます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CollectionViewError:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>エラーの原因についての情報を示すメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

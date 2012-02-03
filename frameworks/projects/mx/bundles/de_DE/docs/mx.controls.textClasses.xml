@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.textClasses"><apiName>mx.controls.textClasses</apiName><apiDetail/><apiClassifier id="mx.controls.textClasses:TextRange"><apiName>TextRange</apiName><shortdesc>
+  Die TextRange-Klasse stellt Eigenschaften bereit, die einen Textbereich in den Steuerelementen Label, Text, TextArea, TextEditor und RichTextEditor auswählt und formatiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die TextRange-Klasse stellt Eigenschaften bereit, die einen Textbereich in den Steuerelementen Label, Text, TextArea, TextEditor und RichTextEditor auswählt und formatiert.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Label"><linktext>mx.controls.Label</linktext></link><link href="mx.controls.xml#RichTextEditor"><linktext>mx.controls.RichTextEditor</linktext></link><link href="mx.controls.xml#Text"><linktext>mx.controls.Text</linktext></link><link href="mx.controls.xml#TextArea"><linktext>mx.controls.TextArea</linktext></link><link href="mx.controls.xml#TextInput"><linktext>mx.controls.TextInput</linktext></link><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links><apiConstructor id="mx.controls.textClasses:TextRange:TextRange"><apiName>TextRange</apiName><shortdesc>
+	  Erstellt ein neues TextRange-Objekt, das eine Untergruppe des Inhalts eines Text-Steuerelements einschließlich Formatierungsinformationen darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Das Steuerelement, das den Text enthält. Das Steuerelement muss über eine <codeph>textField</codeph>-Eigenschaft oder, bei einem RichTextEditor-Steuerelement, über eine <codeph>textArea</codeph>-Eigenschaft verfügen.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>modifiesSelection</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Ob der Text im Texbereich ausgewählt wird. Wenn Sie diesen Parameter auf <codeph>true</codeph> setzen und keinen Beginn- oder Endeindex angeben, der mit Text im Steuerelement übereinstimmt, verwendet Flex den Beginn- oder Endeindex der aktuellen Textauswahl. Wenn dieser Parameter <codeph>true</codeph> ist, Sie die Parameter <codeph>beginIndex</codeph> und <codeph>endIndex</codeph> weglassen und keine Auswahl vorgenommen wurde, ist das TextRange-Objekt leer.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Auf null basierende Indexposition des ersten Zeichens im Bereich. Wenn der <codeph>modifiesSelection</codeph>-Parameter <codeph>false</codeph> ist und Sie diesen Parameter weglassen oder einen negativen Wert angeben, beginnt der Bereich mit dem ersten Textzeichen.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Auf null basierender Index der Position <i>nach</i> dem letzten Zeichen im Bereich. Wenn der <codeph>modifiesSelection</codeph>-Parameter <codeph>false</codeph> ist und Sie diesen Parameter weglassen, einen negativen Wert angeben oder einen Wert nach dem Ende des Texts angeben, endet der Bereich mit dem letzten Textzeichen.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Erstellt ein neues TextRange-Objekt, das eine Untergruppe des Inhalts eines Text-Steuerelements einschließlich Formatierungsinformationen darstellt.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.textClasses:TextRange:beginIndex:get"><apiName>beginIndex</apiName><shortdesc>
+	  Auf null basierende Indexposition im Textfeld des Steuerelements des ersten Zeichens im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Auf null basierende Indexposition im Textfeld des Steuerelements des ersten Zeichens im Bereich. Wenn das fünfte Zeichen im Text das erste Zeichen des Bereichs ist, hat diese Eigenschaft den Wert 4.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:bullet:get"><apiName>bullet</apiName><shortdesc>
+	  Gibt an, ob der Text im Bereich eine Liste mit Aufzählungszeichen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Gibt an, ob der Text im Bereich eine Liste mit Aufzählungszeichen ist. Wenn nur ein Teil des Bereichs eine Liste mit Aufzählungszeichen ist, steht dieser Wert auf <codeph>false</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:color:get"><apiName>color</apiName><shortdesc>
+	  Farbe des Texts im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Farbe des Texts im Bereich. Sie können diesen Wert mit einem gültigen Farbenbezeichner einstellen. Die Eigenschaft gibt den Wert als numerischen Wert zurück. Wenn der Bereich mehrere Farben hat, ist dieser Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+	  Auf null basierender Index im Textfeld des Steuerelements des Punktes direkt nach dem letzten Zeichen im Textbereich. Ist gleichbedeutend mit der auf eins basierenden Indexposition des letzten Zeichens.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Auf null basierender Index im Textfeld des Steuerelements des Punktes direkt nach dem letzten Zeichen im Textbereich. Ist gleichbedeutend mit der auf eins basierenden Indexposition des letzten Zeichens. Wenn das fünfte Zeichen im Text das letzte Zeichen des Bereichs ist, hat diese Eigenschaft den Wert 5.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontFamily:get"><apiName>fontFamily</apiName><shortdesc>
+	  Name der Schriftart für den Text im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Name der Schriftart für den Text im Bereich. Wenn der Bereich mehrere Schriftarten hat, ist dieser Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontSize:get"><apiName>fontSize</apiName><shortdesc>
+	  Punktgröße des Texts im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Punktgröße des Texts im Bereich. Wenn der Bereich mehrere Größen hat, ist dieser Wert 0.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontStyle:get"><apiName>fontStyle</apiName><shortdesc>
+	  Stil der Schriftart im Bereich als „italic“ oder „normal“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Stil der Schriftart im Bereich als „italic“ oder „normal“. Wenn die Eigenschaft auf einen anderen Stringwert gesetzt ist, wird der Stil „normal“ verwendet. Wenn der Bereich mehrere Stile hat, ist dieser Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontWeight:get"><apiName>fontWeight</apiName><shortdesc>
+	  Stärke der Schriftart im Bereich als „bold“ oder „normal“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Stärke der Schriftart im Bereich als „bold“ oder „normal“. Wenn die Eigenschaft auf einen anderen Stringwert gesetzt ist, wird die Stärke „normal“ verwendet. Wenn der Bereich mehrere Stärken hat, ist dieser Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+	  Inhalt des Bereichs in Form von HTML-Text.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Inhalt des Bereichs in Form von HTML-Text. Diese Eigenschaft gibt alle HTML-Markupzeichen für den Bereich zurück, einschließlich des Markups für die Formatierung, das von Flex angewendet wird, nicht nur das HTML-Markup, das Sie mit einer <codeph>htmlText</codeph>-Eigenschaft festlegen. Diese Eigenschaft ist daher eine vollständige HTML-Darstellung des Texts, wie er im Steuerelement erscheint.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:kerning:get"><apiName>kerning</apiName><shortdesc>
+	  Ein boolescher Wert, der angibt, ob Kerning aktiviert (true) oder deaktiviert (false) ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Ein boolescher Wert, der angibt, ob Kerning aktiviert (<codeph>true</codeph>) oder deaktiviert (<codeph>false</codeph>) ist. Der Begriff „Kerning“ bezeichnet die Anpassung der Pixel zwischen bestimmten Zeichenpaaren zur Verbesserung der Lesbarkeit. Diese Funktion sollte nur verwendet werden, wenn sie unbedingt erforderlich ist, beispielsweise bei Überschriften in großen Schriftarten. Kerning wird nur für eingebettete Schriftarten unterstützt. Bestimmte Schriftarten wie Verdana und Schriftarten mit fester Breite wie Courier New unterstützen Kerning nicht
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:letterSpacing:get"><apiName>letterSpacing</apiName><shortdesc>
+	  Die Anzahl zusätzlicher Pixel, die zwischen den einzelnen Zeichen eingefügt werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Die Anzahl der zusätzlichen Pixel, die zwischen den Zeichen angezeigt werden. Durch einen positiven Wert wird der Zeichenabstand über den normalen Abstand hinaus vergrößert und durch einen negativen Wert verkleinert.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:modifiesSelection:get"><apiName>modifiesSelection</apiName><shortdesc>
+	  Legt fest, ob die TextRange-Klasse den aktuell ausgewählten Text ändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Legt fest, ob die TextRange-Klasse den aktuell ausgewählten Text ändert. Vom Konstruktur eingestellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:owner:get"><apiName>owner</apiName><shortdesc>
+	  Das Steuerelement, das den Text enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+	  Das Steuerelement, das den Text enthält. Das Eigentümer-Steuerelement muss über eine <codeph>textField</codeph>-Eigenschaft oder, bei einem RichTextEditor-Steuerelement, über eine <codeph>textArea</codeph>-Eigenschaft verfügen. Der Eigentümer des Texts in einem RichTextEditor-Steuerelement ist das RichTextEditor-Steuerelement, nicht sein TextArea-Substeuerelement. Ursprünglich vom Konstruktur eingestellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:textAlign:get"><apiName>textAlign</apiName><shortdesc>
+	  Ausrichtung des Texts im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Ausrichtung des Texts im Bereich. Die flash.text.TextFormatAlign-Konstanten legen die gültigen Werte fest. Wenn diese Eigenschaft auf einen anderen Wert gesetzt wird, hat dies keine Auswirkungen. Wenn der Bereich mehrere Ausrichtungen hat, ist dieser Wert <codeph>null</codeph>.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links></apiValue><apiValue id="mx.controls.textClasses:TextRange:textDecoration:get"><apiName>textDecoration</apiName><shortdesc>
+	  Die Dekoration der Schriftart im Bereich als „underline“ oder „normal“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Die Dekoration der Schriftart im Bereich als „underline“ oder „normal“. Wenn die Eigenschaft auf einen anderen Stringwert gesetzt ist, wird normaler Text angezeigt. Wenn der Bereich mehrere Einstellungen für die Textdekoration hat, ist dieser Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:text:get"><apiName>text</apiName><shortdesc>
+	  Inhalt des Bereichs im Klartext.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Inhalt des Bereichs im Klartext.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:url:get"><apiName>url</apiName><shortdesc>
+	  URL für einen Hyperlink im Bereich.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  URL für einen Hyperlink im Bereich. Wenn der Bereich keinen Hyperlink enthält, ist der Wert ein leerer String. Wenn der Bereich mehrere Hyperlinks enthält, ist der Wert <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

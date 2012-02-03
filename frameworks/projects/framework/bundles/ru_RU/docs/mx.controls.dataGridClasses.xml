@@ -1,0 +1,1239 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc> 
+  Класс DataGridHeader обеспечивает определение средства визуализации заголовка по умолчанию для элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Класс DataGridHeader обеспечивает определение средства визуализации заголовка по умолчанию для элемента управления DataGrid. По умолчанию средство визуализации заголовка обеспечивает отображение текста, связанного с каждым заголовком в списке, и необязательного символа стрелки для сортировки (если сортировка осуществляется для этого столбца).
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridHeader:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      Обеспечивает удаление разделителей заголовка столбца, которые обычно применяются пользователями для изменения размеров столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает удаление разделителей заголовка столбца, которые обычно применяются пользователями для изменения размеров столбцов.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      
+      Создайте нижестоящие объекты для компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Создайте нижестоящие объекты для компонента. Это усовершенствованный метод, который можно отменить при создании подкласса UIComponent.
+     
+      <p>Компонент, обеспечивающий создание других компонентов или объектов внутри них, называется составным компонентом. Например, элемент управления ComboBox Flex фактически создается из элемента управления TextInput для определения текстовой области элемента ComboBox и элемента управления Button для определения стрелки элемента ComboBox. Компоненты обеспечивают реализацию метода <codeph>createChildren()</codeph> для создания нижестоящих объектов (например, других компонентов) внутри компонента.</p>
+     
+      <p>При перезаписи метода <codeph>createChildren()</codeph>, метод <codeph>addChild()</codeph> вызывается для добавления каждого нижестоящего объекта. </p>
+     
+      <p>Вызов этого метода напрямую не выполняется. Метод <codeph>createChildren()</codeph> вызывается программой Flex в ответ на вызов метода <codeph>addChild()</codeph> для добавления компонентов к вышестоящему элементу. </p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawColumnDragOverlay"><apiName>drawColumnDragOverlay</apiName><shortdesc>
+      Обеспечивает наложение перетаскиваемого столбца на заданный спрайт в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который должен содержать изображение, указывающее на то, что столбец перетаскивается.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси x.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси y.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая ширина индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая высота индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Перетаскиваемое средство визуализации элементов.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает наложение перетаскиваемого столбца на заданный спрайт в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      Обеспечивает отображение фона для заголовков в заданном объекте UIComponent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>UIComponent, который будет содержать фоновое изображение для заголовка.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение фона для заголовков в заданном объекте UIComponent. Отображаемое изображение может быть масштабировано по горизонтали при изменении ширины компонента или при вызове данного метода для повторного отображения с другим значением ширины и/или высоты
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderIndicator"><apiName>drawHeaderIndicator</apiName><shortdesc>
+      Обеспечивает отображение индикатора выделения в указанном спрайте в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который должен содержать изображение, создающее впечатление того, что средство визуализации выделено.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси x.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси y.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая ширина индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая высота индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Выделяемое средство визуализации элементов.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение индикатора выделения в указанном спрайте в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      Обеспечивает отображение индикатора выбора в указанном спрайте в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Спрайт, который должен содержать изображение, создающее впечатление того, что средство визуализации выбрано.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси x.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Предлагаемое положение индикатора по оси y.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая ширина индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Предлагаемая высота индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Предлагаемый цвет индикатора.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Выбираемое средство визуализации элементов.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение индикатора выбора в указанном спрайте в заданном положении, с заданной шириной и высотой и с использованием указанного цвета.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      Обеспечивает создание и отображение разделителей заголовков столбцов, которые обычно применяются пользователями для изменения размеров столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает создание и отображение разделителей заголовков столбцов, которые обычно применяются пользователями для изменения размеров столбцов. В этой реализации используется тот же спрайт, что и для строк и фоновых изображений столбцов, производится добавление экземпляров <codeph>headerSeparatorSkin</codeph> и присоединение к ним прослушивателей мыши для определения момента, при котором потребуется изменение размеров столбца.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      Вычисляет размер по умолчанию и дополнительно минимальный размер по умолчанию для компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Вычисляет размер по умолчанию и дополнительно минимальный размер по умолчанию для компонента. Это усовершенствованный метод, который можно отменить при создании подкласса UIComponent.
+     
+      <p>Вызов этого метода напрямую не выполняется. Метод <codeph>measure()</codeph> вызывается программой Flex при добавлении компонента к контейнеру с использованием метода <codeph>addChild()</codeph> и при вызове метода <codeph>invalidateSize()</codeph> компонента. </p>
+     
+      <p>При установке заданной высоты и ширины компонента вызов метода <codeph>measure()</codeph> в программе Flex не осуществляется даже в случае явного вызова метода <codeph>invalidateSize()</codeph>. Таким образом, метод <codeph>measure()</codeph> вызывается, только если свойство компонента <codeph>explicitWidth</codeph> или свойство компонента <codeph>explicitHeight</codeph> имеет значение NaN. </p>
+     
+      <p>Для перезаписи этого метода необходимо настроить свойства <codeph>measuredWidth</codeph> и <codeph>measuredHeight</codeph> для определения размера по умолчанию. <codeph/><codeph/></p>
+     
+      <p>В большинстве компонентов эти значения вычисляются на основе отображаемого содержимого и свойств, оказывающих влияние на отображение содержимого. В нескольких компонентах существуют жестко закодированные значения по умолчанию. </p>
+     
+      <p>Концептуальное отличие метода <codeph>measure()</codeph> для компонента заключается в предоставлении его собственного естественного или свойственного ему размера в качестве значения по умолчанию. Поэтому свойства <codeph>measuredWidth</codeph> и <codeph>measuredHeight</codeph> должны определяться на основе таких факторов, как перечисленные ниже.</p>
+      <ul>
+         <li>Объем текста, который должен быть отображен в компоненте.</li>
+         <li>Стили этого текста, например <codeph>fontSize</codeph>.</li>
+         <li>Размер изображения JPEG, отображаемого в компоненте.</li>
+         <li>Измеренные или явные размеры нижестоящих элементов компонента.</li>
+         <li>Любые границы, поля и промежутки.</li>
+      </ul>
+     
+      <p>В некоторых случаях встроенный метод для определения значений по умолчанию отсутствует. Например, для простого компонента GreenCircle можно просто установить значение свойств measuredWidth = 100 и measuredHeight = 100 в методе <codeph>measure()</codeph> для предоставления приемлемого размера по умолчанию. В других случаях, например, для элемента TextArea, соответствующее вычисление (например, поиск требуемого значения ширины и высоты, при которых будет отображен весь текст, а элемент будет иметь соотношение размеров, присущее золотому сечению) может занять слишком много времени и поэтому не является целесообразным.</p>
+     
+      <p>В реализации метода <codeph>measure()</codeph> по умолчанию для свойств <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredMinWidth</codeph> и <codeph>measuredMinHeight</codeph> устанавливается значение, равное <codeph>0</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:placeSortArrow"><apiName>placeSortArrow</apiName><shortdesc>
+      Обеспечивает вывод изображения стрелки для сортировки в столбце, являющемся текущим ключом сортировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает вывод изображения стрелки для сортировки в столбце, являющемся текущим ключом сортировки. В этой реализации создается или повторно используется экземпляр темы оформления, указанной с помощью свойства стиля <codeph>sortArrowSkin</codeph>, который помещается в соответствующий заголовок столбца. В ней также осуществляется уменьшение размера заголовка столбца, если текст заголовка будет скрыт стрелкой сортировки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      Обеспечивает отображение объекта и/или определение размеров и положения его нижестоящих элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>Указывает ширину компонента, в пикселях, в координатах компонента вне зависимости от значения свойства <codeph>scaleX</codeph> компонента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>Указывает высоту компонента, в пикселях, в координатах компонента вне зависимости от значения свойства <codeph>scaleY</codeph> компонента.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Обеспечивает отображение объекта и/или определение размеров и положения его нижестоящих элементов. Это усовершенствованный метод, который можно отменить при создании подкласса UIComponent.
+     
+      <p>Вызов этого метода напрямую не выполняется. Метод <codeph>updateDisplayList()</codeph> вызывается программой Flex при добавлении компонента к контейнеру с использованием метода <codeph>addChild()</codeph>, а также при вызове метода <codeph>invalidateDisplayList()</codeph> компонента. </p>
+     
+      <p>Если компонент не имеет нижестоящих элементов, именно в этом методе необходимо осуществить программируемое отображение с использованием методов объекта Graphics компонента, например, <codeph>graphics.drawRect()</codeph>.</p>
+     
+      <p>Если компонент имеет нижестоящие элементы, в этом методе необходимо выполнить вызов методов <codeph>move()</codeph> и <codeph>setActualSize()</codeph> для его нижестоящих элементов.</p>
+     
+      <p> <codeph/><codeph/></p>
+     
+      <p>Важным является использование свойств <codeph>unscaledWidth</codeph> и <codeph>unscaledHeight</codeph> вместо свойств <codeph>width</codeph> и <codeph>height</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridHeader:bottomOffset"><apiName>bottomOffset</apiName><shortdesc>
+      Смещение от нижней границы содержимого средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение от нижней границы содержимого средства визуализации в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedHeaderHeight"><apiName>cachedHeaderHeight</apiName><shortdesc>
+      Высота кэшируемого заголовка в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота кэшируемого заголовка в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingBottom"><apiName>cachedPaddingBottom</apiName><shortdesc>
+      Кэшируемое дополнение для нижней части средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Кэшируемое дополнение для нижней части средства визуализации в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingTop"><apiName>cachedPaddingTop</apiName><shortdesc>
+	  Кэшируемое дополнение для верхней части средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Кэшируемое дополнение для верхней части средства визуализации в пикселях.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:dataGrid"><apiName>dataGrid</apiName><shortdesc>
+      Элемент управления DataGrid, связанный с этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Элемент управления DataGrid, связанный с этим средством визуализации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:headerItems"><apiName>headerItems</apiName><shortdesc>
+      Массив экземпляров средств визуализации заголовков.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив экземпляров средств визуализации заголовков.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:leftOffset"><apiName>leftOffset</apiName><shortdesc>
+      Смещение от левой стороны содержимого средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение от левой стороны содержимого средства визуализации в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparatorEvents"><apiName>needRightSeparatorEvents</apiName><shortdesc>
+	  Указывает, являются ли события крайнего правого разделителя необходимыми
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Указывает, являются ли события крайнего правого разделителя необходимыми
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparator"><apiName>needRightSeparator</apiName><shortdesc>
+	  Указывает, является ли крайний правый разделитель необходимым
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Указывает, является ли крайний правый разделитель необходимым
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:rightOffset"><apiName>rightOffset</apiName><shortdesc>
+      Смещение от правой стороны содержимого средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение от правой стороны содержимого средства визуализации в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:topOffset"><apiName>topOffset</apiName><shortdesc>
+      Смещение от верхней части содержимого средства визуализации в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Смещение от верхней части содержимого средства визуализации в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:enabled:set"><apiName>enabled</apiName><shortdesc conref="mx.core.IUIComponent#enabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#enabled">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+  Класс DataGridDragProxy определяет прокси по умолчанию, используемый при перетаскивании данных из элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridDragProxy определяет прокси по умолчанию, используемый при перетаскивании данных из элемента управления DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridDragProxy:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+  Класс DataGridBase является базовым классом для элементов управления, обеспечивающих отображение списков элементов в нескольких столбцах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The DataGridBase class inherits all the properties of its parent classes
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    headerHeight="depends on styles and header renderer"
+    showHeaders="true|false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.controls.listClasses:ListBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridBase является базовым классом для элементов управления, обеспечивающих отображение списков элементов в нескольких столбцах. Он не используется непосредственно в приложениях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridBase:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:adjustRow"><apiName>adjustRow</apiName><shortdesc> 
+      Регулирует размер и положение средств визуализации для заданных свойств номера строки, положения строки и высоты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Положение строки по оси y.
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Высота строки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Регулирует размер и положение средств визуализации для заданных свойств номера строки, положения строки и высоты.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:calculateRowHeight"><apiName>calculateRowHeight</apiName><shortdesc>
+      Обеспечивает вычисление высоты строки в столбцах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Высота строки в пикселях.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Элемент поставщика данных для строки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Текущая высота строки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>skipVisible</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Если значение <codeph>true</codeph>, измерение средств визуализации элементов в видимых столбцах не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает вычисление высоты строки в столбцах. Если свойство <codeph>skipVisible</codeph> имеет значение <codeph>true</codeph>, в DataGridBase уже содержится значение высоты средств визуализации для столбцов, которые умещаются в области отображения, поэтому для данного метода вычисления необходимы для тех средств визуализации элементов, которые могли бы существовать, если бы другие столбцы этой строки находились в области отображения. Это необходимо, поскольку при осуществлении пользователем горизонтальной прокрутки корректировка высоты строки не производится, так как различные столбцы появляются и исчезают.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:clearRow"><apiName>clearRow</apiName><shortdesc> 
+      Обеспечивает удаление средств визуализации из строки, которая должна быть пустой для заданного номера строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обеспечивает удаление средств визуализации из строки, которая должна быть пустой для заданного номера строки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:createColumnItemRenderer"><apiName>createColumnItemRenderer</apiName><shortdesc>
+      Возвращает средство визуализации элемента для ячейки столбца или для заголовка столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Средство визуализации элементов.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Экземпляр DataGridColumn средства визуализации элементов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> для возвращения средства визуализации элементов заголовка и <codeph>false</codeph> для возвращения средства визуализации элементов ячеек столбца.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Если свойство <codeph>forHeader</codeph> содержит значение <codeph>false</codeph>, объект <codeph>data</codeph> для средства визуализации элементов. Если свойство <codeph>forHeader</codeph> содержит значение <codeph>true</codeph>, экземпляр DataGridColumn.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает средство визуализации элемента для ячейки столбца или для заголовка столбца. Этот метод возвращает средство визуализации элементов по умолчанию, если ни одно пользовательское средство визуализации не присвоено столбцу.
+     
+      <p>Этот метод является общедоступным и поэтому может вызываться с помощью класса DataGridHeader и в основном используется в подклассах элемента управления DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:drawVisibleItem"><apiName>drawVisibleItem</apiName><shortdesc>
+      Обеспечивает отображение элемента, если он является видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор, используемый для поиска средства визуализации.
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, если средство визуализации должно отображаться в выбранном состоянии.
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, если средство визуализации должно отображаться в выделенном состоянии.
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, если средство визуализации должно отображаться так, как будто оно является символом вставки выбора.
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, если состояние выбора должно постепенно появляться с использованием эффекта.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает отображение элемента, если он является видимым.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      Обеспечивает настройку выбранных элементов на основе свойств caretIndex и anchorIndex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает настройку выбранных элементов на основе свойств <codeph>caretIndex</codeph> и <codeph>anchorIndex</codeph>. Этот метод вызывается обработчиками выбора клавиатуры и методом <codeph>updateDisplayList()</codeph> в том случае, если при прокрутке для получения большего количества элементов обработчику выбора клавиатуры была возвращена ошибка страницы.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      Возвращает объект Point, определяющий свойства columnIndex и rowIndex средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Объект Point. Свойство <codeph>x</codeph> соответствует <codeph>columnIndex</codeph>, а свойство <codeph>y</codeph> – <codeph>rowIndex</codeph>.
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Средство визуализации элементов.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает объект Point, определяющий свойства <codeph>columnIndex</codeph> и <codeph>rowIndex</codeph> средства визуализации элементов. Поскольку средства визуализации элементов создаются только для элементов в рамках набора видимых строк, использование этого метода для получения индексов невидимых элементов невозможно. Кроме того, средства визуализации элементов применяются повторно, поэтому индексы, полученные для элемента, могут измениться, если это средство визуализации элемента будет повторно использовано для отображения другого элемента. Обычно этот метод вызывается при обработке событий мыши и клавиатуры, когда набор данных, отображаемый средствами визуализации элементов, еще не был изменен.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:layoutColumnItemRenderer"><apiName>layoutColumnItemRenderer</apiName><shortdesc>
+      Обеспечивает вычисление размеров и временное позиционирование объекта itemRenderer для столбца, его размеры возвращаются в виде объекта Point.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Размер средства визуализации в виде объекта Point.
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Объект DataGridColumn для средства визуализации.
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Средство визуализации.
+      </apiDesc></apiParam><apiParam><apiItemName>xx</apiItemName><apiType value="Number"/><apiDesc>Положение по оси x.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Положение по оси y.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает вычисление размеров и временное позиционирование объекта itemRenderer для столбца, его размеры возвращаются в виде объекта Point. Окончательное положение может быть скорректировано позднее в соответствии с параметрами выравнивания.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeListData"><apiName>makeListData</apiName><shortdesc>
+      Обеспечивает создание нового экземпляра DataGridListData и заполнение полей на основе входного элемента поставщика данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Вновь созданный объект ListData.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:BaseListData</apiOperationClassifier></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Элемент поставщика данных, используемый для заполнения свойства ListData.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор элемента.
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Индекс элемента в поставщике данных.
+      </apiDesc></apiParam><apiParam><apiItemName>columnNum</apiItemName><apiType value="int"/><apiDesc>Объект columnIndex, связанный с этим элементом. 
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Столбец, связанный с этим элементом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает создание нового экземпляра DataGridListData и заполнение полей на основе входного элемента поставщика данных. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeRow"><apiName>makeRow</apiName><shortdesc> 
+      Обеспечивает создание средств визуализации для заданных свойств rowNum, dataObject и уникального идентификатора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Высота строки.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      </apiDesc></apiParam><apiParam><apiItemName>left</apiItemName><apiType value="Number"/><apiDesc>Смещение с левой стороны для первого столбца.
+      </apiDesc></apiParam><apiParam><apiItemName>right</apiItemName><apiType value="Number"/><apiDesc>Смещение с правой стороны для последнего столбца.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Положение строки по оси y.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Данные для строки.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для данных.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обеспечивает создание средств визуализации для заданных свойств rowNum, dataObject и уникального идентификатора.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      Обеспечивает перемещение результата выбора в вертикальном направлении в ответ на выбор элементов пользователем с использованием клавиш со стрелками вверх и вниз и модификаторов, таких как клавиши Shift и Ctrl.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>Клавиша, которая была нажата (например, <codeph>Keyboard.DOWN</codeph>).
+      
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если клавиша Shift удерживалась при нажатии другой клавиши.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если клавиша Ctrl удерживалась при нажатии другой клавиши на клавиатуре.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает перемещение результата выбора в вертикальном направлении в ответ на выбор элементов пользователем с использованием клавиш со стрелками вверх и вниз и модификаторов, таких как клавиши Shift и Ctrl. Этот метод может изменить свойства <codeph>horizontalScrollPosition</codeph>, <codeph>verticalScrollPosition</codeph> и <codeph>caretIndex</codeph> и вызвать метод <codeph>finishKeySelection()</codeph> для обновления выбора.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:prepareRowArray"><apiName>prepareRowArray</apiName><shortdesc> 
+      Гарантирует наличие свободного места в массивах строк для заданного номера строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Гарантирует наличие свободного места в массивах строк для заданного номера строки.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:removeExtraRow"><apiName>removeExtraRow</apiName><shortdesc> 
+      Обеспечивает удаление дополнительной строки в конце contentHolder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обеспечивает удаление дополнительной строки в конце contentHolder.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setRowInfo"><apiName>setRowInfo</apiName><shortdesc> 
+      Обеспечивает установку свойства rowInfo для заданного номера строки, положения строки и высоты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Положение строки по оси y.
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Высота строки.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для данных.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обеспечивает установку свойства rowInfo для заданного номера строки, положения строки и высоты.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setupColumnItemRenderer"><apiName>setupColumnItemRenderer</apiName><shortdesc>
+      Обеспечивает настройку средства визуализации элемента для столбца и его перенос в требуемое местоположение в массиве listItems.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Средство визуализации для этого столбца и строки.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Объект DataGridColumn для средства визуализации.
+      </apiDesc></apiParam><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Набор строк (заблокированные строки, стандартные строки).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Номер строки.
+      </apiDesc></apiParam><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>Номер столбца.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Данные для строки.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для данных.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает настройку средства визуализации элемента для столбца и его перенос в требуемое местоположение в массиве listItems.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:updateRendererDisplayList"><apiName>updateRendererDisplayList</apiName><shortdesc>
+      Обеспечивает синхронное повторное отображение средства визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>r</apiItemName><apiOperationClassifier>mx.controls.listClasses:IListItemRenderer</apiOperationClassifier><apiDesc>Средство визуализации;
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обеспечивает синхронное повторное отображение средства визуализации.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnCaretIndicator"><apiName>columnCaretIndicator</apiName><shortdesc>
+      Элемент DisplayObject, содержащий изображение, указывающее на то, какое средство визуализации является знаком вставки для элемента lockedColumns.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Элемент DisplayObject, содержащий изображение, указывающее на то, какое средство визуализации является знаком вставки для элемента lockedColumns.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnHighlightIndicator"><apiName>columnHighlightIndicator</apiName><shortdesc>
+      Элемент DisplayObject, содержащий изображение, указывающее на то, какое средство визуализации является выделенным для элемента lockedColumns.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Элемент DisplayObject, содержащий изображение, указывающее на то, какое средство визуализации является выделенным для элемента lockedColumns.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnMap"><apiName>columnMap</apiName><shortdesc>
+      Карта средств визуализации элементов для столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Карта средств визуализации элементов для столбцов. Так же, как и свойство <codeph>ListBase.rowMap</codeph> данное свойство содержит хэш-код средств визуализации элементов и столбцы, к которым они относятся. Средства визуализации элементов индексируются по их имени в объекте DisplayObject.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#ListBase/rowMap"><linktext>mx.controls.listClasses.ListBase.rowMap</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:freeItemRenderersTable"><apiName>freeItemRenderersTable</apiName><shortdesc>
+      Таблица неиспользуемых средств визуализации элементов по столбцам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      Таблица неиспользуемых средств визуализации элементов по столбцам. В большинстве классов списка созданные средства визуализации элементов используются повторно при их выходе за пределы экрана при прокрутке. Повторно используемые средства визуализации сохраняются здесь. Таблица представляет собой словарь, в котором записями являются массивы, проиндексированные с помощью фактических элементов DataGridColumn (а не свойств dataField для столбцов или других свойств), и каждый массив является стеком для средств визуализации, которые не используются в текущий момент.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:headerMask"><apiName>headerMask</apiName><shortdesc>
+      
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:header"><apiName>header</apiName><shortdesc>
+      Подчиненный компонент заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      Подчиненный компонент заголовка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnAndRowContent"><apiName>lockedColumnAndRowContent</apiName><shortdesc>
+      Подчиненный компонент, содержащий заблокированные строки для заблокированных столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Подчиненный компонент, содержащий заблокированные строки для заблокированных столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnContent"><apiName>lockedColumnContent</apiName><shortdesc>
+      Подчиненный компонент, содержащий заблокированные столбцы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.listClasses:ListBaseContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Подчиненный компонент, содержащий заблокированные столбцы.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnHeader"><apiName>lockedColumnHeader</apiName><shortdesc>
+      Подчиненный компонент заголовка для заблокированных столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      Подчиненный компонент заголовка для заблокированных столбцов.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedRowContent"><apiName>lockedRowContent</apiName><shortdesc>
+      Подчиненный компонент, содержащий заблокированные строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Подчиненный компонент, содержащий заблокированные строки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      
+      Фабрика модулей, обеспечивающая контекст шрифта для этого компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Фабрика модулей, обеспечивающая контекст шрифта для этого компонента.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:headerHeight:get"><apiName>headerHeight</apiName><shortdesc>
+      Высота ячейки заголовка столбца в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resize"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота ячейки заголовка столбца в пикселях. Если установлено явно, это значение высоты будет использовано для всех заголовков. Если не установлено явно, значение высоты будет создано на основе параметров настройки стиля и средства визуализации заголовка.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      Индекс первого столбца в элементе управления, обеспечивающем прокрутку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Индекс первого столбца в элементе управления, обеспечивающем прокрутку. Столбцы с индексами, которые меньше данного значения, фиксированного в пределах видимости. Не поддерживается всеми классами списка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      Индекс первой строки в элементе управления, обеспечивающем прокрутку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Индекс первой строки в элементе управления, обеспечивающем прокрутку. Строки, находящиеся над этой строкой, остаются фиксированными в пределах видимости.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:showHeaders:get"><apiName>showHeaders</apiName><shortdesc>
+      Флаг, указывающий на то, может ли элемент управления отображать заголовки столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showHeadersChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на то, может ли элемент управления отображать заголовки столбцов. Если установлено значение <codeph>true</codeph>, элемент управления обеспечивает отображение заголовков столбцов. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+  Класс DataGridListData определяет тип данных свойства listData, реализованного с помощью средств визуализации или редакторов вставных элементов для элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridListData определяет тип данных свойства <codeph>listData</codeph>, реализованного с помощью средств визуализации или редакторов вставных элементов для элемента управления DataGrid. Все средства визуализации вставных элементов или редакторы вставных элементов должны реализовать интерфейс IDropInListItemRenderer, определяющий свойство <codeph>listData</codeph>.
+ 
+  <p>Несмотря на то, что свойства этого класса являются перезаписываемыми, их необходимо рассматривать как доступные только для чтения. Они инициализируются классом DataGrid, и считываются средством визуализации или редактором элементов. Это может привести к непредвиденным результатам.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridListData:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Текстовое представление данных элемента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя поля или свойства в поставщике данных, связанном со столбцом.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Индекс столбца элемента в столбцах для элемента управления DataGrid.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор для элемента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Ссылка на элемент управления DataGrid.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс элемента в поставщике данных для элемента управления DataGrid.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridListData:dataField"><apiName>dataField</apiName><shortdesc>
+	  Имя поля или свойства в поставщике данных, связанном со столбцом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Имя поля или свойства в поставщике данных, связанном со столбцом. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+  Класс DataGridLockedRowContentHolder определяет контейнер в элементе управления DataGrid для всех средств визуализации элементов или редакторов элементов элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListBaseContentHolder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridLockedRowContentHolder определяет контейнер в элементе управления DataGrid для всех средств визуализации элементов или редакторов элементов элемента управления. Он применяется для маскирования областей средств визуализации, находящихся вне элемента управления, и блокирования определенных стилей, например, <codeph>backgroundColor</codeph>, от передачи между средствами визуализации, что обеспечивает отображение выделения и альтернативных цветов строк через элемент управления.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>parentList</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Элемент управления DataGrid.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+     Измеренная высота элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Измеренная высота элемента управления DataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+  Класс DataGridHeaderBase определяет базовый класс для класса DataGridHeader, класс, определяющий средство визуализации элемента для элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridHeaderBase определяет базовый класс для класса DataGridHeader, класс, определяющий средство визуализации элемента для элемента управления DataGrid. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridHeaderBase:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+  Класс DataGridColumn описывает столбец в элементе управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Количество пикселей между правой границей контейнера и его областью содержимого.
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Количество пикселей между левой границей контейнера и его областью содержимого.
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Имя объявления стиля CSS для управления другими свойствами внешнего вида заголовков столбцов. Значением по умолчанию является <codeph>undefined</codeph>, что указывает на использование значения стиля <codeph>headerStyleName</codeph> связанного элемента управления DataGrid. Значением по умолчанию для элемента управления DataGrid является <codeph>.dataGridStyles</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Фоновый цвет столбца. Значением по умолчанию является <codeph>undefined</codeph>, что указывает на использование значения стиля <codeph>backgroundColor</codeph> связанного элемента управления DataGrid. Значением по умолчанию для элемента управления DataGrid является <codeph>0xFFFFFF</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Смещение первой строки текста с левой стороны контейнера в пикселях.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="Class">
+<description>
+  Класс, реализующий IUITextField, который используется этим компонентом для визуализации текста.
+ 
+  <p>Этот тип можно установить либо для класса mx.core.UITextField (для использования типичного класса TextField, встроенного в Flash Player), либо для класса mx.core.UIFTETextField (для использования Text Layout Framework для достижения оптимизированной визуализации текста, включая двусторонний макет).</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование подчеркивания текста. Возможными значениями являются <codeph>none</codeph> и <codeph>underline</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Выравнивание текста внутри контейнера. Возможными значениями являются <codeph>left</codeph>, <codeph>right</codeph> или <codeph>center</codeph>.
+ 
+  <p>Значением по умолчанию является <codeph>left</codeph>. Для компонента FormItem, значением по умолчанию является <codeph>right</codeph>. Для компонентов Button, LinkButton и AccordionHeader значением по умолчанию является <codeph>center</codeph> и это свойство является допустимым, только если свойство <codeph>labelPlacement</codeph> установлено на <codeph>left</codeph> или <codeph>right</codeph>. Если свойство <codeph>labelPlacement</codeph> установлено на <codeph>top</codeph> или <codeph>bottom</codeph>, текст и любой значок располагаются по центру.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  Языковой стандарт текста, отображаемый этим компонентом.
+ 
+  <p>FTE и TLF используют этот языковой стандарт для сопоставления символов «Юникод» с глифами шрифтов и поиска резервных шрифтов.</p>
+ 
+  <p>Примечание. Этот стиль применяется только в том случае, если компонент MX определяет UIFTETextField как <codeph>textFieldClass</codeph>.</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Число дополнительных пикселей, отображаемых между каждым символом. Положительное значение увеличивает интервал между символами вне стандартного интервала, в то время как отрицательное значение его уменьшает.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Boolean">
+<description>
+  Логическое значение, указывающее использование кернинга (<codeph>true</codeph> – включено и <codeph>false</codeph> – отключено). Кернинг регулирует промежуток между определенными символьными парами для повышения удобочитаемости и должен использоваться, например, в заголовках при использовании крупных шрифтов. Кернинг поддерживается только для встроенных шрифтов. Определенные шрифты, например, Verdana, и моноширинные шрифты, например, Courier New, не поддерживают кернинг.
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование жирного шрифта в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph> bold</codeph>. Значение по умолчанию для элемента управления Button <codeph>bold</codeph>. Значением по умолчанию для всех прочих элементов управления является<codeph>normal</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Устанавливает свойство <codeph>thickness</codeph> внутреннего класса TextFields, представляющего текст в элементе управления Flex. Это свойство указывает толщину границ глифов. Возможные значения – числа от -200 до 200. 
+  
+  <p>Это свойство применяется только при использовании встроенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField; его можно применять только к определенным символам.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Определяет использование курсива в тексте. Допустимыми значениями являются <codeph>normal</codeph> и <codeph>italic</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Высота текста в пикселях. Для тем Halo значением по умолчанию для всех элементов управления, кроме ColorPicker, является 10. Для элемента управления ColorPicker с темой Halo значением по умолчанию является 11. Для тем Spark значением по умолчанию для всех элементов управления, кроме ColorPicker, является 12. Для элемента управления ColorPicker с темой Spark значением по умолчанию является 11.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Устанавливает свойство <codeph>sharpness</codeph> для внутреннего класса TextFields, представляющего текст в элементах управления Flex. Это свойство указывает резкость краев глифа. Возможными значениями являются числа от -400 до 400. 
+  
+  <p>Это свойство применяется только при использовании встроенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField; его можно применять только к определенным символам.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Устанавливает свойство <codeph>gridFitType</codeph> внутреннего класса TextFields, представляющего текст в элементах управления Flex. Допустимыми значениями являются <codeph>none</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>), <codeph>pixel</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) и <codeph>subpixel</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>). 
+  
+  <p>Это свойство применяется только при использовании встроенного шрифта и при установке свойства <codeph>fontAntiAliasType</codeph> на <codeph>advanced</codeph>.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+ 
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления TextField; его можно применять только к определенным символам.</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Имя используемого шрифта. В отличие от использования в реализации CSS, разделенные запятой списки не поддерживаются. Можно использовать любое имя гарнитуры шрифтов. При указании общего имени шрифта оно преобразовывается в соответствующий шрифт устройства. Шрифтом по умолчанию для темы Halo является <codeph>Verdana</codeph>. Шрифтом по умолчанию для темы Spark является <codeph>Arial</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Устанавливает свойство <codeph>antiAliasType</codeph> внутреннего класса TextFields. Возможными значениями являются <codeph>normal</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) и <codeph>advanced</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>). 
+  
+  <p>Значением по умолчанию является <codeph>advanced</codeph>, активирующее расширенные возможности сглаживания для шрифтов. Установлено на <codeph>normal</codeph> для деактивации расширенных возможностей сглаживания.</p>
+  
+  <p>Этот стиль не влияет на системные шрифты.</p>
+  
+  <p>Этот стиль применяется ко всему тексту в нижестоящем элементе управления класса TextField; его можно применять только к определенным символам.</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста в компоненте при его деактивации.
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  Направленность текста, отображенная компонентом.
+ 
+  <p>Допустимые значения – <codeph>ltr</codeph> для текста, записываемого слева направо, как в гарнитурах латинского стиля, и <codeph>rtl</codeph> для текста, записываемого справа налево, как в арабском и иврите.</p>
+ 
+  <p>FTE и TLF используют это значение в алгоритме двухстороннего макета текста, который сопоставляет последовательность символов «Юникод» с последовательностью глифов.</p>
+ 
+  <p>Примечание. Этот стиль применяется только в том случае, если компонент MX определяет UIFTETextField как <codeph>textFieldClass</codeph>.</p>
+ 
+  <p>Параметр <codeph>direction</codeph> также влияет на выравнивание текста в рамках TLFTextField. Однако он не влияет на размещение TLFTextField внутри компонента.</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Цвет текста в компоненте, включая метку компонента. Значением по умолчанию для темы Halo является <codeph>0x0B333C</codeph>. Значение по умолчанию для темы Spark - <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>You use the <code>&lt;mx.DataGridColumn&gt;</code> tag to configure a column
+  of a DataGrid control.
+  You specify the <code>&lt;mx.DataGridColumn&gt;</code> tag as a child
+  of the columns property in MXML.
+  The <code>&lt;mx.DataGridColumn&gt;</code> tag inherits all of the 
+  tag attributes of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:DataGridColumn
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    dataTipField="<i>No default</i>"
+    dataTipFunction="<i>No default</i>"
+    editable="true|false"
+    editorDataField="text"
+    editorHeightOffset="0"
+    editorUsesEnterKey="false|true"
+    editorWidthOffset="0"
+    editorXOffset="0"
+    editorYOffset="0"
+    headerRenderer="DataGridItemRenderer"
+    headerText="<i>No default</i>"
+    headerWordWrap="undefined"
+    imeMode="null"
+    itemEditor="TextInput"
+    itemRenderer="DataGridItemRenderer"
+    labelFunction="<i>No default</i>"
+    minWidth="20"
+    rendererIsEditor="false|true"
+    resizable="true|false"
+    showDataTips="false|true"
+    sortable="true|false"
+    sortCompareFunction="<i>No default</i>"
+    sortDescending="false|true"
+    visible="true|false"
+    width="100"
+    wordWrap="false|true"
+ 
+  <b>Styles</b>
+    backgroundColor="0xFFFFFF"
+    color="<i>No default.</i>"
+    disabledColor="0xAAB3B3"
+    fontAntiAliasType="advanced"
+    fontFamily="<i>No default</i>"
+    fontGridFitType="pixel"
+    fontSharpness="0"
+    fontSize="<i>No default</i>"
+    fontStyle="normal|italic"
+    fontThickness="0"
+    fontWeight="normal|bold"
+    headerStyleName="<i>No default</i>"
+    paddingLeft="0"
+    paddingRight="0"
+    textAlign="right|center|left"
+    textDecoration="none|underline"
+    textIndent="0"
+  /&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.styles:CSSStyleDeclaration</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridColumn описывает столбец в элементе управления DataGrid. Для отображаемого столбца один элемент DataGridColumn существует даже в том случае, если этот столбец скрыт или находится за пределами экрана. Элементы поставщика данных элемента управления DataGrid могут содержать свойства, которые не отображаются и поэтому для них не требуется DataGridColumn. Элемент DataGridColumn позволяет определять спецификацию цвета и шрифта текста в столбце, вид компонента, отображающего данные столбца, указывать, является ли столбец доступным для редактирования, сортировки или изменения размера, и определять текст заголовка столбца.
+ 
+  <p><b>Примечания.</b><ul>
+  <li>Элемент DataGridColumn предназначен только для хранения информации о столбце, он не является вышестоящим элементом для средств визуализации элементов в столбце.</li>
+  <li>При указании класса DataGridColumn без свойства <codeph>dataField</codeph> необходимо определить свойство <codeph>sortCompareFunction</codeph>. В противном случае, операции сортировки могут стать причиной возникновения ошибок во время выполнения программы.</li></ul> 
+  </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridColumn:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя поля в поставщике данных, связанного со столбцом, и текст ячейки заголовка указанного столбца. Это соответствует установке свойств <codeph>dataField</codeph> и <codeph>headerText</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:protected:complexColumnSortCompare"><apiName>complexColumnSortCompare</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>obj1</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>obj2</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:protected:deriveComplexColumnData"><apiName>deriveComplexColumnData</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:getItemRendererFactory"><apiName>getItemRendererFactory</apiName><shortdesc>
+      Возвращает соответствующую фабрику с использованием фабрики по умолчанию, если не определена другая.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>если свойство <codeph>data</codeph> имеет значение null – средство визуализации элементов по умолчанию, в противном случае, возвращается пользовательское средство визуализации элементов.
+      
+      </apiDesc><apiOperationClassifier>mx.core:IFactory</apiOperationClassifier></apiReturn><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если это средство визуализации заголовка.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Данные, которые должны быть представлены с помощью средства визуализации элементов.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает соответствующую фабрику с использованием фабрики по умолчанию, если не определена другая.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      Возвращает строку, которая отображается средством визуализации элементов в качестве всплывающей подсказки для заданного объекта данных, на основе свойств dataTipField и dataTipFunction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отображаемая строка на основе данных.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, который должен быть визуализирован.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает строку, которая отображается средством визуализации элементов в качестве всплывающей подсказки для заданного объекта данных, на основе свойств <codeph>dataTipField</codeph> и <codeph>dataTipFunction</codeph>. Если метод не позволяет преобразовать параметр в строку, возвращается одиночный знак пробела.
+     
+      <p>Этот метод предназначен для использования разработчиками, создающими подклассы для класса DataGridColumn. Он не должен использоваться разработчиками приложений.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      Возвращает строку, которая отображается средством визуализации элемента для заданного объекта данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отображаемая строка на основе данных.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, который должен быть визуализирован.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает строку, которая отображается средством визуализации элемента для заданного объекта данных. Если DataGridColumn или его элемент управления DataGrid имеет значение свойства <codeph>labelFunction</codeph>, отличное от null, функция применяется к объекту данных. В противном случае, метод обеспечивает извлечение содержимого поля, определяемого в свойстве <codeph>dataField</codeph> или получение строкового значения для объекта данных. Если метод не позволяет преобразовать параметр в строку, возвращается одиночный знак пробела.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridColumn:draggable"><apiName>draggable</apiName><shortdesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя полномочий на перетаскивание столбца в новое положение. Если установлено значение true, пользователь может перетаскивать заголовки столбцов в новое местоположение.
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя полномочий на перетаскивание столбца в новое положение. Если установлено значение <codeph>true</codeph>, пользователь может перетаскивать заголовки столбцов в новое местоположение.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorDataField"><apiName>editorDataField</apiName><shortdesc>
+      Имя свойства редактора элемента, содержащего новые данные для элемента списка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>text</apiData><apiType value="String"/><apiDefaultValue>"text"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Имя свойства редактора элемента, содержащего новые данные для элемента списка. Например, по умолчанию свойство <codeph>itemEditor</codeph> имеет значение TextInput, таким образом, значением по умолчанию для свойства <codeph>editorDataField</codeph> является <codeph>text</codeph>, что определяет свойство <codeph>text</codeph> элемента управления TextInput.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorHeightOffset"><apiName>editorHeightOffset</apiName><shortdesc>
+      Высота редактора элемента в пикселях относительно размера средства визуализации элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Высота редактора элемента в пикселях относительно размера средства визуализации элемента. Это свойство может использоваться в целях наложения редактора на средство визуализации элемента и создания перекрытия размером в несколько пикселей для компенсации границы вокруг редактора. Обратите внимание, что внесение изменений в эти значения при отображении редактора на экране не откажет влияния на текущий редактор, но повлияет на следующее средство визуализации элемента, обеспечивающее открытие редактора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorUsesEnterKey"><apiName>editorUsesEnterKey</apiName><shortdesc>
+      Флаг, указывающий на то, используется ли клавиша Enter в редакторе элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на то, используется ли клавиша Enter в редакторе элементов. Если установлено значение <codeph>true</codeph>, в редакторе элементов используется клавиша Enter, а в сетке данных не будет осуществляться поиск клавиши Enter и ответное перемещение редактора. Обратите внимание, что внесение изменений в эти значения при отображении редактора на экране не откажет влияния на текущий редактор, но повлияет на следующее средство визуализации элементов, обеспечивающее открытие редактора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorWidthOffset"><apiName>editorWidthOffset</apiName><shortdesc>
+      Ширина редактора элемента в пикселях относительно размера средства визуализации элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ширина редактора элемента в пикселях относительно размера средства визуализации элемента. Это свойство может использоваться в целях наложения редактора на средство визуализации элемента и создания перекрытия размером в несколько пикселей для компенсации границы вокруг редактора. Обратите внимание, что внесение изменений в эти значения при отображении редактора на экране не откажет влияния на текущий редактор, но повлияет на следующее средство визуализации элемента, обеспечивающее открытие редактора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorXOffset"><apiName>editorXOffset</apiName><shortdesc>
+      Местоположение по оси X верхнего левого угла редактора элемента в пикселях относительно верхнего левого угла элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Местоположение по оси X верхнего левого угла редактора элемента в пикселях относительно верхнего левого угла элемента. Это свойство может использоваться в целях наложения редактора на средство визуализации элемента и создания перекрытия размером в несколько пикселей для компенсации границы вокруг редактора. Обратите внимание, что внесение изменений в эти значения при отображении редактора на экране не откажет влияния на текущий редактор, но повлияет на следующее средство визуализации элемента, обеспечивающее открытие редактора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorYOffset"><apiName>editorYOffset</apiName><shortdesc>
+      Местоположение по оси Y верхнего левого угла редактора элемента в пикселях относительно верхнего левого угла элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Местоположение по оси Y верхнего левого угла редактора элемента в пикселях относительно верхнего левого угла элемента. Это свойство может использоваться в целях наложения редактора на средство визуализации элемента и создания перекрытия размером в несколько пикселей для компенсации границы вокруг редактора. Обратите внимание, что внесение изменений в эти значения при отображении редактора на экране не откажет влияния на текущий редактор, но повлияет на следующее средство визуализации элемента, обеспечивающее открытие редактора.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemEditor"><apiName>itemEditor</apiName><shortdesc>
+      Фабрика класса для экземпляров редактора элементов, предназначенная для использования в столбце, если он доступен для редактирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IFactory</apiValueClassifier><apiDefaultValue>new ClassFactory(mx.controls.TextInput)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Фабрика класса для экземпляров редактора элементов, предназначенная для использования в столбце, если он доступен для редактирования.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:rendererIsEditor"><apiName>rendererIsEditor</apiName><shortdesc>
+      Флаг, указывающий на то, что средство визуализации элемента также является редактором элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на то, что средство визуализации элемента также является редактором элемента. Если это свойство имеет значение <codeph>true</codeph>, в программе Flex игнорируется свойство <codeph>itemEditor</codeph> и в качестве редактора используется средство визуализации элементов для этого элемента.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:resizable"><apiName>resizable</apiName><shortdesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя полномочий на изменение ширины столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя полномочий на изменение ширины столбца. При значении <codeph>true</codeph>, пользователь может перемещать линии сетки между заголовками столбцов для изменения размеров столбца. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortDescending"><apiName>sortDescending</apiName><shortdesc>
+      Указывает на направление сортировки столбца: в порядке возрастания (false) или в порядке убывания (true).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false;
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает на то, сортируется столбец в порядке возрастания <codeph>false</codeph> или в порядке убывания <codeph> true</codeph>.
+     
+      <p>Установка этого свойства не инициирует начало сортировки; устанавливается лишь направление сортировки. Для выполнения сортировки щелкните в области заголовка столбца.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortable"><apiName>sortable</apiName><shortdesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя возможности сортировки в поставщике данных с помощью щелчка по заголовку столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на наличие или отсутствие у пользователя возможности сортировки в поставщике данных с помощью щелчка по заголовку столбца. Если данное свойство и свойство <codeph>sortableColumns</codeph> DataGrid имеют значение <codeph>true</codeph>, элемент управления DataGrid обеспечивает передачу события <codeph>headerRelease</codeph>, когда пользователь отпускает кнопку мыши на заголовке этого столбца. Если ни один другой обработчик не вызывает метод <codeph>preventDefault()</codeph> в событии <codeph>headerRelease</codeph>, свойство <codeph>dataField</codeph> или <codeph>sortCompareFunction</codeph> столбца используется для переупорядочивания элементов в dataProvider.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      Имя поля или свойства элемента поставщика данных, связанного со столбцом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя поля или свойства элемента поставщика данных, связанного со столбцом. Данное свойство и/или свойство <codeph>labelFunction</codeph> необходимо установить для каждого элемента управления DataGridColumn в целях определения отображаемого текста для средства визуализации элементов. Если установлено значение свойств <codeph>dataField</codeph> и <codeph>labelFunction</codeph>, данные отображаются с помощью <codeph>labelFunction</codeph> и сортируются с применением <codeph>dataField</codeph>. Если значение, названное в свойстве <codeph>dataField</codeph> не существует, для корректного выполнения сортировки необходимо установить значение <codeph>sortCompareFunction</codeph>.
+     
+      <p>Это значение данного свойства не обязательно является строкой, отображаемой в заголовке столбца. Это свойство используется только для получения доступа к данным в поставщике данных. Дополнительную информацию см. в описании свойства <codeph>headerText</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.dataGridClasses.xml#DataGridColumn/headerText"><linktext>headerText</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      Имя поля в поставщике данных для отображения в качестве всплывающей подсказки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя поля в поставщике данных для отображения в качестве всплывающей подсказки. По умолчанию элемент управления DataGrid обеспечивает поиск свойства под названием <codeph>label</codeph> для каждого элемента поставщика данных и его отображение. Однако если поставщик данных не содержит свойства <codeph>label</codeph>, можно установить свойство <codeph>dataTipField</codeph> для определения другого свойства. Например, если пользователь просматривает группу имен лиц, извлеченных из базы данных, может быть установлено значение FullName.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      Указывает функцию обратного вызова, выполняемую в каждом элементе поставщика данных для определения всплывающей подсказки для него.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Указывает функцию обратного вызова, выполняемую в каждом элементе поставщика данных для определения всплывающей подсказки для него. Это свойство используется методом <codeph>itemToDataTip</codeph>.
+     
+      <p>По умолчанию в элементе управления осуществляется поиск свойства под названием <codeph>label</codeph> в каждом элементе поставщика данных и его отображения в качестве всплывающей подсказки. Однако некоторые поставщики данных не имеют свойства <codeph>label</codeph>, а также других свойств, которые можно использовать для отображения данных в строках. Например, может существовать поставщик данных, содержащий поля lastName и firstName, но при этом в качестве всплывающей подсказки требуется отображение полных имен. Для свойства <codeph>dataTipFunction</codeph> можно определить функцию, возвращающую отдельную строку, содержащую значения обоих полей. Для обработки форматирования и локализации также можно использовать свойство <codeph>dataTipFunction</codeph>.</p>
+     
+      <p>Функция должна принимать отдельный параметр объекта, содержащий элемент поставщика данных, и возвращать строку.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      Флаг, который указывает на то, являются ли элементы столбца доступными для редактирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, который указывает на то, являются ли элементы столбца доступными для редактирования. Если установлено значение <codeph>true</codeph> и свойство <codeph>editable</codeph> DataGrid также имеет значение <codeph>true</codeph>, элементы столбца доступны для редактирования и для их редактирования по отдельности необходимо выбрать требуемый элемент с помощью мыши или перейти к нему с использованием клавиши Tab и клавиш со стрелками.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса. Если редактор включен, он соответственно активирует IME.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      Фабрика классов для экземпляров средств визуализации элементов, отображающих заголовок столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      Фабрика классов для экземпляров средств визуализации элементов, отображающих заголовок столбца. В качестве значения этого свойства можно определить компонент средства визуализации выпадающего элемента, средства визуализации встроенного элемента или средства визуализации пользовательского элемента.
+     
+      <p>Средством визуализации по умолчанию является класс DataGridItemRenderer, обеспечивающий отображение данных элемента в виде текста. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      Текст заголовка данного столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Текст заголовка данного столбца. По умолчанию значение свойства <codeph>dataField</codeph> используется элементом управления DataGrid в качестве текста заголовка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerWordWrap:get"><apiName>headerWordWrap</apiName><shortdesc>
+      Флаг, который указывает, должен ли использоваться перенос слов для текста заголовка, если он не умещается в одной строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, который указывает, должен ли использоваться перенос слов для текста заголовка, если он не умещается в одной строке. Если установлено значение <codeph>undefined</codeph>, используется свойство <codeph>wordWrap</codeph> элемента управления DataGrid.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Указывает режим IME (редактор методов ввода).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает режим IME (редактор методов ввода). IME позволяет пользователям вводить текст на китайском, японском и корейском языках. Режим IME устанавливается при возникновении события <codeph>itemFocusIn</codeph> и возвращается к предыдущему значению, если происходит событие <codeph>itemFocusOut</codeph>. Класс flash.system.IMEConversionMode определяет константы для допустимых значений этого свойства.  
+     
+      <p>По умолчанию значение null, в этом случае используется значение свойства <codeph>imeMode</codeph> элемента управления DataGrid.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Фабрика классов для экземпляров средства визуализации элементов, отображающих данные для каждого элемента в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      Фабрика классов для экземпляров средства визуализации элементов, отображающих данные для каждого элемента в столбце. В качестве значения этого свойства можно определить компонент средства визуализации выпадающего элемента, средства визуализации встроенного элемента или средства визуализации пользовательского элемента.
+     
+      <p>Средством визуализации по умолчанию является класс DataGridItemRenderer, обеспечивающий отображение данных элемента в виде текста. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      Функция, определяющая текст, который должен быть отображен в этом столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Функция, определяющая текст, который должен быть отображен в этом столбце. По умолчанию в столбце отображается текст поля в данных, соответствующий имени столбца. Однако иногда требуется отобразить текст на основе данных нескольких полей или вывести информацию, формат которой отличается от необходимого. В этом случае необходимо определить функцию обратного вызова с использованием <codeph>labelFunction</codeph>.
+     
+      <p>Для элемента управления DataGrid подпись метода имеет следующую форму:</p>
+     
+      <pre>labelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>Где <codeph>item</codeph> содержит объект элемента DataGrid, а значение <codeph>column</codeph> определяет столбец DataGrid.</p>
+     
+      <p>Функция обратного вызова может обеспечить объединение полей firstName и lastName в данных, пользовательское форматирование для даты или преобразование числа для месяца в строку для месяца.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      Минимальная ширина столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальная ширина столбца.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:nullItemRenderer:get"><apiName>nullItemRenderer</apiName><shortdesc>
+      Фабрика классов для экземпляров средства визуализации элементов, отображающих данные для каждого элемента в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nullItemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFactory</apiValueClassifier></apiValueDef><apiDesc>
+      Фабрика классов для экземпляров средства визуализации элементов, отображающих данные для каждого элемента в столбце. В качестве значения этого свойства можно определить компонент средства визуализации выпадающего элемента, средства визуализации встроенного элемента или средства визуализации пользовательского элемента.
+     
+      <p>Средством визуализации по умолчанию является класс DataGridItemRenderer, обеспечивающий отображение данных элемента в виде текста. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      Флаг, указывающий, отображаются ли всплывающие подсказки в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий, отображаются ли всплывающие подсказки в столбце. Если установлено значение <codeph>true</codeph>, всплывающие подсказки для текста отображаются в строках. Datatips – это всплывающие подсказки, указывающие на то, что текст является слишком длинным для этой строки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+     
+      Функция обратного вызова, выполняемая при сортировке данных в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      Функция обратного вызова, выполняемая при сортировке данных в столбце. Если это свойство не определено, осуществляется попытка выполнения базовой сортировки данных по строкам или числам. Если данные не являются строкой или числом или если свойство <codeph>dataField</codeph> не является допустимым свойством поставщика данных, сортировка не производится или создается исключение. При указании значения свойства <codeph>labelFunction</codeph> также необходимо обеспечить функцию для свойства <codeph>sortCompareFunction</codeph>, если сортировка для данного столбца не разрешена.
+     
+      <p>Данная функция используется элементом управления DataGrid для сортировки элементов коллекции поставщика данных. Подпись функции обратного вызова принимает два параметра и имеет следующую форму:</p>
+     
+      <pre>mySortCompareFunction(obj1:Object, obj2:Object):int </pre>
+     
+      <p><codeph>obj1</codeph> – элемент данных для сравнения.</p>
+     
+      <p><codeph>obj2</codeph> – другой элемент данных для сравнения с obj1.</p>
+     
+      <p>Функция должна возвратить значение, полученное на основе сравнения объектов: </p>
+      <ul>
+        <li>-1, если obj1 должен отображаться перед obj2 в порядке возрастания. </li>
+        <li>0, если obj1 = obj2. </li>
+        <li>1, если obj1 должен отображаться после obj2 в порядке возрастания.</li>
+      </ul>
+     
+      <p><b>Примечание.</b> Параметры <codeph>obj1</codeph> и <codeph>obj2</codeph> являются едиными элементами поставщика данных, а не только данными элемента.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      Флаг, указывающий, является ли столбец видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий, является ли столбец видимым. Если значение установлено на <codeph>true</codeph> столбец является видимым.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:width:get"><apiName>width</apiName><shortdesc>
+      Ширина столбца в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ширина столбца в пикселях. Если свойство <codeph>horizontalScrollPolicy</codeph> DataGrid имеет значение <codeph>false</codeph>, все видимые столбцы должны помещаться в отображаемой области, а элемент управления DataGrid не всегда будет обеспечивать обработку ширины столбцов, если общая ширина столбцов будет слишком маленькой или слишком большой для отображаемой области.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      Флаг, который указывает, будет ли текст строки данного столбца переноситься по словам, если не поместится на одной строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, который указывает, будет ли текст строки данного столбца переноситься по словам, если не поместится на одной строке. Если установлено значение <codeph>undefined</codeph>, используется свойство <codeph>wordWrap</codeph> элемента управления DataGrid.
+     
+      <p>Оказывает влияние только в том случае, если свойство <codeph>DataGrid.variableRowHeight</codeph> также имеет значение <codeph>true</codeph>.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+  Класс DataGridItemRenderer определяет средство визуализации элемента по умолчанию для элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UITextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DataGridItemRenderer определяет средство визуализации элемента по умолчанию для элемента управления DataGrid. По умолчанию средство визуализации элементов обеспечивает вывод текста, связанного с каждым элементом в сетке.
+ 
+  <p>Можно перезаписать средство визуализации элементов по умолчанию путем создания пользовательского средства визуализации элементов.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:DataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Передается при изменении свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства<codeph>data</codeph>.
+ 
+  <p>При использовании компонента как средства визуализации элементов свойство <codeph>data</codeph> содержит данные для отображения. Прослушиватель события может использовать это событие и обновить компонент при изменении свойства <codeph>data</codeph>.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:DataGridItemRenderer:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      
+      Возвращает массив объектов CSSStyleDeclaration для селектора типа, применяемого к этому компоненту, или null, если массив не существует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив объектов CSSStyleDeclaration.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Возвращает массив объектов CSSStyleDeclaration для селектора типа, применяемого к этому компоненту, или <codeph>null</codeph>, если массив не существует.
+     
+      <p>Например, предположим, что компонент MyButton применяется для расширения компонента Button. Сначала метод обеспечивает поиск селектора MyButton, затем производится поиск селектора типа Button и, наконец, поиск селектора типа UIComponent.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/><apiDesc>Значение стиля.
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      Обеспечивает настройку объектов inheritingStyles и nonInheritingStyles и их первичных цепочек для обеспечения возможности использования метода getStyle().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает настройку объектов <codeph>inheritingStyles</codeph> и <codeph>nonInheritingStyles</codeph> и их первичных цепочек для обеспечения возможности использования метода <codeph>getStyle()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      
+      Обеспечивает распространение изменений стиля для нижестоящих элементов этого компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Указывает, следует ли распространять изменения стиля для нижестоящих элементов этих нижестоящих элементов. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Обеспечивает распространение изменений стиля для нижестоящих элементов этого компонента.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      
+      Обеспечивает настройку внутренних значений кэша стиля для функционирования метода getStyle().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>Обеспечивает повторное создание первичных цепочек нижестоящих элементов. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Обеспечивает настройку внутренних значений кэша стиля для функционирования метода <codeph>getStyle()</codeph>. Если для этого объекта уже существуют нижестоящие элементы, производится повторная инициализация кэша стиля нижестоящих элементов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      
+      Обеспечивает регистрацию EffectManager в качестве одного из прослушивателей событий для каждого события эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>Массив строк имен эффектов. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Обеспечивает регистрацию EffectManager в качестве одного из прослушивателей событий для каждого события эффекта.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Имя свойства стиля.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>Новое значение стиля.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      Обработчик события для позиционирования всплывающей подсказки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:ToolTipEvent</apiOperationClassifier><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обработчик события для позиционирования всплывающей подсказки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      Если в программе Flex выполняется вызов метода LayoutManager.invalidateDisplayList() для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости обновления списка отображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Если в программе Flex выполняется вызов метода <codeph>LayoutManager.invalidateDisplayList()</codeph> для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости обновления списка отображения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      Если в программе Flex выполняется вызов метода LayoutManager.invalidateProperties() для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости фиксировать значения свойств.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Если в программе Flex выполняется вызов метода <codeph>LayoutManager.invalidateProperties()</codeph> для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости фиксировать значения свойств.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      Если в программе Flex выполняется вызов метода LayoutManager.invalidateSize() для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости осуществления измерений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Если установлено значение <codeph>true</codeph>, необходимо вызвать этот метод для нижестоящих элементов объекта.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Если в программе Flex выполняется вызов метода <codeph>LayoutManager.invalidateSize()</codeph> для этого элемента ILayoutManagerClient, данная функция вызывается при необходимости осуществлять измерения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Реализация свойства data, как определено интерфейсом IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Реализация свойства <codeph>data</codeph>, как определено интерфейсом IDataRenderer. Значение игнорируется. Используется только свойство listData.
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Реализация свойства listData, как определено интерфейсом IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      Реализация свойства <codeph>listData</codeph>, как определено интерфейсом IDropInListItemRenderer. В качестве текста средства визуализации устанавливается значение свойства <codeph>label</codeph> listData.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      Обеспечивает хранение встроенных наследуемых стилей этого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      Обеспечивает хранение встроенных наследуемых стилей этого объекта. Этот элемент CSSStyleDeclaration в первый раз создается при вызове метода setStyle() для этого компонента в целях установки наследуемого стиля.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

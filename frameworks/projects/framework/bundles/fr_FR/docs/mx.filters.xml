@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.filters"><apiName>mx.filters</apiName><apiDetail/><apiClassifier id="mx.filters:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+  Classe de base pour certains filtres Spark. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base pour certains filtres Spark. 
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseDimensionFilter:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.filters:BaseDimensionFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Quantité de flou horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Quantité de flou horizontal. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Quantité de flou vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Quantité de flou vertical. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:knockout:get"><apiName>knockout</apiName><shortdesc>
+      Spécifie si l’objet a un effet de masquage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si l’objet a un effet de masquage. Un effet de masquage rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document. La valeur true spécifie un effet de masquage ; la valeur par défaut est false (pas d’effet de masquage).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      Nombre d’applications du filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Nombre d’applications du filtre. La valeur par défaut est BitmapFilterQuality.LOW, ce qui revient à appliquer le filtre une seule fois. La valeur BitmapFilterQuality.MEDIUM applique le filtre deux fois. La valeur BitmapFilterQuality.HIGH l’applique trois fois. Les rendus des filtres de valeurs faibles sont obtenus plus rapidement. Pour la plupart des applications, une valeur de qualité faible, moyenne ou élevée est suffisante. Il est possible d’utiliser des valeurs numériques allant jusqu’à 15 pour obtenir différents effets, mais le rendu des valeurs les plus élevées est moins rapide. Sans augmenter la valeur de quality, vous pouvez généralement obtenir un effet similaire, avec un rendu plus rapide, en augmentant simplement les valeurs des propriétés blurX et blurY.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:strength:get"><apiName>strength</apiName><shortdesc>
+      Intensité de l’empreinte ou recouvrement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste entre le rayonnement et l’arrière-plan est important. Les valeurs valides sont comprises entre 0 et 255. La valeur 0 signifie que le filtre n’est pas appliqué. La valeur par défaut est 1. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.filters:IBitmapFilter"><apiName>IBitmapFilter</apiName><shortdesc>
+     Interface utilisée par certains filtres Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+     Interface utilisée par certains filtres Spark.
+    
+     </apiDesc></apiClassifierDetail><apiOperation id="mx.filters:IBitmapFilter:mx.filters:IBitmapFilter:clone"><apiName>clone</apiName><shortdesc>
+         Renvoie une copie du filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de BitmapFilter dont toutes les propriétés sont identiques à celles de l’occurrence de BitmapFilter d’origine.
+        
+         </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+         Renvoie une copie du filtre.
+        
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.filters:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+     Classe de base pour certains filtres Spark. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+     Classe de base pour certains filtres Spark. 
+    
+     </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseFilter:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+         Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiData>null</apiData><apiDesc>Cible d’application du filtre.
+        
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         Constructeur.
+        
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.filters:BaseFilter:notifyFilterChanged"><apiName>notifyFilterChanged</apiName><shortdesc>
+         Propage un événement change lorsque le filtre a été modifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+         Propage un événement change lorsque le filtre a été modifié.
+        
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.filters:BaseFilter:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+         Chaîne « change ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Chaîne « <codeph>change</codeph> ». Utilisé par l’événement lorsque le filtre a été modifié.
+        
+         </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

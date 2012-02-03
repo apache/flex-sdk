@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.easing"><apiName>mx.effects.easing</apiName><apiDetail/><apiClassifier id="mx.effects.easing:Quartic"><apiName>Quartic</apiName><shortdesc>
+  Quartic 类可以定义三个缓动函数，以使用 Flex 效果类实现运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quartic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Quartic 等类中的缓动函数。为了达到 Quartic 的相同功能，请以 4 作为 <codeph>exponent</codeph> 创建一个 Power 实例，并相应地设置 <codeph>easeInFraction</codeph> 以获得所需的结果。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quartic 类可以定义三个缓动函数，以使用 Flex 效果类实现运动。Quartic 缓动方程的运动加速大于 Quadratic 或 Cubic 缓动方程。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quartic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 以较快的速度开始运动，然后减慢运行速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 以较快的速度开始运动，然后减慢运行速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Linear 类可以定义缓动函数，以便使用 Flex 效果类实现线性运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Linear" replacement="spark.effects.easing.Linear" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Linear 等类中的缓动函数。为了达到旧 Linear 类的相同功能，请创建一个新的 spark.effects.easing.Linear 实例或调用 spark.effects.easing.Linear.getInstance() 来获取一个单独的实例。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Linear 类可以定义缓动函数，以便使用 Flex 效果类实现线性运动。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Linear:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeNone"><apiName>easeNone</apiName><shortdesc>
+      easeNone() 方法定义一种没有加速的持续运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeNone()</codeph> 方法定义一种没有加速的持续运动。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quintic"><apiName>Quintic</apiName><shortdesc>
+  Quintic 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quintic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Quintic 等类中的缓动函数。为了达到 Quintic 的相同功能，请以 5 作为 <codeph>exponent</codeph> 创建一个 Power 实例，并相应地设置 <codeph>easeInFraction</codeph> 以获得所需的结果。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quintic 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动。Quintic 缓动方程的运动加速大于 Quadratic、Cubic 或 Quartic 缓动方程。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quintic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Cubic"><apiName>Cubic</apiName><shortdesc>
+  Cubic 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Cubic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Cubic 等类中的缓动函数。为了达到 Cubic 的相同功能，请以 3 作为 <codeph>exponent</codeph> 创建一个 Power 实例，并相应地设置 <codeph>easeInFraction</codeph> 以获得所需的结果。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cubic 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动。Cubic 缓动方程的运动加速大于 Quadratic 缓动方程。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Cubic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quadratic"><apiName>Quadratic</apiName><shortdesc>
+  Quadratic 类可以定义三个缓动函数，以使用 Flex 效果类实现 quadratic 运动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quadratic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Quadratic 等类中的缓动函数。为了达到 Quadratic 的相同功能，请以 2 作为 <codeph>exponent</codeph> 创建一个 Power 实例，并相应地设置 <codeph>easeInFraction</codeph> 以获得所需的结果。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quadratic 类可以定义三个缓动函数，以使用 Flex 效果类实现 quadratic 运动。Quadratic 缓动方程的运动加速小于 Cubic 或 Quartic 缓动方程。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quadratic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Sine 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动，其中的运动由正弦波定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Sine" replacement="spark.effects.easing.Sine" since="4.0">
+<description>
+  自 Flex 4 起提供的 Spark 效果使用实现 IEaser 接口的类，而不是使用用于实现早期 Flex 3 效果的诸如 Sine 等类中的缓动函数。为了达到旧 Sine 类的相同功能，请使用一个适当的 <codeph>easeInFraction</codeph> 创建一个 spark.effects.Sine 实例以获得所需的结果。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Sine 类可以定义三个缓动函数，以便使用 Flex 效果类实现运动，其中的运动由正弦波定义。有关详细信息，请参阅 http://www.robertpenner.com/profmx。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Sine:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() 方法兼有 easeIn() 方法和 easeOut() 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> 方法兼有 <codeph>easeIn()</codeph> 方法和 <codeph>easeOut()</codeph> 方法的运动，开始运动时速率为零，先对运动进行加速，再减速直到速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() 方法以零速率开始运动，然后在执行时加快运动速度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> 方法以零速率开始运动，然后在执行时加快运动速度。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>与组件位置对应的数字。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>指定时间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>指定组件的初始位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>指定组件位置的更改总计。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>指定效果的持续时间（以毫秒为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> 方法以较快速度开始运动，然后在执行时减慢运动速度，直至速率为零。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

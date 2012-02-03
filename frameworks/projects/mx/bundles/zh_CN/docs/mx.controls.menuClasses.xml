@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.menuClasses"><apiName>mx.controls.menuClasses</apiName><apiDetail/><apiClassifier id="mx.controls.menuClasses:IMenuBarItemRenderer"><apiName>IMenuBarItemRenderer</apiName><shortdesc>
+  IMenuBarItemRenderer 接口定义 MenuBar 控件顶级菜单栏的项呈示器必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IMenuBarItemRenderer 接口定义 MenuBar 控件顶级菜单栏的项呈示器必须实现的接口。项呈示器定义顶级菜单栏中各个按钮的外观。若要实现此接口，则必须定义实现 <codeph>menuBar</codeph>、<codeph>menuBarItemIndex</codeph> 和 <codeph>menuBarItemState</codeph> 属性的 setter 和 getter 方法。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.menuClasses.xml#MenuBarItem"><linktext>mx.controls.menuClasses.MenuBarItem</linktext></link></related-links><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc>
+      包含此项呈示器相对于 MenuBar 控件中其它项呈示器的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      包含此项呈示器相对于 MenuBar 控件中其它项呈示器的索引。第一个项呈示器（最左侧的呈示器）的索引是 0，并在移动到 MenuBar 控件的右侧时以 1 为间隔递增。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc>
+      包含此项呈示器的当前状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      包含此项呈示器的当前状态。可能的值为 <codeph>"itemUpSkin"</codeph>、<codeph>"itemDownSkin"</codeph> 和 <codeph>"itemOverSkin"</codeph>。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBar:get"><apiName>menuBar</apiName><shortdesc>
+      包含对项呈示器的 MenuBar 控件的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc>
+      包含对项呈示器的 MenuBar 控件的引用。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+  MenuBarItem 类定义 MenuBar 控件顶级菜单栏的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  文本第一行偏离容器左侧的距离（以像素为单位）。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="Class">
+<description>
+  实现此组件用来呈示文本的 IUITextField 的类。
+ 
+  <p>它可以设置为 mx.core.UITextField 类（以使用 Flash Player 内置经典 TextField 类）或 mx.core.UIFTETextField 类（以使用 Text Layout Framework 改进文本呈示，包括双向布局）。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否加下划线。可能值有：<codeph>"none"</codeph> 和 <codeph>"underline"</codeph>。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  容器内文本的对齐方式。可能值有：<codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>。
+ 
+  <p>大多数组件的默认值为 <codeph>"left"</codeph>。对于 FormItem 组件，默认值为 <codeph>"right"</codeph>。对于 Button、LinkButton 和 AccordionHeader 组件，默认值为 <codeph>"center"</codeph>，且仅当将 <codeph>labelPlacement</codeph> 属性设置为 <codeph>"left"</codeph> 或 <codeph>"right"</codeph> 时，才能识别此属性。如果将 <codeph>labelPlacement</codeph> 设置为 <codeph>"top"</codeph> 或 <codeph>"bottom"</codeph>，将居中文本及所有图标。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的区域设置。
+ 
+  <p>FTE 和 TLF 使用此区域设置将 Unicode 字符映射到字体字型并查找后备字体。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Boolean">
+<description>
+  一个布尔值，表示是启用 (<codeph>true</codeph>) 还是禁用 (<codeph>false</codeph>) 字距调整。字距调整会调整某些字符对之间的间隔以提高可读性，并应只在必要时（例如使用大字体标题时）使用。仅嵌入字体支持字距调整。某些字体（如宋体）和等宽字体（如 Courier New）不支持字距调整。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>normal</codeph> 和 <codeph>bold</codeph>。Button 控件的默认值为 <codeph>bold</codeph>。所有其它控件的默认值为 <codeph>normal</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>thickness</codeph> 属性。此属性指定字型边缘的粗细。可能值为从 -200 到 200 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  文本的高度，以像素为单位。在 Halo 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 10。对于 Halo 主题的 ColorPicker 控件，默认值为 11。在 Spark 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 12。对于 Spark 主题的 ColorPicker 控件，默认值为 11。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>sharpness</codeph> 属性。此属性指定字型边缘的清晰度。可能值为从 -400 到 400 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>gridFitType</codeph> 属性。可能值为 <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>)、<codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) 和<codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>)。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。Halo 主题的默认字体为 <codeph>"Verdana"</codeph>。Spark 主题的默认字体为 <codeph>"Arial"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  设置内部 TextField 的 <codeph>antiAliasType</codeph> 属性。可能值为 <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) 和 <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>)。 
+  
+  <p>默认值为 <codeph>"advanced"</codeph>，该值将启用字体的高级消除锯齿功能。设置为 <codeph>"normal"</codeph> 可禁用高级消除锯齿功能。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+  
+  <p>此样式适用于 TextField 子控件中的所有文本；但不能将其应用于部分字符。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  禁用时组件中文本的颜色。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的方向性。
+ 
+  <p>允许的值为<codeph>“ltr”</codeph>（适用于从左到右文本，就像在拉丁样式脚本中一样）和<codeph>“rtl”</codeph>（适用于从右到左文本，就像在阿拉伯语和希伯来语中一样）。</p>
+ 
+  <p>FTE 和 TLF 在其双向文本布局算法中使用此值，该算法会将 Unicode 字符顺序映射到字型顺序。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  <p><codeph>direction</codeph> 还影响在 TLFTextField 的范围内的文本的对齐。但是，它不会影响组件内 TLFTextField 的位置。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  文本行之间附加的垂直空间。
+ 
+  <p>默认值为 2。</p>
+  <p>ComboBox 控件的默认值为 0。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.menuClasses:IMenuBarItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarItem 类定义 MenuBar 控件顶级菜单栏的默认项呈示器。默认情况下，项呈示器将绘制与顶级菜单栏中每个项目相关联的文本和可选图标。 
+ 
+  <p>MenuBarItem 实例将鼠标和键盘交互操作传递给 MenuBar，以便 MenuBar 可以正确显示和隐藏菜单。 </p>
+ 
+  <p>通过创建实现 IMenuBarItemRenderer 接口的自定义项呈示器，可以覆盖默认的 MenuBar 项呈示器。</p>
+ 
+  <p>您也可以为 MenuBar 控件的弹出子菜单定义项呈示器。由于每个弹出子菜单都是 Menu 控件的一个实例，您可以使用 MenuItemRenderer 类为弹出子菜单定义项呈示器。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer</linktext></link><link href="mx.controls.menuClasses.xml#MenuItemRenderer"><linktext>mx.controls.menuClasses.MenuItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuBarItem:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:icon"><apiName>icon</apiName><shortdesc>
+      显示此 MenuBarItem 中图标的 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      显示此 MenuBarItem 中图标的 IFlexDisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:label"><apiName>label</apiName><shortdesc>
+      显示此 MenuBarItem 中文本的 UITextField。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      显示此 MenuBarItem 中文本的 UITextField。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+	  提供用于选择 MenuBarItem 时弹出的 Menu 数据的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"undefined"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  提供用于选择 MenuBarItem 时弹出的 Menu 数据的对象。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:data:get"><apiName>data</apiName><shortdesc>
+      由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。所有项呈示器必须实现 IDataRenderer 接口。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      由 IMenuBarItemRenderer 接口定义的 menuBarItemIndex 属性的实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      由 IMenuBarItemRenderer 接口定义的 <codeph>menuBarItemIndex</codeph> 属性的实现。  
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemIndex"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      由 IMenuBarItemRenderer 接口定义的 menuBarItemState 属性的实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      由 IMenuBarItemRenderer 接口定义的 <codeph>menuBarItemState</codeph> 属性的实现。  
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemState"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemState</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBar:get"><apiName>menuBar</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      由 IMenuBarItemRenderer 接口定义的 menuBar 属性的实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      由 IMenuBarItemRenderer 接口定义的 <codeph>menuBar</codeph> 属性的实现。 
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBar"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBar</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+  MenuItemRenderer 类定义任何菜单控件中菜单项目的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  禁用时菜单项目的颜色。
+  
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  菜单项标签的文本颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuItemRenderer 类定义任何菜单控件中菜单项目的默认项呈示器。默认情况下，项呈示器将绘制与每个菜单项、分隔符和图标相关联的文本。
+ 
+  <p>通过创建自定义的项呈示器，您可以覆盖默认项呈示器。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.menuClasses:MenuItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.menuClasses:MenuItemRenderer:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:branchIcon"><apiName>branchIcon</apiName><shortdesc>
+	  在此呈示器中显示分支图标的内部 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  在此呈示器中显示分支图标的内部 IFlexDisplayObject。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+	  在此呈示器中显示文本的内部 UITextField。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  在此呈示器中显示文本的内部 UITextField。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:separatorIcon"><apiName>separatorIcon</apiName><shortdesc>
+	  在此呈示器中显示分隔符图标的内部 IFlexDisplayObject
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  在此呈示器中显示分隔符图标的内部 IFlexDisplayObject
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:typeIcon"><apiName>typeIcon</apiName><shortdesc>
+	  在此呈示器中显示复选按钮和单选按钮类型图标的内部 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  在此呈示器中显示复选按钮和单选按钮类型图标的内部 IFlexDisplayObject。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:icon:get"><apiName>icon</apiName><shortdesc>
+	  在此呈示器中显示图标的内部 IFlexDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  在此呈示器中显示图标的内部 IFlexDisplayObject。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+	  由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+	  由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      分支图标的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      分支图标的宽度
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      图标的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      图标的宽度
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      类型图标（单选/复选）的宽度
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      类型图标（单选/复选）的宽度
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+	  包含对相关联 Menu 控件的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  包含对相关联 Menu 控件的引用。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:IMenuItemRenderer"><apiName>IMenuItemRenderer</apiName><shortdesc>
+  IMenuItemRenderer 接口定义 Menu 控件的菜单项呈示器必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IMenuItemRenderer 接口定义 Menu 控件的菜单项呈示器必须实现的接口。
+ 
+  <p>菜单项呈示器经常回收使用。创建菜单项呈示器后，只需通过提供新的数据即可再次使用它们。因此，在每次实现中，组件开发人员必须确保未假定组件属性包含特定的初始值或默认值。</p>
+ 
+  <p>若要实现此接口，组件开发人员必须定义实现 <codeph>menu</codeph> 属性的 setter 和 getter 方法。通常，setter 方法将 data 属性值写入内部变量，而 getter 方法返回此内部变量的当前值，如下所示：</p>
+  <pre>
+     // Internal variable for the property value.
+     private var _menu:Menu;
+ 
+     // Define the getter method.
+     public function get menu():Menu
+     {
+         return _menu;
+     }
+ 
+     // Define the setter method.
+     public function set menu(value:Menu):void
+     {
+         _menu = value;
+     }
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      分支图标的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      分支图标的宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      图标的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      图标的宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      类型图标（单选/复选）的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      类型图标（单选/复选）的宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+      对此菜单项呈示器的 Menu 控件（如果其中包含一个引用）的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier></apiValueDef><apiDesc>
+      对此菜单项呈示器的 Menu 控件（如果其中包含一个引用）的引用。这表明此菜单项呈示器是分支节点，可以弹出子菜单。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+  MenuListData 类定义由 Menu 和 MenuBar 控件的嵌入式项呈示器或嵌入式项目编辑器实现的 listData 属性的数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuListData 类定义由 Menu 和 MenuBar 控件的嵌入式项呈示器或嵌入式项目编辑器实现的 <codeph>listData</codeph> 属性的数据类型。所有嵌入式项呈示器和嵌入式项目编辑器必须实现 IDropInListItemRenderer 接口，此接口定义了 <codeph>listData</codeph> 属性。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuListData:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>项目数据的文本表示。
+	 
+	 	</apiDesc></apiParam><apiParam><apiItemName>icon</apiItemName><apiType value="Class"/><apiDesc>Class 或 String 对象，给出 List 控件中项目的图标。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiDesc>包含 List 组件标签数据的数据提供程序的字段名称。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>项目的唯一标识符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>对 Menu 控件的引用。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Menu 控件的数据提供程序中的项目索引。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>该列在控件当前可见列中的索引。
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredBranchIconWidth"><apiName>maxMeasuredBranchIconWidth</apiName><shortdesc>
+	  所有 MenuItemListRenderer 的最大分支图标宽度。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  所有 MenuItemListRenderer 的最大分支图标宽度。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredIconWidth"><apiName>maxMeasuredIconWidth</apiName><shortdesc>
+	  所有 MenuItemListRenderer 的最大图标宽度。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  所有 MenuItemListRenderer 的最大图标宽度。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredTypeIconWidth"><apiName>maxMeasuredTypeIconWidth</apiName><shortdesc>
+	  所有 MenuItemListRenderer 的最大类型图标宽度。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  所有 MenuItemListRenderer 的最大类型图标宽度。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:useTwoColumns"><apiName>useTwoColumns</apiName><shortdesc>
+	  左侧图标是否应按两列分开布置（一列用于图标，另一列用于类型图标，如复选和单选）
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  左侧图标是否应按两列分开布置（一列用于图标，另一列用于类型图标，如复选和单选）
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

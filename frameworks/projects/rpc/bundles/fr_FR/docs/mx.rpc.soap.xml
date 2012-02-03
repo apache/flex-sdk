@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap"><apiName>mx.rpc.soap</apiName><apiDetail/><apiClassifier id="mx.rpc.soap:Operation"><apiName>Operation</apiName><shortdesc>
+ Opération utilisée spécialement par les classes WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Opération utilisée spécialement par les classes WebService. Une opération est une méthode individuelle sur un service. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send()</codeph>.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:Operation_mx.rpc.events.HeaderEvent.HEADER_header"><apiName>header</apiName><shortdesc>
+ Distribué lorsqu’une opération d’invocation est renvoyée avec des en-têtes SOAP dans la réponse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.HeaderEvent.HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events.HeaderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué lorsqu’une opération d’invocation est renvoyée avec des en-têtes SOAP dans la réponse. Un événement HeaderEvent est distribué pour chaque en-tête SOAP.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>Service Web à l’issue duquel cette opération est invoquée.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de cette opération.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle opération. Cela est généralement effectué directement par le compilateur MXML ou automatiquement par la classe WebService lorsque l’utilisateur accède à une opération inconnue. Il n’est pas recommandé qu’un développeur utilise ce constructeur directement.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:Operation:addHeader"><apiName>addHeader</apiName><shortdesc>
+     Ajoute un en-tête qui n’est appliqué qu’à cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>En-tête SOAP à ajouter à cette opération.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute un en-tête qui n’est appliqué qu’à cette opération. L’en-tête peut être fourni dans un format précodé en tant qu’occurrence XML ou en tant qu’occurrence SOAPHeader qui laisse le codeur SOAP interne se charger du codage.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     Ajoute un en-tête qui n’est appliqué qu’à cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>Nom local du QName de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>Espace de noms du QName de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>Nom de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>Valeur de l’en-tête.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute un en-tête qui n’est appliqué qu’à cette opération.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Classe AsyncToken associée à l’appel qui est annulé ou null si aucun appel n’a été annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID messageId de l’invocation à annuler. Facultatif. Si omis, la dernière invocation de service est annulée.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié. Même s’il se peut que l’opération de réseau se poursuive, aucun événement de résultat ou d’erreur n’est distribué.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     Efface les en-têtes de cette opération individuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Efface les en-têtes de cette opération individuelle.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:getHeader"><apiName>getHeader</apiName><shortdesc>
+     Retourne un en-tête si une correspondance est trouvée en fonction du nom localName QName et de l’URI.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie l’en-tête SOAPHeader.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom QName de l’en-tête SOAPHeader.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom d’un en-tête dans le contenu SOAPHeader (facultatif).
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Retourne un en-tête si une correspondance est trouvée en fonction du nom localName QName et de l’URI.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:Operation:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     Supprime de toutes les opérations l’en-tête portant le nom QName donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom QName de l’en-tête SOAPHeader.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom d’un en-tête dans le contenu SOAPHeader (facultatif).
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Supprime de toutes les opérations l’en-tête portant le nom QName donné.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:Operation:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     Emplacement de la classe WebService de cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Emplacement de la classe WebService de cette opération. Normalement, le document WSDL spécifie l’emplacement des services, mais vous pouvez définir cette propriété afin de remplacer cet emplacement pour l’opération individuelle.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:forcePartArrays:get"><apiName>forcePartArrays</apiName><shortdesc>
+     Détermine si oui ou non une valeur de retour unique ou vide d’une partie de message de sortie définie comme tableau doit être renvoyée en tant que tableau contenant un (ou zéro, respectivement) élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Détermine si oui ou non une valeur de retour unique ou vide d’une partie de message de sortie définie comme tableau doit être renvoyée en tant que tableau contenant un (ou zéro, respectivement) élément. Cela s’applique aux services Web « enveloppés » document/littéraux, où un ou plusieurs des éléments qui représentent des parties de message individuelles dans la séquence « enveloppante » peuvent comporter l’attribut maxOccurs défini sur une valeur supérieure à 1. Cela est une suggestion indiquant que la partie correspondante doit être traitée comme un tableau même si la réponse contient zéro ou une valeur pour cette partie. Définir forcePartArrays sur true créera toujours un tableau pour les parties définies de cette manière, quel que soit le nombre de valeurs renvoyées. Laisser forcePartArrays sur false ne créera des tableaux que si deux éléments ou plus sont renvoyés.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headerFormat:get"><apiName>headerFormat</apiName><shortdesc>
+     Détermine comment les en-têtes codés SOAP sont décodés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Détermine comment les en-têtes codés SOAP sont décodés. Une valeur <codeph>object</codeph> spécifie que chaque nœud XML d’en-tête sera décodé en un objet SOAPHeader et que sa propriété <codeph>content</codeph> sera une structure d’objet tel que spécifié dans le document WSDL. Une valeur <codeph>xml</codeph> spécifie que le XML sera laissé en tant que nœuds XMLNode. Une valeur <codeph>e4x</codeph> spécifie que le XML sera accessible via ECMAScript pour les expressions XML (E4X).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:headers:get"><apiName>headers</apiName><shortdesc>
+     Accesseur à un tableau d’en-têtes SOAPHeaders devant être envoyés à chaque invocation de l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Accesseur à un tableau d’en-têtes SOAPHeaders devant être envoyés à chaque invocation de l’opération.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     En-têtes HTTP personnalisés devant être envoyés à l’extrémité SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     En-têtes HTTP personnalisés devant être envoyés à l’extrémité SOAP. Si plusieurs en-têtes doivent être envoyés avec le même nom, la valeur doit être spécifiée en tant que tableau.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:ignoreWhitespace:get"><apiName>ignoreWhitespace</apiName><shortdesc>
+     Détermine si l’espace blanc est ignoré lors du traitement de XML pour une demande ou réponse codée SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Détermine si l’espace blanc est ignoré lors du traitement de XML pour une demande ou réponse codée SOAP. La valeur par défaut est <codeph>true</codeph>, ce qui signifie que l’espace blanc n’est pas préservé. Si une définition de type schéma XML spécifie une restriction <codeph>whiteSpace</codeph> définie sur <codeph>preserve</codeph>, ignoreWhitespace doit d’abord être défini sur false. A l’inverse, si une restriction <codeph>whiteSpace</codeph> est définie sur <codeph>replace</codeph> ou <codeph>collapse</codeph>, ce paramètre est honoré même si ignoreWhitespace est défini sur false.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:multiplePartsFormat:get"><apiName>multiplePartsFormat</apiName><shortdesc>
+     Détermine le type de l’objet de résultat par défaut pour les appels à des services Web qui définissent plusieurs parties dans le message de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Détermine le type de l’objet de résultat par défaut pour les appels à des services Web qui définissent plusieurs parties dans le message de sortie. Une valeur « object » spécifie que le dernier objet lastResult sera un objet avec des propriétés nommées correspondant aux parties de message individuelles. Une valeur « array » ferait de l’objet lastResult un tableau, dans lequel les valeurs de parties sont envoyées dans l’ordre dans lequel elles apparaissent dans le corps du message SOAP. La valeur par défaut des opérations document-littérales est « object ». La valeur par défaut des opérations rpc est « array ». La propriété multiplePartsFormat n’est applicable que si resultFormat est « object » et ignorée dans le cas contraire.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:request:get"><apiName>request</apiName><shortdesc>
+     La demande de l’opération est une structure d’objet ou une structure XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     La demande de l’opération est une structure d’objet ou une structure XML. Si vous spécifiez XML, le XML est envoyé tel quel. Si vous transmettez un objet, il est codé dans une structure WML SOAP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultFormat:get"><apiName>resultFormat</apiName><shortdesc>
+     Détermine comment le résultat de l’opération est décodé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Détermine comment le résultat de l’opération est décodé. Une valeur <codeph>object</codeph> spécifie que le XML sera décodé en une structure d’objet tel que spécifié dans le document WSDL. Une valeur <codeph>xml</codeph> spécifie que le XML sera laissé en tant que nœuds XMLNode. Une valeur <codeph>e4x</codeph> spécifie que le XML sera accessible via ECMAScript pour les expressions XML (E4X).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:resultHeaders:get"><apiName>resultHeaders</apiName><shortdesc>
+     En-tête ayant été renvoyées dans le cadre de la dernière exécution de cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     En-tête ayant été renvoyées dans le cadre de la dernière exécution de cette opération. Ils correspondent à la propriété <codeph>lastResult</codeph> et sont les mêmes que en-têtes distribués individuellement en tant qu’événements HeaderEvents.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:Operation:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      Spécifie une fonction personnalisée à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Spécifie une fonction personnalisée à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple. Valide pour toutes les opérations effectuées sur les services Web sauf si remplacé spécifiquement au niveau opérationnel. Si aucune fonction n’est fournie, valeurs par défaut définies par l’implémentation particulière d’IXMLEncoder.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+  AbstractWebService est une classe de base abstraite destinée aux implémentations qui fournissent un accès RPC aux services Web SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractWebService est une classe de base abstraite destinée aux implémentations qui fournissent un accès RPC aux services Web SOAP. Cette classe ne charge pas de descriptions WSDL lors de l’exécution.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:AbstractWebService:AbstractWebService"><apiName>AbstractWebService</apiName><shortdesc>
+     Crée une nouvelle classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Destination Elle doit correspondre à un nom de destination dans le fichier services-config.xml. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Adresse URL que la classe WebService doit utiliser lorsqu’elle calcule des adresses URL relatives.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle classe WebService. La destination, si elle est spécifiée, doit correspondre à une entrée du fichier services-config.xml. Si la destination n’est pas spécifiée, la classe WebService utilise la destination DefaultHTTP. L’adresse <codeph>rootURL</codeph> est requise si vous voulez utiliser une adresse URL relative pour rechercher le document WSDL de cette classe WebService.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:AbstractWebService:addHeader"><apiName>addHeader</apiName><shortdesc>
+     Ajoute un en-tête qui sera appliqué à toutes les opérations de cette classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>En-tête SOAP à ajouter à toutes les opérations.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute un en-tête qui sera appliqué à toutes les opérations de cette classe WebService. L’en-tête peut être fourni dans un format précodé en tant qu’occurrence XML ou en tant qu’occurrence SOAPHeader qui laisse le codeur SOAP interne se charger du codage.
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:addSimpleHeader"><apiName>addSimpleHeader</apiName><shortdesc>
+     Ajoute un en-tête qui sera appliqué à toutes les opérations de cette classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qnameLocal</apiItemName><apiType value="String"/><apiDesc>Nom local du QName de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>qnameNamespace</apiItemName><apiType value="String"/><apiDesc>Espace de noms du QName de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiDesc>Nom de l’en-tête.
+     </apiDesc></apiParam><apiParam><apiItemName>headerValue</apiItemName><apiType value="String"/><apiDesc>Valeur de l’en-tête.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute un en-tête qui sera appliqué à toutes les opérations de cette classe WebService.
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:clearHeaders"><apiName>clearHeaders</apiName><shortdesc>
+     Efface les en-têtes qui s’appliquaient à toutes les opérations.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Efface les en-têtes qui s’appliquaient à toutes les opérations.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:getHeader"><apiName>getHeader</apiName><shortdesc>
+     Renvoie un en-tête si une correspondance est trouvée en fonction de QName, de localName et de URI.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un en-tête si une correspondance est trouvée en fonction de QName, de localName et de URI.
+     
+      </apiDesc><apiOperationClassifier>mx.rpc.soap:SOAPHeader</apiOperationClassifier></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom QName de l’en-tête SOAPHeader.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>(Facultatif) Nom d’un en-tête dans le contenu SOAPHeader.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie un en-tête si une correspondance est trouvée en fonction de QName, de localName et de URI.
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:removeHeader"><apiName>removeHeader</apiName><shortdesc>
+     Supprime de toutes les opérations l’en-tête portant le nom QName donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom QName de l’en-tête SOAPHeader.
+     </apiDesc></apiParam><apiParam><apiItemName>headerName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>(Facultatif) Nom d’un en-tête dans le contenu SOAPHeader.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Supprime de toutes les opérations l’en-tête portant le nom QName donné.
+      
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:AbstractWebService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     Nom d’utilisateur et mot de passe utilisés pour authentifier un utilisateur qui accède au service Web.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur à transmettre à l’extrémité distante.
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>Mot de passe à transmettre à l’extrémité distante.
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification distantes. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Nom d’utilisateur et mot de passe utilisés pour authentifier un utilisateur qui accède au service Web. Ces données seront transmises dans le cadre de l’en-tête d’autorisation HTTP du proxy vers l’extrémité. Si useProxy est false, cette propriété est ignorée.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc>
+     Destination par défaut à utiliser pour les connexions HTTPS lors de l’appel d’un service web via proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Destination par défaut à utiliser pour les connexions HTTPS lors de l’appel d’un service web via proxy. Si vous ne fournissez pas de destination et que vous définissez la propriété <codeph>useProxy</codeph> sur <codeph>true</codeph>, les destinations par défaut seront utilisées pour diriger les requêtes à l’extrémité webservice.  
+     
+     <p>Notez que si les destinations personnalisées sont utilisées, vous devez spécifier WSDL et endpointURI sur le client. Si vous utilisez une destination proxy personnalisée, vous pouvez spécifier WSDL et endpointURI dans la configuration de destination. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc>
+     Destination par défaut à utiliser pour les connexions HTTP lors de l’appel d’un service web via proxy. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Destination par défaut à utiliser pour les connexions HTTP lors de l’appel d’un service web via proxy. Si vous ne fournissez pas de destination et que vous définissez la propriété <codeph>useProxy</codeph> sur <codeph>true</codeph>, les destinations par défaut seront utilisées pour diriger les requêtes à l’extrémité webservice.  
+     
+     <p>Notez que si les destinations personnalisées sont utilisées, vous devez spécifier WSDL et endpointURI sur le client. Si vous utilisez une destination proxy personnalisée, vous pouvez spécifier WSDL et endpointURI dans la configuration de destination. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer une fonction devant être appelée avec les paramètres transmis à chaque invocation d’opération webservice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer une fonction devant être appelée avec les paramètres transmis à chaque invocation d’opération webservice. La fonction prend un tableau de paramètres et renvoie le tableau potentiellement modifié. La définition de la fonction doit se présenter comme suit : <codeph> function myParametersFunction(parameters:Array):Array </codeph>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer un crochet pour traiter les résultats d’une opération avant de notifier les gestionnaires de résultats.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer un crochet pour traiter les résultats d’une opération avant de notifier les gestionnaires de résultats. La définition de la fonction doit se présenter comme suit : <codeph> function myConvertResultsFunction(result: operation:AbstractOperation): </codeph> Elle reçoit le résultat juste après la conversion makeObjectsBindable mais avant la création de l’événement result.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:description:get"><apiName>description</apiName><shortdesc>
+     Description du service du port actuellement actif.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Description du service du port actuellement actif.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:destination:get"><apiName>destination</apiName><shortdesc>
+     
+     Destination du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     
+     Destination du service. Cette valeur doit correspondre à une entrée de destination du fichier services-config.xml.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:endpointURI:get"><apiName>endpointURI</apiName><shortdesc>
+     Emplacement de la classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Emplacement de la classe WebService. Normalement, le document WSDL spécifie l’emplacement des services, mais vous pouvez définir cette propriété afin de remplacer cet emplacement.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:headers:get"><apiName>headers</apiName><shortdesc>
+     Renvoie le tableau d’en-têtes SOAPHeader enregistrés pour la classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Renvoie le tableau d’en-têtes SOAPHeader enregistrés pour la classe WebService.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:httpHeaders:get"><apiName>httpHeaders</apiName><shortdesc>
+     En-têtes HTTP personnalisés devant être envoyés à l’extrémité SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     En-têtes HTTP personnalisés devant être envoyés à l’extrémité SOAP. Si plusieurs en-têtes doivent être envoyés avec le même nom, la valeur doit être spécifiée en tant que tableau.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:port:get"><apiName>port</apiName><shortdesc>
+     Spécifie le port dans le document WSDL que cette classe WebService doit utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Spécifie le port dans le document WSDL que cette classe WebService doit utiliser.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:ready:get"><apiName>ready</apiName><shortdesc>
+     Spécifie si la classe WebService est prête à effectuer des demandes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Spécifie si la classe WebService est prête à effectuer des demandes.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:rootURL:get"><apiName>rootURL</apiName><shortdesc>
+     Adresse URL que la classe WebService doit utiliser lorsqu’elle calcule des adresses URL relatives.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Adresse URL que la classe WebService doit utiliser lorsqu’elle calcule des adresses URL relatives. Cette propriété n’est utilisée que si elle traverse le proxy. Lorsque la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>, l’adresse URL relative est calculée automatiquement selon l’emplacement du SWF exécutant cette application. Si la propriété <codeph>rootURL</codeph> n’est pas définie explicitement, elle est automatiquement définie sur l’adresse URL de mx.messaging.config.LoaderConfig.url.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:service:get"><apiName>service</apiName><shortdesc>
+     Spécifie le service dans le document WSDL que cette classe WebService doit utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Spécifie le service dans le document WSDL que cette classe WebService doit utiliser.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:useProxy:get"><apiName>useProxy</apiName><shortdesc>
+     Indique d’utiliser ou non le service proxy Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Indique d’utiliser ou non le service proxy Flex. La valeur par défaut est <codeph>false</codeph>. Si vous ne spécifiez pas <codeph>true</codeph> pour les demandes proxy via le serveur Flex, assurez-vous que Flash Player peut accéder à l’adresse URL cible. Vous ne pouvez pas non plus utiliser les destinations définies dans le fichier services-config.xml si la propriété <codeph>useProxy</codeph> est définie sur <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:AbstractWebService:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+      Fonction personnalisée à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction personnalisée à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple. Valide pour toutes les opérations effectuées sur les services Web sauf si remplacé spécifiquement au niveau opérationnel. Si aucune fonction n’est fournie, la fonction par défaut est définie par l’implémentation particulière d’IXMLEncoder.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+ Sous-classe de mx.rpc.Fault fournissant des informations spécifiques à SOAP issues d’un élément Fault d’enveloppe SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:Fault</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Sous-classe de mx.rpc.Fault fournissant des informations spécifiques à SOAP issues d’un élément Fault d’enveloppe SOAP.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPFault:SOAPFault"><apiName>SOAPFault</apiName><shortdesc>
+     Construit un nouveau SOAPFault.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="QName"/><apiDesc>Nom complet du code d’erreur.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>Description de l’erreur.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>detail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Détails supplémentaires sur l’erreur.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>element</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>XML brut de l’erreur SOAP.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>faultactor</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Informations sur le responsable de l’erreur SOAP.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Construit un nouveau SOAPFault.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:SOAPFault:toString"><apiName>toString</apiName><shortdesc>
+     Renvoie la chaîne « SOAPFault », plus le code, la chaîne et les détails d’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Renvoie la chaîne « SOAPFault », plus le code, la chaîne et les détails d’erreur.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie la chaîne « SOAPFault », plus le code, la chaîne et les détails d’erreur.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:SOAPFault:element"><apiName>element</apiName><shortdesc>
+     XML brut de cette erreur SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     XML brut de cette erreur SOAP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultactor"><apiName>faultactor</apiName><shortdesc>
+     Une erreur SOAP peut fournir des informations sur le responsable de l’erreur via une propriété faultactor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Une erreur SOAP peut fournir des informations sur le responsable de l’erreur via une propriété faultactor.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultcode"><apiName>faultcode</apiName><shortdesc>
+     La propriété faultcode est semblable à faultCode mais existe à la fois pour correspondre à la casse de l’élément faultcode dans une erreur SOAP et pour fournir le nom complet du code.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     La propriété faultcode est semblable à faultCode mais existe à la fois pour correspondre à la casse de l’élément faultcode dans une erreur SOAP et pour fournir le nom complet du code.
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:detail:get"><apiName>detail</apiName><shortdesc>
+     La propriété detail est semblable à faultDetail mais existe pour correspondre à la casse de l’élément detail dans une erreur SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     La propriété detail est semblable à faultDetail mais existe pour correspondre à la casse de l’élément detail dans une erreur SOAP.
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultDetail"><linktext>mx.rpc.Fault.faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.rpc.soap:SOAPFault:faultstring:get"><apiName>faultstring</apiName><shortdesc>
+     La propriété faultstring est semblable à faultString mais existe pour correspondre à la casse de l’élément faultstring dans une erreur d’enveloppe SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     La propriété faultstring est semblable à faultString mais existe pour correspondre à la casse de l’élément faultstring dans une erreur d’enveloppe SOAP.
+     
+     </apiDesc></apiValueDetail><related-links><link href="mx.rpc.xml#Fault/faultString"><linktext>mx.rpc.Fault.faultString</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:WebService"><apiName>WebService</apiName><shortdesc>
+ La classe WebService fournit un accès aux services Web SOAP sur des serveurs distants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc.soap:AbstractWebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe WebService fournit un accès aux services Web SOAP sur des serveurs distants.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:WebService_mx.rpc.soap.LoadEvent.LOAD_load"><apiName>load</apiName><shortdesc>
+ Le LoadEvent.LOAD est distribué lorsque le document WSDL s’est chargé avec succès.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap.LoadEvent.LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.soap.LoadEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Le <codeph>LoadEvent.LOAD</codeph> est distribué lorsque le document WSDL s’est chargé avec succès.
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     Crée une nouvelle classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>La destination de la classe WebService doit correspondre à un nom de destination dans le fichier services-config.xml.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Adresse URL racine du service Web.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle classe WebService. La destination, si elle est spécifiée, doit correspondre à une entrée du fichier services-config.xml. Si la destination n’est pas spécifiée, la classe WebService utilise la destination DefaultHTTP. L’adresse <codeph>rootURL</codeph> est requise si vous voulez utiliser une adresse URL relative pour rechercher le document WSDL de cette classe WebService.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:WebService:canLoadWSDL"><apiName>canLoadWSDL</apiName><shortdesc>
+     Retourne une valeur booléenne qui indique si la classe WebService est prête à charger un document WSDL (si elle est associée à une destination ou à un document WSDL valide).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si la classe WebService est prête à charger un document WSDL ; dans le cas contraire, renvoie <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     Retourne une valeur booléenne qui indique si la classe WebService est prête à charger un document WSDL (si elle est associée à une destination ou à un document WSDL valide).
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Renvoie une opération du nom donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Opération qui s’exécute pour ce nom.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom affichable de l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie une opération du nom donné. Si l’opération n’a pas été créée auparavant, une nouvelle opération <codeph>mx.rpc.soap.Operation</codeph> est créée lors de cet appel. Pour accéder aux opérations, il suffit en général simplement de les nommer après la variable de service (<codeph>myService.someOperation</codeph>), mais si le nom de votre opération correspond à une méthode définie sur le service (par exemple, <codeph>setCredentials</codeph>), vous pouvez utiliser cette méthode pour obtenir l’opération à la place.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:protected:initializeOperation"><apiName>initializeOperation</apiName><shortdesc>
+    Initialise une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>operation</apiItemName><apiOperationClassifier>mx.rpc.soap:Operation</apiOperationClassifier><apiDesc>Opération à initialiser.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Initialise une nouvelle opération.
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:loadWSDL"><apiName>loadWSDL</apiName><shortdesc>
+     Indique à la classe WebService de télécharger le document WSDL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Si le document WSDL n’a pas été spécifié précédemment, il peut être spécifié ici.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Indique à la classe WebService de télécharger le document WSDL. La classe WebService appelle cette méthode automatiquement lorsqu’elle est spécifiée dans la balise MXML WebService, mais elle doit être appelée manuellement si vous créez l’objet WebService dans ActionScript après avoir spécifié la valeur de propriété <codeph>destination</codeph> ou <codeph>wsdl</codeph>.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:WebService:toString"><apiName>toString</apiName><shortdesc>
+     Représente une occurrence de la classe WebService en tant que chaîne et décrit des propriétés importantes telles que l’ID de destination et la classe ChannelSet assigné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie une représentation de chaîne de la classe WebService.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Représente une occurrence de la classe WebService en tant que chaîne et décrit des propriétés importantes telles que l’ID de destination et la classe ChannelSet assigné.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTPS"><apiName>DEFAULT_DESTINATION_HTTPS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTPS</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:DEFAULT_DESTINATION_HTTP"><apiName>DEFAULT_DESTINATION_HTTP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DefaultHTTP</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:WebService:wsdl:get"><apiName>wsdl</apiName><shortdesc>
+     Emplacement du document WSDL de cette classe WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Emplacement du document WSDL de cette classe WebService. Si vous utilisez une adresse URL relative, assurez-vous que l’adresse <codeph>rootURL</codeph> a été spécifiée ou que vous avez créé la classe WebService dans MXML.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+ Cet événement est distribué lorsque le document WSDL XML s’est chargé avec succès.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:WSDLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cet événement est distribué lorsque le document WSDL XML s’est chargé avec succès.   
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.soap:LoadEvent:LOAD_load"><apiName>load</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.soap:LoadEvent:Charger</apiEventType><adobeApiEventClassifier>mx.rpc.soap:LoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.soap:LoadEvent:LoadEvent"><apiName>LoadEvent</apiName><shortdesc>
+     Crée un nouvel événement WSDLLoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement ; indique l’action qui a déclenché l’événement.
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>Objet contenant le document WSDL.
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URL du document WSDL.     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel événement WSDLLoadEvent.
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap:LoadEvent:clone"><apiName>clone</apiName><shortdesc>
+     Retourne une copie de cet événement LoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Retourne une copie de cet événement LoadEvent.
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+     Retourne une copie de cet événement LoadEvent.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap:LoadEvent:toString"><apiName>toString</apiName><shortdesc>
+     Renvoie une représentation de chaîne de cet événement LoadEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Renvoie une représentation de chaîne de cet événement LoadEvent.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une représentation de chaîne de cet événement LoadEvent.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap:LoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+    La constante LOAD définit la valeur de la propriété type de l’objet d’événement d’un événement de chargement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>load</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    La constante <codeph>LOAD</codeph> définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement de <codeph>chargement</codeph>.
+    
+    <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>Objet WSDL.</entry></row><row><entry><codeph>location</codeph></entry><entry>URL du document WSDL.</entry></row></tbody></tgroup></adobetable>
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:LoadEvent:document:get"><apiName>document</apiName><shortdesc>
+     Cet accesseur de lecture est retenu pour fournir l’accès existant au document chargé en tant qu’occurrence de flash.xml.XMLDocument.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.xml:XMLDocument"/><apiDeprecated replacement="xml"/></apiValueDef><apiDesc>
+     Cet accesseur de lecture est retenu pour fournir l’accès existant au document chargé en tant qu’occurrence de flash.xml.XMLDocument.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+ Contexte pour le résultat d'un appel SOAP basé sur une procédure à distance.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Contexte pour le résultat d'un appel SOAP basé sur une procédure à distance.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPResult:SOAPResult"><apiName>SOAPResult</apiName><shortdesc>
+     Crée un résultat SOAPResult.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Crée un résultat SOAPResult.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPResult:headers"><apiName>headers</apiName><shortdesc>
+     Collection d'objets d'en-tête.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     Collection d'objets d'en-tête. Un SOAPDecoder peut remplir ce tableau d'éléments de type SOAPHeader, XML ou XMLDocument d'après le paramètre headerFormat du décodeur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:isFault"><apiName>isFault</apiName><shortdesc>
+     Drapeau indiquant si l'objet de résultat représente un message SOAP par défaut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Drapeau indiquant si l'objet de résultat représente un message SOAP par défaut.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPResult:result"><apiName>result</apiName><shortdesc>
+     Corps du résultat SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+     Corps du résultat SOAP. Un SOAPDecoder peut remplir cette valeur d'après le paramètre resultFormat de ce décodeur.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+ Vous utilisez un en-tête SOAPHeader pour spécifier les en-têtes devant être ajoutés à une enveloppe SOAP d’une demande d’opération WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Vous utilisez un en-tête SOAPHeader pour spécifier les en-têtes devant être ajoutés à une enveloppe SOAP d’une demande d’opération WebService.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap:SOAPHeader:SOAPHeader"><apiName>SOAPHeader</apiName><shortdesc>
+     Construit un nouvel en-tête SOAPHeader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom de l’en-tête SOAP.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>content</apiItemName><apiType value="Object"/><apiDesc>Contenu à envoyer pour la valeur d’en-tête.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Construit un nouvel en-tête SOAPHeader. Le nom et le contenu de l’en-tête SOAP sont requis.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.soap:SOAPHeader:content"><apiName>content</apiName><shortdesc>
+     Contenu à envoyer pour la valeur d’en-tête.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Contenu à envoyer pour la valeur d’en-tête. Si vous fournissez une occurrence XML ou flash.xml.XMLNode pour l’en-tête, elle est utilisée directement comme contenu précodé et ajoutée comme enfant à l’élément soap:header. Dans le cas contraire, vous pouvez fournir la valeur en tant que chaîne, nombre, etc., et le codeur SOAP sous-jacent tente de coder la valeur correctement selon le nom QName fourni dans l’en-tête SOAPHeader (le dernier recours étant xsd:anyType si une définition de type n’est pas présente).     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:mustUnderstand"><apiName>mustUnderstand</apiName><shortdesc>
+     Spécifie si l’en-tête doit être compris par l’extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Spécifie si l’en-tête doit être compris par l’extrémité. Si l’en-tête est géré mais doit être compris, l’extrémité doit renvoyer une erreur SOAP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:qname"><apiName>qname</apiName><shortdesc>
+     Nom de l’en-tête SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="QName"/></apiValueDef><apiDesc>
+     Nom de l’en-tête SOAP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap:SOAPHeader:role"><apiName>role</apiName><shortdesc>
+     Spécifie l’URI du rôle que cet en-tête doit remplir dans une chaîne potentielle d’extrémités traitant une demande SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Spécifie l’URI du rôle que cet en-tête doit remplir dans une chaîne potentielle d’extrémités traitant une demande SOAP. Si elle est définie, cette valeur est utilisée pour spécifier l’<codeph>acteur</codeph> de cet en-tête SOAP.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

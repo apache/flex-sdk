@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.wsdl"><apiName>mx.rpc.wsdl</apiName><apiDetail/><apiClassifier id="mx.rpc.wsdl:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+ Une liaison définit le format et le protocole des messages envoyés vers et depuis les opérations tel que défini par un type portType spécifique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Une liaison définit le format et le protocole des messages envoyés vers et depuis les opérations tel que défini par un type portType spécifique.
+ <p>
+ Actuellement, seule a liaison SOAP est prise en charge pour WSDL.
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.wsdl:WSDLBinding:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+    Crée une nouvelle classe WSDLBinding.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom unique de cette liaison.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+    Crée une nouvelle classe WSDLBinding. Actuellement, seule a liaison SOAP est prise en charge pour WSDL.
+    
+    </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.wsdl:WSDLBinding:name:get"><apiName>name</apiName><shortdesc>
+     Nom unique de cette liaison.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Nom unique de cette liaison.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:portType:get"><apiName>portType</apiName><shortdesc>
+     Type portType de cette liaison qui fournit les définitions d’interfaces pour les opérations de cette liaison.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.rpc.wsdl:WSDLPortType"/></apiValueDef><apiDesc>
+     Type portType de cette liaison qui fournit les définitions d’interfaces pour les opérations de cette liaison.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:style:get"><apiName>style</apiName><shortdesc>
+     Représente un attribut de style de liaison SOAP qui est l’attribut par défaut pour toute opération définie sous cette liaison.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Représente un attribut de style de liaison SOAP qui est l’attribut par défaut pour toute opération définie sous cette liaison. Le style indique si une opération est orientée RPC (messages contenant des paramètres et des valeurs de retour) ou document (messages contenant un ou des document(s)).
+     <p>
+     La valeur par défaut est <codeph>document</codeph>.
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:transport:get"><apiName>transport</apiName><shortdesc>
+     Représente un attribut de transport de liaison SOAP qui indique l’URI du transport utilisé pour envoyer les messages codés SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Représente un attribut de transport de liaison SOAP qui indique l’URI du transport utilisé pour envoyer les messages codés SOAP. L’URI par défaut est http://schemas.xmlsoap.org/soap/http/, ce qui signifie SOAP via HTTP (et est actuellement le seul transport pris en charge).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>
